@@ -11,3 +11,6 @@
 /build
 /captures
 .externalNativeBuild
+
+app/libs
+app/jnilibs
