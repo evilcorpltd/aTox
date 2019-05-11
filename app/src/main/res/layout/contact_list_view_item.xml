@@ -9,7 +9,8 @@
             android:orientation="vertical"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp">
+            android:layout_marginStart="10dp"
+            android:onClick="openChat">
         <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"

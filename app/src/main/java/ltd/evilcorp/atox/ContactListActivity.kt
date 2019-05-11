@@ -1,8 +1,11 @@
 package ltd.evilcorp.atox
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ListView
+import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 
 class ContactListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,5 +27,11 @@ class ContactListActivity : AppCompatActivity() {
             )
         )
         listView.adapter = ContactAdapter(this, contacts)
+    }
+
+    fun openChat(view: View) {
+        val intent = Intent(this, ChatActivity::class.java)
+        intent.putExtra("username", view.name.text)
+        startActivity(intent)
     }
 }
