@@ -38,6 +38,10 @@ class ContactListActivity : AppCompatActivity() {
         listView.adapter = ContactAdapter(this, contacts)
     }
 
+    override fun onBackPressed() {
+        moveTaskToBack(true)
+    }
+
     fun openChat(view: View) {
         val intent = Intent(this, ChatActivity::class.java)
         intent.putExtra("username", view.name.text)
