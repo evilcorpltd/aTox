@@ -18,7 +18,7 @@
                 android:layout_weight=".7"
                 android:textStyle="bold"/>
         <TextView
-                android:id="@+id/lastSeen"
+                android:id="@+id/lastMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"

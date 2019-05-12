@@ -31,7 +31,7 @@ class ContactAdapter(private val context: Context, private val contacts: ArrayLi
 
         vh.name.text = contacts[position].name
         vh.toxId.text = contacts[position].toxId
-        vh.lastSeen.text = contacts[position].lastSeen
+        vh.lastMessage.text = contacts[position].lastMessage
 
         return view!!
     }
@@ -39,6 +39,6 @@ class ContactAdapter(private val context: Context, private val contacts: ArrayLi
     private class ViewHolder(row: View) {
         val name: TextView = row.findViewById(R.id.name) as TextView
         val toxId: TextView = row.findViewById(R.id.toxId) as TextView
-        val lastSeen: TextView = row.findViewById(R.id.lastSeen) as TextView
+        val lastMessage: TextView = row.findViewById(R.id.lastMessage) as TextView
     }
 }
