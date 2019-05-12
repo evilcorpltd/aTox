@@ -17,13 +17,22 @@ class ContactListActivity : AppCompatActivity() {
         contacts.add(
             ContactModel(
                 "EchoBot",
-                "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6"
+                "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6",
+                "18:30"
             )
         )
         contacts.add(
             ContactModel(
                 "Also EchoBot",
-                "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6"
+                "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6",
+                "Dec 31"
+            )
+        )
+        contacts.add(
+            ContactModel(
+                "EchoBot 3: Reckoning",
+                "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6",
+                "23.09.17"
             )
         )
         listView.adapter = ContactAdapter(this, contacts)
