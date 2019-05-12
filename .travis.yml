@@ -1,0 +1,24 @@
+language: android
+sudo: false
+android:
+  components:
+    - android-26
+    - build-tools-26.0.2
+  licenses:
+    - '.+'
+    - 'android-sdk-license-.+'
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+    - $HOME/.gradle/cache
+    - $HOME/libs
+    - $HOME/jnilibs
+
+script:
+  - yes | sdkmanager "platforms;android-28"
+  - ./download-deps.sh
+  - ./gradlew assemble
