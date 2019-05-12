@@ -13,4 +13,4 @@
 .externalNativeBuild
 
 app/libs
-app/jnilibs
+app/src/main/jnilibs
