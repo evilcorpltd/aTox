@@ -73,5 +73,4 @@ class ProfileActivity : AppCompatActivity() {
             finish()
         }
     }
-
 }

@@ -69,7 +69,6 @@ private class NoToxEventListener : ToxCoreEventListener<Int> {
     override fun fileChunkRequest(p0: Int, p1: Int, p2: Long, p3: Int, p4: Int?): Int {
         return Log.e("ToxCore", "fileChunkRequest")
     }
-
 }
 
 class Tox(options: ToxOptions) {
