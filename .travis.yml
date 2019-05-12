@@ -4,6 +4,7 @@ android:
   components:
     - android-26
     - build-tools-26.0.2
+    - ktlint
   licenses:
     - '.+'
     - 'android-sdk-license-.+'
@@ -17,6 +18,8 @@ cache:
     - $HOME/.gradle/cache
     - $HOME/libs
     - $HOME/jnilibs
+
+before_script: ktlint
 
 script:
   - yes | sdkmanager "platforms;android-28"
