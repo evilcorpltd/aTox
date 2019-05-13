@@ -14,9 +14,9 @@ before_cache:
 
 cache:
   directories:
-    - $HOME/.gradle/cache
-    - $HOME/libs
-    - $HOME/jnilibs
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+    - $HOME/.android/build-cache/
 
 script:
   - yes | sdkmanager "platforms;android-28"
