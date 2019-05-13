@@ -1,11 +1,11 @@
-rmdir /s /q app\src\main\jnilibs
-mkdir app\src\main\jnilibs\
+rmdir /s /q app\src\main\jniLibs
+mkdir app\src\main\jniLibs\
 
-mkdir app\src\main\jnilibs\armeabi-v7a
-mkdir app\src\main\jnilibs\armeabi
-mkdir app\src\main\jnilibs\x86
-mkdir app\src\main\jnilibs\arm64-v8a
-mkdir app\src\main\jnilibs\x86_64
+mkdir app\src\main\jniLibs\armeabi-v7a
+mkdir app\src\main\jniLibs\armeabi
+mkdir app\src\main\jniLibs\x86
+mkdir app\src\main\jniLibs\arm64-v8a
+mkdir app\src\main\jniLibs\x86_64
 
 echo "Downloading native libraries..."
 
@@ -13,7 +13,7 @@ powershell -Command "(New-Object Net.WebClient).DownloadFile('https://build.tox.
 powershell -Command "(New-Object Net.WebClient).DownloadFile('https://build.tox.chat/job/tox4j_build_android_armel_release/lastSuccessfulBuild/artifact/artifacts/libtox4j-c.so', 'app\src\main\jniLibs\armeabi\libtox4j-c.so')"
 powershell -Command "(New-Object Net.WebClient).DownloadFile('https://build.tox.chat/job/tox4j_build_android_x86_release/lastSuccessfulBuild/artifact/artifacts/libtox4j-c.so', 'app\src\main\jniLibs\x86\libtox4j-c.so')"
 powershell -Command "(New-Object Net.WebClient).DownloadFile('https://build.tox.chat/job/tox4j_build_android_arm64_release/lastSuccessfulBuild/artifact/artifacts/libtox4j-c.so', 'app\src\main\jniLibs\arm64-v8a\libtox4j-c.so')"
-powershell -Command "(New-Object Net.WebClient).DownloadFile('https://build.tox.chat/job/tox4j_build_android_x86-64_release/lastSuccessfulBuild/artifact/artifacts/libtox4j-c.so', 'app\src\main\jnilibs\x86_64\libtox4j-c.so')"
+powershell -Command "(New-Object Net.WebClient).DownloadFile('https://build.tox.chat/job/tox4j_build_android_x86-64_release/lastSuccessfulBuild/artifact/artifacts/libtox4j-c.so', 'app\src\main\jniLibs\x86_64\libtox4j-c.so')"
 
 echo "Downloading tox4j..."
 
