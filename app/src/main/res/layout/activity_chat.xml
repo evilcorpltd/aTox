@@ -16,12 +16,12 @@
             android:layout_marginBottom="8dp"
             android:divider="@drawable/message_divider"
             android:dividerHeight="2dp"
-            app:layout_constraintBottom_toTopOf="@+id/message"
+            app:layout_constraintBottom_toTopOf="@+id/outgoingMessage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
     <EditText
-            android:id="@+id/message"
+            android:id="@+id/outgoingMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -38,10 +38,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="Send"
-            android:onClick="sendMessage"
-            app:layout_constraintBottom_toBottomOf="@+id/message"
+            app:layout_constraintBottom_toBottomOf="@+id/outgoingMessage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/message"
-            app:layout_constraintTop_toTopOf="@+id/message"/>
+            app:layout_constraintStart_toEndOf="@+id/outgoingMessage"
+            app:layout_constraintTop_toTopOf="@+id/outgoingMessage"/>
 </android.support.constraint.ConstraintLayout>
