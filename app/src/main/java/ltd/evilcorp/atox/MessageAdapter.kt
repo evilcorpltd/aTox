@@ -13,22 +13,16 @@ class MessagesAdapter(private val context: Context, private val messages: Mutabl
     override fun getItemId(position: Int): Long = position.toLong()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view: View?
-        val vh: ViewHolder
+        // TODO(robinlinden): Optimise this.
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = inflater.inflate(
+            if (messages[position].sender == Sender.Sent) R.layout.message_sent else R.layout.message_received,
+            null,
+            true
+        )
 
-        if (convertView == null) {
-            val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            view = inflater.inflate(
-                if (messages[position].sender == Sender.Sent) R.layout.message_sent else R.layout.message_received,
-                null,
-                true
-            )
-            vh = ViewHolder(view)
-            view.tag = vh
-        } else {
-            view = convertView
-            vh = view.tag as ViewHolder
-        }
+        val vh = ViewHolder(view)
+        view.tag = vh
 
         vh.message.text = messages[position].message
 
