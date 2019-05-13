@@ -8,6 +8,7 @@ import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
 import im.tox.tox4j.impl.jni.ToxCoreImpl
 import im.tox.tox4j.core.options.ToxOptions
+import java.io.File
 
 private class NoToxEventListener : ToxCoreEventListener<Int> {
     override fun friendLosslessPacket(p0: Int, p1: ByteArray, p2: Int?): Int {
@@ -82,5 +83,26 @@ class Tox(options: ToxOptions) {
     fun iterate(): Int {
         tox.iterate(NoToxEventListener(), null)
         return tox.iterationInterval()
+    }
+
+    fun setName(name: String) {
+        tox.name = name.toByteArray()
+    }
+
+    fun getName(): String {
+        return String(tox.name)
+    }
+
+    fun save(destination: String, encrypt: Boolean) {
+        val fileName = this.getName() + ".tox"
+
+        val saveFile = File("$destination/$fileName")
+        if (!saveFile.exists()) {
+            saveFile.createNewFile()
+        }
+
+        Log.e("ToxCore", "Saving profile to $saveFile")
+
+        saveFile.writeBytes(tox.savedata)
     }
 }
