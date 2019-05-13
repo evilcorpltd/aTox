@@ -32,6 +32,7 @@ dependencies {
     implementation "org.scala-lang:scala-library:2.11.12"
     implementation "com.typesafe.scala-logging:scala-logging_2.11:3.7.2"
     implementation "com.trueaccord.scalapb:scalapb-runtime_2.11:0.5.43"
+    implementation 'org.scodec:scodec-core_2.11:1.11.3'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
