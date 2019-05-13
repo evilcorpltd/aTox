@@ -11,7 +11,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_margin="8dp"
-            android:gravity="center"
+            android:gravity="end"
             android:padding="8dp"
             android:textColor="@android:color/white"/>
 </LinearLayout>
