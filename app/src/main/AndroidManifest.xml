@@ -11,7 +11,9 @@
             android:theme="@style/AppTheme">
         <activity android:name=".ChatActivity">
         </activity>
-        <activity android:name=".ContactListActivity">
+        <activity
+                android:name=".ContactListActivity"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".ProfileActivity">
             <intent-filter>

@@ -1,8 +1,12 @@
 package ltd.evilcorp.atox
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.ListView
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
@@ -36,6 +40,22 @@ class ContactListActivity : AppCompatActivity() {
             )
         )
         listView.adapter = ContactAdapter(this, contacts)
+
+        val drawer = findViewById<DrawerLayout>(R.id.drawerLayout)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val drawerToggle = object : ActionBarDrawerToggle(
+            this,
+            drawer,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        ) {}
+
+        drawer.addDrawerListener(drawerToggle)
+        drawerToggle.syncState()
+
+        toolbar.title = resources.getString(R.string.app_name)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
     }
 
     override fun onBackPressed() {
