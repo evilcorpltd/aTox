@@ -21,4 +21,4 @@ cache:
 script:
   - yes | sdkmanager "platforms;android-28"
   - ./download-deps.sh
-  - ./gradlew --parallel testDebug
+  - ./gradlew --parallel lintDebug testDebug
