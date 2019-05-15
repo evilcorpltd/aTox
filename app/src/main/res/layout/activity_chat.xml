@@ -6,6 +6,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ChatActivity">
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/colorPrimary"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <ListView
             android:id="@+id/messages"
             android:layout_width="0dp"
@@ -20,7 +29,7 @@
             android:transcriptMode="alwaysScroll"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintBottom_toTopOf="@+id/outgoingMessage"/>
     <EditText
             android:id="@+id/outgoingMessage"

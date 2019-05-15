@@ -1,8 +1,8 @@
 package ltd.evilcorp.atox
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_chat.*
 
@@ -12,9 +12,6 @@ class ChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-
-        val username = intent.getStringExtra("username")
-        Log.e("ChatActivity", username)
 
         messages.add(MessageModel("hello", Sender.Received))
         messages.add(MessageModel("how are you", Sender.Received))
@@ -29,5 +26,8 @@ class ChatActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
             outgoingMessage.text.clear()
         }
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.title = intent.getStringExtra("username")
     }
 }
