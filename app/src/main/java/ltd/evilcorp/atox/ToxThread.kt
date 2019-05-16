@@ -24,6 +24,7 @@ class ToxThread(dest: String) {
     private var thread: Thread? = null
     private val saveDest: String = dest
     private var needSave: AtomicBoolean = AtomicBoolean(false)
+    private var currentMsg: ToxMessage? = null
 
     fun start(saveOption: SaveDataOptions) {
         Log.e("ToxThread", "Starting tox thread")
@@ -68,6 +69,10 @@ class ToxThread(dest: String) {
                     needSave.set(false)
                 }
 
+                if (currentMsg != null) {
+                    processMessage(tox)
+                }
+
                 Thread.sleep(tox.iterate().toLong())
             }
         }
@@ -75,6 +80,23 @@ class ToxThread(dest: String) {
 
     fun triggerSave() {
         needSave.set(true)
+    }
+
+    private fun processMessage(tox: Tox) {
+        when (currentMsg!!.type) {
+            MessageType.SendMessage -> {
+                Log.e("ToxThread", "send message")
+            }
+        }
+        currentMsg = null
+    }
+
+    fun postmessage(message: ToxMessage) {
+        while (currentMsg != null) {
+            Thread.sleep(1)
+        }
+
+        currentMsg = message
     }
 
     fun stop() {
