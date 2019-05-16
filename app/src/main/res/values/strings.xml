@@ -2,7 +2,7 @@
     <string name="app_name">aTox</string>
     <string name="create">Create</string>
     <string name="create_a_tox_profile">Create a Tox profile</string>
-    <string name="message">Message, obviously</string>
+    <string name="message">Message</string>
     <string name="name">Name</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
