@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox
+package ltd.evilcorp.atox.activity
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import im.tox.tox4j.core.options.SaveDataOptions
 import kotlinx.android.synthetic.main.activity_profile.*
+import ltd.evilcorp.atox.App
+import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.ToxThread
 import java.io.File
 
 private fun loadToxSave(saveFile: File): ByteArray? {

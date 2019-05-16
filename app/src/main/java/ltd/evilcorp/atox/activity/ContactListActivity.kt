@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox
+package ltd.evilcorp.atox.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +12,9 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
+import ltd.evilcorp.atox.ContactAdapter
+import ltd.evilcorp.atox.ContactModel
+import ltd.evilcorp.atox.R
 import kotlin.random.Random
 
 class ContactListActivity : AppCompatActivity() {

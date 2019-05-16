@@ -1,10 +1,14 @@
-package ltd.evilcorp.atox
+package ltd.evilcorp.atox.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_chat.*
+import ltd.evilcorp.atox.MessageModel
+import ltd.evilcorp.atox.MessagesAdapter
+import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.Sender
 
 class ChatActivity : AppCompatActivity() {
     private val messages = ArrayList<MessageModel>()
