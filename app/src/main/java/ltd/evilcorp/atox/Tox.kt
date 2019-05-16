@@ -8,6 +8,7 @@ import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
 import im.tox.tox4j.impl.jni.ToxCoreImpl
 import im.tox.tox4j.core.options.ToxOptions
+import ltd.evilcorp.atox.activity.ChatActivity
 import java.io.File
 
 private class NoToxEventListener : ToxCoreEventListener<Int> {
@@ -91,8 +92,12 @@ class Tox(options: ToxOptions) {
         return String(tox.name)
     }
 
-    fun addContact(toxId: String, message: String) {
-        tox.addFriend(toxId.hexToByteArray(), message.toByteArray())
+    fun addContact(toxId: String, message: String): Int {
+        return tox.addFriend(toxId.hexToByteArray(), message.toByteArray())
+    }
+
+    fun sendMessage(friendNumber: Int, message: String): Int {
+        return tox.friendSendMessage(friendNumber, ToxMessageType.NORMAL, 0, message.toByteArray())
     }
 
     fun save(destination: String, encrypt: Boolean) {

@@ -13,6 +13,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
+import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.ContactAdapter
 import ltd.evilcorp.atox.ContactModel
 import ltd.evilcorp.atox.R
@@ -24,29 +25,32 @@ class ContactListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_contact_list)
 
         val listView = findViewById<ListView>(R.id.contactList)
-        val contacts = ArrayList<ContactModel>()
-        contacts.add(
+        App.contacts.add(
             ContactModel(
                 "EchoBot",
                 "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6",
-                "18:30"
+                "18:30",
+                0
             )
         )
-        contacts.add(
+        App.contacts.add(
             ContactModel(
                 "Also EchoBot",
                 "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6",
-                "Dec 31"
+                "Dec 31",
+                0
             )
         )
-        contacts.add(
+        App.contacts.add(
             ContactModel(
                 "EchoBot 3: Reckoning",
                 "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6",
-                "23.09.17"
+                "23.09.17",
+                0
             )
         )
-        val adapter = ContactAdapter(this, contacts)
+
+        val adapter = ContactAdapter(this, App.contacts)
         listView.adapter = adapter
 
         val drawer = findViewById<DrawerLayout>(R.id.drawerLayout)
@@ -66,11 +70,12 @@ class ContactListActivity : AppCompatActivity() {
         menu.setOnItemClickListener { _: AdapterView<*>, _: View, _: Int, id: Long ->
             when (id) {
                 0L -> {
-                    contacts.add(
+                    App.contacts.add(
                         ContactModel(
                             "new EchoBot ${Random.nextInt(-1000, 1000)}",
                             "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6",
-                            "Never"
+                            "Never",
+                            0
                         )
                     )
                     adapter.notifyDataSetChanged()
@@ -106,6 +111,17 @@ class ContactListActivity : AppCompatActivity() {
     fun openChat(view: View) {
         val intent = Intent(this, ChatActivity::class.java)
         intent.putExtra("username", view.name.text)
+
+        //TODO(endoffile78) figure out a better way to get the friend number
+        var friendNumber = 0
+        App.contacts.forEach() lit@{
+            if (it.name == view.name.text) {
+                friendNumber = it.friendNumber
+                return@lit // break
+            }
+        }
+
+        intent.putExtra("friendNumber", friendNumber)
         startActivity(intent)
     }
 }

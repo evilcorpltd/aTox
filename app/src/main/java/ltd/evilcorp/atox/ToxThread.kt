@@ -13,6 +13,7 @@ class ToxThread(saveDestination: String, saveOption: SaveDataOptions) : HandlerT
         const val msgSave = 1
         const val msgSetName = 2
         const val msgAddContact = 3
+        const val msgSendMsg = 4
     }
 
     private val tox = Tox(
@@ -51,6 +52,11 @@ class ToxThread(saveDestination: String, saveOption: SaveDataOptions) : HandlerT
                     val addContact = it.obj as MsgAddContact
                     Log.e("ToxThread", "AddContact: ${addContact.toxId} ${addContact.message}")
                     tox.addContact(addContact.toxId, addContact.message)
+                    true
+                }
+                msgSendMsg -> {
+                    Log.e("ToxThread", "Sending message to friend number: ${it.arg1}")
+                    tox.sendMessage(it.arg1, it.obj.toString())
                     true
                 }
                 else -> {
