@@ -74,7 +74,7 @@ class ContactListActivity : AppCompatActivity() {
                     )
                     adapter.notifyDataSetChanged()
                 }
-                1L -> startActivity(Intent(this, ContactListActivity::class.java))
+                1L -> startActivity(Intent(this, AddContactActivity::class.java))
                 2L -> finishAffinity()
             }
         }

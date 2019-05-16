@@ -10,6 +10,10 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
+                android:name=".activity.AddContactActivity"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
                 android:name=".activity.ChatActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
