@@ -11,7 +11,7 @@ class ToxThread(saveDestination: String, saveOption: SaveDataOptions) : HandlerT
     companion object {
         // Tox
         private const val msgIterate = 0
-        const val msgSave = 1
+        private const val msgSave = 1
         const val msgShutdown = 2
 
         // self
@@ -67,6 +67,7 @@ class ToxThread(saveDestination: String, saveOption: SaveDataOptions) : HandlerT
                 msgSetName -> {
                     Log.e("ToxThread", "SetName: ${it.obj as String}")
                     tox.setName(it.obj as String)
+                    handler.sendEmptyMessage(msgSave)
                 }
                 msgSetStatus -> Log.e("ToxThread", "Setting status")
                 msgSetState -> Log.e("ToxThread", "Setting state")
@@ -75,6 +76,7 @@ class ToxThread(saveDestination: String, saveOption: SaveDataOptions) : HandlerT
                     val addContact = it.obj as MsgAddContact
                     Log.e("ToxThread", "AddContact: ${addContact.toxId} ${addContact.message}")
                     tox.addContact(addContact.toxId, addContact.message)
+                    handler.sendEmptyMessage(msgSave)
                 }
                 msgDeleteContact -> Log.e("ToxThread", "Delete contact")
                 msgAcceptContact -> Log.e("ToxThread", "Accept contact request")

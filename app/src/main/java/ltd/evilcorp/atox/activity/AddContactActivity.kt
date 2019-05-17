@@ -53,7 +53,6 @@ class AddContactActivity : AppCompatActivity() {
             addContactMsg.what = ToxThread.msgAddContact
             addContactMsg.obj = MsgAddContact(toxId.text.toString(), message.text.toString())
             App.toxThread.handler.sendMessage(addContactMsg)
-            App.toxThread.handler.sendEmptyMessage(ToxThread.msgSave)
             finish()
         }
         addBtn.isEnabled = false

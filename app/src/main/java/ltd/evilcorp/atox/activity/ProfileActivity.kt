@@ -52,7 +52,6 @@ class ProfileActivity : AppCompatActivity() {
             nameChangeMsg.what = ToxThread.msgSetName
             nameChangeMsg.obj = App.profile
             App.toxThread.handler.sendMessage(nameChangeMsg)
-            App.toxThread.handler.sendEmptyMessage(ToxThread.msgSave)
 
             finish()
         }
