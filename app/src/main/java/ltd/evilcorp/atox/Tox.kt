@@ -80,10 +80,8 @@ class Tox(options: ToxOptions) {
         tox.addTcpRelay(address, port, publicKey)
     }
 
-    fun iterate(): Int {
-        tox.iterate(NoToxEventListener(), null)
-        return tox.iterationInterval()
-    }
+    fun iterate(): Int = tox.iterate(NoToxEventListener(), 42)
+    fun iterationInterval(): Int = tox.iterationInterval()
 
     fun setName(name: String) {
         tox.name = name.toByteArray()

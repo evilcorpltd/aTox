@@ -1,9 +1,9 @@
 package ltd.evilcorp.atox.activity
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.os.Message
+import android.support.v7.app.AppCompatActivity
 import im.tox.tox4j.core.options.SaveDataOptions
 import kotlinx.android.synthetic.main.activity_profile.*
 import ltd.evilcorp.atox.App
@@ -20,28 +20,21 @@ private fun loadToxSave(saveFile: File): ByteArray? {
 }
 
 class ProfileActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        App.toxThread = ToxThread(filesDir.toString())
-
         var profile: File? = null
         filesDir.walk().forEach {
-            if (it.extension.equals("tox") && it.isFile) {
+            if (it.extension == "tox" && it.isFile) {
                 profile = it
                 App.profile = it.nameWithoutExtension
-                Log.e("Profile", "Found profile: ${profile.toString()}")
             }
         }
 
         if (profile != null) {
-            var saveOption: SaveDataOptions = SaveDataOptions.`None$`()
             val data = loadToxSave(profile!!)
             if (data != null) {
-                saveOption = SaveDataOptions.`ToxSave`(data)
-                App.toxThread.start(saveOption)
-                Log.e("Profile", "Skipping create profile")
+                App.toxThread = ToxThread(filesDir.toString(), SaveDataOptions.ToxSave(data))
                 startActivity(Intent(this, ContactListActivity::class.java))
                 finish()
             }
@@ -53,9 +46,13 @@ class ProfileActivity : AppCompatActivity() {
             App.profile = if (username.text.isNotEmpty()) username.text.toString() else "aTox user"
             App.password = if (password.text.isNotEmpty()) password.text.toString() else ""
             startActivity(Intent(this@ProfileActivity, ContactListActivity::class.java))
+            App.toxThread = ToxThread(filesDir.toString(), SaveDataOptions.`None$`())
 
-            App.toxThread.start(SaveDataOptions.`None$`())
-            App.toxThread.triggerSave()
+            val nameChangeMsg = Message()
+            nameChangeMsg.what = ToxThread.msgSetName
+            nameChangeMsg.obj = App.profile
+            App.toxThread.handler.sendMessage(nameChangeMsg)
+            App.toxThread.handler.sendEmptyMessage(ToxThread.msgSave)
 
             finish()
         }
