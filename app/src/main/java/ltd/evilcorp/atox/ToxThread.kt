@@ -9,11 +9,30 @@ import im.tox.tox4j.core.options.ToxOptions
 
 class ToxThread(saveDestination: String, saveOption: SaveDataOptions) : HandlerThread("Tox") {
     companion object {
+        // Tox
         private const val msgIterate = 0
         const val msgSave = 1
-        const val msgSetName = 2
-        const val msgAddContact = 3
-        const val msgSendMsg = 4
+        const val msgShutdown = 2
+
+        // self
+        const val msgSetName = 3
+        const val msgSetStatus = 4
+        const val msgSetState = 5
+        const val msgSetTyping = 6
+
+        // contacts
+        const val msgAddContact = 7
+        const val msgDeleteContact = 8
+        const val msgSendMsg = 9
+        const val msgAcceptContact = 10
+
+        // groups
+        const val msgGroupCreate = 11
+        const val msgGroupLeave = 12
+        const val msgGroupMessage = 13
+        const val msgGroupTopic = 14
+        const val msgGroupInvite = 15
+        const val msgGroupJoin = 16
     }
 
     private val tox = Tox(
@@ -43,9 +62,26 @@ class ToxThread(saveDestination: String, saveOption: SaveDataOptions) : HandlerT
                     tox.save(saveDestination, false)
                     true
                 }
+                msgShutdown -> {
+                    Log.e("ToxThread", "Shutting down tox")
+                    tox.kill()
+                    true
+                }
                 msgSetName -> {
                     Log.e("ToxThread", "SetName: ${it.obj as String}")
                     tox.setName(it.obj as String)
+                    true
+                }
+                msgSetStatus -> {
+                    Log.e("ToxThread", "Setting status")
+                    true
+                }
+                msgSetState -> {
+                    Log.e("ToxThread", "Setting state")
+                    true
+                }
+                msgSetTyping -> {
+                    Log.e("ToxThread", "Set typing")
                     true
                 }
                 msgAddContact -> {
@@ -54,9 +90,41 @@ class ToxThread(saveDestination: String, saveOption: SaveDataOptions) : HandlerT
                     tox.addContact(addContact.toxId, addContact.message)
                     true
                 }
+                msgDeleteContact -> {
+                    Log.e("ToxThread", "Delete contact")
+                    true
+                }
+                msgAcceptContact -> {
+                    Log.e("ToxThread", "Accept contact request")
+                    true
+                }
                 msgSendMsg -> {
                     Log.e("ToxThread", "Sending message to friend number: ${it.arg1}")
                     tox.sendMessage(it.arg1, it.obj.toString())
+                    true
+                }
+                msgGroupCreate -> {
+                    Log.e("ToxThread", "Create group")
+                    true
+                }
+                msgGroupLeave -> {
+                    Log.e("ToxThread", "Leave group")
+                    true
+                }
+                msgGroupMessage -> {
+                    Log.e("ToxThread", "Send group message")
+                    true
+                }
+                msgGroupTopic -> {
+                    Log.e("ToxThread", "Set group topic")
+                    true
+                }
+                msgGroupInvite -> {
+                    Log.e("ToxThread", "Invite group")
+                    true
+                }
+                msgGroupJoin -> {
+                    Log.e("ToxThread", "Join group")
                     true
                 }
                 else -> {
