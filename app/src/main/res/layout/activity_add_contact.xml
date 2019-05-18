@@ -36,6 +36,7 @@
             android:hint="@string/message"
             android:inputType="textMultiLine"
             android:lines="5"
+            android:text="@string/add_contact_message_default"
             app:layout_constraintTop_toBottomOf="@id/toxId"
             app:layout_constraintHorizontal_bias="0.5"/>
     <Button

@@ -7,23 +7,12 @@ import im.tox.tox4j.core.options.ProxyOptions
 import im.tox.tox4j.core.options.SaveDataOptions
 import im.tox.tox4j.core.options.ToxOptions
 
-private const val HEX_CHARS = "0123456789ABCDEF"
-
-private fun String.hexToByteArray(): ByteArray {
-    val bytes = ByteArray(length / 2)
-
-    for (i in 0 until length step 2) {
-        bytes[i.shr(1)] = HEX_CHARS.indexOf(this[i]).shl(4).or(HEX_CHARS.indexOf(this[i + 1])).toByte()
-    }
-
-    return bytes
-}
-
 class ToxThread(saveDestination: String, saveOption: SaveDataOptions) : HandlerThread("Tox") {
     companion object {
         private const val msgIterate = 0
         const val msgSave = 1
         const val msgSetName = 2
+        const val msgAddContact = 3
     }
 
     private val tox = Tox(
@@ -56,6 +45,12 @@ class ToxThread(saveDestination: String, saveOption: SaveDataOptions) : HandlerT
                 msgSetName -> {
                     Log.e("ToxThread", "SetName: ${it.obj as String}")
                     tox.setName(it.obj as String)
+                    true
+                }
+                msgAddContact -> {
+                    val addContact = it.obj as MsgAddContact
+                    Log.e("ToxThread", "AddContact: ${addContact.toxId} ${addContact.message}")
+                    tox.addContact(addContact.toxId, addContact.message)
                     true
                 }
                 else -> {

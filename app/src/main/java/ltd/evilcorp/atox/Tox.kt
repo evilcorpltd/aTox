@@ -91,6 +91,10 @@ class Tox(options: ToxOptions) {
         return String(tox.name)
     }
 
+    fun addContact(toxId: String, message: String) {
+        tox.addFriend(toxId.hexToByteArray(), message.toByteArray())
+    }
+
     fun save(destination: String, encrypt: Boolean) {
         val fileName = this.getName() + ".tox"
 
