@@ -212,7 +212,7 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
             }
             R.id.add_contact -> findNavController().navigate(R.id.action_contactListFragment_to_addContactFragment)
             R.id.settings -> {
-                // TODO(robinlinden): Settings activity
+               startActivity(Intent(requireContext(), SettingsActivity::class.java))
             }
             R.id.export_tox_save -> {
                 Intent(Intent.ACTION_CREATE_DOCUMENT).apply {

@@ -102,6 +102,28 @@ class Tox @Inject constructor(
         contactRepository.add(Contact(toxId.toPublicKey().string()))
     }
 
+    fun setStatusMessage(status: String) {
+        tox.statusMessage = status.toByteArray()
+    }
+
+    fun getStatusMessage(): String {
+        return String(tox.statusMessage)
+    }
+
+    fun setStatus(status: Int) {
+        when (status) {
+            0 -> {
+                tox.status = ToxUserStatus.NONE
+            }
+            1 -> {
+                tox.status = ToxUserStatus.AWAY
+            }
+            2 -> {
+                tox.status = ToxUserStatus.BUSY
+            }
+        }
+    }
+
     fun deleteContact(publicKey: PublicKey) = launch {
         tox.deleteContact(publicKey)
         save()

@@ -1,0 +1,16 @@
+<androidx.preference.PreferenceScreen
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+            app:key="tox_header"
+            app:title="@string/tox_header"
+            app:icon="@drawable/messages"
+            app:fragment="ltd.evilcorp.atox.activity.SettingsActivity$ToxFragment"/>
+
+    <Preference
+            app:key="user_header"
+            app:title="@string/user_header"
+            app:icon="@drawable/sync"
+            app:fragment="ltd.evilcorp.atox.activity.SettingsActivity$UserFragment"/>
+
+</androidx.preference.PreferenceScreen>

@@ -1,0 +1,19 @@
+<androidx.preference.PreferenceScreen
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ListPreference
+            app:key="proxy"
+            app:title="@string/proxy_title"
+            app:entries="@array/proxy_types"
+            app:entryValues="@array/proxy_values" />
+
+    <EditTextPreference
+            app:key="proxy_address"
+            app:title="@string/proxy_address_title"
+            app:useSimpleSummaryProvider="true" />
+
+    <SwitchPreference
+            app:key="tcp"
+            app:title="@string/tcp_title" />
+
+</androidx.preference.PreferenceScreen>

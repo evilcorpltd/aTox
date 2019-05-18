@@ -48,4 +48,21 @@
     <string name="import_tox_save_failed">Import failed for some reason</string>
     <string name="export_tox_save">Export Tox save</string>
     <string name="tox_save_exported">Tox save exported</string>
+
+    <!-- Settings -->
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference titles -->
+    <string name="tox_header">Tox</string>
+    <string name="user_header">User</string>
+
+    <!-- Messages preferences -->
+    <string name="username_title">Username</string>
+    <string name="status_message_title">Status message</string>
+    <string name="status_title">Status</string>
+
+    <!-- Tox preferences -->
+    <string name="proxy_title">Proxy</string>
+    <string name="proxy_address_title">Proxy address</string>
+    <string name="tcp_title">TCP mode</string>
 </resources>

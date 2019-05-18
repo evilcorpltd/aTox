@@ -1,0 +1,22 @@
+<resources>
+    <string-array name="statuses">
+        <item>Online</item>
+        <item>Away</item>
+        <item>Busy</item>
+    </string-array>
+    <string-array name="statuses_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="proxy_types">
+        <item>None</item>
+        <item>HTTP</item>
+        <item>SOCKS5</item>
+    </string-array>
+    <string-array name="proxy_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>
