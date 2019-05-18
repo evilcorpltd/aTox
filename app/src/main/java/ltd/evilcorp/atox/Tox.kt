@@ -6,69 +6,81 @@ import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
-import im.tox.tox4j.impl.jni.ToxCoreImpl
 import im.tox.tox4j.core.options.ToxOptions
-import ltd.evilcorp.atox.activity.ChatActivity
+import im.tox.tox4j.impl.jni.ToxCoreImpl
 import java.io.File
 
 private class NoToxEventListener : ToxCoreEventListener<Int> {
-    override fun friendLosslessPacket(p0: Int, p1: ByteArray, p2: Int?): Int {
+    override fun friendLosslessPacket(friendNumber: Int, data: ByteArray, state: Int?): Int {
         return Log.e("ToxCore", "friendLosslessPacket")
     }
 
-    override fun fileRecvControl(p0: Int, p1: Int, p2: ToxFileControl, p3: Int?): Int {
+    override fun fileRecvControl(friendNumber: Int, fileNumber: Int, control: ToxFileControl, state: Int?): Int {
         return Log.e("ToxCore", "fileRecvControl")
     }
 
-    override fun friendStatusMessage(p0: Int, p1: ByteArray, p2: Int?): Int {
+    override fun friendStatusMessage(friendNumber: Int, message: ByteArray, state: Int?): Int {
         return Log.e("ToxCore", "friendStatusMessage")
     }
 
-    override fun friendReadReceipt(p0: Int, p1: Int, p2: Int?): Int {
+    override fun friendReadReceipt(friendNumber: Int, messageId: Int, state: Int?): Int {
         return Log.e("ToxCore", "friendReadReceipt")
     }
 
-    override fun friendStatus(p0: Int, p1: ToxUserStatus, p2: Int?): Int {
+    override fun friendStatus(friendNumber: Int, status: ToxUserStatus, state: Int?): Int {
         return Log.e("ToxCore", "friendStatus")
     }
 
-    override fun friendConnectionStatus(p0: Int, p1: ToxConnection, p2: Int?): Int {
+    override fun friendConnectionStatus(friendNumber: Int, connectionStatus: ToxConnection, state: Int?): Int {
         return Log.e("ToxCore", "friendConnectionStatus")
     }
 
-    override fun friendRequest(p0: ByteArray, p1: Int, p2: ByteArray, p3: Int?): Int {
+    override fun friendRequest(publicKey: ByteArray, timeDelta: Int, message: ByteArray, state: Int?): Int {
         return Log.e("ToxCore", "friendRequest")
     }
 
-    override fun friendMessage(p0: Int, p1: ToxMessageType, p2: Int, p3: ByteArray, p4: Int?): Int {
+    override fun friendMessage(
+        friendNumber: Int,
+        messageType: ToxMessageType,
+        timeDelta: Int,
+        message: ByteArray,
+        state: Int?
+    ): Int {
         return Log.e("ToxCore", "friendMessage")
     }
 
-    override fun friendName(p0: Int, p1: ByteArray, p2: Int?): Int {
+    override fun friendName(friendNumber: Int, name: ByteArray, state: Int?): Int {
         return Log.e("ToxCore", "friendName")
     }
 
-    override fun fileRecvChunk(p0: Int, p1: Int, p2: Long, p3: ByteArray, p4: Int?): Int {
+    override fun fileRecvChunk(friendNumber: Int, fileNumber: Int, position: Long, data: ByteArray, state: Int?): Int {
         return Log.e("ToxCore", "fileRecvChunk")
     }
 
-    override fun fileRecv(p0: Int, p1: Int, p2: Int, p3: Long, p4: ByteArray, p5: Int?): Int {
+    override fun fileRecv(
+        friendNumber: Int,
+        fileNumber: Int,
+        kind: Int,
+        fileSize: Long,
+        filename: ByteArray,
+        state: Int?
+    ): Int {
         return Log.e("ToxCore", "fileRecv")
     }
 
-    override fun friendLossyPacket(p0: Int, p1: ByteArray, p2: Int?): Int {
+    override fun friendLossyPacket(friendNumber: Int, data: ByteArray, state: Int?): Int {
         return Log.e("ToxCore", "friendLossyPacket")
     }
 
-    override fun selfConnectionStatus(p0: ToxConnection, p1: Int?): Int {
+    override fun selfConnectionStatus(connectionStatus: ToxConnection, state: Int?): Int {
         return Log.e("ToxCore", "selfConnectionStatus")
     }
 
-    override fun friendTyping(p0: Int, p1: Boolean, p2: Int?): Int {
+    override fun friendTyping(friendNumber: Int, isTyping: Boolean, state: Int?): Int {
         return Log.e("ToxCore", "friendTyping")
     }
 
-    override fun fileChunkRequest(p0: Int, p1: Int, p2: Long, p3: Int, p4: Int?): Int {
+    override fun fileChunkRequest(friendNumber: Int, fileNumber: Int, position: Long, length: Int, state: Int?): Int {
         return Log.e("ToxCore", "fileChunkRequest")
     }
 }
