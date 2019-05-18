@@ -1,14 +1,11 @@
 package ltd.evilcorp.atox.activity
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.os.Message
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.widget.ListView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import kotlinx.android.synthetic.main.activity_chat.*
-import kotlinx.android.synthetic.main.contact_list_view_item.*
 import ltd.evilcorp.atox.*
 
 class ChatActivity : AppCompatActivity() {

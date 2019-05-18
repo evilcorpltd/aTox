@@ -2,11 +2,11 @@ package ltd.evilcorp.atox.activity
 
 import android.os.Bundle
 import android.os.Message
-import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.MsgAddContact
 import ltd.evilcorp.atox.R
@@ -27,7 +27,7 @@ class AddContactActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_contact)
 
-        toxId.addTextChangedListener(object: TextWatcher {
+        toxId.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
@@ -38,7 +38,7 @@ class AddContactActivity : AppCompatActivity() {
             }
         })
 
-        message.addTextChangedListener(object: TextWatcher {
+        message.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {

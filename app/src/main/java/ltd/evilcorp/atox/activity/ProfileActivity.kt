@@ -3,7 +3,7 @@ package ltd.evilcorp.atox.activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Message
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import im.tox.tox4j.core.options.SaveDataOptions
 import kotlinx.android.synthetic.main.activity_profile.*
 import ltd.evilcorp.atox.App
