@@ -3,6 +3,7 @@ package ltd.evilcorp.atox.activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -77,6 +78,9 @@ class ContactListActivity : AppCompatActivity() {
                 1L -> startActivity(Intent(this, AddContactActivity::class.java))
                 2L -> finishAffinity()
             }
+
+            val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayout)
+            drawerLayout.closeDrawer(GravityCompat.START)
         }
 
         val menuItems = ArrayList<String>()
@@ -91,7 +95,12 @@ class ContactListActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        moveTaskToBack(true)
+        val drawer: DrawerLayout = findViewById(R.id.drawerLayout)
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START)
+        } else {
+            moveTaskToBack(true)
+        }
     }
 
     fun openChat(view: View) {
