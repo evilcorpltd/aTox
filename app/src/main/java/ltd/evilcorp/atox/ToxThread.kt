@@ -55,83 +55,45 @@ class ToxThread(saveDestination: String, saveOption: SaveDataOptions) : HandlerT
                 msgIterate -> {
                     tox.iterate()
                     handler.sendEmptyMessageDelayed(msgIterate, tox.iterationInterval().toLong())
-                    true
                 }
                 msgSave -> {
                     Log.e("ToxThread", "Save")
                     tox.save(saveDestination, false)
-                    true
                 }
                 msgShutdown -> {
                     Log.e("ToxThread", "Shutting down tox")
                     tox.kill()
-                    true
                 }
                 msgSetName -> {
                     Log.e("ToxThread", "SetName: ${it.obj as String}")
                     tox.setName(it.obj as String)
-                    true
                 }
-                msgSetStatus -> {
-                    Log.e("ToxThread", "Setting status")
-                    true
-                }
-                msgSetState -> {
-                    Log.e("ToxThread", "Setting state")
-                    true
-                }
-                msgSetTyping -> {
-                    Log.e("ToxThread", "Set typing")
-                    true
-                }
+                msgSetStatus -> Log.e("ToxThread", "Setting status")
+                msgSetState -> Log.e("ToxThread", "Setting state")
+                msgSetTyping -> Log.e("ToxThread", "Set typing")
                 msgAddContact -> {
                     val addContact = it.obj as MsgAddContact
                     Log.e("ToxThread", "AddContact: ${addContact.toxId} ${addContact.message}")
                     tox.addContact(addContact.toxId, addContact.message)
-                    true
                 }
-                msgDeleteContact -> {
-                    Log.e("ToxThread", "Delete contact")
-                    true
-                }
-                msgAcceptContact -> {
-                    Log.e("ToxThread", "Accept contact request")
-                    true
-                }
+                msgDeleteContact -> Log.e("ToxThread", "Delete contact")
+                msgAcceptContact -> Log.e("ToxThread", "Accept contact request")
                 msgSendMsg -> {
                     Log.e("ToxThread", "Sending message to friend number: ${it.arg1}")
                     tox.sendMessage(it.arg1, it.obj.toString())
-                    true
                 }
-                msgGroupCreate -> {
-                    Log.e("ToxThread", "Create group")
-                    true
-                }
-                msgGroupLeave -> {
-                    Log.e("ToxThread", "Leave group")
-                    true
-                }
-                msgGroupMessage -> {
-                    Log.e("ToxThread", "Send group message")
-                    true
-                }
-                msgGroupTopic -> {
-                    Log.e("ToxThread", "Set group topic")
-                    true
-                }
-                msgGroupInvite -> {
-                    Log.e("ToxThread", "Invite group")
-                    true
-                }
-                msgGroupJoin -> {
-                    Log.e("ToxThread", "Join group")
-                    true
-                }
+                msgGroupCreate -> Log.e("ToxThread", "Create group")
+                msgGroupLeave -> Log.e("ToxThread", "Leave group")
+                msgGroupMessage -> Log.e("ToxThread", "Send group message")
+                msgGroupTopic -> Log.e("ToxThread", "Set group topic")
+                msgGroupInvite -> Log.e("ToxThread", "Invite group")
+                msgGroupJoin -> Log.e("ToxThread", "Join group")
                 else -> {
                     Log.e("ToxThread", "Unknown message: ${it.what}")
-                    false
+                    return@Handler false
                 }
             }
+            true
         }
     }
 
