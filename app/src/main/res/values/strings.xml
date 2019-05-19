@@ -8,10 +8,14 @@
     <string name="create_a_tox_profile">Create a Tox profile</string>
     <string name="message">Message</string>
     <string name="name">Name</string>
+    <string name="name_default">aTox user</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="password_optional">Password (optional)</string>
+    <string name="profile_photo_description">Profile photo</string>
     <string name="send">Send</string>
+    <string name="settings">Settings</string>
+    <string name="status_message_default">Brought to you live, by aTox</string>
     <string name="tox_id">Tox ID</string>
     <string name="tox_id_error_length">ToxID must be 76 characters</string>
 </resources>
