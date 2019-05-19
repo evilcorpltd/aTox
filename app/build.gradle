@@ -26,6 +26,7 @@ android {
     }
     lintOptions {
         disable 'InvalidPackage' // TODO(robinlinden): Delete/update invalid packages
+        disable 'GoogleAppIndexingWarning'
     }
 }
 
