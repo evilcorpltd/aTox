@@ -1,7 +1,6 @@
 package ltd.evilcorp.atox.activity
 
 import android.os.Bundle
-import android.os.Message
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -22,12 +21,9 @@ class ChatActivity : AppCompatActivity() {
         send.setOnClickListener {
             val friendNumber: Int = intent.getIntExtra("friendNumber", 0)
 
-            val sendMsg = Message()
-            sendMsg.what = ToxThread.msgSendMsg
-            sendMsg.obj = outgoingMessage.text.toString()
-            sendMsg.arg1 = friendNumber
-
-            App.toxThread.handler.sendMessage(sendMsg)
+            with(App.toxThread.handler) {
+                sendMessage(obtainMessage(ToxThread.msgSendMsg, friendNumber, 0, outgoingMessage.text.toString()))
+            }
 
             messages.add(MessageModel(outgoingMessage.text.toString(), Sender.Sent))
             adapter.notifyDataSetChanged()

@@ -1,7 +1,6 @@
 package ltd.evilcorp.atox.activity
 
 import android.os.Bundle
-import android.os.Message
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
@@ -49,12 +48,16 @@ class AddContactActivity : AppCompatActivity() {
         })
 
         addBtn.setOnClickListener {
-            val addContactMsg = Message()
-            addContactMsg.what = ToxThread.msgAddContact
-            addContactMsg.obj = MsgAddContact(toxId.text.toString(), message.text.toString())
-            App.toxThread.handler.sendMessage(addContactMsg)
+            with(App.toxThread.handler) {
+                val addContactMessage = obtainMessage(
+                    ToxThread.msgAddContact,
+                    MsgAddContact(toxId.text.toString(), message.text.toString())
+                )
+                sendMessage(addContactMessage)
+            }
             finish()
         }
+
         addBtn.isEnabled = false
     }
 }

@@ -2,7 +2,6 @@ package ltd.evilcorp.atox.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Message
 import androidx.appcompat.app.AppCompatActivity
 import im.tox.tox4j.core.options.SaveDataOptions
 import kotlinx.android.synthetic.main.activity_profile.*
@@ -48,10 +47,9 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(Intent(this@ProfileActivity, ContactListActivity::class.java))
             App.toxThread = ToxThread(filesDir.toString(), SaveDataOptions.`None$`())
 
-            val nameChangeMsg = Message()
-            nameChangeMsg.what = ToxThread.msgSetName
-            nameChangeMsg.obj = App.profile
-            App.toxThread.handler.sendMessage(nameChangeMsg)
+            with(App.toxThread.handler) {
+                sendMessage(obtainMessage(ToxThread.msgSetName, App.profile))
+            }
 
             finish()
         }
