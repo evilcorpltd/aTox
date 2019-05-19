@@ -8,13 +8,14 @@ import java.io.File
 
 class Tox(options: ToxOptions) {
     private val tox: ToxCoreImpl = ToxCoreImpl(options)
+    private val eventListener = ToxEventListener()
 
     fun bootstrap(address: String, port: Int, publicKey: ByteArray) {
         tox.bootstrap(address, port, publicKey)
         tox.addTcpRelay(address, port, publicKey)
     }
 
-    fun iterate(): Int = tox.iterate(ToxEventListener(), 42)
+    fun iterate(): Int = tox.iterate(eventListener, 42)
     fun iterationInterval(): Int = tox.iterationInterval()
 
     fun kill() {
