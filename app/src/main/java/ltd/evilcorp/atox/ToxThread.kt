@@ -6,8 +6,10 @@ import android.util.Log
 import im.tox.tox4j.core.options.ProxyOptions
 import im.tox.tox4j.core.options.SaveDataOptions
 import im.tox.tox4j.core.options.ToxOptions
+import ltd.evilcorp.atox.activity.MSG_CONTACTS_LOADED
 
-class ToxThread(saveDestination: String, saveOption: SaveDataOptions) : HandlerThread("Tox") {
+class ToxThread(saveDestination: String, saveOption: SaveDataOptions, uiHandler: Handler) :
+    HandlerThread("Tox") {
     companion object {
         // Tox
         private const val msgIterate = 0
@@ -100,6 +102,10 @@ class ToxThread(saveDestination: String, saveOption: SaveDataOptions) : HandlerT
     }
 
     init {
+        with(uiHandler) {
+            sendMessage(obtainMessage(MSG_CONTACTS_LOADED, tox.getContacts()))
+        }
+
         start()
     }
 

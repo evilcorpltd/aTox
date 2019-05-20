@@ -33,30 +33,6 @@ class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         name.text = App.profile
 
         val contactList = findViewById<ListView>(R.id.contactList)
-        App.contacts.add(
-            ContactModel(
-                "EchoBot",
-                "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6",
-                "18:30",
-                0
-            )
-        )
-        App.contacts.add(
-            ContactModel(
-                "Also EchoBot",
-                "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6",
-                "Dec 31",
-                0
-            )
-        )
-        App.contacts.add(
-            ContactModel(
-                "EchoBot 3: Reckoning",
-                "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6",
-                "23.09.17",
-                0
-            )
-        )
         contactList.adapter = contactAdapter
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayout)

@@ -11,3 +11,5 @@ fun String.hexToByteArray(): ByteArray {
 
     return bytes
 }
+
+fun ByteArray.byteArrayToHex(): String = this.joinToString("") { "%02x".format(it) }

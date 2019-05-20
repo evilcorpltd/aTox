@@ -34,6 +34,15 @@ class Tox(options: ToxOptions) {
         return tox.addFriend(toxId.hexToByteArray(), message.toByteArray())
     }
 
+    fun getContacts(): List<Pair<ByteArray, Int>> {
+        val friendNumbers = tox.friendList
+        Log.e("Tox", "Loading ${friendNumbers.size} friends")
+        return List(friendNumbers.size) {
+            Log.e("Tox", "${friendNumbers[it]}: ${tox.getFriendPublicKey(friendNumbers[it]).byteArrayToHex()}")
+            Pair(tox.getFriendPublicKey(friendNumbers[it]), friendNumbers[it])
+        }
+    }
+
     fun sendMessage(friendNumber: Int, message: String): Int {
         return tox.friendSendMessage(friendNumber, ToxMessageType.NORMAL, 0, message.toByteArray())
     }
