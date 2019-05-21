@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 
 class ContactAdapter(private val context: Context, private val contacts: ArrayList<ContactModel>) :
     BaseAdapter() {
@@ -37,8 +38,8 @@ class ContactAdapter(private val context: Context, private val contacts: ArrayLi
     }
 
     private class ViewHolder(row: View) {
-        val name: TextView = row.findViewById(R.id.name) as TextView
-        val toxId: TextView = row.findViewById(R.id.toxId) as TextView
-        val lastMessage: TextView = row.findViewById(R.id.lastMessage) as TextView
+        val name: TextView = row.name
+        val toxId: TextView = row.toxId
+        val lastMessage: TextView = row.lastMessage
     }
 }

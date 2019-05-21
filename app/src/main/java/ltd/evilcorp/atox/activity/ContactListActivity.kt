@@ -4,15 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.ListView
-import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.activity_contact_list.*
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
+import kotlinx.android.synthetic.main.nav_header_contact_list.view.*
 import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.ContactAdapter
 import ltd.evilcorp.atox.ContactModel
@@ -21,22 +19,18 @@ import kotlin.random.Random
 
 class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private val contactAdapter by lazy { ContactAdapter(this, App.contacts) }
-    private val navigationHeader by lazy { findViewById<NavigationView>(R.id.navView).getHeaderView(0) }
+    private val navigationHeader by lazy { navView.getHeaderView(0) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact_list)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val name = navigationHeader.findViewById<TextView>(R.id.profileName)
+        val name = navigationHeader.profileName
         name.text = App.profile
 
-        val contactList = findViewById<ListView>(R.id.contactList)
         contactList.adapter = contactAdapter
 
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayout)
-        val navView: NavigationView = findViewById(R.id.navView)
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
@@ -47,9 +41,8 @@ class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     }
 
     override fun onBackPressed() {
-        val drawer: DrawerLayout = findViewById(R.id.drawerLayout)
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START)
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
@@ -78,7 +71,6 @@ class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
                 finishAffinity()
             }
         }
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }

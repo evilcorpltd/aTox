@@ -3,22 +3,19 @@ package ltd.evilcorp.atox.activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import kotlinx.android.synthetic.main.activity_chat.*
 import ltd.evilcorp.atox.*
 
 class ChatActivity : AppCompatActivity() {
-    private val messages = ArrayList<MessageModel>()
+    private val messagesModel = ArrayList<MessageModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        val adapter = MessagesAdapter(this, messages)
-        val messageView = findViewById<ListView>(R.id.messages)
-        messageView.adapter = adapter
+        val adapter = MessagesAdapter(this, messagesModel)
+        messages.adapter = adapter
 
         send.setOnClickListener {
             val friendNumber: Int = intent.getIntExtra("friendNumber", 0)
@@ -27,7 +24,7 @@ class ChatActivity : AppCompatActivity() {
                 sendMessage(obtainMessage(ToxThread.msgSendMsg, friendNumber, 0, outgoingMessage.text.toString()))
             }
 
-            messages.add(MessageModel(outgoingMessage.text.toString(), Sender.Sent))
+            messagesModel.add(MessageModel(outgoingMessage.text.toString(), Sender.Sent))
             adapter.notifyDataSetChanged()
             outgoingMessage.text.clear()
         }
@@ -41,7 +38,6 @@ class ChatActivity : AppCompatActivity() {
             }
         })
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.title = intent.getStringExtra("username")
     }
 }

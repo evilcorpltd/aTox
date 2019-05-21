@@ -30,6 +30,6 @@ class MessagesAdapter(private val context: Context, private val messages: Mutabl
     }
 
     private class ViewHolder(row: View) {
-        val message: TextView = row.findViewById(R.id.message) as TextView
+        val message = row.findViewById(R.id.message) as TextView
     }
 }
