@@ -30,8 +30,8 @@ class ContactAdapter(private val context: Context, private val contacts: ArrayLi
             vh = view.tag as ViewHolder
         }
 
+        vh.publicKey.text = contacts[position].publicKey.byteArrayToHex().toUpperCase()
         vh.name.text = contacts[position].name
-        vh.toxId.text = contacts[position].toxId
         vh.lastMessage.text = contacts[position].lastMessage
 
         return view!!
@@ -39,7 +39,7 @@ class ContactAdapter(private val context: Context, private val contacts: ArrayLi
 
     private class ViewHolder(row: View) {
         val name: TextView = row.name
-        val toxId: TextView = row.toxId
+        val publicKey: TextView = row.publicKey
         val lastMessage: TextView = row.lastMessage
     }
 }

@@ -8,7 +8,10 @@ import android.os.Message
 import androidx.appcompat.app.AppCompatActivity
 import im.tox.tox4j.core.options.SaveDataOptions
 import kotlinx.android.synthetic.main.activity_profile.*
-import ltd.evilcorp.atox.*
+import ltd.evilcorp.atox.App
+import ltd.evilcorp.atox.ContactModel
+import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.ToxThread
 import java.io.File
 
 const val MSG_CONTACTS_LOADED: Int = 0
@@ -24,8 +27,8 @@ class UIMessageHandler : Handler(Looper.getMainLooper()) {
                 for ((publicKey, friendNumber) in contacts) {
                     App.contacts.add(
                         ContactModel(
+                            publicKey,
                             "Unknown",
-                            publicKey.byteArrayToHex().toUpperCase(),
                             "Never",
                             friendNumber
                         )

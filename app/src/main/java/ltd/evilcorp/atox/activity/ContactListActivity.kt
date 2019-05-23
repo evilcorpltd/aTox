@@ -11,10 +11,7 @@ import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_contact_list.*
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 import kotlinx.android.synthetic.main.nav_header_contact_list.view.*
-import ltd.evilcorp.atox.App
-import ltd.evilcorp.atox.ContactAdapter
-import ltd.evilcorp.atox.ContactModel
-import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.*
 import kotlin.random.Random
 
 class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -56,8 +53,8 @@ class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
             R.id.add_echobot -> {
                 App.contacts.add(
                     ContactModel(
+                        "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6".hexToByteArray(),
                         "new EchoBot ${Random.nextInt(-1000, 1000)}",
-                        "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6",
                         "Never",
                         0
                     )
