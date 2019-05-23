@@ -7,6 +7,5 @@ class App : Application() {
         lateinit var profile: String
         lateinit var password: String
         lateinit var toxThread: ToxThread
-        var contacts = ArrayList<ContactModel>()
     }
 }

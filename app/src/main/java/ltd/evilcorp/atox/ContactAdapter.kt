@@ -8,11 +8,13 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 
-class ContactAdapter(private val context: Context, private val contacts: ArrayList<ContactModel>) :
+class ContactAdapter(private val context: Context) :
     BaseAdapter() {
 
-    override fun getCount(): Int = contacts.size
-    override fun getItem(position: Int): Any = contacts[position]
+    private val contactRepository = ContactRepository.instance
+
+    override fun getCount(): Int = contactRepository.getContacts().value!!.size
+    override fun getItem(position: Int): Any = contactRepository.getContacts().value!![position]
     override fun getItemId(position: Int): Long = position.toLong()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -30,9 +32,10 @@ class ContactAdapter(private val context: Context, private val contacts: ArrayLi
             vh = view.tag as ViewHolder
         }
 
-        vh.publicKey.text = contacts[position].publicKey.byteArrayToHex().toUpperCase()
-        vh.name.text = contacts[position].name
-        vh.lastMessage.text = contacts[position].lastMessage
+        val contact = contactRepository.getContacts().value!![position]
+        vh.publicKey.text = contact.publicKey.byteArrayToHex().toUpperCase()
+        vh.name.text = contact.name
+        vh.lastMessage.text = contact.lastMessage
 
         return view!!
     }

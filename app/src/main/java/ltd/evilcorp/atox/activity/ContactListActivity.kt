@@ -15,7 +15,9 @@ import ltd.evilcorp.atox.*
 import kotlin.random.Random
 
 class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private val contactAdapter by lazy { ContactAdapter(this, App.contacts) }
+    private val contactRepository = ContactRepository.instance
+
+    private val contactAdapter by lazy { ContactAdapter(this) }
     private val navigationHeader by lazy { navView.getHeaderView(0) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,14 +53,11 @@ class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
                 startActivity(Intent(this, AddContactActivity::class.java))
             }
             R.id.add_echobot -> {
-                App.contacts.add(
-                    ContactModel(
-                        "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6".hexToByteArray(),
-                        "new EchoBot ${Random.nextInt(-1000, 1000)}",
-                        "Never",
-                        0
-                    )
-                )
+                val pubKey = "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6".hexToByteArray()
+                val contact = contactRepository.getContact(pubKey)
+                with(contact.value!!) {
+                    name = "new EchoBot ${Random.nextInt(-1000, 1000)}"
+                }
                 contactAdapter.notifyDataSetChanged()
             }
             R.id.settings -> {
@@ -78,10 +77,10 @@ class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
         //TODO(endoffile78) figure out a better way to get the friend number
         var friendNumber = 0
-        App.contacts.forEach lit@{
+        contactRepository.getContacts().value!!.forEach {
             if (it.name == view.name.text) {
                 friendNumber = it.friendNumber
-                return@lit // break
+                return@forEach
             }
         }
 

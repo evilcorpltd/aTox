@@ -6,9 +6,8 @@ import android.util.Log
 import im.tox.tox4j.core.options.ProxyOptions
 import im.tox.tox4j.core.options.SaveDataOptions
 import im.tox.tox4j.core.options.ToxOptions
-import ltd.evilcorp.atox.activity.MSG_CONTACTS_LOADED
 
-class ToxThread(saveDestination: String, saveOption: SaveDataOptions, uiHandler: Handler) :
+class ToxThread(saveDestination: String, saveOption: SaveDataOptions) :
     HandlerThread("Tox") {
     companion object {
         // Tox
@@ -36,6 +35,8 @@ class ToxThread(saveDestination: String, saveOption: SaveDataOptions, uiHandler:
         const val msgGroupInvite = 15
         const val msgGroupJoin = 16
     }
+
+    private val contactRepository = ContactRepository.instance
 
     private val tox = Tox(
         ToxOptions(
@@ -102,8 +103,9 @@ class ToxThread(saveDestination: String, saveOption: SaveDataOptions, uiHandler:
     }
 
     init {
-        with(uiHandler) {
-            sendMessage(obtainMessage(MSG_CONTACTS_LOADED, tox.getContacts()))
+        for ((publicKey, friendNumber) in tox.getContacts()) {
+            val contact = contactRepository.getContact(publicKey)
+            contact.value!!.friendNumber = friendNumber
         }
 
         start()
