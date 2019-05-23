@@ -23,6 +23,12 @@ class ContactRepository private constructor() {
         return data
     }
 
+    fun getContact(number: Int) : LiveData<Contact> {
+        val data = MutableLiveData<Contact>()
+        data.value = contactList.value!!.find { it.friendNumber == number }
+        return data
+    }
+
     fun getContacts(): LiveData<List<Contact>> {
         val data = MutableLiveData<List<Contact>>()
         data.value = ArrayList<Contact>(contactsByKey.values)
