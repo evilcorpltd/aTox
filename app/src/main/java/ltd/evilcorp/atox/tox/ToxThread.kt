@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox
+package ltd.evilcorp.atox.tox
 
 import android.os.Handler
 import android.os.HandlerThread
@@ -6,6 +6,8 @@ import android.util.Log
 import im.tox.tox4j.core.options.ProxyOptions
 import im.tox.tox4j.core.options.SaveDataOptions
 import im.tox.tox4j.core.options.ToxOptions
+import ltd.evilcorp.atox.repository.ContactRepository
+import ltd.evilcorp.atox.vo.Contact
 import javax.inject.Inject
 
 class ToxThreadFactory @Inject constructor(private val contactRepository: ContactRepository) {

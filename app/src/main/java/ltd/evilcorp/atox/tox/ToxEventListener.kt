@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox
+package ltd.evilcorp.atox.tox
 
 import android.os.Handler
 import android.os.Looper
@@ -8,6 +8,7 @@ import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
+import ltd.evilcorp.atox.repository.ContactRepository
 import java.text.DateFormat
 import java.util.*
 

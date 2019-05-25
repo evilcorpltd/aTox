@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox
+package ltd.evilcorp.atox.vo
 
 enum class Sender {
     Sent,

@@ -7,6 +7,9 @@ import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import ltd.evilcorp.atox.di.ActivityModule
+import ltd.evilcorp.atox.di.ContactModule
+import ltd.evilcorp.atox.tox.ToxThread
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -13,6 +13,10 @@ import kotlinx.android.synthetic.main.activity_contact_list.*
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 import kotlinx.android.synthetic.main.nav_header_contact_list.view.*
 import ltd.evilcorp.atox.*
+import ltd.evilcorp.atox.repository.ContactRepository
+import ltd.evilcorp.atox.tox.hexToByteArray
+import ltd.evilcorp.atox.ui.ContactAdapter
+import ltd.evilcorp.atox.vo.Contact
 import javax.inject.Inject
 import kotlin.random.Random
 

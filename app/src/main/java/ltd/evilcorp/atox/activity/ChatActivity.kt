@@ -6,6 +6,10 @@ import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_chat.*
 import ltd.evilcorp.atox.*
+import ltd.evilcorp.atox.tox.ToxThread
+import ltd.evilcorp.atox.ui.MessagesAdapter
+import ltd.evilcorp.atox.vo.MessageModel
+import ltd.evilcorp.atox.vo.Sender
 
 class ChatActivity : AppCompatActivity() {
     private val messagesModel = ArrayList<MessageModel>()
@@ -24,7 +28,12 @@ class ChatActivity : AppCompatActivity() {
                 sendMessage(obtainMessage(ToxThread.msgSendMsg, friendNumber, 0, outgoingMessage.text.toString()))
             }
 
-            messagesModel.add(MessageModel(outgoingMessage.text.toString(), Sender.Sent))
+            messagesModel.add(
+                MessageModel(
+                    outgoingMessage.text.toString(),
+                    Sender.Sent
+                )
+            )
             adapter.notifyDataSetChanged()
             outgoingMessage.text.clear()
         }

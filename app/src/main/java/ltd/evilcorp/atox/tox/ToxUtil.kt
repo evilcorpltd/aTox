@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox
+package ltd.evilcorp.atox.tox
 
 private const val HEX_CHARS = "0123456789ABCDEF"
 

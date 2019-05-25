@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox
+package ltd.evilcorp.atox.ui
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.vo.MessageModel
+import ltd.evilcorp.atox.vo.Sender
 
 class MessagesAdapter(private val context: Context, private val messages: MutableList<MessageModel>) : BaseAdapter() {
     override fun getCount(): Int = messages.size

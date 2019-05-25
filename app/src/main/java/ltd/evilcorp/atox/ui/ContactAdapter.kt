@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox
+package ltd.evilcorp.atox.ui
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
+import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.repository.ContactRepository
+import ltd.evilcorp.atox.tox.byteArrayToHex
 
 class ContactAdapter(
     private val context: Context,

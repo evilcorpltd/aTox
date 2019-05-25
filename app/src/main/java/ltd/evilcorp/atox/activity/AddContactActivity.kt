@@ -6,9 +6,9 @@ import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_add_contact.*
 import ltd.evilcorp.atox.App
-import ltd.evilcorp.atox.MsgAddContact
+import ltd.evilcorp.atox.tox.MsgAddContact
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.ToxThread
+import ltd.evilcorp.atox.tox.ToxThread
 
 class AddContactActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

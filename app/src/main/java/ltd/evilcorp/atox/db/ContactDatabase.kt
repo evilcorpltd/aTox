@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox
+package ltd.evilcorp.atox.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -6,6 +6,7 @@ import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxUserStatus
+import ltd.evilcorp.atox.vo.Contact
 
 private class Converters {
     companion object {

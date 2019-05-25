@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox
+package ltd.evilcorp.atox.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

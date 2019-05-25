@@ -1,9 +1,10 @@
-package ltd.evilcorp.atox
+package ltd.evilcorp.atox.tox
 
 import android.util.Log
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.options.ToxOptions
 import im.tox.tox4j.impl.jni.ToxCoreImpl
+import ltd.evilcorp.atox.repository.ContactRepository
 import java.io.File
 
 class Tox(options: ToxOptions, contactRepository: ContactRepository) {

@@ -1,9 +1,10 @@
-package ltd.evilcorp.atox
+package ltd.evilcorp.atox.db
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import ltd.evilcorp.atox.vo.Contact
 
 // TODO(robinlinden): This should return LiveData<T> everywhere.
 

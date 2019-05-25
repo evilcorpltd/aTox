@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox
+package ltd.evilcorp.atox.vo
 
 // TODO(robinlinden): This shouldn't depend on Tox types.
 import androidx.room.Entity

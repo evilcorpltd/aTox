@@ -8,8 +8,8 @@ import im.tox.tox4j.core.options.SaveDataOptions
 import kotlinx.android.synthetic.main.activity_profile.*
 import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.ToxThread
-import ltd.evilcorp.atox.ToxThreadFactory
+import ltd.evilcorp.atox.tox.ToxThread
+import ltd.evilcorp.atox.tox.ToxThreadFactory
 import java.io.File
 import javax.inject.Inject
 
