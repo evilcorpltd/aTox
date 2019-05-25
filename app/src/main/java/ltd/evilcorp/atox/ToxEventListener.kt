@@ -11,8 +11,9 @@ import im.tox.tox4j.core.enums.ToxUserStatus
 import java.text.DateFormat
 import java.util.*
 
-class ToxEventListener : ToxCoreEventListener<Int> {
-    private val contactRepository = ContactRepository.instance
+class ToxEventListener(
+    private val contactRepository: ContactRepository
+) : ToxCoreEventListener<Int> {
     private val uiHandler = Handler(Looper.getMainLooper())
 
     override fun friendLosslessPacket(friendNumber: Int, data: ByteArray, state: Int?): Int {

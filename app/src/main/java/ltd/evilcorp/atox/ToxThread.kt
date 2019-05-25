@@ -6,9 +6,19 @@ import android.util.Log
 import im.tox.tox4j.core.options.ProxyOptions
 import im.tox.tox4j.core.options.SaveDataOptions
 import im.tox.tox4j.core.options.ToxOptions
+import javax.inject.Inject
 
-class ToxThread(saveDestination: String, saveOption: SaveDataOptions) :
-    HandlerThread("Tox") {
+class ToxThreadFactory @Inject constructor(private val contactRepository: ContactRepository) {
+    fun create(saveDestination: String, saveOption: SaveDataOptions): ToxThread {
+        return ToxThread(saveDestination, saveOption, contactRepository)
+    }
+}
+
+class ToxThread(
+    saveDestination: String,
+    saveOption: SaveDataOptions,
+    contactRepository: ContactRepository
+) : HandlerThread("Tox") {
     companion object {
         // Tox
         private const val msgIterate = 0
@@ -36,8 +46,6 @@ class ToxThread(saveDestination: String, saveOption: SaveDataOptions) :
         const val msgGroupJoin = 16
     }
 
-    private val contactRepository = ContactRepository.instance
-
     private val tox = Tox(
         ToxOptions(
             true,
@@ -49,7 +57,8 @@ class ToxThread(saveDestination: String, saveOption: SaveDataOptions) :
             0,
             saveOption,
             true
-        )
+        ),
+        contactRepository
     )
 
     val handler: Handler by lazy {

@@ -8,11 +8,10 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 
-class ContactAdapter(private val context: Context) :
-    BaseAdapter() {
-
-    private val contactRepository = ContactRepository.instance
-
+class ContactAdapter(
+    private val context: Context,
+    private val contactRepository: ContactRepository
+) : BaseAdapter() {
     override fun getCount(): Int = contactRepository.getContacts().value!!.size
     override fun getItem(position: Int): Any = contactRepository.getContacts().value!![position]
     override fun getItemId(position: Int): Long = position.toLong()

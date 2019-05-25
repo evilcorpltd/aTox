@@ -3,13 +3,15 @@ package ltd.evilcorp.atox.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import dagger.android.AndroidInjection
 import im.tox.tox4j.core.options.SaveDataOptions
 import kotlinx.android.synthetic.main.activity_profile.*
 import ltd.evilcorp.atox.App
-import ltd.evilcorp.atox.ContactDatabase
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.ToxThread
+import ltd.evilcorp.atox.ToxThreadFactory
 import java.io.File
+import javax.inject.Inject
 
 private fun loadToxSave(saveFile: File): ByteArray? {
     if (!saveFile.exists()) {
@@ -20,11 +22,12 @@ private fun loadToxSave(saveFile: File): ByteArray? {
 }
 
 class ProfileActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    @Inject
+    lateinit var toxThreadFactory: ToxThreadFactory
 
-        // Initialize the database the first time. TODO(robinlinden): Nicer database initialization.
-        ContactDatabase.instance(this)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
+        super.onCreate(savedInstanceState)
 
         var profile: File? = null
         filesDir.walk().forEach {
@@ -37,7 +40,7 @@ class ProfileActivity : AppCompatActivity() {
         if (profile != null) {
             val data = loadToxSave(profile!!)
             if (data != null) {
-                App.toxThread = ToxThread(filesDir.toString(), SaveDataOptions.ToxSave(data))
+                App.toxThread = toxThreadFactory.create(filesDir.toString(), SaveDataOptions.ToxSave(data))
                 startActivity(Intent(this, ContactListActivity::class.java))
                 finish()
             }
@@ -49,7 +52,7 @@ class ProfileActivity : AppCompatActivity() {
             App.profile = if (username.text.isNotEmpty()) username.text.toString() else "aTox user"
             App.password = if (password.text.isNotEmpty()) password.text.toString() else ""
             startActivity(Intent(this@ProfileActivity, ContactListActivity::class.java))
-            App.toxThread = ToxThread(filesDir.toString(), SaveDataOptions.`None$`())
+            App.toxThread = toxThreadFactory.create(filesDir.toString(), SaveDataOptions.`None$`())
 
             with(App.toxThread.handler) {
                 sendMessage(obtainMessage(ToxThread.msgSetName, App.profile))

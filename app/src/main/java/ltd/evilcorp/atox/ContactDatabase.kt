@@ -1,7 +1,9 @@
 package ltd.evilcorp.atox
 
-import android.content.Context
-import androidx.room.*
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
 import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxUserStatus
 
@@ -28,23 +30,5 @@ private class Converters {
 @Database(entities = [Contact::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class ContactDatabase : RoomDatabase() {
-    companion object {
-        private var instance: ContactDatabase? = null
-
-        // TODO(robinlinden): Nicer database creation/access.
-        fun instance(context: Context? = null): ContactDatabase {
-            if (instance != null) {
-                return instance!!
-            }
-
-            // TODO(robinlinden): Look into and maybe remove allowMainThreadQueries().
-            instance =
-                Room.databaseBuilder(context!!.applicationContext, ContactDatabase::class.java, "contact_database")
-                    .allowMainThreadQueries()
-                    .build()
-            return instance!!
-        }
-    }
-
     abstract fun contactDao(): ContactDao
 }

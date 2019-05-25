@@ -8,19 +8,23 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
+import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_contact_list.*
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 import kotlinx.android.synthetic.main.nav_header_contact_list.view.*
 import ltd.evilcorp.atox.*
+import javax.inject.Inject
 import kotlin.random.Random
 
 class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private val contactRepository = ContactRepository.instance
+    @Inject
+    lateinit var contactRepository: ContactRepository
 
-    private val contactAdapter by lazy { ContactAdapter(this) }
+    private val contactAdapter by lazy { ContactAdapter(this, contactRepository) }
     private val navigationHeader by lazy { navView.getHeaderView(0) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact_list)
         setSupportActionBar(toolbar)

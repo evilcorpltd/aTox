@@ -6,9 +6,9 @@ import im.tox.tox4j.core.options.ToxOptions
 import im.tox.tox4j.impl.jni.ToxCoreImpl
 import java.io.File
 
-class Tox(options: ToxOptions) {
+class Tox(options: ToxOptions, contactRepository: ContactRepository) {
     private val tox: ToxCoreImpl = ToxCoreImpl(options)
-    private val eventListener = ToxEventListener()
+    private val eventListener = ToxEventListener(contactRepository)
 
     fun bootstrap(address: String, port: Int, publicKey: ByteArray) {
         tox.bootstrap(address, port, publicKey)
