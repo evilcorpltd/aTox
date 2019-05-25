@@ -1,7 +1,5 @@
 package ltd.evilcorp.atox.tox
 
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import im.tox.tox4j.core.callbacks.ToxCoreEventListener
 import im.tox.tox4j.core.enums.ToxConnection
@@ -9,13 +7,24 @@ import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
 import ltd.evilcorp.atox.repository.ContactRepository
+import ltd.evilcorp.atox.vo.Contact
 import java.text.DateFormat
 import java.util.*
 
 class ToxEventListener(
     private val contactRepository: ContactRepository
 ) : ToxCoreEventListener<Int> {
-    private val uiHandler = Handler(Looper.getMainLooper())
+    private var contacts: List<Contact> = ArrayList()
+
+    init {
+        contactRepository.getContacts().observeForever {
+            contacts = it
+        }
+    }
+
+    private fun contactByFriendNumber(friendNumber: Int): Contact {
+        return contacts.find { it.friendNumber == friendNumber }!!
+    }
 
     override fun friendLosslessPacket(friendNumber: Int, data: ByteArray, state: Int?): Int {
         return Log.e("ToxCore", "friendLosslessPacket")
@@ -26,11 +35,9 @@ class ToxEventListener(
     }
 
     override fun friendStatusMessage(friendNumber: Int, message: ByteArray, state: Int?): Int {
-        uiHandler.post {
-            with(contactRepository.getContact(friendNumber).value!!) {
-                this.statusMessage = String(message)
-                contactRepository.addContact(this)
-            }
+        with(contactByFriendNumber(friendNumber)) {
+            this.statusMessage = String(message)
+            contactRepository.addContact(this)
         }
 
         return Log.e("ToxCore", "friendStatusMessage")
@@ -41,22 +48,18 @@ class ToxEventListener(
     }
 
     override fun friendStatus(friendNumber: Int, status: ToxUserStatus, state: Int?): Int {
-        uiHandler.post {
-            with(contactRepository.getContact(friendNumber).value!!) {
-                this.status = status.toUserStatus()
-                contactRepository.addContact(this)
-            }
+        with(contactByFriendNumber(friendNumber)) {
+            this.status = status.toUserStatus()
+            contactRepository.addContact(this)
         }
 
         return Log.e("ToxCore", "friendStatus")
     }
 
     override fun friendConnectionStatus(friendNumber: Int, connectionStatus: ToxConnection, state: Int?): Int {
-        uiHandler.post {
-            with(contactRepository.getContact(friendNumber).value!!) {
-                this.connectionStatus = connectionStatus.toConnectionStatus()
-                contactRepository.addContact(this)
-            }
+        with(contactByFriendNumber(friendNumber)) {
+            this.connectionStatus = connectionStatus.toConnectionStatus()
+            contactRepository.addContact(this)
         }
 
         return Log.e("ToxCore", "friendConnectionStatus")
@@ -73,21 +76,18 @@ class ToxEventListener(
         message: ByteArray,
         state: Int?
     ): Int {
-        uiHandler.post {
-            with(contactRepository.getContact(friendNumber).value!!) {
-                lastMessage = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date())
-                contactRepository.addContact(this)
-            }
+        with(contactByFriendNumber(friendNumber)) {
+            lastMessage = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date())
+            contactRepository.addContact(this)
         }
+
         return Log.e("ToxCore", "friendMessage")
     }
 
     override fun friendName(friendNumber: Int, name: ByteArray, state: Int?): Int {
-        uiHandler.post {
-            with(contactRepository.getContact(friendNumber).value!!) {
-                this.name = String(name)
-                contactRepository.addContact(this)
-            }
+        with(contactByFriendNumber(friendNumber)) {
+            this.name = String(name)
+            contactRepository.addContact(this)
         }
 
         return Log.e("ToxCore", "friendName")
@@ -117,11 +117,9 @@ class ToxEventListener(
     }
 
     override fun friendTyping(friendNumber: Int, isTyping: Boolean, state: Int?): Int {
-        uiHandler.post {
-            with(contactRepository.getContact(friendNumber).value!!) {
-                typing = isTyping
-                contactRepository.addContact(this)
-            }
+        with(contactByFriendNumber(friendNumber)) {
+            typing = isTyping
+            contactRepository.addContact(this)
         }
 
         return Log.e("ToxCore", "friendTyping")

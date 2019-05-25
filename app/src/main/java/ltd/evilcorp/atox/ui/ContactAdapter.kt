@@ -6,17 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.tox.byteArrayToHex
+import ltd.evilcorp.atox.vo.Contact
 
 class ContactAdapter(
     private val context: Context,
-    private val contactRepository: ContactRepository
+    lifecycleOwner: LifecycleOwner,
+    contactRepository: ContactRepository
 ) : BaseAdapter() {
-    override fun getCount(): Int = contactRepository.getContacts().value!!.size
-    override fun getItem(position: Int): Any = contactRepository.getContacts().value!![position]
+    private var contacts: List<Contact> = ArrayList()
+
+    init {
+        contactRepository.getContacts().observe(lifecycleOwner, Observer {
+            contacts = it
+            notifyDataSetChanged()
+        })
+    }
+
+    override fun getCount(): Int = contacts.size
+    override fun getItem(position: Int): Any = contacts[position]
     override fun getItemId(position: Int): Long = position.toLong()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -34,7 +47,7 @@ class ContactAdapter(
             vh = view.tag as ViewHolder
         }
 
-        val contact = contactRepository.getContacts().value!![position]
+        val contact = contacts[position]
         vh.publicKey.text = contact.publicKey.byteArrayToHex().toUpperCase()
         vh.name.text = contact.name
         vh.lastMessage.text = contact.lastMessage

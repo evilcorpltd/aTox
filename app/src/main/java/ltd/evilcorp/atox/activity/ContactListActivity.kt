@@ -7,12 +7,14 @@ import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Observer
 import com.google.android.material.navigation.NavigationView
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_contact_list.*
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 import kotlinx.android.synthetic.main.nav_header_contact_list.view.*
-import ltd.evilcorp.atox.*
+import ltd.evilcorp.atox.App
+import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.tox.hexToByteArray
 import ltd.evilcorp.atox.ui.ContactAdapter
@@ -24,8 +26,7 @@ class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     @Inject
     lateinit var contactRepository: ContactRepository
 
-    private val contactAdapter by lazy { ContactAdapter(this, contactRepository) }
-    private val navigationHeader by lazy { navView.getHeaderView(0) }
+    private var contacts: List<Contact> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -33,10 +34,13 @@ class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         setContentView(R.layout.activity_contact_list)
         setSupportActionBar(toolbar)
 
-        val name = navigationHeader.profileName
-        name.text = App.profile
+        navView.getHeaderView(0).profileName.text = App.profile
 
-        contactList.adapter = contactAdapter
+        contactRepository.getContacts().observe(this, Observer {
+            contacts = it
+        })
+
+        contactList.adapter = ContactAdapter(this, this, contactRepository)
 
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
@@ -69,7 +73,6 @@ class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
                         "8406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6").hexToByteArray()
                 val contact = Contact(pubKey, -1, "new EchoBot ${Random.nextInt(-1000, 1000)}")
                 contactRepository.addContact(contact)
-                contactAdapter.notifyDataSetChanged()
             }
             R.id.settings -> {
                 // TODO(robinlinden): Settings activity
@@ -88,7 +91,7 @@ class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
         //TODO(endoffile78) figure out a better way to get the friend number
         var friendNumber = 0
-        contactRepository.getContacts().value!!.forEach {
+        contacts.forEach {
             if (it.name == view.name.text) {
                 friendNumber = it.friendNumber
                 return@forEach

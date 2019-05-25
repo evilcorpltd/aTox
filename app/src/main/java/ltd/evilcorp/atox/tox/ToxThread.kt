@@ -3,6 +3,7 @@ package ltd.evilcorp.atox.tox
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.Log
+import androidx.lifecycle.Observer
 import im.tox.tox4j.core.options.ProxyOptions
 import im.tox.tox4j.core.options.SaveDataOptions
 import im.tox.tox4j.core.options.ToxOptions
@@ -116,7 +117,17 @@ class ToxThread(
     init {
         for ((publicKey, friendNumber) in tox.getContacts()) {
             if (contactRepository.exists(publicKey)) {
-                contactRepository.getContact(publicKey).value!!.friendNumber = friendNumber
+                // TODO(robinlinden): This is pretty horrifying. Fix it.
+                with(contactRepository.getContact(publicKey)) {
+                    val observer = object : Observer<Contact> {
+                        override fun onChanged(contact: Contact?) {
+                            Log.e("tox", "contact loaded: $friendNumber")
+                            contact!!.friendNumber = friendNumber
+                            this@with.removeObserver(this)
+                        }
+                    }
+                    this.observeForever(observer)
+                }
             } else {
                 contactRepository.addContact(Contact(publicKey, friendNumber))
             }
