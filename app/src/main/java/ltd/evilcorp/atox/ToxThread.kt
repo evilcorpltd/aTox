@@ -104,8 +104,11 @@ class ToxThread(saveDestination: String, saveOption: SaveDataOptions) :
 
     init {
         for ((publicKey, friendNumber) in tox.getContacts()) {
-            val contact = contactRepository.getContact(publicKey)
-            contact.value!!.friendNumber = friendNumber
+            if (contactRepository.exists(publicKey)) {
+                contactRepository.getContact(publicKey).value!!.friendNumber = friendNumber
+            } else {
+                contactRepository.addContact(Contact(publicKey, friendNumber))
+            }
         }
 
         start()

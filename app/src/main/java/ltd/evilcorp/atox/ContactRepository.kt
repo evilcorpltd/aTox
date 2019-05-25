@@ -8,30 +8,31 @@ class ContactRepository private constructor() {
         val instance = ContactRepository()
     }
 
-    private val contactsByKey = HashMap<ByteArray, Contact>()
-    private val contactList = MutableLiveData<ArrayList<Contact>>()
+    private val contactDao = ContactDatabase.instance().contactDao()
 
+    fun exists(publicKey: ByteArray): Boolean {
+        return contactDao.exists(publicKey)
+    }
+
+    fun addContact(contact: Contact) {
+        contactDao.save(contact)
+    }
 
     fun getContact(publicKey: ByteArray): LiveData<Contact> {
         val data = MutableLiveData<Contact>()
-        if (!contactsByKey.containsKey(publicKey)) {
-            contactsByKey[publicKey] = Contact(publicKey)
-            contactList.value = ArrayList(contactsByKey.values)
-        }
-
-        data.value = contactsByKey[publicKey]
+        data.value = contactDao.load(publicKey)
         return data
     }
 
-    fun getContact(number: Int) : LiveData<Contact> {
+    fun getContact(friendNumber: Int) : LiveData<Contact> {
         val data = MutableLiveData<Contact>()
-        data.value = contactList.value!!.find { it.friendNumber == number }
+        data.value = contactDao.load(friendNumber)
         return data
     }
 
     fun getContacts(): LiveData<List<Contact>> {
         val data = MutableLiveData<List<Contact>>()
-        data.value = ArrayList<Contact>(contactsByKey.values)
+        data.value = contactDao.loadAll()
         return data
     }
 }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import im.tox.tox4j.core.options.SaveDataOptions
 import kotlinx.android.synthetic.main.activity_profile.*
 import ltd.evilcorp.atox.App
+import ltd.evilcorp.atox.ContactDatabase
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.ToxThread
 import java.io.File
@@ -21,6 +22,9 @@ private fun loadToxSave(saveFile: File): ByteArray? {
 class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Initialize the database the first time. TODO(robinlinden): Nicer database initialization.
+        ContactDatabase.instance(this)
 
         var profile: File? = null
         filesDir.walk().forEach {

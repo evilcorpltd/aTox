@@ -1,11 +1,14 @@
 package ltd.evilcorp.atox
 
 // TODO(robinlinden): This shouldn't depend on Tox types.
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxUserStatus
 
+@Entity
 data class Contact(
-    val publicKey: ByteArray,
+    @PrimaryKey val publicKey: ByteArray,
     var friendNumber: Int = 0,
     var name: String = "Unknown",
     var status: ToxUserStatus = ToxUserStatus.NONE,

@@ -53,11 +53,14 @@ class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
                 startActivity(Intent(this, AddContactActivity::class.java))
             }
             R.id.add_echobot -> {
-                val pubKey = "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6".hexToByteArray()
-                val contact = contactRepository.getContact(pubKey)
-                with(contact.value!!) {
-                    name = "new EchoBot ${Random.nextInt(-1000, 1000)}"
-                }
+                val pubKey =
+                    ("${Random.nextInt(9)}" +
+                        "${Random.nextInt(9)}" +
+                        "${Random.nextInt(9)}" +
+                        "${Random.nextInt(9)}" +
+                        "8406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6").hexToByteArray()
+                val contact = Contact(pubKey, -1, "new EchoBot ${Random.nextInt(-1000, 1000)}")
+                contactRepository.addContact(contact)
                 contactAdapter.notifyDataSetChanged()
             }
             R.id.settings -> {

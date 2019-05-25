@@ -25,7 +25,10 @@ class ToxEventListener : ToxCoreEventListener<Int> {
 
     override fun friendStatusMessage(friendNumber: Int, message: ByteArray, state: Int?): Int {
         uiHandler.post {
-            contactRepository.getContact(friendNumber).value!!.statusMessage = String(message)
+            with(contactRepository.getContact(friendNumber).value!!) {
+                this.statusMessage = String(message)
+                contactRepository.addContact(this)
+            }
         }
 
         return Log.e("ToxCore", "friendStatusMessage")
@@ -37,7 +40,10 @@ class ToxEventListener : ToxCoreEventListener<Int> {
 
     override fun friendStatus(friendNumber: Int, status: ToxUserStatus, state: Int?): Int {
         uiHandler.post {
-            contactRepository.getContact(friendNumber).value!!.status = status
+            with(contactRepository.getContact(friendNumber).value!!) {
+                this.status = status
+                contactRepository.addContact(this)
+            }
         }
 
         return Log.e("ToxCore", "friendStatus")
@@ -45,7 +51,10 @@ class ToxEventListener : ToxCoreEventListener<Int> {
 
     override fun friendConnectionStatus(friendNumber: Int, connectionStatus: ToxConnection, state: Int?): Int {
         uiHandler.post {
-            contactRepository.getContact(friendNumber).value!!.connectionStatus = connectionStatus
+            with(contactRepository.getContact(friendNumber).value!!) {
+                this.connectionStatus = connectionStatus
+                contactRepository.addContact(this)
+            }
         }
 
         return Log.e("ToxCore", "friendConnectionStatus")
@@ -63,15 +72,20 @@ class ToxEventListener : ToxCoreEventListener<Int> {
         state: Int?
     ): Int {
         uiHandler.post {
-            contactRepository.getContact(friendNumber).value!!.lastMessage =
-                DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date())
+            with(contactRepository.getContact(friendNumber).value!!) {
+                lastMessage = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date())
+                contactRepository.addContact(this)
+            }
         }
         return Log.e("ToxCore", "friendMessage")
     }
 
     override fun friendName(friendNumber: Int, name: ByteArray, state: Int?): Int {
         uiHandler.post {
-            contactRepository.getContact(friendNumber).value!!.name = String(name)
+            with(contactRepository.getContact(friendNumber).value!!) {
+                this.name = String(name)
+                contactRepository.addContact(this)
+            }
         }
 
         return Log.e("ToxCore", "friendName")
@@ -102,7 +116,10 @@ class ToxEventListener : ToxCoreEventListener<Int> {
 
     override fun friendTyping(friendNumber: Int, isTyping: Boolean, state: Int?): Int {
         uiHandler.post {
-            contactRepository.getContact(friendNumber).value!!.typing = isTyping
+            with(contactRepository.getContact(friendNumber).value!!) {
+                typing = isTyping
+                contactRepository.addContact(this)
+            }
         }
 
         return Log.e("ToxCore", "friendTyping")
