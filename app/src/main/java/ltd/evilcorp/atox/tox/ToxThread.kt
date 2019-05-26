@@ -72,7 +72,7 @@ class ToxThread(
                 }
                 msgSave -> {
                     Log.e("ToxThread", "Save")
-                    tox.save(saveDestination, false)
+                    tox.save(saveDestination)
                 }
                 msgShutdown -> {
                     Log.e("ToxThread", "Shutting down tox")

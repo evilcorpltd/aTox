@@ -48,7 +48,7 @@ class Tox(options: ToxOptions, contactRepository: ContactRepository) {
         return tox.friendSendMessage(friendNumber, ToxMessageType.NORMAL, 0, message.toByteArray())
     }
 
-    fun save(destination: String, encrypt: Boolean) {
+    fun save(destination: String) {
         val fileName = this.getName() + ".tox"
 
         val saveFile = File("$destination/$fileName")
