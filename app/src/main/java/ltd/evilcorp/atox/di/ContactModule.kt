@@ -9,20 +9,18 @@ import ltd.evilcorp.atox.db.ContactDatabase
 import javax.inject.Singleton
 
 @Module
-class ContactModule(application: Application) {
-    private val db = Room.databaseBuilder(application, ContactDatabase::class.java, "contact_db")
-        .allowMainThreadQueries()
-        .build()
-
+class ContactModule {
     @Singleton
     @Provides
-    fun provideDatabase(): ContactDatabase {
-        return db
+    fun provideDatabase(application: Application): ContactDatabase {
+        return Room.databaseBuilder(application, ContactDatabase::class.java, "contact_db")
+            .allowMainThreadQueries()
+            .build()
     }
 
     @Singleton
     @Provides
-    fun provideDao(): ContactDao {
+    fun provideDao(db: ContactDatabase): ContactDao {
         return db.contactDao()
     }
 }
