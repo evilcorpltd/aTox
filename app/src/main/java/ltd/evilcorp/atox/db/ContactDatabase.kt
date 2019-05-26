@@ -28,7 +28,7 @@ private class Converters {
     }
 }
 
-@Database(entities = [Contact::class], version = 1)
+@Database(entities = [Contact::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class ContactDatabase : RoomDatabase() {
     abstract fun contactDao(): ContactDao
