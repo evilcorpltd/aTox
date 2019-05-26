@@ -1,22 +1,34 @@
 package ltd.evilcorp.atox.vo
 
 // TODO(robinlinden): This shouldn't depend on Tox types.
+import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxUserStatus
 
-@Entity
+@Entity(tableName = "contacts")
 data class Contact(
-    @PrimaryKey val publicKey: ByteArray,
-    var friendNumber: Int = 0,
+    @PrimaryKey
+    @ColumnInfo(name = "public_key")
+    val publicKey: ByteArray,
+    @ColumnInfo(name = "friend_number")
+    var friendNumber: Int = -1,
+    @ColumnInfo(name = "name")
     var name: String = "Unknown",
-    var status: ToxUserStatus = ToxUserStatus.NONE,
+    @ColumnInfo(name = "status_message")
     var statusMessage: String = "...",
-    var connectionStatus: ToxConnection = ToxConnection.NONE,
-    var lastMessage: String = "Never",
-    var typing: Boolean = false
+    @ColumnInfo(name = "last_message")
+    var lastMessage: String = "Never"
 ) {
+    @Ignore
+    var status: ToxUserStatus = ToxUserStatus.NONE
+    @Ignore
+    var connectionStatus: ToxConnection = ToxConnection.NONE
+    @Ignore
+    var typing: Boolean = false
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

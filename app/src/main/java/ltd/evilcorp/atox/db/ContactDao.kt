@@ -13,15 +13,15 @@ interface ContactDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(contact: Contact)
 
-    @Query("SELECT COUNT(*) FROM contact WHERE publicKey = :publicKey")
+    @Query("SELECT COUNT(*) FROM contacts WHERE public_key = :publicKey")
     fun exists(publicKey: ByteArray): Boolean
 
-    @Query("SELECT * FROM contact WHERE publicKey = :publicKey")
+    @Query("SELECT * FROM contacts WHERE public_key = :publicKey")
     fun load(publicKey: ByteArray): Contact
 
-    @Query("SELECT * FROM contact WHERE friendNumber = :friendNumber")
+    @Query("SELECT * FROM contacts WHERE friend_number = :friendNumber")
     fun load(friendNumber: Int): Contact
 
-    @Query("SELECT * FROM contact")
+    @Query("SELECT * FROM contacts")
     fun loadAll(): List<Contact>
 }
