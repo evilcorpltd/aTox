@@ -5,6 +5,7 @@ import dagger.android.ContributesAndroidInjector
 import ltd.evilcorp.atox.activity.ContactListActivity
 import ltd.evilcorp.atox.activity.ProfileActivity
 
+@Suppress("unused")
 @Module
 abstract class ActivityModule {
     @ContributesAndroidInjector
