@@ -1,12 +1,23 @@
 package ltd.evilcorp.atox.vo
 
-// TODO(robinlinden): This shouldn't depend on Tox types.
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import im.tox.tox4j.core.enums.ToxConnection
-import im.tox.tox4j.core.enums.ToxUserStatus
+
+// This is a 1:1 mapping of the ToxConnection enum in tox4j and needs to stay that way.
+enum class ConnectionStatus {
+    NONE,
+    TCP,
+    UDP,
+}
+
+// This is a 1:1 mapping of the ToxUserStatus enum in tox4j and needs to stay that way.
+enum class UserStatus {
+    NONE,
+    AWAY,
+    BUSY,
+}
 
 @Entity(tableName = "contacts")
 data class Contact(
@@ -23,9 +34,9 @@ data class Contact(
     var lastMessage: String = "Never"
 ) {
     @Ignore
-    var status: ToxUserStatus = ToxUserStatus.NONE
+    var status: UserStatus = UserStatus.NONE
     @Ignore
-    var connectionStatus: ToxConnection = ToxConnection.NONE
+    var connectionStatus: ConnectionStatus = ConnectionStatus.NONE
     @Ignore
     var typing: Boolean = false
 

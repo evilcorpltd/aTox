@@ -4,27 +4,27 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import im.tox.tox4j.core.enums.ToxConnection
-import im.tox.tox4j.core.enums.ToxUserStatus
+import ltd.evilcorp.atox.vo.ConnectionStatus
 import ltd.evilcorp.atox.vo.Contact
+import ltd.evilcorp.atox.vo.UserStatus
 
 private class Converters {
     companion object {
         @TypeConverter
         @JvmStatic
-        fun toStatus(status: Int): ToxUserStatus = ToxUserStatus.values()[status]
+        fun toStatus(status: Int): UserStatus = UserStatus.values()[status]
 
         @TypeConverter
         @JvmStatic
-        fun fromStatus(status: ToxUserStatus): Int = status.ordinal
+        fun fromStatus(status: UserStatus): Int = status.ordinal
 
         @TypeConverter
         @JvmStatic
-        fun toConnection(connection: Int): ToxConnection = ToxConnection.values()[connection]
+        fun toConnection(connection: Int): ConnectionStatus = ConnectionStatus.values()[connection]
 
         @TypeConverter
         @JvmStatic
-        fun fromConnection(connection: ToxConnection): Int = connection.ordinal
+        fun fromConnection(connection: ConnectionStatus): Int = connection.ordinal
     }
 }
 

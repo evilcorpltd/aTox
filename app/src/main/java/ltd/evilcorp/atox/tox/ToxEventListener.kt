@@ -43,7 +43,7 @@ class ToxEventListener(
     override fun friendStatus(friendNumber: Int, status: ToxUserStatus, state: Int?): Int {
         uiHandler.post {
             with(contactRepository.getContact(friendNumber).value!!) {
-                this.status = status
+                this.status = status.toUserStatus()
                 contactRepository.addContact(this)
             }
         }
@@ -54,7 +54,7 @@ class ToxEventListener(
     override fun friendConnectionStatus(friendNumber: Int, connectionStatus: ToxConnection, state: Int?): Int {
         uiHandler.post {
             with(contactRepository.getContact(friendNumber).value!!) {
-                this.connectionStatus = connectionStatus
+                this.connectionStatus = connectionStatus.toConnectionStatus()
                 contactRepository.addContact(this)
             }
         }
