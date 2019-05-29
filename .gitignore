@@ -1,16 +1,11 @@
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
 .DS_Store
-/build
-/captures
 .externalNativeBuild
+.gradle
+.idea
+build
+captures
+local.properties
 
 app/libs
 app/src/main/jnilibs
