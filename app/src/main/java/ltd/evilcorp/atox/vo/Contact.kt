@@ -4,14 +4,13 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-// This is a 1:1 mapping of the ToxConnection enum in tox4j and needs to stay that way.
+// These enums are 1:1 mappings of the enums in tox4j.
 enum class ConnectionStatus {
     NONE,
     TCP,
     UDP,
 }
 
-// This is a 1:1 mapping of the ToxUserStatus enum in tox4j and needs to stay that way.
 enum class UserStatus {
     NONE,
     AWAY,
