@@ -87,7 +87,6 @@ class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
     fun openChat(view: View) {
         val intent = Intent(this, ChatActivity::class.java)
-        intent.putExtra("username", view.name.text)
 
         //TODO(endoffile78) figure out a better way to get the friend number
         var friendNumber = 0

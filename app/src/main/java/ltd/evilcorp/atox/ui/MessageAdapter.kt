@@ -1,6 +1,5 @@
 package ltd.evilcorp.atox.ui
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,7 @@ private fun inflateView(type: Sender, inflater: LayoutInflater): View =
         true
     )
 
-class MessagesAdapter(private val context: Context, private val messages: MutableList<MessageModel>) : BaseAdapter() {
+class MessagesAdapter(private val inflater: LayoutInflater, private val messages: MutableList<MessageModel>) : BaseAdapter() {
     override fun getCount(): Int = messages.size
     override fun getItem(position: Int): Any = messages[position]
     override fun getItemId(position: Int): Long = position.toLong()
@@ -32,8 +31,6 @@ class MessagesAdapter(private val context: Context, private val messages: Mutabl
             view = convertView
             vh = view.tag as ViewHolder
         } else {
-            val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
             view = inflateView(message.sender, inflater)
             vh = ViewHolder(view, message.sender)
             view.tag = vh
