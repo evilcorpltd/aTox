@@ -49,6 +49,8 @@ dependencies {
     kapt 'com.google.dagger:dagger-android-processor:2.23.1'
 
     // For tox4j
+    // TODO(robinlinden): Fix tox4j build so we can update the scala dependencies
+    // noinspection GradleDependency
     implementation "org.scala-lang:scala-library:2.11.12"
     implementation 'com.typesafe.scala-logging:scala-logging_2.11:3.9.2'
     implementation 'com.trueaccord.scalapb:scalapb-runtime_2.11:0.6.7'
