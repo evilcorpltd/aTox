@@ -4,4 +4,9 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorGray">#555</color>
+
+    <color name="statusOffline">@color/colorGray</color>
+    <color name="statusBusy">@android:color/holo_red_dark</color>
+    <color name="statusAway">@android:color/holo_orange_light</color>
+    <color name="statusAvailable">@android:color/holo_green_dark</color>
 </resources>

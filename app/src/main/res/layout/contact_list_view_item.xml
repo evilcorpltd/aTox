@@ -22,6 +22,26 @@
                 android:src="@mipmap/ic_launcher"
                 android:contentDescription="@string/profile_photo_description"/>
     </androidx.cardview.widget.CardView>
+    <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:translationZ="9dp"
+            android:src="@drawable/circle"
+            android:contentDescription="@null"
+            android:tint="@android:color/white"
+            app:layout_constraintRight_toRightOf="@id/imageContainer"
+            app:layout_constraintBottom_toBottomOf="@id/imageContainer"/>
+    <ImageView
+            android:id="@+id/statusIndicator"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_margin="1dp"
+            android:translationZ="10dp"
+            android:src="@drawable/circle"
+            android:contentDescription="@string/status_indicator"
+            android:tint="@color/statusOffline"
+            app:layout_constraintRight_toRightOf="@id/imageContainer"
+            app:layout_constraintBottom_toBottomOf="@id/imageContainer"/>
     <LinearLayout
             android:id="@+id/topLine"
             android:layout_width="0dp"
@@ -46,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:layout_weight=".3"
-                tools:text="28 May 2019 11:49 "/>
+                tools:text="28 May 2019 11:49"/>
     </LinearLayout>
     <TextView
             android:id="@+id/publicKey"
