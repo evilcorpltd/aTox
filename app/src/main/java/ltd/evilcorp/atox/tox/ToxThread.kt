@@ -2,6 +2,7 @@ package ltd.evilcorp.atox.tox
 
 import android.os.Handler
 import android.os.HandlerThread
+import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.Observer
 import im.tox.tox4j.core.options.ProxyOptions
@@ -25,7 +26,7 @@ class ToxThreadFactory @Inject constructor(
 class ToxThread(
     saveDestination: String,
     saveOption: SaveDataOptions,
-    contactRepository: ContactRepository,
+    private val contactRepository: ContactRepository,
     messageRepository: MessageRepository
 ) : HandlerThread("Tox") {
     companion object {
@@ -53,6 +54,8 @@ class ToxThread(
         const val msgGroupTopic = 14
         const val msgGroupInvite = 15
         const val msgGroupJoin = 16
+
+        private const val msgLoadContacts = 17
     }
 
     private val tox = Tox(
@@ -70,6 +73,33 @@ class ToxThread(
         contactRepository,
         messageRepository
     )
+
+    private fun loadContacts() {
+        for ((publicKey, friendNumber) in tox.getContacts()) {
+            if (!contactRepository.exists(publicKey)) {
+                contactRepository.addContact(Contact(publicKey, friendNumber))
+            }
+
+            Handler(Looper.getMainLooper()).post {
+                with(contactRepository.getContact(publicKey)) {
+                    val observer = object : Observer<Contact> {
+                        override fun onChanged(contact: Contact?) {
+                            this@with.removeObserver(this)
+
+                            handler.post {
+                                Log.e("tox", "contact loaded: $friendNumber")
+                                contact!!.friendNumber = friendNumber
+                                contact.connectionStatus = ConnectionStatus.NONE
+                                contact.typing = false
+                                contactRepository.updateContact(contact)
+                            }
+                        }
+                    }
+                    this.observeForever(observer)
+                }
+            }
+        }
+    }
 
     val handler: Handler by lazy {
         Handler(looper) {
@@ -112,6 +142,7 @@ class ToxThread(
                 msgGroupTopic -> Log.e("ToxThread", "Set group topic")
                 msgGroupInvite -> Log.e("ToxThread", "Invite group")
                 msgGroupJoin -> Log.e("ToxThread", "Join group")
+                msgLoadContacts -> loadContacts()
                 else -> {
                     Log.e("ToxThread", "Unknown message: ${it.what}")
                     return@Handler false
@@ -122,28 +153,9 @@ class ToxThread(
     }
 
     init {
-        for ((publicKey, friendNumber) in tox.getContacts()) {
-            if (contactRepository.exists(publicKey)) {
-                // TODO(robinlinden): This is pretty horrifying. Fix it.
-                with(contactRepository.getContact(publicKey)) {
-                    val observer = object : Observer<Contact> {
-                        override fun onChanged(contact: Contact?) {
-                            Log.e("tox", "contact loaded: $friendNumber")
-                            contact!!.friendNumber = friendNumber
-                            contact.connectionStatus = ConnectionStatus.NONE
-                            contact.typing = false
-                            this@with.removeObserver(this)
-                            contactRepository.updateContact(contact)
-                        }
-                    }
-                    this.observeForever(observer)
-                }
-            } else {
-                contactRepository.addContact(Contact(publicKey, friendNumber))
-            }
-        }
-
         start()
+        handler.sendEmptyMessage(msgLoadContacts)
+        handler.sendEmptyMessage(msgIterate)
     }
 
     override fun onLooperPrepared() {
@@ -162,7 +174,5 @@ class ToxThread(
             33445,
             "10C00EB250C3233E343E2AEBA07115A5C28920E9C8D29492F6D00B29049EDC7E".hexToByteArray()
         )
-
-        handler.sendEmptyMessage(msgIterate)
     }
 }

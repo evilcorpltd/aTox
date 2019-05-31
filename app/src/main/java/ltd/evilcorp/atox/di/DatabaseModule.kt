@@ -15,7 +15,6 @@ class DatabaseModule {
     @Provides
     fun provideDatabase(application: Application): Database {
         return Room.databaseBuilder(application, Database::class.java, "contact_db")
-            .allowMainThreadQueries()
             .fallbackToDestructiveMigration() // TODO(robinlinden): Delete this.
             .build()
     }
