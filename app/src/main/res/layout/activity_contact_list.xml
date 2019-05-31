@@ -32,7 +32,8 @@
             <ListView
                     android:id="@+id/contactList"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/contact_list_view_item"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

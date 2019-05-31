@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
@@ -16,18 +17,21 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:layout_weight=".7"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                tools:text="name goes here"/>
         <TextView
                 android:id="@+id/lastMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:layout_weight=".3"/>
+                android:layout_weight=".3"
+                tools:text="28 May 2019 11:49 "/>
     </LinearLayout>
     <TextView
             android:id="@+id/publicKey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:ellipsize="end"/>
+            android:ellipsize="end"
+            tools:text="PUBLIC KEY GOES HERE AND GOES ON AND ON AND ON AND ON"/>
 </LinearLayout>

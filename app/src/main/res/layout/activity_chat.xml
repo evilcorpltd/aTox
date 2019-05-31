@@ -30,7 +30,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintBottom_toTopOf="@+id/outgoingMessage"/>
+            app:layout_constraintBottom_toTopOf="@+id/outgoingMessage"
+            tools:listitem="@layout/message_received"/>
     <EditText
             android:id="@+id/outgoingMessage"
             android:layout_width="0dp"
