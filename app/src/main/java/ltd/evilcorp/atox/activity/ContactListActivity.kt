@@ -18,7 +18,9 @@ import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.tox.hexToByteArray
 import ltd.evilcorp.atox.ui.ContactAdapter
+import ltd.evilcorp.atox.vo.ConnectionStatus
 import ltd.evilcorp.atox.vo.Contact
+import ltd.evilcorp.atox.vo.UserStatus
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -71,7 +73,16 @@ class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
                         "${Random.nextInt(9)}" +
                         "${Random.nextInt(9)}" +
                         "8406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6").hexToByteArray()
-                val contact = Contact(pubKey, -1, "new EchoBot ${Random.nextInt(-1000, 1000)}")
+                val contact = Contact(
+                    pubKey,
+                    -1,
+                    "new EchoBot ${Random.nextInt(-1000, 1000)}",
+                    Random.nextBytes(12).toString(),
+                    "Never",
+                    UserStatus.values().random(),
+                    ConnectionStatus.values().random(),
+                    Random.nextInt() % 2 == 0
+                )
                 contactRepository.addContact(contact)
             }
             R.id.settings -> {
