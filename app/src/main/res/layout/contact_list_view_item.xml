@@ -28,6 +28,6 @@
             android:id="@+id/publicKey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="1"
+            android:singleLine="true"
             android:ellipsize="end"/>
 </LinearLayout>
