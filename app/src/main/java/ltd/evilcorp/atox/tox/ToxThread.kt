@@ -130,6 +130,7 @@ class ToxThread(
                             Log.e("tox", "contact loaded: $friendNumber")
                             contact!!.friendNumber = friendNumber
                             this@with.removeObserver(this)
+                            contactRepository.updateContact(contact)
                         }
                     }
                     this.observeForever(observer)

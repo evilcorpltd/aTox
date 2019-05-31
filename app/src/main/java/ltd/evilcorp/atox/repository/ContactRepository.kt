@@ -18,6 +18,10 @@ class ContactRepository @Inject constructor(
         contactDao.save(contact)
     }
 
+    fun updateContact(contact: Contact) {
+        contactDao.update(contact)
+    }
+
     fun getContact(publicKey: ByteArray): LiveData<Contact> {
         return contactDao.load(publicKey)
     }
