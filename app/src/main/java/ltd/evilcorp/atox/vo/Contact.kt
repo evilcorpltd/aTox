@@ -17,7 +17,6 @@ enum class UserStatus {
     BUSY,
 }
 
-// TODO(robinlinden): The transient data either needs to be fixed on save or load or it needs to live in a separate in-memory database.
 @Entity(tableName = "contacts")
 data class Contact(
     @PrimaryKey

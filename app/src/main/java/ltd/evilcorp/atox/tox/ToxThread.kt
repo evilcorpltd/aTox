@@ -9,6 +9,7 @@ import im.tox.tox4j.core.options.SaveDataOptions
 import im.tox.tox4j.core.options.ToxOptions
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.repository.MessageRepository
+import ltd.evilcorp.atox.vo.ConnectionStatus
 import ltd.evilcorp.atox.vo.Contact
 import javax.inject.Inject
 
@@ -129,6 +130,8 @@ class ToxThread(
                         override fun onChanged(contact: Contact?) {
                             Log.e("tox", "contact loaded: $friendNumber")
                             contact!!.friendNumber = friendNumber
+                            contact.connectionStatus = ConnectionStatus.NONE
+                            contact.typing = false
                             this@with.removeObserver(this)
                             contactRepository.updateContact(contact)
                         }
