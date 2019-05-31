@@ -36,7 +36,13 @@ class ContactAdapter(
 
     init {
         contactRepository.getContacts().observe(lifecycleOwner, Observer {
-            contacts = it
+            contacts = it.sortedWith(
+                compareBy(
+                    { contact -> contact.connectionStatus == ConnectionStatus.NONE },
+                    Contact::lastMessage,
+                    Contact::status
+                )
+            )
             notifyDataSetChanged()
         })
     }
