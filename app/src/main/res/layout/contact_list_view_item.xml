@@ -1,16 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:padding="10dp"
-              android:onClick="openChat">
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:onClick="openChat">
+    <androidx.cardview.widget.CardView
+            android:id="@+id/imageContainer"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:cardCornerRadius="19dp"
+            app:cardPreventCornerOverlap="false">
+        <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_launcher"
+                android:contentDescription="@string/profile_photo_description"/>
+    </androidx.cardview.widget.CardView>
     <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/topLine"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:orientation="horizontal"
-            android:weightSum="1">
+            android:weightSum="1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/imageContainer"
+            app:layout_constraintRight_toRightOf="parent">
         <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
@@ -29,9 +50,13 @@
     </LinearLayout>
     <TextView
             android:id="@+id/publicKey"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:singleLine="true"
             android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/topLine"
+            app:layout_constraintLeft_toRightOf="@id/imageContainer"
+            app:layout_constraintRight_toRightOf="parent"
             tools:text="PUBLIC KEY GOES HERE AND GOES ON AND ON AND ON AND ON"/>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
