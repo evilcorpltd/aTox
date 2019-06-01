@@ -2,34 +2,13 @@ package ltd.evilcorp.atox.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import ltd.evilcorp.atox.vo.ConnectionStatus
 import ltd.evilcorp.atox.vo.Contact
-import ltd.evilcorp.atox.vo.UserStatus
+import ltd.evilcorp.atox.vo.Message
 
-private class Converters {
-    companion object {
-        @TypeConverter
-        @JvmStatic
-        fun toStatus(status: Int): UserStatus = UserStatus.values()[status]
-
-        @TypeConverter
-        @JvmStatic
-        fun fromStatus(status: UserStatus): Int = status.ordinal
-
-        @TypeConverter
-        @JvmStatic
-        fun toConnection(connection: Int): ConnectionStatus = ConnectionStatus.values()[connection]
-
-        @TypeConverter
-        @JvmStatic
-        fun fromConnection(connection: ConnectionStatus): Int = connection.ordinal
-    }
-}
-
-@Database(entities = [Contact::class], version = 1, exportSchema = false)
+@Database(entities = [Contact::class, Message::class], version = 2, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class Database : RoomDatabase() {
     abstract fun contactDao(): ContactDao
+    abstract fun messageDao(): MessageDao
 }

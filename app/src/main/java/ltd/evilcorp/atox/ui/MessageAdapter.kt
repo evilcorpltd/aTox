@@ -16,7 +16,9 @@ private fun inflateView(type: Sender, inflater: LayoutInflater): View =
         true
     )
 
-class MessagesAdapter(private val inflater: LayoutInflater, private val messages: MutableList<Message>) : BaseAdapter() {
+class MessagesAdapter(private val inflater: LayoutInflater) : BaseAdapter() {
+    var messages: List<Message> = ArrayList()
+
     override fun getCount(): Int = messages.size
     override fun getItem(position: Int): Any = messages[position]
     override fun getItemId(position: Int): Long = position.toLong()

@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import ltd.evilcorp.atox.db.ContactDao
 import ltd.evilcorp.atox.db.Database
+import ltd.evilcorp.atox.db.MessageDao
 import javax.inject.Singleton
 
 @Module
@@ -21,7 +22,13 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideDao(db: Database): ContactDao {
+    fun provideContactDao(db: Database): ContactDao {
         return db.contactDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideMessageDao(db: Database): MessageDao {
+        return db.messageDao()
     }
 }

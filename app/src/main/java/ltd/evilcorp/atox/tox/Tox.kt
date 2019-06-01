@@ -5,11 +5,12 @@ import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.options.ToxOptions
 import im.tox.tox4j.impl.jni.ToxCoreImpl
 import ltd.evilcorp.atox.repository.ContactRepository
+import ltd.evilcorp.atox.repository.MessageRepository
 import java.io.File
 
-class Tox(options: ToxOptions, contactRepository: ContactRepository) {
+class Tox(options: ToxOptions, contactRepository: ContactRepository, messageRepository: MessageRepository) {
     private val tox: ToxCoreImpl = ToxCoreImpl(options)
-    private val eventListener = ToxEventListener(contactRepository)
+    private val eventListener = ToxEventListener(contactRepository, messageRepository)
 
     fun bootstrap(address: String, port: Int, publicKey: ByteArray) {
         tox.bootstrap(address, port, publicKey)

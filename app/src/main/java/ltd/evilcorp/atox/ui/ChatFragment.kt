@@ -13,15 +13,23 @@ import kotlinx.android.synthetic.main.chat_fragment.view.*
 import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.repository.ContactRepository
+import ltd.evilcorp.atox.repository.MessageRepository
 import ltd.evilcorp.atox.tox.ToxThread
 import ltd.evilcorp.atox.vo.ConnectionStatus
 import ltd.evilcorp.atox.vo.Message
 import ltd.evilcorp.atox.vo.Sender
 
-class ChatFragment(val friendNumber: Int, val contactRepository: ContactRepository) : Fragment() {
+class ChatFragment(
+    private val publicKey: ByteArray,
+    private val contactRepository: ContactRepository,
+    private val messageRepository: MessageRepository
+) : Fragment() {
     companion object {
-        fun newInstance(friendNumber: Int, contactRepository: ContactRepository) =
-            ChatFragment(friendNumber, contactRepository)
+        fun newInstance(
+            publicKey: ByteArray,
+            contactRepository: ContactRepository,
+            messageRepository: MessageRepository
+        ): Fragment = ChatFragment(publicKey, contactRepository, messageRepository)
     }
 
     private lateinit var viewModel: ChatViewModel
@@ -35,15 +43,20 @@ class ChatFragment(val friendNumber: Int, val contactRepository: ContactReposito
     ): View {
         val layout = inflater.inflate(R.layout.chat_fragment, container, false)
 
-        viewModel = ChatViewModel(friendNumber, contactRepository)
+        viewModel = ChatViewModel(publicKey, contactRepository, messageRepository)
         viewModel.contact.observe(this, Observer {
             layout.toolbar.title = it.name
             contactOnline = it.connectionStatus != ConnectionStatus.NONE
             updateSendButton(layout)
         })
 
-        val adapter = MessagesAdapter(inflater, viewModel.messages)
+        val adapter = MessagesAdapter(inflater)
         layout.messages.adapter = adapter
+
+        viewModel.messages.observe(this, Observer {
+            adapter.messages = it
+            adapter.notifyDataSetChanged()
+        })
 
         layout.send.setOnClickListener {
             with(App.toxThread.handler) {
@@ -57,7 +70,9 @@ class ChatFragment(val friendNumber: Int, val contactRepository: ContactReposito
                 )
             }
 
-            viewModel.messages.add(Message(layout.outgoingMessage.text.toString(), Sender.Sent))
+            messageRepository.add(
+                Message(viewModel.contact.value!!.publicKey, layout.outgoingMessage.text.toString(), Sender.Sent)
+            )
             adapter.notifyDataSetChanged()
             layout.outgoingMessage.text.clear()
         }

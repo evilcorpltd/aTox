@@ -98,17 +98,7 @@ class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
     fun openChat(view: View) {
         val intent = Intent(this, ChatActivity::class.java)
-
-        //TODO(endoffile78) figure out a better way to get the friend number
-        var friendNumber = 0
-        contacts.forEach {
-            if (it.name == view.name.text) {
-                friendNumber = it.friendNumber
-                return@forEach
-            }
-        }
-
-        intent.putExtra("friendNumber", friendNumber)
+        intent.putExtra("publicKey", view.publicKey.text.toString().hexToByteArray())
         startActivity(intent)
     }
 }

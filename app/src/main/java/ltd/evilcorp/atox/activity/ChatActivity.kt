@@ -5,12 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import dagger.android.AndroidInjection
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.repository.ContactRepository
+import ltd.evilcorp.atox.repository.MessageRepository
 import ltd.evilcorp.atox.ui.ChatFragment
 import javax.inject.Inject
 
 class ChatActivity : AppCompatActivity() {
     @Inject
     lateinit var contactRepository: ContactRepository
+
+    @Inject
+    lateinit var messageRepository: MessageRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -21,7 +25,11 @@ class ChatActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(
                     R.id.container,
-                    ChatFragment.newInstance(intent.getIntExtra("friendNumber", -1), contactRepository)
+                    ChatFragment.newInstance(
+                        intent.getByteArrayExtra("publicKey"),
+                        contactRepository,
+                        messageRepository
+                    )
                 )
                 .commitNow()
         }

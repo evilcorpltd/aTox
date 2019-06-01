@@ -8,19 +8,24 @@ import im.tox.tox4j.core.options.ProxyOptions
 import im.tox.tox4j.core.options.SaveDataOptions
 import im.tox.tox4j.core.options.ToxOptions
 import ltd.evilcorp.atox.repository.ContactRepository
+import ltd.evilcorp.atox.repository.MessageRepository
 import ltd.evilcorp.atox.vo.Contact
 import javax.inject.Inject
 
-class ToxThreadFactory @Inject constructor(private val contactRepository: ContactRepository) {
+class ToxThreadFactory @Inject constructor(
+    private val contactRepository: ContactRepository,
+    private val messageRepository: MessageRepository
+) {
     fun create(saveDestination: String, saveOption: SaveDataOptions): ToxThread {
-        return ToxThread(saveDestination, saveOption, contactRepository)
+        return ToxThread(saveDestination, saveOption, contactRepository, messageRepository)
     }
 }
 
 class ToxThread(
     saveDestination: String,
     saveOption: SaveDataOptions,
-    contactRepository: ContactRepository
+    contactRepository: ContactRepository,
+    messageRepository: MessageRepository
 ) : HandlerThread("Tox") {
     companion object {
         // Tox
@@ -61,7 +66,8 @@ class ToxThread(
             saveOption,
             true
         ),
-        contactRepository
+        contactRepository,
+        messageRepository
     )
 
     val handler: Handler by lazy {
