@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.vo.MessageModel
+import ltd.evilcorp.atox.vo.Message
 import ltd.evilcorp.atox.vo.Sender
 
 private fun inflateView(type: Sender, inflater: LayoutInflater): View =
@@ -16,7 +16,7 @@ private fun inflateView(type: Sender, inflater: LayoutInflater): View =
         true
     )
 
-class MessagesAdapter(private val inflater: LayoutInflater, private val messages: MutableList<MessageModel>) : BaseAdapter() {
+class MessagesAdapter(private val inflater: LayoutInflater, private val messages: MutableList<Message>) : BaseAdapter() {
     override fun getCount(): Int = messages.size
     override fun getItem(position: Int): Any = messages[position]
     override fun getItemId(position: Int): Long = position.toLong()

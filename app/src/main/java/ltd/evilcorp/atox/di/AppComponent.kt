@@ -7,5 +7,5 @@ import ltd.evilcorp.atox.App
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AndroidInjectionModule::class, ApplicationModule::class, ActivityModule::class, ContactModule::class])
+@Component(modules = [AndroidInjectionModule::class, ApplicationModule::class, ActivityModule::class, DatabaseModule::class])
 interface AppComponent : AndroidInjector<App>

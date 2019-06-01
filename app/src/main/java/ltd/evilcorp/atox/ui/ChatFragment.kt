@@ -15,7 +15,7 @@ import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.tox.ToxThread
 import ltd.evilcorp.atox.vo.ConnectionStatus
-import ltd.evilcorp.atox.vo.MessageModel
+import ltd.evilcorp.atox.vo.Message
 import ltd.evilcorp.atox.vo.Sender
 
 class ChatFragment(val friendNumber: Int, val contactRepository: ContactRepository) : Fragment() {
@@ -57,7 +57,7 @@ class ChatFragment(val friendNumber: Int, val contactRepository: ContactReposito
                 )
             }
 
-            viewModel.messages.add(MessageModel(layout.outgoingMessage.text.toString(), Sender.Sent))
+            viewModel.messages.add(Message(layout.outgoingMessage.text.toString(), Sender.Sent))
             adapter.notifyDataSetChanged()
             layout.outgoingMessage.text.clear()
         }

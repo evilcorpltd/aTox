@@ -5,4 +5,4 @@ enum class Sender {
     Received,
 }
 
-class MessageModel(val message: String, val sender: Sender)
+class Message(val message: String, val sender: Sender)
