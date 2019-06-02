@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.chat_fragment.*
 import kotlinx.android.synthetic.main.chat_fragment.view.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.repository.ContactRepository
@@ -70,11 +72,14 @@ class ChatFragment(
                 )
             }
 
-            messageRepository.add(
-                Message(viewModel.contact.value!!.publicKey, layout.outgoingMessage.text.toString(), Sender.Sent)
-            )
-            adapter.notifyDataSetChanged()
+            val message = layout.outgoingMessage.text.toString()
             layout.outgoingMessage.text.clear()
+
+            GlobalScope.launch {
+                messageRepository.add(
+                    Message(viewModel.contact.value!!.publicKey, message, Sender.Sent)
+                )
+            }
         }
         layout.send.isEnabled = false
 

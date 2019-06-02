@@ -13,6 +13,8 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_contact_list.*
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 import kotlinx.android.synthetic.main.nav_header_contact_list.view.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.repository.ContactRepository
@@ -67,23 +69,25 @@ class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
                 startActivity(Intent(this, AddContactActivity::class.java))
             }
             R.id.add_echobot -> {
-                val pubKey =
-                    ("${Random.nextInt(9)}" +
-                        "${Random.nextInt(9)}" +
-                        "${Random.nextInt(9)}" +
-                        "${Random.nextInt(9)}" +
-                        "8406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6").hexToByteArray()
-                val contact = Contact(
-                    pubKey,
-                    -1,
-                    "new EchoBot ${Random.nextInt(-1000, 1000)}",
-                    Random.nextBytes(12).toString(),
-                    "Never",
-                    UserStatus.values().random(),
-                    ConnectionStatus.values().random(),
-                    Random.nextInt() % 2 == 0
-                )
-                contactRepository.addContact(contact)
+                GlobalScope.launch {
+                    val pubKey =
+                        ("${Random.nextInt(9)}" +
+                            "${Random.nextInt(9)}" +
+                            "${Random.nextInt(9)}" +
+                            "${Random.nextInt(9)}" +
+                            "8406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39218F515C39A6").hexToByteArray()
+                    val contact = Contact(
+                        pubKey,
+                        -1,
+                        "new EchoBot ${Random.nextInt(-1000, 1000)}",
+                        Random.nextBytes(12).toString(),
+                        "Never",
+                        UserStatus.values().random(),
+                        ConnectionStatus.values().random(),
+                        Random.nextInt() % 2 == 0
+                    )
+                    contactRepository.addContact(contact)
+                }
             }
             R.id.settings -> {
                 // TODO(robinlinden): Settings activity
