@@ -92,9 +92,6 @@ class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
             R.id.settings -> {
                 // TODO(robinlinden): Settings activity
             }
-            R.id.destroy_everything -> {
-                finishAffinity()
-            }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true

@@ -11,8 +11,5 @@
                 android:id="@+id/settings"
                 android:icon="@drawable/settings"
                 android:title="@string/settings"/>
-        <item
-                android:id="@+id/destroy_everything"
-                android:title="Destroy everything"/>
     </group>
 </menu>
