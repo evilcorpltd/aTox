@@ -54,6 +54,18 @@ class ChatFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, vmFactory).get(ChatViewModel::class.java)
         viewModel.publicKey = arguments!!.getByteArray("publicKey")!!
 
+        activity!!.apply {
+            setActionBar(layout.toolbar)
+            actionBar!!.apply {
+                setDisplayShowTitleEnabled(false)
+                setDisplayHomeAsUpEnabled(true)
+            }
+
+            layout.toolbar.setNavigationOnClickListener {
+                activity?.onBackPressed()
+            }
+        }
+
         viewModel.contact.observe(this, Observer {
             layout.title.text = it.name
             layout.statusIndicator.setColorFilter(colorByStatus(resources, it))

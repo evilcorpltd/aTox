@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activity.ChatActivity">
-    <androidx.appcompat.widget.Toolbar
+    <android.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -14,7 +14,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@color/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:navigationIcon="?attr/homeAsUpIndicator">
             <include layout="@layout/profile_image_layout"/>
             <TextView
                     android:id="@+id/title"
@@ -24,7 +25,7 @@
                     android:paddingEnd="10dp"
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                     tools:text="Subject name here"/>
-    </androidx.appcompat.widget.Toolbar>
+    </android.widget.Toolbar>
     <ListView
             android:id="@+id/messages"
             android:layout_width="0dp"
