@@ -8,8 +8,7 @@ import ltd.evilcorp.atox.tox.toConnectionStatus
 import ltd.evilcorp.atox.tox.toUserStatus
 import ltd.evilcorp.atox.vo.ConnectionStatus
 import ltd.evilcorp.atox.vo.UserStatus
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
+import org.junit.Assert.*
 import org.junit.Test
 
 private fun byteArrayOf(vararg bytes: Int) = ByteArray(bytes.size) { bytes[it].toByte() }
@@ -60,5 +59,11 @@ class ToxUtilTest {
         val anotherKeyString = "7B6704162C6532A5A8F0840A3680672D0E9D3E62B6419FFD88D9880669482169"
         assertEquals(anotherKeyString, anotherKeyString.hexToByteArray().byteArrayToHex().toUpperCase())
         assertNotEquals(anotherKeyString.hexToByteArray(), keyString.hexToByteArray())
+    }
+
+    @Test
+    fun casing_of_public_keys_does_not_matter() {
+        val keyString = "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39"
+        assertArrayEquals(keyString.toUpperCase().hexToByteArray(), keyString.toLowerCase().hexToByteArray())
     }
 }
