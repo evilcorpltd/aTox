@@ -133,8 +133,8 @@ class ToxThread(
                 msgDeleteContact -> Log.e("ToxThread", "Delete contact")
                 msgAcceptContact -> Log.e("ToxThread", "Accept contact request")
                 msgSendMsg -> {
-                    Log.e("ToxThread", "Sending message to friend number: ${it.arg1}")
-                    tox.sendMessage(it.arg1, it.obj.toString())
+                    val data = it.obj as MsgSendMessage
+                    tox.sendMessage(data.publicKey, data.message)
                 }
                 msgGroupCreate -> Log.e("ToxThread", "Create group")
                 msgGroupLeave -> Log.e("ToxThread", "Leave group")

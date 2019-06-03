@@ -10,16 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.chat_fragment.*
 import kotlinx.android.synthetic.main.chat_fragment.view.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.repository.MessageRepository
-import ltd.evilcorp.atox.tox.ToxThread
 import ltd.evilcorp.atox.vo.ConnectionStatus
-import ltd.evilcorp.atox.vo.Message
-import ltd.evilcorp.atox.vo.Sender
 
 class ChatFragment(
     private val publicKey: ByteArray,
@@ -61,26 +55,11 @@ class ChatFragment(
         })
 
         layout.send.setOnClickListener {
-            with(App.toxThread.handler) {
-                sendMessage(
-                    obtainMessage(
-                        ToxThread.msgSendMsg,
-                        viewModel.contact.value!!.friendNumber,
-                        0,
-                        layout.outgoingMessage.text.toString()
-                    )
-                )
-            }
-
             val message = layout.outgoingMessage.text.toString()
             layout.outgoingMessage.text.clear()
-
-            GlobalScope.launch {
-                messageRepository.add(
-                    Message(viewModel.contact.value!!.publicKey, message, Sender.Sent)
-                )
-            }
+            viewModel.sendMessage(message)
         }
+
         layout.send.isEnabled = false
 
         layout.outgoingMessage.addTextChangedListener(object : TextWatcher {

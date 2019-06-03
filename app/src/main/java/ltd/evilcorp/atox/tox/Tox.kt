@@ -45,8 +45,13 @@ class Tox(options: ToxOptions, contactRepository: ContactRepository, messageRepo
         }
     }
 
-    fun sendMessage(friendNumber: Int, message: String): Int {
-        return tox.friendSendMessage(friendNumber, ToxMessageType.NORMAL, 0, message.toByteArray())
+    fun sendMessage(publicKey: String, message: String): Int {
+        return tox.friendSendMessage(
+            tox.friendByPublicKey(publicKey.hexToByteArray()),
+            ToxMessageType.NORMAL,
+            0,
+            message.toByteArray()
+        )
     }
 
     fun save(destination: String) {
