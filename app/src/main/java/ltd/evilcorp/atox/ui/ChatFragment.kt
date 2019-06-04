@@ -1,19 +1,33 @@
 package ltd.evilcorp.atox.ui
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.chat_fragment.*
 import kotlinx.android.synthetic.main.chat_fragment.view.*
+import kotlinx.android.synthetic.main.profile_image_layout.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.repository.MessageRepository
 import ltd.evilcorp.atox.vo.ConnectionStatus
+import ltd.evilcorp.atox.vo.Contact
+import ltd.evilcorp.atox.vo.UserStatus
+
+private fun colorByStatus(resources: Resources, contact: Contact): Int {
+    if (contact.connectionStatus == ConnectionStatus.NONE) return getColor(resources, R.color.statusOffline, null)
+    return when (contact.status) {
+        UserStatus.NONE -> getColor(resources, R.color.statusAvailable, null)
+        UserStatus.AWAY -> getColor(resources, R.color.statusAway, null)
+        UserStatus.BUSY -> getColor(resources, R.color.statusBusy, null)
+    }
+}
 
 class ChatFragment(
     private val publicKey: ByteArray,
@@ -41,7 +55,8 @@ class ChatFragment(
 
         viewModel = ChatViewModel(publicKey, contactRepository, messageRepository)
         viewModel.contact.observe(this, Observer {
-            layout.toolbar.title = it.name
+            layout.title.text = it.name
+            layout.statusIndicator.setColorFilter(colorByStatus(resources, it))
             contactOnline = it.connectionStatus != ConnectionStatus.NONE
             updateSendButton(layout)
         })

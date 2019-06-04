@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
+import kotlinx.android.synthetic.main.profile_image_layout.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.tox.byteArrayToHex
