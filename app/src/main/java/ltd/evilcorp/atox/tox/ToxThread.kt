@@ -127,8 +127,9 @@ class ToxThread(
                 msgAddContact -> {
                     val addContact = it.obj as MsgAddContact
                     Log.e("ToxThread", "AddContact: ${addContact.toxId} ${addContact.message}")
-                    tox.addContact(addContact.toxId, addContact.message)
+                    val friendNumber = tox.addContact(addContact.toxId, addContact.message)
                     handler.sendEmptyMessage(msgSave)
+                    contactRepository.addContact(Contact(addContact.toxId.dropLast(12).hexToByteArray(), friendNumber))
                 }
                 msgDeleteContact -> Log.e("ToxThread", "Delete contact")
                 msgAcceptContact -> Log.e("ToxThread", "Accept contact request")
