@@ -6,6 +6,7 @@
     <string name="app_name">aTox</string>
     <string name="create">Create</string>
     <string name="create_a_tox_profile">Create a Tox profile</string>
+    <string name="delete_contact">Delete contact</string>
     <string name="message">Message</string>
     <string name="name">Name</string>
     <string name="name_default">aTox user</string>

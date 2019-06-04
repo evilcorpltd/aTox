@@ -12,6 +12,9 @@ interface ContactDao {
     @Update
     fun update(contact: Contact)
 
+    @Delete
+    fun delete(contact: Contact)
+
     @Query("SELECT COUNT(*) FROM contacts WHERE public_key = :publicKey")
     fun exists(publicKey: ByteArray): Boolean
 

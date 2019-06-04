@@ -22,6 +22,10 @@ class ContactRepository @Inject constructor(
         contactDao.update(contact)
     }
 
+    fun deleteContact(contact: Contact) {
+        contactDao.delete(contact)
+    }
+
     fun getContact(publicKey: ByteArray): LiveData<Contact> {
         return contactDao.load(publicKey)
     }

@@ -36,6 +36,12 @@ class Tox(options: ToxOptions, contactRepository: ContactRepository, messageRepo
         return tox.addFriend(toxId.hexToByteArray(), message.toByteArray())
     }
 
+    fun deleteContact(publicKey: String) {
+        Log.e("Tox", "Deleting $publicKey")
+        val friend = tox.friendList.find { tox.getFriendPublicKey(it).byteArrayToHex() == publicKey }
+        tox.deleteFriend(friend!!)
+    }
+
     fun getContacts(): List<Pair<ByteArray, Int>> {
         val friendNumbers = tox.friendList
         Log.e("Tox", "Loading ${friendNumbers.size} friends")

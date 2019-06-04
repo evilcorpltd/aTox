@@ -131,7 +131,12 @@ class ToxThread(
                     handler.sendEmptyMessage(msgSave)
                     contactRepository.addContact(Contact(addContact.toxId.dropLast(12).hexToByteArray(), friendNumber))
                 }
-                msgDeleteContact -> Log.e("ToxThread", "Delete contact")
+                msgDeleteContact -> {
+                    val publicKey = it.obj as String
+                    tox.deleteContact(publicKey)
+                    contactRepository.deleteContact(Contact(publicKey.hexToByteArray()))
+                    handler.sendEmptyMessage(msgSave)
+                }
                 msgAcceptContact -> Log.e("ToxThread", "Accept contact request")
                 msgSendMsg -> {
                     val data = it.obj as MsgSendMessage

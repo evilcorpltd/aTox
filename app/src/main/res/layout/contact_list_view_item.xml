@@ -6,7 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:onClick="openChat">
+        android:onClick="openChat"
+        android:longClickable="true">
     <include layout="@layout/profile_image_layout"/>
     <LinearLayout
             android:id="@+id/topLine"
