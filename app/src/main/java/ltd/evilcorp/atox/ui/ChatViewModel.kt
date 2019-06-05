@@ -13,14 +13,16 @@ import ltd.evilcorp.atox.tox.byteArrayToHex
 import ltd.evilcorp.atox.vo.Contact
 import ltd.evilcorp.atox.vo.Message
 import ltd.evilcorp.atox.vo.Sender
+import javax.inject.Inject
 
-class ChatViewModel(
-    private val publicKey: ByteArray,
-    contactRepository: ContactRepository,
+class ChatViewModel @Inject constructor(
+    private val contactRepository: ContactRepository,
     private val messageRepository: MessageRepository
 ) : ViewModel() {
-    val contact: LiveData<Contact> = contactRepository.get(publicKey)
-    val messages: LiveData<List<Message>> = messageRepository.get(publicKey)
+    lateinit var publicKey: ByteArray
+
+    val contact: LiveData<Contact> by lazy { contactRepository.get(publicKey) }
+    val messages: LiveData<List<Message>> by lazy { messageRepository.get(publicKey) }
 
     fun sendMessage(message: String) {
         with(App.toxThread.handler) {

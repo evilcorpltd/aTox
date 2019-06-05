@@ -10,12 +10,12 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.chat_fragment.*
 import kotlinx.android.synthetic.main.chat_fragment.view.*
 import kotlinx.android.synthetic.main.profile_image_layout.view.*
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.repository.ContactRepository
-import ltd.evilcorp.atox.repository.MessageRepository
+import ltd.evilcorp.atox.di.ViewModelFactory
 import ltd.evilcorp.atox.vo.ConnectionStatus
 import ltd.evilcorp.atox.vo.Contact
 import ltd.evilcorp.atox.vo.UserStatus
@@ -29,17 +29,10 @@ private fun colorByStatus(resources: Resources, contact: Contact): Int {
     }
 }
 
-class ChatFragment(
-    private val publicKey: ByteArray,
-    private val contactRepository: ContactRepository,
-    private val messageRepository: MessageRepository
-) : Fragment() {
+class ChatFragment(private val publicKey: ByteArray, private val vmFactory: ViewModelFactory) : Fragment() {
     companion object {
-        fun newInstance(
-            publicKey: ByteArray,
-            contactRepository: ContactRepository,
-            messageRepository: MessageRepository
-        ): Fragment = ChatFragment(publicKey, contactRepository, messageRepository)
+        fun newInstance(publicKey: ByteArray, vmFactory: ViewModelFactory): Fragment =
+            ChatFragment(publicKey, vmFactory)
     }
 
     private lateinit var viewModel: ChatViewModel
@@ -53,7 +46,9 @@ class ChatFragment(
     ): View {
         val layout = inflater.inflate(R.layout.chat_fragment, container, false)
 
-        viewModel = ChatViewModel(publicKey, contactRepository, messageRepository)
+        viewModel = ViewModelProviders.of(this, vmFactory).get(ChatViewModel::class.java)
+        viewModel.publicKey = publicKey
+
         viewModel.contact.observe(this, Observer {
             layout.title.text = it.name
             layout.statusIndicator.setColorFilter(colorByStatus(resources, it))
