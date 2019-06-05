@@ -19,7 +19,7 @@ class ChatViewModel(
     contactRepository: ContactRepository,
     private val messageRepository: MessageRepository
 ) : ViewModel() {
-    val contact: LiveData<Contact> = contactRepository.getContact(publicKey)
+    val contact: LiveData<Contact> = contactRepository.get(publicKey)
     val messages: LiveData<List<Message>> = messageRepository.get(publicKey)
 
     fun sendMessage(message: String) {

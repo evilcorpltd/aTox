@@ -7,13 +7,11 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView.AdapterContextMenuInfo
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_add_contact.view.*
 import kotlinx.android.synthetic.main.activity_contact_list.*
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 import kotlinx.android.synthetic.main.nav_header_contact_list.view.*
@@ -116,7 +114,7 @@ class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
                         ConnectionStatus.values().random(),
                         Random.nextInt() % 2 == 0
                     )
-                    contactRepository.addContact(contact)
+                    contactRepository.add(contact)
                 }
             }
             R.id.settings -> {

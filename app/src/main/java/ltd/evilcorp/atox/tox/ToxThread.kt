@@ -77,11 +77,11 @@ class ToxThread(
     private fun loadContacts() {
         for ((publicKey, friendNumber) in tox.getContacts()) {
             if (!contactRepository.exists(publicKey)) {
-                contactRepository.addContact(Contact(publicKey, friendNumber))
+                contactRepository.add(Contact(publicKey, friendNumber))
             }
 
             Handler(Looper.getMainLooper()).post {
-                with(contactRepository.getContact(publicKey)) {
+                with(contactRepository.get(publicKey)) {
                     val observer = object : Observer<Contact> {
                         override fun onChanged(contact: Contact?) {
                             this@with.removeObserver(this)
@@ -91,7 +91,7 @@ class ToxThread(
                                 contact!!.friendNumber = friendNumber
                                 contact.connectionStatus = ConnectionStatus.NONE
                                 contact.typing = false
-                                contactRepository.updateContact(contact)
+                                contactRepository.update(contact)
                             }
                         }
                     }
@@ -129,12 +129,12 @@ class ToxThread(
                     Log.e("ToxThread", "AddContact: ${addContact.toxId} ${addContact.message}")
                     val friendNumber = tox.addContact(addContact.toxId, addContact.message)
                     handler.sendEmptyMessage(msgSave)
-                    contactRepository.addContact(Contact(addContact.toxId.dropLast(12).hexToByteArray(), friendNumber))
+                    contactRepository.add(Contact(addContact.toxId.dropLast(12).hexToByteArray(), friendNumber))
                 }
                 msgDeleteContact -> {
                     val publicKey = it.obj as String
                     tox.deleteContact(publicKey)
-                    contactRepository.deleteContact(Contact(publicKey.hexToByteArray()))
+                    contactRepository.delete(Contact(publicKey.hexToByteArray()))
                     handler.sendEmptyMessage(msgSave)
                 }
                 msgAcceptContact -> Log.e("ToxThread", "Accept contact request")

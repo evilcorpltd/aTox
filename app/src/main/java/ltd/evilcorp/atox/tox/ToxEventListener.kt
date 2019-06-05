@@ -21,7 +21,7 @@ class ToxEventListener(
     private var contacts: List<Contact> = ArrayList()
 
     init {
-        contactRepository.getContacts().observeForever {
+        contactRepository.getAll().observeForever {
             contacts = it
         }
     }
@@ -41,7 +41,7 @@ class ToxEventListener(
     override fun friendStatusMessage(friendNumber: Int, message: ByteArray, state: Int?): Int {
         with(contactByFriendNumber(friendNumber)) {
             this.statusMessage = String(message)
-            contactRepository.addContact(this)
+            contactRepository.add(this)
         }
 
         return Log.e("ToxCore", "friendStatusMessage")
@@ -54,7 +54,7 @@ class ToxEventListener(
     override fun friendStatus(friendNumber: Int, status: ToxUserStatus, state: Int?): Int {
         with(contactByFriendNumber(friendNumber)) {
             this.status = status.toUserStatus()
-            contactRepository.addContact(this)
+            contactRepository.add(this)
         }
 
         return Log.e("ToxCore", "friendStatus")
@@ -63,7 +63,7 @@ class ToxEventListener(
     override fun friendConnectionStatus(friendNumber: Int, connectionStatus: ToxConnection, state: Int?): Int {
         with(contactByFriendNumber(friendNumber)) {
             this.connectionStatus = connectionStatus.toConnectionStatus()
-            contactRepository.addContact(this)
+            contactRepository.add(this)
         }
 
         return Log.e("ToxCore", "friendConnectionStatus")
@@ -82,7 +82,7 @@ class ToxEventListener(
     ): Int {
         with(contactByFriendNumber(friendNumber)) {
             lastMessage = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date())
-            contactRepository.addContact(this)
+            contactRepository.add(this)
 
             messageRepository.add(Message(this.publicKey, String(message), Sender.Received))
         }
@@ -93,7 +93,7 @@ class ToxEventListener(
     override fun friendName(friendNumber: Int, name: ByteArray, state: Int?): Int {
         with(contactByFriendNumber(friendNumber)) {
             this.name = String(name)
-            contactRepository.addContact(this)
+            contactRepository.add(this)
         }
 
         return Log.e("ToxCore", "friendName")
@@ -125,7 +125,7 @@ class ToxEventListener(
     override fun friendTyping(friendNumber: Int, isTyping: Boolean, state: Int?): Int {
         with(contactByFriendNumber(friendNumber)) {
             typing = isTyping
-            contactRepository.addContact(this)
+            contactRepository.add(this)
         }
 
         return Log.e("ToxCore", "friendTyping")

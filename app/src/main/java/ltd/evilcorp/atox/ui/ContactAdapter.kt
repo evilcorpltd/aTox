@@ -36,7 +36,7 @@ class ContactAdapter(
     private var contacts: List<Contact> = ArrayList()
 
     init {
-        contactRepository.getContacts().observe(lifecycleOwner, Observer {
+        contactRepository.getAll().observe(lifecycleOwner, Observer {
             contacts = it.sortedWith(
                 compareBy(
                     { contact -> contact.connectionStatus == ConnectionStatus.NONE },

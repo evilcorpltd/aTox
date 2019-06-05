@@ -14,27 +14,27 @@ class ContactRepository @Inject constructor(
         return contactDao.exists(publicKey)
     }
 
-    fun addContact(contact: Contact) {
+    fun add(contact: Contact) {
         contactDao.save(contact)
     }
 
-    fun updateContact(contact: Contact) {
+    fun update(contact: Contact) {
         contactDao.update(contact)
     }
 
-    fun deleteContact(contact: Contact) {
+    fun delete(contact: Contact) {
         contactDao.delete(contact)
     }
 
-    fun getContact(publicKey: ByteArray): LiveData<Contact> {
+    fun get(publicKey: ByteArray): LiveData<Contact> {
         return contactDao.load(publicKey)
     }
 
-    fun getContact(friendNumber: Int): LiveData<Contact> {
+    fun get(friendNumber: Int): LiveData<Contact> {
         return contactDao.load(friendNumber)
     }
 
-    fun getContacts(): LiveData<List<Contact>> {
+    fun getAll(): LiveData<List<Contact>> {
         return contactDao.loadAll()
     }
 }
