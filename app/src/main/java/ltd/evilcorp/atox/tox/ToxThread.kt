@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import im.tox.tox4j.core.options.ProxyOptions
 import im.tox.tox4j.core.options.SaveDataOptions
 import im.tox.tox4j.core.options.ToxOptions
+import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.repository.MessageRepository
 import ltd.evilcorp.atox.vo.ConnectionStatus
@@ -56,6 +57,7 @@ class ToxThread(
         const val msgGroupJoin = 16
 
         private const val msgLoadContacts = 17
+        private const val msgLoadSelf = 18
     }
 
     private val tox = Tox(
@@ -149,6 +151,9 @@ class ToxThread(
                 msgGroupInvite -> Log.e("ToxThread", "Invite group")
                 msgGroupJoin -> Log.e("ToxThread", "Join group")
                 msgLoadContacts -> loadContacts()
+                msgLoadSelf -> {
+                    App.profile = tox.getName()
+                }
                 else -> {
                     Log.e("ToxThread", "Unknown message: ${it.what}")
                     return@Handler false
@@ -160,6 +165,7 @@ class ToxThread(
 
     init {
         start()
+        handler.sendEmptyMessage(msgLoadSelf)
         handler.sendEmptyMessage(msgLoadContacts)
         handler.sendEmptyMessage(msgIterate)
     }

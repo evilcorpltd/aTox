@@ -33,7 +33,6 @@ class ProfileActivity : AppCompatActivity() {
         filesDir.walk().forEach {
             if (it.extension == "tox" && it.isFile) {
                 profile = it
-                App.profile = it.nameWithoutExtension
             }
         }
 
