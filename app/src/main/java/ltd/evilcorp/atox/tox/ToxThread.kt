@@ -12,6 +12,7 @@ import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.repository.MessageRepository
 import ltd.evilcorp.atox.vo.ConnectionStatus
 import ltd.evilcorp.atox.vo.Contact
+import java.io.File
 import javax.inject.Inject
 
 class ToxThreadFactory @Inject constructor(
@@ -118,6 +119,15 @@ class ToxThread(
                 }
                 msgSetName -> {
                     Log.e("ToxThread", "SetName: ${it.obj as String}")
+
+                    val currentName: String = tox.getName()
+                    if (!currentName.isNullOrBlank()) {
+                        val oldProfile = File("$saveDestination/$currentName.tox")
+                        if (oldProfile.exists()) {
+                            oldProfile.delete()
+                        }
+                    }
+
                     tox.setName(it.obj as String)
                     handler.sendEmptyMessage(msgSave)
                 }
