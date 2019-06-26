@@ -120,6 +120,9 @@ class ToxThread(
                 msgSetName -> {
                     Log.e("ToxThread", "SetName: ${it.obj as String}")
 
+                    tox.setName(it.obj as String)
+                    handler.sendEmptyMessage(msgSave)
+
                     val currentName: String = tox.getName()
                     if (!currentName.isNullOrBlank()) {
                         val oldProfile = File("$saveDestination/$currentName.tox")
@@ -127,9 +130,6 @@ class ToxThread(
                             oldProfile.delete()
                         }
                     }
-
-                    tox.setName(it.obj as String)
-                    handler.sendEmptyMessage(msgSave)
                 }
                 msgSetStatus -> Log.e("ToxThread", "Setting status")
                 msgSetState -> Log.e("ToxThread", "Setting state")
