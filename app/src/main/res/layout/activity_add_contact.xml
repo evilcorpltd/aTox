@@ -25,7 +25,9 @@
             android:layout_marginBottom="8dp"
             android:hint="@string/tox_id"
             android:inputType="text"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+            android:importantForAutofill="no"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            tools:targetApi="26"/>
     <EditText
             android:id="@+id/message"
             android:layout_width="match_parent"
@@ -37,8 +39,10 @@
             android:inputType="textMultiLine"
             android:lines="5"
             android:text="@string/add_contact_message_default"
+            android:importantForAutofill="no"
             app:layout_constraintTop_toBottomOf="@id/toxId"
-            app:layout_constraintHorizontal_bias="0.5"/>
+            app:layout_constraintHorizontal_bias="0.5"
+            tools:targetApi="26"/>
     <Button
             android:id="@+id/add"
             android:layout_width="wrap_content"

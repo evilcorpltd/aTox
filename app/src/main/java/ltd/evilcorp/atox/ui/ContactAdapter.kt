@@ -48,7 +48,7 @@ class ContactAdapter(
         if (convertView == null) {
             val inflater = context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            view = inflater.inflate(R.layout.contact_list_view_item, null, true)
+            view = inflater.inflate(R.layout.contact_list_view_item, parent, false)
             vh = ViewHolder(view)
             view.tag = vh
         } else {
