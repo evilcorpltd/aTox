@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox.ui
+package ltd.evilcorp.atox.ui.chat
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

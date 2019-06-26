@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox.ui
+package ltd.evilcorp.atox.ui.chat
 
 import android.os.Bundle
 import android.text.Editable
@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.chat_fragment.view.*
 import kotlinx.android.synthetic.main.profile_image_layout.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.di.ViewModelFactory
+import ltd.evilcorp.atox.ui.MessagesAdapter
+import ltd.evilcorp.atox.ui.colorByStatus
 import ltd.evilcorp.atox.vo.ConnectionStatus
 
 class ChatFragment(private val publicKey: ByteArray, private val vmFactory: ViewModelFactory) : Fragment() {

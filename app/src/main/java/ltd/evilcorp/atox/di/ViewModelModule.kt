@@ -5,7 +5,7 @@ import dagger.Binds
 import dagger.MapKey
 import dagger.Module
 import dagger.multibindings.IntoMap
-import ltd.evilcorp.atox.ui.ChatViewModel
+import ltd.evilcorp.atox.ui.chat.ChatViewModel
 import kotlin.reflect.KClass
 
 @MustBeDocumented

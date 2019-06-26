@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import dagger.android.AndroidInjection
 import ltd.evilcorp.atox.di.ViewModelFactory
-import ltd.evilcorp.atox.ui.ChatFragment
+import ltd.evilcorp.atox.ui.chat.ChatFragment
 import javax.inject.Inject
 
 class ChatActivity : AppCompatActivity() {
