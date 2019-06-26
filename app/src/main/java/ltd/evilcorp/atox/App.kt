@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class App : Application(), HasActivityInjector {
     companion object {
-        lateinit var profile: String
+        var profile = "aTox user"
         lateinit var password: String
         lateinit var toxThread: ToxThread
     }
