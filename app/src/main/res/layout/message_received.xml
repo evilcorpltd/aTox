@@ -12,6 +12,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:padding="8dp"
+            android:layout_marginEnd="@dimen/message_margin"
             android:gravity="start"
             android:textColor="@android:color/white"
             tools:text="Message I received"/>
