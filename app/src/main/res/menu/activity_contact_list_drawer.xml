@@ -5,9 +5,6 @@
                 android:id="@+id/add_contact"
                 android:title="@string/add_contact"/>
         <item
-                android:id="@+id/add_echobot"
-                android:title="Add EchoBot"/>
-        <item
                 android:id="@+id/settings"
                 android:icon="@drawable/settings"
                 android:title="@string/settings"/>
