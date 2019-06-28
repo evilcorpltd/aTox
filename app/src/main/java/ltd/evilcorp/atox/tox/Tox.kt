@@ -38,9 +38,8 @@ class Tox(
         return String(tox.name)
     }
 
-    fun getToxId(): String {
-        return tox.address.byteArrayToHex()
-    }
+    fun getToxId(): String  = tox.address.byteArrayToHex()
+    private fun getPublicKey(): String = tox.publicKey.byteArrayToHex()
 
     fun addContact(toxId: String, message: String): Int {
         return tox.addFriend(toxId.hexToByteArray(), message.toByteArray())
@@ -71,7 +70,7 @@ class Tox(
     }
 
     fun save(destination: String) {
-        val fileName = this.getName() + ".tox"
+        val fileName = this.getPublicKey() + ".tox"
 
         val saveFile = File("$destination/$fileName")
         if (!saveFile.exists()) {
