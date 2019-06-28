@@ -13,6 +13,7 @@ import javax.inject.Singleton
         ApplicationModule::class,
         ActivityModule::class,
         DatabaseModule::class,
+        FragmentModule::class,
         ViewModelModule::class
     ]
 )

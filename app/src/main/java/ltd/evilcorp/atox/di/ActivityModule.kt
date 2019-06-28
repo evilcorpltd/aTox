@@ -2,7 +2,6 @@ package ltd.evilcorp.atox.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import ltd.evilcorp.atox.activity.ChatActivity
 import ltd.evilcorp.atox.activity.ContactListActivity
 import ltd.evilcorp.atox.activity.ProfileActivity
 
@@ -14,7 +13,4 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     abstract fun contactListInjector(): ContactListActivity
-
-    @ContributesAndroidInjector
-    abstract fun chatInjector(): ChatActivity
 }

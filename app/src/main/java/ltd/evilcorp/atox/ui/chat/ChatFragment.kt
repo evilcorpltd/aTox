@@ -1,5 +1,6 @@
 package ltd.evilcorp.atox.ui.chat
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.chat_fragment.*
 import kotlinx.android.synthetic.main.chat_fragment.view.*
 import kotlinx.android.synthetic.main.profile_image_layout.view.*
@@ -17,16 +19,30 @@ import ltd.evilcorp.atox.di.ViewModelFactory
 import ltd.evilcorp.atox.ui.MessagesAdapter
 import ltd.evilcorp.atox.ui.colorByStatus
 import ltd.evilcorp.atox.vo.ConnectionStatus
+import javax.inject.Inject
 
-class ChatFragment(private val publicKey: ByteArray, private val vmFactory: ViewModelFactory) : Fragment() {
+class ChatFragment : Fragment() {
     companion object {
-        fun newInstance(publicKey: ByteArray, vmFactory: ViewModelFactory): Fragment =
-            ChatFragment(publicKey, vmFactory)
+        fun newInstance(publicKey: ByteArray): Fragment {
+            val fragment = ChatFragment()
+            val arguments = Bundle()
+            arguments.putByteArray("publicKey", publicKey)
+            fragment.arguments = arguments
+
+            return fragment
+        }
     }
 
+    @Inject
+    lateinit var vmFactory: ViewModelFactory
     private lateinit var viewModel: ChatViewModel
 
     private var contactOnline = false
+
+    override fun onAttach(context: Context?) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +52,7 @@ class ChatFragment(private val publicKey: ByteArray, private val vmFactory: View
         val layout = inflater.inflate(R.layout.chat_fragment, container, false)
 
         viewModel = ViewModelProviders.of(this, vmFactory).get(ChatViewModel::class.java)
-        viewModel.publicKey = publicKey
+        viewModel.publicKey = arguments!!.getByteArray("publicKey")!!
 
         viewModel.contact.observe(this, Observer {
             layout.title.text = it.name
