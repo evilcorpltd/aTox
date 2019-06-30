@@ -5,12 +5,18 @@ import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.options.ToxOptions
 import im.tox.tox4j.impl.jni.ToxCoreImpl
 import ltd.evilcorp.atox.repository.ContactRepository
+import ltd.evilcorp.atox.repository.FriendRequestRepository
 import ltd.evilcorp.atox.repository.MessageRepository
 import java.io.File
 
-class Tox(options: ToxOptions, contactRepository: ContactRepository, messageRepository: MessageRepository) {
+class Tox(
+    options: ToxOptions,
+    contactRepository: ContactRepository,
+    friendRequestRepository: FriendRequestRepository,
+    messageRepository: MessageRepository
+) {
     private val tox: ToxCoreImpl = ToxCoreImpl(options)
-    private val eventListener = ToxEventListener(contactRepository, messageRepository)
+    private val eventListener = ToxEventListener(contactRepository, friendRequestRepository, messageRepository)
 
     fun bootstrap(address: String, port: Int, publicKey: ByteArray) {
         tox.bootstrap(address, port, publicKey)
@@ -76,4 +82,6 @@ class Tox(options: ToxOptions, contactRepository: ContactRepository, messageRepo
 
         saveFile.writeBytes(tox.savedata)
     }
+
+    fun acceptFriendRequest(publicKey: String): Int = tox.addFriendNorequest(publicKey.hexToByteArray())
 }
