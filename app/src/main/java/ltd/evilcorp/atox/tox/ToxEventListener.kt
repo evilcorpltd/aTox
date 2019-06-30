@@ -7,8 +7,10 @@ import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
 import ltd.evilcorp.atox.repository.ContactRepository
+import ltd.evilcorp.atox.repository.FriendRequestRepository
 import ltd.evilcorp.atox.repository.MessageRepository
 import ltd.evilcorp.atox.vo.Contact
+import ltd.evilcorp.atox.vo.FriendRequest
 import ltd.evilcorp.atox.vo.Message
 import ltd.evilcorp.atox.vo.Sender
 import java.text.DateFormat
@@ -16,6 +18,7 @@ import java.util.*
 
 class ToxEventListener(
     private val contactRepository: ContactRepository,
+    private val friendRequestRepository: FriendRequestRepository,
     private val messageRepository: MessageRepository
 ) : ToxCoreEventListener<Int> {
     private var contacts: List<Contact> = ArrayList()
@@ -70,6 +73,7 @@ class ToxEventListener(
     }
 
     override fun friendRequest(publicKey: ByteArray, timeDelta: Int, message: ByteArray, state: Int?): Int {
+        friendRequestRepository.add(FriendRequest(publicKey, String(message)))
         return Log.e("ToxCore", "friendRequest")
     }
 

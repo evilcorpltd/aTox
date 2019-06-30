@@ -10,17 +10,20 @@ import im.tox.tox4j.core.options.SaveDataOptions
 import im.tox.tox4j.core.options.ToxOptions
 import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.repository.ContactRepository
+import ltd.evilcorp.atox.repository.FriendRequestRepository
 import ltd.evilcorp.atox.repository.MessageRepository
 import ltd.evilcorp.atox.vo.ConnectionStatus
 import ltd.evilcorp.atox.vo.Contact
+import ltd.evilcorp.atox.vo.FriendRequest
 import javax.inject.Inject
 
 class ToxThreadFactory @Inject constructor(
     private val contactRepository: ContactRepository,
+    private val friendRequestRepository: FriendRequestRepository,
     private val messageRepository: MessageRepository
 ) {
     fun create(saveDestination: String, saveOption: SaveDataOptions): ToxThread {
-        return ToxThread(saveDestination, saveOption, contactRepository, messageRepository)
+        return ToxThread(saveDestination, saveOption, contactRepository, friendRequestRepository, messageRepository)
     }
 }
 
@@ -28,6 +31,7 @@ class ToxThread(
     saveDestination: String,
     saveOption: SaveDataOptions,
     private val contactRepository: ContactRepository,
+    friendRequestRepository: FriendRequestRepository,
     messageRepository: MessageRepository
 ) : HandlerThread("Tox") {
     companion object {
@@ -58,6 +62,8 @@ class ToxThread(
 
         private const val msgLoadContacts = 17
         private const val msgLoadSelf = 18
+
+        const val msgAcceptFriendRequest = 19
     }
 
     private val tox = Tox(
@@ -73,6 +79,7 @@ class ToxThread(
             true
         ),
         contactRepository,
+        friendRequestRepository,
         messageRepository
     )
 
@@ -155,6 +162,12 @@ class ToxThread(
                 msgLoadContacts -> loadContacts()
                 msgLoadSelf -> {
                     App.profile = tox.getName()
+                }
+                msgAcceptFriendRequest -> {
+                    val publicKey = it.obj as String
+                    val friendNumber = tox.acceptFriendRequest(publicKey)
+                    contactRepository.add(Contact(publicKey.hexToByteArray(), friendNumber))
+                    friendRequestRepository.delete(FriendRequest(publicKey.hexToByteArray()))
                 }
                 else -> {
                     Log.e("ToxThread", "Unknown message: ${it.what}")
