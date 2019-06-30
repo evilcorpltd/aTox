@@ -1,12 +1,13 @@
 package ltd.evilcorp.atox.activity
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.ContextMenu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.AdapterView.AdapterContextMenuInfo
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -88,6 +89,12 @@ class ContactListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.copy_tox_id -> {
+                val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                clipboard.primaryClip = ClipData.newPlainText(getText(R.string.tox_id), App.toxThread.toxId)
+
+                Toast.makeText(this, getText(R.string.tox_id_copied), Toast.LENGTH_SHORT).show()
+            }
             R.id.add_contact -> {
                 startActivity(Intent(this, AddContactActivity::class.java))
             }

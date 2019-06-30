@@ -76,6 +76,8 @@ class ToxThread(
         messageRepository
     )
 
+    val toxId = tox.getToxId()
+
     private fun loadContacts() {
         for ((publicKey, friendNumber) in tox.getContacts()) {
             if (!contactRepository.exists(publicKey)) {

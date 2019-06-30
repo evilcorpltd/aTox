@@ -9,7 +9,7 @@ import ltd.evilcorp.atox.vo.UserStatus
 fun String.hexToByteArray(): ByteArray =
     chunked(2).map { it.toUpperCase().toInt(16).toByte() }.toByteArray()
 
-fun ByteArray.byteArrayToHex(): String = this.joinToString("") { "%02x".format(it) }
+fun ByteArray.byteArrayToHex(): String = this.joinToString("") { "%02X".format(it) }
 
 fun ToxUserStatus.toUserStatus(): UserStatus {
     return UserStatus.values()[this.ordinal]

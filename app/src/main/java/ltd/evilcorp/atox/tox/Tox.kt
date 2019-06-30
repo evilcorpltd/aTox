@@ -32,6 +32,10 @@ class Tox(options: ToxOptions, contactRepository: ContactRepository, messageRepo
         return String(tox.name)
     }
 
+    fun getToxId(): String {
+        return tox.address.byteArrayToHex()
+    }
+
     fun addContact(toxId: String, message: String): Int {
         return tox.addFriend(toxId.hexToByteArray(), message.toByteArray())
     }

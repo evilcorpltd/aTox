@@ -19,5 +19,7 @@
     <string name="status_indicator">Status indicator</string>
     <string name="status_message_default">Brought to you live, by aTox</string>
     <string name="tox_id">Tox ID</string>
-    <string name="tox_id_error_length">ToxID must be 76 characters</string>
+    <string name="tox_id_copied">Tox ID copied</string>
+    <string name="tox_id_copy">Copy Tox ID</string>
+    <string name="tox_id_error_length">Tox ID must be 76 characters</string>
 </resources>
