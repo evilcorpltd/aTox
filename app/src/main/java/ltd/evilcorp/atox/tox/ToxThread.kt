@@ -16,14 +16,24 @@ import ltd.evilcorp.atox.vo.ConnectionStatus
 import ltd.evilcorp.atox.vo.Contact
 import ltd.evilcorp.atox.vo.FriendRequest
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class ToxThreadFactory @Inject constructor(
     private val contactRepository: ContactRepository,
     private val friendRequestRepository: FriendRequestRepository,
     private val messageRepository: MessageRepository
 ) {
+    var instance: ToxThread? = null
+
     fun create(saveDestination: String, saveOption: SaveDataOptions): ToxThread {
-        return ToxThread(saveDestination, saveOption, contactRepository, friendRequestRepository, messageRepository)
+        if (instance == null) {
+            instance = ToxThread(
+                saveDestination, saveOption, contactRepository, friendRequestRepository, messageRepository
+            )
+        }
+
+        return instance!!
     }
 }
 
