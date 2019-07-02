@@ -30,10 +30,6 @@ class ContactRepository @Inject constructor(
         return contactDao.load(publicKey)
     }
 
-    fun get(friendNumber: Int): LiveData<Contact> {
-        return contactDao.load(friendNumber)
-    }
-
     fun getAll(): LiveData<List<Contact>> {
         return contactDao.loadAll()
     }

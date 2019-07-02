@@ -21,9 +21,6 @@ interface ContactDao {
     @Query("SELECT * FROM contacts WHERE public_key = :publicKey")
     fun load(publicKey: ByteArray): LiveData<Contact>
 
-    @Query("SELECT * FROM contacts WHERE friend_number = :friendNumber")
-    fun load(friendNumber: Int): LiveData<Contact>
-
     @Query("SELECT * FROM contacts")
     fun loadAll(): LiveData<List<Contact>>
 }
