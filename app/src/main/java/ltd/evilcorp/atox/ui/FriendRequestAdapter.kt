@@ -5,14 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 import kotlinx.android.synthetic.main.contact_list_view_item.view.publicKey
 import kotlinx.android.synthetic.main.friend_request_item.view.*
-import kotlinx.android.synthetic.main.profile_image_layout.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.repository.FriendRequestRepository
 import ltd.evilcorp.atox.tox.byteArrayToHex
