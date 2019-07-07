@@ -1,33 +1,18 @@
 package ltd.evilcorp.atox.ui
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.contact_list_view_item.view.publicKey
 import kotlinx.android.synthetic.main.friend_request_item.view.*
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.repository.FriendRequestRepository
 import ltd.evilcorp.atox.tox.byteArrayToHex
 import ltd.evilcorp.atox.vo.FriendRequest
 
-class FriendRequestAdapter(
-    private val context: Context,
-    lifecycleOwner: LifecycleOwner,
-    friendRequestRepository: FriendRequestRepository
-) : BaseAdapter() {
-    private var friendRequests: List<FriendRequest> = listOf()
-
-    init {
-        friendRequestRepository.getAll().observe(lifecycleOwner, Observer {
-            friendRequests = it
-            notifyDataSetChanged()
-        })
-    }
+class FriendRequestAdapter(private val inflater: LayoutInflater) : BaseAdapter() {
+    var friendRequests: List<FriendRequest> = listOf()
 
     override fun getCount(): Int = friendRequests.size
     override fun getItem(position: Int): Any = friendRequests[position]
@@ -38,8 +23,6 @@ class FriendRequestAdapter(
         val vh: ViewHolder
 
         if (convertView == null) {
-            val inflater = context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             view = inflater.inflate(R.layout.friend_request_item, parent, false)
             vh = ViewHolder(view)
             view.tag = vh

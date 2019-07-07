@@ -2,7 +2,6 @@ package ltd.evilcorp.atox.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import ltd.evilcorp.atox.activity.ContactListActivity
 import ltd.evilcorp.atox.activity.ProfileActivity
 
 @Suppress("unused")
@@ -10,7 +9,4 @@ import ltd.evilcorp.atox.activity.ProfileActivity
 abstract class ActivityModule {
     @ContributesAndroidInjector
     abstract fun profileInjector(): ProfileActivity
-
-    @ContributesAndroidInjector
-    abstract fun contactListInjector(): ContactListActivity
 }

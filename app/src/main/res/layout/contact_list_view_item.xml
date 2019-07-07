@@ -6,9 +6,7 @@
         android:id="@+id/contactListItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:onClick="openChat"
-        android:longClickable="true">
+        android:padding="10dp">
     <include layout="@layout/profile_image_layout"/>
     <LinearLayout
             android:id="@+id/topLine"

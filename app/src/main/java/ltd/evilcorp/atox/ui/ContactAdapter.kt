@@ -1,41 +1,23 @@
 package ltd.evilcorp.atox.ui
 
-import android.content.Context
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 import kotlinx.android.synthetic.main.profile_image_layout.view.*
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.tox.byteArrayToHex
-import ltd.evilcorp.atox.vo.ConnectionStatus
 import ltd.evilcorp.atox.vo.Contact
 
 class ContactAdapter(
-    private val context: Context,
-    lifecycleOwner: LifecycleOwner,
-    contactRepository: ContactRepository
+    private val inflater: LayoutInflater,
+    private val resources: Resources
 ) : BaseAdapter() {
-    private var contacts: List<Contact> = ArrayList()
-
-    init {
-        contactRepository.getAll().observe(lifecycleOwner, Observer {
-            contacts = it.sortedWith(
-                compareBy(
-                    { contact -> contact.connectionStatus == ConnectionStatus.NONE },
-                    Contact::lastMessage,
-                    Contact::status
-                )
-            )
-            notifyDataSetChanged()
-        })
-    }
+    var contacts: List<Contact> = ArrayList()
 
     override fun getCount(): Int = contacts.size
     override fun getItem(position: Int): Any = contacts[position]
@@ -46,8 +28,6 @@ class ContactAdapter(
         val vh: ViewHolder
 
         if (convertView == null) {
-            val inflater = context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             view = inflater.inflate(R.layout.contact_list_view_item, parent, false)
             vh = ViewHolder(view)
             view.tag = vh
@@ -60,7 +40,7 @@ class ContactAdapter(
         vh.publicKey.text = contact.publicKey.byteArrayToHex().toUpperCase()
         vh.name.text = contact.name
         vh.lastMessage.text = contact.lastMessage
-        vh.status.setColorFilter(colorByStatus(context.resources, contact))
+        vh.status.setColorFilter(colorByStatus(resources, contact))
 
         return view
     }
