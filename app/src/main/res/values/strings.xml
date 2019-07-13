@@ -11,6 +11,7 @@
     <string name="message">Message</string>
     <string name="name">Name</string>
     <string name="name_default">aTox user</string>
+    <string name="never">Never</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="password_optional">Password (optional)</string>

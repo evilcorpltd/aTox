@@ -29,6 +29,7 @@ import ltd.evilcorp.atox.ui.FriendRequestAdapter
 import ltd.evilcorp.atox.vo.ConnectionStatus
 import ltd.evilcorp.atox.vo.Contact
 import ltd.evilcorp.atox.vo.FriendRequest
+import ltd.evilcorp.atox.vo.UserStatus
 import javax.inject.Inject
 
 
@@ -73,11 +74,12 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
             viewModel.contacts.observe(this@ContactListFragment, Observer { contacts ->
                 contactAdapter.contacts = contacts.sortedWith(
                     compareBy(
-                        { contact -> contact.connectionStatus == ConnectionStatus.NONE },
+                        { contact -> contact.connectionStatus != ConnectionStatus.NONE },
                         Contact::lastMessage,
-                        Contact::status
-                    )
+                        { contact -> contact.status == UserStatus.NONE }
+                    ).reversed()
                 )
+
                 contactAdapter.notifyDataSetChanged()
             })
             contactList.setOnItemClickListener { _, _, position, _ ->

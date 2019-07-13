@@ -12,12 +12,24 @@ import kotlinx.android.synthetic.main.profile_image_layout.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.tox.byteArrayToHex
 import ltd.evilcorp.atox.vo.Contact
+import java.time.chrono.IsoChronology
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
+import java.time.format.FormatStyle
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ContactAdapter(
     private val inflater: LayoutInflater,
     private val resources: Resources
 ) : BaseAdapter() {
     var contacts: List<Contact> = ArrayList()
+
+    private val formatter = DateTimeFormatter.ofPattern(
+        DateTimeFormatterBuilder.getLocalizedDateTimePattern(
+            FormatStyle.MEDIUM, FormatStyle.SHORT, IsoChronology.INSTANCE, Locale.getDefault(Locale.Category.FORMAT)
+        )
+    )
 
     override fun getCount(): Int = contacts.size
     override fun getItem(position: Int): Any = contacts[position]
@@ -39,7 +51,8 @@ class ContactAdapter(
         val contact = contacts[position]
         vh.publicKey.text = contact.publicKey.byteArrayToHex().toUpperCase()
         vh.name.text = contact.name
-        vh.lastMessage.text = contact.lastMessage
+        vh.lastMessage.text = contact.lastMessage?.let { formatter.format(it) } ?: resources.getText(R.string.never)
+
         vh.status.setColorFilter(colorByStatus(resources, contact))
 
         return view

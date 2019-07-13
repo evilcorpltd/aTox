@@ -14,6 +14,7 @@ import ltd.evilcorp.atox.vo.FriendRequest
 import ltd.evilcorp.atox.vo.Message
 import ltd.evilcorp.atox.vo.Sender
 import java.text.DateFormat
+import java.time.OffsetDateTime
 import java.util.*
 
 class ToxEventListener(
@@ -85,7 +86,7 @@ class ToxEventListener(
         state: Int?
     ): Int {
         with(contactByFriendNumber(friendNumber)) {
-            lastMessage = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date())
+            lastMessage = OffsetDateTime.now()
             contactRepository.add(this)
 
             messageRepository.add(Message(this.publicKey, String(message), Sender.Received))

@@ -4,6 +4,8 @@ import androidx.room.TypeConverter
 import ltd.evilcorp.atox.vo.ConnectionStatus
 import ltd.evilcorp.atox.vo.Sender
 import ltd.evilcorp.atox.vo.UserStatus
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 
 internal class Converters {
     companion object {
@@ -30,5 +32,17 @@ internal class Converters {
         @TypeConverter
         @JvmStatic
         fun fromSender(sender: Sender): Int = sender.ordinal
+
+        private val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+        @TypeConverter
+        @JvmStatic
+        fun toOffsetDateTime(dateTime: String?): OffsetDateTime? =
+            dateTime?.let {
+                return formatter.parse(it, OffsetDateTime::from)
+            }
+
+        @TypeConverter
+        @JvmStatic
+        fun fromOffsetDateTime(dateTime: OffsetDateTime?): String? = dateTime?.format(formatter)
     }
 }

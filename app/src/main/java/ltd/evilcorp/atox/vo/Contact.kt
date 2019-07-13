@@ -3,6 +3,7 @@ package ltd.evilcorp.atox.vo
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.time.OffsetDateTime
 
 // These enums are 1:1 mappings of the enums in tox4j.
 enum class ConnectionStatus {
@@ -29,7 +30,7 @@ data class Contact(
     @ColumnInfo(name = "status_message")
     var statusMessage: String = "...",
     @ColumnInfo(name = "last_message")
-    var lastMessage: String = "Never",
+    var lastMessage: OffsetDateTime? = null,
     @ColumnInfo(name = "status")
     var status: UserStatus = UserStatus.NONE,
     @ColumnInfo(name = "connection_status")
