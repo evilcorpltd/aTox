@@ -32,7 +32,7 @@ class FriendRequestAdapter(private val inflater: LayoutInflater) : BaseAdapter()
         }
 
         val friendRequest = friendRequests[position]
-        vh.publicKey.text = friendRequest.publicKey.byteArrayToHex()
+        vh.publicKey.text = friendRequest.publicKey
         vh.message.text = friendRequest.message
 
         return view

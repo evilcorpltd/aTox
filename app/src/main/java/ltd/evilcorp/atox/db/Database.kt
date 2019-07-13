@@ -7,7 +7,7 @@ import ltd.evilcorp.atox.vo.Contact
 import ltd.evilcorp.atox.vo.FriendRequest
 import ltd.evilcorp.atox.vo.Message
 
-@Database(entities = [Contact::class, FriendRequest::class, Message::class], version = 4, exportSchema = false)
+@Database(entities = [Contact::class, FriendRequest::class, Message::class], version = 5, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class Database : RoomDatabase() {
     abstract fun contactDao(): ContactDao

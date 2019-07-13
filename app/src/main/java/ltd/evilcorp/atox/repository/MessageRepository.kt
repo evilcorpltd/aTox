@@ -14,11 +14,11 @@ class MessageRepository @Inject constructor(
         messageDao.save(message)
     }
 
-    fun get(conversation: ByteArray): LiveData<List<Message>> {
+    fun get(conversation: String): LiveData<List<Message>> {
         return messageDao.load(conversation)
     }
 
-    fun delete(conversation: ByteArray) {
+    fun delete(conversation: String) {
         messageDao.delete(conversation)
     }
 }

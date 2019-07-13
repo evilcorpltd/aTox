@@ -25,10 +25,10 @@ import javax.inject.Inject
 
 class ChatFragment : Fragment() {
     companion object {
-        fun newInstance(publicKey: ByteArray): Fragment {
+        fun newInstance(publicKey: String): Fragment {
             val fragment = ChatFragment()
             val arguments = Bundle()
-            arguments.putByteArray("publicKey", publicKey)
+            arguments.putString("publicKey", publicKey)
             fragment.arguments = arguments
 
             return fragment
@@ -55,7 +55,7 @@ class ChatFragment : Fragment() {
         val layout = inflater.inflate(R.layout.chat_fragment, container, false)
 
         viewModel = ViewModelProviders.of(this, vmFactory).get(ChatViewModel::class.java)
-        viewModel.publicKey = arguments!!.getByteArray("publicKey")!!
+        viewModel.publicKey = arguments!!.getString("publicKey")!!
 
         activity!!.apply {
             setActionBar(layout.toolbar)

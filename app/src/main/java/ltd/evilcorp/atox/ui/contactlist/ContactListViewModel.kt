@@ -8,7 +8,6 @@ import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.repository.FriendRequestRepository
 import ltd.evilcorp.atox.tox.ToxThread
-import ltd.evilcorp.atox.tox.byteArrayToHex
 import ltd.evilcorp.atox.vo.Contact
 import ltd.evilcorp.atox.vo.FriendRequest
 import javax.inject.Inject
@@ -25,7 +24,7 @@ class ContactListViewModel @Inject constructor(
             sendMessage(
                 obtainMessage(
                     ToxThread.msgAcceptFriendRequest,
-                    friendRequest.publicKey.byteArrayToHex()
+                    friendRequest.publicKey
                 )
             )
         }
@@ -39,7 +38,7 @@ class ContactListViewModel @Inject constructor(
 
     fun deleteContact(contact: Contact) {
         with(App.toxThread.handler) {
-            sendMessage(obtainMessage(ToxThread.msgDeleteContact, contact.publicKey.byteArrayToHex()))
+            sendMessage(obtainMessage(ToxThread.msgDeleteContact, contact.publicKey))
         }
     }
 }

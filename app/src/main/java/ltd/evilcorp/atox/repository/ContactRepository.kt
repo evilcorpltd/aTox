@@ -10,7 +10,7 @@ import javax.inject.Singleton
 class ContactRepository @Inject constructor(
     private val contactDao: ContactDao
 ) {
-    fun exists(publicKey: ByteArray): Boolean {
+    fun exists(publicKey: String): Boolean {
         return contactDao.exists(publicKey)
     }
 
@@ -26,7 +26,7 @@ class ContactRepository @Inject constructor(
         contactDao.delete(contact)
     }
 
-    fun get(publicKey: ByteArray): LiveData<Contact> {
+    fun get(publicKey: String): LiveData<Contact> {
         return contactDao.load(publicKey)
     }
 

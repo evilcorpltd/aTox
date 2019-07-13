@@ -24,7 +24,7 @@ class ToxEventListener(
     private val notificationHelper: NotificationHelper
 ) : ToxCoreEventListener<Int> {
     private var contacts: List<Contact> = listOf()
-    var contactMapping: List<Pair<ByteArray, Int>> = listOf()
+    var contactMapping: List<Pair<String, Int>> = listOf()
 
     init {
         contactRepository.getAll().observeForever {
@@ -33,8 +33,8 @@ class ToxEventListener(
     }
 
     private fun contactByFriendNumber(friendNumber: Int): Contact {
-        val mapping = contactMapping.find { it.second == friendNumber }!!
-        return contacts.find { it.publicKey.contentEquals(mapping.first) }!!
+        val (publicKey, _) = contactMapping.find { it.second == friendNumber }!!
+        return contacts.find { it.publicKey == publicKey }!!
     }
 
     override fun friendLosslessPacket(friendNumber: Int, data: ByteArray, state: Int?): Int {
@@ -77,7 +77,7 @@ class ToxEventListener(
     }
 
     override fun friendRequest(publicKey: ByteArray, timeDelta: Int, message: ByteArray, state: Int?): Int {
-        friendRequestRepository.add(FriendRequest(publicKey, String(message)))
+        friendRequestRepository.add(FriendRequest(publicKey.byteArrayToHex(), String(message)))
         return Log.e("ToxCore", "friendRequest")
     }
 

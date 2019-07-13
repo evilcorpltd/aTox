@@ -12,7 +12,7 @@ class ChatActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(
                     android.R.id.content,
-                    ChatFragment.newInstance(intent.getByteArrayExtra("publicKey"))
+                    ChatFragment.newInstance(intent.getStringExtra("publicKey"))
                 )
                 .commitNow()
         }

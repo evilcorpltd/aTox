@@ -37,7 +37,7 @@ class ContactAdapter(
         }
 
         val contact = contacts[position]
-        vh.publicKey.text = contact.publicKey.byteArrayToHex().toUpperCase()
+        vh.publicKey.text = contact.publicKey
         vh.name.text = contact.name
         vh.lastMessage.text = contact.lastMessage
         vh.status.setColorFilter(colorByStatus(resources, contact))

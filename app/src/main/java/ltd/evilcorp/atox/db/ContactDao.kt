@@ -17,10 +17,10 @@ interface ContactDao {
     fun delete(contact: Contact)
 
     @Query("SELECT COUNT(*) FROM contacts WHERE public_key = :publicKey")
-    fun exists(publicKey: ByteArray): Boolean
+    fun exists(publicKey: String): Boolean
 
     @Query("SELECT * FROM contacts WHERE public_key = :publicKey")
-    fun load(publicKey: ByteArray): LiveData<Contact>
+    fun load(publicKey: String): LiveData<Contact>
 
     @Query("SELECT * FROM contacts")
     fun loadAll(): LiveData<List<Contact>>

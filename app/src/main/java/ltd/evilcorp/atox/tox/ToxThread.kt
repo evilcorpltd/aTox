@@ -139,12 +139,12 @@ class ToxThread(
                     Log.e("ToxThread", "AddContact: ${addContact.toxId} ${addContact.message}")
                     tox.addContact(addContact.toxId, addContact.message)
                     handler.sendEmptyMessage(msgSave)
-                    contactRepository.add(Contact(addContact.toxId.dropLast(12).hexToByteArray()))
+                    contactRepository.add(Contact(addContact.toxId.dropLast(12)))
                 }
                 msgDeleteContact -> {
                     val publicKey = it.obj as String
                     tox.deleteContact(publicKey)
-                    contactRepository.delete(Contact(publicKey.hexToByteArray()))
+                    contactRepository.delete(Contact(publicKey))
                     handler.sendEmptyMessage(msgSave)
                 }
                 msgAcceptContact -> Log.e("ToxThread", "Accept contact request")
@@ -164,9 +164,10 @@ class ToxThread(
                 }
                 msgAcceptFriendRequest -> {
                     val publicKey = it.obj as String
+
                     tox.acceptFriendRequest(publicKey)
-                    contactRepository.add(Contact(publicKey.hexToByteArray()))
-                    friendRequestRepository.delete(FriendRequest(publicKey.hexToByteArray()))
+                    contactRepository.add(Contact(publicKey))
+                    friendRequestRepository.delete(FriendRequest(publicKey))
 
                     handler.sendEmptyMessage(msgSave)
                 }

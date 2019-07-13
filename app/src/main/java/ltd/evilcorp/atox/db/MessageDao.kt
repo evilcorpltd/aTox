@@ -13,8 +13,8 @@ interface MessageDao {
     fun save(message: Message)
 
     @Query("SELECT * FROM messages WHERE conversation == :conversation")
-    fun load(conversation: ByteArray): LiveData<List<Message>>
+    fun load(conversation: String): LiveData<List<Message>>
 
     @Query("DELETE FROM messages WHERE conversation == :conversation")
-    fun delete(conversation: ByteArray)
+    fun delete(conversation: String)
 }

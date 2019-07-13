@@ -8,25 +8,7 @@ import androidx.room.PrimaryKey
 data class FriendRequest(
     @PrimaryKey
     @ColumnInfo(name = "public_key")
-    val publicKey: ByteArray,
+    val publicKey: String,
     @ColumnInfo(name = "message")
     val message: String = ""
-) {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as FriendRequest
-
-        if (!publicKey.contentEquals(other.publicKey)) return false
-        if (message != other.message) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = publicKey.contentHashCode()
-        result = 31 * result + message.hashCode()
-        return result
-    }
-}
+)

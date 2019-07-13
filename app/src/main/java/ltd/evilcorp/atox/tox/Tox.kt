@@ -65,12 +65,12 @@ class Tox(
         updateContactMapping()
     }
 
-    fun getContacts(): List<Pair<ByteArray, Int>> {
+    fun getContacts(): List<Pair<String, Int>> {
         val friendNumbers = tox.friendList
         Log.e("Tox", "Loading ${friendNumbers.size} friends")
         return List(friendNumbers.size) {
             Log.e("Tox", "${friendNumbers[it]}: ${tox.getFriendPublicKey(friendNumbers[it]).byteArrayToHex()}")
-            Pair(tox.getFriendPublicKey(friendNumbers[it]), friendNumbers[it])
+            Pair(tox.getFriendPublicKey(friendNumbers[it]).byteArrayToHex(), friendNumbers[it])
         }
     }
 
