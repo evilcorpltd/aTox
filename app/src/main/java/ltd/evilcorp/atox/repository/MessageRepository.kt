@@ -17,4 +17,8 @@ class MessageRepository @Inject constructor(
     fun get(conversation: ByteArray): LiveData<List<Message>> {
         return messageDao.load(conversation)
     }
+
+    fun delete(conversation: ByteArray) {
+        messageDao.delete(conversation)
+    }
 }

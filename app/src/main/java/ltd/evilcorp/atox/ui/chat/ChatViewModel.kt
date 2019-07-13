@@ -1,5 +1,6 @@
 package ltd.evilcorp.atox.ui.chat
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.GlobalScope
@@ -33,6 +34,16 @@ class ChatViewModel @Inject constructor(
             messageRepository.add(
                 Message(publicKey, message, Sender.Sent)
             )
+        }
+    }
+
+    fun clearHistory() {
+        GlobalScope.launch {
+            messageRepository.delete(publicKey)
+            contact.value?.let { contact ->
+                contact.lastMessage = "Never"
+                contactRepository.update(contact)
+            } ?: Log.e("ChatViewModel", "Failed to update lastMessage")
         }
     }
 }

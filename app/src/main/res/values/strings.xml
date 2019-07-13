@@ -5,6 +5,7 @@
     <string name="add_contact_message_default">Talk to me on aTox like a reasonable human being.</string>
     <string name="add_contact_message_error_empty">Message can\'t be empty</string>
     <string name="app_name">aTox</string>
+    <string name="cancel">Cancel</string>
     <string name="create">Create</string>
     <string name="create_a_tox_profile">Create a Tox profile</string>
     <string name="delete_contact">Delete contact</string>
@@ -27,4 +28,9 @@
     <string name="tox_id_copy">Copy Tox ID</string>
     <string name="tox_id_error_length">Tox ID must be 76 characters</string>
     <string name="tox_id_share">Share Tox ID</string>
+
+    <!-- Chat history clearing -->
+    <string name="clear_history">Clear history</string>
+    <string name="clear_history_cleared">History cleared</string>
+    <string name="clear_history_confirm">Are you sure you want to clear your chat history with %1$s?</string>
 </resources>

@@ -1,5 +1,6 @@
 package ltd.evilcorp.atox.ui.chat
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -7,6 +8,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -37,6 +39,7 @@ class ChatFragment : Fragment() {
     lateinit var vmFactory: ViewModelFactory
     private lateinit var viewModel: ChatViewModel
 
+    private var contactName = ""
     private var contactOnline = false
 
     override fun onAttach(context: Context) {
@@ -64,12 +67,32 @@ class ChatFragment : Fragment() {
             layout.toolbar.setNavigationOnClickListener {
                 activity?.onBackPressed()
             }
+
+            layout.toolbar.inflateMenu(R.menu.chat_options_menu)
+            layout.toolbar.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.clear_history -> {
+                        AlertDialog.Builder(this)
+                            .setTitle(R.string.clear_history)
+                            .setMessage(getString(R.string.clear_history_confirm, contactName))
+                            .setPositiveButton(R.string.clear_history) { _, _ ->
+                                Toast.makeText(this, R.string.clear_history_cleared, Toast.LENGTH_LONG).show()
+                                viewModel.clearHistory()
+                            }
+                            .setNegativeButton(R.string.cancel, null).show()
+                        true
+                    }
+                    else -> super.onOptionsItemSelected(item)
+                }
+            }
         }
 
         viewModel.contact.observe(this, Observer {
-            layout.title.text = it.name
-            layout.statusIndicator.setColorFilter(colorByStatus(resources, it))
+            contactName = it.name
             contactOnline = it.connectionStatus != ConnectionStatus.NONE
+
+            layout.title.text = contactName
+            layout.statusIndicator.setColorFilter(colorByStatus(resources, it))
             updateSendButton(layout)
         })
 

@@ -12,6 +12,9 @@ interface MessageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(message: Message)
 
-    @Query("SELECT * FROM messages where conversation == :conversation")
+    @Query("SELECT * FROM messages WHERE conversation == :conversation")
     fun load(conversation: ByteArray): LiveData<List<Message>>
+
+    @Query("DELETE FROM messages WHERE conversation == :conversation")
+    fun delete(conversation: ByteArray)
 }
