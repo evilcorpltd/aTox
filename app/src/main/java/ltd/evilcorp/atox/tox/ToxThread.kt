@@ -96,20 +96,19 @@ class ToxThread(
     val toxId = tox.getToxId()
 
     private fun loadContacts() {
-        for ((publicKey, friendNumber) in tox.getContacts()) {
+        for ((publicKey, _) in tox.getContacts()) {
             if (!contactRepository.exists(publicKey)) {
-                contactRepository.add(Contact(publicKey, friendNumber))
+                contactRepository.add(Contact(publicKey))
             }
 
             Handler(Looper.getMainLooper()).post {
                 with(contactRepository.get(publicKey)) {
                     val observer = object : Observer<Contact> {
-                        override fun onChanged(contact: Contact?) {
+                        override fun onChanged(contact: Contact) {
                             this@with.removeObserver(this)
 
                             handler.post {
-                                Log.e("tox", "contact loaded: $friendNumber")
-                                contact!!.friendNumber = friendNumber
+                                Log.e("tox", "contact loaded: ${publicKey.byteArrayToHex()}")
                                 contact.connectionStatus = ConnectionStatus.NONE
                                 contact.typing = false
                                 contactRepository.update(contact)
@@ -148,9 +147,9 @@ class ToxThread(
                 msgAddContact -> {
                     val addContact = it.obj as MsgAddContact
                     Log.e("ToxThread", "AddContact: ${addContact.toxId} ${addContact.message}")
-                    val friendNumber = tox.addContact(addContact.toxId, addContact.message)
+                    tox.addContact(addContact.toxId, addContact.message)
                     handler.sendEmptyMessage(msgSave)
-                    contactRepository.add(Contact(addContact.toxId.dropLast(12).hexToByteArray(), friendNumber))
+                    contactRepository.add(Contact(addContact.toxId.dropLast(12).hexToByteArray()))
                 }
                 msgDeleteContact -> {
                     val publicKey = it.obj as String
@@ -175,8 +174,8 @@ class ToxThread(
                 }
                 msgAcceptFriendRequest -> {
                     val publicKey = it.obj as String
-                    val friendNumber = tox.acceptFriendRequest(publicKey)
-                    contactRepository.add(Contact(publicKey.hexToByteArray(), friendNumber))
+                    tox.acceptFriendRequest(publicKey)
+                    contactRepository.add(Contact(publicKey.hexToByteArray()))
                     friendRequestRepository.delete(FriendRequest(publicKey.hexToByteArray()))
 
                     handler.sendEmptyMessage(msgSave)

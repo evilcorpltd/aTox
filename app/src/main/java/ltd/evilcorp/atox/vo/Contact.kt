@@ -22,8 +22,6 @@ data class Contact(
     @PrimaryKey
     @ColumnInfo(name = "public_key")
     val publicKey: ByteArray,
-    @ColumnInfo(name = "friend_number")
-    var friendNumber: Int = -1,
     @ColumnInfo(name = "name")
     var name: String = "Unknown",
     @ColumnInfo(name = "status_message")
@@ -44,7 +42,6 @@ data class Contact(
         other as Contact
 
         if (!publicKey.contentEquals(other.publicKey)) return false
-        if (friendNumber != other.friendNumber) return false
         if (name != other.name) return false
         if (statusMessage != other.statusMessage) return false
         if (lastMessage != other.lastMessage) return false
@@ -57,7 +54,6 @@ data class Contact(
 
     override fun hashCode(): Int {
         var result = publicKey.contentHashCode()
-        result = 31 * result + friendNumber
         result = 31 * result + name.hashCode()
         result = 31 * result + statusMessage.hashCode()
         result = 31 * result + lastMessage.hashCode()

@@ -18,6 +18,14 @@ class Tox(
     private val tox: ToxCoreImpl = ToxCoreImpl(options)
     private val eventListener = ToxEventListener(contactRepository, friendRequestRepository, messageRepository)
 
+    init {
+        updateContactMapping()
+    }
+
+    private fun updateContactMapping() {
+        eventListener.contactMapping = getContacts()
+    }
+
     fun bootstrap(address: String, port: Int, publicKey: ByteArray) {
         tox.bootstrap(address, port, publicKey)
         tox.addTcpRelay(address, port, publicKey)
@@ -38,17 +46,19 @@ class Tox(
         return String(tox.name)
     }
 
-    fun getToxId(): String  = tox.address.byteArrayToHex()
+    fun getToxId(): String = tox.address.byteArrayToHex()
     private fun getPublicKey(): String = tox.publicKey.byteArrayToHex()
 
-    fun addContact(toxId: String, message: String): Int {
-        return tox.addFriend(toxId.hexToByteArray(), message.toByteArray())
+    fun addContact(toxId: String, message: String) {
+        tox.addFriend(toxId.hexToByteArray(), message.toByteArray())
+        updateContactMapping()
     }
 
     fun deleteContact(publicKey: String) {
         Log.e("Tox", "Deleting $publicKey")
-        val friend = tox.friendList.find { tox.getFriendPublicKey(it).byteArrayToHex() == publicKey }
-        tox.deleteFriend(friend!!)
+        val friend = tox.friendList.find { tox.getFriendPublicKey(it).byteArrayToHex() == publicKey }!!
+        tox.deleteFriend(friend)
+        updateContactMapping()
     }
 
     fun getContacts(): List<Pair<ByteArray, Int>> {
@@ -82,5 +92,8 @@ class Tox(
         saveFile.writeBytes(tox.savedata)
     }
 
-    fun acceptFriendRequest(publicKey: String): Int = tox.addFriendNorequest(publicKey.hexToByteArray())
+    fun acceptFriendRequest(publicKey: String) {
+        tox.addFriendNorequest(publicKey.hexToByteArray())
+        updateContactMapping()
+    }
 }

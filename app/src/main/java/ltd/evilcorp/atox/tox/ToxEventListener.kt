@@ -21,7 +21,8 @@ class ToxEventListener(
     private val friendRequestRepository: FriendRequestRepository,
     private val messageRepository: MessageRepository
 ) : ToxCoreEventListener<Int> {
-    private var contacts: List<Contact> = ArrayList()
+    private var contacts: List<Contact> = listOf()
+    var contactMapping: List<Pair<ByteArray, Int>> = listOf()
 
     init {
         contactRepository.getAll().observeForever {
@@ -30,7 +31,8 @@ class ToxEventListener(
     }
 
     private fun contactByFriendNumber(friendNumber: Int): Contact {
-        return contacts.find { it.friendNumber == friendNumber }!!
+        val mapping = contactMapping.find { it.second == friendNumber }!!
+        return contacts.find { it.publicKey.contentEquals(mapping.first) }!!
     }
 
     override fun friendLosslessPacket(friendNumber: Int, data: ByteArray, state: Int?): Int {
