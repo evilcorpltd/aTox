@@ -9,6 +9,7 @@ import im.tox.tox4j.core.enums.ToxUserStatus
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.repository.FriendRequestRepository
 import ltd.evilcorp.atox.repository.MessageRepository
+import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.atox.vo.Contact
 import ltd.evilcorp.atox.vo.FriendRequest
 import ltd.evilcorp.atox.vo.Message
@@ -19,7 +20,8 @@ import java.util.*
 class ToxEventListener(
     private val contactRepository: ContactRepository,
     private val friendRequestRepository: FriendRequestRepository,
-    private val messageRepository: MessageRepository
+    private val messageRepository: MessageRepository,
+    private val notificationHelper: NotificationHelper
 ) : ToxCoreEventListener<Int> {
     private var contacts: List<Contact> = listOf()
     var contactMapping: List<Pair<ByteArray, Int>> = listOf()
@@ -91,6 +93,8 @@ class ToxEventListener(
             contactRepository.add(this)
 
             messageRepository.add(Message(this.publicKey, String(message), Sender.Received))
+
+            notificationHelper.showMessageNotification(this, String(message))
         }
 
         return Log.e("ToxCore", "friendMessage")

@@ -9,6 +9,8 @@
     <string name="create_a_tox_profile">Create a Tox profile</string>
     <string name="delete_contact">Delete contact</string>
     <string name="message">Message</string>
+    <string name="messages">Messages</string>
+    <string name="messages_incoming">Incoming messages</string>
     <string name="name">Name</string>
     <string name="name_default">aTox user</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

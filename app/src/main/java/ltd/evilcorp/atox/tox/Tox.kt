@@ -7,16 +7,20 @@ import im.tox.tox4j.impl.jni.ToxCoreImpl
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.repository.FriendRequestRepository
 import ltd.evilcorp.atox.repository.MessageRepository
+import ltd.evilcorp.atox.ui.NotificationHelper
 import java.io.File
 
 class Tox(
     options: ToxOptions,
     contactRepository: ContactRepository,
     friendRequestRepository: FriendRequestRepository,
-    messageRepository: MessageRepository
+    messageRepository: MessageRepository,
+    notificationHelper: NotificationHelper
 ) {
     private val tox: ToxCoreImpl = ToxCoreImpl(options)
-    private val eventListener = ToxEventListener(contactRepository, friendRequestRepository, messageRepository)
+    private val eventListener = ToxEventListener(
+        contactRepository, friendRequestRepository, messageRepository, notificationHelper
+    )
 
     init {
         updateContactMapping()

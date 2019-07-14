@@ -10,6 +10,7 @@ import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.repository.FriendRequestRepository
 import ltd.evilcorp.atox.repository.MessageRepository
+import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.atox.vo.Contact
 import ltd.evilcorp.atox.vo.FriendRequest
 import javax.inject.Inject
@@ -19,14 +20,20 @@ import javax.inject.Singleton
 class ToxThreadFactory @Inject constructor(
     private val contactRepository: ContactRepository,
     private val friendRequestRepository: FriendRequestRepository,
-    private val messageRepository: MessageRepository
+    private val messageRepository: MessageRepository,
+    private val notificationHelper: NotificationHelper
 ) {
     var instance: ToxThread? = null
 
     fun create(saveDestination: String, saveOption: SaveDataOptions): ToxThread {
         if (instance == null) {
             instance = ToxThread(
-                saveDestination, saveOption, contactRepository, friendRequestRepository, messageRepository
+                saveDestination,
+                saveOption,
+                contactRepository,
+                friendRequestRepository,
+                messageRepository,
+                notificationHelper
             )
         }
 
@@ -39,7 +46,8 @@ class ToxThread(
     saveOption: SaveDataOptions,
     private val contactRepository: ContactRepository,
     friendRequestRepository: FriendRequestRepository,
-    messageRepository: MessageRepository
+    messageRepository: MessageRepository,
+    notificationHelper: NotificationHelper
 ) : HandlerThread("Tox") {
     companion object {
         // Tox
@@ -87,7 +95,8 @@ class ToxThread(
         ),
         contactRepository,
         friendRequestRepository,
-        messageRepository
+        messageRepository,
+        notificationHelper
     )
 
     val toxId = tox.getToxId()
