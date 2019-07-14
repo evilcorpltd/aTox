@@ -2,6 +2,7 @@ package ltd.evilcorp.atox.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import ltd.evilcorp.atox.vo.ConnectionStatus
 import ltd.evilcorp.atox.vo.Contact
 
 @Dao
@@ -23,4 +24,7 @@ interface ContactDao {
 
     @Query("SELECT * FROM contacts")
     fun loadAll(): LiveData<List<Contact>>
+
+    @Query("UPDATE contacts SET connection_status = :status, typing = :typing")
+    fun resetTransientData(status: ConnectionStatus = ConnectionStatus.NONE, typing: Boolean = false)
 }

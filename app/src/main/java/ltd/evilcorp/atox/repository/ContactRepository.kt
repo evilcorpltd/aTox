@@ -33,4 +33,8 @@ class ContactRepository @Inject constructor(
     fun getAll(): LiveData<List<Contact>> {
         return contactDao.loadAll()
     }
+
+    fun resetTransientData() {
+        contactDao.resetTransientData()
+    }
 }

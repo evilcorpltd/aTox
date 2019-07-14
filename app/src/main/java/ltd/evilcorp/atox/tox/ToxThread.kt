@@ -2,9 +2,7 @@ package ltd.evilcorp.atox.tox
 
 import android.os.Handler
 import android.os.HandlerThread
-import android.os.Looper
 import android.util.Log
-import androidx.lifecycle.Observer
 import im.tox.tox4j.core.options.ProxyOptions
 import im.tox.tox4j.core.options.SaveDataOptions
 import im.tox.tox4j.core.options.ToxOptions
@@ -12,7 +10,6 @@ import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.repository.FriendRequestRepository
 import ltd.evilcorp.atox.repository.MessageRepository
-import ltd.evilcorp.atox.vo.ConnectionStatus
 import ltd.evilcorp.atox.vo.Contact
 import ltd.evilcorp.atox.vo.FriendRequest
 import javax.inject.Inject
@@ -96,27 +93,11 @@ class ToxThread(
     val toxId = tox.getToxId()
 
     private fun loadContacts() {
+        contactRepository.resetTransientData()
+
         for ((publicKey, _) in tox.getContacts()) {
             if (!contactRepository.exists(publicKey)) {
                 contactRepository.add(Contact(publicKey))
-            }
-
-            Handler(Looper.getMainLooper()).post {
-                with(contactRepository.get(publicKey)) {
-                    val observer = object : Observer<Contact> {
-                        override fun onChanged(contact: Contact) {
-                            this@with.removeObserver(this)
-
-                            handler.post {
-                                Log.e("tox", "contact loaded: ${publicKey.byteArrayToHex()}")
-                                contact.connectionStatus = ConnectionStatus.NONE
-                                contact.typing = false
-                                contactRepository.update(contact)
-                            }
-                        }
-                    }
-                    this.observeForever(observer)
-                }
             }
         }
     }
