@@ -16,8 +16,9 @@ import ltd.evilcorp.atox.vo.Message
 import ltd.evilcorp.atox.vo.Sender
 import java.text.DateFormat
 import java.util.*
+import javax.inject.Inject
 
-class ToxEventListener(
+class ToxEventListener @Inject constructor(
     private val contactRepository: ContactRepository,
     private val friendRequestRepository: FriendRequestRepository,
     private val messageRepository: MessageRepository,

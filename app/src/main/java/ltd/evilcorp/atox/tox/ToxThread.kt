@@ -3,51 +3,20 @@ package ltd.evilcorp.atox.tox
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.Log
-import im.tox.tox4j.core.options.ProxyOptions
 import im.tox.tox4j.core.options.SaveDataOptions
-import im.tox.tox4j.core.options.ToxOptions
 import ltd.evilcorp.atox.App
+import ltd.evilcorp.atox.di.ToxFactory
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.repository.FriendRequestRepository
-import ltd.evilcorp.atox.repository.MessageRepository
-import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.atox.vo.Contact
 import ltd.evilcorp.atox.vo.FriendRequest
-import javax.inject.Inject
-import javax.inject.Singleton
-
-@Singleton
-class ToxThreadFactory @Inject constructor(
-    private val contactRepository: ContactRepository,
-    private val friendRequestRepository: FriendRequestRepository,
-    private val messageRepository: MessageRepository,
-    private val notificationHelper: NotificationHelper
-) {
-    var instance: ToxThread? = null
-
-    fun create(saveDestination: String, saveOption: SaveDataOptions): ToxThread {
-        if (instance == null) {
-            instance = ToxThread(
-                saveDestination,
-                saveOption,
-                contactRepository,
-                friendRequestRepository,
-                messageRepository,
-                notificationHelper
-            )
-        }
-
-        return instance!!
-    }
-}
 
 class ToxThread(
     saveDestination: String,
     saveOption: SaveDataOptions,
+    toxFactory: ToxFactory,
     private val contactRepository: ContactRepository,
-    friendRequestRepository: FriendRequestRepository,
-    messageRepository: MessageRepository,
-    notificationHelper: NotificationHelper
+    private val friendRequestRepository: FriendRequestRepository
 ) : HandlerThread("Tox") {
     companion object {
         // Tox
@@ -81,24 +50,7 @@ class ToxThread(
         const val msgAcceptFriendRequest = 19
     }
 
-    private val tox = Tox(
-        ToxOptions(
-            true,
-            true,
-            true,
-            ProxyOptions.`None$`(),
-            0,
-            0,
-            0,
-            saveOption,
-            true
-        ),
-        contactRepository,
-        friendRequestRepository,
-        messageRepository,
-        notificationHelper
-    )
-
+    private val tox = toxFactory.create(saveOption)
     val toxId = tox.getToxId()
 
     private fun loadContacts() {

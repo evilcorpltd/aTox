@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import im.tox.tox4j.core.options.SaveDataOptions
 import ltd.evilcorp.atox.App
+import ltd.evilcorp.atox.di.ToxThreadFactory
 import ltd.evilcorp.atox.tox.ToxThread
-import ltd.evilcorp.atox.tox.ToxThreadFactory
 import java.io.File
 import javax.inject.Inject
 
