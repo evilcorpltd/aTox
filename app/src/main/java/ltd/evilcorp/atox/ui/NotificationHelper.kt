@@ -3,10 +3,13 @@ package ltd.evilcorp.atox.ui
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.activity.ChatActivity
 import ltd.evilcorp.atox.vo.Contact
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -38,11 +41,17 @@ class NotificationHelper @Inject constructor(
     }
 
     fun showMessageNotification(contact: Contact, message: String) {
+        val intent = Intent(context, ChatActivity::class.java).apply {
+            putExtra("publicKey", contact.publicKey)
+        }
+
         val notificationBuilder = NotificationCompat.Builder(context, MESSAGE_CHANNEL)
             .setSmallIcon(android.R.drawable.sym_action_chat)
             .setContentTitle(contact.name)
             .setContentText(message)
+            .setContentIntent(PendingIntent.getActivity(context, 0, intent, 0))
             .setCategory(Notification.CATEGORY_MESSAGE)
+            .setAutoCancel(true)
 
         val notifier = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notifier.notify(contact.publicKey.hashCode(), notificationBuilder.build())
