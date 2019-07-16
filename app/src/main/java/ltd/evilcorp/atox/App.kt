@@ -11,8 +11,6 @@ import javax.inject.Inject
 
 class App : Application(), HasSupportFragmentInjector {
     companion object {
-        var profile = "aTox user"
-        lateinit var password: String
         lateinit var toxThread: ToxThread
     }
 

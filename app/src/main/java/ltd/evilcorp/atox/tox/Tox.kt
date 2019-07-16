@@ -40,8 +40,10 @@ class Tox(
         return String(tox.name)
     }
 
+    fun getStatusMessage(): String = String(tox.statusMessage)
+
     fun getToxId(): String = tox.address.byteArrayToHex()
-    private fun getPublicKey(): String = tox.publicKey.byteArrayToHex()
+    fun getPublicKey(): String = tox.publicKey.byteArrayToHex()
 
     fun addContact(toxId: String, message: String) {
         tox.addFriend(toxId.hexToByteArray(), message.toByteArray())
@@ -50,8 +52,13 @@ class Tox(
 
     fun deleteContact(publicKey: String) {
         Log.e("Tox", "Deleting $publicKey")
-        val friend = tox.friendList.find { tox.getFriendPublicKey(it).byteArrayToHex() == publicKey }!!
-        tox.deleteFriend(friend)
+        tox.friendList.find { tox.getFriendPublicKey(it).byteArrayToHex() == publicKey }?.let { friend ->
+            tox.deleteFriend(friend)
+        } ?: Log.e(
+            "Tox",
+            "Tried to delete nonexistent contact, this can happen if the database is out of sync with the Tox save"
+        )
+
         updateContactMapping()
     }
 

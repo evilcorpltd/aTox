@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.profile_fragment.view.*
+import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.activity.ContactListActivity
 import ltd.evilcorp.atox.di.ViewModelFactory
@@ -39,11 +40,13 @@ class ProfileFragment : Fragment() {
                 btnCreate.isEnabled = false
 
                 viewModel.startToxThread()
-                viewModel.setName(if (username.text.isNotEmpty()) username.text.toString() else "aTox user")
-                viewModel.setPassword(if (password.text.isNotEmpty()) password.text.toString() else "")
+                viewModel.createUser(
+                    App.toxThread.publicKey,
+                    if (username.text.isNotEmpty()) username.text.toString() else "aTox user",
+                    if (password.text.isNotEmpty()) password.text.toString() else ""
+                )
 
-                startActivity(Intent(requireContext(), ContactListActivity::class.java))
-                requireActivity().finish()
+                startContactListActivity()
             }
         }
     }
@@ -54,8 +57,18 @@ class ProfileFragment : Fragment() {
 
         viewModel.tryLoadToxSave()?.also { save ->
             viewModel.startToxThread(save)
-            startActivity(Intent(requireContext(), ContactListActivity::class.java))
-            requireActivity().finish()
+            viewModel.verifyUserExists(App.toxThread.publicKey)
+            startContactListActivity()
         }
+    }
+
+    private fun startContactListActivity() {
+        Intent(requireContext(), ContactListActivity::class.java).apply {
+            putExtra("userPublicKey", App.toxThread.publicKey)
+        }.also {
+            startActivity(it)
+        }
+
+        requireActivity().finish()
     }
 }

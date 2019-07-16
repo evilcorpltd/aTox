@@ -31,10 +31,13 @@ import ltd.evilcorp.atox.vo.Contact
 import ltd.evilcorp.atox.vo.FriendRequest
 import javax.inject.Inject
 
-
 class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
     companion object {
-        fun newInstance() = ContactListFragment()
+        fun newInstance(userPublicKey: String) = ContactListFragment().apply {
+            arguments = Bundle().apply {
+                putString("userPublicKey", userPublicKey)
+            }
+        }
     }
 
     @Inject
@@ -52,11 +55,17 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         savedInstanceState: Bundle?
     ): View {
         viewModel = ViewModelProviders.of(this, vmFactory).get(ContactListViewModel::class.java)
+        viewModel.publicKey = arguments!!.getString("userPublicKey")!!
 
         return inflater.inflate(R.layout.contact_list_fragment, container, false).apply {
             toolbar.title = getText(R.string.app_name)
 
-            navView.getHeaderView(0).profileName.text = App.profile
+            viewModel.user.observe(this@ContactListFragment, Observer { user ->
+                navView.getHeaderView(0).apply {
+                    profileName.text = user.name
+                }
+            })
+
             navView.setNavigationItemSelectedListener(this@ContactListFragment)
 
             val friendRequestAdapter = FriendRequestAdapter(inflater)
@@ -99,7 +108,7 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
     override fun onCreateContextMenu(
         menu: ContextMenu,
         v: View,
-        menuInfo: ContextMenu.ContextMenuInfo
+        menuInfo: ContextMenu.ContextMenuInfo?
     ) {
         super.onCreateContextMenu(menu, v, menuInfo)
 

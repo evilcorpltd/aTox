@@ -4,19 +4,21 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.util.Log
 import im.tox.tox4j.core.options.SaveDataOptions
-import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.di.ToxFactory
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.repository.FriendRequestRepository
+import ltd.evilcorp.atox.repository.UserRepository
 import ltd.evilcorp.atox.vo.Contact
 import ltd.evilcorp.atox.vo.FriendRequest
+import ltd.evilcorp.atox.vo.User
 
 class ToxThread(
     saveDestination: String,
     saveOption: SaveDataOptions,
     toxFactory: ToxFactory,
     private val contactRepository: ContactRepository,
-    private val friendRequestRepository: FriendRequestRepository
+    private val friendRequestRepository: FriendRequestRepository,
+    private val userRepository: UserRepository
 ) : HandlerThread("Tox") {
     companion object {
         // Tox
@@ -52,6 +54,7 @@ class ToxThread(
 
     private val tox = toxFactory.create(saveOption)
     val toxId = tox.getToxId()
+    val publicKey = tox.getPublicKey()
 
     private fun loadContacts() {
         contactRepository.resetTransientData()
@@ -111,9 +114,7 @@ class ToxThread(
                 msgGroupInvite -> Log.e("ToxThread", "Invite group")
                 msgGroupJoin -> Log.e("ToxThread", "Join group")
                 msgLoadContacts -> loadContacts()
-                msgLoadSelf -> {
-                    App.profile = tox.getName()
-                }
+                msgLoadSelf -> userRepository.update(User(publicKey, tox.getName()))
                 msgAcceptFriendRequest -> {
                     val publicKey = it.obj as String
 

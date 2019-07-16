@@ -13,7 +13,7 @@ class ContactListActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(
                     android.R.id.content,
-                    ContactListFragment.newInstance()
+                    ContactListFragment.newInstance(intent.getStringExtra("userPublicKey"))
                 )
                 .commitNow()
         }

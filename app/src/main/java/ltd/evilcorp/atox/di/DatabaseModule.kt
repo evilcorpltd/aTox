@@ -4,10 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
-import ltd.evilcorp.atox.db.ContactDao
-import ltd.evilcorp.atox.db.Database
-import ltd.evilcorp.atox.db.FriendRequestDao
-import ltd.evilcorp.atox.db.MessageDao
+import ltd.evilcorp.atox.db.*
 import javax.inject.Singleton
 
 @Module
@@ -36,5 +33,11 @@ class DatabaseModule {
     @Provides
     fun provideMessageDao(db: Database): MessageDao {
         return db.messageDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserDao(db: Database): UserDao {
+        return db.userDao()
     }
 }
