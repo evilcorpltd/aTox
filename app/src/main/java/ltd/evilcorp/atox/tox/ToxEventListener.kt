@@ -78,7 +78,11 @@ class ToxEventListener @Inject constructor(
     }
 
     override fun friendRequest(publicKey: ByteArray, timeDelta: Int, message: ByteArray, state: Int?): Int {
-        friendRequestRepository.add(FriendRequest(publicKey.byteArrayToHex(), String(message)))
+        FriendRequest(publicKey.byteArrayToHex(), String(message)).also {
+            friendRequestRepository.add(it)
+            notificationHelper.showFriendRequestNotification(it)
+        }
+
         return Log.e("ToxCore", "friendRequest")
     }
 
