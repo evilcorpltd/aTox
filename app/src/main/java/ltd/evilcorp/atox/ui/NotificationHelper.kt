@@ -60,7 +60,7 @@ class NotificationHelper @Inject constructor(
             .setSmallIcon(android.R.drawable.sym_action_chat)
             .setContentTitle(contact.name)
             .setContentText(message)
-            .setContentIntent(PendingIntent.getActivity(context, 0, intent, 0))
+            .setContentIntent(PendingIntent.getActivity(context, contact.publicKey.hashCode(), intent, 0))
             .setCategory(Notification.CATEGORY_MESSAGE)
             .setAutoCancel(true)
 
@@ -74,7 +74,7 @@ class NotificationHelper @Inject constructor(
             .setSmallIcon(android.R.drawable.btn_star_big_on)
             .setContentTitle(context.getString(R.string.friend_request_from, friendRequest.publicKey))
             .setContentText(friendRequest.message)
-            .setContentIntent(PendingIntent.getActivity(context, 0, intent, 0))
+            .setContentIntent(PendingIntent.getActivity(context, friendRequest.publicKey.hashCode(), intent, 0))
             .setCategory(Notification.CATEGORY_MESSAGE)
             .setAutoCancel(true)
 
