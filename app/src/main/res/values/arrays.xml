@@ -14,9 +14,9 @@
         <item>HTTP</item>
         <item>SOCKS5</item>
     </string-array>
-    <string-array name="proxy_values">
+    <integer-array name="proxy_values">
         <item>0</item>
         <item>1</item>
         <item>2</item>
-    </string-array>
+    </integer-array>
 </resources>
