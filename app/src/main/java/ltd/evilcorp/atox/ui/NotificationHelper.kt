@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationCompat.EXTRA_TEXT_LINES
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.activity.ChatActivity
 import ltd.evilcorp.atox.activity.ContactListActivity
@@ -63,6 +64,23 @@ class NotificationHelper @Inject constructor(
             .setContentIntent(PendingIntent.getActivity(context, contact.publicKey.hashCode(), intent, 0))
             .setCategory(Notification.CATEGORY_MESSAGE)
             .setAutoCancel(true)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val messages = notifier.activeNotifications.find { it.notification.group == contact.publicKey }
+                ?.notification?.extras?.getCharSequenceArray(EXTRA_TEXT_LINES)?.toMutableList()
+                ?: ArrayList<CharSequence>()
+
+            messages.add(message)
+
+            val style = NotificationCompat.InboxStyle()
+            messages.forEach {
+                style.addLine(it)
+            }
+
+            notificationBuilder
+                .setStyle(style)
+                .setGroup(contact.publicKey)
+        }
 
         notifier.notify(contact.publicKey.hashCode(), notificationBuilder.build())
     }
