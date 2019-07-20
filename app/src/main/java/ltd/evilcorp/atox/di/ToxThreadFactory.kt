@@ -17,10 +17,9 @@ class ToxThreadFactory @Inject constructor(
 ) {
     var instance: ToxThread? = null
 
-    fun create(saveDestination: String, saveOption: SaveDataOptions): ToxThread {
+    fun create(saveOption: SaveDataOptions): ToxThread {
         if (instance == null) {
             instance = ToxThread(
-                saveDestination,
                 saveOption,
                 toxFactory,
                 contactRepository,

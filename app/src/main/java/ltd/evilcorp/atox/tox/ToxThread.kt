@@ -13,7 +13,6 @@ import ltd.evilcorp.atox.vo.FriendRequest
 import ltd.evilcorp.atox.vo.User
 
 class ToxThread(
-    saveDestination: String,
     saveOption: SaveDataOptions,
     toxFactory: ToxFactory,
     private val contactRepository: ContactRepository,
@@ -73,10 +72,7 @@ class ToxThread(
                     tox.iterate()
                     handler.sendEmptyMessageDelayed(msgIterate, tox.iterationInterval().toLong())
                 }
-                msgSave -> {
-                    Log.e("ToxThread", "Save")
-                    tox.save(saveDestination)
-                }
+                msgSave -> tox.save()
                 msgShutdown -> {
                     Log.e("ToxThread", "Shutting down tox")
                     tox.kill()

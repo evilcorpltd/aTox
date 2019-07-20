@@ -1,5 +1,6 @@
 package ltd.evilcorp.atox.tox
 
+import android.content.Context
 import android.util.Log
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.options.ToxOptions
@@ -7,6 +8,7 @@ import im.tox.tox4j.impl.jni.ToxCoreImpl
 import java.io.File
 
 class Tox(
+    private val context: Context,
     private val eventListener: ToxEventListener,
     options: ToxOptions
 ) {
@@ -80,7 +82,8 @@ class Tox(
         )
     }
 
-    fun save(destination: String) {
+    fun save() {
+        val destination = context.filesDir.toString()
         val fileName = this.getPublicKey() + ".tox"
 
         val saveFile = File("$destination/$fileName")

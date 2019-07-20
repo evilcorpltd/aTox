@@ -1,5 +1,6 @@
 package ltd.evilcorp.atox.di
 
+import android.content.Context
 import im.tox.tox4j.core.options.ProxyOptions
 import im.tox.tox4j.core.options.SaveDataOptions
 import im.tox.tox4j.core.options.ToxOptions
@@ -9,8 +10,12 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ToxFactory @Inject constructor(private val eventListener: ToxEventListener) {
+class ToxFactory @Inject constructor(
+    private val context: Context,
+    private val eventListener: ToxEventListener
+) {
     fun create(saveOption: SaveDataOptions) = Tox(
+        context,
         eventListener,
         ToxOptions(
             true,

@@ -16,38 +16,31 @@ import ltd.evilcorp.atox.vo.User
 import java.io.File
 import javax.inject.Inject
 
-private fun loadToxSave(saveFile: File): ByteArray? {
-    if (!saveFile.exists()) {
-        return null
+private fun loadToxSave(saveFile: File): ByteArray? =
+    if (saveFile.exists()) {
+        saveFile.readBytes()
+    } else {
+        null
     }
-
-    return saveFile.readBytes()
-}
 
 class ProfileViewModel @Inject constructor(
     private val context: Context,
     private val toxThreadFactory: ToxThreadFactory,
     private val userRepository: UserRepository
 ) : ViewModel() {
-    fun startToxThread(save: ByteArray? = null): Boolean {
+    fun startToxThread(save: ByteArray? = null): Boolean = try {
         val saveOptions: SaveDataOptions = save?.let { SaveDataOptions.ToxSave(save) } ?: SaveDataOptions.`None$`()
-        return try {
-            App.toxThread = toxThreadFactory.create(context.filesDir.toString(), saveOptions)
-            true
-        } catch (e: ToxNewException) {
-            Log.e("ProfileViewModel", e.message)
-            false
-        }
+        App.toxThread = toxThreadFactory.create(saveOptions)
+        true
+    } catch (e: ToxNewException) {
+        Log.e("ProfileViewModel", e.message)
+        false
     }
 
-    fun tryLoadToxSave(): ByteArray? {
-        val save: File? = context.filesDir.walk().find { it.extension == "tox" && it.isFile }
-        return if (save == null) {
-            null
-        } else {
+    fun tryLoadToxSave(): ByteArray? =
+        context.filesDir.walk().find { it.extension == "tox" && it.isFile }?.let { save ->
             loadToxSave(save)
         }
-    }
 
     fun tryImportToxSave(uri: Uri): ByteArray? = context.contentResolver.openInputStream(uri)?.readBytes()
 
