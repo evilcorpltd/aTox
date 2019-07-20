@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.profile_fragment.view.*
 import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.activity.ContactListActivity
+import ltd.evilcorp.atox.activity.USER_PUBLIC_KEY
 import ltd.evilcorp.atox.di.ViewModelFactory
 import javax.inject.Inject
 
@@ -23,7 +24,9 @@ class ProfileFragment : Fragment() {
 
     @Inject
     lateinit var vmFactory: ViewModelFactory
-    private lateinit var viewModel: ProfileViewModel
+    private val viewModel: ProfileViewModel by lazy {
+        ViewModelProviders.of(this, vmFactory).get(ProfileViewModel::class.java)
+    }
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -34,26 +37,23 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.profile_fragment, container, false).apply {
-            btnCreate.setOnClickListener {
-                btnCreate.isEnabled = false
+    ): View = inflater.inflate(R.layout.profile_fragment, container, false).apply {
+        btnCreate.setOnClickListener {
+            btnCreate.isEnabled = false
 
-                viewModel.startToxThread()
-                viewModel.createUser(
-                    App.toxThread.publicKey,
-                    if (username.text.isNotEmpty()) username.text.toString() else "aTox user",
-                    if (password.text.isNotEmpty()) password.text.toString() else ""
-                )
+            viewModel.startToxThread()
+            viewModel.createUser(
+                App.toxThread.publicKey,
+                if (username.text.isNotEmpty()) username.text.toString() else "aTox user",
+                if (password.text.isNotEmpty()) password.text.toString() else ""
+            )
 
-                startContactListActivity()
-            }
+            startContactListActivity()
         }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this, vmFactory).get(ProfileViewModel::class.java)
 
         viewModel.tryLoadToxSave()?.also { save ->
             viewModel.startToxThread(save)
@@ -64,7 +64,7 @@ class ProfileFragment : Fragment() {
 
     private fun startContactListActivity() {
         Intent(requireContext(), ContactListActivity::class.java).apply {
-            putExtra("userPublicKey", App.toxThread.publicKey)
+            putExtra(USER_PUBLIC_KEY, App.toxThread.publicKey)
         }.also {
             startActivity(it)
         }

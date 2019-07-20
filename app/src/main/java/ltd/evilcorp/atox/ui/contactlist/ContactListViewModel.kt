@@ -25,26 +25,15 @@ class ContactListViewModel @Inject constructor(
     val friendRequests: LiveData<List<FriendRequest>> by lazy { friendRequestRepository.getAll() }
     val user: LiveData<User> by lazy { userRepository.get(publicKey) }
 
-    fun acceptFriendRequest(friendRequest: FriendRequest) {
-        with(App.toxThread.handler) {
-            sendMessage(
-                obtainMessage(
-                    ToxThread.msgAcceptFriendRequest,
-                    friendRequest.publicKey
-                )
-            )
-        }
+    fun acceptFriendRequest(friendRequest: FriendRequest) = with(App.toxThread.handler) {
+        sendMessage(obtainMessage(ToxThread.msgAcceptFriendRequest, friendRequest.publicKey))
     }
 
-    fun rejectFriendRequest(friendRequest: FriendRequest) {
-        GlobalScope.launch {
-            friendRequestRepository.delete(friendRequest)
-        }
+    fun rejectFriendRequest(friendRequest: FriendRequest) = GlobalScope.launch {
+        friendRequestRepository.delete(friendRequest)
     }
 
-    fun deleteContact(contact: Contact) {
-        with(App.toxThread.handler) {
-            sendMessage(obtainMessage(ToxThread.msgDeleteContact, contact.publicKey))
-        }
+    fun deleteContact(contact: Contact) = with(App.toxThread.handler) {
+        sendMessage(obtainMessage(ToxThread.msgDeleteContact, contact.publicKey))
     }
 }

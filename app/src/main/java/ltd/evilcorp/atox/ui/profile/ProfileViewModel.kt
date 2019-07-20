@@ -50,11 +50,9 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun verifyUserExists(publicKey: String) {
-        GlobalScope.launch {
-            if (!userRepository.exists(publicKey)) {
-                userRepository.add(User(publicKey))
-            }
+    fun verifyUserExists(publicKey: String) = GlobalScope.launch {
+        if (!userRepository.exists(publicKey)) {
+            userRepository.add(User(publicKey))
         }
     }
 }

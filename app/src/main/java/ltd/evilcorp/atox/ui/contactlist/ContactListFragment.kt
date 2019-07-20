@@ -22,7 +22,9 @@ import kotlinx.android.synthetic.main.nav_header_contact_list.view.*
 import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.activity.AddContactActivity
+import ltd.evilcorp.atox.activity.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.activity.ChatActivity
+import ltd.evilcorp.atox.activity.USER_PUBLIC_KEY
 import ltd.evilcorp.atox.di.ViewModelFactory
 import ltd.evilcorp.atox.ui.ContactAdapter
 import ltd.evilcorp.atox.ui.FriendRequestAdapter
@@ -35,14 +37,18 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
     companion object {
         fun newInstance(userPublicKey: String) = ContactListFragment().apply {
             arguments = Bundle().apply {
-                putString("userPublicKey", userPublicKey)
+                putString(USER_PUBLIC_KEY, userPublicKey)
             }
         }
     }
 
     @Inject
     lateinit var vmFactory: ViewModelFactory
-    private lateinit var viewModel: ContactListViewModel
+    private val viewModel: ContactListViewModel by lazy {
+        ViewModelProviders.of(this, vmFactory).get(ContactListViewModel::class.java).apply {
+            publicKey = arguments!!.getString(USER_PUBLIC_KEY)!!
+        }
+    }
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -53,63 +59,58 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        viewModel = ViewModelProviders.of(this, vmFactory).get(ContactListViewModel::class.java)
-        viewModel.publicKey = arguments!!.getString("userPublicKey")!!
+    ): View = inflater.inflate(R.layout.contact_list_fragment, container, false).apply {
+        toolbar.title = getText(R.string.app_name)
 
-        return inflater.inflate(R.layout.contact_list_fragment, container, false).apply {
-            toolbar.title = getText(R.string.app_name)
-
-            viewModel.user.observe(this@ContactListFragment, Observer { user ->
-                navView.getHeaderView(0).apply {
-                    profileName.text = user.name
-                    profileStatusMessage.text = user.statusMessage
-                }
-
-                toolbar.subtitle = if (user.connectionStatus == ConnectionStatus.NONE) {
-                    getText(R.string.connecting)
-                } else {
-                    getText(R.string.connected)
-                }
-            })
-
-            navView.setNavigationItemSelectedListener(this@ContactListFragment)
-
-            val friendRequestAdapter = FriendRequestAdapter(inflater)
-            friendRequests.adapter = friendRequestAdapter
-            registerForContextMenu(friendRequests)
-            viewModel.friendRequests.observe(this@ContactListFragment, Observer { friendRequests ->
-                friendRequestAdapter.friendRequests = friendRequests
-                friendRequestAdapter.notifyDataSetChanged()
-            })
-
-            val contactAdapter = ContactAdapter(inflater, resources)
-            contactList.adapter = contactAdapter
-            registerForContextMenu(contactList)
-            viewModel.contacts.observe(this@ContactListFragment, Observer { contacts ->
-                contactAdapter.contacts = contacts.sortedWith(
-                    compareBy(
-                        { contact -> contact.connectionStatus == ConnectionStatus.NONE },
-                        Contact::lastMessage,
-                        Contact::status
-                    )
-                )
-                contactAdapter.notifyDataSetChanged()
-            })
-            contactList.setOnItemClickListener { _, _, position, _ ->
-                openChat(contactList.getItemAtPosition(position) as Contact)
+        viewModel.user.observe(this@ContactListFragment, Observer { user ->
+            navView.getHeaderView(0).apply {
+                profileName.text = user.name
+                profileStatusMessage.text = user.statusMessage
             }
 
-            val toggle = ActionBarDrawerToggle(
-                requireActivity(),
-                drawerLayout,
-                toolbar,
-                R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close
+            toolbar.subtitle = if (user.connectionStatus == ConnectionStatus.NONE) {
+                getText(R.string.connecting)
+            } else {
+                getText(R.string.connected)
+            }
+        })
+
+        navView.setNavigationItemSelectedListener(this@ContactListFragment)
+
+        val friendRequestAdapter = FriendRequestAdapter(inflater)
+        friendRequests.adapter = friendRequestAdapter
+        registerForContextMenu(friendRequests)
+        viewModel.friendRequests.observe(this@ContactListFragment, Observer { friendRequests ->
+            friendRequestAdapter.friendRequests = friendRequests
+            friendRequestAdapter.notifyDataSetChanged()
+        })
+
+        val contactAdapter = ContactAdapter(inflater, resources)
+        contactList.adapter = contactAdapter
+        registerForContextMenu(contactList)
+        viewModel.contacts.observe(this@ContactListFragment, Observer { contacts ->
+            contactAdapter.contacts = contacts.sortedWith(
+                compareBy(
+                    { contact -> contact.connectionStatus == ConnectionStatus.NONE },
+                    Contact::lastMessage,
+                    Contact::status
+                )
             )
-            drawerLayout.addDrawerListener(toggle)
-            toggle.syncState()
+            contactAdapter.notifyDataSetChanged()
+        })
+        contactList.setOnItemClickListener { _, _, position, _ ->
+            openChat(contactList.getItemAtPosition(position) as Contact)
         }
+
+        val toggle = ActionBarDrawerToggle(
+            requireActivity(),
+            drawerLayout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
     }
 
     override fun onCreateContextMenu(
@@ -179,9 +180,7 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
 
                 Toast.makeText(requireContext(), getText(R.string.tox_id_copied), Toast.LENGTH_SHORT).show()
             }
-            R.id.add_contact -> {
-                startActivity(Intent(requireContext(), AddContactActivity::class.java))
-            }
+            R.id.add_contact -> startActivity(Intent(requireContext(), AddContactActivity::class.java))
             R.id.settings -> {
                 // TODO(robinlinden): Settings activity
             }
@@ -199,8 +198,8 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
     }
 
     private fun openChat(contact: Contact) {
-        val intent = Intent(requireContext(), ChatActivity::class.java)
-        intent.putExtra("publicKey", contact.publicKey)
-        startActivity(intent)
+        startActivity(Intent(requireContext(), ChatActivity::class.java).apply {
+            putExtra(CONTACT_PUBLIC_KEY, contact.publicKey)
+        })
     }
 }

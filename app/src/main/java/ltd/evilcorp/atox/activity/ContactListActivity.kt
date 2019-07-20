@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import ltd.evilcorp.atox.ui.contactlist.ContactListFragment
 
+const val USER_PUBLIC_KEY = "userPublicKey"
 
 class ContactListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,7 +14,7 @@ class ContactListActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(
                     android.R.id.content,
-                    ContactListFragment.newInstance(intent.getStringExtra("userPublicKey"))
+                    ContactListFragment.newInstance(intent.getStringExtra(USER_PUBLIC_KEY))
                 )
                 .commitNow()
         }
