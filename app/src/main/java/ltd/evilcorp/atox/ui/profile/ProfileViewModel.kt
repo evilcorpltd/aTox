@@ -1,6 +1,7 @@
 package ltd.evilcorp.atox.ui.profile
 
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import im.tox.tox4j.core.options.SaveDataOptions
 import kotlinx.coroutines.GlobalScope
@@ -39,6 +40,8 @@ class ProfileViewModel @Inject constructor(
             loadToxSave(save)
         }
     }
+
+    fun tryImportToxSave(uri: Uri): ByteArray? = context.contentResolver.openInputStream(uri)?.readBytes()
 
     fun createUser(publicKey: String, name: String, password: String) {
         GlobalScope.launch {

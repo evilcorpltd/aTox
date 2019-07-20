@@ -136,6 +136,7 @@ class ToxThread(
     init {
         start()
         handler.sendEmptyMessage(msgLoadSelf)
+        handler.sendEmptyMessage(msgSave)
         handler.sendEmptyMessage(msgLoadContacts)
         handler.sendEmptyMessage(msgIterate)
     }
