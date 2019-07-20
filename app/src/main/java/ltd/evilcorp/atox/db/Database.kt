@@ -10,7 +10,7 @@ import ltd.evilcorp.atox.vo.User
 
 @Database(
     entities = [Contact::class, FriendRequest::class, Message::class, User::class],
-    version = 6,
+    version = 7,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

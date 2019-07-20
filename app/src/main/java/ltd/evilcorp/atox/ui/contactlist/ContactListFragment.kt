@@ -63,6 +63,13 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
             viewModel.user.observe(this@ContactListFragment, Observer { user ->
                 navView.getHeaderView(0).apply {
                     profileName.text = user.name
+                    profileStatusMessage.text = user.statusMessage
+                }
+
+                toolbar.subtitle = if (user.connectionStatus == ConnectionStatus.NONE) {
+                    getText(R.string.connecting)
+                } else {
+                    getText(R.string.connected)
                 }
             })
 

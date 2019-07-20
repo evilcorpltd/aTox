@@ -2,6 +2,7 @@ package ltd.evilcorp.atox.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import ltd.evilcorp.atox.vo.ConnectionStatus
 import ltd.evilcorp.atox.vo.User
 
 @Dao
@@ -11,6 +12,9 @@ interface UserDao {
 
     @Update
     fun update(user: User)
+
+    @Query("UPDATE users SET connection_status = :connectionStatus WHERE public_key == :publicKey")
+    fun updateConnection(publicKey: String, connectionStatus: ConnectionStatus)
 
     @Delete
     fun delete(user: User)

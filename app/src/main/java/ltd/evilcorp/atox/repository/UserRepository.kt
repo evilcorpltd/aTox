@@ -2,6 +2,7 @@ package ltd.evilcorp.atox.repository
 
 import androidx.lifecycle.LiveData
 import ltd.evilcorp.atox.db.UserDao
+import ltd.evilcorp.atox.vo.ConnectionStatus
 import ltd.evilcorp.atox.vo.User
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -20,6 +21,10 @@ class UserRepository @Inject constructor(
 
     fun update(user: User) {
         userDao.update(user)
+    }
+
+    fun updateConnection(publicKey: String, connectionStatus: ConnectionStatus) {
+        userDao.updateConnection(publicKey, connectionStatus)
     }
 
     fun get(publicKey: String): LiveData<User> {

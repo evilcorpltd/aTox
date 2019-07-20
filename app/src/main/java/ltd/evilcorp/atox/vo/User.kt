@@ -19,6 +19,9 @@ data class User(
     @ColumnInfo(name = "status")
     var status: UserStatus = UserStatus.NONE,
 
+    @ColumnInfo(name = "connection_status")
+    var connectionStatus: ConnectionStatus = ConnectionStatus.NONE,
+
     @ColumnInfo(name = "password")
     var password: String = ""
 )

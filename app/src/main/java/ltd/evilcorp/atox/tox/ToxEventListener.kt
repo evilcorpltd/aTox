@@ -6,9 +6,11 @@ import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
+import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.repository.FriendRequestRepository
 import ltd.evilcorp.atox.repository.MessageRepository
+import ltd.evilcorp.atox.repository.UserRepository
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.atox.vo.Contact
 import ltd.evilcorp.atox.vo.FriendRequest
@@ -22,6 +24,7 @@ class ToxEventListener @Inject constructor(
     private val contactRepository: ContactRepository,
     private val friendRequestRepository: FriendRequestRepository,
     private val messageRepository: MessageRepository,
+    private val userRepository: UserRepository,
     private val notificationHelper: NotificationHelper
 ) : ToxCoreEventListener<Int> {
     private var contacts: List<Contact> = listOf()
@@ -134,7 +137,8 @@ class ToxEventListener @Inject constructor(
     }
 
     override fun selfConnectionStatus(connectionStatus: ToxConnection, state: Int?): Int {
-        return Log.e("ToxCore", "selfConnectionStatus")
+        userRepository.updateConnection(App.toxThread.publicKey, connectionStatus.toConnectionStatus())
+        return Log.e("ToxCore", "selfConnectionStatus $connectionStatus")
     }
 
     override fun friendTyping(friendNumber: Int, isTyping: Boolean, state: Int?): Int {
