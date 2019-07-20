@@ -40,4 +40,5 @@
     <string name="clear_history_cleared">History cleared</string>
     <string name="clear_history_confirm">Are you sure you want to clear your chat history with %1$s?</string>
     <string name="import_tox_save">Import Tox save</string>
+    <string name="import_tox_save_failed">Import failed for some reason</string>
 </resources>

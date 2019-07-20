@@ -2,7 +2,9 @@ package ltd.evilcorp.atox.ui.profile
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import im.tox.tox4j.core.exceptions.ToxNewException
 import im.tox.tox4j.core.options.SaveDataOptions
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -27,9 +29,15 @@ class ProfileViewModel @Inject constructor(
     private val toxThreadFactory: ToxThreadFactory,
     private val userRepository: UserRepository
 ) : ViewModel() {
-    fun startToxThread(save: ByteArray? = null) {
+    fun startToxThread(save: ByteArray? = null): Boolean {
         val saveOptions: SaveDataOptions = save?.let { SaveDataOptions.ToxSave(save) } ?: SaveDataOptions.`None$`()
-        App.toxThread = toxThreadFactory.create(context.filesDir.toString(), saveOptions)
+        return try {
+            App.toxThread = toxThreadFactory.create(context.filesDir.toString(), saveOptions)
+            true
+        } catch (e: ToxNewException) {
+            Log.e("ProfileViewModel", e.message)
+            false
+        }
     }
 
     fun tryLoadToxSave(): ByteArray? {

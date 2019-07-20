@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.AndroidSupportInjection
@@ -79,10 +80,13 @@ class ProfileFragment : Fragment() {
 
         resultData?.data?.let { uri ->
             Log.e("ProfileFragment", "Importing file $uri")
-            viewModel.tryImportToxSave(uri)?.also { saveData ->
-                viewModel.startToxThread(saveData)
-                viewModel.verifyUserExists(App.toxThread.publicKey)
-                startContactListActivity()
+            viewModel.tryImportToxSave(uri)?.also { save ->
+                if (viewModel.startToxThread(save)) {
+                    viewModel.verifyUserExists(App.toxThread.publicKey)
+                    startContactListActivity()
+                } else {
+                    Toast.makeText(requireContext(), R.string.import_tox_save_failed, Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
