@@ -110,7 +110,7 @@ class ToxThread(
                 msgGroupInvite -> Log.e("ToxThread", "Invite group")
                 msgGroupJoin -> Log.e("ToxThread", "Join group")
                 msgLoadContacts -> loadContacts()
-                msgLoadSelf -> userRepository.update(User(publicKey, tox.getName()))
+                msgLoadSelf -> userRepository.update(User(publicKey, tox.getName(), tox.getStatusMessage()))
                 msgAcceptFriendRequest -> {
                     val publicKey = it.obj as String
 
