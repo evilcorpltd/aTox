@@ -6,12 +6,10 @@
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
         tools:openDrawer="start">
     <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".activity.ContactListActivity">
+            android:layout_height="match_parent">
         <com.google.android.material.appbar.AppBarLayout
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
@@ -27,8 +25,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:context=".activity.ContactListActivity">
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
             <ListView
                     android:id="@+id/friendRequests"
                     android:layout_width="match_parent"

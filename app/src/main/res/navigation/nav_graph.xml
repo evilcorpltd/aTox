@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/nav_graph"
+        app:startDestination="@id/profileFragment">
+    <fragment
+            android:id="@+id/profileFragment"
+            android:name="ltd.evilcorp.atox.ui.profile.ProfileFragment"
+            android:label="ProfileFragment"
+            tools:layout="@layout/profile_fragment">
+        <action
+                android:id="@+id/action_profileFragment_to_contactListFragment"
+                app:destination="@id/contactListFragment"
+                app:popUpTo="@+id/nav_graph"/>
+    </fragment>
+    <fragment
+            android:id="@+id/contactListFragment"
+            android:name="ltd.evilcorp.atox.ui.contactlist.ContactListFragment"
+            android:label="ContactListFragment"
+            tools:layout="@layout/contact_list_fragment">
+        <argument android:name="userPublicKey" app:argType="string"/>
+        <action
+                android:id="@+id/action_contactListFragment_to_chatFragment"
+                app:destination="@id/chatFragment"/>
+        <action
+                android:id="@+id/action_contactListFragment_to_addContactFragment"
+                app:destination="@id/addContactFragment"/>
+    </fragment>
+    <fragment
+            android:id="@+id/chatFragment"
+            android:name="ltd.evilcorp.atox.ui.chat.ChatFragment"
+            android:label="ChatFragment"
+            tools:layout="@layout/chat_fragment">
+        <argument android:name="contactPublicKey" app:argType="string"/>
+    </fragment>
+    <fragment
+            android:id="@+id/addContactFragment"
+            android:name="ltd.evilcorp.atox.ui.addcontact.AddContactFragment"
+            android:label="add_contact_fragment"
+            tools:layout="@layout/add_contact_fragment"/>
+</navigation>

@@ -10,10 +10,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".activity.AddContactActivity"/>
-        <activity android:name=".activity.ChatActivity"/>
-        <activity android:name=".activity.ContactListActivity"/>
-        <activity android:name=".activity.ProfileActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

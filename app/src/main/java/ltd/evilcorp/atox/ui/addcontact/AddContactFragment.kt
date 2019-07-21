@@ -8,14 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.add_contact_fragment.view.*
 import ltd.evilcorp.atox.R
 
 class AddContactFragment : Fragment() {
-    companion object {
-        fun newInstance() = AddContactFragment()
-    }
-
     private val viewModel: AddContactViewModel by lazy {
         ViewModelProviders.of(this).get(AddContactViewModel::class.java)
     }
@@ -47,7 +44,7 @@ class AddContactFragment : Fragment() {
 
         add.setOnClickListener {
             viewModel.addContact(toxId.text.toString(), message.text.toString())
-            requireActivity().finish()
+            findNavController().popBackStack()
         }
 
         add.isEnabled = false

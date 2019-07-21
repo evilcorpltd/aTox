@@ -3,15 +3,14 @@ package ltd.evilcorp.atox.ui
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.os.Build
+import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.EXTRA_TEXT_LINES
+import androidx.navigation.NavDeepLinkBuilder
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.activity.ChatActivity
-import ltd.evilcorp.atox.activity.ContactListActivity
+import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.vo.Contact
 import ltd.evilcorp.atox.vo.FriendRequest
 import javax.inject.Inject
@@ -53,15 +52,17 @@ class NotificationHelper @Inject constructor(
     }
 
     fun showMessageNotification(contact: Contact, message: String) {
-        val intent = Intent(context, ChatActivity::class.java).apply {
-            putExtra("publicKey", contact.publicKey)
-        }
-
         val notificationBuilder = NotificationCompat.Builder(context, MESSAGE)
             .setSmallIcon(android.R.drawable.sym_action_chat)
             .setContentTitle(contact.name)
             .setContentText(message)
-            .setContentIntent(PendingIntent.getActivity(context, contact.publicKey.hashCode(), intent, 0))
+            .setContentIntent(
+                NavDeepLinkBuilder(context)
+                    .setGraph(R.navigation.nav_graph)
+                    .setDestination(R.id.chatFragment)
+                    .setArguments(Bundle().apply { putString(CONTACT_PUBLIC_KEY, contact.publicKey) })
+                    .createPendingIntent()
+            )
             .setCategory(Notification.CATEGORY_MESSAGE)
             .setAutoCancel(true)
 
@@ -86,13 +87,16 @@ class NotificationHelper @Inject constructor(
     }
 
     fun showFriendRequestNotification(friendRequest: FriendRequest) {
-        val intent = Intent(context, ContactListActivity::class.java)
-
         val notificationBuilder = NotificationCompat.Builder(context, FRIEND_REQUEST)
             .setSmallIcon(android.R.drawable.btn_star_big_on)
             .setContentTitle(context.getString(R.string.friend_request_from, friendRequest.publicKey))
             .setContentText(friendRequest.message)
-            .setContentIntent(PendingIntent.getActivity(context, friendRequest.publicKey.hashCode(), intent, 0))
+            .setContentIntent(
+                NavDeepLinkBuilder(context)
+                    .setGraph(R.navigation.nav_graph)
+                    .setDestination(R.id.contactListFragment)
+                    .createPendingIntent()
+            )
             .setCategory(Notification.CATEGORY_MESSAGE)
             .setAutoCancel(true)
 

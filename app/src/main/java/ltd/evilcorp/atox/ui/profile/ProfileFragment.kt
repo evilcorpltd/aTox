@@ -11,22 +11,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.profile_fragment.view.*
 import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.activity.ContactListActivity
-import ltd.evilcorp.atox.activity.USER_PUBLIC_KEY
 import ltd.evilcorp.atox.di.ViewModelFactory
+import ltd.evilcorp.atox.ui.contactlist.USER_PUBLIC_KEY
 import javax.inject.Inject
 
 private const val IMPORT = 42
 
 class ProfileFragment : Fragment() {
-    companion object {
-        fun newInstance() = ProfileFragment()
-    }
-
     @Inject
     lateinit var vmFactory: ViewModelFactory
     private val viewModel: ProfileViewModel by lazy {
@@ -53,7 +49,7 @@ class ProfileFragment : Fragment() {
                 if (password.text.isNotEmpty()) password.text.toString() else ""
             )
 
-            startContactListActivity()
+            navigateToContactList()
         }
 
         toolbar.inflateMenu(R.menu.profile_options_menu)
@@ -83,7 +79,7 @@ class ProfileFragment : Fragment() {
             viewModel.tryImportToxSave(uri)?.also { save ->
                 if (viewModel.startToxThread(save)) {
                     viewModel.verifyUserExists(App.toxThread.publicKey)
-                    startContactListActivity()
+                    navigateToContactList()
                 } else {
                     Toast.makeText(requireContext(), R.string.import_tox_save_failed, Toast.LENGTH_LONG).show()
                 }
@@ -97,17 +93,12 @@ class ProfileFragment : Fragment() {
         viewModel.tryLoadToxSave()?.also { save ->
             viewModel.startToxThread(save)
             viewModel.verifyUserExists(App.toxThread.publicKey)
-            startContactListActivity()
+            navigateToContactList()
         }
     }
 
-    private fun startContactListActivity() {
-        Intent(requireContext(), ContactListActivity::class.java).apply {
-            putExtra(USER_PUBLIC_KEY, App.toxThread.publicKey)
-        }.also {
-            startActivity(it)
-        }
-
-        requireActivity().finish()
-    }
+    private fun navigateToContactList() = findNavController().navigate(
+        R.id.action_profileFragment_to_contactListFragment,
+        Bundle().apply { putString(USER_PUBLIC_KEY, App.toxThread.publicKey) }
+    )
 }

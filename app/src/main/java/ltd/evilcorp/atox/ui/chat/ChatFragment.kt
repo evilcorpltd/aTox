@@ -16,22 +16,15 @@ import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.chat_fragment.view.*
 import kotlinx.android.synthetic.main.profile_image_layout.*
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.activity.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.di.ViewModelFactory
 import ltd.evilcorp.atox.ui.MessagesAdapter
 import ltd.evilcorp.atox.ui.colorByStatus
 import ltd.evilcorp.atox.vo.ConnectionStatus
 import javax.inject.Inject
 
-class ChatFragment : Fragment() {
-    companion object {
-        fun newInstance(publicKey: String) = ChatFragment().apply {
-            arguments = Bundle().apply {
-                putString(CONTACT_PUBLIC_KEY, publicKey)
-            }
-        }
-    }
+const val CONTACT_PUBLIC_KEY = "publicKey"
 
+class ChatFragment : Fragment() {
     @Inject
     lateinit var vmFactory: ViewModelFactory
     private val viewModel: ChatViewModel by lazy {
@@ -53,14 +46,7 @@ class ChatFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.chat_fragment, container, false).apply {
-        requireActivity().let {
-            it.setActionBar(toolbar)
-            it.actionBar!!.apply {
-                setDisplayShowTitleEnabled(false)
-                setDisplayHomeAsUpEnabled(true)
-            }
-        }
-
+        toolbar.setNavigationIcon(R.drawable.back)
         toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()
         }
@@ -83,7 +69,7 @@ class ChatFragment : Fragment() {
             }
         }
 
-        viewModel.contact.observe(this@ChatFragment, Observer {
+        viewModel.contact.observe(viewLifecycleOwner, Observer {
             contactName = it.name
             contactOnline = it.connectionStatus != ConnectionStatus.NONE
 
@@ -95,7 +81,7 @@ class ChatFragment : Fragment() {
         val adapter = MessagesAdapter(inflater)
         messages.adapter = adapter
 
-        viewModel.messages.observe(this@ChatFragment, Observer {
+        viewModel.messages.observe(viewLifecycleOwner, Observer {
             adapter.messages = it
             adapter.notifyDataSetChanged()
         })
