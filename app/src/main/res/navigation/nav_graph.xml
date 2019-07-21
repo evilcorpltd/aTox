@@ -13,7 +13,9 @@
         <action
                 android:id="@+id/action_profileFragment_to_contactListFragment"
                 app:destination="@id/contactListFragment"
-                app:popUpTo="@+id/nav_graph"/>
+                app:popUpTo="@+id/nav_graph"
+                app:enterAnim="@anim/fade_in"
+                app:exitAnim="@anim/fade_out"/>
     </fragment>
     <fragment
             android:id="@+id/contactListFragment"
@@ -23,10 +25,18 @@
         <argument android:name="userPublicKey" app:argType="string"/>
         <action
                 android:id="@+id/action_contactListFragment_to_chatFragment"
-                app:destination="@id/chatFragment"/>
+                app:destination="@id/chatFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/slide_out_right"/>
         <action
                 android:id="@+id/action_contactListFragment_to_addContactFragment"
-                app:destination="@id/addContactFragment"/>
+                app:destination="@id/addContactFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
             android:id="@+id/chatFragment"
