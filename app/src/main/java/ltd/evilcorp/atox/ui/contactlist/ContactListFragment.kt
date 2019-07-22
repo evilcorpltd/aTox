@@ -17,31 +17,22 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
-import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.contact_list_fragment.*
 import kotlinx.android.synthetic.main.contact_list_fragment.view.*
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 import kotlinx.android.synthetic.main.nav_header_contact_list.view.*
 import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.di.ViewModelFactory
 import ltd.evilcorp.atox.ui.ContactAdapter
 import ltd.evilcorp.atox.ui.FriendRequestAdapter
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
+import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.atox.vo.ConnectionStatus
 import ltd.evilcorp.atox.vo.Contact
 import ltd.evilcorp.atox.vo.FriendRequest
-import javax.inject.Inject
 
 class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
-    @Inject
-    lateinit var vmFactory: ViewModelFactory
     private val viewModel: ContactListViewModel by viewModels { vmFactory }
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
