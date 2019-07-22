@@ -22,7 +22,6 @@
             android:name="ltd.evilcorp.atox.ui.contactlist.ContactListFragment"
             android:label="ContactListFragment"
             tools:layout="@layout/contact_list_fragment">
-        <argument android:name="userPublicKey" app:argType="string"/>
         <action
                 android:id="@+id/action_contactListFragment_to_chatFragment"
                 app:destination="@id/chatFragment"

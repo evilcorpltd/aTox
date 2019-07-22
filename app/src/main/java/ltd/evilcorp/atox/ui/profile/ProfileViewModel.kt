@@ -2,6 +2,7 @@ package ltd.evilcorp.atox.ui.profile
 
 import android.content.Context
 import android.net.Uri
+import android.preference.PreferenceManager
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import im.tox.tox4j.core.exceptions.ToxNewException
@@ -9,6 +10,7 @@ import im.tox.tox4j.core.options.SaveDataOptions
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.App
+import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.di.ToxThreadFactory
 import ltd.evilcorp.atox.repository.UserRepository
 import ltd.evilcorp.atox.tox.ToxThread
@@ -31,6 +33,7 @@ class ProfileViewModel @Inject constructor(
     fun startToxThread(save: ByteArray? = null): Boolean = try {
         val saveOptions: SaveDataOptions = save?.let { SaveDataOptions.ToxSave(save) } ?: SaveDataOptions.`None$`()
         App.toxThread = toxThreadFactory.create(saveOptions)
+        setActiveUser(App.toxThread.publicKey)
         true
     } catch (e: ToxNewException) {
         Log.e("ProfileViewModel", e.message)
@@ -59,4 +62,10 @@ class ProfileViewModel @Inject constructor(
             userRepository.add(User(publicKey))
         }
     }
+
+    private fun setActiveUser(publicKey: String) =
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(
+            context.getString(R.string.pref_active_user),
+            publicKey
+        ).apply()
 }

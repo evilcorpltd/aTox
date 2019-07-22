@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.*
 import android.widget.AdapterView
 import android.widget.Toast
@@ -32,14 +33,15 @@ import ltd.evilcorp.atox.vo.Contact
 import ltd.evilcorp.atox.vo.FriendRequest
 import javax.inject.Inject
 
-const val USER_PUBLIC_KEY = "userPublicKey"
-
 class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
     @Inject
     lateinit var vmFactory: ViewModelFactory
     private val viewModel: ContactListViewModel by lazy {
         ViewModelProviders.of(this, vmFactory).get(ContactListViewModel::class.java).apply {
-            publicKey = arguments!!.getString(USER_PUBLIC_KEY)!!
+            publicKey = PreferenceManager.getDefaultSharedPreferences(requireContext()).getString(
+                getString(R.string.pref_active_user),
+                null
+            )!!
         }
     }
 

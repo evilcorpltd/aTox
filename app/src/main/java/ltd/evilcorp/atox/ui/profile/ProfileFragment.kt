@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.profile_fragment.view.*
 import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.di.ViewModelFactory
-import ltd.evilcorp.atox.ui.contactlist.USER_PUBLIC_KEY
 import javax.inject.Inject
 
 private const val IMPORT = 42
@@ -97,8 +96,6 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun navigateToContactList() = findNavController().navigate(
-        R.id.action_profileFragment_to_contactListFragment,
-        Bundle().apply { putString(USER_PUBLIC_KEY, App.toxThread.publicKey) }
-    )
+    private fun navigateToContactList() =
+        findNavController().navigate(R.id.action_profileFragment_to_contactListFragment)
 }
