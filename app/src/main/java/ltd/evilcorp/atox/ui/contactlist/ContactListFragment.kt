@@ -13,8 +13,8 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
 import dagger.android.support.AndroidSupportInjection
@@ -36,14 +36,7 @@ import javax.inject.Inject
 class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
     @Inject
     lateinit var vmFactory: ViewModelFactory
-    private val viewModel: ContactListViewModel by lazy {
-        ViewModelProviders.of(this, vmFactory).get(ContactListViewModel::class.java).apply {
-            publicKey = PreferenceManager.getDefaultSharedPreferences(requireContext()).getString(
-                getString(R.string.pref_active_user),
-                null
-            )!!
-        }
-    }
+    private val viewModel: ContactListViewModel by viewModels { vmFactory }
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -55,6 +48,9 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.contact_list_fragment, container, false).apply {
+        viewModel.publicKey = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            .getString(getString(R.string.pref_active_user), null)!!
+
         toolbar.title = getText(R.string.app_name)
 
         viewModel.user.observe(viewLifecycleOwner, Observer { user ->

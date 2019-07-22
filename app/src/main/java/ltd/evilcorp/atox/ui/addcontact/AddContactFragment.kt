@@ -7,15 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.add_contact_fragment.view.*
 import ltd.evilcorp.atox.R
 
 class AddContactFragment : Fragment() {
-    private val viewModel: AddContactViewModel by lazy {
-        ViewModelProviders.of(this).get(AddContactViewModel::class.java)
-    }
+    private val viewModel: AddContactViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -10,8 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.chat_fragment.view.*
 import kotlinx.android.synthetic.main.profile_image_layout.*
@@ -27,11 +27,7 @@ const val CONTACT_PUBLIC_KEY = "publicKey"
 class ChatFragment : Fragment() {
     @Inject
     lateinit var vmFactory: ViewModelFactory
-    private val viewModel: ChatViewModel by lazy {
-        ViewModelProviders.of(this, vmFactory).get(ChatViewModel::class.java).apply {
-            publicKey = arguments!!.getString(CONTACT_PUBLIC_KEY)!!
-        }
-    }
+    private val viewModel: ChatViewModel by viewModels { vmFactory }
 
     private var contactName = ""
     private var contactOnline = false
@@ -46,6 +42,8 @@ class ChatFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.chat_fragment, container, false).apply {
+        viewModel.publicKey = arguments!!.getString(CONTACT_PUBLIC_KEY)!!
+
         toolbar.setNavigationIcon(R.drawable.back)
         toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()
