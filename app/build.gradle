@@ -32,6 +32,11 @@ android {
     }
 }
 
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.AbstractKotlinCompile).all {
+    // newSingleThreadContext
+    kotlinOptions.freeCompilerArgs += ["-Xuse-experimental=kotlinx.coroutines.ObsoleteCoroutinesApi"]
+}
+
 ext {
     coroutines_version = '1.2.1'
     dagger_version = '2.23.1'

@@ -8,7 +8,6 @@ import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.repository.FriendRequestRepository
 import ltd.evilcorp.atox.repository.UserRepository
-import ltd.evilcorp.atox.tox.ToxThread
 import ltd.evilcorp.atox.vo.Contact
 import ltd.evilcorp.atox.vo.FriendRequest
 import ltd.evilcorp.atox.vo.User
@@ -25,15 +24,11 @@ class ContactListViewModel @Inject constructor(
     val friendRequests: LiveData<List<FriendRequest>> by lazy { friendRequestRepository.getAll() }
     val user: LiveData<User> by lazy { userRepository.get(publicKey) }
 
-    fun acceptFriendRequest(friendRequest: FriendRequest) = with(App.toxThread.handler) {
-        sendMessage(obtainMessage(ToxThread.msgAcceptFriendRequest, friendRequest.publicKey))
-    }
+    fun acceptFriendRequest(friendRequest: FriendRequest) = App.toxThread.acceptFriendRequest(friendRequest.publicKey)
 
     fun rejectFriendRequest(friendRequest: FriendRequest) = GlobalScope.launch {
         friendRequestRepository.delete(friendRequest)
     }
 
-    fun deleteContact(contact: Contact) = with(App.toxThread.handler) {
-        sendMessage(obtainMessage(ToxThread.msgDeleteContact, contact.publicKey))
-    }
+    fun deleteContact(contact: Contact) = App.toxThread.deleteContact(contact.publicKey)
 }

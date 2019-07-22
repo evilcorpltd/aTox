@@ -1,8 +1,6 @@
 package ltd.evilcorp.atox.tox
 
-import android.os.Handler
-import android.os.HandlerThread
-import android.util.Log
+import kotlinx.coroutines.*
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.repository.FriendRequestRepository
 import ltd.evilcorp.atox.repository.UserRepository
@@ -10,130 +8,82 @@ import ltd.evilcorp.atox.vo.Contact
 import ltd.evilcorp.atox.vo.FriendRequest
 import ltd.evilcorp.atox.vo.User
 
+@ObsoleteCoroutinesApi
 class ToxThread(
     private val tox: Tox,
     private val contactRepository: ContactRepository,
     private val friendRequestRepository: FriendRequestRepository,
     private val userRepository: UserRepository
-) : HandlerThread("Tox") {
-    companion object {
-        // Tox
-        private const val msgIterate = 0
-        private const val msgSave = 1
-        const val msgShutdown = 2
-
-        // self
-        const val msgSetName = 3
-        const val msgSetStatus = 4
-        const val msgSetState = 5
-        const val msgSetTyping = 6
-
-        // contacts
-        const val msgAddContact = 7
-        const val msgDeleteContact = 8
-        const val msgSendMsg = 9
-        const val msgAcceptContact = 10
-
-        // groups
-        const val msgGroupCreate = 11
-        const val msgGroupLeave = 12
-        const val msgGroupMessage = 13
-        const val msgGroupTopic = 14
-        const val msgGroupInvite = 15
-        const val msgGroupJoin = 16
-
-        private const val msgLoadContacts = 17
-        private const val msgLoadSelf = 18
-
-        const val msgAcceptFriendRequest = 19
-    }
-
+) : CoroutineScope by GlobalScope + newSingleThreadContext("ToxThread") {
     val toxId = tox.getToxId()
     val publicKey = tox.getPublicKey()
 
-    private fun loadContacts() {
-        contactRepository.resetTransientData()
-
-        for ((publicKey, _) in tox.getContacts()) {
-            if (!contactRepository.exists(publicKey)) {
-                contactRepository.add(Contact(publicKey))
-            }
-        }
-    }
-
-    val handler: Handler by lazy {
-        Handler(looper) {
-            when (it.what) {
-                msgIterate -> {
-                    tox.iterate()
-                    handler.sendEmptyMessageDelayed(msgIterate, tox.iterationInterval().toLong())
-                }
-                msgSave -> tox.save()
-                msgShutdown -> {
-                    Log.e("ToxThread", "Shutting down tox")
-                    tox.kill()
-                }
-                msgSetName -> {
-                    Log.e("ToxThread", "SetName: ${it.obj as String}")
-                    tox.setName(it.obj as String)
-                    handler.sendEmptyMessage(msgSave)
-                }
-                msgSetStatus -> Log.e("ToxThread", "Setting status")
-                msgSetState -> Log.e("ToxThread", "Setting state")
-                msgSetTyping -> Log.e("ToxThread", "Set typing")
-                msgAddContact -> {
-                    val addContact = it.obj as MsgAddContact
-                    Log.e("ToxThread", "AddContact: ${addContact.toxId} ${addContact.message}")
-                    tox.addContact(addContact.toxId, addContact.message)
-                    handler.sendEmptyMessage(msgSave)
-                    contactRepository.add(Contact(addContact.toxId.dropLast(12)))
-                }
-                msgDeleteContact -> {
-                    val publicKey = it.obj as String
-                    tox.deleteContact(publicKey)
-                    contactRepository.delete(Contact(publicKey))
-                    handler.sendEmptyMessage(msgSave)
-                }
-                msgAcceptContact -> Log.e("ToxThread", "Accept contact request")
-                msgSendMsg -> {
-                    val data = it.obj as MsgSendMessage
-                    tox.sendMessage(data.publicKey, data.message)
-                }
-                msgGroupCreate -> Log.e("ToxThread", "Create group")
-                msgGroupLeave -> Log.e("ToxThread", "Leave group")
-                msgGroupMessage -> Log.e("ToxThread", "Send group message")
-                msgGroupTopic -> Log.e("ToxThread", "Set group topic")
-                msgGroupInvite -> Log.e("ToxThread", "Invite group")
-                msgGroupJoin -> Log.e("ToxThread", "Join group")
-                msgLoadContacts -> loadContacts()
-                msgLoadSelf -> userRepository.update(User(publicKey, tox.getName(), tox.getStatusMessage()))
-                msgAcceptFriendRequest -> {
-                    val publicKey = it.obj as String
-
-                    tox.acceptFriendRequest(publicKey)
-                    contactRepository.add(Contact(publicKey))
-                    friendRequestRepository.delete(FriendRequest(publicKey))
-
-                    handler.sendEmptyMessage(msgSave)
-                }
-                else -> {
-                    Log.e("ToxThread", "Unknown message: ${it.what}")
-                    return@Handler false
-                }
-            }
-            true
-        }
-    }
-
     init {
-        start()
-        handler.sendEmptyMessage(msgLoadSelf)
-        handler.sendEmptyMessage(msgSave)
-        handler.sendEmptyMessage(msgLoadContacts)
-        handler.sendEmptyMessage(msgIterate)
+        fun loadSelf() = launch {
+            userRepository.update(User(publicKey, tox.getName(), tox.getStatusMessage()))
+        }
+
+        fun loadContacts() = launch {
+            contactRepository.resetTransientData()
+
+            for ((publicKey, _) in tox.getContacts()) {
+                if (!contactRepository.exists(publicKey)) {
+                    contactRepository.add(Contact(publicKey))
+                }
+            }
+        }
+
+        fun iterateForever() = launch {
+            while (true) {
+                iterate()
+                delay(tox.iterationInterval().toLong())
+            }
+        }
+
+        save()
+        loadSelf()
+        loadContacts()
+        bootstrap()
+        iterateForever()
     }
 
-    override fun onLooperPrepared() {
+    private fun save() = runBlocking {
+        tox.save()
+    }
+
+    private fun iterate() = launch {
+        tox.iterate()
+    }
+
+    fun acceptFriendRequest(publicKey: String) = launch {
+        tox.acceptFriendRequest(publicKey)
+        save()
+        contactRepository.add(Contact(publicKey))
+        friendRequestRepository.delete(FriendRequest(publicKey))
+    }
+
+    fun setName(name: String) = launch {
+        tox.setName(name)
+        save()
+    }
+
+    fun addContact(toxId: String, message: String) = launch {
+        tox.addContact(toxId, message)
+        save()
+        contactRepository.add(Contact(toxId.dropLast(12)))
+    }
+
+    fun deleteContact(publicKey: String) = launch {
+        tox.deleteContact(publicKey)
+        save()
+        contactRepository.delete(Contact(publicKey))
+    }
+
+    fun sendMessage(publicKey: String, message: String) = launch {
+        tox.sendMessage(publicKey, message)
+    }
+
+    private fun bootstrap() = launch {
         tox.bootstrap(
             "tox.verdict.gg",
             33445,

@@ -13,7 +13,6 @@ import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.di.ToxThreadFactory
 import ltd.evilcorp.atox.repository.UserRepository
 import ltd.evilcorp.atox.tox.SaveOptions
-import ltd.evilcorp.atox.tox.ToxThread
 import ltd.evilcorp.atox.vo.User
 import java.io.File
 import javax.inject.Inject
@@ -51,9 +50,7 @@ class ProfileViewModel @Inject constructor(
             userRepository.add(User(publicKey = publicKey, name = name, password = password))
         }
 
-        with(App.toxThread.handler) {
-            sendMessage(obtainMessage(ToxThread.msgSetName, name))
-        }
+        App.toxThread.setName(name)
     }
 
     fun verifyUserExists(publicKey: String) = GlobalScope.launch {

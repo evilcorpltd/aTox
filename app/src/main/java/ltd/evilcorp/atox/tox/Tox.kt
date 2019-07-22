@@ -29,10 +29,6 @@ class Tox(
     fun iterate(): Int = tox.iterate(eventListener, 42)
     fun iterationInterval(): Int = tox.iterationInterval()
 
-    fun kill() {
-        tox.close()
-    }
-
     fun setName(name: String) {
         tox.name = name.toByteArray()
     }
