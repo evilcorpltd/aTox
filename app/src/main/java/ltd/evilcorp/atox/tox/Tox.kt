@@ -3,16 +3,15 @@ package ltd.evilcorp.atox.tox
 import android.content.Context
 import android.util.Log
 import im.tox.tox4j.core.enums.ToxMessageType
-import im.tox.tox4j.core.options.ToxOptions
 import im.tox.tox4j.impl.jni.ToxCoreImpl
 import java.io.File
 
 class Tox(
     private val context: Context,
     private val eventListener: ToxEventListener,
-    options: ToxOptions
+    options: SaveOptions
 ) {
-    private val tox: ToxCoreImpl = ToxCoreImpl(options)
+    private val tox: ToxCoreImpl = ToxCoreImpl(options.toToxOptions())
 
     init {
         updateContactMapping()

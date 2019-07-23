@@ -3,8 +3,6 @@ package ltd.evilcorp.atox.tox
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.Log
-import im.tox.tox4j.core.options.SaveDataOptions
-import ltd.evilcorp.atox.di.ToxFactory
 import ltd.evilcorp.atox.repository.ContactRepository
 import ltd.evilcorp.atox.repository.FriendRequestRepository
 import ltd.evilcorp.atox.repository.UserRepository
@@ -13,8 +11,7 @@ import ltd.evilcorp.atox.vo.FriendRequest
 import ltd.evilcorp.atox.vo.User
 
 class ToxThread(
-    saveOption: SaveDataOptions,
-    toxFactory: ToxFactory,
+    private val tox: Tox,
     private val contactRepository: ContactRepository,
     private val friendRequestRepository: FriendRequestRepository,
     private val userRepository: UserRepository
@@ -51,7 +48,6 @@ class ToxThread(
         const val msgAcceptFriendRequest = 19
     }
 
-    private val tox = toxFactory.create(saveOption)
     val toxId = tox.getToxId()
     val publicKey = tox.getPublicKey()
 
