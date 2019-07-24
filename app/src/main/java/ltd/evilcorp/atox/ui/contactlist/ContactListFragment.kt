@@ -27,6 +27,8 @@ import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 import kotlinx.android.synthetic.main.nav_header_contact_list.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.tox.PublicKey
+import ltd.evilcorp.atox.activity.SettingsActivity
+import ltd.evilcorp.atox.di.ViewModelFactory
 import ltd.evilcorp.atox.ui.ContactAdapter
 import ltd.evilcorp.atox.ui.FriendRequestAdapter
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY

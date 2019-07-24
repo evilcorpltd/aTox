@@ -10,6 +10,10 @@ import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.User
 import javax.inject.Inject
 import javax.inject.Singleton
+import im.tox.tox4j.core.enums.ToxMessageType
+import im.tox.tox4j.core.enums.ToxUserStatus
+import im.tox.tox4j.impl.jni.ToxCoreImpl
+import java.io.File
 
 private const val TAG = "Tox"
 
@@ -132,6 +136,24 @@ class Tox @Inject constructor(
 
     fun sendMessage(publicKey: PublicKey, message: String) = launch {
         tox.sendMessage(publicKey, message)
+    }
+
+    fun setStatus(status: Int) {
+        when (status) {
+            0 -> {
+                tox.status = ToxUserStatus.NONE
+            }
+            1 -> {
+                tox.status = ToxUserStatus.AWAY
+            }
+            2 -> {
+                tox.status = ToxUserStatus.BUSY
+            }
+        }
+    }
+
+    fun setStatusMessage(status: String) {
+        tox.statusMessage = status.toByteArray()
     }
 
     fun getSaveData() = async {
