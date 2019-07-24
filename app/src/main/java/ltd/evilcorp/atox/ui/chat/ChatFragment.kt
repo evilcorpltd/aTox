@@ -62,7 +62,14 @@ class ChatFragment : Fragment() {
             contactOnline = it.connectionStatus != ConnectionStatus.NONE
 
             title.text = contactName
+            subtitle.text = if (it.typing) {
+                getString(R.string.contact_typing)
+            } else {
+                // TODO(robinlinden): Replace with last seen.
+                it.lastMessage
+            }.toLowerCase()
             statusIndicator.setColorFilter(colorByStatus(resources, it))
+
             updateSendButton(this)
         })
 

@@ -15,15 +15,28 @@
             android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:navigationIcon="?attr/homeAsUpIndicator">
-            <include layout="@layout/profile_image_layout"/>
+        <include layout="@layout/profile_image_layout"/>
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:orientation="vertical">
             <TextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
+                    android:singleLine="true"
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                     tools:text="Subject name here"/>
+            <TextView
+                    android:id="@+id/subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    tools:text="clever subtitle"/>
+        </LinearLayout>
     </android.widget.Toolbar>
     <ListView
             android:id="@+id/messages"
