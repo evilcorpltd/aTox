@@ -12,20 +12,14 @@ import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.di.ToxThreadFactory
 import ltd.evilcorp.atox.repository.UserRepository
+import ltd.evilcorp.atox.tox.SaveManager
 import ltd.evilcorp.atox.tox.SaveOptions
 import ltd.evilcorp.atox.vo.User
-import java.io.File
 import javax.inject.Inject
-
-private fun loadToxSave(saveFile: File): ByteArray? =
-    if (saveFile.exists()) {
-        saveFile.readBytes()
-    } else {
-        null
-    }
 
 class ProfileViewModel @Inject constructor(
     private val context: Context,
+    private val saveManager: SaveManager,
     private val toxThreadFactory: ToxThreadFactory,
     private val userRepository: UserRepository
 ) : ViewModel() {
@@ -38,11 +32,7 @@ class ProfileViewModel @Inject constructor(
         false
     }
 
-    fun tryLoadToxSave(): ByteArray? =
-        context.filesDir.walk().find { it.extension == "tox" && it.isFile }?.let { save ->
-            loadToxSave(save)
-        }
-
+    fun tryLoadToxSave(): ByteArray? = saveManager.run { list().firstOrNull()?.let { load(it) } }
     fun tryImportToxSave(uri: Uri): ByteArray? = context.contentResolver.openInputStream(uri)?.readBytes()
 
     fun createUser(publicKey: String, name: String, password: String) {

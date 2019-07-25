@@ -4,11 +4,11 @@ import android.content.Context
 import android.util.Log
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.impl.jni.ToxCoreImpl
-import java.io.File
 
 class Tox(
     private val context: Context,
     private val eventListener: ToxEventListener,
+    private val saveManager: SaveManager,
     options: SaveOptions
 ) {
     private val tox: ToxCoreImpl = ToxCoreImpl(options.toToxOptions())
@@ -77,19 +77,7 @@ class Tox(
         )
     }
 
-    fun save() {
-        val destination = context.filesDir.toString()
-        val fileName = this.getPublicKey() + ".tox"
-
-        val saveFile = File("$destination/$fileName")
-        if (!saveFile.exists()) {
-            saveFile.createNewFile()
-        }
-
-        Log.e("ToxCore", "Saving profile to $saveFile")
-
-        saveFile.writeBytes(tox.savedata)
-    }
+    fun save() = saveManager.save(getPublicKey(), tox.savedata)
 
     fun acceptFriendRequest(publicKey: String) {
         tox.addFriendNorequest(publicKey.hexToByteArray())
