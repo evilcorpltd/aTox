@@ -7,7 +7,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MessageRepository @Inject constructor(
+class MessageRepository @Inject internal constructor(
     private val messageDao: MessageDao
 ) {
     fun add(message: Message) {

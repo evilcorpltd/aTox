@@ -7,7 +7,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class FriendRequestRepository @Inject constructor(
+class FriendRequestRepository @Inject internal constructor(
     private val friendRequestDao: FriendRequestDao
 ) {
     fun add(friendRequest: FriendRequest) {

@@ -6,7 +6,7 @@ import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.User
 
 @Dao
-interface UserDao {
+internal interface UserDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun save(user: User)
 

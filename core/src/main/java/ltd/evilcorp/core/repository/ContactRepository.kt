@@ -7,7 +7,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ContactRepository @Inject constructor(
+class ContactRepository @Inject internal constructor(
     private val contactDao: ContactDao
 ) {
     fun exists(publicKey: String): Boolean {

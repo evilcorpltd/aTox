@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox.di
+package ltd.evilcorp.core.di
 
 import android.app.Application
 import androidx.room.Room
@@ -12,32 +12,32 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun provideDatabase(application: Application): Database {
-        return Room.databaseBuilder(application, Database::class.java, "contact_db")
+        return Room.databaseBuilder(application, Database::class.java, "core_db")
             .fallbackToDestructiveMigration() // TODO(robinlinden): Delete this.
             .build()
     }
 
     @Singleton
     @Provides
-    fun provideContactDao(db: Database): ContactDao {
+    internal fun provideContactDao(db: Database): ContactDao {
         return db.contactDao()
     }
 
     @Singleton
     @Provides
-    fun provideFriendRequestDao(db: Database): FriendRequestDao {
+    internal fun provideFriendRequestDao(db: Database): FriendRequestDao {
         return db.friendRequestDao()
     }
 
     @Singleton
     @Provides
-    fun provideMessageDao(db: Database): MessageDao {
+    internal fun provideMessageDao(db: Database): MessageDao {
         return db.messageDao()
     }
 
     @Singleton
     @Provides
-    fun provideUserDao(db: Database): UserDao {
+    internal fun provideUserDao(db: Database): UserDao {
         return db.userDao()
     }
 }

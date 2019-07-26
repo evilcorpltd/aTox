@@ -15,8 +15,8 @@ import ltd.evilcorp.core.vo.User
 )
 @TypeConverters(Converters::class)
 abstract class Database : RoomDatabase() {
-    abstract fun contactDao(): ContactDao
-    abstract fun friendRequestDao(): FriendRequestDao
-    abstract fun messageDao(): MessageDao
-    abstract fun userDao(): UserDao
+    internal abstract fun contactDao(): ContactDao
+    internal abstract fun friendRequestDao(): FriendRequestDao
+    internal abstract fun messageDao(): MessageDao
+    internal abstract fun userDao(): UserDao
 }

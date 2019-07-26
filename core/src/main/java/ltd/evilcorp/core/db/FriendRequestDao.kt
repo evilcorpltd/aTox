@@ -5,7 +5,7 @@ import androidx.room.*
 import ltd.evilcorp.core.vo.FriendRequest
 
 @Dao
-interface FriendRequestDao {
+internal interface FriendRequestDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(friendRequest: FriendRequest)
 

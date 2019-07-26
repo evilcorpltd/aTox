@@ -8,7 +8,7 @@ import androidx.room.Query
 import ltd.evilcorp.core.vo.Message
 
 @Dao
-interface MessageDao {
+internal interface MessageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(message: Message)
 
