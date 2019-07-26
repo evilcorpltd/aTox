@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
-import ltd.evilcorp.atox.db.*
+import ltd.evilcorp.core.db.*
 import javax.inject.Singleton
 
 @Module

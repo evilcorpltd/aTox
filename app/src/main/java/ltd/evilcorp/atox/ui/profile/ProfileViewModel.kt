@@ -11,10 +11,10 @@ import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.di.ToxThreadFactory
-import ltd.evilcorp.atox.repository.UserRepository
 import ltd.evilcorp.atox.tox.SaveManager
 import ltd.evilcorp.atox.tox.SaveOptions
-import ltd.evilcorp.atox.vo.User
+import ltd.evilcorp.core.repository.UserRepository
+import ltd.evilcorp.core.vo.User
 import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(

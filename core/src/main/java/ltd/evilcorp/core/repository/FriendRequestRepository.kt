@@ -1,8 +1,8 @@
-package ltd.evilcorp.atox.repository
+package ltd.evilcorp.core.repository
 
 import androidx.lifecycle.LiveData
-import ltd.evilcorp.atox.db.FriendRequestDao
-import ltd.evilcorp.atox.vo.FriendRequest
+import ltd.evilcorp.core.db.FriendRequestDao
+import ltd.evilcorp.core.vo.FriendRequest
 import javax.inject.Inject
 import javax.inject.Singleton
 

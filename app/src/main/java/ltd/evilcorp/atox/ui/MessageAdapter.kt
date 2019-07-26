@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.vo.Message
-import ltd.evilcorp.atox.vo.Sender
+import ltd.evilcorp.core.vo.Message
+import ltd.evilcorp.core.vo.Sender
 
 private fun inflateView(type: Sender, inflater: LayoutInflater): View =
     inflater.inflate(

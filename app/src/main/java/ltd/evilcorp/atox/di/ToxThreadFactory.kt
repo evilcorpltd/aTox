@@ -1,10 +1,10 @@
 package ltd.evilcorp.atox.di
 
-import ltd.evilcorp.atox.repository.ContactRepository
-import ltd.evilcorp.atox.repository.FriendRequestRepository
-import ltd.evilcorp.atox.repository.UserRepository
 import ltd.evilcorp.atox.tox.SaveOptions
 import ltd.evilcorp.atox.tox.ToxThread
+import ltd.evilcorp.core.repository.ContactRepository
+import ltd.evilcorp.core.repository.FriendRequestRepository
+import ltd.evilcorp.core.repository.UserRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 

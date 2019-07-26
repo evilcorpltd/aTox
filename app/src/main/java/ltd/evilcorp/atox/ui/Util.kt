@@ -3,9 +3,9 @@ package ltd.evilcorp.atox.ui
 import android.content.res.Resources
 import androidx.core.content.res.ResourcesCompat
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.vo.ConnectionStatus
-import ltd.evilcorp.atox.vo.Contact
-import ltd.evilcorp.atox.vo.UserStatus
+import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.UserStatus
 
 internal fun colorByStatus(resources: Resources, contact: Contact): Int {
     if (contact.connectionStatus == ConnectionStatus.NONE) return ResourcesCompat.getColor(

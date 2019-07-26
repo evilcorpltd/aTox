@@ -20,8 +20,8 @@ import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.ui.MessagesAdapter
 import ltd.evilcorp.atox.ui.colorByStatus
 import ltd.evilcorp.atox.vmFactory
-import ltd.evilcorp.atox.vo.ConnectionStatus
-import ltd.evilcorp.atox.vo.Message
+import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.Message
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
 

@@ -1,11 +1,11 @@
-package ltd.evilcorp.atox.db
+package ltd.evilcorp.core.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import ltd.evilcorp.atox.vo.Message
+import ltd.evilcorp.core.vo.Message
 
 @Dao
 interface MessageDao {

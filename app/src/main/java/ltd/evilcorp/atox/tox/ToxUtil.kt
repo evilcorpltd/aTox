@@ -5,8 +5,8 @@ import im.tox.tox4j.core.enums.ToxUserStatus
 import im.tox.tox4j.core.options.ProxyOptions
 import im.tox.tox4j.core.options.SaveDataOptions
 import im.tox.tox4j.core.options.ToxOptions
-import ltd.evilcorp.atox.vo.ConnectionStatus
-import ltd.evilcorp.atox.vo.UserStatus
+import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.UserStatus
 
 fun String.hexToByteArray(): ByteArray =
     chunked(2).map { it.toUpperCase().toInt(16).toByte() }.toByteArray()

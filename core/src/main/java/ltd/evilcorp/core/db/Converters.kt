@@ -1,9 +1,9 @@
-package ltd.evilcorp.atox.db
+package ltd.evilcorp.core.db
 
 import androidx.room.TypeConverter
-import ltd.evilcorp.atox.vo.ConnectionStatus
-import ltd.evilcorp.atox.vo.Sender
-import ltd.evilcorp.atox.vo.UserStatus
+import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.Sender
+import ltd.evilcorp.core.vo.UserStatus
 
 internal class Converters {
     companion object {

@@ -1,9 +1,9 @@
-package ltd.evilcorp.atox.db
+package ltd.evilcorp.core.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import ltd.evilcorp.atox.vo.ConnectionStatus
-import ltd.evilcorp.atox.vo.Contact
+import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.Contact
 
 @Dao
 interface ContactDao {

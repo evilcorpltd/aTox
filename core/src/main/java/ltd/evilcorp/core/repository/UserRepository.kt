@@ -1,9 +1,9 @@
-package ltd.evilcorp.atox.repository
+package ltd.evilcorp.core.repository
 
 import androidx.lifecycle.LiveData
-import ltd.evilcorp.atox.db.UserDao
-import ltd.evilcorp.atox.vo.ConnectionStatus
-import ltd.evilcorp.atox.vo.User
+import ltd.evilcorp.core.db.UserDao
+import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.User
 import javax.inject.Inject
 import javax.inject.Singleton
 

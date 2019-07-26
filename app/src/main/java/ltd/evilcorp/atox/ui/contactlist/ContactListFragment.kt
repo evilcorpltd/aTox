@@ -27,9 +27,9 @@ import ltd.evilcorp.atox.ui.ContactAdapter
 import ltd.evilcorp.atox.ui.FriendRequestAdapter
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.vmFactory
-import ltd.evilcorp.atox.vo.ConnectionStatus
-import ltd.evilcorp.atox.vo.Contact
-import ltd.evilcorp.atox.vo.FriendRequest
+import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.FriendRequest
 
 class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
     private val viewModel: ContactListViewModel by viewModels { vmFactory }

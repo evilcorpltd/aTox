@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox.vo
+package ltd.evilcorp.core.vo
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

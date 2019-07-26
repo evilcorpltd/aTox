@@ -6,8 +6,8 @@ import ltd.evilcorp.atox.tox.byteArrayToHex
 import ltd.evilcorp.atox.tox.hexToByteArray
 import ltd.evilcorp.atox.tox.toConnectionStatus
 import ltd.evilcorp.atox.tox.toUserStatus
-import ltd.evilcorp.atox.vo.ConnectionStatus
-import ltd.evilcorp.atox.vo.UserStatus
+import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.UserStatus
 import org.junit.Assert.*
 import org.junit.Test
 

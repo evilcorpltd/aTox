@@ -1,8 +1,8 @@
-package ltd.evilcorp.atox.repository
+package ltd.evilcorp.core.repository
 
 import androidx.lifecycle.LiveData
-import ltd.evilcorp.atox.db.MessageDao
-import ltd.evilcorp.atox.vo.Message
+import ltd.evilcorp.core.db.MessageDao
+import ltd.evilcorp.core.vo.Message
 import javax.inject.Inject
 import javax.inject.Singleton
 

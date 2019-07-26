@@ -11,8 +11,8 @@ import androidx.core.app.NotificationCompat.EXTRA_TEXT_LINES
 import androidx.navigation.NavDeepLinkBuilder
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
-import ltd.evilcorp.atox.vo.Contact
-import ltd.evilcorp.atox.vo.FriendRequest
+import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.FriendRequest
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.App
-import ltd.evilcorp.atox.repository.ContactRepository
-import ltd.evilcorp.atox.repository.MessageRepository
-import ltd.evilcorp.atox.vo.Contact
-import ltd.evilcorp.atox.vo.Message
-import ltd.evilcorp.atox.vo.Sender
+import ltd.evilcorp.core.repository.ContactRepository
+import ltd.evilcorp.core.repository.MessageRepository
+import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.Message
+import ltd.evilcorp.core.vo.Sender
 import javax.inject.Inject
 
 class ChatViewModel @Inject constructor(

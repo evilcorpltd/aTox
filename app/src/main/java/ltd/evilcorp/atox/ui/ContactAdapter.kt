@@ -10,8 +10,7 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 import kotlinx.android.synthetic.main.profile_image_layout.view.*
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.tox.byteArrayToHex
-import ltd.evilcorp.atox.vo.Contact
+import ltd.evilcorp.core.vo.Contact
 
 class ContactAdapter(
     private val inflater: LayoutInflater,

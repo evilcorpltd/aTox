@@ -1,12 +1,12 @@
 package ltd.evilcorp.atox.tox
 
 import kotlinx.coroutines.*
-import ltd.evilcorp.atox.repository.ContactRepository
-import ltd.evilcorp.atox.repository.FriendRequestRepository
-import ltd.evilcorp.atox.repository.UserRepository
-import ltd.evilcorp.atox.vo.Contact
-import ltd.evilcorp.atox.vo.FriendRequest
-import ltd.evilcorp.atox.vo.User
+import ltd.evilcorp.core.repository.ContactRepository
+import ltd.evilcorp.core.repository.FriendRequestRepository
+import ltd.evilcorp.core.repository.UserRepository
+import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.FriendRequest
+import ltd.evilcorp.core.vo.User
 
 @ObsoleteCoroutinesApi
 class ToxThread(

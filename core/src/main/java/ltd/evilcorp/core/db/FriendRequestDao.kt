@@ -1,8 +1,8 @@
-package ltd.evilcorp.atox.db
+package ltd.evilcorp.core.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import ltd.evilcorp.atox.vo.FriendRequest
+import ltd.evilcorp.core.vo.FriendRequest
 
 @Dao
 interface FriendRequestDao {

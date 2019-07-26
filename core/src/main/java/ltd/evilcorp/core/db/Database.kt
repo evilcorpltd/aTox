@@ -1,12 +1,12 @@
-package ltd.evilcorp.atox.db
+package ltd.evilcorp.core.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import ltd.evilcorp.atox.vo.Contact
-import ltd.evilcorp.atox.vo.FriendRequest
-import ltd.evilcorp.atox.vo.Message
-import ltd.evilcorp.atox.vo.User
+import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.FriendRequest
+import ltd.evilcorp.core.vo.Message
+import ltd.evilcorp.core.vo.User
 
 @Database(
     entities = [Contact::class, FriendRequest::class, Message::class, User::class],

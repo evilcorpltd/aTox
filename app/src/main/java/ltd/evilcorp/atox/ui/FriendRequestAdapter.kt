@@ -8,8 +8,7 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.contact_list_view_item.view.publicKey
 import kotlinx.android.synthetic.main.friend_request_item.view.*
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.tox.byteArrayToHex
-import ltd.evilcorp.atox.vo.FriendRequest
+import ltd.evilcorp.core.vo.FriendRequest
 
 class FriendRequestAdapter(private val inflater: LayoutInflater) : BaseAdapter() {
     var friendRequests: List<FriendRequest> = listOf()
