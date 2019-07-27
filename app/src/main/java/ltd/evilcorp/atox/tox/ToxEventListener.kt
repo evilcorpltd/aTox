@@ -20,6 +20,8 @@ import java.text.DateFormat
 import java.util.*
 import javax.inject.Inject
 
+private const val TAG = "ToxEventListener"
+
 class ToxEventListener @Inject constructor(
     private val contactRepository: ContactRepository,
     private val friendRequestRepository: FriendRequestRepository,
@@ -42,51 +44,48 @@ class ToxEventListener @Inject constructor(
     }
 
     override fun friendLosslessPacket(friendNumber: Int, data: ByteArray, state: Int?): Int {
-        return Log.e("ToxCore", "friendLosslessPacket")
+        return Log.e(TAG, "friendLosslessPacket")
     }
 
     override fun fileRecvControl(friendNumber: Int, fileNumber: Int, control: ToxFileControl, state: Int?): Int {
-        return Log.e("ToxCore", "fileRecvControl")
+        return Log.e(TAG, "fileRecvControl")
     }
 
     override fun friendStatusMessage(friendNumber: Int, message: ByteArray, state: Int?): Int {
-        with(contactByFriendNumber(friendNumber)) {
-            this.statusMessage = String(message)
-            contactRepository.add(this)
+        contactByFriendNumber(friendNumber).let {
+            contactRepository.update(it.apply { statusMessage = String(message) })
         }
 
-        return Log.e("ToxCore", "friendStatusMessage")
+        return Log.e(TAG, "friendStatusMessage")
     }
 
     override fun friendReadReceipt(friendNumber: Int, messageId: Int, state: Int?): Int {
-        return Log.e("ToxCore", "friendReadReceipt")
+        return Log.e(TAG, "friendReadReceipt")
     }
 
-    override fun friendStatus(friendNumber: Int, status: ToxUserStatus, state: Int?): Int {
-        with(contactByFriendNumber(friendNumber)) {
-            this.status = status.toUserStatus()
-            contactRepository.add(this)
+    override fun friendStatus(friendNumber: Int, toxStatus: ToxUserStatus, state: Int?): Int {
+        contactByFriendNumber(friendNumber).let {
+            contactRepository.update(it.apply { status = toxStatus.toUserStatus() })
         }
 
-        return Log.e("ToxCore", "friendStatus")
+        return Log.e(TAG, "friendStatus")
     }
 
-    override fun friendConnectionStatus(friendNumber: Int, connectionStatus: ToxConnection, state: Int?): Int {
-        with(contactByFriendNumber(friendNumber)) {
-            this.connectionStatus = connectionStatus.toConnectionStatus()
-            contactRepository.add(this)
+    override fun friendConnectionStatus(friendNumber: Int, toxConnectionStatus: ToxConnection, state: Int?): Int {
+        contactByFriendNumber(friendNumber).let {
+            contactRepository.update(it.apply { connectionStatus = toxConnectionStatus.toConnectionStatus() })
         }
 
-        return Log.e("ToxCore", "friendConnectionStatus")
+        return Log.e(TAG, "friendConnectionStatus")
     }
 
     override fun friendRequest(publicKey: ByteArray, timeDelta: Int, message: ByteArray, state: Int?): Int {
-        FriendRequest(publicKey.byteArrayToHex(), String(message)).also {
+        FriendRequest(publicKey.bytesToHex(), String(message)).also {
             friendRequestRepository.add(it)
             notificationHelper.showFriendRequestNotification(it)
         }
 
-        return Log.e("ToxCore", "friendRequest")
+        return Log.e(TAG, "friendRequest")
     }
 
     override fun friendMessage(
@@ -96,29 +95,28 @@ class ToxEventListener @Inject constructor(
         message: ByteArray,
         state: Int?
     ): Int {
-        with(contactByFriendNumber(friendNumber)) {
-            lastMessage = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date())
-            contactRepository.add(this)
+        contactByFriendNumber(friendNumber).let {
+            contactRepository.update(it.apply {
+                lastMessage = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date())
+            })
+            messageRepository.add(Message(it.publicKey, String(message), Sender.Received))
 
-            messageRepository.add(Message(this.publicKey, String(message), Sender.Received))
-
-            notificationHelper.showMessageNotification(this, String(message))
+            notificationHelper.showMessageNotification(it, String(message))
         }
 
-        return Log.e("ToxCore", "friendMessage")
+        return Log.e(TAG, "friendMessage")
     }
 
-    override fun friendName(friendNumber: Int, name: ByteArray, state: Int?): Int {
-        with(contactByFriendNumber(friendNumber)) {
-            this.name = String(name)
-            contactRepository.add(this)
+    override fun friendName(friendNumber: Int, newName: ByteArray, state: Int?): Int {
+        contactByFriendNumber(friendNumber).let {
+            contactRepository.update(it.apply { name = String(newName) })
         }
 
-        return Log.e("ToxCore", "friendName")
+        return Log.e(TAG, "friendName")
     }
 
     override fun fileRecvChunk(friendNumber: Int, fileNumber: Int, position: Long, data: ByteArray, state: Int?): Int {
-        return Log.e("ToxCore", "fileRecvChunk")
+        return Log.e(TAG, "fileRecvChunk")
     }
 
     override fun fileRecv(
@@ -129,28 +127,27 @@ class ToxEventListener @Inject constructor(
         filename: ByteArray,
         state: Int?
     ): Int {
-        return Log.e("ToxCore", "fileRecv")
+        return Log.e(TAG, "fileRecv")
     }
 
     override fun friendLossyPacket(friendNumber: Int, data: ByteArray, state: Int?): Int {
-        return Log.e("ToxCore", "friendLossyPacket")
+        return Log.e(TAG, "friendLossyPacket")
     }
 
     override fun selfConnectionStatus(connectionStatus: ToxConnection, state: Int?): Int {
         userRepository.updateConnection(App.toxThread.publicKey, connectionStatus.toConnectionStatus())
-        return Log.e("ToxCore", "selfConnectionStatus $connectionStatus")
+        return Log.e(TAG, "selfConnectionStatus $connectionStatus")
     }
 
     override fun friendTyping(friendNumber: Int, isTyping: Boolean, state: Int?): Int {
-        with(contactByFriendNumber(friendNumber)) {
-            typing = isTyping
-            contactRepository.add(this)
+        contactByFriendNumber(friendNumber).let {
+            contactRepository.update(it.apply { typing = isTyping })
         }
 
-        return Log.e("ToxCore", "friendTyping")
+        return Log.e(TAG, "friendTyping")
     }
 
     override fun fileChunkRequest(friendNumber: Int, fileNumber: Int, position: Long, length: Int, state: Int?): Int {
-        return Log.e("ToxCore", "fileChunkRequest")
+        return Log.e(TAG, "fileChunkRequest")
     }
 }

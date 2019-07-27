@@ -2,8 +2,8 @@ package ltd.evilcorp.atox
 
 import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxUserStatus
-import ltd.evilcorp.atox.tox.byteArrayToHex
-import ltd.evilcorp.atox.tox.hexToByteArray
+import ltd.evilcorp.atox.tox.bytesToHex
+import ltd.evilcorp.atox.tox.hexToBytes
 import ltd.evilcorp.atox.tox.toConnectionStatus
 import ltd.evilcorp.atox.tox.toUserStatus
 import ltd.evilcorp.core.vo.ConnectionStatus
@@ -45,25 +45,25 @@ class ToxUtilTest {
     @Test
     fun public_keys_can_be_converted() {
         val keyString = "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39"
-        assert(keyString.hexToByteArray().size == 32)
-        assertEquals(keyString, keyString.hexToByteArray().byteArrayToHex().toUpperCase())
+        assert(keyString.hexToBytes().size == 32)
+        assertEquals(keyString, keyString.hexToBytes().bytesToHex().toUpperCase())
 
         val keyBytes = byteArrayOf(
             0x76, 0x51, 0x84, 0x06, 0xF6, 0xA9, 0xF2, 0x21, 0x7E, 0x8D, 0xC4, 0x87, 0xCC, 0x78, 0x3C, 0x25,
             0xCC, 0x16, 0xA1, 0x5E, 0xB3, 0x6F, 0xF3, 0x2E, 0x33, 0x5A, 0x23, 0x53, 0x42, 0xC4, 0x8A, 0x39
         )
 
-        assertEquals(keyBytes.size, keyString.hexToByteArray().size)
-        assert(keyBytes.contentEquals(keyString.hexToByteArray()))
+        assertEquals(keyBytes.size, keyString.hexToBytes().size)
+        assert(keyBytes.contentEquals(keyString.hexToBytes()))
 
         val anotherKeyString = "7B6704162C6532A5A8F0840A3680672D0E9D3E62B6419FFD88D9880669482169"
-        assertEquals(anotherKeyString, anotherKeyString.hexToByteArray().byteArrayToHex().toUpperCase())
-        assertNotEquals(anotherKeyString.hexToByteArray(), keyString.hexToByteArray())
+        assertEquals(anotherKeyString, anotherKeyString.hexToBytes().bytesToHex().toUpperCase())
+        assertNotEquals(anotherKeyString.hexToBytes(), keyString.hexToBytes())
     }
 
     @Test
     fun casing_of_public_keys_does_not_matter() {
         val keyString = "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39"
-        assertArrayEquals(keyString.toUpperCase().hexToByteArray(), keyString.toLowerCase().hexToByteArray())
+        assertArrayEquals(keyString.toUpperCase().hexToBytes(), keyString.toLowerCase().hexToBytes())
     }
 }

@@ -36,7 +36,7 @@ class ToxThread(
         fun iterateForever() = launch {
             while (true) {
                 iterate()
-                delay(tox.iterationInterval().toLong())
+                delay(tox.iterationInterval())
             }
         }
 
@@ -87,17 +87,17 @@ class ToxThread(
         tox.bootstrap(
             "tox.verdict.gg",
             33445,
-            "1C5293AEF2114717547B39DA8EA6F1E331E5E358B35F9B6B5F19317911C5F976".hexToByteArray()
+            "1C5293AEF2114717547B39DA8EA6F1E331E5E358B35F9B6B5F19317911C5F976".hexToBytes()
         )
         tox.bootstrap(
             "tox.kurnevsky.net",
             33445,
-            "82EF82BA33445A1F91A7DB27189ECFC0C013E06E3DA71F588ED692BED625EC23".hexToByteArray()
+            "82EF82BA33445A1F91A7DB27189ECFC0C013E06E3DA71F588ED692BED625EC23".hexToBytes()
         )
         tox.bootstrap(
             "tox.abilinski.com",
             33445,
-            "10C00EB250C3233E343E2AEBA07115A5C28920E9C8D29492F6D00B29049EDC7E".hexToByteArray()
+            "10C00EB250C3233E343E2AEBA07115A5C28920E9C8D29492F6D00B29049EDC7E".hexToBytes()
         )
     }
 }

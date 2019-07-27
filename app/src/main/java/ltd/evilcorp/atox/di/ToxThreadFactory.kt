@@ -15,7 +15,7 @@ class ToxThreadFactory @Inject constructor(
     private val userRepository: UserRepository,
     private val toxFactory: ToxFactory
 ) {
-    var instance: ToxThread? = null
+    private var instance: ToxThread? = null
 
     fun create(saveOption: SaveOptions): ToxThread {
         if (instance == null) {
