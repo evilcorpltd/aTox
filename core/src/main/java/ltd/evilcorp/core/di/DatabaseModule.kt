@@ -11,33 +11,24 @@ import javax.inject.Singleton
 class DatabaseModule {
     @Singleton
     @Provides
-    fun provideDatabase(application: Application): Database {
-        return Room.databaseBuilder(application, Database::class.java, "core_db")
+    fun provideDatabase(application: Application): Database =
+        Room.databaseBuilder(application, Database::class.java, "core_db")
             .fallbackToDestructiveMigration() // TODO(robinlinden): Delete this.
             .build()
-    }
 
     @Singleton
     @Provides
-    internal fun provideContactDao(db: Database): ContactDao {
-        return db.contactDao()
-    }
+    internal fun provideContactDao(db: Database): ContactDao = db.contactDao()
 
     @Singleton
     @Provides
-    internal fun provideFriendRequestDao(db: Database): FriendRequestDao {
-        return db.friendRequestDao()
-    }
+    internal fun provideFriendRequestDao(db: Database): FriendRequestDao = db.friendRequestDao()
 
     @Singleton
     @Provides
-    internal fun provideMessageDao(db: Database): MessageDao {
-        return db.messageDao()
-    }
+    internal fun provideMessageDao(db: Database): MessageDao = db.messageDao()
 
     @Singleton
     @Provides
-    internal fun provideUserDao(db: Database): UserDao {
-        return db.userDao()
-    }
+    internal fun provideUserDao(db: Database): UserDao = db.userDao()
 }

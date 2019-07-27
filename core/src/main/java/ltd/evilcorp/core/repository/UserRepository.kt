@@ -11,23 +11,18 @@ import javax.inject.Singleton
 class UserRepository @Inject internal constructor(
     private val userDao: UserDao
 ) {
-    fun exists(publicKey: String): Boolean {
-        return userDao.exists(publicKey)
-    }
+    fun exists(publicKey: String): Boolean =
+        userDao.exists(publicKey)
 
-    fun add(user: User) {
+    fun add(user: User) =
         userDao.save(user)
-    }
 
-    fun update(user: User) {
+    fun update(user: User) =
         userDao.update(user)
-    }
 
-    fun updateConnection(publicKey: String, connectionStatus: ConnectionStatus) {
+    fun get(publicKey: String): LiveData<User> =
+        userDao.load(publicKey)
+
+    fun updateConnection(publicKey: String, connectionStatus: ConnectionStatus) =
         userDao.updateConnection(publicKey, connectionStatus)
-    }
-
-    fun get(publicKey: String): LiveData<User> {
-        return userDao.load(publicKey)
-    }
 }

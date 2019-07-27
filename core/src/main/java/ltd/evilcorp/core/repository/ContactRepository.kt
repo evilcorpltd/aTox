@@ -10,31 +10,24 @@ import javax.inject.Singleton
 class ContactRepository @Inject internal constructor(
     private val contactDao: ContactDao
 ) {
-    fun exists(publicKey: String): Boolean {
-        return contactDao.exists(publicKey)
-    }
+    fun exists(publicKey: String): Boolean =
+        contactDao.exists(publicKey)
 
-    fun add(contact: Contact) {
+    fun add(contact: Contact) =
         contactDao.save(contact)
-    }
 
-    fun update(contact: Contact) {
+    fun update(contact: Contact) =
         contactDao.update(contact)
-    }
 
-    fun delete(contact: Contact) {
+    fun delete(contact: Contact) =
         contactDao.delete(contact)
-    }
 
-    fun get(publicKey: String): LiveData<Contact> {
-        return contactDao.load(publicKey)
-    }
+    fun get(publicKey: String): LiveData<Contact> =
+        contactDao.load(publicKey)
 
-    fun getAll(): LiveData<List<Contact>> {
-        return contactDao.loadAll()
-    }
+    fun getAll(): LiveData<List<Contact>> =
+        contactDao.loadAll()
 
-    fun resetTransientData() {
+    fun resetTransientData() =
         contactDao.resetTransientData()
-    }
 }

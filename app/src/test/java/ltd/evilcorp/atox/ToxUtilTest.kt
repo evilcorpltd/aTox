@@ -23,7 +23,7 @@ class ToxUtilTest {
             assertEquals(it.ordinal, it.toConnectionStatus().ordinal)
         }
 
-        assertEquals(ToxConnection.NONE.ordinal, ConnectionStatus.NONE.ordinal)
+        assertEquals(ToxConnection.NONE.ordinal, ConnectionStatus.None.ordinal)
         assertEquals(ToxConnection.UDP.ordinal, ConnectionStatus.UDP.ordinal)
         assertEquals(ToxConnection.TCP.ordinal, ConnectionStatus.TCP.ordinal)
     }
@@ -37,9 +37,9 @@ class ToxUtilTest {
             assertEquals(it.ordinal, it.toUserStatus().ordinal)
         }
 
-        assertEquals(ToxUserStatus.NONE.ordinal, UserStatus.NONE.ordinal)
-        assertEquals(ToxUserStatus.AWAY.ordinal, UserStatus.AWAY.ordinal)
-        assertEquals(ToxUserStatus.BUSY.ordinal, UserStatus.BUSY.ordinal)
+        assertEquals(ToxUserStatus.NONE.ordinal, UserStatus.None.ordinal)
+        assertEquals(ToxUserStatus.AWAY.ordinal, UserStatus.Away.ordinal)
+        assertEquals(ToxUserStatus.BUSY.ordinal, UserStatus.Busy.ordinal)
     }
 
     @Test

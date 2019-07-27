@@ -17,10 +17,10 @@ data class User(
     var statusMessage: String = "Brought to you live, by aTox",
 
     @ColumnInfo(name = "status")
-    var status: UserStatus = UserStatus.NONE,
+    var status: UserStatus = UserStatus.None,
 
     @ColumnInfo(name = "connection_status")
-    var connectionStatus: ConnectionStatus = ConnectionStatus.NONE,
+    var connectionStatus: ConnectionStatus = ConnectionStatus.None,
 
     @ColumnInfo(name = "password")
     var password: String = ""

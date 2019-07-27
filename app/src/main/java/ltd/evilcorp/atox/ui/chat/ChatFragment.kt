@@ -63,7 +63,7 @@ class ChatFragment : Fragment() {
 
         viewModel.contact.observe(viewLifecycleOwner, Observer {
             contactName = it.name
-            contactOnline = it.connectionStatus != ConnectionStatus.NONE
+            contactOnline = it.connectionStatus != ConnectionStatus.None
 
             title.text = contactName
             subtitle.text = if (it.typing) {

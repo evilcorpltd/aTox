@@ -10,15 +10,12 @@ import javax.inject.Singleton
 class FriendRequestRepository @Inject internal constructor(
     private val friendRequestDao: FriendRequestDao
 ) {
-    fun add(friendRequest: FriendRequest) {
+    fun add(friendRequest: FriendRequest) =
         friendRequestDao.save(friendRequest)
-    }
 
-    fun delete(friendRequest: FriendRequest) {
+    fun delete(friendRequest: FriendRequest) =
         friendRequestDao.delete(friendRequest)
-    }
 
-    fun getAll(): LiveData<List<FriendRequest>> {
-        return friendRequestDao.loadAll()
-    }
+    fun getAll(): LiveData<List<FriendRequest>> =
+        friendRequestDao.loadAll()
 }

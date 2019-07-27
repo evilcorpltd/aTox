@@ -50,7 +50,7 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
                 profileStatusMessage.text = user.statusMessage
             }
 
-            toolbar.subtitle = if (user.connectionStatus == ConnectionStatus.NONE) {
+            toolbar.subtitle = if (user.connectionStatus == ConnectionStatus.None) {
                 getText(R.string.connecting)
             } else {
                 getText(R.string.connected)
@@ -73,7 +73,7 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         viewModel.contacts.observe(viewLifecycleOwner, Observer { contacts ->
             contactAdapter.contacts = contacts.sortedWith(
                 compareBy(
-                    { contact -> contact.connectionStatus == ConnectionStatus.NONE },
+                    { contact -> contact.connectionStatus == ConnectionStatus.None },
                     Contact::lastMessage,
                     Contact::status
                 )

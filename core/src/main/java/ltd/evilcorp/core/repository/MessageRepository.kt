@@ -10,15 +10,12 @@ import javax.inject.Singleton
 class MessageRepository @Inject internal constructor(
     private val messageDao: MessageDao
 ) {
-    fun add(message: Message) {
+    fun add(message: Message) =
         messageDao.save(message)
-    }
 
-    fun get(conversation: String): LiveData<List<Message>> {
-        return messageDao.load(conversation)
-    }
+    fun get(conversation: String): LiveData<List<Message>> =
+        messageDao.load(conversation)
 
-    fun delete(conversation: String) {
+    fun delete(conversation: String) =
         messageDao.delete(conversation)
-    }
 }

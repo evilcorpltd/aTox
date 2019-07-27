@@ -9,6 +9,7 @@ data class FriendRequest(
     @PrimaryKey
     @ColumnInfo(name = "public_key")
     val publicKey: String,
+
     @ColumnInfo(name = "message")
     val message: String = ""
 )

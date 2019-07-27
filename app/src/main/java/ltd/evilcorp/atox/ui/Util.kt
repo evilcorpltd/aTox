@@ -8,14 +8,14 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.UserStatus
 
 internal fun colorByStatus(resources: Resources, contact: Contact): Int {
-    if (contact.connectionStatus == ConnectionStatus.NONE) return ResourcesCompat.getColor(
+    if (contact.connectionStatus == ConnectionStatus.None) return ResourcesCompat.getColor(
         resources,
         R.color.statusOffline,
         null
     )
     return when (contact.status) {
-        UserStatus.NONE -> ResourcesCompat.getColor(resources, R.color.statusAvailable, null)
-        UserStatus.AWAY -> ResourcesCompat.getColor(resources, R.color.statusAway, null)
-        UserStatus.BUSY -> ResourcesCompat.getColor(resources, R.color.statusBusy, null)
+        UserStatus.None -> ResourcesCompat.getColor(resources, R.color.statusAvailable, null)
+        UserStatus.Away -> ResourcesCompat.getColor(resources, R.color.statusAway, null)
+        UserStatus.Busy -> ResourcesCompat.getColor(resources, R.color.statusBusy, null)
     }
 }
