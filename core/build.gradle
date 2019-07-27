@@ -4,10 +4,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion sdk_version
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 28
+        minSdkVersion min_sdk_version
+        targetSdkVersion sdk_version
         versionCode 1
         versionName "1.0"
     }
@@ -18,17 +18,13 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
+        sourceCompatibility = java_version
+        targetCompatibility = java_version
     }
     lintOptions {
         abortOnError true
         warningsAsErrors true
     }
-}
-
-ext {
-    room_version = '2.1.0'
 }
 
 dependencies {
