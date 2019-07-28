@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.profile_image_layout.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.ui.MessagesAdapter
 import ltd.evilcorp.atox.ui.colorByStatus
+import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Message
@@ -73,6 +74,7 @@ class ChatFragment : Fragment() {
                 it.lastMessage
             }.toLowerCase()
             statusIndicator.setColorFilter(colorByStatus(resources, it))
+            setAvatarFromContact(profileImage, it)
 
             updateSendButton(this)
         })

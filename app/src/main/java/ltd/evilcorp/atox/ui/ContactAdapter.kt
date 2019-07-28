@@ -40,6 +40,7 @@ class ContactAdapter(
         vh.name.text = contact.name
         vh.lastMessage.text = contact.lastMessage
         vh.status.setColorFilter(colorByStatus(resources, contact))
+        setAvatarFromContact(vh.image, contact)
 
         return view
     }
@@ -49,5 +50,6 @@ class ContactAdapter(
         val publicKey: TextView = row.publicKey
         val lastMessage: TextView = row.lastMessage
         val status: ImageView = row.statusIndicator
+        val image: ImageView = row.profileImage
     }
 }

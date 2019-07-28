@@ -39,5 +39,8 @@ data class Contact(
     var connectionStatus: ConnectionStatus = ConnectionStatus.None,
 
     @ColumnInfo(name = "typing")
-    var typing: Boolean = false
+    var typing: Boolean = false,
+
+    @ColumnInfo(name = "avatar_uri")
+    var avatarUri: String = ""
 )

@@ -172,6 +172,9 @@ class ToxEventListener @Inject constructor(
             FileKind.Avatar.ordinal -> {
                 // TODO(robinlinden): Get file ID from Tox and cancel transfer if we already have the file.
                 App.toxThread.startFileTransfer(fileTransfer.publicKey, fileNumber)
+                contactRepository.update(contact.apply {
+                    avatarUri = File(avatarFolder, fileTransfer.fileName).toURI().toString()
+                })
             }
             else -> {
                 Log.e(TAG, "Got unknown file kind $kind in file transfer")

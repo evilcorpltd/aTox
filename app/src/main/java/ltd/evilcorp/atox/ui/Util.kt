@@ -1,6 +1,8 @@
 package ltd.evilcorp.atox.ui
 
 import android.content.res.Resources
+import android.net.Uri
+import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.core.vo.ConnectionStatus
@@ -19,3 +21,11 @@ internal fun colorByStatus(resources: Resources, contact: Contact): Int {
         UserStatus.Busy -> ResourcesCompat.getColor(resources, R.color.statusBusy, null)
     }
 }
+
+internal fun setAvatarFromContact(imageView: ImageView, contact: Contact) =
+    if (contact.avatarUri.isNotEmpty()) {
+        imageView.setImageURI(Uri.parse(contact.avatarUri))
+    } else {
+        // TODO(robinlinden): Nicer default image. Probably something generated from the public key.
+        imageView.setImageResource(R.mipmap.ic_launcher)
+    }
