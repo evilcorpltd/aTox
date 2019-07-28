@@ -26,7 +26,7 @@ class Tox(
         tox.addTcpRelay(address, port, publicKey)
     }
 
-    fun iterate(): Int = tox.iterate(eventListener, 42)
+    fun iterate(): Unit = tox.iterate(eventListener, Unit)
     fun iterationInterval(): Long = tox.iterationInterval().toLong()
 
     fun getName(): String = String(tox.name)
