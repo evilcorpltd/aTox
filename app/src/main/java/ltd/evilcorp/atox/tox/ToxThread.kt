@@ -1,5 +1,6 @@
 package ltd.evilcorp.atox.tox
 
+import android.util.Log
 import kotlinx.coroutines.*
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FriendRequestRepository
@@ -9,6 +10,8 @@ import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.User
 import javax.inject.Inject
 import javax.inject.Singleton
+
+private const val TAG = "ToxThread"
 
 @ObsoleteCoroutinesApi
 @Singleton
@@ -73,6 +76,16 @@ class ToxThread @Inject constructor(
         save()
         contactRepository.add(Contact(publicKey))
         friendRequestRepository.delete(FriendRequest(publicKey))
+    }
+
+    fun startFileTransfer(publicKey: String, fileNumber: Int) = launch {
+        Log.e(TAG, "Starting file transfer $fileNumber from $publicKey")
+        tox.startFileTransfer(publicKey, fileNumber)
+    }
+
+    fun stopFileTransfer(publicKey: String, fileNumber: Int) = launch {
+        Log.e(TAG, "Stopping file transfer $fileNumber from $publicKey")
+        tox.stopFileTransfer(publicKey, fileNumber)
     }
 
     fun setName(name: String) = launch {

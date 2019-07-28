@@ -1,6 +1,7 @@
 package ltd.evilcorp.atox.tox
 
 import android.util.Log
+import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.impl.jni.ToxCoreImpl
 
@@ -65,7 +66,7 @@ class Tox(
     }
 
     fun sendMessage(publicKey: String, message: String): Int = tox.friendSendMessage(
-        tox.friendByPublicKey(publicKey.hexToBytes()),
+        contactByKey(publicKey),
         ToxMessageType.NORMAL,
         0,
         message.toByteArray()
@@ -77,4 +78,12 @@ class Tox(
         tox.addFriendNorequest(publicKey.hexToBytes())
         updateContactMapping()
     }
+
+    fun startFileTransfer(publicKey: String, fileNumber: Int) =
+        tox.fileControl(contactByKey(publicKey), fileNumber, ToxFileControl.RESUME)
+
+    fun stopFileTransfer(publicKey: String, fileNumber: Int) =
+        tox.fileControl(contactByKey(publicKey), fileNumber, ToxFileControl.CANCEL)
+
+    private fun contactByKey(publicKey: String): Int = tox.friendByPublicKey(publicKey.hexToBytes())
 }

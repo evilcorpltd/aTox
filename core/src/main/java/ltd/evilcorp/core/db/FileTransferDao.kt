@@ -1,0 +1,17 @@
+package ltd.evilcorp.core.db
+
+import androidx.lifecycle.LiveData
+import androidx.room.*
+import ltd.evilcorp.core.vo.FileTransfer
+
+@Dao
+internal interface FileTransferDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun save(fileTransfer: FileTransfer)
+
+    @Delete
+    fun delete(fileTransfer: FileTransfer)
+
+    @Query("SELECT * FROM file_transfers WHERE public_key == :publicKey AND file_number == :fileNumber")
+    fun load(publicKey: String, fileNumber: Int): LiveData<List<FileTransfer>>
+}

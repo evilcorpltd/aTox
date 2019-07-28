@@ -22,6 +22,10 @@ class DatabaseModule {
 
     @Singleton
     @Provides
+    internal fun provideFileTransferDao(db: Database): FileTransferDao = db.fileTransferDao()
+
+    @Singleton
+    @Provides
     internal fun provideFriendRequestDao(db: Database): FriendRequestDao = db.friendRequestDao()
 
     @Singleton
