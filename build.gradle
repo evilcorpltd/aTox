@@ -9,9 +9,9 @@ buildscript {
         // Dependencies
         coroutines_version = '1.2.1'
         dagger_version = '2.23.1'
-        lifecycle_version = '2.2.0-alpha02'
+        lifecycle_version = '2.2.0-alpha03'
         room_version = '2.1.0'
-        navigation_version = '2.1.0-beta02'
+        navigation_version = '2.2.0-alpha01'
     }
     repositories {
         google()

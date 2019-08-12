@@ -24,6 +24,9 @@ android {
         sourceCompatibility = java_version
         targetCompatibility = java_version
     }
+    kotlinOptions {
+        jvmTarget = java_version
+    }
     lintOptions {
         abortOnError true
         warningsAsErrors true
