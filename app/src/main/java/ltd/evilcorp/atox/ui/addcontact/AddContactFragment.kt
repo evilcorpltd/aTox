@@ -15,6 +15,11 @@ import ltd.evilcorp.atox.R
 class AddContactFragment : Fragment() {
     private val viewModel: AddContactViewModel by viewModels()
 
+    private var toxIdValid: Boolean = false
+    private var messageValid: Boolean = true
+
+    private fun isAddAllowed(): Boolean = toxIdValid && messageValid
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,10 +28,12 @@ class AddContactFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                val content = s?.toString()
+                val content = s?.toString() ?: ""
                 // TODO(robinlinden): Checksum error check.
-                toxId.error = if (content?.length == 76) null else getString(R.string.tox_id_error_length)
-                add.isEnabled = toxId.error == null
+                toxId.error = if (content.length == 76) null else getString(R.string.tox_id_error_length)
+
+                toxIdValid = toxId.error != null
+                add.isEnabled = isAddAllowed()
             }
         })
 
@@ -34,9 +41,11 @@ class AddContactFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                val content = s?.toString()
-                message.error = if (content?.length != 0) null else getString(R.string.add_contact_message_error_empty)
-                add.isEnabled = message.error == null
+                val content = s?.toString() ?: ""
+                message.error = if (content.isNotEmpty()) null else getString(R.string.add_contact_message_error_empty)
+
+                messageValid = message.error != null
+                add.isEnabled = isAddAllowed()
             }
         })
 
