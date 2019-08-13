@@ -29,7 +29,7 @@ class ToxEventListener @Inject constructor(
     private val fileTransferManager: FileTransferManager
 ) : ToxCoreEventListener<Unit> {
     private var contacts: List<Contact> = listOf()
-    var contactMapping: List<Pair<String, Int>> = listOf()
+    var contactMapping: List<Pair<PublicKey, Int>> = listOf()
 
     init {
         contactRepository.getAll().observeForever {
@@ -39,7 +39,7 @@ class ToxEventListener @Inject constructor(
 
     private fun contactByFriendNumber(friendNumber: Int): Contact {
         val (publicKey, _) = contactMapping.find { it.second == friendNumber }!!
-        return contacts.find { it.publicKey == publicKey }!!
+        return contacts.find { it.publicKey == publicKey.string() }!!
     }
 
     override fun friendLosslessPacket(friendNumber: Int, data: ByteArray, state: Unit?) {
@@ -162,7 +162,7 @@ class ToxEventListener @Inject constructor(
     }
 
     override fun selfConnectionStatus(connectionStatus: ToxConnection, state: Unit?) {
-        userRepository.updateConnection(tox.publicKey, connectionStatus.toConnectionStatus())
+        userRepository.updateConnection(tox.publicKey.string(), connectionStatus.toConnectionStatus())
         Log.e(TAG, "selfConnectionStatus $connectionStatus")
     }
 

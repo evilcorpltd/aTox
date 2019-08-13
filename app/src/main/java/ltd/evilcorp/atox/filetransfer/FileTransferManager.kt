@@ -2,6 +2,7 @@ package ltd.evilcorp.atox.filetransfer
 
 import android.content.Context
 import android.util.Log
+import ltd.evilcorp.atox.tox.PublicKey
 import ltd.evilcorp.atox.tox.ToxThread
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FileTransferRepository
@@ -36,10 +37,10 @@ class FileTransferManager @Inject constructor(
         }
 
         // TODO(robinlinden): Get file ID from Tox and cancel transfer if we already have the file.
-        tox.startFileTransfer(ft.publicKey, ft.fileNumber)
+        tox.startFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
     }
 
-    fun reject(ft: FileTransfer) = tox.stopFileTransfer(ft.publicKey, ft.fileNumber)
+    fun reject(ft: FileTransfer) = tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
 
     fun addDataToTransfer(publicKey: String, fileNumber: Int, position: Long, data: ByteArray) {
         fileTransfers.find { it.publicKey == publicKey && it.fileNumber == fileNumber }?.let { ft ->

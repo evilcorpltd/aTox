@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import ltd.evilcorp.atox.tox.PublicKey
 import ltd.evilcorp.atox.tox.ToxThread
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.MessageRepository
@@ -18,24 +19,24 @@ class ChatViewModel @Inject constructor(
     private val messageRepository: MessageRepository,
     private val tox: ToxThread
 ) : ViewModel() {
-    lateinit var publicKey: String
+    var publicKey: PublicKey = PublicKey("")
 
-    val contact: LiveData<Contact> by lazy { contactRepository.get(publicKey) }
-    val messages: LiveData<List<Message>> by lazy { messageRepository.get(publicKey) }
+    val contact: LiveData<Contact> by lazy { contactRepository.get(publicKey.string()) }
+    val messages: LiveData<List<Message>> by lazy { messageRepository.get(publicKey.string()) }
 
     fun sendMessage(message: String) {
         tox.sendMessage(publicKey, message)
 
         GlobalScope.launch {
             messageRepository.add(
-                Message(publicKey, message, Sender.Sent)
+                Message(publicKey.string(), message, Sender.Sent)
             )
         }
     }
 
     fun clearHistory() {
         GlobalScope.launch {
-            messageRepository.delete(publicKey)
+            messageRepository.delete(publicKey.string())
             contact.value?.let { contact ->
                 contact.lastMessage = "Never"
                 contactRepository.update(contact)

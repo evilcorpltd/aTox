@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.chat_fragment.*
 import kotlinx.android.synthetic.main.chat_fragment.view.*
 import kotlinx.android.synthetic.main.profile_image_layout.*
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.tox.PublicKey
 import ltd.evilcorp.atox.ui.MessagesAdapter
 import ltd.evilcorp.atox.ui.colorByStatus
 import ltd.evilcorp.atox.ui.setAvatarFromContact
@@ -37,7 +38,7 @@ class ChatFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.chat_fragment, container, false).apply {
-        viewModel.publicKey = arguments!!.getString(CONTACT_PUBLIC_KEY)!!
+        viewModel.publicKey = PublicKey(arguments!!.getString(CONTACT_PUBLIC_KEY)!!)
 
         toolbar.setNavigationIcon(R.drawable.back)
         toolbar.setNavigationOnClickListener {

@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.add_contact_fragment.view.*
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.tox.ToxID
 
 class AddContactFragment : Fragment() {
     private val viewModel: AddContactViewModel by viewModels()
@@ -50,7 +51,7 @@ class AddContactFragment : Fragment() {
         })
 
         add.setOnClickListener {
-            viewModel.addContact(toxId.text.toString(), message.text.toString())
+            viewModel.addContact(ToxID(toxId.text.toString()), message.text.toString())
             findNavController().popBackStack()
         }
 

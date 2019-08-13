@@ -21,8 +21,8 @@ class ToxThread @Inject constructor(
     private val friendRequestRepository: FriendRequestRepository,
     private val userRepository: UserRepository
 ) : CoroutineScope by GlobalScope + newSingleThreadContext("ToxThread") {
-    lateinit var toxId: String
-    lateinit var publicKey: String
+    val toxId: ToxID by lazy { tox.getToxId() }
+    val publicKey: PublicKey by lazy { tox.getPublicKey() }
 
     var started = false
 
@@ -32,19 +32,17 @@ class ToxThread @Inject constructor(
         started = true
 
         tox = toxFactory.create(saveOption, eventListener)
-        toxId = tox.getToxId()
-        publicKey = tox.getPublicKey()
 
         fun loadSelf() = launch {
-            userRepository.update(User(publicKey, tox.getName(), tox.getStatusMessage()))
+            userRepository.update(User(publicKey.string(), tox.getName(), tox.getStatusMessage()))
         }
 
         fun loadContacts() = launch {
             contactRepository.resetTransientData()
 
             for ((publicKey, _) in tox.getContacts()) {
-                if (!contactRepository.exists(publicKey)) {
-                    contactRepository.add(Contact(publicKey))
+                if (!contactRepository.exists(publicKey.string())) {
+                    contactRepository.add(Contact(publicKey.string()))
                 }
             }
         }
@@ -71,19 +69,19 @@ class ToxThread @Inject constructor(
         tox.iterate()
     }
 
-    fun acceptFriendRequest(publicKey: String) = launch {
+    fun acceptFriendRequest(publicKey: PublicKey) = launch {
         tox.acceptFriendRequest(publicKey)
         save()
-        contactRepository.add(Contact(publicKey))
-        friendRequestRepository.delete(FriendRequest(publicKey))
+        contactRepository.add(Contact(publicKey.string()))
+        friendRequestRepository.delete(FriendRequest(publicKey.string()))
     }
 
-    fun startFileTransfer(publicKey: String, fileNumber: Int) = launch {
+    fun startFileTransfer(publicKey: PublicKey, fileNumber: Int) = launch {
         Log.e(TAG, "Starting file transfer $fileNumber from $publicKey")
         tox.startFileTransfer(publicKey, fileNumber)
     }
 
-    fun stopFileTransfer(publicKey: String, fileNumber: Int) = launch {
+    fun stopFileTransfer(publicKey: PublicKey, fileNumber: Int) = launch {
         Log.e(TAG, "Stopping file transfer $fileNumber from $publicKey")
         tox.stopFileTransfer(publicKey, fileNumber)
     }
@@ -93,19 +91,19 @@ class ToxThread @Inject constructor(
         save()
     }
 
-    fun addContact(toxId: String, message: String) = launch {
+    fun addContact(toxId: ToxID, message: String) = launch {
         tox.addContact(toxId, message)
         save()
-        contactRepository.add(Contact(toxId.dropLast(12)))
+        contactRepository.add(Contact(toxId.toPublicKey().string()))
     }
 
-    fun deleteContact(publicKey: String) = launch {
+    fun deleteContact(publicKey: PublicKey) = launch {
         tox.deleteContact(publicKey)
         save()
-        contactRepository.delete(Contact(publicKey))
+        contactRepository.delete(Contact(publicKey.string()))
     }
 
-    fun sendMessage(publicKey: String, message: String) = launch {
+    fun sendMessage(publicKey: PublicKey, message: String) = launch {
         tox.sendMessage(publicKey, message)
     }
 

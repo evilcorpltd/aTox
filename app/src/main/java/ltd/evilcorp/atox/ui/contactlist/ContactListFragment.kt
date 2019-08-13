@@ -157,13 +157,13 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
                 val shareIntent = Intent().apply {
                     action = Intent.ACTION_SEND
                     type = "text/plain"
-                    putExtra(Intent.EXTRA_TEXT, viewModel.toxId)
+                    putExtra(Intent.EXTRA_TEXT, viewModel.toxId.string())
                 }
                 startActivity(Intent.createChooser(shareIntent, getString(R.string.tox_id_share)))
             }
             R.id.copy_tox_id -> {
                 val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                clipboard.primaryClip = ClipData.newPlainText(getText(R.string.tox_id), viewModel.toxId)
+                clipboard.primaryClip = ClipData.newPlainText(getText(R.string.tox_id), viewModel.toxId.string())
 
                 Toast.makeText(requireContext(), getText(R.string.tox_id_copied), Toast.LENGTH_SHORT).show()
             }

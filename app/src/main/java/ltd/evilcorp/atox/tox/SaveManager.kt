@@ -18,7 +18,7 @@ class SaveManager @Inject constructor(val context: Context) {
 
     fun list(): List<String> = saveDir.listFiles().filter { it.extension == "tox" }.map { it.nameWithoutExtension }
 
-    fun save(publicKey: String, saveData: ByteArray) = File("$saveDir/$publicKey.tox").run {
+    fun save(publicKey: PublicKey, saveData: ByteArray) = File("$saveDir/${publicKey.string()}.tox").run {
         if (!exists()) {
             createNewFile()
         }
@@ -27,7 +27,7 @@ class SaveManager @Inject constructor(val context: Context) {
         writeBytes(saveData)
     }
 
-    fun load(publicKey: String): ByteArray? = tryReadBytes(File("$saveDir/$publicKey.tox"))
+    fun load(publicKey: PublicKey): ByteArray? = tryReadBytes(File(pathTo(publicKey)))
 
     private fun tryReadBytes(saveFile: File): ByteArray? =
         if (saveFile.exists()) {
@@ -35,4 +35,6 @@ class SaveManager @Inject constructor(val context: Context) {
         } else {
             null
         }
+
+    private fun pathTo(publicKey: PublicKey) = "$saveDir/${publicKey.string()}.tox"
 }

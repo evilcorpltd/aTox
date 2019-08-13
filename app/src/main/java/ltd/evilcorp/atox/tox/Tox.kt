@@ -37,17 +37,17 @@ class Tox(
 
     fun getStatusMessage(): String = String(tox.statusMessage)
 
-    fun getToxId(): String = tox.address.bytesToHex()
-    fun getPublicKey(): String = tox.publicKey.bytesToHex()
+    fun getToxId() = ToxID.fromBytes(tox.address)
+    fun getPublicKey() = PublicKey.fromBytes(tox.publicKey)
 
-    fun addContact(toxId: String, message: String) {
-        tox.addFriend(toxId.hexToBytes(), message.toByteArray())
+    fun addContact(toxId: ToxID, message: String) {
+        tox.addFriend(toxId.bytes(), message.toByteArray())
         updateContactMapping()
     }
 
-    fun deleteContact(publicKey: String) {
+    fun deleteContact(publicKey: PublicKey) {
         Log.e(TAG, "Deleting $publicKey")
-        tox.friendList.find { tox.getFriendPublicKey(it).bytesToHex() == publicKey }?.let { friend ->
+        tox.friendList.find { PublicKey.fromBytes(tox.getFriendPublicKey(it)) == publicKey }?.let { friend ->
             tox.deleteFriend(friend)
         } ?: Log.e(
             TAG, "Tried to delete nonexistent contact, this can happen if the database is out of sync with the Tox save"
@@ -56,16 +56,16 @@ class Tox(
         updateContactMapping()
     }
 
-    fun getContacts(): List<Pair<String, Int>> {
+    fun getContacts(): List<Pair<PublicKey, Int>> {
         val friendNumbers = tox.friendList
         Log.i(TAG, "Loading ${friendNumbers.size} friends")
         return List(friendNumbers.size) {
             Log.i(TAG, "${friendNumbers[it]}: ${tox.getFriendPublicKey(friendNumbers[it]).bytesToHex()}")
-            Pair(tox.getFriendPublicKey(friendNumbers[it]).bytesToHex(), friendNumbers[it])
+            Pair(PublicKey.fromBytes(tox.getFriendPublicKey(friendNumbers[it])), friendNumbers[it])
         }
     }
 
-    fun sendMessage(publicKey: String, message: String): Int = tox.friendSendMessage(
+    fun sendMessage(publicKey: PublicKey, message: String): Int = tox.friendSendMessage(
         contactByKey(publicKey),
         ToxMessageType.NORMAL,
         0,
@@ -74,16 +74,16 @@ class Tox(
 
     fun save() = saveManager.save(getPublicKey(), tox.savedata)
 
-    fun acceptFriendRequest(publicKey: String) {
-        tox.addFriendNorequest(publicKey.hexToBytes())
+    fun acceptFriendRequest(publicKey: PublicKey) {
+        tox.addFriendNorequest(publicKey.bytes())
         updateContactMapping()
     }
 
-    fun startFileTransfer(publicKey: String, fileNumber: Int) =
+    fun startFileTransfer(publicKey: PublicKey, fileNumber: Int) =
         tox.fileControl(contactByKey(publicKey), fileNumber, ToxFileControl.RESUME)
 
-    fun stopFileTransfer(publicKey: String, fileNumber: Int) =
+    fun stopFileTransfer(publicKey: PublicKey, fileNumber: Int) =
         tox.fileControl(contactByKey(publicKey), fileNumber, ToxFileControl.CANCEL)
 
-    private fun contactByKey(publicKey: String): Int = tox.friendByPublicKey(publicKey.hexToBytes())
+    private fun contactByKey(publicKey: PublicKey): Int = tox.friendByPublicKey(publicKey.bytes())
 }
