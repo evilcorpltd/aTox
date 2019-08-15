@@ -1,17 +1,18 @@
 package ltd.evilcorp.atox.tox
 
-import android.content.Context
 import android.util.Log
 import im.tox.tox4j.core.callbacks.ToxCoreEventListener
 import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
+import ltd.evilcorp.atox.filetransfer.FileTransferManager
 import ltd.evilcorp.atox.ui.NotificationHelper
-import ltd.evilcorp.core.repository.*
+import ltd.evilcorp.core.repository.ContactRepository
+import ltd.evilcorp.core.repository.FriendRequestRepository
+import ltd.evilcorp.core.repository.MessageRepository
+import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.*
-import java.io.File
-import java.io.RandomAccessFile
 import java.text.DateFormat
 import java.util.*
 import javax.inject.Inject
@@ -19,19 +20,16 @@ import javax.inject.Inject
 private const val TAG = "ToxEventListener"
 
 class ToxEventListener @Inject constructor(
-    private val context: Context,
     private val contactRepository: ContactRepository,
-    private val fileTransferRepository: FileTransferRepository,
     private val friendRequestRepository: FriendRequestRepository,
     private val messageRepository: MessageRepository,
     private val userRepository: UserRepository,
     private val notificationHelper: NotificationHelper,
-    private val tox: ToxThread
+    private val tox: ToxThread,
+    private val fileTransferManager: FileTransferManager
 ) : ToxCoreEventListener<Unit> {
     private var contacts: List<Contact> = listOf()
     var contactMapping: List<Pair<String, Int>> = listOf()
-
-    private val fileTransfers: MutableList<FileTransfer> = mutableListOf()
 
     init {
         contactRepository.getAll().observeForever {
@@ -118,14 +116,7 @@ class ToxEventListener @Inject constructor(
 
     override fun fileRecvChunk(friendNumber: Int, fileNumber: Int, position: Long, data: ByteArray, state: Unit?) {
         val contact = contactByFriendNumber(friendNumber)
-        fileTransfers.find { it.publicKey == contact.publicKey && it.fileNumber == fileNumber }?.let { fileTransfer ->
-            val avatarFolder = File(context.filesDir, "avatar")
-            RandomAccessFile(File(avatarFolder, fileTransfer.fileName), "rwd").apply {
-                seek(position)
-                write(data)
-                close()
-            }
-        } ?: Log.e(TAG, "Got chunk for file transfer $fileNumber for ${contact.publicKey} we don't know about")
+        fileTransferManager.addDataToTransfer(contact.publicKey, fileNumber, position, data)
     }
 
     override fun fileRecv(
@@ -137,7 +128,7 @@ class ToxEventListener @Inject constructor(
         state: Unit?
     ) {
         val contact = contactByFriendNumber(friendNumber)
-        val fileTransfer = FileTransfer(
+        val ft = FileTransfer(
             contact.publicKey,
             fileNumber,
             kind,
@@ -146,35 +137,14 @@ class ToxEventListener @Inject constructor(
             outgoing = false
         )
 
-        if (fileTransfer.fileKind != FileKind.Avatar.ordinal) {
-            App.toxThread.stopFileTransfer(contact.publicKey, fileNumber)
-            Log.e(TAG, "Ignored non-avatar file transfer $fileNumber from ${contact.publicKey}")
-            return
-        }
-
-        fileTransfers.add(fileTransfer)
-        fileTransferRepository.add(fileTransfer)
-
-        val avatarFolder = File(context.filesDir, "avatar")
-        if (!avatarFolder.exists()) {
-            avatarFolder.mkdir()
-        }
-
-        RandomAccessFile(File(avatarFolder, fileTransfer.fileName), "rwd").apply {
-            setLength(fileSize)
-            close()
-        }
-
         when (kind) {
             FileKind.Data.ordinal -> {
                 // TODO(robinlinden): Add a chat message allowing the user to accept/reject the transfer.
+                Log.e(TAG, "Ignoring non-avatar file transfer $fileNumber (${ft.fileName}) from ${contact.publicKey}")
+                fileTransferManager.reject(ft)
             }
             FileKind.Avatar.ordinal -> {
-                // TODO(robinlinden): Get file ID from Tox and cancel transfer if we already have the file.
-                App.toxThread.startFileTransfer(fileTransfer.publicKey, fileNumber)
-                contactRepository.update(contact.apply {
-                    avatarUri = File(avatarFolder, fileTransfer.fileName).toURI().toString()
-                })
+                fileTransferManager.accept(ft)
             }
             else -> {
                 Log.e(TAG, "Got unknown file kind $kind in file transfer")
@@ -183,7 +153,7 @@ class ToxEventListener @Inject constructor(
 
         Log.e(
             TAG,
-            "fileRecv $fileNumber $kind size: $fileSize suggested name: ${String(filename)} from ${contact.publicKey}"
+            "fileRecv $fileNumber $kind size: $fileSize suggested name: ${ft.fileName} from ${contact.publicKey}"
         )
     }
 

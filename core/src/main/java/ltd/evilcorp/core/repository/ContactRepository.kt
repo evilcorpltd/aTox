@@ -30,4 +30,7 @@ class ContactRepository @Inject internal constructor(
 
     fun resetTransientData() =
         contactDao.resetTransientData()
+
+    fun setAvatarUri(publicKey: String, uri: String) =
+        contactDao.setAvatarUri(publicKey, uri)
 }

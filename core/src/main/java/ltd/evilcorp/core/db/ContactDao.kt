@@ -27,4 +27,7 @@ internal interface ContactDao {
 
     @Query("UPDATE contacts SET connection_status = :status, typing = :typing")
     fun resetTransientData(status: ConnectionStatus = ConnectionStatus.None, typing: Boolean = false)
+
+    @Query("UPDATE contacts SET avatar_uri = :uri WHERE public_key = :publicKey")
+    fun setAvatarUri(publicKey: String, uri: String)
 }
