@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import ltd.evilcorp.atox.App
+import ltd.evilcorp.atox.tox.ToxThread
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.MessageRepository
 import ltd.evilcorp.core.vo.Contact
@@ -15,7 +15,8 @@ import javax.inject.Inject
 
 class ChatViewModel @Inject constructor(
     private val contactRepository: ContactRepository,
-    private val messageRepository: MessageRepository
+    private val messageRepository: MessageRepository,
+    private val tox: ToxThread
 ) : ViewModel() {
     lateinit var publicKey: String
 
@@ -23,7 +24,7 @@ class ChatViewModel @Inject constructor(
     val messages: LiveData<List<Message>> by lazy { messageRepository.get(publicKey) }
 
     fun sendMessage(message: String) {
-        App.toxThread.sendMessage(publicKey, message)
+        tox.sendMessage(publicKey, message)
 
         GlobalScope.launch {
             messageRepository.add(

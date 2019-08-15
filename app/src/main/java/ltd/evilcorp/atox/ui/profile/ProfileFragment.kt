@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.profile_fragment.view.*
-import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.vmFactory
 
@@ -31,7 +30,7 @@ class ProfileFragment : Fragment() {
 
             viewModel.startToxThread()
             viewModel.createUser(
-                App.toxThread.publicKey,
+                viewModel.publicKey,
                 if (username.text.isNotEmpty()) username.text.toString() else "aTox user",
                 if (password.text.isNotEmpty()) password.text.toString() else ""
             )
@@ -65,7 +64,7 @@ class ProfileFragment : Fragment() {
             Log.e("ProfileFragment", "Importing file $uri")
             viewModel.tryImportToxSave(uri)?.also { save ->
                 if (viewModel.startToxThread(save)) {
-                    viewModel.verifyUserExists(App.toxThread.publicKey)
+                    viewModel.verifyUserExists(viewModel.publicKey)
                     navigateToContactList()
                 } else {
                     Toast.makeText(requireContext(), R.string.import_tox_save_failed, Toast.LENGTH_LONG).show()
@@ -77,9 +76,14 @@ class ProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        if (viewModel.isToxRunning()) {
+            navigateToContactList()
+            return
+        }
+
         viewModel.tryLoadToxSave()?.also { save ->
             viewModel.startToxThread(save)
-            viewModel.verifyUserExists(App.toxThread.publicKey)
+            viewModel.verifyUserExists(viewModel.publicKey)
             navigateToContactList()
         }
     }

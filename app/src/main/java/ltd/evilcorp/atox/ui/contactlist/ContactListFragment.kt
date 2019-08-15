@@ -5,7 +5,6 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.*
 import android.widget.AdapterView
 import android.widget.Toast
@@ -21,7 +20,6 @@ import kotlinx.android.synthetic.main.contact_list_fragment.*
 import kotlinx.android.synthetic.main.contact_list_fragment.view.*
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 import kotlinx.android.synthetic.main.nav_header_contact_list.view.*
-import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.ui.ContactAdapter
 import ltd.evilcorp.atox.ui.FriendRequestAdapter
@@ -39,9 +37,6 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.contact_list_fragment, container, false).apply {
-        viewModel.publicKey = PreferenceManager.getDefaultSharedPreferences(requireContext())
-            .getString(getString(R.string.pref_active_user), null)!!
-
         toolbar.title = getText(R.string.app_name)
 
         viewModel.user.observe(viewLifecycleOwner, Observer { user ->
@@ -160,13 +155,13 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
                 val shareIntent = Intent().apply {
                     action = Intent.ACTION_SEND
                     type = "text/plain"
-                    putExtra(Intent.EXTRA_TEXT, App.toxThread.toxId)
+                    putExtra(Intent.EXTRA_TEXT, viewModel.toxId)
                 }
                 startActivity(Intent.createChooser(shareIntent, getString(R.string.tox_id_share)))
             }
             R.id.copy_tox_id -> {
                 val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                clipboard.primaryClip = ClipData.newPlainText(getText(R.string.tox_id), App.toxThread.toxId)
+                clipboard.primaryClip = ClipData.newPlainText(getText(R.string.tox_id), viewModel.toxId)
 
                 Toast.makeText(requireContext(), getText(R.string.tox_id_copied), Toast.LENGTH_SHORT).show()
             }

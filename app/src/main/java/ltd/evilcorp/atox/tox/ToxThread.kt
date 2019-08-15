@@ -7,18 +7,31 @@ import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.User
+import javax.inject.Inject
+import javax.inject.Singleton
 
 @ObsoleteCoroutinesApi
-class ToxThread(
-    private val tox: Tox,
+@Singleton
+class ToxThread @Inject constructor(
+    private val toxFactory: ToxFactory,
     private val contactRepository: ContactRepository,
     private val friendRequestRepository: FriendRequestRepository,
     private val userRepository: UserRepository
 ) : CoroutineScope by GlobalScope + newSingleThreadContext("ToxThread") {
-    val toxId = tox.getToxId()
-    val publicKey = tox.getPublicKey()
+    lateinit var toxId: String
+    lateinit var publicKey: String
 
-    init {
+    var started = false
+
+    private lateinit var tox: Tox
+
+    fun start(saveOption: SaveOptions) {
+        started = true
+
+        tox = toxFactory.create(saveOption)
+        toxId = tox.getToxId()
+        publicKey = tox.getPublicKey()
+
         fun loadSelf() = launch {
             userRepository.update(User(publicKey, tox.getName(), tox.getStatusMessage()))
         }

@@ -6,7 +6,6 @@ import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
-import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FriendRequestRepository
@@ -31,6 +30,7 @@ class ToxEventListener @Inject constructor(
 ) : ToxCoreEventListener<Unit> {
     private var contacts: List<Contact> = listOf()
     var contactMapping: List<Pair<String, Int>> = listOf()
+    var publicKey: String = ""
 
     init {
         contactRepository.getAll().observeForever {
@@ -135,7 +135,7 @@ class ToxEventListener @Inject constructor(
     }
 
     override fun selfConnectionStatus(connectionStatus: ToxConnection, state: Unit?) {
-        userRepository.updateConnection(App.toxThread.publicKey, connectionStatus.toConnectionStatus())
+        userRepository.updateConnection(publicKey, connectionStatus.toConnectionStatus())
         Log.e(TAG, "selfConnectionStatus $connectionStatus")
     }
 

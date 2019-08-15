@@ -1,9 +1,5 @@
-package ltd.evilcorp.atox.di
+package ltd.evilcorp.atox.tox
 
-import ltd.evilcorp.atox.tox.SaveManager
-import ltd.evilcorp.atox.tox.SaveOptions
-import ltd.evilcorp.atox.tox.Tox
-import ltd.evilcorp.atox.tox.ToxEventListener
 import javax.inject.Inject
 import javax.inject.Singleton
 

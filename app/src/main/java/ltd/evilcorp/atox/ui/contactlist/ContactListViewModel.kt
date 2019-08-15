@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import ltd.evilcorp.atox.App
+import ltd.evilcorp.atox.tox.ToxThread
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FriendRequestRepository
 import ltd.evilcorp.core.repository.UserRepository
@@ -16,19 +16,21 @@ import javax.inject.Inject
 class ContactListViewModel @Inject constructor(
     private val contactRepository: ContactRepository,
     private val friendRequestRepository: FriendRequestRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val tox: ToxThread
 ) : ViewModel() {
-    lateinit var publicKey: String
+    val publicKey = tox.publicKey
+    val toxId = tox.toxId
 
     val contacts: LiveData<List<Contact>> by lazy { contactRepository.getAll() }
     val friendRequests: LiveData<List<FriendRequest>> by lazy { friendRequestRepository.getAll() }
     val user: LiveData<User> by lazy { userRepository.get(publicKey) }
 
-    fun acceptFriendRequest(friendRequest: FriendRequest) = App.toxThread.acceptFriendRequest(friendRequest.publicKey)
+    fun acceptFriendRequest(friendRequest: FriendRequest) = tox.acceptFriendRequest(friendRequest.publicKey)
 
     fun rejectFriendRequest(friendRequest: FriendRequest) = GlobalScope.launch {
         friendRequestRepository.delete(friendRequest)
     }
 
-    fun deleteContact(contact: Contact) = App.toxThread.deleteContact(contact.publicKey)
+    fun deleteContact(contact: Contact) = tox.deleteContact(contact.publicKey)
 }

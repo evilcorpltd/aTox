@@ -2,17 +2,14 @@ package ltd.evilcorp.atox.ui.profile
 
 import android.content.Context
 import android.net.Uri
-import android.preference.PreferenceManager
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import im.tox.tox4j.core.exceptions.ToxNewException
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import ltd.evilcorp.atox.App
-import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.di.ToxThreadFactory
 import ltd.evilcorp.atox.tox.SaveManager
 import ltd.evilcorp.atox.tox.SaveOptions
+import ltd.evilcorp.atox.tox.ToxThread
 import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.User
 import javax.inject.Inject
@@ -20,12 +17,16 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val context: Context,
     private val saveManager: SaveManager,
-    private val toxThreadFactory: ToxThreadFactory,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val tox: ToxThread
 ) : ViewModel() {
+    lateinit var publicKey: String
+
+    fun isToxRunning() = tox.started
+
     fun startToxThread(save: ByteArray? = null): Boolean = try {
-        App.toxThread = toxThreadFactory.create(SaveOptions(save))
-        setActiveUser(App.toxThread.publicKey)
+        tox.start(SaveOptions(save))
+        publicKey = tox.publicKey
         true
     } catch (e: ToxNewException) {
         Log.e("ProfileViewModel", e.message)
@@ -40,7 +41,7 @@ class ProfileViewModel @Inject constructor(
             userRepository.add(User(publicKey = publicKey, name = name, password = password))
         }
 
-        App.toxThread.setName(name)
+        tox.setName(name)
     }
 
     fun verifyUserExists(publicKey: String) = GlobalScope.launch {
@@ -48,10 +49,4 @@ class ProfileViewModel @Inject constructor(
             userRepository.add(User(publicKey))
         }
     }
-
-    private fun setActiveUser(publicKey: String) =
-        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(
-            context.getString(R.string.pref_active_user),
-            publicKey
-        ).apply()
 }
