@@ -25,10 +25,10 @@ class ToxThread @Inject constructor(
 
     private lateinit var tox: Tox
 
-    fun start(saveOption: SaveOptions) {
+    fun start(saveOption: SaveOptions, eventListener: ToxEventListener) {
         started = true
 
-        tox = toxFactory.create(saveOption)
+        tox = toxFactory.create(saveOption, eventListener)
         toxId = tox.getToxId()
         publicKey = tox.getPublicKey()
 

@@ -14,7 +14,6 @@ class Tox(
     private val tox: ToxCoreImpl = ToxCoreImpl(options.toToxOptions())
 
     init {
-        eventListener.publicKey = getPublicKey()
         updateContactMapping()
     }
 

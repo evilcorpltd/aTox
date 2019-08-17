@@ -26,11 +26,11 @@ class ToxEventListener @Inject constructor(
     private val friendRequestRepository: FriendRequestRepository,
     private val messageRepository: MessageRepository,
     private val userRepository: UserRepository,
-    private val notificationHelper: NotificationHelper
+    private val notificationHelper: NotificationHelper,
+    private val tox: ToxThread
 ) : ToxCoreEventListener<Unit> {
     private var contacts: List<Contact> = listOf()
     var contactMapping: List<Pair<String, Int>> = listOf()
-    var publicKey: String = ""
 
     init {
         contactRepository.getAll().observeForever {
@@ -135,7 +135,7 @@ class ToxEventListener @Inject constructor(
     }
 
     override fun selfConnectionStatus(connectionStatus: ToxConnection, state: Unit?) {
-        userRepository.updateConnection(publicKey, connectionStatus.toConnectionStatus())
+        userRepository.updateConnection(tox.publicKey, connectionStatus.toConnectionStatus())
         Log.e(TAG, "selfConnectionStatus $connectionStatus")
     }
 

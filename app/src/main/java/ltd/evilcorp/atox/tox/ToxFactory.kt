@@ -4,9 +4,6 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ToxFactory @Inject constructor(
-    private val eventListener: ToxEventListener,
-    private val saveManager: SaveManager
-) {
-    fun create(saveOption: SaveOptions) = Tox(eventListener, saveManager, saveOption)
+class ToxFactory @Inject constructor(private val saveManager: SaveManager) {
+    fun create(saveOption: SaveOptions, eventListener: ToxEventListener) = Tox(eventListener, saveManager, saveOption)
 }

@@ -9,6 +9,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.tox.SaveManager
 import ltd.evilcorp.atox.tox.SaveOptions
+import ltd.evilcorp.atox.tox.ToxEventListener
 import ltd.evilcorp.atox.tox.ToxThread
 import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.User
@@ -18,14 +19,15 @@ class ProfileViewModel @Inject constructor(
     private val context: Context,
     private val saveManager: SaveManager,
     private val userRepository: UserRepository,
-    private val tox: ToxThread
+    private val tox: ToxThread,
+    private val eventListener: ToxEventListener
 ) : ViewModel() {
     lateinit var publicKey: String
 
     fun isToxRunning() = tox.started
 
     fun startToxThread(save: ByteArray? = null): Boolean = try {
-        tox.start(SaveOptions(save))
+        tox.start(SaveOptions(save), eventListener)
         publicKey = tox.publicKey
         true
     } catch (e: ToxNewException) {
