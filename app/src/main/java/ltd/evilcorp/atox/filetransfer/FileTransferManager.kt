@@ -6,6 +6,7 @@ import ltd.evilcorp.atox.tox.ToxThread
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FileTransferRepository
 import ltd.evilcorp.core.vo.FileTransfer
+import ltd.evilcorp.core.vo.isComplete
 import java.io.File
 import java.io.RandomAccessFile
 import javax.inject.Inject
@@ -36,19 +37,25 @@ class FileTransferManager @Inject constructor(
 
         // TODO(robinlinden): Get file ID from Tox and cancel transfer if we already have the file.
         tox.startFileTransfer(ft.publicKey, ft.fileNumber)
-        contactRepository.setAvatarUri(ft.publicKey, File(avatarFolder, ft.fileName).toURI().toString())
     }
 
     fun reject(ft: FileTransfer) = tox.stopFileTransfer(ft.publicKey, ft.fileNumber)
 
-    fun addDataToTransfer(contactPublicKey: String, fileNumber: Int, position: Long, data: ByteArray) {
-        fileTransfers.find { it.publicKey == contactPublicKey && it.fileNumber == fileNumber }?.let { fileTransfer ->
+    fun addDataToTransfer(publicKey: String, fileNumber: Int, position: Long, data: ByteArray) {
+        fileTransfers.find { it.publicKey == publicKey && it.fileNumber == fileNumber }?.let { ft ->
             val avatarFolder = File(context.filesDir, "avatar")
-            RandomAccessFile(File(avatarFolder, fileTransfer.fileName), "rwd").apply {
+            RandomAccessFile(File(avatarFolder, ft.fileName), "rwd").apply {
                 seek(position)
                 write(data)
                 close()
             }
-        } ?: Log.e(TAG, "Got chunk for file transfer $fileNumber for $contactPublicKey we don't know about")
+
+            fileTransferRepository.updateProgress(ft.publicKey, ft.fileNumber, ft.progress + data.size)
+            fileTransfers[fileTransfers.indexOf(ft)] = ft.copy(progress = ft.progress + data.size)
+
+            if (ft.isComplete()) {
+                contactRepository.setAvatarUri(ft.publicKey, File(avatarFolder, ft.fileName).toURI().toString())
+            }
+        } ?: Log.e(TAG, "Got chunk for file transfer $fileNumber for $publicKey we don't know about")
     }
 }

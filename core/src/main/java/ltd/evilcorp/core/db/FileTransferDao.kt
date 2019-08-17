@@ -14,4 +14,9 @@ internal interface FileTransferDao {
 
     @Query("SELECT * FROM file_transfers WHERE public_key == :publicKey AND file_number == :fileNumber")
     fun load(publicKey: String, fileNumber: Int): LiveData<List<FileTransfer>>
+
+    @Query(
+        "UPDATE file_transfers SET progress = :progress WHERE public_key == :publicKey AND file_number == :fileNumber"
+    )
+    fun updateProgress(publicKey: String, fileNumber: Int, progress: Long)
 }

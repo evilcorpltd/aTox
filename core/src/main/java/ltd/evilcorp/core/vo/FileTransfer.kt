@@ -26,5 +26,10 @@ data class FileTransfer(
     val fileName: String,
 
     @ColumnInfo(name = "outgoing")
-    val outgoing: Boolean
+    val outgoing: Boolean,
+
+    @ColumnInfo(name = "progress")
+    var progress: Long = 0
 )
+
+fun FileTransfer.isComplete() = progress == fileSize

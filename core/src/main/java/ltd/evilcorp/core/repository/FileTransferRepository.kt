@@ -18,4 +18,7 @@ class FileTransferRepository @Inject internal constructor(
 
     fun get(publicKey: String, fileNumber: Int): LiveData<List<FileTransfer>> =
         FileTransferDao.load(publicKey, fileNumber)
+
+    fun updateProgress(publicKey: String, fileNumber: Int, progress: Long) =
+        FileTransferDao.updateProgress(publicKey, fileNumber, progress)
 }
