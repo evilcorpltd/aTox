@@ -4,19 +4,12 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/nav_graph"
-        app:startDestination="@id/profileFragment">
+        app:startDestination="@id/contactListFragment">
     <fragment
             android:id="@+id/profileFragment"
             android:name="ltd.evilcorp.atox.ui.profile.ProfileFragment"
             android:label="ProfileFragment"
-            tools:layout="@layout/profile_fragment">
-        <action
-                android:id="@+id/action_profileFragment_to_contactListFragment"
-                app:destination="@id/contactListFragment"
-                app:popUpTo="@+id/nav_graph"
-                app:enterAnim="@anim/fade_in"
-                app:exitAnim="@anim/fade_out"/>
-    </fragment>
+            tools:layout="@layout/profile_fragment"/>
     <fragment
             android:id="@+id/contactListFragment"
             android:name="ltd.evilcorp.atox.ui.contactlist.ContactListFragment"
@@ -36,6 +29,12 @@
                 app:exitAnim="@anim/fade_out"
                 app:popEnterAnim="@anim/fade_in"
                 app:popExitAnim="@anim/slide_out_right"/>
+        <action android:id="@+id/action_contactListFragment_to_profileFragment"
+                app:destination="@id/profileFragment"
+                app:enterAnim="@anim/fade_in"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_out"
+                app:popExitAnim="@anim/fade_in"/>
     </fragment>
     <fragment
             android:id="@+id/chatFragment"

@@ -35,7 +35,7 @@ class ProfileFragment : Fragment() {
                 if (password.text.isNotEmpty()) password.text.toString() else ""
             )
 
-            navigateToContactList()
+            findNavController().popBackStack()
         }
 
         toolbar.inflateMenu(R.menu.profile_options_menu)
@@ -65,7 +65,7 @@ class ProfileFragment : Fragment() {
             viewModel.tryImportToxSave(uri)?.also { save ->
                 if (viewModel.startToxThread(save)) {
                     viewModel.verifyUserExists(viewModel.publicKey)
-                    navigateToContactList()
+                    findNavController().popBackStack()
                 } else {
                     Toast.makeText(requireContext(), R.string.import_tox_save_failed, Toast.LENGTH_LONG).show()
                 }
@@ -73,21 +73,12 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        if (viewModel.isToxRunning()) {
-            navigateToContactList()
-            return
-        }
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         viewModel.tryLoadToxSave()?.also { save ->
             viewModel.startToxThread(save)
             viewModel.verifyUserExists(viewModel.publicKey)
-            navigateToContactList()
+            findNavController().popBackStack()
         }
     }
-
-    private fun navigateToContactList() =
-        findNavController().navigate(R.id.action_profileFragment_to_contactListFragment)
 }

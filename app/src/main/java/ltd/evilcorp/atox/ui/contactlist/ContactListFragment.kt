@@ -37,6 +37,8 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.contact_list_fragment, container, false).apply {
+        if (!viewModel.isToxRunning()) return@apply
+
         toolbar.title = getText(R.string.app_name)
 
         viewModel.user.observe(viewLifecycleOwner, Observer { user ->
@@ -172,6 +174,11 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (!viewModel.isToxRunning()) findNavController().navigate(R.id.action_contactListFragment_to_profileFragment)
     }
 
     private fun openChat(contact: Contact) = findNavController().navigate(

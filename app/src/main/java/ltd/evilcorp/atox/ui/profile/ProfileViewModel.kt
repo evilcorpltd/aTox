@@ -24,8 +24,6 @@ class ProfileViewModel @Inject constructor(
 ) : ViewModel() {
     lateinit var publicKey: String
 
-    fun isToxRunning() = tox.started
-
     fun startToxThread(save: ByteArray? = null): Boolean = try {
         tox.start(SaveOptions(save), eventListener)
         publicKey = tox.publicKey

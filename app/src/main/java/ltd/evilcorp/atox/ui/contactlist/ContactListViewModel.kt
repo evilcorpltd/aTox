@@ -19,12 +19,14 @@ class ContactListViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val tox: ToxThread
 ) : ViewModel() {
-    val publicKey = tox.publicKey
-    val toxId = tox.toxId
+    val publicKey by lazy { tox.publicKey }
+    val toxId by lazy { tox.toxId }
 
     val contacts: LiveData<List<Contact>> by lazy { contactRepository.getAll() }
     val friendRequests: LiveData<List<FriendRequest>> by lazy { friendRequestRepository.getAll() }
     val user: LiveData<User> by lazy { userRepository.get(publicKey) }
+
+    fun isToxRunning() = tox.started
 
     fun acceptFriendRequest(friendRequest: FriendRequest) = tox.acceptFriendRequest(friendRequest.publicKey)
 
