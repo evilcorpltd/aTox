@@ -37,10 +37,14 @@ class ToxEventListener @Inject constructor(
         }
     }
 
+    private fun publicKeyByFriendNumber(friendNumber: Int) =
+        contactMapping.find { it.second == friendNumber }!!.first.string()
+
     private fun contactByFriendNumber(friendNumber: Int): Contact {
-        val (publicKey, _) = contactMapping.find { it.second == friendNumber }!!
-        return contacts.find { it.publicKey == publicKey.string() }!!
+        val publicKey = publicKeyByFriendNumber(friendNumber)
+        return contacts.find { it.publicKey == publicKey }!!
     }
+
 
     override fun friendLosslessPacket(friendNumber: Int, data: ByteArray, state: Unit?) {
         Log.e(TAG, "friendLosslessPacket")
@@ -114,10 +118,8 @@ class ToxEventListener @Inject constructor(
         Log.e(TAG, "friendName")
     }
 
-    override fun fileRecvChunk(friendNumber: Int, fileNumber: Int, position: Long, data: ByteArray, state: Unit?) {
-        val contact = contactByFriendNumber(friendNumber)
-        fileTransferManager.addDataToTransfer(contact.publicKey, fileNumber, position, data)
-    }
+    override fun fileRecvChunk(friendNumber: Int, fileNumber: Int, position: Long, data: ByteArray, state: Unit?) =
+        fileTransferManager.addDataToTransfer(publicKeyByFriendNumber(friendNumber), fileNumber, position, data)
 
     override fun fileRecv(
         friendNumber: Int,
@@ -126,36 +128,16 @@ class ToxEventListener @Inject constructor(
         fileSize: Long,
         filename: ByteArray,
         state: Unit?
-    ) {
-        val contact = contactByFriendNumber(friendNumber)
-        val ft = FileTransfer(
-            contact.publicKey,
+    ) = fileTransferManager.add(
+        FileTransfer(
+            publicKeyByFriendNumber(friendNumber),
             fileNumber,
             kind,
             fileSize,
-            if (kind == FileKind.Avatar.ordinal) contact.publicKey else String(filename),
+            if (kind == FileKind.Avatar.ordinal) publicKeyByFriendNumber(friendNumber) else String(filename),
             outgoing = false
         )
-
-        when (kind) {
-            FileKind.Data.ordinal -> {
-                // TODO(robinlinden): Add a chat message allowing the user to accept/reject the transfer.
-                Log.e(TAG, "Ignoring non-avatar file transfer $fileNumber (${ft.fileName}) from ${contact.publicKey}")
-                fileTransferManager.reject(ft)
-            }
-            FileKind.Avatar.ordinal -> {
-                fileTransferManager.accept(ft)
-            }
-            else -> {
-                Log.e(TAG, "Got unknown file kind $kind in file transfer")
-            }
-        }
-
-        Log.e(
-            TAG,
-            "fileRecv $fileNumber $kind size: $fileSize suggested name: ${ft.fileName} from ${contact.publicKey}"
-        )
-    }
+    )
 
     override fun friendLossyPacket(friendNumber: Int, data: ByteArray, state: Unit?) {
         Log.e(TAG, "friendLossyPacket")

@@ -6,6 +6,7 @@ import ltd.evilcorp.atox.tox.PublicKey
 import ltd.evilcorp.atox.tox.Tox
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FileTransferRepository
+import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.isComplete
 import java.io.File
@@ -22,10 +23,25 @@ class FileTransferManager @Inject constructor(
 ) {
     private val fileTransfers: MutableList<FileTransfer> = mutableListOf()
 
-    fun accept(ft: FileTransfer) {
-        fileTransfers.add(ft)
-        fileTransferRepository.add(ft)
+    fun add(ft: FileTransfer) {
+        when (ft.fileKind) {
+            FileKind.Data.ordinal -> {
+                // TODO(robinlinden): Add a chat message allowing the user to accept/reject the transfer.
+                Log.e(TAG, "Ignoring non-avatar file transfer ${ft.fileNumber} (${ft.fileName}) from ${ft.publicKey}")
+                reject(ft)
+            }
+            FileKind.Avatar.ordinal -> {
+                fileTransferRepository.add(ft)
+                fileTransfers.add(ft)
+                accept(ft)
+            }
+            else -> {
+                Log.e(TAG, "Got unknown file kind ${ft.fileKind} in file transfer")
+            }
+        }
+    }
 
+    private fun accept(ft: FileTransfer) {
         val avatarFolder = File(context.filesDir, "avatar")
         if (!avatarFolder.exists()) {
             avatarFolder.mkdir()
@@ -40,7 +56,7 @@ class FileTransferManager @Inject constructor(
         tox.startFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
     }
 
-    fun reject(ft: FileTransfer) = tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
+    private fun reject(ft: FileTransfer) = tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
 
     fun addDataToTransfer(publicKey: String, fileNumber: Int, position: Long, data: ByteArray) {
         fileTransfers.find { it.publicKey == publicKey && it.fileNumber == fileNumber }?.let { ft ->
