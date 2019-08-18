@@ -16,7 +16,7 @@ class ProfileViewModel @Inject constructor(
     private val context: Context,
     private val saveManager: SaveManager,
     private val userRepository: UserRepository,
-    private val tox: ToxThread,
+    private val tox: Tox,
     private val eventListener: ToxEventListener
 ) : ViewModel() {
     val publicKey: PublicKey by lazy { tox.publicKey }

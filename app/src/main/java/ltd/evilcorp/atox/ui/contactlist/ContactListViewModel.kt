@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.tox.PublicKey
-import ltd.evilcorp.atox.tox.ToxThread
+import ltd.evilcorp.atox.tox.Tox
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FriendRequestRepository
 import ltd.evilcorp.core.repository.UserRepository
@@ -18,7 +18,7 @@ class ContactListViewModel @Inject constructor(
     private val contactRepository: ContactRepository,
     private val friendRequestRepository: FriendRequestRepository,
     private val userRepository: UserRepository,
-    private val tox: ToxThread
+    private val tox: Tox
 ) : ViewModel() {
     val publicKey by lazy { tox.publicKey }
     val toxId by lazy { tox.toxId }

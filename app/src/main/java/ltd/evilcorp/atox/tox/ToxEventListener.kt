@@ -25,7 +25,7 @@ class ToxEventListener @Inject constructor(
     private val messageRepository: MessageRepository,
     private val userRepository: UserRepository,
     private val notificationHelper: NotificationHelper,
-    private val tox: ToxThread,
+    private val tox: Tox,
     private val fileTransferManager: FileTransferManager
 ) : ToxCoreEventListener<Unit> {
     private var contacts: List<Contact> = listOf()

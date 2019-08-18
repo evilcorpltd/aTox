@@ -1,89 +1,127 @@
 package ltd.evilcorp.atox.tox
 
 import android.util.Log
-import im.tox.tox4j.core.enums.ToxFileControl
-import im.tox.tox4j.core.enums.ToxMessageType
-import im.tox.tox4j.impl.jni.ToxCoreImpl
+import kotlinx.coroutines.*
+import ltd.evilcorp.core.repository.ContactRepository
+import ltd.evilcorp.core.repository.FriendRequestRepository
+import ltd.evilcorp.core.repository.UserRepository
+import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.FriendRequest
+import ltd.evilcorp.core.vo.User
+import javax.inject.Inject
+import javax.inject.Singleton
 
 private const val TAG = "Tox"
 
-class Tox(
-    private val eventListener: ToxEventListener,
-    private val saveManager: SaveManager,
-    options: SaveOptions
-) {
-    private val tox: ToxCoreImpl = ToxCoreImpl(options.toToxOptions())
+@ObsoleteCoroutinesApi
+@Singleton
+class Tox @Inject constructor(
+    private val toxFactory: ToxWrapperFactory,
+    private val contactRepository: ContactRepository,
+    private val friendRequestRepository: FriendRequestRepository,
+    private val userRepository: UserRepository
+) : CoroutineScope by GlobalScope + newSingleThreadContext("Tox") {
+    val toxId: ToxID by lazy { tox.getToxId() }
+    val publicKey: PublicKey by lazy { tox.getPublicKey() }
 
-    init {
-        updateContactMapping()
-    }
+    var started = false
 
-    private fun updateContactMapping() {
-        eventListener.contactMapping = getContacts()
-    }
+    private lateinit var tox: ToxWrapper
 
-    fun bootstrap(address: String, port: Int, publicKey: ByteArray) {
-        tox.bootstrap(address, port, publicKey)
-        tox.addTcpRelay(address, port, publicKey)
-    }
+    fun start(saveOption: SaveOptions, eventListener: ToxEventListener) {
+        started = true
 
-    fun iterate(): Unit = tox.iterate(eventListener, Unit)
-    fun iterationInterval(): Long = tox.iterationInterval().toLong()
+        tox = toxFactory.create(saveOption, eventListener)
 
-    fun getName(): String = String(tox.name)
-    fun setName(name: String) {
-        tox.name = name.toByteArray()
-    }
-
-    fun getStatusMessage(): String = String(tox.statusMessage)
-
-    fun getToxId() = ToxID.fromBytes(tox.address)
-    fun getPublicKey() = PublicKey.fromBytes(tox.publicKey)
-
-    fun addContact(toxId: ToxID, message: String) {
-        tox.addFriend(toxId.bytes(), message.toByteArray())
-        updateContactMapping()
-    }
-
-    fun deleteContact(publicKey: PublicKey) {
-        Log.e(TAG, "Deleting $publicKey")
-        tox.friendList.find { PublicKey.fromBytes(tox.getFriendPublicKey(it)) == publicKey }?.let { friend ->
-            tox.deleteFriend(friend)
-        } ?: Log.e(
-            TAG, "Tried to delete nonexistent contact, this can happen if the database is out of sync with the Tox save"
-        )
-
-        updateContactMapping()
-    }
-
-    fun getContacts(): List<Pair<PublicKey, Int>> {
-        val friendNumbers = tox.friendList
-        Log.i(TAG, "Loading ${friendNumbers.size} friends")
-        return List(friendNumbers.size) {
-            Log.i(TAG, "${friendNumbers[it]}: ${tox.getFriendPublicKey(friendNumbers[it]).bytesToHex()}")
-            Pair(PublicKey.fromBytes(tox.getFriendPublicKey(friendNumbers[it])), friendNumbers[it])
+        fun loadSelf() = launch {
+            userRepository.update(User(publicKey.string(), tox.getName(), tox.getStatusMessage()))
         }
+
+        fun loadContacts() = launch {
+            contactRepository.resetTransientData()
+
+            for ((publicKey, _) in tox.getContacts()) {
+                if (!contactRepository.exists(publicKey.string())) {
+                    contactRepository.add(Contact(publicKey.string()))
+                }
+            }
+        }
+
+        fun iterateForever() = launch {
+            while (true) {
+                iterate()
+                delay(tox.iterationInterval())
+            }
+        }
+
+        save()
+        loadSelf()
+        loadContacts()
+        bootstrap()
+        iterateForever()
     }
 
-    fun sendMessage(publicKey: PublicKey, message: String): Int = tox.friendSendMessage(
-        contactByKey(publicKey),
-        ToxMessageType.NORMAL,
-        0,
-        message.toByteArray()
-    )
-
-    fun save() = saveManager.save(getPublicKey(), tox.savedata)
-
-    fun acceptFriendRequest(publicKey: PublicKey) {
-        tox.addFriendNorequest(publicKey.bytes())
-        updateContactMapping()
+    private fun save() = runBlocking {
+        tox.save()
     }
 
-    fun startFileTransfer(publicKey: PublicKey, fileNumber: Int) =
-        tox.fileControl(contactByKey(publicKey), fileNumber, ToxFileControl.RESUME)
+    private fun iterate() = launch {
+        tox.iterate()
+    }
 
-    fun stopFileTransfer(publicKey: PublicKey, fileNumber: Int) =
-        tox.fileControl(contactByKey(publicKey), fileNumber, ToxFileControl.CANCEL)
+    fun acceptFriendRequest(publicKey: PublicKey) = launch {
+        tox.acceptFriendRequest(publicKey)
+        save()
+        contactRepository.add(Contact(publicKey.string()))
+        friendRequestRepository.delete(FriendRequest(publicKey.string()))
+    }
 
-    private fun contactByKey(publicKey: PublicKey): Int = tox.friendByPublicKey(publicKey.bytes())
+    fun startFileTransfer(publicKey: PublicKey, fileNumber: Int) = launch {
+        Log.e(TAG, "Starting file transfer $fileNumber from $publicKey")
+        tox.startFileTransfer(publicKey, fileNumber)
+    }
+
+    fun stopFileTransfer(publicKey: PublicKey, fileNumber: Int) = launch {
+        Log.e(TAG, "Stopping file transfer $fileNumber from $publicKey")
+        tox.stopFileTransfer(publicKey, fileNumber)
+    }
+
+    fun setName(name: String) = launch {
+        tox.setName(name)
+        save()
+    }
+
+    fun addContact(toxId: ToxID, message: String) = launch {
+        tox.addContact(toxId, message)
+        save()
+        contactRepository.add(Contact(toxId.toPublicKey().string()))
+    }
+
+    fun deleteContact(publicKey: PublicKey) = launch {
+        tox.deleteContact(publicKey)
+        save()
+        contactRepository.delete(Contact(publicKey.string()))
+    }
+
+    fun sendMessage(publicKey: PublicKey, message: String) = launch {
+        tox.sendMessage(publicKey, message)
+    }
+
+    private fun bootstrap() = launch {
+        tox.bootstrap(
+            "tox.verdict.gg",
+            33445,
+            "1C5293AEF2114717547B39DA8EA6F1E331E5E358B35F9B6B5F19317911C5F976".hexToBytes()
+        )
+        tox.bootstrap(
+            "tox.kurnevsky.net",
+            33445,
+            "82EF82BA33445A1F91A7DB27189ECFC0C013E06E3DA71F588ED692BED625EC23".hexToBytes()
+        )
+        tox.bootstrap(
+            "tox.abilinski.com",
+            33445,
+            "10C00EB250C3233E343E2AEBA07115A5C28920E9C8D29492F6D00B29049EDC7E".hexToBytes()
+        )
+    }
 }

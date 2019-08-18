@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.tox.PublicKey
-import ltd.evilcorp.atox.tox.ToxThread
+import ltd.evilcorp.atox.tox.Tox
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.MessageRepository
 import ltd.evilcorp.core.vo.Contact
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class ChatViewModel @Inject constructor(
     private val contactRepository: ContactRepository,
     private val messageRepository: MessageRepository,
-    private val tox: ToxThread
+    private val tox: Tox
 ) : ViewModel() {
     var publicKey: PublicKey = PublicKey("")
 

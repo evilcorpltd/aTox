@@ -3,7 +3,7 @@ package ltd.evilcorp.atox.filetransfer
 import android.content.Context
 import android.util.Log
 import ltd.evilcorp.atox.tox.PublicKey
-import ltd.evilcorp.atox.tox.ToxThread
+import ltd.evilcorp.atox.tox.Tox
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FileTransferRepository
 import ltd.evilcorp.core.vo.FileTransfer
@@ -18,7 +18,7 @@ class FileTransferManager @Inject constructor(
     private val context: Context,
     private val contactRepository: ContactRepository,
     private val fileTransferRepository: FileTransferRepository,
-    private val tox: ToxThread
+    private val tox: Tox
 ) {
     private val fileTransfers: MutableList<FileTransfer> = mutableListOf()
 
