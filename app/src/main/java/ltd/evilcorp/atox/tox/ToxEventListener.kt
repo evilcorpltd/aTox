@@ -19,6 +19,8 @@ import javax.inject.Inject
 
 private const val TAG = "ToxEventListener"
 
+private fun getDate() = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date())
+
 class ToxEventListener @Inject constructor(
     private val contactRepository: ContactRepository,
     private val friendRequestRepository: FriendRequestRepository,
@@ -54,41 +56,27 @@ class ToxEventListener @Inject constructor(
         Log.e(TAG, "fileRecvControl")
     }
 
-    override fun friendStatusMessage(friendNumber: Int, message: ByteArray, state: Unit?) {
-        contactByFriendNumber(friendNumber).let {
-            contactRepository.update(it.apply { statusMessage = String(message) })
-        }
-
-        Log.e(TAG, "friendStatusMessage")
-    }
+    override fun friendStatusMessage(friendNumber: Int, message: ByteArray, state: Unit?) =
+        contactRepository.setStatusMessage(publicKeyByFriendNumber(friendNumber), String(message))
 
     override fun friendReadReceipt(friendNumber: Int, messageId: Int, state: Unit?) {
         Log.e(TAG, "friendReadReceipt")
     }
 
-    override fun friendStatus(friendNumber: Int, toxStatus: ToxUserStatus, state: Unit?) {
-        contactByFriendNumber(friendNumber).let {
-            contactRepository.update(it.apply { status = toxStatus.toUserStatus() })
-        }
+    override fun friendStatus(friendNumber: Int, toxStatus: ToxUserStatus, state: Unit?) =
+        contactRepository.setUserStatus(publicKeyByFriendNumber(friendNumber), toxStatus.toUserStatus())
 
-        Log.e(TAG, "friendStatus")
-    }
-
-    override fun friendConnectionStatus(friendNumber: Int, toxConnectionStatus: ToxConnection, state: Unit?) {
-        contactByFriendNumber(friendNumber).let {
-            contactRepository.update(it.apply { connectionStatus = toxConnectionStatus.toConnectionStatus() })
-        }
-
-        Log.e(TAG, "friendConnectionStatus")
-    }
+    override fun friendConnectionStatus(friendNumber: Int, toxConnectionStatus: ToxConnection, state: Unit?) =
+        contactRepository.setConnectionStatus(
+            publicKeyByFriendNumber(friendNumber),
+            toxConnectionStatus.toConnectionStatus()
+        )
 
     override fun friendRequest(publicKey: ByteArray, timeDelta: Int, message: ByteArray, state: Unit?) {
         FriendRequest(publicKey.bytesToHex(), String(message)).also {
             friendRequestRepository.add(it)
             notificationHelper.showFriendRequestNotification(it)
         }
-
-        Log.e(TAG, "friendRequest")
     }
 
     override fun friendMessage(
@@ -97,26 +85,14 @@ class ToxEventListener @Inject constructor(
         timeDelta: Int,
         message: ByteArray,
         state: Unit?
-    ) {
-        contactByFriendNumber(friendNumber).let {
-            contactRepository.update(it.apply {
-                lastMessage = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date())
-            })
-            messageRepository.add(Message(it.publicKey, String(message), Sender.Received))
-
-            notificationHelper.showMessageNotification(it, String(message))
-        }
-
-        Log.e(TAG, "friendMessage")
+    ) = contactByFriendNumber(friendNumber).let {
+        contactRepository.setLastMessage(it.publicKey, getDate())
+        messageRepository.add(Message(it.publicKey, String(message), Sender.Received))
+        notificationHelper.showMessageNotification(it, String(message))
     }
 
-    override fun friendName(friendNumber: Int, newName: ByteArray, state: Unit?) {
-        contactByFriendNumber(friendNumber).let {
-            contactRepository.update(it.apply { name = String(newName) })
-        }
-
-        Log.e(TAG, "friendName")
-    }
+    override fun friendName(friendNumber: Int, newName: ByteArray, state: Unit?) =
+        contactRepository.setName(publicKeyByFriendNumber(friendNumber), String(newName))
 
     override fun fileRecvChunk(friendNumber: Int, fileNumber: Int, position: Long, data: ByteArray, state: Unit?) =
         fileTransferManager.addDataToTransfer(publicKeyByFriendNumber(friendNumber), fileNumber, position, data)
@@ -143,18 +119,11 @@ class ToxEventListener @Inject constructor(
         Log.e(TAG, "friendLossyPacket")
     }
 
-    override fun selfConnectionStatus(connectionStatus: ToxConnection, state: Unit?) {
+    override fun selfConnectionStatus(connectionStatus: ToxConnection, state: Unit?) =
         userRepository.updateConnection(tox.publicKey.string(), connectionStatus.toConnectionStatus())
-        Log.e(TAG, "selfConnectionStatus $connectionStatus")
-    }
 
-    override fun friendTyping(friendNumber: Int, isTyping: Boolean, state: Unit?) {
-        contactByFriendNumber(friendNumber).let {
-            contactRepository.update(it.apply { typing = isTyping })
-        }
-
-        Log.e(TAG, "friendTyping")
-    }
+    override fun friendTyping(friendNumber: Int, isTyping: Boolean, state: Unit?) =
+        contactRepository.setTyping(publicKeyByFriendNumber(friendNumber), isTyping)
 
     override fun fileChunkRequest(friendNumber: Int, fileNumber: Int, position: Long, length: Int, state: Unit?) {
         Log.e(TAG, "fileChunkRequest")
