@@ -1,13 +1,13 @@
-apply plugin: 'com.android.library'
+apply plugin: BuildPlugin.androidLibrary
 
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+apply plugin: BuildPlugin.kotlinAndroid
+apply plugin: BuildPlugin.kotlinKapt
 
 android {
-    compileSdkVersion sdk_version
+    compileSdkVersion AndroidSdk.targetVersion
     defaultConfig {
-        minSdkVersion min_sdk_version
-        targetSdkVersion sdk_version
+        minSdkVersion AndroidSdk.minVersion
+        targetSdkVersion AndroidSdk.targetVersion
         versionCode 1
         versionName "1.0"
     }
@@ -18,11 +18,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = java_version
-        targetCompatibility = java_version
+        sourceCompatibility = Java.version
+        targetCompatibility = Java.version
     }
     kotlinOptions {
-        jvmTarget = java_version
+        jvmTarget = Java.version
     }
     lintOptions {
         abortOnError true
@@ -32,17 +32,17 @@ android {
 
 dependencies {
     // Stdlib
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation "javax.inject:javax.inject:1"
+    implementation Libraries.kotlinStdLib
+    implementation Libraries.javaxInject
 
     // Lifecycle
-    api "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    api Libraries.lifecycleExtensions
 
     // Room
-    api "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+    api Libraries.roomRuntime
+    kapt Libraries.roomCompiler
 
     // Dagger
-    implementation "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation Libraries.dagger
+    kapt Libraries.daggerCompiler
 }

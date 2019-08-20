@@ -1,15 +1,15 @@
-apply plugin: 'com.android.application'
+apply plugin: BuildPlugin.androidApplication
 
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+apply plugin: BuildPlugin.kotlinAndroid
+apply plugin: BuildPlugin.kotlinAndroidExtensions
+apply plugin: BuildPlugin.kotlinKapt
 
 android {
-    compileSdkVersion sdk_version
+    compileSdkVersion AndroidSdk.targetVersion
     defaultConfig {
         applicationId "ltd.evilcorp.atox"
-        minSdkVersion min_sdk_version
-        targetSdkVersion sdk_version
+        minSdkVersion AndroidSdk.minVersion
+        targetSdkVersion AndroidSdk.targetVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -21,11 +21,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = java_version
-        targetCompatibility = java_version
+        sourceCompatibility = Java.version
+        targetCompatibility = Java.version
     }
     kotlinOptions {
-        jvmTarget = java_version
+        jvmTarget = Java.version
         freeCompilerArgs = ["-XXLanguage:+InlineClasses"]
     }
     lintOptions {
@@ -43,36 +43,36 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.AbstractKotlinCompile).all {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation Libraries.kotlinStdLib
 
     implementation project(":core")
 
-    implementation "androidx.appcompat:appcompat:1.0.2"
-    implementation "androidx.constraintlayout:constraintlayout:1.1.3"
-    implementation "com.google.android.material:material:1.0.0"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    implementation Libraries.appcompat
+    implementation Libraries.constraintlayout
+    implementation Libraries.material
+    implementation Libraries.ktxCoroutinesCore
+    implementation Libraries.ktxCoroutinesAndroid
 
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+    implementation Libraries.navigationFragmentKtx
+    implementation Libraries.navigationUiKtx
 
-    implementation "com.google.dagger:dagger:$dagger_version"
-    implementation "com.google.dagger:dagger-android:$dagger_version"
-    implementation "com.google.dagger:dagger-android-support:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
-    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+    implementation Libraries.dagger
+    implementation Libraries.daggerAndroid
+    implementation Libraries.daggerAndroidSupport
+    kapt Libraries.daggerCompiler
+    kapt Libraries.daggerAndroidProcessor
 
     // For tox4j
     // TODO(robinlinden): Fix tox4j build so we can update the scala dependencies
     // noinspection GradleDependency
-    implementation "org.scala-lang:scala-library:2.11.12"
-    implementation "com.typesafe.scala-logging:scala-logging_2.11:3.9.2"
-    implementation "com.trueaccord.scalapb:scalapb-runtime_2.11:0.6.7"
-    implementation "org.scodec:scodec-core_2.11:1.11.3"
+    implementation Libraries.scalaLibrary
+    implementation Libraries.scalaLogging
+    implementation Libraries.scalapbRuntime
+    implementation Libraries.scodecCore
 
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-3'
+    debugImplementation Libraries.leakcanaryAndroid
 
-    testImplementation "junit:junit:4.12"
-    androidTestImplementation "androidx.test:runner:1.2.0"
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
+    testImplementation Libraries.junit
+    androidTestImplementation Libraries.runner
+    androidTestImplementation Libraries.espressoCore
 }
