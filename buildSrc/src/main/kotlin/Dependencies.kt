@@ -1,7 +1,9 @@
+import org.gradle.api.JavaVersion
+
 const val kotlinVersion = "1.3.41"
 
 object Java {
-    const val version = "1.8"
+    val version = JavaVersion.VERSION_1_8
 }
 
 private object Version {
