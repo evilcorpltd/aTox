@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
-import org.jetbrains.kotlin.gradle.tasks.AbstractKotlinCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -82,10 +81,6 @@ dependencies {
     testImplementation(Libraries.junit)
     androidTestImplementation(Libraries.runner)
     androidTestImplementation(Libraries.espressoCore)
-}
-
-tasks.withType(AbstractKotlinCompile::class.java).all {
-    kotlin
 }
 
 tasks.withType<KotlinCompile> {
