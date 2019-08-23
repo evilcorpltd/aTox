@@ -1,13 +1,13 @@
 import org.gradle.api.JavaVersion
 
-const val kotlinVersion = "1.3.41"
+const val kotlinVersion = "1.3.50"
 
 object Java {
     val version = JavaVersion.VERSION_1_8
 }
 
 private object Version {
-    const val coroutines = "1.2.1"
+    const val coroutines = "1.3.0"
     const val dagger = "2.23.1"
     const val lifecycle = "2.2.0-alpha03"
     const val room = "2.1.0"
