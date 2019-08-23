@@ -8,7 +8,7 @@ object Java {
 
 private object Version {
     const val coroutines = "1.3.0"
-    const val dagger = "2.23.1"
+    const val dagger = "2.24"
     const val lifecycle = "2.2.0-alpha03"
     const val room = "2.1.0"
     const val navigation = "2.2.0-alpha01"
