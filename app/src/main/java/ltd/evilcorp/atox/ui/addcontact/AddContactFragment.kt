@@ -12,9 +12,10 @@ import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.add_contact_fragment.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.tox.ToxID
+import ltd.evilcorp.atox.vmFactory
 
 class AddContactFragment : Fragment() {
-    private val viewModel: AddContactViewModel by viewModels()
+    private val viewModel: AddContactViewModel by viewModels { vmFactory }
 
     private var toxIdValid: Boolean = false
     private var messageValid: Boolean = true
