@@ -33,7 +33,7 @@ class AddContactFragment : Fragment() {
                 // TODO(robinlinden): Checksum error check.
                 toxId.error = if (content.length == 76) null else getString(R.string.tox_id_error_length)
 
-                toxIdValid = toxId.error != null
+                toxIdValid = toxId.error == null
                 add.isEnabled = isAddAllowed()
             }
         })
@@ -45,7 +45,7 @@ class AddContactFragment : Fragment() {
                 val content = s?.toString() ?: ""
                 message.error = if (content.isNotEmpty()) null else getString(R.string.add_contact_message_error_empty)
 
-                messageValid = message.error != null
+                messageValid = message.error == null
                 add.isEnabled = isAddAllowed()
             }
         })
