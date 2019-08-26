@@ -1,46 +1,23 @@
 package ltd.evilcorp.atox.ui.chat
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import ltd.evilcorp.atox.chat.ChatManager
 import ltd.evilcorp.atox.tox.PublicKey
-import ltd.evilcorp.atox.tox.Tox
 import ltd.evilcorp.core.repository.ContactRepository
-import ltd.evilcorp.core.repository.MessageRepository
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.Message
-import ltd.evilcorp.core.vo.Sender
 import javax.inject.Inject
 
 class ChatViewModel @Inject constructor(
     private val contactRepository: ContactRepository,
-    private val messageRepository: MessageRepository,
-    private val tox: Tox
+    private val chatManager: ChatManager
 ) : ViewModel() {
     var publicKey: PublicKey = PublicKey("")
 
     val contact: LiveData<Contact> by lazy { contactRepository.get(publicKey.string()) }
-    val messages: LiveData<List<Message>> by lazy { messageRepository.get(publicKey.string()) }
+    val messages: LiveData<List<Message>> by lazy { chatManager.messagesFor(publicKey) }
 
-    fun sendMessage(message: String) {
-        tox.sendMessage(publicKey, message)
-
-        GlobalScope.launch {
-            messageRepository.add(
-                Message(publicKey.string(), message, Sender.Sent)
-            )
-        }
-    }
-
-    fun clearHistory() {
-        GlobalScope.launch {
-            messageRepository.delete(publicKey.string())
-            contact.value?.let { contact ->
-                contact.lastMessage = "Never"
-                contactRepository.update(contact)
-            } ?: Log.e("ChatViewModel", "Failed to update lastMessage")
-        }
-    }
+    fun sendMessage(message: String) = chatManager.sendMessage(publicKey, message)
+    fun clearHistory() = chatManager.clearHistory(publicKey)
 }
