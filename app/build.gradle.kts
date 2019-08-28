@@ -81,6 +81,7 @@ dependencies {
     testImplementation(Libraries.junit)
     androidTestImplementation(Libraries.runner)
     androidTestImplementation(Libraries.espressoCore)
+    androidTestImplementation(Libraries.androidJUnit)
 }
 
 tasks.withType<KotlinCompile> {
