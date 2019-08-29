@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.contact_list_fragment.view.*
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 import kotlinx.android.synthetic.main.nav_header_contact_list.view.*
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.tox.PublicKey
 import ltd.evilcorp.atox.ui.ContactAdapter
 import ltd.evilcorp.atox.ui.FriendRequestAdapter
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
@@ -142,7 +143,7 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
                 when (item.itemId) {
                     R.id.delete -> {
                         val contact = contactList.adapter.getItem(info.position) as Contact
-                        viewModel.deleteContact(contact)
+                        viewModel.deleteContact(PublicKey(contact.publicKey))
                     }
                 }
                 true
