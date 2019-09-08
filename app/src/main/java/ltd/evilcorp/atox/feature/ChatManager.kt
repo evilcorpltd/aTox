@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox.chat
+package ltd.evilcorp.atox.feature
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope

@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox.friendrequest
+package ltd.evilcorp.atox.feature
 
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.CoroutineScope

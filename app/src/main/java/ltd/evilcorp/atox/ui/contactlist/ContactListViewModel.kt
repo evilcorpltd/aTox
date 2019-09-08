@@ -3,8 +3,8 @@ package ltd.evilcorp.atox.ui.contactlist
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import ltd.evilcorp.atox.feature.ContactManager
+import ltd.evilcorp.atox.feature.FriendRequestManager
 import ltd.evilcorp.atox.feature.UserManager
-import ltd.evilcorp.atox.friendrequest.FriendRequestManager
 import ltd.evilcorp.atox.tox.PublicKey
 import ltd.evilcorp.atox.tox.Tox
 import ltd.evilcorp.core.vo.FriendRequest

@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox.filetransfer
+package ltd.evilcorp.atox.feature
 
 import android.content.Context
 import android.util.Log

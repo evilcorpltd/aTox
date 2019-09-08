@@ -2,7 +2,7 @@ package ltd.evilcorp.atox.ui.chat
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import ltd.evilcorp.atox.chat.ChatManager
+import ltd.evilcorp.atox.feature.ChatManager
 import ltd.evilcorp.atox.feature.ContactManager
 import ltd.evilcorp.atox.tox.PublicKey
 import ltd.evilcorp.core.vo.Contact

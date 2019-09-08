@@ -6,7 +6,7 @@ import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
-import ltd.evilcorp.atox.filetransfer.FileTransferManager
+import ltd.evilcorp.atox.feature.FileTransferManager
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FriendRequestRepository
