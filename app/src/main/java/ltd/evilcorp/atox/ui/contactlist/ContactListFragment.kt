@@ -199,7 +199,7 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
             }
             R.id.copy_tox_id -> {
                 val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                clipboard.primaryClip = ClipData.newPlainText(getText(R.string.tox_id), viewModel.toxId.string())
+                clipboard.setPrimaryClip(ClipData.newPlainText(getText(R.string.tox_id), viewModel.toxId.string()))
 
                 Toast.makeText(requireContext(), getText(R.string.tox_id_copied), Toast.LENGTH_SHORT).show()
             }

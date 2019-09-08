@@ -31,7 +31,7 @@ object BuildPlugin {
 
 object AndroidSdk {
     const val minVersion = 21
-    const val targetVersion = 28
+    const val targetVersion = 29
 }
 
 object Libraries {
