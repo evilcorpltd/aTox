@@ -7,11 +7,11 @@ object Java {
 }
 
 private object Version {
-    const val coroutines = "1.3.0"
+    const val coroutines = "1.3.1"
     const val dagger = "2.24"
-    const val lifecycle = "2.2.0-alpha03"
+    const val lifecycle = "2.2.0-alpha04"
     const val room = "2.1.0"
-    const val navigation = "2.2.0-alpha01"
+    const val navigation = "2.2.0-alpha02"
 }
 
 object BuildPlugin {
@@ -42,7 +42,7 @@ object Libraries {
     const val ktxCoroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Version.coroutines}"
     const val ktxCoroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Version.coroutines}"
 
-    const val appcompat = "androidx.appcompat:appcompat:1.0.2"
+    const val appcompat = "androidx.appcompat:appcompat:1.1.0"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:1.1.3"
 
     const val navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:${Version.navigation}"
@@ -66,7 +66,7 @@ object Libraries {
     const val scalapbRuntime = "com.trueaccord.scalapb:scalapb-runtime_2.11:0.6.7"
     const val scodecCore = "org.scodec:scodec-core_2.11:1.11.3"
 
-    const val leakcanaryAndroid = "com.squareup.leakcanary:leakcanary-android:2.0-alpha-3"
+    const val leakcanaryAndroid = "com.squareup.leakcanary:leakcanary-android:2.0-beta-3"
 
     const val junit = "junit:junit:4.12"
     const val runner = "androidx.test:runner:1.2.0"
