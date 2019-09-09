@@ -25,7 +25,7 @@
             android:translationZ="9dp"
             android:src="@drawable/circle"
             android:contentDescription="@null"
-            android:tint="@android:color/white"
+            android:tint="?android:attr/colorBackground"
             app:layout_constraintRight_toRightOf="@id/imageContainer"
             app:layout_constraintBottom_toBottomOf="@id/imageContainer"/>
     <ImageView
