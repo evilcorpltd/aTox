@@ -26,6 +26,11 @@ class AddContactFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.add_contact_fragment, container, false).apply {
+        toolbar.setNavigationIcon(R.drawable.back)
+        toolbar.setNavigationOnClickListener {
+            activity?.onBackPressed()
+        }
+
         toxId.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
