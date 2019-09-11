@@ -23,6 +23,12 @@ class UserRepository @Inject internal constructor(
     fun get(publicKey: String): LiveData<User> =
         userDao.load(publicKey)
 
+    fun updateName(publicKey: String, name: String) =
+        userDao.updateName(publicKey, name)
+
+    fun updateStatusMessage(publicKey: String, statusMessage: String) =
+        userDao.updateStatusMessage(publicKey, statusMessage)
+
     fun updateConnection(publicKey: String, connectionStatus: ConnectionStatus) =
         userDao.updateConnection(publicKey, connectionStatus)
 }

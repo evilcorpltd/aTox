@@ -13,6 +13,12 @@ internal interface UserDao {
     @Update
     fun update(user: User)
 
+    @Query("UPDATE users SET name = :name WHERE public_key == :publicKey")
+    fun updateName(publicKey: String, name: String)
+
+    @Query("UPDATE users SET status_message = :statusMessage WHERE public_key == :publicKey")
+    fun updateStatusMessage(publicKey: String, statusMessage: String)
+
     @Query("UPDATE users SET connection_status = :connectionStatus WHERE public_key == :publicKey")
     fun updateConnection(publicKey: String, connectionStatus: ConnectionStatus)
 

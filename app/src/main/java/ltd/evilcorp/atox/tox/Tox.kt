@@ -91,6 +91,11 @@ class Tox @Inject constructor(
         save()
     }
 
+    fun setStatusMessage(statusMessage: String) = launch {
+        tox.setStatusMessage(statusMessage)
+        save()
+    }
+
     fun addContact(toxId: ToxID, message: String) = launch {
         tox.addContact(toxId, message)
         save()

@@ -36,6 +36,9 @@ class ToxWrapper(
     }
 
     fun getStatusMessage(): String = String(tox.statusMessage)
+    fun setStatusMessage(statusMessage: String) {
+        tox.statusMessage = statusMessage.toByteArray()
+    }
 
     fun getToxId() = ToxID.fromBytes(tox.address)
     fun getPublicKey() = PublicKey.fromBytes(tox.publicKey)

@@ -7,9 +7,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -56,6 +59,38 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         })
 
         navView.setNavigationItemSelectedListener(this@ContactListFragment)
+        navView.getHeaderView(0).apply {
+            profileName.setOnClickListener {
+                val nameEdit = EditText(requireContext()).apply {
+                    text.append((it as TextView).text.toString())
+                    setSingleLine()
+                }
+                AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.name)
+                    .setView(nameEdit)
+                    .setPositiveButton(R.string.update) { _, _ ->
+                        viewModel.setName(nameEdit.text.toString())
+                    }
+                    .setNegativeButton(R.string.cancel) { _, _ -> }
+                    .show()
+            }
+
+            profileStatusMessage.setOnClickListener {
+                val statusMessageEdit =
+                    EditText(requireContext()).apply {
+                        text.append((it as TextView).text.toString())
+                        setSingleLine()
+                    }
+                AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.status_message)
+                    .setView(statusMessageEdit)
+                    .setPositiveButton(R.string.update) { _, _ ->
+                        viewModel.setStatusMessage(statusMessageEdit.text.toString())
+                    }
+                    .setNegativeButton(R.string.cancel) { _, _ -> }
+                    .show()
+            }
+        }
 
         val friendRequestAdapter = FriendRequestAdapter(inflater)
         friendRequests.adapter = friendRequestAdapter

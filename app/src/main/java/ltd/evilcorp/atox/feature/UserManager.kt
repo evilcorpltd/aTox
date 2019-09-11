@@ -25,4 +25,14 @@ class UserManager @Inject constructor(
             userRepository.add(User(publicKey.string()))
         }
     }
+
+    fun setName(name: String) = launch {
+        tox.setName(name)
+        userRepository.updateName(tox.publicKey.string(), name)
+    }
+
+    fun setStatusMessage(statusMessage: String) = launch {
+        tox.setStatusMessage(statusMessage)
+        userRepository.updateStatusMessage(tox.publicKey.string(), statusMessage)
+    }
 }

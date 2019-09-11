@@ -26,6 +26,9 @@ class ContactListViewModel @Inject constructor(
 
     fun isToxRunning() = tox.started
 
+    fun setName(name: String) = userManager.setName(name)
+    fun setStatusMessage(statusMessage: String) = userManager.setStatusMessage(statusMessage)
+
     fun acceptFriendRequest(friendRequest: FriendRequest) = friendRequestManager.accept(friendRequest)
     fun rejectFriendRequest(friendRequest: FriendRequest) = friendRequestManager.reject(friendRequest)
     fun deleteContact(publicKey: PublicKey) = contactManager.delete(publicKey)
