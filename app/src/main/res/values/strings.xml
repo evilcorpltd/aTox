@@ -4,7 +4,7 @@
     <string name="add_contact">Add contact</string>
     <string name="add_contact_message_default">Talk to me on aTox like a reasonable human being.</string>
     <string name="add_contact_message_error_empty">Message can\'t be empty</string>
-    <string name="app_name">aTox</string>
+    <string name="app_name" translatable="false">aTox</string>
     <string name="cancel">Cancel</string>
     <string name="connected">Connected</string>
     <string name="connecting">Connecting…</string>

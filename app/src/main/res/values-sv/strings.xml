@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accept">Acceptera</string>
+    <string name="add">Lägg till</string>
+    <string name="add_contact">Lägg till kontakt</string>
+    <string name="cancel">Avbryt</string>
+    <string name="clear_history">Rensa historik</string>
+    <string name="clear_history_cleared">Historik rensad</string>
+    <string name="clear_history_confirm">Är du säker på att du vill rensa din historik med %1$s?</string>
+    <string name="connected">Ansluten</string>
+    <string name="connecting">Ansluter…</string>
+    <string name="contact_typing">Skriver…</string>
+    <string name="copied">Kopierat</string>
+    <string name="copy">Kopiera</string>
+    <string name="create">Skapa</string>
+    <string name="create_a_tox_profile">Skapa en Tox-profil</string>
+    <string name="delete_contact">Ta bort kontakt</string>
+    <string name="friend_request_from">Vänförfrågan från %1$s</string>
+    <string name="friend_requests">Vänförfrågor</string>
+    <string name="import_tox_save">Importera Tox-profil</string>
+    <string name="import_tox_save_failed">Import misslyckades av någon anledning</string>
+    <string name="message">Meddelande</string>
+    <string name="messages">Meddelanden</string>
+    <string name="messages_incoming">Inkommande meddelanden</string>
+    <string name="name">Namn</string>
+    <string name="name_default">aTox-användare</string>
+    <string name="navigation_drawer_close">Stäng navigationslåda</string>
+    <string name="navigation_drawer_open">Öppna navigationslåda</string>
+    <string name="add_contact_message_error_empty">Meddelandefältet kan inte vara tomt</string>
+    <string name="add_contact_message_default">Prata med mig på aTox som en rimlig människa.</string>
+    <string name="password_optional">Lösenord (ej obligatoriskt)</string>
+    <string name="profile_photo_description">Profilfoto</string>
+    <string name="reject">Neka</string>
+    <string name="send">Skicka</string>
+    <string name="settings">Inställningar</string>
+    <string name="status_indicator">Statusindikator</string>
+    <string name="status_message_default">Tillgänglig live, från aTox</string>
+    <string name="tox_id">Tox-id</string>
+    <string name="tox_id_copied">Tox-id kopierat</string>
+    <string name="tox_id_copy">Kopiera Tox-id</string>
+    <string name="tox_id_error_length">Tox-id:t måste vara 76 tecken</string>
+    <string name="tox_id_share">Dela Tox-id</string>
+    <string name="status_message">Statusmeddelande</string>
+    <string name="update">Uppdatera</string>
+</resources>
