@@ -1,9 +1,11 @@
 package ltd.evilcorp.atox.ui.contactlist
 
+import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
@@ -33,8 +35,11 @@ import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 
+private const val REQUEST_CODE_BACKUP_TOX = 9202
+
 class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
     private val viewModel: ContactListViewModel by viewModels { vmFactory }
+    private var backupFileNameHint = "something_is_broken.tox"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +51,8 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         toolbar.title = getText(R.string.app_name)
 
         viewModel.user.observe(viewLifecycleOwner, Observer { user ->
+            backupFileNameHint = user.name + ".tox"
+
             navView.getHeaderView(0).apply {
                 profileName.text = user.name
                 profileStatusMessage.text = user.statusMessage
@@ -207,9 +214,29 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
             R.id.settings -> {
                 // TODO(robinlinden): Settings activity
             }
+            R.id.export_tox_save -> {
+                Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                    addCategory(Intent.CATEGORY_OPENABLE)
+                    type = "application/octet-stream"
+                    putExtra(Intent.EXTRA_TITLE, backupFileNameHint)
+                }.also {
+                    startActivityForResult(it, REQUEST_CODE_BACKUP_TOX)
+                }
+            }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            REQUEST_CODE_BACKUP_TOX -> {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    viewModel.saveToxBackupTo(data.data as Uri)
+                }
+            }
+            else -> super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

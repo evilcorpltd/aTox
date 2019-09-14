@@ -43,6 +43,8 @@ class ToxWrapper(
     fun getToxId() = ToxID.fromBytes(tox.address)
     fun getPublicKey() = PublicKey.fromBytes(tox.publicKey)
 
+    fun getSaveData() = tox.savedata
+
     fun addContact(toxId: ToxID, message: String) {
         tox.addFriend(toxId.bytes(), message.toByteArray())
         updateContactMapping()

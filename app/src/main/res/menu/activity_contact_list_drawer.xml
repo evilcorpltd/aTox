@@ -14,5 +14,8 @@
                 android:id="@+id/settings"
                 android:icon="@drawable/settings"
                 android:title="@string/settings"/>
+        <item
+            android:id="@+id/export_tox_save"
+            android:title="@string/export_tox_save"/>
     </group>
 </menu>

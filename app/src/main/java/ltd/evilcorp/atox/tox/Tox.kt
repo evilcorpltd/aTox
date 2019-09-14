@@ -112,6 +112,10 @@ class Tox @Inject constructor(
         tox.sendMessage(publicKey, message)
     }
 
+    fun getSaveData() = async {
+        tox.getSaveData()
+    }
+
     private fun bootstrap() = launch {
         tox.bootstrap(
             "tox.verdict.gg",

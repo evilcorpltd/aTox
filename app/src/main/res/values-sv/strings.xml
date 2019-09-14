@@ -42,4 +42,6 @@
     <string name="tox_id_share">Dela Tox-id</string>
     <string name="status_message">Statusmeddelande</string>
     <string name="update">Uppdatera</string>
+    <string name="tox_save_exported">Tox-profil exporterad</string>
+    <string name="export_tox_save">Exportera Tox-profil</string>
 </resources>
