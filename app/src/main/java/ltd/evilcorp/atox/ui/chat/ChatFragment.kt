@@ -24,6 +24,7 @@ import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Message
+import java.util.*
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
 
@@ -76,7 +77,7 @@ class ChatFragment : Fragment() {
             } else {
                 // TODO(robinlinden): Replace with last seen.
                 it.lastMessage
-            }.toLowerCase()
+            }.toLowerCase(Locale.getDefault())
             statusIndicator.setColorFilter(colorByStatus(resources, it))
             setAvatarFromContact(profileImage, it)
 
