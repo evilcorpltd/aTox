@@ -30,6 +30,7 @@ const val CONTACT_PUBLIC_KEY = "publicKey"
 class ChatFragment : Fragment() {
     private val viewModel: ChatViewModel by viewModels { vmFactory }
 
+    private lateinit var contactPubKey: String
     private var contactName = ""
     private var contactOnline = false
 
@@ -38,10 +39,12 @@ class ChatFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.chat_fragment, container, false).apply {
-        viewModel.publicKey = PublicKey(arguments!!.getString(CONTACT_PUBLIC_KEY)!!)
+        contactPubKey = arguments!!.getString(CONTACT_PUBLIC_KEY)!!
+        viewModel.setActiveChat(PublicKey(contactPubKey))
 
         toolbar.setNavigationIcon(R.drawable.back)
         toolbar.setNavigationOnClickListener {
+            viewModel.setActiveChat(PublicKey(""))
             activity?.onBackPressed()
         }
 
@@ -103,6 +106,16 @@ class ChatFragment : Fragment() {
                 updateSendButton(this@apply)
             }
         })
+    }
+
+    override fun onPause() {
+        viewModel.setActiveChat(PublicKey(""))
+        super.onPause()
+    }
+
+    override fun onResume() {
+        viewModel.setActiveChat(PublicKey(contactPubKey))
+        super.onResume()
     }
 
     override fun onCreateContextMenu(

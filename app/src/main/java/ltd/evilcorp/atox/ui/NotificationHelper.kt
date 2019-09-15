@@ -24,10 +24,11 @@ class NotificationHelper @Inject constructor(
     private val context: Context
 ) {
     private val notifier = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
     init {
         createNotificationChannel()
     }
+
+    var activeChat = ""
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
@@ -52,6 +53,8 @@ class NotificationHelper @Inject constructor(
     }
 
     fun showMessageNotification(contact: Contact, message: String) {
+        if (contact.publicKey == activeChat) return
+
         val notificationBuilder = NotificationCompat.Builder(context, MESSAGE)
             .setSmallIcon(android.R.drawable.sym_action_chat)
             .setContentTitle(contact.name)
