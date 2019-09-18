@@ -42,7 +42,7 @@ android {
         isAbortOnError = true
         isWarningsAsErrors = true
         // TODO(robinlinden): Delete/update invalid packages
-        disable("InvalidPackage", "GoogleAppIndexingWarning")
+        disable("InvalidPackage", "GoogleAppIndexingWarning", "MissingTranslation")
     }
 }
 
