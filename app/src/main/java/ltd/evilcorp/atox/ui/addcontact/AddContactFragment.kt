@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.add_contact_fragment.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.tox.ToxID
+import ltd.evilcorp.atox.tox.ToxIdValidator
 import ltd.evilcorp.atox.vmFactory
 
 class AddContactFragment : Fragment() {
@@ -35,9 +36,11 @@ class AddContactFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                val content = s?.toString() ?: ""
-                // TODO(robinlinden): Checksum error check.
-                toxId.error = if (content.length == 76) null else getString(R.string.tox_id_error_length)
+                toxId.error = when (ToxIdValidator.validate(ToxID(s?.toString() ?: ""))) {
+                    ToxIdValidator.Result.INCORRECT_LENGTH -> getString(R.string.tox_id_error_length)
+                    ToxIdValidator.Result.INVALID_CHECKSUM -> getString(R.string.tox_id_error_checksum)
+                    ToxIdValidator.Result.NO_ERROR -> null
+                }
 
                 toxIdValid = toxId.error == null
                 add.isEnabled = isAddAllowed()

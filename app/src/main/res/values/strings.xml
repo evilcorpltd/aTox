@@ -33,6 +33,7 @@
     <string name="tox_id_copied">Tox ID copied</string>
     <string name="tox_id_copy">Copy Tox ID</string>
     <string name="tox_id_error_length">Tox ID must be 76 characters</string>
+    <string name="tox_id_error_checksum">Invalid checksum</string>
     <string name="tox_id_share">Share Tox ID</string>
     <string name="update">Update</string>
 
