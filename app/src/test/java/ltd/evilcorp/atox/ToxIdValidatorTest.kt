@@ -34,4 +34,16 @@ class ToxIdValidatorTest {
         assert(ToxIdValidator.validate(id2) == ToxIdValidator.Result.INVALID_CHECKSUM)
         assert(ToxIdValidator.validate(id3) == ToxIdValidator.Result.INVALID_CHECKSUM)
     }
+
+    @Test
+    fun ids_must_be_hex() {
+        val id0 = ToxID("3982B009845B210C5A8904B7F540287A424DE029BC1A25C01E022944AB28FC3C4ACEE797000G")
+        val id1 = ToxID("3982B009845B210C5A8904B7F540287A424DE029BC1A25C01E022944AB28FC3C00000000596H")
+        val id2 = ToxID("A571A6C77225C4081BA4D7AC268B9659B78704037959817E6ED56C4E6BD84B7E3E3EDB62458z")
+        val id3 = ToxID("A571A6C77225C4081BA4D7AC268B9659B78704037959817E6ED56C4E6BD84B7E3E3EDB62FFF!")
+        assert(ToxIdValidator.validate(id0) == ToxIdValidator.Result.NOT_HEX)
+        assert(ToxIdValidator.validate(id1) == ToxIdValidator.Result.NOT_HEX)
+        assert(ToxIdValidator.validate(id2) == ToxIdValidator.Result.NOT_HEX)
+        assert(ToxIdValidator.validate(id3) == ToxIdValidator.Result.NOT_HEX)
+    }
 }

@@ -39,6 +39,7 @@ class AddContactFragment : Fragment() {
                 toxId.error = when (ToxIdValidator.validate(ToxID(s?.toString() ?: ""))) {
                     ToxIdValidator.Result.INCORRECT_LENGTH -> getString(R.string.tox_id_error_length)
                     ToxIdValidator.Result.INVALID_CHECKSUM -> getString(R.string.tox_id_error_checksum)
+                    ToxIdValidator.Result.NOT_HEX -> getString(R.string.tox_id_error_hex)
                     ToxIdValidator.Result.NO_ERROR -> null
                 }
 
