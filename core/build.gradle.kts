@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
-
 plugins {
     id(BuildPlugin.androidLibrary)
 
@@ -29,9 +27,7 @@ android {
         targetCompatibility = Java.version
     }
     kotlinOptions {
-        with(this as KotlinJvmOptions) {
-            jvmTarget = Java.version.toString()
-        }
+        jvmTarget = Java.version.toString()
     }
     lintOptions {
         isAbortOnError = true

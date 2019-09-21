@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -33,10 +32,8 @@ android {
         targetCompatibility = Java.version
     }
     kotlinOptions {
-        with(this as KotlinJvmOptions) {
-            jvmTarget = Java.version.toString()
-            freeCompilerArgs = listOf("-XXLanguage:+InlineClasses")
-        }
+        jvmTarget = Java.version.toString()
+        freeCompilerArgs = listOf("-XXLanguage:+InlineClasses")
     }
     lintOptions {
         isAbortOnError = true
