@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -66,5 +67,7 @@ class AddContactFragment : Fragment() {
         }
 
         add.isEnabled = false
+
+        toxId.setText(arguments?.getString("toxId"), TextView.BufferType.EDITABLE)
     }
 }
