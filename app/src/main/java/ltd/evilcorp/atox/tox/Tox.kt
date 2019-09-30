@@ -3,10 +3,8 @@ package ltd.evilcorp.atox.tox
 import android.util.Log
 import kotlinx.coroutines.*
 import ltd.evilcorp.core.repository.ContactRepository
-import ltd.evilcorp.core.repository.FriendRequestRepository
 import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.Contact
-import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.User
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -18,7 +16,6 @@ private const val TAG = "Tox"
 class Tox @Inject constructor(
     private val toxFactory: ToxWrapperFactory,
     private val contactRepository: ContactRepository,
-    private val friendRequestRepository: FriendRequestRepository,
     private val userRepository: UserRepository
 ) : CoroutineScope by GlobalScope + newSingleThreadContext("Tox") {
     val toxId: ToxID by lazy { tox.getToxId() }
@@ -72,8 +69,6 @@ class Tox @Inject constructor(
     fun acceptFriendRequest(publicKey: PublicKey) = launch {
         tox.acceptFriendRequest(publicKey)
         save()
-        contactRepository.add(Contact(publicKey.string()))
-        friendRequestRepository.delete(FriendRequest(publicKey.string()))
     }
 
     fun startFileTransfer(publicKey: PublicKey, fileNumber: Int) = launch {
@@ -99,13 +94,11 @@ class Tox @Inject constructor(
     fun addContact(toxId: ToxID, message: String) = launch {
         tox.addContact(toxId, message)
         save()
-        contactRepository.add(Contact(toxId.toPublicKey().string()))
     }
 
     fun deleteContact(publicKey: PublicKey) = launch {
         tox.deleteContact(publicKey)
         save()
-        contactRepository.delete(Contact(publicKey.string()))
     }
 
     fun sendMessage(publicKey: PublicKey, message: String) = launch {
