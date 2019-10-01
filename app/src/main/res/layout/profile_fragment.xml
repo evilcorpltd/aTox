@@ -38,7 +38,9 @@
             app:layout_constraintTop_toBottomOf="@id/profileCreationLabel"
             app:layout_constraintBottom_toTopOf="@id/password"
             tools:targetApi="26"/>
+    <!-- TODO(robinlinden): Re-enable once we do something with the password. -->
     <EditText
+            android:visibility="gone"
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
