@@ -13,7 +13,6 @@
             android:layout_gravity="end"
             android:padding="8dp"
             android:layout_marginStart="@dimen/message_margin"
-            android:gravity="end"
             android:textColor="@android:color/white"
             tools:text="Message I sent"/>
 </LinearLayout>
