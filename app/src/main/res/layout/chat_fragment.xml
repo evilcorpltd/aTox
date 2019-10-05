@@ -44,8 +44,6 @@
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:divider="@drawable/message_divider"
             android:dividerHeight="2dp"
             android:stackFromBottom="true"
