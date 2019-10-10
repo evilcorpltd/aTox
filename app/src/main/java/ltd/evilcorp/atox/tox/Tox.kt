@@ -1,6 +1,7 @@
 package ltd.evilcorp.atox.tox
 
 import android.util.Log
+import im.tox.tox4j.core.exceptions.ToxBootstrapException
 import kotlinx.coroutines.*
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.UserRepository
@@ -22,6 +23,8 @@ class Tox @Inject constructor(
     val publicKey: PublicKey by lazy { tox.getPublicKey() }
 
     var started = false
+
+    private var isBootstrapNeeded = true
 
     private lateinit var tox: ToxWrapper
 
@@ -46,6 +49,10 @@ class Tox @Inject constructor(
 
         fun iterateForever() = launch {
             while (true) {
+                if (isBootstrapNeeded) {
+                    bootstrap()
+                    isBootstrapNeeded = false
+                }
                 iterate()
                 delay(tox.iterationInterval())
             }
@@ -54,7 +61,6 @@ class Tox @Inject constructor(
         save()
         loadSelf()
         loadContacts()
-        bootstrap()
         iterateForever()
     }
 
@@ -110,20 +116,25 @@ class Tox @Inject constructor(
     }
 
     private fun bootstrap() = launch {
-        tox.bootstrap(
-            "tox.verdict.gg",
-            33445,
-            "1C5293AEF2114717547B39DA8EA6F1E331E5E358B35F9B6B5F19317911C5F976".hexToBytes()
-        )
-        tox.bootstrap(
-            "tox.kurnevsky.net",
-            33445,
-            "82EF82BA33445A1F91A7DB27189ECFC0C013E06E3DA71F588ED692BED625EC23".hexToBytes()
-        )
-        tox.bootstrap(
-            "tox.abilinski.com",
-            33445,
-            "10C00EB250C3233E343E2AEBA07115A5C28920E9C8D29492F6D00B29049EDC7E".hexToBytes()
-        )
+        try {
+            tox.bootstrap(
+                "tox.verdict.gg",
+                33445,
+                "1C5293AEF2114717547B39DA8EA6F1E331E5E358B35F9B6B5F19317911C5F976".hexToBytes()
+            )
+            tox.bootstrap(
+                "tox.kurnevsky.net",
+                33445,
+                "82EF82BA33445A1F91A7DB27189ECFC0C013E06E3DA71F588ED692BED625EC23".hexToBytes()
+            )
+            tox.bootstrap(
+                "tox.abilinski.com",
+                33445,
+                "10C00EB250C3233E343E2AEBA07115A5C28920E9C8D29492F6D00B29049EDC7E".hexToBytes()
+            )
+        } catch (e: ToxBootstrapException) {
+            Log.e(TAG, e.toString())
+            isBootstrapNeeded = true
+        }
     }
 }
