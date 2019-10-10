@@ -119,6 +119,8 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
                 )
             )
             contactAdapter.notifyDataSetChanged()
+
+            noContactsCallToAction.visibility = if (contacts.isEmpty()) View.VISIBLE else View.GONE
         })
         contactList.setOnItemClickListener { _, _, position, _ ->
             openChat(contactList.getItemAtPosition(position) as Contact)

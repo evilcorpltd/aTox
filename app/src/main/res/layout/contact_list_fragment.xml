@@ -26,6 +26,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <TextView
+                android:id="@+id/noContactsCallToAction"
+                android:text="@string/no_contacts_call_to_action"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:layout_constraintTop_toTopOf="parent"/>
             <ListView
                     android:id="@+id/friendRequests"
                     android:layout_width="match_parent"

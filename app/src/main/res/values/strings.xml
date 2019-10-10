@@ -19,6 +19,7 @@
     <string name="messages_incoming">Incoming messages</string>
     <string name="name">Name</string>
     <string name="name_default">aTox user</string>
+    <string name="no_contacts_call_to_action">What are you waiting for? Add a contact to get started!</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="password_optional">Password (optional)</string>
