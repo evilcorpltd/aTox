@@ -13,7 +13,7 @@ inline class ToxID(private val value: String) {
     fun bytes() = value.hexToBytes()
     fun string() = value
 
-    fun toPublicKey() = PublicKey(value.drop(12))
+    fun toPublicKey() = PublicKey(value.dropLast(12))
 
     companion object {
         fun fromBytes(toxId: ByteArray) = ToxID(toxId.bytesToHex())
