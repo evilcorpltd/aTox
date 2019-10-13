@@ -116,22 +116,29 @@ class Tox @Inject constructor(
     }
 
     private fun bootstrap() = launch {
-        try {
-            tox.bootstrap(
+        // TODO(robinlinden): Read these from somewhere else.
+        val nodes = listOf(
+            BootstrapNode(
                 "tox.verdict.gg",
                 33445,
-                "1C5293AEF2114717547B39DA8EA6F1E331E5E358B35F9B6B5F19317911C5F976".hexToBytes()
-            )
-            tox.bootstrap(
+                PublicKey("1C5293AEF2114717547B39DA8EA6F1E331E5E358B35F9B6B5F19317911C5F976")
+            ),
+            BootstrapNode(
                 "tox.kurnevsky.net",
                 33445,
-                "82EF82BA33445A1F91A7DB27189ECFC0C013E06E3DA71F588ED692BED625EC23".hexToBytes()
-            )
-            tox.bootstrap(
+                PublicKey("82EF82BA33445A1F91A7DB27189ECFC0C013E06E3DA71F588ED692BED625EC23")
+            ),
+            BootstrapNode(
                 "tox.abilinski.com",
                 33445,
-                "10C00EB250C3233E343E2AEBA07115A5C28920E9C8D29492F6D00B29049EDC7E".hexToBytes()
+                PublicKey("10C00EB250C3233E343E2AEBA07115A5C28920E9C8D29492F6D00B29049EDC7E")
             )
+        )
+
+        try {
+            nodes.shuffled().take(3).forEach { node ->
+                tox.bootstrap(node.address, node.port, node.publicKey.bytes())
+            }
         } catch (e: ToxBootstrapException) {
             Log.e(TAG, e.toString())
             isBootstrapNeeded = true

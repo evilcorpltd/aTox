@@ -19,3 +19,5 @@ inline class ToxID(private val value: String) {
         fun fromBytes(toxId: ByteArray) = ToxID(toxId.bytesToHex())
     }
 }
+
+data class BootstrapNode(val address: String, val port: Int, val publicKey: PublicKey)
