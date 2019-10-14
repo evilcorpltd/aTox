@@ -2,8 +2,18 @@
 
 [![IRC](https://img.shields.io/badge/freenode-%23atox-brightgreen.svg)](https://webchat.freenode.net/?channels=#atox)
 
-Android tox client.
+The reasonable Tox client for Android.
 
 ## License
 
 [GPLv3](LICENSE)
+
+## Building
+
+Clone!
+
+`git clone https://github.com/evilcorpltd/aTox.git`
+
+Build!
+
+`gradlew build`
