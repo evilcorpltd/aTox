@@ -9,6 +9,10 @@ buildscript {
     }
 }
 
+plugins {
+    id(BuildPlugin.download) version BuildPlugin.downloadVersion
+}
+
 allprojects {
     repositories {
         google()

@@ -27,6 +27,9 @@ object BuildPlugin {
 
     const val gradle = "com.android.tools.build:gradle:${Version.gradle}"
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+
+    const val download = "de.undercouch.download"
+    const val downloadVersion = "4.0.0"
 }
 
 object AndroidSdk {

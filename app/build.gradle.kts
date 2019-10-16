@@ -1,3 +1,4 @@
+import de.undercouch.gradle.tasks.download.Download
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -78,7 +79,32 @@ dependencies {
     androidTestImplementation(Libraries.androidJUnit)
 }
 
+val files = mapOf(
+    "https://build.tox.chat/job/tox4j-api_build_android_multiarch_release/lastSuccessfulBuild/artifact/tox4j-api/target/scala-2.11/tox4j-api_2.11-0.1.2.jar" to "libs/tox4j-api-c.jar",
+    "https://build.tox.chat/job/tox4j_build_android_arm64_release/lastSuccessfulBuild/artifact/artifacts/tox4j-c_2.11-0.1.2-SNAPSHOT.jar" to "libs/tox4j-c.jar",
+    "https://build.tox.chat/job/tox4j_build_android_armel_release/lastSuccessfulBuild/artifact/artifacts/libtox4j-c.so" to "src/main/jniLibs/armeabi-v7a/libtox4j-c.so",
+    "https://build.tox.chat/job/tox4j_build_android_armel_release/lastSuccessfulBuild/artifact/artifacts/libtox4j-c.so" to "src/main/jniLibs/armeabi/libtox4j-c.so",
+    "https://build.tox.chat/job/tox4j_build_android_x86_release/lastSuccessfulBuild/artifact/artifacts/libtox4j-c.so" to "src/main/jniLibs/x86/libtox4j-c.so",
+    "https://build.tox.chat/job/tox4j_build_android_arm64_release/lastSuccessfulBuild/artifact/artifacts/libtox4j-c.so" to "src/main/jniLibs/arm64-v8a/libtox4j-c.so",
+    "https://build.tox.chat/job/tox4j_build_android_x86-64_release/lastSuccessfulBuild/artifact/artifacts/libtox4j-c.so" to "src/main/jniLibs/x86_64/libtox4j-c.so"
+)
+
+val fetchTask = task<DefaultTask>("fetchTox4j")
+
+files.forEach { (url, dst) ->
+    val taskName = "fetch_${dst.replace("/", "_")}"
+    task<Download>(taskName) {
+        src(url)
+        dest(dst)
+        overwrite(false)
+    }
+
+    fetchTask.dependsOn(taskName)
+}
+
 tasks.withType<KotlinCompile> {
+    dependsOn(fetchTask)
+
     // newSingleThreadContext
     kotlinOptions.freeCompilerArgs += listOf("-Xuse-experimental=kotlinx.coroutines.ObsoleteCoroutinesApi")
 }
