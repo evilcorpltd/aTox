@@ -12,6 +12,7 @@ import ltd.evilcorp.atox.feature.FriendRequestManager
 import ltd.evilcorp.atox.feature.UserManager
 import ltd.evilcorp.atox.tox.PublicKey
 import ltd.evilcorp.atox.tox.Tox
+import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.User
 import java.io.FileOutputStream
@@ -22,7 +23,8 @@ class ContactListViewModel @Inject constructor(
     private val contactManager: ContactManager,
     private val friendRequestManager: FriendRequestManager,
     private val userManager: UserManager,
-    private val tox: Tox
+    private val tox: Tox,
+    private val toxStarter: ToxStarter
 ) : ViewModel(), CoroutineScope by GlobalScope {
     val publicKey by lazy { tox.publicKey }
     val toxId by lazy { tox.toxId }
@@ -32,6 +34,7 @@ class ContactListViewModel @Inject constructor(
     val friendRequests = friendRequestManager.getAll()
 
     fun isToxRunning() = tox.started
+    fun tryLoadTox(): Boolean = toxStarter.tryLoadTox()
 
     fun setName(name: String) = userManager.setName(name)
     fun setStatusMessage(statusMessage: String) = userManager.setStatusMessage(statusMessage)

@@ -243,7 +243,9 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (!viewModel.isToxRunning()) findNavController().navigate(R.id.action_contactListFragment_to_profileFragment)
+        if (!viewModel.isToxRunning() && !viewModel.tryLoadTox()) {
+            findNavController().navigate(R.id.action_contactListFragment_to_profileFragment)
+        }
     }
 
     private fun openChat(contact: Contact) = findNavController().navigate(

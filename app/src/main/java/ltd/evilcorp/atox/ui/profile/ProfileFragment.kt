@@ -28,7 +28,7 @@ class ProfileFragment : Fragment() {
         btnCreate.setOnClickListener {
             btnCreate.isEnabled = false
 
-            viewModel.startToxThread()
+            viewModel.startTox()
             viewModel.createUser(
                 viewModel.publicKey,
                 if (username.text.isNotEmpty()) username.text.toString() else "aTox user",
@@ -63,22 +63,13 @@ class ProfileFragment : Fragment() {
         resultData?.data?.let { uri ->
             Log.e("ProfileFragment", "Importing file $uri")
             viewModel.tryImportToxSave(uri)?.also { save ->
-                if (viewModel.startToxThread(save)) {
+                if (viewModel.startTox(save)) {
                     viewModel.verifyUserExists(viewModel.publicKey)
                     findNavController().popBackStack()
                 } else {
                     Toast.makeText(requireContext(), R.string.import_tox_save_failed, Toast.LENGTH_LONG).show()
                 }
             }
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.tryLoadToxSave()?.also { save ->
-            viewModel.startToxThread(save)
-            viewModel.verifyUserExists(viewModel.publicKey)
-            findNavController().popBackStack()
         }
     }
 }
