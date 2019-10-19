@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.chat_fragment.view.*
 import kotlinx.android.synthetic.main.profile_image_layout.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.requireStringArg
+import ltd.evilcorp.atox.tox.MAX_MESSAGE_LENGTH
 import ltd.evilcorp.atox.tox.PublicKey
 import ltd.evilcorp.atox.ui.MessagesAdapter
 import ltd.evilcorp.atox.ui.colorByStatus
@@ -105,6 +106,11 @@ class ChatFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
+                outgoingMessage.error = if (outgoingMessage.text.length > MAX_MESSAGE_LENGTH) {
+                    getText(R.string.error_message_length_exceeded)
+                } else {
+                    null
+                }
                 updateSendButton(this@apply)
             }
         })
@@ -149,6 +155,6 @@ class ChatFragment : Fragment() {
     }
 
     private fun updateSendButton(layout: View) {
-        layout.send.isEnabled = layout.outgoingMessage.text.isNotEmpty() && contactOnline
+        layout.send.isEnabled = layout.outgoingMessage.text.isNotEmpty() && layout.outgoingMessage.error.isNullOrEmpty() && contactOnline
     }
 }

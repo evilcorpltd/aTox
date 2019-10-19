@@ -51,4 +51,6 @@
     <string name="import_tox_save_failed">Import failed for some reason</string>
     <string name="export_tox_save">Export Tox save</string>
     <string name="tox_save_exported">Tox save exported</string>
+
+    <string name="error_message_length_exceeded">Messages may not be longer than 1372 characters</string>
 </resources>

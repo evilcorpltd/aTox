@@ -59,6 +59,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:maxHeight="256dp"
             android:hint="@string/message"
             android:inputType="textMultiLine"
             android:importantForAutofill="no"
