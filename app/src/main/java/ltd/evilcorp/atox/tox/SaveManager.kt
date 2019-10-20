@@ -16,7 +16,9 @@ class SaveManager @Inject constructor(val context: Context) {
         }
     }
 
-    fun list(): List<String> = saveDir.listFiles().filter { it.extension == "tox" }.map { it.nameWithoutExtension }
+    fun list(): List<String> = saveDir.listFiles()?.let { saves ->
+        saves.filter { it.extension == "tox" }.map { it.nameWithoutExtension }
+    } ?: listOf()
 
     fun save(publicKey: PublicKey, saveData: ByteArray) = File("$saveDir/${publicKey.string()}.tox").run {
         if (!exists()) {
