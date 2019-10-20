@@ -11,4 +11,17 @@ steps:
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
     testResultsFiles: '**/TEST-*.xml'
-    tasks: 'buildDebug testDebug'
+    tasks: 'assembleDebug testDebug'
+  displayName: gradlew assembleDebug testDebug
+
+- task: CopyFiles@2
+  inputs:
+    contents: '**/*.apk'
+    targetFolder: '$(build.artifactStagingDirectory)'
+  displayName: Copy .apks to staging folder
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(build.artifactStagingDirectory)'
+    artifactName: 'drop'
+  displayName: Publish .apks
