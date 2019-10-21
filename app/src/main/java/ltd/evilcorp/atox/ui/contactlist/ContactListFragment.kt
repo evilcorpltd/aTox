@@ -103,6 +103,12 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         friendRequests.adapter = friendRequestAdapter
         registerForContextMenu(friendRequests)
         viewModel.friendRequests.observe(viewLifecycleOwner, Observer { friendRequests ->
+            friendRequestDivider.visibility = if (friendRequests.isNotEmpty()) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+
             friendRequestAdapter.friendRequests = friendRequests
             friendRequestAdapter.notifyDataSetChanged()
         })
