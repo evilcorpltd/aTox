@@ -7,7 +7,7 @@ import ltd.evilcorp.core.vo.*
 
 @Database(
     entities = [Contact::class, FileTransfer::class, FriendRequest::class, Message::class, User::class],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

@@ -86,7 +86,7 @@ class ChatFragment : Fragment() {
             updateSendButton(this)
         })
 
-        val adapter = MessagesAdapter(inflater)
+        val adapter = MessagesAdapter(inflater, resources)
         messages.adapter = adapter
         registerForContextMenu(messages)
         viewModel.messages.observe(viewLifecycleOwner, Observer {

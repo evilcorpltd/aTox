@@ -19,8 +19,14 @@ class ChatManager @Inject constructor(
     fun messagesFor(publicKey: PublicKey) = messageRepository.get(publicKey.string())
 
     fun sendMessage(publicKey: PublicKey, message: String) = launch {
-        tox.sendMessage(publicKey, message)
-        messageRepository.add(Message(publicKey.string(), message, Sender.Sent))
+        messageRepository.add(
+            Message(
+                publicKey.string(),
+                message,
+                Sender.Sent,
+                tox.sendMessage(publicKey, message).await()
+            )
+        )
     }
 
     fun clearHistory(publicKey: PublicKey) = launch {

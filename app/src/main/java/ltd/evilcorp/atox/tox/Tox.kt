@@ -107,7 +107,7 @@ class Tox @Inject constructor(
         save()
     }
 
-    fun sendMessage(publicKey: PublicKey, message: String) = launch {
+    fun sendMessage(publicKey: PublicKey, message: String) = async {
         tox.sendMessage(publicKey, message)
     }
 

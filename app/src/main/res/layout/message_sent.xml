@@ -17,4 +17,13 @@
             android:layout_marginStart="@dimen/message_margin"
             android:textColor="@android:color/white"
             tools:text="Message I sent"/>
+    <TextView
+            android:id="@+id/timestamp"
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            tools:text="2020-12-24"/>
 </LinearLayout>

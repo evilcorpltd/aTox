@@ -59,9 +59,10 @@ class ToxEventListener @Inject constructor(
     override fun friendStatusMessage(friendNumber: Int, message: ByteArray, state: Unit?) =
         contactRepository.setStatusMessage(publicKeyByFriendNumber(friendNumber), String(message))
 
-    override fun friendReadReceipt(friendNumber: Int, messageId: Int, state: Unit?) {
-        Log.e(TAG, "friendReadReceipt")
-    }
+    override fun friendReadReceipt(friendNumber: Int, messageId: Int, state: Unit?): Unit =
+        contactByFriendNumber(friendNumber).let {
+            messageRepository.setReceipt(it.publicKey, messageId, getDate())
+        }
 
     override fun friendStatus(friendNumber: Int, toxStatus: ToxUserStatus, state: Unit?) =
         contactRepository.setUserStatus(publicKeyByFriendNumber(friendNumber), toxStatus.toUserStatus())
@@ -87,7 +88,7 @@ class ToxEventListener @Inject constructor(
         state: Unit?
     ) = contactByFriendNumber(friendNumber).let {
         contactRepository.setLastMessage(it.publicKey, getDate())
-        messageRepository.add(Message(it.publicKey, String(message), Sender.Received))
+        messageRepository.add(Message(it.publicKey, String(message), Sender.Received, Int.MIN_VALUE, getDate()))
         notificationHelper.showMessageNotification(it, String(message))
     }
 

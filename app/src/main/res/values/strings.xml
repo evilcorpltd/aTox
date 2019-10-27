@@ -26,6 +26,7 @@
     <string name="profile_photo_description">Profile photo</string>
     <string name="reject">Reject</string>
     <string name="send">Send</string>
+    <string name="sending">Sending…</string>
     <string name="settings">Settings</string>
     <string name="status_indicator">Status indicator</string>
     <string name="status_message">Status message</string>

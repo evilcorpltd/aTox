@@ -18,7 +18,13 @@ data class Message(
     val message: String,
 
     @ColumnInfo(name = "sender")
-    val sender: Sender
+    val sender: Sender,
+
+    @ColumnInfo(name = "correlation_id")
+    var correlationId: Int,
+
+    @ColumnInfo(name = "timestamp")
+    var timestamp: String = ""
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
