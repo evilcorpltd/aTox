@@ -8,9 +8,9 @@ object Java {
 
 private object Version {
     const val coroutines = "1.3.2"
-    const val dagger = "2.24"
+    const val dagger = "2.25.2"
     const val lifecycle = "2.2.0-beta01"
-    const val room = "2.2.0"
+    const val room = "2.2.1"
     const val navigation = "2.2.0-beta01"
 }
 
@@ -29,7 +29,7 @@ object BuildPlugin {
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
     const val download = "de.undercouch.download"
-    const val downloadVersion = "4.0.0"
+    const val downloadVersion = "4.0.1"
 }
 
 object AndroidSdk {
