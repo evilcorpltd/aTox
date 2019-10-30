@@ -30,7 +30,8 @@ android {
         sourceCompatibility = Java.version
         targetCompatibility = Java.version
     }
-    (this as ExtensionAware).configure<KotlinJvmOptions> {
+    kotlinOptions {
+        require(this is KotlinJvmOptions)
         jvmTarget = Java.version.toString()
         freeCompilerArgs = listOf("-XXLanguage:+InlineClasses")
     }
