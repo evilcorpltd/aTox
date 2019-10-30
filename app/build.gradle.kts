@@ -36,8 +36,6 @@ android {
         freeCompilerArgs = listOf("-XXLanguage:+InlineClasses")
     }
     lintOptions {
-        isAbortOnError = true
-        isWarningsAsErrors = true
         // TODO(robinlinden): Delete/update invalid packages
         disable("InvalidPackage", "GoogleAppIndexingWarning", "MissingTranslation")
     }
