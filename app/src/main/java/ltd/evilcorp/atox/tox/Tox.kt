@@ -64,6 +64,11 @@ class Tox @Inject constructor(
         iterateForever()
     }
 
+    fun stop() = launch {
+        tox.save()
+        tox.stop()
+    }
+
     private fun save() = runBlocking {
         tox.save()
     }

@@ -27,6 +27,8 @@ class ToxWrapper(
         tox.addTcpRelay(address, port, publicKey)
     }
 
+    fun stop() = tox.close()
+
     fun iterate(): Unit = tox.iterate(eventListener, Unit)
     fun iterationInterval(): Long = tox.iterationInterval().toLong()
 

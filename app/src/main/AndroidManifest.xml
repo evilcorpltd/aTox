@@ -11,6 +11,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <service android:name=".ToxService"
+                android:exported="false"/>
+
         <activity android:name=".MainActivity">
             <nav-graph android:value="@navigation/nav_graph"/>
             <intent-filter>
