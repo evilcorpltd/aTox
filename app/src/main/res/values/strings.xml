@@ -39,6 +39,7 @@
     <string name="tox_id_error_hex">Only hex allowed</string>
     <string name="tox_id_share">Share Tox ID</string>
     <string name="update">Update</string>
+    <string name="quit">Quit</string>
 
     <!-- Friend request notification -->
     <string name="friend_requests">Friend requests</string>

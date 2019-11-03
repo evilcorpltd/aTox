@@ -22,6 +22,7 @@ class Tox @Inject constructor(
     val toxId: ToxID by lazy { tox.getToxId() }
     val publicKey: PublicKey by lazy { tox.getPublicKey() }
 
+    var running = false
     var started = false
 
     private var isBootstrapNeeded = true
@@ -48,7 +49,8 @@ class Tox @Inject constructor(
         }
 
         fun iterateForever() = launch {
-            while (true) {
+            running = true
+            while (running) {
                 if (isBootstrapNeeded) {
                     bootstrap()
                     isBootstrapNeeded = false
@@ -65,8 +67,10 @@ class Tox @Inject constructor(
     }
 
     fun stop() = launch {
+        running = false
         tox.save()
         tox.stop()
+        started = false
     }
 
     private fun save() = runBlocking {

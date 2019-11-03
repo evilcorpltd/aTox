@@ -1,12 +1,14 @@
 package ltd.evilcorp.atox.ui.contactlist
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.ToxService
 import ltd.evilcorp.atox.feature.ContactManager
 import ltd.evilcorp.atox.feature.FriendRequestManager
 import ltd.evilcorp.atox.feature.UserManager
@@ -35,6 +37,9 @@ class ContactListViewModel @Inject constructor(
 
     fun isToxRunning() = tox.started
     fun tryLoadTox(): Boolean = toxStarter.tryLoadTox()
+    fun quitTox() = context.run {
+        stopService(Intent(this, ToxService::class.java))
+    }
 
     fun setName(name: String) = userManager.setName(name)
     fun setStatusMessage(statusMessage: String) = userManager.setStatusMessage(statusMessage)

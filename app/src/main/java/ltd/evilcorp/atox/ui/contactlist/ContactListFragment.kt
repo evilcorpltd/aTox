@@ -231,6 +231,10 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
                     startActivityForResult(it, REQUEST_CODE_BACKUP_TOX)
                 }
             }
+            R.id.quit_tox -> {
+                viewModel.quitTox()
+                activity?.finishAffinity()
+            }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
