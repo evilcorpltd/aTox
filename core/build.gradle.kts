@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
-
 plugins {
     id(BuildPlugin.androidLibrary)
 
@@ -31,7 +29,6 @@ android {
         targetCompatibility = Java.version
     }
     kotlinOptions {
-        require(this is KotlinJvmOptions)
         jvmTarget = Java.version.toString()
     }
     lintOptions {

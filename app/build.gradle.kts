@@ -1,5 +1,4 @@
 import de.undercouch.gradle.tasks.download.Download
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -31,7 +30,6 @@ android {
         targetCompatibility = Java.version
     }
     kotlinOptions {
-        require(this is KotlinJvmOptions)
         jvmTarget = Java.version.toString()
         freeCompilerArgs = listOf("-XXLanguage:+InlineClasses")
     }
