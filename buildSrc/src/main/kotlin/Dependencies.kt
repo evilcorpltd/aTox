@@ -9,9 +9,9 @@ object Java {
 private object Version {
     const val coroutines = "1.3.2"
     const val dagger = "2.25.2"
-    const val lifecycle = "2.2.0-beta01"
+    const val lifecycle = "2.2.0-rc01"
     const val room = "2.2.1"
-    const val navigation = "2.2.0-beta01"
+    const val navigation = "2.2.0-rc01"
 }
 
 object BuildPlugin {
