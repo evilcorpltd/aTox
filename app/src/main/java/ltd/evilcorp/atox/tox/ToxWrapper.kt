@@ -3,6 +3,7 @@ package ltd.evilcorp.atox.tox
 import android.util.Log
 import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.enums.ToxMessageType
+import im.tox.tox4j.core.exceptions.ToxFriendAddException
 import im.tox.tox4j.impl.jni.ToxCoreImpl
 
 private const val TAG = "ToxWrapper"
@@ -81,9 +82,11 @@ class ToxWrapper(
 
     fun save() = saveManager.save(getPublicKey(), tox.savedata)
 
-    fun acceptFriendRequest(publicKey: PublicKey) {
+    fun acceptFriendRequest(publicKey: PublicKey) = try {
         tox.addFriendNorequest(publicKey.bytes())
         updateContactMapping()
+    } catch (e: ToxFriendAddException) {
+        Log.e(TAG, "Exception while accepting friend request $publicKey: $e")
     }
 
     fun startFileTransfer(publicKey: PublicKey, fileNumber: Int) =
