@@ -16,7 +16,7 @@ private object Version {
 
 object BuildPlugin {
     private object Version {
-        const val gradle = "3.5.0"
+        const val gradle = "3.5.2"
     }
 
     const val androidApplication = "com.android.application"
