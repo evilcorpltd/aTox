@@ -105,6 +105,7 @@ class ChatFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
+                viewModel.setTyping(outgoingMessage.text.isNotEmpty())
                 updateSendButton(this@apply)
             }
         })
@@ -117,6 +118,7 @@ class ChatFragment : Fragment() {
 
     override fun onResume() {
         viewModel.setActiveChat(PublicKey(contactPubKey))
+        viewModel.setTyping(outgoingMessage.text.isNotEmpty())
         super.onResume()
     }
 

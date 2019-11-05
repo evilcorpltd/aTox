@@ -15,7 +15,8 @@ class ChatViewModel @Inject constructor(
     private val contactManager: ContactManager,
     private val notificationHelper: NotificationHelper
 ) : ViewModel() {
-    private var publicKey: PublicKey = PublicKey("")
+    private var publicKey = PublicKey("")
+    private var sentTyping = false
 
     val contact: LiveData<Contact> by lazy { contactManager.get(publicKey) }
     val messages: LiveData<List<Message>> by lazy { chatManager.messagesFor(publicKey) }
@@ -23,7 +24,19 @@ class ChatViewModel @Inject constructor(
     fun sendMessage(message: String) = chatManager.sendMessage(publicKey, message)
     fun clearHistory() = chatManager.clearHistory(publicKey)
     fun setActiveChat(pubKey: PublicKey) {
+        if (pubKey.string().isEmpty()) {
+            setTyping(false)
+        }
+
         publicKey = pubKey
         notificationHelper.activeChat = pubKey.string()
+    }
+
+    fun setTyping(typing: Boolean) {
+        if (publicKey.string().isEmpty()) return
+        if (sentTyping != typing) {
+            chatManager.setTyping(publicKey, typing)
+            sentTyping = typing
+        }
     }
 }

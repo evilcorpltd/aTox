@@ -153,4 +153,8 @@ class Tox @Inject constructor(
             isBootstrapNeeded = true
         }
     }
+
+    fun setTyping(publicKey: PublicKey, typing: Boolean) = launch {
+        tox.setTyping(publicKey, typing)
+    }
 }

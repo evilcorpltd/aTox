@@ -95,5 +95,7 @@ class ToxWrapper(
     fun stopFileTransfer(publicKey: PublicKey, fileNumber: Int) =
         tox.fileControl(contactByKey(publicKey), fileNumber, ToxFileControl.CANCEL)
 
+    fun setTyping(publicKey: PublicKey, typing: Boolean) = tox.setTyping(contactByKey(publicKey), typing)
+
     private fun contactByKey(publicKey: PublicKey): Int = tox.friendByPublicKey(publicKey.bytes())
 }

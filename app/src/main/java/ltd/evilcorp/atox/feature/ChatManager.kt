@@ -41,4 +41,6 @@ class ChatManager @Inject constructor(
         messageRepository.delete(publicKey.string())
         contactRepository.setLastMessage(publicKey.string(), "Never")
     }
+
+    fun setTyping(publicKey: PublicKey, typing: Boolean) = tox.setTyping(publicKey, typing)
 }
