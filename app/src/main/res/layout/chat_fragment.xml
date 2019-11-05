@@ -61,7 +61,7 @@
             android:layout_marginBottom="8dp"
             android:maxHeight="256dp"
             android:hint="@string/message"
-            android:inputType="textMultiLine"
+            android:inputType="textMultiLine|textCapSentences"
             android:importantForAutofill="no"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/send"
