@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
-import androidx.core.content.ContextCompat.startForegroundService
 import im.tox.tox4j.core.exceptions.ToxNewException
 import ltd.evilcorp.atox.ToxService
 import ltd.evilcorp.atox.feature.UserManager

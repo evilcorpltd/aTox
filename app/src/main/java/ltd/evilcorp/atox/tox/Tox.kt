@@ -15,9 +15,9 @@ private const val TAG = "Tox"
 @ObsoleteCoroutinesApi
 @Singleton
 class Tox @Inject constructor(
-    private val toxFactory: ToxWrapperFactory,
     private val contactRepository: ContactRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val saveManager: SaveManager
 ) : CoroutineScope by GlobalScope + newSingleThreadContext("Tox") {
     val toxId: ToxID by lazy { tox.getToxId() }
     val publicKey: PublicKey by lazy { tox.getPublicKey() }
@@ -32,7 +32,7 @@ class Tox @Inject constructor(
     fun start(saveOption: SaveOptions, eventListener: ToxEventListener) {
         started = true
 
-        tox = toxFactory.create(saveOption, eventListener)
+        tox = ToxWrapper(eventListener, saveOption)
 
         fun loadSelf() = launch {
             userRepository.update(User(publicKey.string(), tox.getName(), tox.getStatusMessage()))
@@ -68,13 +68,13 @@ class Tox @Inject constructor(
 
     fun stop() = launch {
         running = false
-        tox.save()
+        save()
         tox.stop()
         started = false
     }
 
     private fun save() = runBlocking {
-        tox.save()
+        saveManager.save(publicKey, tox.getSaveData())
     }
 
     private fun iterate() = launch {

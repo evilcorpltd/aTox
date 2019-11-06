@@ -8,11 +8,7 @@ import im.tox.tox4j.impl.jni.ToxCoreImpl
 
 private const val TAG = "ToxWrapper"
 
-class ToxWrapper(
-    private val eventListener: ToxEventListener,
-    private val saveManager: SaveManager,
-    options: SaveOptions
-) {
+class ToxWrapper(private val eventListener: ToxEventListener, options: SaveOptions) {
     private val tox: ToxCoreImpl = ToxCoreImpl(options.toToxOptions())
 
     init {
@@ -80,7 +76,7 @@ class ToxWrapper(
         message.toByteArray()
     )
 
-    fun save() = saveManager.save(getPublicKey(), tox.savedata)
+    fun getSavedata(): ByteArray = tox.savedata
 
     fun acceptFriendRequest(publicKey: PublicKey) = try {
         tox.addFriendNorequest(publicKey.bytes())
