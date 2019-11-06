@@ -55,4 +55,7 @@
     <string name="tox_save_exported">Tox save exported</string>
     <string name="never">Never</string>
     <string name="info">Info</string>
+    <string name="atox_offline">Offline</string>
+    <string name="atox_connected_with_tcp">Connected (TCP)</string>
+    <string name="atox_connected_with_udp">Connected (UDP)</string>
 </resources>
