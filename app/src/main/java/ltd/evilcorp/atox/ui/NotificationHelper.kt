@@ -24,11 +24,19 @@ class NotificationHelper @Inject constructor(
     private val context: Context
 ) {
     private val notifier = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
     init {
         createNotificationChannel()
     }
 
     var activeChat = ""
+        set(value) {
+            if (value.isNotEmpty())
+                dismissNotifications(value)
+            field = value
+        }
+
+    private fun dismissNotifications(value: String) = notifier.cancel(value.hashCode())
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
