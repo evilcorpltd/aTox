@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 import kotlinx.android.synthetic.main.profile_image_layout.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.core.vo.Contact
+import java.text.DateFormat
 
 class ContactAdapter(
     private val inflater: LayoutInflater,
@@ -38,7 +39,12 @@ class ContactAdapter(
         val contact = contacts[position]
         vh.publicKey.text = contact.publicKey
         vh.name.text = contact.name
-        vh.lastMessage.text = contact.lastMessage
+        vh.lastMessage.text = if (contact.lastMessage != 0L) {
+            DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT)
+                .format(contact.lastMessage)
+        } else {
+            resources.getText(R.string.never)
+        }
         vh.status.setColorFilter(colorByStatus(resources, contact))
         setAvatarFromContact(vh.image, contact)
 

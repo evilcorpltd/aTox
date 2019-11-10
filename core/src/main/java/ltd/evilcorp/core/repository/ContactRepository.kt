@@ -22,7 +22,7 @@ class ContactRepository @Inject internal constructor(
 
     fun setName(publicKey: String, name: String) = dao.setName(publicKey, name)
     fun setStatusMessage(publicKey: String, statusMessage: String) = dao.setStatusMessage(publicKey, statusMessage)
-    fun setLastMessage(publicKey: String, lastMessage: String) = dao.setLastMessage(publicKey, lastMessage)
+    fun setLastMessage(publicKey: String, lastMessage: Long) = dao.setLastMessage(publicKey, lastMessage)
     fun setUserStatus(publicKey: String, status: UserStatus) = dao.setUserStatus(publicKey, status)
     fun setConnectionStatus(publicKey: String, status: ConnectionStatus) = dao.setConnectionStatus(publicKey, status)
     fun setTyping(publicKey: String, typing: Boolean) = dao.setTyping(publicKey, typing)

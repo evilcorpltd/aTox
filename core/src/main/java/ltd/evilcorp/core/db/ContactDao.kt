@@ -37,7 +37,7 @@ internal interface ContactDao {
     fun setStatusMessage(publicKey: String, statusMessage: String)
 
     @Query("UPDATE contacts SET last_message = :lastMessage WHERE public_key = :publicKey")
-    fun setLastMessage(publicKey: String, lastMessage: String)
+    fun setLastMessage(publicKey: String, lastMessage: Long)
 
     @Query("UPDATE contacts SET status = :status WHERE public_key = :publicKey")
     fun setUserStatus(publicKey: String, status: UserStatus)

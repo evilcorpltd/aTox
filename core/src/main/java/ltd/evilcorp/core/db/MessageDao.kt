@@ -19,5 +19,5 @@ internal interface MessageDao {
     fun delete(conversation: String)
 
     @Query("UPDATE messages SET timestamp = :timestamp WHERE conversation == :conversation AND correlation_id == :correlationId")
-    fun setReceipt(conversation: String, correlationId: Int, timestamp: String)
+    fun setReceipt(conversation: String, correlationId: Int, timestamp: Long)
 }

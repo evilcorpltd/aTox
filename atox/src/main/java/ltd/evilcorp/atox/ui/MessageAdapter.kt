@@ -9,6 +9,7 @@ import android.widget.TextView
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.Sender
+import java.text.DateFormat
 
 private fun inflateView(type: Sender, inflater: LayoutInflater): View =
     inflater.inflate(
@@ -43,8 +44,9 @@ class MessagesAdapter(
         }
 
         vh.message.text = message.message
-        vh.timestamp.text = if (message.timestamp.isNotEmpty()) {
-            message.timestamp
+        vh.timestamp.text = if (message.timestamp != 0L) {
+            DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT)
+                .format(message.timestamp)
         } else {
             resources.getText(R.string.sending)
         }

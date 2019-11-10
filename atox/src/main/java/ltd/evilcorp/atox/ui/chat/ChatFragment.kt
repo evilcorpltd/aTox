@@ -25,6 +25,7 @@ import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Message
+import java.text.DateFormat
 import java.util.*
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
@@ -73,12 +74,13 @@ class ChatFragment : Fragment() {
             contactOnline = it.connectionStatus != ConnectionStatus.None
 
             title.text = contactName
-            subtitle.text = if (it.typing) {
-                getString(R.string.contact_typing)
-            } else {
-                // TODO(robinlinden): Replace with last seen.
-                it.lastMessage
+            subtitle.text = when {
+                it.typing -> getString(R.string.contact_typing)
+                it.lastMessage == 0L -> getString(R.string.never)
+                else -> DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT)
+                    .format(it.lastMessage) // TODO(robinlinden): Replace with last seen.
             }.toLowerCase(Locale.getDefault())
+
             statusIndicator.setColorFilter(colorByStatus(resources, it))
             setAvatarFromContact(profileImage, it)
 

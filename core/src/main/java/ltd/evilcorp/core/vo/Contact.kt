@@ -30,7 +30,7 @@ data class Contact(
     var statusMessage: String = "...",
 
     @ColumnInfo(name = "last_message")
-    var lastMessage: String = "Never",
+    var lastMessage: Long = 0,
 
     @ColumnInfo(name = "status")
     var status: UserStatus = UserStatus.None,

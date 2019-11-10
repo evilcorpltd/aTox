@@ -13,13 +13,12 @@ import ltd.evilcorp.core.repository.FriendRequestRepository
 import ltd.evilcorp.core.repository.MessageRepository
 import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.*
-import java.text.DateFormat
 import java.util.*
 import javax.inject.Inject
 
 private const val TAG = "ToxEventListener"
 
-private fun getDate() = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date())
+private fun getDate() = Date().time
 
 class ToxEventListener @Inject constructor(
     private val contactRepository: ContactRepository,
