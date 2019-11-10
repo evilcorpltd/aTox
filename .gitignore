@@ -6,6 +6,3 @@
 build
 captures
 local.properties
-
-app/libs
-app/src/main/jnilibs

@@ -1,1 +1,2 @@
-include ':app', ':core'
+include ':atox'
+include ':core'
