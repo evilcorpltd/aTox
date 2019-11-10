@@ -34,6 +34,7 @@ import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
+import ltd.evilcorp.core.vo.UserStatus
 
 private const val REQUEST_CODE_BACKUP_TOX = 9202
 
@@ -117,13 +118,13 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         contactList.adapter = contactAdapter
         registerForContextMenu(contactList)
         viewModel.contacts.observe(viewLifecycleOwner, Observer { contacts ->
-            contactAdapter.contacts = contacts.sortedWith(
-                compareBy(
-                    { contact -> contact.connectionStatus == ConnectionStatus.None },
-                    Contact::lastMessage,
-                    Contact::status
-                )
-            )
+            contactAdapter.contacts = contacts.sortedByDescending { contact ->
+                when {
+                    contact.lastMessage != 0L -> contact.lastMessage
+                    contact.connectionStatus == ConnectionStatus.None -> -1000L
+                    else -> -contact.status.ordinal.toLong()
+                }
+            }
             contactAdapter.notifyDataSetChanged()
 
             noContactsCallToAction.visibility = if (contacts.isEmpty()) View.VISIBLE else View.GONE
