@@ -8,6 +8,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.TextView
@@ -34,7 +35,6 @@ import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
-import ltd.evilcorp.core.vo.UserStatus
 
 private const val REQUEST_CODE_BACKUP_TOX = 9202
 
@@ -256,6 +256,14 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         super.onCreate(savedInstanceState)
         if (!viewModel.isToxRunning() && !viewModel.tryLoadTox()) {
             findNavController().navigate(R.id.action_contactListFragment_to_profileFragment)
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        with(activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager) {
+            hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 
