@@ -31,6 +31,12 @@ class FileTransferManager @Inject constructor(
                 reject(ft)
             }
             FileKind.Avatar.ordinal -> {
+                if (ft.fileSize == 0L) {
+                    contactRepository.setAvatarUri(ft.publicKey, "")
+                    tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
+                    return
+                }
+
                 fileTransferRepository.add(ft)
                 fileTransfers.add(ft)
                 accept(ft)
