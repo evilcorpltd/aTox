@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.profile_image_layout.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.tox.PublicKey
-import ltd.evilcorp.atox.ui.MessagesAdapter
+import ltd.evilcorp.atox.ui.ChatAdapter
 import ltd.evilcorp.atox.ui.colorByStatus
 import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.atox.vmFactory
@@ -87,7 +87,7 @@ class ChatFragment : Fragment() {
             updateSendButton(this)
         })
 
-        val adapter = MessagesAdapter(inflater, resources)
+        val adapter = ChatAdapter(inflater, resources)
         messages.adapter = adapter
         registerForContextMenu(messages)
         viewModel.messages.observe(viewLifecycleOwner, Observer {

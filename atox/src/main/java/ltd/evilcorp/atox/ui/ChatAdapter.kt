@@ -34,7 +34,7 @@ private class MessageViewHolder(row: View) {
     val timestamp = row.findViewById(R.id.timestamp) as TextView
 }
 
-class MessagesAdapter(
+class ChatAdapter(
     private val inflater: LayoutInflater,
     private val resources: Resources
 ) : BaseAdapter() {
