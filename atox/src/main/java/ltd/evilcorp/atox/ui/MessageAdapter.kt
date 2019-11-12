@@ -11,12 +11,28 @@ import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.Sender
 import java.text.DateFormat
 
-private fun inflateView(type: Sender, inflater: LayoutInflater): View =
+private fun inflateView(type: ChatItemType, inflater: LayoutInflater): View =
     inflater.inflate(
-        if (type == Sender.Sent) R.layout.message_sent else R.layout.message_received,
+        when (type) {
+            ChatItemType.SentMessage -> R.layout.message_sent
+            ChatItemType.ReceivedMessage -> R.layout.message_received
+        },
         null,
         true
     )
+
+private enum class ChatItemType {
+    ReceivedMessage,
+    SentMessage
+}
+
+private val types = ChatItemType.values()
+private val timeFormatter = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT)
+
+private class MessageViewHolder(row: View) {
+    val message = row.findViewById(R.id.message) as TextView
+    val timestamp = row.findViewById(R.id.timestamp) as TextView
+}
 
 class MessagesAdapter(
     private val inflater: LayoutInflater,
@@ -27,35 +43,36 @@ class MessagesAdapter(
     override fun getCount(): Int = messages.size
     override fun getItem(position: Int): Any = messages[position]
     override fun getItemId(position: Int): Long = position.toLong()
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val message = messages[position]
-
-        val view: View
-        val vh: ViewHolder
-
-        if (convertView != null && (convertView.tag as? ViewHolder)?.sender == message.sender) {
-            view = convertView
-            vh = view.tag as ViewHolder
-        } else {
-            view = inflateView(message.sender, inflater)
-            vh = ViewHolder(view, message.sender)
-            view.tag = vh
-        }
-
-        vh.message.text = message.message
-        vh.timestamp.text = if (message.timestamp != 0L) {
-            DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT)
-                .format(message.timestamp)
-        } else {
-            resources.getText(R.string.sending)
-        }
-
-        return view
+    override fun getViewTypeCount(): Int = types.size
+    override fun getItemViewType(position: Int): Int = when (messages[position].sender) {
+        Sender.Sent -> ChatItemType.SentMessage.ordinal
+        Sender.Received -> ChatItemType.ReceivedMessage.ordinal
     }
 
-    private class ViewHolder(row: View, val sender: Sender) {
-        val message = row.findViewById(R.id.message) as TextView
-        val timestamp = row.findViewById(R.id.timestamp) as TextView
-    }
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View =
+        when (val type = types[getItemViewType(position)]) {
+            ChatItemType.ReceivedMessage, ChatItemType.SentMessage -> {
+                val message = messages[position]
+                val view: View
+                val vh: MessageViewHolder
+
+                if (convertView != null) {
+                    view = convertView
+                    vh = view.tag as MessageViewHolder
+                } else {
+                    view = inflateView(type, inflater)
+                    vh = MessageViewHolder(view)
+                    view.tag = vh
+                }
+
+                vh.message.text = message.message
+                vh.timestamp.text = if (message.timestamp != 0L) {
+                    timeFormatter.format(message.timestamp)
+                } else {
+                    resources.getText(R.string.sending)
+                }
+
+                view
+            }
+        }
 }
