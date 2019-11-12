@@ -254,7 +254,12 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (!viewModel.isToxRunning() && !viewModel.tryLoadTox()) {
+        if (!viewModel.isToxRunning()) viewModel.tryLoadTox()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (!viewModel.isToxRunning()) {
             findNavController().navigate(R.id.action_contactListFragment_to_profileFragment)
         }
     }
