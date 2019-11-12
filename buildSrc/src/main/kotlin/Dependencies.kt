@@ -9,9 +9,9 @@ object Java {
 private object Version {
     const val coroutines = "1.3.2"
     const val dagger = "2.25.2"
-    const val lifecycle = "2.2.0-rc01"
+    const val lifecycle = "2.2.0-rc02"
     const val room = "2.2.1"
-    const val navigation = "2.2.0-rc01"
+    const val navigation = "2.2.0-rc02"
 }
 
 object BuildPlugin {
@@ -67,7 +67,7 @@ object Libraries {
     const val scalaLibrary = "org.scala-lang:scala-library:2.11.12"
     const val scalaLogging = "com.typesafe.scala-logging:scala-logging_2.11:3.9.2"
     const val scalapbRuntime = "com.trueaccord.scalapb:scalapb-runtime_2.11:0.6.7"
-    const val scodecCore = "org.scodec:scodec-core_2.11:1.11.3"
+    const val scodecCore = "org.scodec:scodec-core_2.11:1.11.4"
 
     const val leakcanaryAndroid = "com.squareup.leakcanary:leakcanary-android:2.0-beta-3"
 
