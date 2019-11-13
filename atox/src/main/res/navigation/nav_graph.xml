@@ -42,6 +42,13 @@
             android:label="ChatFragment"
             tools:layout="@layout/chat_fragment">
         <argument android:name="contactPublicKey" app:argType="string"/>
+        <action
+                android:id="@+id/action_chatFragment_to_contactProfileFragment"
+                app:destination="@id/contactProfileFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
             android:id="@+id/addContactFragment"
@@ -52,4 +59,9 @@
             android:id="@+id/deepLink"
             app:uri="tox:{toxId}"/>
     </fragment>
+    <fragment
+        android:id="@+id/contactProfileFragment"
+        android:name="ltd.evilcorp.atox.ui.contact_profile.ContactProfileFragment"
+        android:label="contact_profile_fragment"
+        tools:layout="@layout/contact_profile_fragment" />
 </navigation>

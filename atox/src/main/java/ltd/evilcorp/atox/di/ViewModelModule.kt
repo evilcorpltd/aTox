@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import ltd.evilcorp.atox.ui.addcontact.AddContactViewModel
 import ltd.evilcorp.atox.ui.chat.ChatViewModel
+import ltd.evilcorp.atox.ui.contact_profile.ContactProfileViewModel
 import ltd.evilcorp.atox.ui.contactlist.ContactListViewModel
 import ltd.evilcorp.atox.ui.profile.ProfileViewModel
 import kotlin.reflect.KClass
@@ -38,6 +39,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ContactListViewModel::class)
     abstract fun bindContactListViewModel(vm: ContactListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ContactProfileViewModel::class)
+    abstract fun bindContactProfileViewModel(vm: ContactProfileViewModel): ViewModel
 
     @Binds
     @IntoMap

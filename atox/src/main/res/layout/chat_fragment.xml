@@ -17,6 +17,7 @@
             app:navigationIcon="?attr/homeAsUpIndicator">
         <include layout="@layout/profile_image_layout"/>
         <LinearLayout
+                android:id="@+id/contactHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"

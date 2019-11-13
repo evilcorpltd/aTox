@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.chat_fragment.*
 import kotlinx.android.synthetic.main.chat_fragment.view.*
 import kotlinx.android.synthetic.main.profile_image_layout.*
@@ -67,6 +68,13 @@ class ChatFragment : Fragment() {
                 }
                 else -> super.onOptionsItemSelected(item)
             }
+        }
+
+        contactHeader.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_chatFragment_to_contactProfileFragment,
+                Bundle().apply { putString(CONTACT_PUBLIC_KEY, contactPubKey) }
+            )
         }
 
         viewModel.contact.observe(viewLifecycleOwner, Observer {
