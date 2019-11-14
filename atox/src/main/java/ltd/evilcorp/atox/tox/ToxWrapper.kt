@@ -76,8 +76,6 @@ class ToxWrapper(private val eventListener: ToxEventListener, options: SaveOptio
         message.toByteArray()
     )
 
-    fun getSavedata(): ByteArray = tox.savedata
-
     fun acceptFriendRequest(publicKey: PublicKey) = try {
         tox.addFriendNorequest(publicKey.bytes())
         updateContactMapping()

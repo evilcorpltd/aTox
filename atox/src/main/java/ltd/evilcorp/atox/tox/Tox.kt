@@ -22,9 +22,9 @@ class Tox @Inject constructor(
     val toxId: ToxID by lazy { tox.getToxId() }
     val publicKey: PublicKey by lazy { tox.getPublicKey() }
 
-    var running = false
     var started = false
 
+    private var running = false
     private var isBootstrapNeeded = true
 
     private lateinit var tox: ToxWrapper

@@ -7,6 +7,7 @@ import dagger.Provides
 import ltd.evilcorp.core.db.*
 import javax.inject.Singleton
 
+@Suppress("unused")
 @Module
 class DatabaseModule {
     @Singleton
