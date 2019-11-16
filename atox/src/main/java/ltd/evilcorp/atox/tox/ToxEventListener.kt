@@ -1,131 +1,115 @@
 package ltd.evilcorp.atox.tox
 
-import android.util.Log
 import im.tox.tox4j.core.callbacks.ToxCoreEventListener
 import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
-import ltd.evilcorp.atox.feature.FileTransferManager
-import ltd.evilcorp.atox.ui.NotificationHelper
-import ltd.evilcorp.core.repository.ContactRepository
-import ltd.evilcorp.core.repository.FriendRequestRepository
-import ltd.evilcorp.core.repository.MessageRepository
-import ltd.evilcorp.core.repository.UserRepository
-import ltd.evilcorp.core.vo.*
-import java.util.*
+import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.UserStatus
 import javax.inject.Inject
 
-private const val TAG = "ToxEventListener"
+typealias FriendLosslessPacketHandler = (publicKey: String, data: ByteArray) -> Unit
+typealias FileRecvControlHandler = (publicKey: String, fileNo: Int, control: ToxFileControl) -> Unit
+typealias FriendStatusMessageHandler = (publicKey: String, message: String) -> Unit
+typealias FriendReadReceiptHandler = (publicKey: String, messageId: Int) -> Unit
+typealias FriendStatusHandler = (publicKey: String, status: UserStatus) -> Unit
+typealias FriendConnectionStatusHandler = (publicKey: String, status: ConnectionStatus) -> Unit
+typealias FriendRequestHandler = (publicKey: String, timeDelta: Int, message: String) -> Unit
+typealias FriendMessageHandler = (publicKey: String, messageType: ToxMessageType, timeDelta: Int, message: String) -> Unit
+typealias FriendNameHandler = (publicKey: String, newName: String) -> Unit
+typealias FileRecvChunkHandler = (publicKey: String, fileNo: Int, position: Long, data: ByteArray) -> Unit
+typealias FileRecvHandler = (publicKey: String, fileNo: Int, kind: Int, size: Long, name: String) -> Unit
+typealias FriendLossyPacketHandler = (publicKey: String, data: ByteArray) -> Unit
+typealias SelfConnectionStatusHandler = (status: ConnectionStatus) -> Unit
+typealias FriendTypingHandler = (publicKey: String, isTyping: Boolean) -> Unit
+typealias FileChunkRequestHandler = (publicKey: String, fileNo: Int, position: Long, length: Int) -> Unit
 
-private fun getDate() = Date().time
-
-class ToxEventListener @Inject constructor(
-    private val contactRepository: ContactRepository,
-    private val friendRequestRepository: FriendRequestRepository,
-    private val messageRepository: MessageRepository,
-    private val userRepository: UserRepository,
-    private val notificationHelper: NotificationHelper,
-    private val tox: Tox,
-    private val fileTransferManager: FileTransferManager
-) : ToxCoreEventListener<Unit> {
-    private var contacts: List<Contact> = listOf()
+class ToxEventListener @Inject constructor() : ToxCoreEventListener<Unit> {
     var contactMapping: List<Pair<PublicKey, Int>> = listOf()
 
-    init {
-        contactRepository.getAll().observeForever {
-            contacts = it
-        }
-    }
+    var friendLosslessPacketHandler: FriendLosslessPacketHandler = { _, _ -> }
+    var fileRecvControlHandler: FileRecvControlHandler = { _, _, _ -> }
+    var friendStatusMessageHandler: FriendStatusMessageHandler = { _, _ -> }
+    var friendReadReceiptHandler: FriendReadReceiptHandler = { _, _ -> }
+    var friendStatusHandler: FriendStatusHandler = { _, _ -> }
+    var friendConnectionStatusHandler: FriendConnectionStatusHandler = { _, _ -> }
+    var friendRequestHandler: FriendRequestHandler = { _, _, _ -> }
+    var friendMessageHandler: FriendMessageHandler = { _, _, _, _ -> }
+    var friendNameHandler: FriendNameHandler = { _, _ -> }
+    var fileRecvChunkHandler: FileRecvChunkHandler = { _, _, _, _ -> }
+    var fileRecvHandler: FileRecvHandler = { _, _, _, _, _ -> }
+    var friendLossyPacketHandler: FriendLossyPacketHandler = { _, _ -> }
+    var selfConnectionStatusHandler: SelfConnectionStatusHandler = { _ -> }
+    var friendTypingHandler: FriendTypingHandler = { _, _ -> }
+    var fileChunkRequestHandler: FileChunkRequestHandler = { _, _, _, _ -> }
 
-    private fun publicKeyByFriendNumber(friendNumber: Int) =
-        contactMapping.find { it.second == friendNumber }!!.first.string()
+    private fun keyFor(friendNo: Int) =
+        contactMapping.find { it.second == friendNo }!!.first.string()
 
-    private fun contactByFriendNumber(friendNumber: Int): Contact {
-        val publicKey = publicKeyByFriendNumber(friendNumber)
-        return contacts.find { it.publicKey == publicKey }!!
-    }
+    override fun friendLosslessPacket(friendNo: Int, data: ByteArray, s: Unit?) =
+        friendLosslessPacketHandler(keyFor(friendNo), data)
 
+    override fun fileRecvControl(friendNo: Int, fileNo: Int, control: ToxFileControl, s: Unit?) =
+        fileRecvControlHandler(keyFor(friendNo), fileNo, control)
 
-    override fun friendLosslessPacket(friendNumber: Int, data: ByteArray, state: Unit?) {
-        Log.e(TAG, "friendLosslessPacket")
-    }
+    override fun friendStatusMessage(friendNo: Int, message: ByteArray, s: Unit?) =
+        friendStatusMessageHandler(keyFor(friendNo), String(message))
 
-    override fun fileRecvControl(friendNumber: Int, fileNumber: Int, control: ToxFileControl, state: Unit?) {
-        Log.e(TAG, "fileRecvControl")
-    }
+    override fun friendReadReceipt(friendNo: Int, messageId: Int, s: Unit?): Unit =
+        friendReadReceiptHandler(keyFor(friendNo), messageId)
 
-    override fun friendStatusMessage(friendNumber: Int, message: ByteArray, state: Unit?) =
-        contactRepository.setStatusMessage(publicKeyByFriendNumber(friendNumber), String(message))
+    override fun friendStatus(friendNo: Int, status: ToxUserStatus, s: Unit?) =
+        friendStatusHandler(keyFor(friendNo), status.toUserStatus())
 
-    override fun friendReadReceipt(friendNumber: Int, messageId: Int, state: Unit?): Unit =
-        contactByFriendNumber(friendNumber).let {
-            messageRepository.setReceipt(it.publicKey, messageId, getDate())
-        }
+    override fun friendConnectionStatus(friendNo: Int, status: ToxConnection, s: Unit?) =
+        friendConnectionStatusHandler(keyFor(friendNo), status.toConnectionStatus())
 
-    override fun friendStatus(friendNumber: Int, toxStatus: ToxUserStatus, state: Unit?) =
-        contactRepository.setUserStatus(publicKeyByFriendNumber(friendNumber), toxStatus.toUserStatus())
-
-    override fun friendConnectionStatus(friendNumber: Int, toxConnectionStatus: ToxConnection, state: Unit?) =
-        contactRepository.setConnectionStatus(
-            publicKeyByFriendNumber(friendNumber),
-            toxConnectionStatus.toConnectionStatus()
-        )
-
-    override fun friendRequest(publicKey: ByteArray, timeDelta: Int, message: ByteArray, state: Unit?) {
-        FriendRequest(publicKey.bytesToHex(), String(message)).also {
-            friendRequestRepository.add(it)
-            notificationHelper.showFriendRequestNotification(it)
-        }
-    }
+    override fun friendRequest(publicKey: ByteArray, timeDelta: Int, message: ByteArray, s: Unit?) =
+        friendRequestHandler(publicKey.bytesToHex(), timeDelta, String(message))
 
     override fun friendMessage(
-        friendNumber: Int,
-        messageType: ToxMessageType,
+        friendNo: Int,
+        type: ToxMessageType,
         timeDelta: Int,
         message: ByteArray,
-        state: Unit?
-    ) = contactByFriendNumber(friendNumber).let {
-        contactRepository.setLastMessage(it.publicKey, getDate())
-        messageRepository.add(Message(it.publicKey, String(message), Sender.Received, Int.MIN_VALUE, getDate()))
-        notificationHelper.showMessageNotification(it, String(message))
-    }
+        s: Unit?
+    ) = friendMessageHandler(keyFor(friendNo), type, timeDelta, String(message))
 
-    override fun friendName(friendNumber: Int, newName: ByteArray, state: Unit?) =
-        contactRepository.setName(publicKeyByFriendNumber(friendNumber), String(newName))
+    override fun friendName(friendNo: Int, newName: ByteArray, s: Unit?) =
+        friendNameHandler(keyFor(friendNo), String(newName))
 
-    override fun fileRecvChunk(friendNumber: Int, fileNumber: Int, position: Long, data: ByteArray, state: Unit?) =
-        fileTransferManager.addDataToTransfer(publicKeyByFriendNumber(friendNumber), fileNumber, position, data)
+    override fun fileRecvChunk(
+        friendNo: Int,
+        fileNo: Int,
+        position: Long,
+        data: ByteArray,
+        s: Unit?
+    ) = fileRecvChunkHandler(keyFor(friendNo), fileNo, position, data)
 
     override fun fileRecv(
-        friendNumber: Int,
-        fileNumber: Int,
+        friendNo: Int,
+        fileNo: Int,
         kind: Int,
         fileSize: Long,
         filename: ByteArray,
-        state: Unit?
-    ) = fileTransferManager.add(
-        FileTransfer(
-            publicKeyByFriendNumber(friendNumber),
-            fileNumber,
-            kind,
-            fileSize,
-            if (kind == FileKind.Avatar.ordinal) publicKeyByFriendNumber(friendNumber) else String(filename),
-            outgoing = false
-        )
-    )
+        s: Unit?
+    ) = fileRecvHandler(keyFor(friendNo), fileNo, kind, fileSize, String(filename))
 
-    override fun friendLossyPacket(friendNumber: Int, data: ByteArray, state: Unit?) {
-        Log.e(TAG, "friendLossyPacket")
-    }
+    override fun friendLossyPacket(friendNo: Int, data: ByteArray, s: Unit?) =
+        friendLossyPacketHandler(keyFor(friendNo), data)
 
-    override fun selfConnectionStatus(connectionStatus: ToxConnection, state: Unit?) =
-        userRepository.updateConnection(tox.publicKey.string(), connectionStatus.toConnectionStatus())
+    override fun selfConnectionStatus(connectionStatus: ToxConnection, s: Unit?) =
+        selfConnectionStatusHandler(connectionStatus.toConnectionStatus())
 
-    override fun friendTyping(friendNumber: Int, isTyping: Boolean, state: Unit?) =
-        contactRepository.setTyping(publicKeyByFriendNumber(friendNumber), isTyping)
+    override fun friendTyping(friendNo: Int, isTyping: Boolean, s: Unit?) =
+        friendTypingHandler(keyFor(friendNo), isTyping)
 
-    override fun fileChunkRequest(friendNumber: Int, fileNumber: Int, position: Long, length: Int, state: Unit?) {
-        Log.e(TAG, "fileChunkRequest")
-    }
+    override fun fileChunkRequest(
+        friendNo: Int,
+        fileNo: Int,
+        position: Long,
+        length: Int,
+        s: Unit?
+    ) = fileChunkRequestHandler(keyFor(friendNo), fileNo, position, length)
 }

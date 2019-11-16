@@ -14,11 +14,13 @@ private const val TAG = "ToxStarter"
 class ToxStarter @Inject constructor(
     private val saveManager: SaveManager,
     private val userManager: UserManager,
+    private val listenerCallbacks: EventListenerCallbacks,
     private val tox: Tox,
     private val eventListener: ToxEventListener,
     private val context: Context
 ) {
     fun startTox(save: ByteArray? = null): Boolean = try {
+        listenerCallbacks.setUp(eventListener)
         tox.start(SaveOptions(save), eventListener)
         startService()
         true
