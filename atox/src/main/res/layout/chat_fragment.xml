@@ -1,46 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <android.widget.Toolbar
-            android:id="@+id/toolbar"
+    <android.widget.Toolbar android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="?attr/homeAsUpIndicator">
         <include layout="@layout/profile_image_layout"/>
-        <LinearLayout
-                android:id="@+id/contactHeader"
+
+        <LinearLayout android:id="@+id/contactHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:orientation="vertical">
-            <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
+                android:paddingEnd="10dp">
+            <TextView android:id="@+id/title"
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-                    tools:text="Subject name here"/>
-            <TextView
-                    android:id="@+id/subtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
+                    tools:text="Subject name here"/>
+
+            <TextView android:id="@+id/subtitle"
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
                     tools:text="clever subtitle"/>
         </LinearLayout>
     </android.widget.Toolbar>
-    <ListView
-            android:id="@+id/messages"
+
+    <ListView android:id="@+id/messages"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
@@ -49,38 +46,38 @@
             android:dividerHeight="2dp"
             android:stackFromBottom="true"
             android:transcriptMode="normal"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/outgoingMessage"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintBottom_toTopOf="@+id/outgoingMessage"/>
-    <EditText
-            android:id="@+id/outgoingMessage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+
+    <EditText android:id="@+id/outgoingMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:maxHeight="256dp"
             android:hint="@string/message"
-            android:inputType="textMultiLine|textCapSentences"
             android:importantForAutofill="no"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/send"
+            android:inputType="textMultiLine|textCapSentences"
+            android:maxHeight="256dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/send"
             app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             tools:targetApi="26"/>
-    <ImageButton
-            android:id="@+id/send"
+
+    <ImageButton android:id="@+id/send"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginEnd="8dp"
-            android:contentDescription="@string/send"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/send"
             android:tint="@drawable/enabled_selector"
-            app:srcCompat="@drawable/send"
-            app:layout_constraintStart_toEndOf="@+id/outgoingMessage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/outgoingMessage"
             app:layout_constraintBottom_toBottomOf="@+id/outgoingMessage"
-            app:layout_constraintHorizontal_bias="0.5"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/outgoingMessage"
+            app:layout_constraintTop_toTopOf="@+id/outgoingMessage"
+            app:srcCompat="@drawable/send"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

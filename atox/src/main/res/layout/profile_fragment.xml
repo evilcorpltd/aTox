@@ -1,61 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <android.widget.Toolbar
-            android:id="@+id/toolbar"
+    <android.widget.Toolbar android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:title="@string/app_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:background="@color/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
-    <TextView
-            android:id="@+id/profileCreationLabel"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:title="@string/app_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView android:id="@+id/profileCreationLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/create_a_tox_profile"
             android:textSize="25sp"
-            android:gravity="center"
             app:layout_constraintBottom_toTopOf="@id/username"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"/>
-    <EditText
-            android:id="@+id/username"
+
+    <EditText android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="username"
             android:hint="@string/name"
             android:inputType="text"
             android:maxLines="1"
-            app:layout_constraintTop_toBottomOf="@id/profileCreationLabel"
             app:layout_constraintBottom_toTopOf="@id/password"
+            app:layout_constraintTop_toBottomOf="@id/profileCreationLabel"
             tools:targetApi="26"/>
+
     <!-- TODO(robinlinden): Re-enable once we do something with the password. -->
-    <EditText
-            android:visibility="gone"
-            android:id="@+id/password"
+    <EditText android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="password"
             android:hint="@string/password_optional"
             android:inputType="textPassword"
             android:maxLines="1"
-            app:layout_constraintTop_toBottomOf="@id/username"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/btnCreate"
+            app:layout_constraintTop_toBottomOf="@id/username"
             tools:targetApi="26"/>
-    <Button
-            android:id="@+id/btnCreate"
+
+    <Button android:id="@+id/btnCreate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/create"
-            app:layout_constraintTop_toBottomOf="@+id/password"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

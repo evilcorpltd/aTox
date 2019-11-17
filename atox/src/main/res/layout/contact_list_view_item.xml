@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/contactListItem"
@@ -8,41 +7,40 @@
         android:layout_height="wrap_content"
         android:padding="10dp">
     <include layout="@layout/profile_image_layout"/>
-    <LinearLayout
-            android:id="@+id/topLine"
+
+    <LinearLayout android:id="@+id/topLine"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:orientation="horizontal"
             android:weightSum="1"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@id/imageContainer"
-            app:layout_constraintRight_toRightOf="parent">
-        <TextView
-                android:id="@+id/name"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        <TextView android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
                 android:layout_weight=".7"
+                android:gravity="start"
                 android:textStyle="bold"
                 tools:text="name goes here"/>
-        <TextView
-                android:id="@+id/lastMessage"
+
+        <TextView android:id="@+id/lastMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="end"
                 android:layout_weight=".3"
+                android:gravity="end"
                 tools:text="28 May 2019 11:49"/>
     </LinearLayout>
-    <TextView
-            android:id="@+id/publicKey"
+
+    <TextView android:id="@+id/publicKey"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:singleLine="true"
             android:ellipsize="end"
-            app:layout_constraintTop_toBottomOf="@id/topLine"
+            android:singleLine="true"
             app:layout_constraintLeft_toRightOf="@id/imageContainer"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topLine"
             tools:text="PUBLIC KEY GOES HERE AND GOES ON AND ON AND ON AND ON"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

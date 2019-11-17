@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/nav_graph"
         app:startDestination="@id/contactListFragment">
-    <fragment
-            android:id="@+id/profileFragment"
+    <fragment android:id="@+id/profileFragment"
             android:name="ltd.evilcorp.atox.ui.profile.ProfileFragment"
             android:label="ProfileFragment"
             tools:layout="@layout/profile_fragment"/>
-    <fragment
-            android:id="@+id/contactListFragment"
+
+    <fragment android:id="@+id/contactListFragment"
             android:name="ltd.evilcorp.atox.ui.contactlist.ContactListFragment"
             android:label="ContactListFragment"
             tools:layout="@layout/contact_list_fragment">
-        <action
-                android:id="@+id/action_contactListFragment_to_chatFragment"
+        <action android:id="@+id/action_contactListFragment_to_chatFragment"
                 app:destination="@id/chatFragment"
                 app:enterAnim="@anim/slide_in_right"
                 app:exitAnim="@anim/fade_out"
                 app:popEnterAnim="@anim/fade_in"
                 app:popExitAnim="@anim/slide_out_right"/>
-        <action
-                android:id="@+id/action_contactListFragment_to_addContactFragment"
+
+        <action android:id="@+id/action_contactListFragment_to_addContactFragment"
                 app:destination="@id/addContactFragment"
                 app:enterAnim="@anim/slide_in_right"
                 app:exitAnim="@anim/fade_out"
                 app:popEnterAnim="@anim/fade_in"
                 app:popExitAnim="@anim/slide_out_right"/>
+
         <action android:id="@+id/action_contactListFragment_to_profileFragment"
                 app:destination="@id/profileFragment"
                 app:enterAnim="@anim/fade_in"
@@ -36,32 +34,30 @@
                 app:popEnterAnim="@anim/fade_out"
                 app:popExitAnim="@anim/fade_in"/>
     </fragment>
-    <fragment
-            android:id="@+id/chatFragment"
+
+    <fragment android:id="@+id/chatFragment"
             android:name="ltd.evilcorp.atox.ui.chat.ChatFragment"
             android:label="ChatFragment"
             tools:layout="@layout/chat_fragment">
         <argument android:name="contactPublicKey" app:argType="string"/>
-        <action
-                android:id="@+id/action_chatFragment_to_contactProfileFragment"
+
+        <action android:id="@+id/action_chatFragment_to_contactProfileFragment"
                 app:destination="@id/contactProfileFragment"
                 app:enterAnim="@anim/slide_in_right"
                 app:exitAnim="@anim/fade_out"
                 app:popEnterAnim="@anim/fade_in"
                 app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
-    <fragment
-            android:id="@+id/addContactFragment"
+
+    <fragment android:id="@+id/addContactFragment"
             android:name="ltd.evilcorp.atox.ui.addcontact.AddContactFragment"
             android:label="add_contact_fragment"
             tools:layout="@layout/add_contact_fragment">
-        <deepLink
-            android:id="@+id/deepLink"
-            app:uri="tox:{toxId}"/>
+        <deepLink android:id="@+id/deepLink" app:uri="tox:{toxId}"/>
     </fragment>
-    <fragment
-        android:id="@+id/contactProfileFragment"
-        android:name="ltd.evilcorp.atox.ui.contact_profile.ContactProfileFragment"
-        android:label="contact_profile_fragment"
-        tools:layout="@layout/contact_profile_fragment" />
+
+    <fragment android:id="@+id/contactProfileFragment"
+            android:name="ltd.evilcorp.atox.ui.contact_profile.ContactProfileFragment"
+            android:label="contact_profile_fragment"
+            tools:layout="@layout/contact_profile_fragment"/>
 </navigation>

@@ -1,42 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-    <androidx.cardview.widget.CardView
-            android:id="@+id/imageContainer"
+    <androidx.cardview.widget.CardView android:id="@+id/imageContainer"
             android:layout_width="38dp"
             android:layout_height="38dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:cardCornerRadius="19dp"
-            app:cardPreventCornerOverlap="false">
-        <ImageView
-                android:id="@+id/profileImage"
+            app:cardPreventCornerOverlap="false"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        <ImageView android:id="@+id/profileImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@mipmap/ic_launcher"
-                android:contentDescription="@string/profile_photo_description"/>
+                android:contentDescription="@string/profile_photo_description"
+                android:src="@mipmap/ic_launcher"/>
     </androidx.cardview.widget.CardView>
-    <ImageView
-            android:layout_width="12dp"
+
+    <ImageView android:layout_width="12dp"
             android:layout_height="12dp"
-            android:translationZ="9dp"
-            android:src="@drawable/circle"
             android:contentDescription="@null"
+            android:src="@drawable/circle"
             android:tint="?android:attr/colorBackground"
-            app:layout_constraintRight_toRightOf="@id/imageContainer"
-            app:layout_constraintBottom_toBottomOf="@id/imageContainer"/>
-    <ImageView
-            android:id="@+id/statusIndicator"
+            android:translationZ="9dp"
+            app:layout_constraintBottom_toBottomOf="@id/imageContainer"
+            app:layout_constraintRight_toRightOf="@id/imageContainer"/>
+
+    <ImageView android:id="@+id/statusIndicator"
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_margin="1dp"
-            android:translationZ="10dp"
-            android:src="@drawable/circle"
             android:contentDescription="@string/status_indicator"
+            android:src="@drawable/circle"
             android:tint="@color/statusOffline"
-            app:layout_constraintRight_toRightOf="@id/imageContainer"
-            app:layout_constraintBottom_toBottomOf="@id/imageContainer"/>
+            android:translationZ="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/imageContainer"
+            app:layout_constraintRight_toRightOf="@id/imageContainer"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

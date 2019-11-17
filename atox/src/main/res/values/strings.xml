@@ -2,7 +2,8 @@
     <string name="accept">Accept</string>
     <string name="add">Add</string>
     <string name="add_contact">Add contact</string>
-    <string name="add_contact_message_default">Talk to me on aTox like a reasonable human being.</string>
+    <string name="add_contact_message_default">Talk to me on aTox like a reasonable human being.
+    </string>
     <string name="add_contact_message_error_empty">Message can\'t be empty</string>
     <string name="app_name" translatable="false">aTox</string>
     <string name="cancel">Cancel</string>
@@ -19,7 +20,9 @@
     <string name="messages_incoming">Incoming messages</string>
     <string name="name">Name</string>
     <string name="name_default">aTox user</string>
-    <string name="no_contacts_call_to_action">What are you waiting for? Add a contact to get started!</string>
+    <string name="no_contacts_call_to_action">What are you waiting for? Add a contact to get
+        started!
+    </string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="password_optional">Password (optional)</string>
@@ -40,15 +43,15 @@
     <string name="tox_id_share">Share Tox ID</string>
     <string name="update">Update</string>
     <string name="quit">Quit</string>
-
     <!-- Friend request notification -->
     <string name="friend_requests">Friend requests</string>
     <string name="friend_request_from">Friend request from %1$s</string>
-
     <!-- Chat history clearing -->
     <string name="clear_history">Clear history</string>
     <string name="clear_history_cleared">History cleared</string>
-    <string name="clear_history_confirm">Are you sure you want to clear your chat history with %1$s?</string>
+    <string name="clear_history_confirm">Are you sure you want to clear your chat history with
+        %1$s?
+    </string>
     <string name="import_tox_save">Import Tox save</string>
     <string name="import_tox_save_failed">Import failed for some reason</string>
     <string name="export_tox_save">Export Tox save</string>

@@ -5,69 +5,67 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".ui.contact_profile.ContactProfileFragment">
-    <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
+    <com.google.android.material.appbar.AppBarLayout android:layout_width="match_parent"
             android:layout_height="128dp">
-        <android.widget.Toolbar
-                android:id="@+id/toolbar"
+        <android.widget.Toolbar android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-        <LinearLayout
-                android:layout_width="wrap_content"
+
+        <LinearLayout android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp">
             <include layout="@layout/profile_image_layout"/>
-            <TextView
-                    android:id="@+id/headerMainText"
+
+            <TextView android:id="@+id/headerMainText"
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"
                     android:textColor="@android:color/white"
-                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                     tools:text="Contact name or something here"/>
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
-    <TextView
-            android:text="@string/info"
-            android:layout_width="wrap_content"
+
+    <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/info"
             android:textStyle="bold"/>
-    <TextView
-            android:id="@+id/contactName"
+
+    <TextView android:id="@+id/contactName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:textIsSelectable="true"
             tools:text="Contact name"/>
-    <TextView
-            android:id="@+id/contactStatusMessage"
+
+    <TextView android:id="@+id/contactStatusMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:textIsSelectable="true"
             tools:text="Contact status message"/>
-    <View
-            android:layout_width="match_parent"
+
+    <View android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_margin="8dp"
             android:background="@color/colorPrimary"/>
-    <TextView
-            android:id="@+id/contactPublicKey"
+
+    <TextView android:id="@+id/contactPublicKey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:textIsSelectable="true"
             tools:text="0000000000000000000000000000000000000000000000000000000000000000000000000000"/>
 </LinearLayout>

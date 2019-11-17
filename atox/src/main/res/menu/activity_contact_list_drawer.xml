@@ -1,30 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-        <item
-                android:id="@+id/share_tox_id"
-                android:title="@string/tox_id_share"/>
-        <item
-                android:id="@+id/copy_tox_id"
-                android:title="@string/tox_id_copy"/>
-        <item
-                android:id="@+id/add_contact"
-                android:title="@string/add_contact"/>
+        <item android:id="@+id/share_tox_id" android:title="@string/tox_id_share"/>
+        <item android:id="@+id/copy_tox_id" android:title="@string/tox_id_copy"/>
+        <item android:id="@+id/add_contact" android:title="@string/add_contact"/>
         <!-- TODO(robinlinden): Re-enable once we have a settings menu. -->
-        <item
-                android:id="@+id/settings"
+        <item android:id="@+id/settings"
                 android:icon="@drawable/settings"
                 android:title="@string/settings"
                 android:visible="false"/>
-        <item
-                android:id="@+id/export_tox_save"
-                android:title="@string/export_tox_save"/>
+        <item android:id="@+id/export_tox_save" android:title="@string/export_tox_save"/>
     </group>
-    <group
-            android:id="@+id/quit_section"
-            android:checkableBehavior="single">
-        <item
-                android:id="@+id/quit_tox"
-                android:title="@string/quit"/>
+    <group android:id="@+id/quit_section" android:checkableBehavior="single">
+        <item android:id="@+id/quit_tox" android:title="@string/quit"/>
     </group>
 </menu>
