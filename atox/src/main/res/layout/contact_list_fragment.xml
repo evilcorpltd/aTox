@@ -27,23 +27,10 @@
                     android:layout_margin="10dp"
                     android:text="@string/no_contacts_call_to_action"
                     app:layout_constraintTop_toTopOf="parent"/>
-
-            <ListView android:id="@+id/friendRequests"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-            <View android:id="@+id/friendRequestDivider"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@android:color/darker_gray"
-                    android:visibility="gone"
-                    app:layout_constraintTop_toBottomOf="@id/friendRequests"/>
-
             <ListView android:id="@+id/contactList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/friendRequests"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:listitem="@layout/contact_list_view_item"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

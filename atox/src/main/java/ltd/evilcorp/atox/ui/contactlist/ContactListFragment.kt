@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.nav_header_contact_list.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.tox.PublicKey
 import ltd.evilcorp.atox.ui.ContactAdapter
-import ltd.evilcorp.atox.ui.FriendRequestAdapter
+import ltd.evilcorp.atox.ui.ContactListItemType
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
@@ -100,23 +100,15 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
             }
         }
 
-        val friendRequestAdapter = FriendRequestAdapter(inflater)
-        friendRequests.adapter = friendRequestAdapter
-        registerForContextMenu(friendRequests)
-        viewModel.friendRequests.observe(viewLifecycleOwner, Observer { friendRequests ->
-            friendRequestDivider.visibility = if (friendRequests.isNotEmpty()) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
-
-            friendRequestAdapter.friendRequests = friendRequests
-            friendRequestAdapter.notifyDataSetChanged()
-        })
-
         val contactAdapter = ContactAdapter(inflater, resources)
         contactList.adapter = contactAdapter
         registerForContextMenu(contactList)
+
+        viewModel.friendRequests.observe(viewLifecycleOwner, Observer { friendRequests ->
+            contactAdapter.friendRequests = friendRequests
+            contactAdapter.notifyDataSetChanged()
+        })
+
         viewModel.contacts.observe(viewLifecycleOwner, Observer { contacts ->
             contactAdapter.contacts = contacts.sortedByDescending { contact ->
                 when {
@@ -129,6 +121,7 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
 
             noContactsCallToAction.visibility = if (contacts.isEmpty()) View.VISIBLE else View.GONE
         })
+
         contactList.setOnItemClickListener { _, _, position, _ ->
             openChat(contactList.getItemAtPosition(position) as Contact)
         }
@@ -162,14 +155,14 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         val inflater: MenuInflater = requireActivity().menuInflater
         val info = menuInfo as AdapterView.AdapterContextMenuInfo
 
-        when (v.id) {
-            R.id.contactList -> {
-                menu.setHeaderTitle(info.targetView.name.text)
-                inflater.inflate(R.menu.contact_list_context_menu, menu)
-            }
-            R.id.friendRequests -> {
+        when (contactList.adapter.getItemViewType(info.position)) {
+            ContactListItemType.FriendRequest.ordinal -> {
                 menu.setHeaderTitle(info.targetView.publicKey.text)
                 inflater.inflate(R.menu.friend_request_context_menu, menu)
+            }
+            ContactListItemType.Contact.ordinal -> {
+                menu.setHeaderTitle(info.targetView.name.text)
+                inflater.inflate(R.menu.contact_list_context_menu, menu)
             }
         }
     }
@@ -179,7 +172,7 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
 
         return when (info.targetView.id) {
             R.id.friendRequestItem -> {
-                val friendRequest = friendRequests.adapter.getItem(info.position) as FriendRequest
+                val friendRequest = contactList.adapter.getItem(info.position) as FriendRequest
                 when (item.itemId) {
                     R.id.accept -> {
                         viewModel.acceptFriendRequest(friendRequest)
