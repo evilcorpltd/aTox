@@ -213,9 +213,7 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
                 Toast.makeText(requireContext(), getText(R.string.tox_id_copied), Toast.LENGTH_SHORT).show()
             }
             R.id.add_contact -> findNavController().navigate(R.id.action_contactListFragment_to_addContactFragment)
-            R.id.settings -> {
-                // TODO(robinlinden): Settings activity
-            }
+            R.id.settings -> findNavController().navigate(R.id.action_contactListFragment_to_settingsFragment)
             R.id.export_tox_save -> {
                 Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
                     addCategory(Intent.CATEGORY_OPENABLE)

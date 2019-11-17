@@ -6,11 +6,7 @@
         <item android:id="@+id/add_contact" android:title="@string/add_contact"/>
     </group>
     <group android:id="@+id/settings_section" android:checkableBehavior="single">
-        <!-- TODO(robinlinden): Re-enable once we have a settings menu. -->
-        <item android:id="@+id/settings"
-                android:icon="@drawable/settings"
-                android:title="@string/settings"
-                android:visible="false"/>
+        <item android:id="@+id/settings" android:title="@string/settings"/>
         <item android:id="@+id/export_tox_save" android:title="@string/export_tox_save"/>
     </group>
     <group android:id="@+id/quit_section" android:checkableBehavior="single">

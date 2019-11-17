@@ -33,6 +33,13 @@
                 app:exitAnim="@anim/fade_out"
                 app:popEnterAnim="@anim/fade_out"
                 app:popExitAnim="@anim/fade_in"/>
+
+        <action android:id="@+id/action_contactListFragment_to_settingsFragment"
+                app:destination="@id/settingsFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment android:id="@+id/chatFragment"
@@ -60,4 +67,8 @@
             android:name="ltd.evilcorp.atox.ui.contact_profile.ContactProfileFragment"
             android:label="contact_profile_fragment"
             tools:layout="@layout/contact_profile_fragment"/>
+
+    <fragment android:id="@+id/settingsFragment"
+            android:name="ltd.evilcorp.atox.ui.settings.SettingsFragment"
+            android:label="SettingsFragment"/>
 </navigation>

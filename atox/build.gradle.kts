@@ -48,6 +48,8 @@ dependencies {
 
     implementation(Libraries.appcompat)
     implementation(Libraries.constraintlayout)
+    implementation(Libraries.preference)
+
     implementation(Libraries.material)
     implementation(Libraries.ktxCoroutinesCore)
     implementation(Libraries.ktxCoroutinesAndroid)
