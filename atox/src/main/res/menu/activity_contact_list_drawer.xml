@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+    <group android:id="@+id/main_section" android:checkableBehavior="single">
         <item android:id="@+id/share_tox_id" android:title="@string/tox_id_share"/>
         <item android:id="@+id/copy_tox_id" android:title="@string/tox_id_copy"/>
         <item android:id="@+id/add_contact" android:title="@string/add_contact"/>
+    </group>
+    <group android:id="@+id/settings_section" android:checkableBehavior="single">
         <!-- TODO(robinlinden): Re-enable once we have a settings menu. -->
         <item android:id="@+id/settings"
                 android:icon="@drawable/settings"
