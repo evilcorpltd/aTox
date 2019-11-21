@@ -16,7 +16,6 @@ private const val TAG = "Tox"
 @Singleton
 class Tox @Inject constructor(
     private val contactRepository: ContactRepository,
-    private val userRepository: UserRepository,
     private val saveManager: SaveManager
 ) : CoroutineScope by GlobalScope + newSingleThreadContext("Tox") {
     val toxId: ToxID by lazy { tox.getToxId() }
@@ -33,10 +32,6 @@ class Tox @Inject constructor(
         started = true
 
         tox = ToxWrapper(eventListener, saveOption)
-
-        fun loadSelf() = launch {
-            userRepository.update(User(publicKey.string(), tox.getName(), tox.getStatusMessage()))
-        }
 
         fun loadContacts() = launch {
             contactRepository.resetTransientData()
@@ -61,7 +56,6 @@ class Tox @Inject constructor(
         }
 
         save()
-        loadSelf()
         loadContacts()
         iterateForever()
     }
@@ -96,11 +90,13 @@ class Tox @Inject constructor(
         tox.stopFileTransfer(publicKey, fileNumber)
     }
 
+    fun getName() = async { tox.getName() }
     fun setName(name: String) = launch {
         tox.setName(name)
         save()
     }
 
+    fun getStatusMessage() = async { tox.getStatusMessage() }
     fun setStatusMessage(statusMessage: String) = launch {
         tox.setStatusMessage(statusMessage)
         save()
