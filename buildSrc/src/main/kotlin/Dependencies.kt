@@ -7,10 +7,10 @@ object Java {
 }
 
 private object Version {
-    const val coroutines = "1.3.2"
+    const val coroutines = "1.3.2-1.3.60"
     const val dagger = "2.25.2"
     const val lifecycle = "2.2.0-rc02"
-    const val room = "2.2.1"
+    const val room = "2.2.2"
     const val navigation = "2.2.0-rc02"
 }
 
@@ -69,7 +69,7 @@ object Libraries {
     const val scalapbRuntime = "com.trueaccord.scalapb:scalapb-runtime_2.11:0.6.7"
     const val scodecCore = "org.scodec:scodec-core_2.11:1.11.4"
 
-    const val leakcanaryAndroid = "com.squareup.leakcanary:leakcanary-android:2.0-beta-3"
+    const val leakcanaryAndroid = "com.squareup.leakcanary:leakcanary-android:2.0-beta-4"
 
     const val junit = "junit:junit:4.12"
     const val runner = "androidx.test:runner:1.2.0"
