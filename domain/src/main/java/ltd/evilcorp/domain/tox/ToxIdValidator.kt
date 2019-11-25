@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox.tox
+package ltd.evilcorp.domain.tox
 
 class ToxIdValidator {
     enum class Result {

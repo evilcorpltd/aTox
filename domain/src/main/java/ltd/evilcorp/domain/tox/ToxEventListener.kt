@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox.tox
+package ltd.evilcorp.domain.tox
 
 import im.tox.tox4j.core.callbacks.ToxCoreEventListener
 import im.tox.tox4j.core.enums.ToxConnection

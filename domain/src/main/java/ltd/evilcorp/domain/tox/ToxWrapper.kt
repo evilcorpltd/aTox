@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox.tox
+package ltd.evilcorp.domain.tox
 
 import android.util.Log
 import im.tox.tox4j.core.enums.ToxFileControl
@@ -8,7 +8,10 @@ import im.tox.tox4j.impl.jni.ToxCoreImpl
 
 private const val TAG = "ToxWrapper"
 
-class ToxWrapper(private val eventListener: ToxEventListener, options: SaveOptions) {
+class ToxWrapper(
+    private val eventListener: ToxEventListener,
+    options: SaveOptions
+) {
     private val tox: ToxCoreImpl = ToxCoreImpl(options.toToxOptions())
 
     init {
@@ -70,11 +73,11 @@ class ToxWrapper(private val eventListener: ToxEventListener, options: SaveOptio
     }
 
     fun sendMessage(publicKey: PublicKey, message: String): Int = tox.friendSendMessage(
-        contactByKey(publicKey),
-        ToxMessageType.NORMAL,
-        0,
-        message.toByteArray()
-    )
+            contactByKey(publicKey),
+            ToxMessageType.NORMAL,
+            0,
+            message.toByteArray()
+        )
 
     fun acceptFriendRequest(publicKey: PublicKey) = try {
         tox.addFriendNorequest(publicKey.bytes())

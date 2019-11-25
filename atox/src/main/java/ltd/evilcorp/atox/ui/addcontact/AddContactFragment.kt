@@ -12,9 +12,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.add_contact_fragment.view.*
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.tox.ToxID
-import ltd.evilcorp.atox.tox.ToxIdValidator
 import ltd.evilcorp.atox.vmFactory
+import ltd.evilcorp.domain.tox.ToxID
+import ltd.evilcorp.domain.tox.ToxIdValidator
 
 class AddContactFragment : Fragment() {
     private val viewModel: AddContactViewModel by viewModels { vmFactory }

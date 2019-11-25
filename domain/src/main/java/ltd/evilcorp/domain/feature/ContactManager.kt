@@ -1,13 +1,13 @@
-package ltd.evilcorp.atox.feature
+package ltd.evilcorp.domain.feature
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import ltd.evilcorp.atox.tox.PublicKey
-import ltd.evilcorp.atox.tox.Tox
-import ltd.evilcorp.atox.tox.ToxID
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.domain.tox.PublicKey
+import ltd.evilcorp.domain.tox.Tox
+import ltd.evilcorp.domain.tox.ToxID
 import javax.inject.Inject
 
 class ContactManager @Inject constructor(

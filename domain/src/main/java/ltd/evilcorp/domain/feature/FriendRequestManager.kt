@@ -1,15 +1,15 @@
-package ltd.evilcorp.atox.feature
+package ltd.evilcorp.domain.feature
 
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import ltd.evilcorp.atox.tox.PublicKey
-import ltd.evilcorp.atox.tox.Tox
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FriendRequestRepository
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
+import ltd.evilcorp.domain.tox.PublicKey
+import ltd.evilcorp.domain.tox.Tox
 import javax.inject.Inject
 
 class FriendRequestManager @Inject constructor(

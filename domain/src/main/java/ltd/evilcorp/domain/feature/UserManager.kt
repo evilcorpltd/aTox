@@ -1,12 +1,12 @@
-package ltd.evilcorp.atox.feature
+package ltd.evilcorp.domain.feature
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import ltd.evilcorp.atox.tox.PublicKey
-import ltd.evilcorp.atox.tox.Tox
 import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.User
+import ltd.evilcorp.domain.tox.PublicKey
+import ltd.evilcorp.domain.tox.Tox
 import javax.inject.Inject
 
 class UserManager @Inject constructor(

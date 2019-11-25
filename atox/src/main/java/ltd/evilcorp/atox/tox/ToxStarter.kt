@@ -6,7 +6,8 @@ import android.os.Build
 import android.util.Log
 import im.tox.tox4j.core.exceptions.ToxNewException
 import ltd.evilcorp.atox.ToxService
-import ltd.evilcorp.atox.feature.UserManager
+import ltd.evilcorp.domain.feature.UserManager
+import ltd.evilcorp.domain.tox.*
 import javax.inject.Inject
 
 private const val TAG = "ToxStarter"

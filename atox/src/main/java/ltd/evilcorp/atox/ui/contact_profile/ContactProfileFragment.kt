@@ -11,11 +11,11 @@ import kotlinx.android.synthetic.main.contact_profile_fragment.view.*
 import kotlinx.android.synthetic.main.profile_image_layout.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.requireStringArg
-import ltd.evilcorp.atox.tox.PublicKey
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.ui.colorByStatus
 import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.atox.vmFactory
+import ltd.evilcorp.domain.tox.PublicKey
 
 class ContactProfileFragment : Fragment() {
     private val viewModel: ContactProfileViewModel by viewModels { vmFactory }

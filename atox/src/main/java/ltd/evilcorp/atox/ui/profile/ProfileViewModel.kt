@@ -3,10 +3,10 @@ package ltd.evilcorp.atox.ui.profile
 import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
-import ltd.evilcorp.atox.feature.UserManager
-import ltd.evilcorp.atox.tox.PublicKey
-import ltd.evilcorp.atox.tox.Tox
 import ltd.evilcorp.atox.tox.ToxStarter
+import ltd.evilcorp.domain.feature.UserManager
+import ltd.evilcorp.domain.tox.PublicKey
+import ltd.evilcorp.domain.tox.Tox
 import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(

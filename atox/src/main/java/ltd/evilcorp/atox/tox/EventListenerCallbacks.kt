@@ -1,12 +1,14 @@
 package ltd.evilcorp.atox.tox
 
-import ltd.evilcorp.atox.feature.FileTransferManager
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FriendRequestRepository
 import ltd.evilcorp.core.repository.MessageRepository
 import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.*
+import ltd.evilcorp.domain.feature.FileTransferManager
+import ltd.evilcorp.domain.tox.Tox
+import ltd.evilcorp.domain.tox.ToxEventListener
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton

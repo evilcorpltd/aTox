@@ -2,12 +2,12 @@ package ltd.evilcorp.atox.ui.chat
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import ltd.evilcorp.atox.feature.ChatManager
-import ltd.evilcorp.atox.feature.ContactManager
-import ltd.evilcorp.atox.tox.PublicKey
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.Message
+import ltd.evilcorp.domain.feature.ChatManager
+import ltd.evilcorp.domain.feature.ContactManager
+import ltd.evilcorp.domain.tox.PublicKey
 import javax.inject.Inject
 
 class ChatViewModel @Inject constructor(

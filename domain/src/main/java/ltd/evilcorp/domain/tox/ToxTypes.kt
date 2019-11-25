@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox.tox
+package ltd.evilcorp.domain.tox
 
 inline class PublicKey(private val value: String) {
     fun bytes() = value.hexToBytes()

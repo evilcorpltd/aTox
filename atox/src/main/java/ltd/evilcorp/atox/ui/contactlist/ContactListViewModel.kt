@@ -9,14 +9,14 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.ToxService
-import ltd.evilcorp.atox.feature.ContactManager
-import ltd.evilcorp.atox.feature.FriendRequestManager
-import ltd.evilcorp.atox.feature.UserManager
-import ltd.evilcorp.atox.tox.PublicKey
-import ltd.evilcorp.atox.tox.Tox
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.User
+import ltd.evilcorp.domain.feature.ContactManager
+import ltd.evilcorp.domain.feature.FriendRequestManager
+import ltd.evilcorp.domain.feature.UserManager
+import ltd.evilcorp.domain.tox.PublicKey
+import ltd.evilcorp.domain.tox.Tox
 import java.io.FileOutputStream
 import javax.inject.Inject
 

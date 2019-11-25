@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox.tox
+package ltd.evilcorp.domain.tox
 
 import android.content.Context
 import android.util.Log

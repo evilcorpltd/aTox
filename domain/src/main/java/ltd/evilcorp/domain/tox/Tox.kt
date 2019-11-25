@@ -1,12 +1,10 @@
-package ltd.evilcorp.atox.tox
+package ltd.evilcorp.domain.tox
 
 import android.util.Log
 import im.tox.tox4j.core.exceptions.ToxBootstrapException
 import kotlinx.coroutines.*
 import ltd.evilcorp.core.repository.ContactRepository
-import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.Contact
-import ltd.evilcorp.core.vo.User
 import javax.inject.Inject
 import javax.inject.Singleton
 

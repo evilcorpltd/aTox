@@ -1,13 +1,13 @@
-package ltd.evilcorp.atox
+package ltd.evilcorp.domain
 
 import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxUserStatus
-import ltd.evilcorp.atox.tox.bytesToHex
-import ltd.evilcorp.atox.tox.hexToBytes
-import ltd.evilcorp.atox.tox.toConnectionStatus
-import ltd.evilcorp.atox.tox.toUserStatus
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.UserStatus
+import ltd.evilcorp.domain.tox.bytesToHex
+import ltd.evilcorp.domain.tox.hexToBytes
+import ltd.evilcorp.domain.tox.toConnectionStatus
+import ltd.evilcorp.domain.tox.toUserStatus
 import org.junit.Assert.*
 import org.junit.Test
 import java.util.*
