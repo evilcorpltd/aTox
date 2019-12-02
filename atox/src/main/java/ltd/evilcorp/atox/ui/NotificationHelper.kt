@@ -13,6 +13,7 @@ import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
+import ltd.evilcorp.domain.tox.PublicKey
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -28,15 +29,6 @@ class NotificationHelper @Inject constructor(
     init {
         createNotificationChannel()
     }
-
-    var activeChat = ""
-        set(value) {
-            if (value.isNotEmpty())
-                dismissNotifications(value)
-            field = value
-        }
-
-    private fun dismissNotifications(value: String) = notifier.cancel(value.hashCode())
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
@@ -60,9 +52,9 @@ class NotificationHelper @Inject constructor(
         notifier.createNotificationChannels(listOf(messageChannel, friendRequestChannel))
     }
 
-    fun showMessageNotification(contact: Contact, message: String) {
-        if (contact.publicKey == activeChat) return
+    fun dismissNotifications(publicKey: PublicKey) = notifier.cancel(publicKey.string().hashCode())
 
+    fun showMessageNotification(contact: Contact, message: String) {
         val notificationBuilder = NotificationCompat.Builder(context, MESSAGE)
             .setSmallIcon(android.R.drawable.sym_action_chat)
             .setContentTitle(contact.name)

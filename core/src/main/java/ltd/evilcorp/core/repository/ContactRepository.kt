@@ -27,4 +27,5 @@ class ContactRepository @Inject internal constructor(
     fun setConnectionStatus(publicKey: String, status: ConnectionStatus) = dao.setConnectionStatus(publicKey, status)
     fun setTyping(publicKey: String, typing: Boolean) = dao.setTyping(publicKey, typing)
     fun setAvatarUri(publicKey: String, uri: String) = dao.setAvatarUri(publicKey, uri)
+    fun setHasUnreadMessages(publicKey: String, anyUnread: Boolean) = dao.setHasUnreadMessages(publicKey, anyUnread)
 }

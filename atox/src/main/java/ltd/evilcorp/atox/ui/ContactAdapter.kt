@@ -90,6 +90,11 @@ class ContactAdapter(
                     }
                     vh.status.setColorFilter(colorByStatus(resources, this))
                     setAvatarFromContact(vh.image, this)
+                    vh.unreadIndicator.visibility = if (hasUnreadMessages) {
+                        View.VISIBLE
+                    } else {
+                        View.GONE
+                    }
                 }
 
                 view
@@ -107,5 +112,6 @@ class ContactAdapter(
         val lastMessage: TextView = row.lastMessage
         val status: ImageView = row.statusIndicator
         val image: ImageView = row.profileImage
+        val unreadIndicator: ImageView = row.unreadIndicator
     }
 }

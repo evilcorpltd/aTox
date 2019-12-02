@@ -6,6 +6,7 @@ import ltd.evilcorp.core.repository.FriendRequestRepository
 import ltd.evilcorp.core.repository.MessageRepository
 import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.*
+import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.FileTransferManager
 import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxEventListener
@@ -21,6 +22,7 @@ class EventListenerCallbacks @Inject constructor(
     private val friendRequestRepository: FriendRequestRepository,
     private val messageRepository: MessageRepository,
     private val userRepository: UserRepository,
+    private val chatManager: ChatManager,
     private val fileTransferManager: FileTransferManager,
     private val notificationHelper: NotificationHelper,
     private val tox: Tox
@@ -60,13 +62,17 @@ class EventListenerCallbacks @Inject constructor(
             }
         }
 
-        friendMessageHandler = { publicKey, _, _, message ->
+        friendMessageHandler = { publicKey, _, _, msg ->
             val timestamp = getDate()
             contactRepository.setLastMessage(publicKey, timestamp)
             messageRepository.add(
-                Message(publicKey, message, Sender.Received, Int.MIN_VALUE, timestamp)
+                Message(publicKey, msg, Sender.Received, Int.MIN_VALUE, timestamp)
             )
-            notificationHelper.showMessageNotification(contactByPublicKey(publicKey), message)
+
+            if (chatManager.activeChat != publicKey) {
+                notificationHelper.showMessageNotification(contactByPublicKey(publicKey), msg)
+                contactRepository.setHasUnreadMessages(publicKey, true)
+            }
         }
 
         friendNameHandler = { publicKey, newName ->

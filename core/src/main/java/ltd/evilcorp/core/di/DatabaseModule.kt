@@ -14,7 +14,7 @@ class DatabaseModule {
     @Provides
     fun provideDatabase(application: Application): Database =
         Room.databaseBuilder(application, Database::class.java, "core_db")
-            .fallbackToDestructiveMigration() // TODO(robinlinden): Delete this.
+            .addMigrations(MIGRATION_1_2)
             .build()
 
     @Singleton

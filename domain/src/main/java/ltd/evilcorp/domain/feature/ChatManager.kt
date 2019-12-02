@@ -11,12 +11,22 @@ import ltd.evilcorp.domain.tox.MAX_MESSAGE_LENGTH
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class ChatManager @Inject constructor(
     private val contactRepository: ContactRepository,
     private val messageRepository: MessageRepository,
     private val tox: Tox
 ) : CoroutineScope by GlobalScope {
+    var activeChat = ""
+        set(value) {
+            field = value
+            if (value.isNotEmpty()) launch {
+                contactRepository.setHasUnreadMessages(value, false)
+            }
+        }
+
     fun messagesFor(publicKey: PublicKey) = messageRepository.get(publicKey.string())
 
     fun sendMessage(publicKey: PublicKey, message: String) = launch {

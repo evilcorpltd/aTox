@@ -8,30 +8,19 @@
         android:padding="10dp">
     <include layout="@layout/profile_image_layout"/>
 
-    <LinearLayout android:id="@+id/topLine"
-            android:layout_width="0dp"
+    <TextView android:id="@+id/name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:orientation="horizontal"
-            android:weightSum="1"
-            app:layout_constraintLeft_toRightOf="@id/imageContainer"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@id/publicKey"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="name goes here"/>
+    <TextView android:id="@+id/lastMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-        <TextView android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight=".7"
-                android:gravity="start"
-                android:textStyle="bold"
-                tools:text="name goes here"/>
-
-        <TextView android:id="@+id/lastMessage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight=".3"
-                android:gravity="end"
-                tools:text="28 May 2019 11:49"/>
-    </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="28 May 2019 11:49"/>
 
     <TextView android:id="@+id/publicKey"
             android:layout_width="0dp"
@@ -40,7 +29,18 @@
             android:ellipsize="end"
             android:singleLine="true"
             app:layout_constraintLeft_toRightOf="@id/imageContainer"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/topLine"
+            app:layout_constraintRight_toLeftOf="@id/unreadIndicator"
+            app:layout_constraintTop_toBottomOf="@id/name"
             tools:text="PUBLIC KEY GOES HERE AND GOES ON AND ON AND ON AND ON"/>
+    <ImageView android:id="@+id/unreadIndicator"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:contentDescription="@null"
+            android:src="@drawable/circle"
+            android:tint="@color/colorPrimary"
+            android:translationZ="9dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

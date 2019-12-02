@@ -50,4 +50,7 @@ internal interface ContactDao {
 
     @Query("UPDATE contacts SET avatar_uri = :uri WHERE public_key = :publicKey")
     fun setAvatarUri(publicKey: String, uri: String)
+
+    @Query("UPDATE contacts SET has_unread_messages = :anyUnread WHERE public_key = :publicKey")
+    fun setHasUnreadMessages(publicKey: String, anyUnread: Boolean)
 }

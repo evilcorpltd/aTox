@@ -42,5 +42,8 @@ data class Contact(
     var typing: Boolean = false,
 
     @ColumnInfo(name = "avatar_uri")
-    var avatarUri: String = ""
+    var avatarUri: String = "",
+
+    @ColumnInfo(name = "has_unread_messages")
+    var hasUnreadMessages: Boolean = false
 )
