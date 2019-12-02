@@ -1,6 +1,6 @@
 import org.gradle.api.JavaVersion
 
-const val kotlinVersion = "1.3.60"
+const val kotlinVersion = "1.3.61"
 
 object Java {
     val version = JavaVersion.VERSION_1_8
@@ -29,7 +29,7 @@ object BuildPlugin {
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
     const val download = "de.undercouch.download"
-    const val downloadVersion = "4.0.1"
+    const val downloadVersion = "4.0.2"
 }
 
 object AndroidSdk {
@@ -69,7 +69,7 @@ object Libraries {
     const val scalapbRuntime = "com.trueaccord.scalapb:scalapb-runtime_2.11:0.6.7"
     const val scodecCore = "org.scodec:scodec-core_2.11:1.11.4"
 
-    const val leakcanaryAndroid = "com.squareup.leakcanary:leakcanary-android:2.0-beta-4"
+    const val leakcanaryAndroid = "com.squareup.leakcanary:leakcanary-android:2.0-beta-5"
 
     const val junit = "junit:junit:4.12"
     const val runner = "androidx.test:runner:1.2.0"
