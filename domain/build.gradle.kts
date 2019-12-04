@@ -12,11 +12,6 @@ android {
         targetSdkVersion(AndroidSdk.targetVersion)
         versionCode = 1
         versionName = "0.1.0"
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = mapOf("room.incremental" to "true")
-            }
-        }
     }
     buildTypes {
         getByName("release") {
