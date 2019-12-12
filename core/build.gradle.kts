@@ -12,6 +12,7 @@ android {
         targetSdkVersion(AndroidSdk.targetVersion)
         versionCode = 1
         versionName = "0.1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = mapOf(
@@ -38,6 +39,7 @@ android {
         isAbortOnError = true
         isWarningsAsErrors = true
     }
+    sourceSets["androidTest"].assets.srcDir(files("$projectDir/schemas"))
 }
 
 dependencies {
@@ -55,4 +57,8 @@ dependencies {
     // Dagger
     implementation(Libraries.dagger)
     kapt(Libraries.daggerCompiler)
+
+    androidTestImplementation(Libraries.runner)
+    androidTestImplementation(Libraries.androidJUnit)
+    androidTestImplementation(Libraries.roomTesting)
 }
