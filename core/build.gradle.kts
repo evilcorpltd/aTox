@@ -39,7 +39,9 @@ android {
         isAbortOnError = true
         isWarningsAsErrors = true
     }
-    sourceSets["androidTest"].assets.srcDir(files("$projectDir/schemas"))
+    sourceSets["main"].java.srcDir("src/main/kotlin")
+    sourceSets["androidTest"].assets.srcDir("$projectDir/schemas")
+    sourceSets["androidTest"].java.srcDir("src/androidTest/kotlin")
 }
 
 dependencies {
