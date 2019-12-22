@@ -1,7 +1,5 @@
 package ltd.evilcorp.domain.feature
 
-import android.content.Context
-import androidx.preference.PreferenceManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -12,7 +10,6 @@ import ltd.evilcorp.domain.tox.Tox
 import javax.inject.Inject
 
 class UserManager @Inject constructor(
-    private val context: Context,
     private val userRepository: UserRepository,
     private val tox: Tox
 ) : CoroutineScope by GlobalScope {
@@ -33,10 +30,6 @@ class UserManager @Inject constructor(
         } else {
             userRepository.update(user)
         }
-
-        PreferenceManager.getDefaultSharedPreferences(context).edit()
-            .putString("name", name)
-            .putString("status_message", statusMessage).apply()
 
         userRepository.update(user)
     }

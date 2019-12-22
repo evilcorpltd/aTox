@@ -48,8 +48,6 @@ dependencies {
 
     implementation(Libraries.ktxCoroutinesCore)
 
-    implementation(Libraries.preference)
-
     // For tox4j
     // TODO(robinlinden): Fix tox4j build so we can update the scala dependencies
     // noinspection GradleDependency
