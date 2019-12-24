@@ -6,7 +6,7 @@ import org.junit.Test
 
 class ToxIdValidatorTest {
     @Test
-    fun fine_ids_validate_without_issues() {
+    fun `fine ids validate without issues`() {
         val id0 = ToxID("3982B009845B210C5A8904B7F540287A424DE029BC1A25C01E022944AB28FC3C4ACEE797596D")
         val id1 = ToxID("A571A6C77225C4081BA4D7AC268B9659B78704037959817E6ED56C4E6BD84B7E3E3EDB624583")
         assert(ToxIdValidator.validate(id0) == ToxIdValidator.Result.NO_ERROR)
@@ -14,7 +14,7 @@ class ToxIdValidatorTest {
     }
 
     @Test
-    fun incorrect_lengths_are_rejected() {
+    fun `incorrect lengths are rejected`() {
         val id0 = ToxID("3982B009845B210C5A8904B7F540287A424DE029BC1A25C01E022944AB28FC3C4ACEE797596")
         val id1 = ToxID("A571A6C77225C4081BA4D7AC268B9659B78704037959817E6ED56C4E6BD84B7E3E3EDB6245833")
         val id2 = ToxID("")
@@ -24,7 +24,7 @@ class ToxIdValidatorTest {
     }
 
     @Test
-    fun bad_checksums_are_rejected() {
+    fun `bad checksums are rejected`() {
         val id0 = ToxID("3982B009845B210C5A8904B7F540287A424DE029BC1A25C01E022944AB28FC3C4ACEE7970000")
         val id1 = ToxID("3982B009845B210C5A8904B7F540287A424DE029BC1A25C01E022944AB28FC3C00000000596D")
         val id2 = ToxID("A571A6C77225C4081BA4D7AC268B9659B78704037959817E6ED56C4E6BD84B7E3E3EDB624582")
@@ -36,7 +36,7 @@ class ToxIdValidatorTest {
     }
 
     @Test
-    fun ids_must_be_hex() {
+    fun `ids must be hex`() {
         val id0 = ToxID("3982B009845B210C5A8904B7F540287A424DE029BC1A25C01E022944AB28FC3C4ACEE797000G")
         val id1 = ToxID("3982B009845B210C5A8904B7F540287A424DE029BC1A25C01E022944AB28FC3C00000000596H")
         val id2 = ToxID("A571A6C77225C4081BA4D7AC268B9659B78704037959817E6ED56C4E6BD84B7E3E3EDB62458z")

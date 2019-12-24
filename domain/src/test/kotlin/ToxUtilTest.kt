@@ -16,7 +16,7 @@ private fun byteArrayOf(vararg bytes: Int) = ByteArray(bytes.size) { bytes[it].t
 
 class ToxUtilTest {
     @Test
-    fun connection_enums_can_be_converted() {
+    fun `connection enums can be converted`() {
         assert(ToxConnection.values().size == ConnectionStatus.values().size)
         assert(ConnectionStatus.values().size == 3)
 
@@ -30,7 +30,7 @@ class ToxUtilTest {
     }
 
     @Test
-    fun status_enums_can_be_converted() {
+    fun `status enums can be converted`() {
         assert(ToxUserStatus.values().size == UserStatus.values().size)
         assert(UserStatus.values().size == 3)
 
@@ -44,7 +44,7 @@ class ToxUtilTest {
     }
 
     @Test
-    fun public_keys_can_be_converted() {
+    fun `public keys can be converted`() {
         val keyString = "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39"
         assert(keyString.hexToBytes().size == 32)
         assertEquals(keyString, keyString.hexToBytes().bytesToHex().toUpperCase(Locale.ROOT))
@@ -63,7 +63,7 @@ class ToxUtilTest {
     }
 
     @Test
-    fun casing_of_public_keys_does_not_matter() {
+    fun `casing of public keys does not matter`() {
         val keyString = "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39"
         assertArrayEquals(
             keyString.toUpperCase(Locale.ROOT).hexToBytes(),
