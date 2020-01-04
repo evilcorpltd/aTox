@@ -59,7 +59,7 @@ dependencies {
     testImplementation(Libraries.junit)
 }
 
-val files = mapOf(
+val files = listOf(
     "https://build.tox.chat/job/tox4j-api_build_android_multiarch_release/lastSuccessfulBuild/artifact/tox4j-api/target/scala-2.11/tox4j-api_2.11-0.1.2.jar" to "libs/tox4j-api-c.jar",
     "https://build.tox.chat/job/tox4j_build_android_arm64_release/lastSuccessfulBuild/artifact/artifacts/tox4j-c_2.11-0.1.2-SNAPSHOT.jar" to "libs/tox4j-c.jar",
     "https://build.tox.chat/job/tox4j_build_android_armel_release/lastSuccessfulBuild/artifact/artifacts/libtox4j-c.so" to "src/main/jniLibs/armeabi-v7a/libtox4j-c.so",
