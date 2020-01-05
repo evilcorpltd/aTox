@@ -67,6 +67,9 @@ object Libraries {
     const val daggerAndroidProcessor = "com.google.dagger:dagger-android-processor:${Version.dagger}"
     const val daggerCompiler = "com.google.dagger:dagger-compiler:${Version.dagger}"
 
+    // 3.6.0 is the last version before API 24 was required.
+    const val zxingAndroidEmbedded = "com.journeyapps:zxing-android-embedded:3.6.0"
+
     const val scalaLibrary = "org.scala-lang:scala-library:2.11.12"
     const val scalaLogging = "com.typesafe.scala-logging:scala-logging_2.11:3.9.2"
     const val scalapbRuntime = "com.trueaccord.scalapb:scalapb-runtime_2.11:0.6.7"

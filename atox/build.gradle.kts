@@ -66,6 +66,8 @@ dependencies {
 
     implementation(Libraries.multidex)
 
+    implementation(Libraries.zxingAndroidEmbedded)
+
     debugImplementation(Libraries.leakcanaryAndroid)
 
     testImplementation(Libraries.junit)

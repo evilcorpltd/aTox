@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         package="ltd.evilcorp.atox"
         android:installLocation="auto">
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+
     <application
             android:name=".App"
             android:allowBackup="false"
@@ -28,5 +33,9 @@
                 <data android:scheme="tox" />
             </intent-filter>
         </activity>
+
+        <activity android:name="com.journeyapps.barcodescanner.CaptureActivity"
+                android:screenOrientation="fullSensor"
+                tools:replace="screenOrientation"/>
     </application>
 </manifest>

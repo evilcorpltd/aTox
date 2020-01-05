@@ -1,5 +1,7 @@
 package ltd.evilcorp.atox.ui.addcontact
 
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,6 +12,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.add_contact_fragment.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.vmFactory
@@ -69,8 +72,24 @@ class AddContactFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        if (requireContext().packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+            read_qr.setOnClickListener {
+                IntentIntegrator.forSupportFragment(this@AddContactFragment).apply {
+                    setOrientationLocked(false)
+                    setBeepEnabled(false)
+                }.initiateScan(listOf(IntentIntegrator.QR_CODE))
+            }
+        } else {
+            read_qr.visibility = View.GONE
+        }
+
         add.isEnabled = false
 
         toxId.setText(arguments?.getString("toxId"), TextView.BufferType.EDITABLE)
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) =
+        IntentIntegrator.parseActivityResult(requestCode, resultCode, data)?.contents?.let {
+            view?.toxId?.setText(it.removePrefix("tox:"))
+        } ?: super.onActivityResult(requestCode, resultCode, data)
 }
