@@ -38,7 +38,10 @@ class AddContactFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 toxId.error = when (ToxIdValidator.validate(ToxID(s?.toString() ?: ""))) {
-                    ToxIdValidator.Result.INCORRECT_LENGTH -> getString(R.string.tox_id_error_length)
+                    ToxIdValidator.Result.INCORRECT_LENGTH -> getString(
+                        R.string.tox_id_error_length,
+                        s?.toString()?.length ?: 0
+                    )
                     ToxIdValidator.Result.INVALID_CHECKSUM -> getString(R.string.tox_id_error_checksum)
                     ToxIdValidator.Result.NOT_HEX -> getString(R.string.tox_id_error_hex)
                     ToxIdValidator.Result.NO_ERROR -> null
