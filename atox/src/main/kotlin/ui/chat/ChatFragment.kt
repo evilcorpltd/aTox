@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.view.*
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -110,6 +111,7 @@ class ChatFragment : Fragment() {
         }
 
         send.isEnabled = false
+        send.setColorFilter(ResourcesCompat.getColor(resources, android.R.color.darker_gray, null))
 
         outgoingMessage.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -163,5 +165,12 @@ class ChatFragment : Fragment() {
     private fun updateSendButton(layout: View) {
         layout.send.isEnabled =
             layout.outgoingMessage.text.isNotEmpty() && layout.outgoingMessage.error.isNullOrEmpty() && contactOnline
+        send.setColorFilter(
+            ResourcesCompat.getColor(
+                resources,
+                if (layout.send.isEnabled) R.color.colorPrimary else android.R.color.darker_gray,
+                null
+            )
+        )
     }
 }

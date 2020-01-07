@@ -7,7 +7,7 @@
         tools:context=".ui.contact_profile.ContactProfileFragment">
     <com.google.android.material.appbar.AppBarLayout android:layout_width="match_parent"
             android:layout_height="128dp">
-        <android.widget.Toolbar android:id="@+id/toolbar"
+        <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

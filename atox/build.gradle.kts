@@ -17,6 +17,8 @@ android {
         versionCode = 1
         versionName = "0.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         getByName("release") {
@@ -61,6 +63,8 @@ dependencies {
     implementation(Libraries.daggerAndroidSupport)
     kapt(Libraries.daggerCompiler)
     kapt(Libraries.daggerAndroidProcessor)
+
+    implementation(Libraries.multidex)
 
     debugImplementation(Libraries.leakcanaryAndroid)
 

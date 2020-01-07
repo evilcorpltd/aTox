@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <android.widget.Toolbar android:id="@+id/toolbar"
+    <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
@@ -35,7 +35,7 @@
                     android:singleLine="true"
                     tools:text="clever subtitle"/>
         </LinearLayout>
-    </android.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <ListView android:id="@+id/messages"
             android:layout_width="0dp"
@@ -73,7 +73,6 @@
             android:layout_marginEnd="8dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/send"
-            android:tint="@drawable/enabled_selector"
             app:layout_constraintBottom_toBottomOf="@+id/outgoingMessage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

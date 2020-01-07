@@ -1,13 +1,13 @@
 package ltd.evilcorp.atox
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import ltd.evilcorp.atox.di.AppInjector
 import javax.inject.Inject
 
-class App : Application(), HasAndroidInjector {
+class App : MultiDexApplication(), HasAndroidInjector {
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
 

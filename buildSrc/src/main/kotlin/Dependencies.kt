@@ -34,7 +34,7 @@ object BuildPlugin {
 }
 
 object AndroidSdk {
-    const val minVersion = 21
+    const val minVersion = 19
     const val targetVersion = 29
 }
 
@@ -53,6 +53,8 @@ object Libraries {
     const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:${Version.navigation}"
 
     const val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Version.lifecycle}"
+
+    const val multidex = "androidx.multidex:multidex:2.0.1"
 
     const val roomRuntime = "androidx.room:room-runtime:${Version.room}"
     const val roomCompiler = "androidx.room:room-compiler:${Version.room}"
