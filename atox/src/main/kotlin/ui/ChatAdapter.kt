@@ -85,6 +85,17 @@ class ChatAdapter(
                     resources.getText(R.string.sending)
                 }
 
+                vh.timestamp.visibility = if (position == messages.lastIndex) {
+                    View.VISIBLE
+                } else {
+                    val next = messages[position + 1]
+                    if (next.sender == message.sender && next.timestamp - message.timestamp < 60_000) {
+                        View.GONE
+                    } else {
+                        View.VISIBLE
+                    }
+                }
+
                 view
             }
         }
