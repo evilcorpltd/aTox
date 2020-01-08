@@ -40,6 +40,7 @@ android {
         isWarningsAsErrors = true
     }
     sourceSets["main"].java.srcDir("src/main/kotlin")
+    sourceSets["test"].java.srcDir("src/test/kotlin")
     sourceSets["androidTest"].assets.srcDir("$projectDir/schemas")
     sourceSets["androidTest"].java.srcDir("src/androidTest/kotlin")
 }
@@ -59,6 +60,8 @@ dependencies {
     // Dagger
     implementation(Libraries.dagger)
     kapt(Libraries.daggerCompiler)
+
+    testImplementation(Libraries.junit)
 
     androidTestImplementation(Libraries.runner)
     androidTestImplementation(Libraries.androidJUnit)

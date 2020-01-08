@@ -9,6 +9,11 @@ enum class Sender {
     Received,
 }
 
+enum class MessageType {
+    Normal,
+    Action,
+}
+
 @Entity(tableName = "messages")
 data class Message(
     @ColumnInfo(name = "conversation")
@@ -19,6 +24,9 @@ data class Message(
 
     @ColumnInfo(name = "sender")
     val sender: Sender,
+
+    @ColumnInfo(name = "type")
+    val type: MessageType,
 
     @ColumnInfo(name = "correlation_id")
     var correlationId: Int,

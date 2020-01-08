@@ -1,13 +1,12 @@
 package ltd.evilcorp.domain
 
 import im.tox.tox4j.core.enums.ToxConnection
+import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
 import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.UserStatus
-import ltd.evilcorp.domain.tox.bytesToHex
-import ltd.evilcorp.domain.tox.hexToBytes
-import ltd.evilcorp.domain.tox.toConnectionStatus
-import ltd.evilcorp.domain.tox.toUserStatus
+import ltd.evilcorp.domain.tox.*
 import org.junit.Assert.*
 import org.junit.Test
 import java.util.*
@@ -27,6 +26,18 @@ class ToxUtilTest {
         assertEquals(ToxConnection.NONE.ordinal, ConnectionStatus.None.ordinal)
         assertEquals(ToxConnection.UDP.ordinal, ConnectionStatus.UDP.ordinal)
         assertEquals(ToxConnection.TCP.ordinal, ConnectionStatus.TCP.ordinal)
+    }
+
+    @Test
+    fun `message type enums can be converted`() {
+        assertEquals(2, ToxMessageType.values().size)
+
+        ToxMessageType.values().forEach { type ->
+            assertEquals(type.ordinal, type.toMessageType().ordinal)
+        }
+
+        assertEquals(ToxMessageType.NORMAL.ordinal, MessageType.Normal.ordinal)
+        assertEquals(ToxMessageType.ACTION.ordinal, MessageType.Action.ordinal)
     }
 
     @Test

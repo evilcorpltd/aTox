@@ -8,6 +8,7 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.core.vo.Message
+import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.Sender
 import java.text.DateFormat
 
@@ -16,6 +17,8 @@ private fun inflateView(type: ChatItemType, inflater: LayoutInflater): View =
         when (type) {
             ChatItemType.SentMessage -> R.layout.message_sent
             ChatItemType.ReceivedMessage -> R.layout.message_received
+            ChatItemType.SentAction -> R.layout.action_sent
+            ChatItemType.ReceivedAction -> R.layout.action_received
         },
         null,
         true
@@ -23,7 +26,9 @@ private fun inflateView(type: ChatItemType, inflater: LayoutInflater): View =
 
 private enum class ChatItemType {
     ReceivedMessage,
-    SentMessage
+    SentMessage,
+    ReceivedAction,
+    SentAction,
 }
 
 private val types = ChatItemType.values()
@@ -44,14 +49,22 @@ class ChatAdapter(
     override fun getItem(position: Int): Any = messages[position]
     override fun getItemId(position: Int): Long = position.toLong()
     override fun getViewTypeCount(): Int = types.size
-    override fun getItemViewType(position: Int): Int = when (messages[position].sender) {
-        Sender.Sent -> ChatItemType.SentMessage.ordinal
-        Sender.Received -> ChatItemType.ReceivedMessage.ordinal
+    override fun getItemViewType(position: Int): Int = with(messages[position]) {
+        when (type) {
+            MessageType.Normal -> when (sender) {
+                Sender.Sent -> ChatItemType.SentMessage.ordinal
+                Sender.Received -> ChatItemType.ReceivedMessage.ordinal
+            }
+            MessageType.Action -> when (sender) {
+                Sender.Sent -> ChatItemType.SentAction.ordinal
+                Sender.Received -> ChatItemType.ReceivedAction.ordinal
+            }
+        }
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View =
         when (val type = types[getItemViewType(position)]) {
-            ChatItemType.ReceivedMessage, ChatItemType.SentMessage -> {
+            ChatItemType.ReceivedMessage, ChatItemType.SentMessage, ChatItemType.ReceivedAction, ChatItemType.SentAction -> {
                 val message = messages[position]
                 val view: View
                 val vh: MessageViewHolder

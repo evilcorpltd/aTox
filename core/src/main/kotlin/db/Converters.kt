@@ -2,6 +2,7 @@ package ltd.evilcorp.core.db
 
 import androidx.room.TypeConverter
 import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.core.vo.UserStatus
 
@@ -30,5 +31,13 @@ internal class Converters {
         @TypeConverter
         @JvmStatic
         fun fromSender(sender: Sender): Int = sender.ordinal
+
+        @TypeConverter
+        @JvmStatic
+        fun toMessageType(type: Int): MessageType = MessageType.values()[type]
+
+        @TypeConverter
+        @JvmStatic
+        fun fromMessageType(type: MessageType): Int = type.ordinal
     }
 }

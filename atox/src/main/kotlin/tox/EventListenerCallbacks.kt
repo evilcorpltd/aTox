@@ -10,6 +10,7 @@ import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.FileTransferManager
 import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxEventListener
+import ltd.evilcorp.domain.tox.toMessageType
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -62,11 +63,11 @@ class EventListenerCallbacks @Inject constructor(
             }
         }
 
-        friendMessageHandler = { publicKey, _, _, msg ->
-            val timestamp = getDate()
-            contactRepository.setLastMessage(publicKey, timestamp)
+        friendMessageHandler = { publicKey, type, _, msg ->
+            val time = getDate()
+            contactRepository.setLastMessage(publicKey, time)
             messageRepository.add(
-                Message(publicKey, msg, Sender.Received, Int.MIN_VALUE, timestamp)
+                Message(publicKey, msg, Sender.Received, type.toMessageType(), Int.MIN_VALUE, time)
             )
 
             if (chatManager.activeChat != publicKey) {
