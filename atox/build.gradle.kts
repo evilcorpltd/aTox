@@ -58,6 +58,8 @@ dependencies {
     implementation(Libraries.navigationFragmentKtx)
     implementation(Libraries.navigationUiKtx)
 
+    implementation(Libraries.preference)
+
     implementation(Libraries.dagger)
     implementation(Libraries.daggerAndroid)
     implementation(Libraries.daggerAndroidSupport)

@@ -17,12 +17,11 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="@string/pref_heading_user"
-            android:textSize="18sp"/>
+            android:textSize="20sp"/>
 
     <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp">
         <com.google.android.material.textfield.TextInputEditText android:id="@+id/name"
                 android:layout_width="match_parent"
@@ -33,11 +32,36 @@
     <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp">
         <com.google.android.material.textfield.TextInputEditText android:id="@+id/statusMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/status_message"/>
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/pref_heading_appearance"
+            android:textSize="20sp"/>
+
+    <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+        <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/pref_heading_theme"
+                android:textSize="18sp"/>
+
+        <Spinner android:id="@+id/theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
+    </LinearLayout>
 </LinearLayout>

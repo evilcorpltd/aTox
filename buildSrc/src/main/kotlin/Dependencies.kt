@@ -59,6 +59,8 @@ object Libraries {
     const val roomRuntime = "androidx.room:room-runtime:${Version.room}"
     const val roomCompiler = "androidx.room:room-compiler:${Version.room}"
 
+    const val preference = "androidx.preference:preference:1.1.0"
+
     const val material = "com.google.android.material:material:1.1.0-beta02"
 
     const val dagger = "com.google.dagger:dagger:${Version.dagger}"

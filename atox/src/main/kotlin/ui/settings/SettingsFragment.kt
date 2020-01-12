@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.preference.PreferenceManager
 import kotlinx.android.synthetic.main.settings_fragment.*
 import kotlinx.android.synthetic.main.settings_fragment.view.*
 import ltd.evilcorp.atox.R
@@ -31,6 +35,35 @@ class SettingsFragment : Fragment() {
             name.setText(user.name)
             statusMessage.setText(user.statusMessage)
         })
+
+        theme.adapter = ArrayAdapter.createFromResource(
+            requireContext(), R.array.pref_theme_options,
+            android.R.layout.simple_spinner_item
+        ).apply {
+            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        }
+
+        theme.setSelection(
+            PreferenceManager.getDefaultSharedPreferences(requireContext()).getInt("theme", 0)
+        )
+
+        theme.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("not implemented")
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                PreferenceManager.getDefaultSharedPreferences(requireContext()).edit()
+                    .putInt("theme", position)
+                    .apply()
+                AppCompatDelegate.setDefaultNightMode(position)
+            }
+        }
     }
 
     override fun onPause() {

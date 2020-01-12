@@ -63,4 +63,11 @@
     <string name="atox_connected_with_udp">Connected (UDP)</string>
     <string name="pref_heading_user">User</string>
     <string name="read_qr">QR</string>
+    <string name="pref_heading_appearance">Appearance</string>
+    <string name="pref_heading_theme">Theme</string>
+    <string-array name="pref_theme_options">
+        <item>Follow system</item>
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
 </resources>
