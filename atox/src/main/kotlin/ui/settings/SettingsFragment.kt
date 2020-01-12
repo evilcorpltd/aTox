@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.preference.PreferenceManager
 import kotlinx.android.synthetic.main.settings_fragment.*
 import kotlinx.android.synthetic.main.settings_fragment.view.*
+import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.vmFactory
 
@@ -64,6 +65,9 @@ class SettingsFragment : Fragment() {
                 AppCompatDelegate.setDefaultNightMode(position)
             }
         }
+
+        version.text =
+            getString(R.string.version_display, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
     }
 
     override fun onPause() {
