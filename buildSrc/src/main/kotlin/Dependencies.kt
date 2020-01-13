@@ -8,8 +8,8 @@ object Java {
 
 private object Version {
     const val coroutines = "1.3.3"
-    const val dagger = "2.25.3"
-    const val leakCanary = "2.0"
+    const val dagger = "2.25.4"
+    const val leakCanary = "2.1"
     const val lifecycle = "2.2.0-rc03"
     const val room = "2.2.3"
     const val navigation = "2.2.0-rc04"
@@ -79,7 +79,7 @@ object Libraries {
 
     const val leakcanaryAndroid = "com.squareup.leakcanary:leakcanary-android:${Version.leakCanary}"
 
-    const val junit = "junit:junit:4.12"
+    const val junit = "junit:junit:4.13"
     const val runner = "androidx.test:runner:1.2.0"
     const val espressoCore = "androidx.test.espresso:espresso-core:3.2.0"
     const val androidJUnit = "androidx.test.ext:junit:1.1.1"
