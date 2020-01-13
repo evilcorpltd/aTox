@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -59,9 +60,10 @@ class SettingsFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                PreferenceManager.getDefaultSharedPreferences(requireContext()).edit()
-                    .putInt("theme", position)
-                    .apply()
+                PreferenceManager.getDefaultSharedPreferences(requireContext()).edit {
+                    putInt("theme", position)
+                }
+
                 AppCompatDelegate.setDefaultNightMode(position)
             }
         }

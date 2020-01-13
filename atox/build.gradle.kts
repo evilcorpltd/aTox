@@ -51,6 +51,8 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":domain"))
 
+    implementation(Libraries.androidxCoreKtx)
+
     implementation(Libraries.appcompat)
     implementation(Libraries.constraintlayout)
 

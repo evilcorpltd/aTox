@@ -3,14 +3,13 @@ package ltd.evilcorp.atox.ui.chat
 import android.app.AlertDialog
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.*
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -113,14 +112,10 @@ class ChatFragment : Fragment() {
         send.isEnabled = false
         send.setColorFilter(ResourcesCompat.getColor(resources, android.R.color.darker_gray, null))
 
-        outgoingMessage.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                viewModel.setTyping(outgoingMessage.text.isNotEmpty())
-                updateSendButton(this@apply)
-            }
-        })
+        outgoingMessage.doAfterTextChanged {
+            viewModel.setTyping(outgoingMessage.text.isNotEmpty())
+            updateSendButton(this@apply)
+        }
     }
 
     override fun onPause() {
@@ -151,7 +146,7 @@ class ChatFragment : Fragment() {
         val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
         return when (item.itemId) {
             R.id.copy -> {
-                val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipboard = requireActivity().getSystemService<ClipboardManager>()!!
                 val message = messages.adapter.getItem(info.position) as Message
                 clipboard.setPrimaryClip(ClipData.newPlainText(getText(R.string.message), message.message))
 

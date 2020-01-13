@@ -3,11 +3,11 @@ package ltd.evilcorp.atox
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.content.getSystemService
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.observe
 import dagger.android.AndroidInjection
@@ -24,6 +24,8 @@ class ToxService : LifecycleService() {
     private val notificationId = 1984
 
     private var connectionStatus = ConnectionStatus.None
+
+    private val notifier by lazy { getSystemService<NotificationManager>()!! }
 
     @Inject
     lateinit var tox: Tox
@@ -45,7 +47,6 @@ class ToxService : LifecycleService() {
             NotificationManager.IMPORTANCE_LOW
         )
 
-        val notifier = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notifier.createNotificationChannels(listOf(friendRequestChannel))
     }
 
@@ -93,7 +94,6 @@ class ToxService : LifecycleService() {
                 .setSubText(subTextFor(connectionStatus))
                 .build()
 
-            val notifier = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notifier.notify(notificationId, statusUpdateNotification)
         }
     }

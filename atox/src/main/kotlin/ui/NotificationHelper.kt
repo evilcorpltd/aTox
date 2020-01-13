@@ -5,9 +5,10 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.EXTRA_TEXT_LINES
+import androidx.core.content.getSystemService
+import androidx.core.os.bundleOf
 import androidx.navigation.NavDeepLinkBuilder
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
@@ -24,7 +25,7 @@ private const val FRIEND_REQUEST = "aTox friend requests"
 class NotificationHelper @Inject constructor(
     private val context: Context
 ) {
-    private val notifier = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    private val notifier = context.getSystemService<NotificationManager>()!!
 
     init {
         createNotificationChannel()
@@ -63,7 +64,7 @@ class NotificationHelper @Inject constructor(
                 NavDeepLinkBuilder(context)
                     .setGraph(R.navigation.nav_graph)
                     .setDestination(R.id.chatFragment)
-                    .setArguments(Bundle().apply { putString(CONTACT_PUBLIC_KEY, contact.publicKey) })
+                    .setArguments(bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey))
                     .createPendingIntent()
             )
             .setCategory(Notification.CATEGORY_MESSAGE)

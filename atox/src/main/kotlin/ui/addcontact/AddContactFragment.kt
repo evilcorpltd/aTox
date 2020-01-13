@@ -3,12 +3,11 @@ package ltd.evilcorp.atox.ui.addcontact
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -36,36 +35,31 @@ class AddContactFragment : Fragment() {
             activity?.onBackPressed()
         }
 
-        toxId.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                toxId.error = when (ToxIdValidator.validate(ToxID(s?.toString() ?: ""))) {
-                    ToxIdValidator.Result.INCORRECT_LENGTH -> getString(
-                        R.string.tox_id_error_length,
-                        s?.toString()?.length ?: 0
-                    )
-                    ToxIdValidator.Result.INVALID_CHECKSUM -> getString(R.string.tox_id_error_checksum)
-                    ToxIdValidator.Result.NOT_HEX -> getString(R.string.tox_id_error_hex)
-                    ToxIdValidator.Result.NO_ERROR -> null
-                }
-
-                toxIdValid = toxId.error == null
-                add.isEnabled = isAddAllowed()
+        toxId.doAfterTextChanged { s ->
+            toxId.error = when (ToxIdValidator.validate(ToxID(s?.toString() ?: ""))) {
+                ToxIdValidator.Result.INCORRECT_LENGTH -> getString(
+                    R.string.tox_id_error_length,
+                    s?.toString()?.length ?: 0
+                )
+                ToxIdValidator.Result.INVALID_CHECKSUM -> getString(R.string.tox_id_error_checksum)
+                ToxIdValidator.Result.NOT_HEX -> getString(R.string.tox_id_error_hex)
+                ToxIdValidator.Result.NO_ERROR -> null
             }
-        })
 
-        message.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                val content = s?.toString() ?: ""
-                message.error = if (content.isNotEmpty()) null else getString(R.string.add_contact_message_error_empty)
+            toxIdValid = toxId.error == null
+            add.isEnabled = isAddAllowed()
+        }
 
-                messageValid = message.error == null
-                add.isEnabled = isAddAllowed()
-            }
-        })
+        message.doAfterTextChanged { s ->
+            val content = s?.toString() ?: ""
+            message.error = if (content.isNotEmpty())
+                null
+            else
+                getString(R.string.add_contact_message_error_empty)
+
+            messageValid = message.error == null
+            add.isEnabled = isAddAllowed()
+        }
 
         add.setOnClickListener {
             viewModel.addContact(ToxID(toxId.text.toString()), message.text.toString())

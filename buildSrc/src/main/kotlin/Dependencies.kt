@@ -46,6 +46,8 @@ object Libraries {
     const val ktxCoroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Version.coroutines}"
     const val ktxCoroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Version.coroutines}"
 
+    const val androidxCoreKtx = "androidx.core:core-ktx:1.1.0"
+
     const val appcompat = "androidx.appcompat:appcompat:1.1.0"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:1.1.3"
 

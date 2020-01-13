@@ -3,7 +3,6 @@ package ltd.evilcorp.atox.ui.contactlist
 import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -16,6 +15,7 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.getSystemService
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -207,7 +207,7 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
                 startActivity(Intent.createChooser(shareIntent, getString(R.string.tox_id_share)))
             }
             R.id.copy_tox_id -> {
-                val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipboard = requireActivity().getSystemService<ClipboardManager>()!!
                 clipboard.setPrimaryClip(ClipData.newPlainText(getText(R.string.tox_id), viewModel.toxId.string()))
 
                 Toast.makeText(requireContext(), getText(R.string.tox_id_copied), Toast.LENGTH_SHORT).show()
@@ -258,8 +258,8 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager) {
-            hideSoftInputFromWindow(view.windowToken, 0)
+        activity?.getSystemService<InputMethodManager>().let { imm ->
+            imm?.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 
