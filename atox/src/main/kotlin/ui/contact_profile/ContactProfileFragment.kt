@@ -1,9 +1,11 @@
 package ltd.evilcorp.atox.ui.contact_profile
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
@@ -11,6 +13,7 @@ import kotlinx.android.synthetic.main.contact_profile_fragment.view.*
 import kotlinx.android.synthetic.main.profile_image_layout.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.requireStringArg
+import ltd.evilcorp.atox.setUpFullScreenUi
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.ui.colorByStatus
 import ltd.evilcorp.atox.ui.setAvatarFromContact
@@ -24,6 +27,19 @@ class ContactProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.contact_profile_fragment, container, false).apply {
+        setUpFullScreenUi { _, insets ->
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
+            appBar.updatePadding(
+                left = insets.systemWindowInsetLeft,
+                right = insets.systemWindowInsetRight
+            )
+            content.updatePadding(
+                left = insets.systemWindowInsetLeft,
+                right = insets.systemWindowInsetRight
+            )
+            insets
+        }
+
         toolbar.setNavigationIcon(R.drawable.back)
         toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()

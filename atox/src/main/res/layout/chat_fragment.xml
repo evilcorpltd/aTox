@@ -46,37 +46,37 @@
             android:dividerHeight="2dp"
             android:stackFromBottom="true"
             android:transcriptMode="normal"
-            app:layout_constraintBottom_toTopOf="@+id/outgoingMessage"
+            app:layout_constraintBottom_toTopOf="@+id/bottomBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"/>
 
-    <EditText android:id="@+id/outgoingMessage"
-            android:layout_width="0dp"
+    <LinearLayout android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:hint="@string/message"
-            android:importantForAutofill="no"
-            android:inputType="textMultiLine|textCapSentences"
-            android:maxHeight="256dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/send"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:targetApi="26"/>
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent">
+        <EditText android:id="@+id/outgoingMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:hint="@string/message"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine|textCapSentences"
+                android:maxHeight="256dp"
+                tools:targetApi="26"/>
 
-    <ImageButton android:id="@+id/send"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="8dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/send"
-            app:layout_constraintBottom_toBottomOf="@+id/outgoingMessage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/outgoingMessage"
-            app:layout_constraintTop_toTopOf="@+id/outgoingMessage"
-            app:srcCompat="@drawable/send"/>
+        <ImageButton android:id="@+id/send"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/send"
+                app:srcCompat="@drawable/send"/>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

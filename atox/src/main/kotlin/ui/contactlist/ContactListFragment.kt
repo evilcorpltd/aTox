@@ -5,6 +5,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
@@ -17,6 +18,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.getSystemService
 import androidx.core.view.GravityCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -27,6 +29,7 @@ import kotlinx.android.synthetic.main.contact_list_fragment.view.*
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 import kotlinx.android.synthetic.main.nav_header_contact_list.view.*
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.setUpFullScreenUi
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
@@ -46,6 +49,15 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.contact_list_fragment, container, false).apply {
         if (!viewModel.isToxRunning()) return@apply
+
+        setUpFullScreenUi { v, insets ->
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
+            v.updatePadding(left = insets.systemWindowInsetLeft)
+            toolbar.updatePadding(left = insets.systemWindowInsetLeft)
+            navView.updatePadding(left = insets.systemWindowInsetLeft)
+            contactList.updatePadding(bottom = insets.systemWindowInsetBottom)
+            insets
+        }
 
         toolbar.title = getText(R.string.app_name)
 

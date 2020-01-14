@@ -3,12 +3,14 @@ package ltd.evilcorp.atox.ui.chat
 import android.app.AlertDialog
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,6 +21,7 @@ import kotlinx.android.synthetic.main.chat_fragment.view.*
 import kotlinx.android.synthetic.main.profile_image_layout.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.requireStringArg
+import ltd.evilcorp.atox.setUpFullScreenUi
 import ltd.evilcorp.atox.ui.colorByStatus
 import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.atox.vmFactory
@@ -44,6 +47,25 @@ class ChatFragment : Fragment() {
     ): View = inflater.inflate(R.layout.chat_fragment, container, false).apply {
         contactPubKey = requireStringArg(CONTACT_PUBLIC_KEY)
         viewModel.setActiveChat(PublicKey(contactPubKey))
+
+        setUpFullScreenUi { _, insets ->
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
+            toolbar.updatePadding(
+                left = insets.systemWindowInsetLeft,
+                top = insets.systemWindowInsetTop,
+                right = insets.systemWindowInsetRight
+            )
+            bottomBar.updatePadding(
+                left = insets.systemWindowInsetLeft,
+                right = insets.systemWindowInsetRight,
+                bottom = insets.systemWindowInsetBottom
+            )
+            messages.updatePadding(
+                left = insets.systemWindowInsetLeft,
+                right = insets.systemWindowInsetRight
+            )
+            insets
+        }
 
         toolbar.setNavigationIcon(R.drawable.back)
         toolbar.setNavigationOnClickListener {

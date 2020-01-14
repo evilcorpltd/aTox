@@ -2,11 +2,13 @@ package ltd.evilcorp.atox.ui.addcontact
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.add_contact_fragment.view.*
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.setUpFullScreenUi
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.domain.tox.ToxID
 import ltd.evilcorp.domain.tox.ToxIdValidator
@@ -36,6 +39,19 @@ class AddContactFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.add_contact_fragment, container, false).apply {
+        setUpFullScreenUi { _, insets ->
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
+            toolbar.updatePadding(
+                left = insets.systemWindowInsetLeft,
+                top = insets.systemWindowInsetTop
+            )
+            content.updatePadding(
+                left = insets.systemWindowInsetLeft,
+                right = insets.systemWindowInsetRight
+            )
+            insets
+        }
+
         toolbar.setNavigationIcon(R.drawable.back)
         toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()

@@ -1,5 +1,6 @@
 package ltd.evilcorp.atox.ui.settings
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -16,6 +18,7 @@ import kotlinx.android.synthetic.main.settings_fragment.*
 import kotlinx.android.synthetic.main.settings_fragment.view.*
 import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.setUpFullScreenUi
 import ltd.evilcorp.atox.vmFactory
 
 class SettingsFragment : Fragment() {
@@ -26,6 +29,20 @@ class SettingsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.settings_fragment, container, false).apply {
+        setUpFullScreenUi { _, insets ->
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
+            toolbar.updatePadding(
+                left = insets.systemWindowInsetLeft,
+                top = insets.systemWindowInsetTop
+            )
+            content.updatePadding(
+                left = insets.systemWindowInsetLeft,
+                right = insets.systemWindowInsetRight
+            )
+            version.updatePadding(bottom = insets.systemWindowInsetBottom)
+            insets
+        }
+
         toolbar.apply {
             setNavigationIcon(R.drawable.back)
             setNavigationOnClickListener {
