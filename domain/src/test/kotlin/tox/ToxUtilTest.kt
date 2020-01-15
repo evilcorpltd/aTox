@@ -1,4 +1,4 @@
-package ltd.evilcorp.domain
+package ltd.evilcorp.domain.tox
 
 import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxMessageType
@@ -6,7 +6,6 @@ import im.tox.tox4j.core.enums.ToxUserStatus
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.UserStatus
-import ltd.evilcorp.domain.tox.*
 import org.junit.Assert.*
 import org.junit.Test
 import java.util.*

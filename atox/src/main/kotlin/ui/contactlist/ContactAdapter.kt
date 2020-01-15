@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox.ui
+package ltd.evilcorp.atox.ui.contactlist
 
 import android.content.res.Resources
 import android.view.LayoutInflater
@@ -11,6 +11,8 @@ import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 import kotlinx.android.synthetic.main.friend_request_item.view.*
 import kotlinx.android.synthetic.main.profile_image_layout.view.*
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.ui.colorByStatus
+import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 import java.text.DateFormat

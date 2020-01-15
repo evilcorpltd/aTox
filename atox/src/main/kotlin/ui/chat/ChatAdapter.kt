@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox.ui
+package ltd.evilcorp.atox.ui.chat
 
 import android.content.res.Resources
 import android.view.LayoutInflater

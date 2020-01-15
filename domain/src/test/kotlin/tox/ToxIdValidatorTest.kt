@@ -1,7 +1,5 @@
-package ltd.evilcorp.domain
+package ltd.evilcorp.domain.tox
 
-import ltd.evilcorp.domain.tox.ToxID
-import ltd.evilcorp.domain.tox.ToxIdValidator
 import org.junit.Test
 
 class ToxIdValidatorTest {

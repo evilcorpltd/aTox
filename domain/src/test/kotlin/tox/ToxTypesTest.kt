@@ -1,7 +1,5 @@
-package ltd.evilcorp.domain
+package ltd.evilcorp.domain.tox
 
-import ltd.evilcorp.domain.tox.PublicKey
-import ltd.evilcorp.domain.tox.ToxID
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

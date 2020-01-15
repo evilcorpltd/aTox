@@ -27,8 +27,6 @@ import kotlinx.android.synthetic.main.contact_list_fragment.view.*
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
 import kotlinx.android.synthetic.main.nav_header_contact_list.view.*
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.ui.ContactAdapter
-import ltd.evilcorp.atox.ui.ContactListItemType
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus

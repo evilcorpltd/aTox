@@ -1,11 +1,8 @@
-package ltd.evilcorp.core
+package ltd.evilcorp.core.db
 
 import androidx.room.testing.MigrationTestHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import androidx.test.platform.app.InstrumentationRegistry
-import ltd.evilcorp.core.db.Database
-import ltd.evilcorp.core.db.MIGRATION_1_2
-import ltd.evilcorp.core.db.MIGRATION_2_3
 import ltd.evilcorp.core.vo.*
 import org.junit.Assert.assertEquals
 import org.junit.Rule
