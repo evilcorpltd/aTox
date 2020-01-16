@@ -11,6 +11,7 @@ buildscript {
 
 plugins {
     id(BuildPlugin.download) version BuildPlugin.downloadVersion
+    id(BuildPlugin.ideaExt) version BuildPlugin.ideaExtVersion
 }
 
 allprojects {

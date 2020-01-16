@@ -29,6 +29,9 @@ object BuildPlugin {
     const val gradle = "com.android.tools.build:gradle:${Version.gradle}"
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
+    const val ideaExt = "org.jetbrains.gradle.plugin.idea-ext"
+    const val ideaExtVersion = "0.7"
+
     const val download = "de.undercouch.download"
     const val downloadVersion = "4.0.2"
 }

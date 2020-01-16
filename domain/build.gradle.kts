@@ -1,8 +1,20 @@
+import org.gradle.plugins.ide.idea.model.IdeaModule
+import org.jetbrains.gradle.ext.ModuleSettings
+import org.jetbrains.gradle.ext.PackagePrefixContainer
+
+fun IdeaModule.settings(configure: ModuleSettings.() -> Unit) =
+    (this as ExtensionAware).configure(configure)
+
+val ModuleSettings.packagePrefix: PackagePrefixContainer
+    get() = (this as ExtensionAware).the()
+
 plugins {
     id(BuildPlugin.androidLibrary)
 
     id(BuildPlugin.kotlinAndroid)
     id(BuildPlugin.kotlinKapt)
+
+    id(BuildPlugin.ideaExt)
 }
 
 android {
@@ -35,6 +47,15 @@ android {
     }
     sourceSets["main"].java.srcDir("src/main/kotlin")
     sourceSets["test"].java.srcDir("src/test/kotlin")
+}
+
+idea {
+    module {
+        settings {
+            packagePrefix["src/main/kotlin"] = "ltd.evilcorp.domain"
+            packagePrefix["src/test/kotlin"] = "ltd.evilcorp.domain"
+        }
+    }
 }
 
 dependencies {
