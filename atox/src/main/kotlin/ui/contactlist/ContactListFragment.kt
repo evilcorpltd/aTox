@@ -105,6 +105,12 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         viewModel.friendRequests.observe(viewLifecycleOwner, Observer { friendRequests ->
             contactAdapter.friendRequests = friendRequests
             contactAdapter.notifyDataSetChanged()
+
+            noContactsCallToAction.visibility = if (contactAdapter.isEmpty) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         })
 
         viewModel.contacts.observe(viewLifecycleOwner, Observer { contacts ->
@@ -117,7 +123,11 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
             }
             contactAdapter.notifyDataSetChanged()
 
-            noContactsCallToAction.visibility = if (contacts.isEmpty()) View.VISIBLE else View.GONE
+            noContactsCallToAction.visibility = if (contactAdapter.isEmpty) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         })
 
         contactList.setOnItemClickListener { _, _, position, _ ->
