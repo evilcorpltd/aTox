@@ -24,12 +24,11 @@ class ChatViewModel @Inject constructor(
     fun sendMessage(message: String) = chatManager.sendMessage(publicKey, message)
     fun clearHistory() = chatManager.clearHistory(publicKey)
     fun setActiveChat(pubKey: PublicKey) {
-        publicKey = pubKey
-
-        if (publicKey.string().isEmpty()) {
+        if (pubKey.string().isEmpty()) {
             setTyping(false)
         }
 
+        publicKey = pubKey
         notificationHelper.dismissNotifications(publicKey)
         chatManager.activeChat = publicKey.string()
     }
