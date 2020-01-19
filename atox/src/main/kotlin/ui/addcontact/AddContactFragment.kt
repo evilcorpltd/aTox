@@ -63,7 +63,7 @@ class AddContactFragment : Fragment() {
 
         add.setOnClickListener {
             viewModel.addContact(ToxID(toxId.text.toString()), message.text.toString())
-            findNavController().popBackStack()
+            findNavController().navigateUp()
         }
 
         if (requireContext().packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
