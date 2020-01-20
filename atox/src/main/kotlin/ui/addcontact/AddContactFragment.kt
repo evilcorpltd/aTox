@@ -11,6 +11,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.add_contact_fragment.view.*
 import ltd.evilcorp.atox.R
@@ -25,6 +26,11 @@ class AddContactFragment : Fragment() {
     private var messageValid: Boolean = true
 
     private fun isAddAllowed(): Boolean = toxIdValid && messageValid
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (!viewModel.isToxRunning() && !viewModel.tryLoadTox()) findNavController().navigateUp()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
