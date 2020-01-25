@@ -1,5 +1,6 @@
 package ltd.evilcorp.domain.tox
 
+import org.junit.Assert
 import org.junit.Test
 
 class ToxIdValidatorTest {
@@ -43,5 +44,11 @@ class ToxIdValidatorTest {
         assert(ToxIdValidator.validate(id1) == ToxIdValidator.Result.NOT_HEX)
         assert(ToxIdValidator.validate(id2) == ToxIdValidator.Result.NOT_HEX)
         assert(ToxIdValidator.validate(id3) == ToxIdValidator.Result.NOT_HEX)
+    }
+
+    @Test
+    fun `non-hex is reported before incorrect length`() {
+        val id0 = ToxID("3982BT")
+        Assert.assertEquals(ToxIdValidator.Result.NOT_HEX, ToxIdValidator.validate(id0))
     }
 }

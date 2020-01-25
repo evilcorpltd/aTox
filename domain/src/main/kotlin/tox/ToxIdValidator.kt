@@ -10,8 +10,8 @@ class ToxIdValidator {
 
     companion object {
         fun validate(toxID: ToxID) = when {
-            toxID.string().length != 76 -> Result.INCORRECT_LENGTH
             !toxID.string().matches(Regex("[0-9A-Fa-f]*")) -> Result.NOT_HEX
+            toxID.string().length != 76 -> Result.INCORRECT_LENGTH
             toxID.string().chunked(4).map {
                 Integer.parseInt(it, 16)
             }.fold(0) { b1, b2 -> b1 xor b2 } != 0 -> Result.INVALID_CHECKSUM
