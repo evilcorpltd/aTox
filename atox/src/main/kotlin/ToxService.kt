@@ -85,6 +85,7 @@ class ToxService : LifecycleService() {
         startForeground(notificationId, notification)
 
         userRepository.get(tox.publicKey.string()).observe(this) { user ->
+            if (user == null) return@observe // Android is lying. This can be null.
             if (user.connectionStatus == connectionStatus) return@observe
             connectionStatus = user.connectionStatus
 

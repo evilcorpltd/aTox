@@ -62,6 +62,8 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         toolbar.title = getText(R.string.app_name)
 
         viewModel.user.observe(viewLifecycleOwner, Observer { user ->
+            if (user == null) return@Observer
+
             backupFileNameHint = user.name + ".tox"
 
             navView.getHeaderView(0).apply {
