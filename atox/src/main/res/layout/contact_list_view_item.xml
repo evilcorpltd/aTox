@@ -42,5 +42,6 @@
             android:tint="@color/colorPrimary"
             android:translationZ="9dp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name"/>
+            app:layout_constraintTop_toBottomOf="@id/name"
+            tools:targetApi="LOLLIPOP"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

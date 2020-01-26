@@ -12,7 +12,7 @@
     <string name="connecting">Ansluter…</string>
     <string name="contact_typing">Skriver…</string>
     <string name="copied">Kopierat</string>
-    <string name="copy">Kopiera</string>
+    <string name="copy_atox">Kopiera</string>
     <string name="create">Skapa</string>
     <string name="create_a_tox_profile">Skapa en Tox-profil</string>
     <string name="delete_contact">Ta bort kontakt</string>

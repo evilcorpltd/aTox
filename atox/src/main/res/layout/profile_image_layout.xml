@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView android:id="@+id/imageContainer"
@@ -24,7 +25,8 @@
             android:tint="?android:attr/colorBackground"
             android:translationZ="9dp"
             app:layout_constraintBottom_toBottomOf="@id/imageContainer"
-            app:layout_constraintRight_toRightOf="@id/imageContainer"/>
+            app:layout_constraintRight_toRightOf="@id/imageContainer"
+            tools:targetApi="LOLLIPOP"/>
 
     <ImageView android:id="@+id/statusIndicator"
             android:layout_width="10dp"
@@ -35,5 +37,6 @@
             android:tint="@color/statusOffline"
             android:translationZ="10dp"
             app:layout_constraintBottom_toBottomOf="@id/imageContainer"
-            app:layout_constraintRight_toRightOf="@id/imageContainer"/>
+            app:layout_constraintRight_toRightOf="@id/imageContainer"
+            tools:targetApi="LOLLIPOP"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

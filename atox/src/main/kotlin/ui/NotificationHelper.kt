@@ -67,8 +67,11 @@ class NotificationHelper @Inject constructor(
                     .setArguments(bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey))
                     .createPendingIntent()
             )
-            .setCategory(Notification.CATEGORY_MESSAGE)
             .setAutoCancel(true)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            notificationBuilder.setCategory(Notification.CATEGORY_MESSAGE)
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val messages = notifier.activeNotifications.find { it.notification.group == contact.publicKey }
@@ -101,8 +104,11 @@ class NotificationHelper @Inject constructor(
                     .setDestination(R.id.contactListFragment)
                     .createPendingIntent()
             )
-            .setCategory(Notification.CATEGORY_MESSAGE)
             .setAutoCancel(true)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            notificationBuilder.setCategory(Notification.CATEGORY_MESSAGE)
+        }
 
         notifier.notify(friendRequest.publicKey.hashCode(), notificationBuilder.build())
     }

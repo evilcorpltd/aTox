@@ -14,6 +14,7 @@ import dagger.android.AndroidInjection
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.domain.tox.Tox
 import javax.inject.Inject
 
@@ -84,7 +85,7 @@ class ToxService : LifecycleService() {
 
         startForeground(notificationId, notification)
 
-        userRepository.get(tox.publicKey.string()).observe(this) { user ->
+        userRepository.get(tox.publicKey.string()).observe(this) { user: User? ->
             if (user == null) return@observe // Android is lying. This can be null.
             if (user.connectionStatus == connectionStatus) return@observe
             connectionStatus = user.connectionStatus
