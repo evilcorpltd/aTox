@@ -35,7 +35,7 @@ class ChatManager @Inject constructor(
             var msg = message
 
             while (msg.length > MAX_MESSAGE_LENGTH) {
-                tox.sendMessage(publicKey, msg.take(MAX_MESSAGE_LENGTH)).start()
+                tox.sendMessage(publicKey, msg.take(MAX_MESSAGE_LENGTH), type).start()
                 msg = msg.drop(MAX_MESSAGE_LENGTH)
             }
 
@@ -45,7 +45,7 @@ class ChatManager @Inject constructor(
                     message,
                     Sender.Sent,
                     type,
-                    tox.sendMessage(publicKey, msg).await()
+                    tox.sendMessage(publicKey, msg, type).await()
                 )
             )
         }

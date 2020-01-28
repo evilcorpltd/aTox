@@ -124,10 +124,9 @@ class ChatFragment : Fragment() {
             adapter.notifyDataSetChanged()
         })
 
+        registerForContextMenu(send)
         send.setOnClickListener {
-            val message = outgoingMessage.text.toString()
-            outgoingMessage.text.clear()
-            viewModel.sendMessage(message)
+            sendMessage()
         }
 
         send.isEnabled = false
@@ -160,13 +159,16 @@ class ChatFragment : Fragment() {
             R.id.messages -> {
                 requireActivity().menuInflater.inflate(R.menu.chat_message_context_menu, menu)
             }
+            R.id.send -> {
+                requireActivity().menuInflater.inflate(R.menu.chat_send_long_press_menu, menu)
+            }
         }
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
-        val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
         return when (item.itemId) {
             R.id.copy -> {
+                val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
                 val clipboard = requireActivity().getSystemService<ClipboardManager>()!!
                 val message = messages.adapter.getItem(info.position) as Message
                 clipboard.setPrimaryClip(ClipData.newPlainText(getText(R.string.message), message.message))
@@ -174,8 +176,24 @@ class ChatFragment : Fragment() {
                 Toast.makeText(requireContext(), getText(R.string.copied), Toast.LENGTH_SHORT).show()
                 true
             }
+            R.id.send_action -> {
+                sendAction()
+                true
+            }
             else -> super.onContextItemSelected(item)
         }
+    }
+
+    private fun sendMessage() {
+        val message = outgoingMessage.text.toString()
+        outgoingMessage.text.clear()
+        viewModel.sendMessage(message)
+    }
+
+    private fun sendAction() {
+        val message = outgoingMessage.text.toString()
+        outgoingMessage.text.clear()
+        viewModel.sendAction(message)
     }
 
     private fun updateSendButton(layout: View) {

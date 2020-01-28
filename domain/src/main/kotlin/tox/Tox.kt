@@ -5,6 +5,7 @@ import im.tox.tox4j.core.exceptions.ToxBootstrapException
 import kotlinx.coroutines.*
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.MessageType
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -110,8 +111,8 @@ class Tox @Inject constructor(
         save()
     }
 
-    fun sendMessage(publicKey: PublicKey, message: String) = async {
-        tox.sendMessage(publicKey, message)
+    fun sendMessage(publicKey: PublicKey, message: String, type: MessageType) = async {
+        tox.sendMessage(publicKey, message, type)
     }
 
     fun getSaveData() = async {

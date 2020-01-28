@@ -33,6 +33,11 @@ class ToxUtilTest {
 
         ToxMessageType.values().forEach { type ->
             assertEquals(type.ordinal, type.toMessageType().ordinal)
+            assertEquals(type, type.toMessageType().toToxType())
+        }
+
+        MessageType.values().forEach { type ->
+            assertEquals(type, type.toToxType().toMessageType())
         }
 
         assertEquals(ToxMessageType.NORMAL.ordinal, MessageType.Normal.ordinal)

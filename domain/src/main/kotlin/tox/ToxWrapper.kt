@@ -2,9 +2,9 @@ package ltd.evilcorp.domain.tox
 
 import android.util.Log
 import im.tox.tox4j.core.enums.ToxFileControl
-import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.exceptions.ToxFriendAddException
 import im.tox.tox4j.impl.jni.ToxCoreImpl
+import ltd.evilcorp.core.vo.MessageType
 
 private const val TAG = "ToxWrapper"
 
@@ -72,9 +72,9 @@ class ToxWrapper(
         }
     }
 
-    fun sendMessage(publicKey: PublicKey, message: String): Int = tox.friendSendMessage(
+    fun sendMessage(publicKey: PublicKey, message: String, type: MessageType): Int = tox.friendSendMessage(
             contactByKey(publicKey),
-            ToxMessageType.NORMAL,
+            type.toToxType(),
             0,
             message.toByteArray()
         )

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.Message
+import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.tox.PublicKey
@@ -22,6 +23,7 @@ class ChatViewModel @Inject constructor(
     val messages: LiveData<List<Message>> by lazy { chatManager.messagesFor(publicKey) }
 
     fun sendMessage(message: String) = chatManager.sendMessage(publicKey, message)
+    fun sendAction(action: String) = chatManager.sendMessage(publicKey, action, MessageType.Action)
     fun clearHistory() = chatManager.clearHistory(publicKey)
     fun setActiveChat(pubKey: PublicKey) {
         if (pubKey.string().isEmpty()) {

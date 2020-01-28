@@ -27,3 +27,8 @@ fun SaveOptions.toToxOptions(): ToxOptions = ToxOptions(
     if (saveData == null) SaveDataOptions.`None$`() else SaveDataOptions.ToxSave(saveData),
     true
 )
+
+fun MessageType.toToxType(): ToxMessageType = when(this) {
+    MessageType.Normal -> ToxMessageType.NORMAL
+    MessageType.Action -> ToxMessageType.ACTION
+}
