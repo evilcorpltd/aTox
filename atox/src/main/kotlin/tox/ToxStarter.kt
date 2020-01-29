@@ -22,7 +22,7 @@ class ToxStarter @Inject constructor(
 ) {
     fun startTox(save: ByteArray? = null): Boolean = try {
         listenerCallbacks.setUp(eventListener)
-        tox.start(SaveOptions(save), eventListener)
+        tox.start(SaveOptions(save, udpEnabled = false), eventListener)
         startService()
         true
     } catch (e: ToxNewException) {

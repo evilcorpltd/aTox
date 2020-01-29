@@ -18,7 +18,7 @@ fun ToxConnection.toConnectionStatus(): ConnectionStatus = ConnectionStatus.valu
 fun ToxMessageType.toMessageType(): MessageType = MessageType.values()[this.ordinal]
 fun SaveOptions.toToxOptions(): ToxOptions = ToxOptions(
     true,
-    true,
+    udpEnabled,
     true,
     ProxyOptions.`None$`(),
     0,
