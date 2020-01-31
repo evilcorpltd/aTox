@@ -8,11 +8,11 @@ object Java {
 
 private object Version {
     const val coroutines = "1.3.3"
-    const val dagger = "2.25.4"
+    const val dagger = "2.26"
     const val leakCanary = "2.1"
-    const val lifecycle = "2.2.0-rc03"
+    const val lifecycle = "2.2.0"
     const val room = "2.2.3"
-    const val navigation = "2.2.0-rc04"
+    const val navigation = "2.2.0"
 }
 
 object BuildPlugin {
@@ -33,7 +33,7 @@ object BuildPlugin {
     const val ideaExtVersion = "0.7"
 
     const val download = "de.undercouch.download"
-    const val downloadVersion = "4.0.2"
+    const val downloadVersion = "4.0.4"
 }
 
 object AndroidSdk {
@@ -66,7 +66,7 @@ object Libraries {
 
     const val preference = "androidx.preference:preference:1.1.0"
 
-    const val material = "com.google.android.material:material:1.1.0-beta02"
+    const val material = "com.google.android.material:material:1.1.0-rc02"
 
     const val dagger = "com.google.dagger:dagger:${Version.dagger}"
     const val daggerAndroid = "com.google.dagger:dagger-android:${Version.dagger}"
