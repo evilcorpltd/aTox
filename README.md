@@ -4,6 +4,8 @@
 
 The reasonable Tox client for Android.
 
+![aTox screenshot](/img/screenshot.png)
+
 ## License
 
 [GPLv3](LICENSE)
