@@ -2,6 +2,7 @@
 
 [![IRC](https://img.shields.io/badge/freenode-%23atox-brightgreen.svg)](https://webchat.freenode.net/?channels=#atox)
 [![License](https://img.shields.io/github/license/evilcorpltd/aTox)](https://github.com/evilcorpltd/aTox/blob/master/LICENSE)
+[![Last release](https://img.shields.io/github/v/release/evilcorpltd/aTox)](https://github.com/evilcorpltd/aTox/releases)
 
 The reasonable Tox client for Android.
 
