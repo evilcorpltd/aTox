@@ -78,14 +78,15 @@ class ChatAdapter(
                     view.tag = vh
                 }
 
+                val unsent = message.timestamp == 0L
                 vh.message.text = message.message
-                vh.timestamp.text = if (message.timestamp != 0L) {
+                vh.timestamp.text = if (!unsent) {
                     timeFormatter.format(message.timestamp)
                 } else {
                     resources.getText(R.string.sending)
                 }
 
-                vh.timestamp.visibility = if (position == messages.lastIndex) {
+                vh.timestamp.visibility = if (position == messages.lastIndex || unsent) {
                     View.VISIBLE
                 } else {
                     val next = messages[position + 1]
