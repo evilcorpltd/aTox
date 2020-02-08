@@ -9,7 +9,7 @@ object Java {
 private object Version {
     const val coroutines = "1.3.3"
     const val dagger = "2.26"
-    const val leakCanary = "2.1"
+    const val leakCanary = "2.2"
     const val lifecycle = "2.2.0"
     const val room = "2.2.3"
     const val navigation = "2.2.0"
@@ -49,7 +49,7 @@ object Libraries {
     const val ktxCoroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Version.coroutines}"
     const val ktxCoroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Version.coroutines}"
 
-    const val androidxCoreKtx = "androidx.core:core-ktx:1.1.0"
+    const val androidxCoreKtx = "androidx.core:core-ktx:1.2.0"
 
     const val appcompat = "androidx.appcompat:appcompat:1.1.0"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:1.1.3"
