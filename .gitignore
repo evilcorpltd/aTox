@@ -3,6 +3,7 @@
 .externalNativeBuild
 .gradle
 .idea
+bazel-*
 build
 captures
 local.properties
