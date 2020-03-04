@@ -88,7 +88,7 @@ class AddContactFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        if (requireContext().packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+        if (requireContext().packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
             read_qr.setOnClickListener {
                 IntentIntegrator.forSupportFragment(this@AddContactFragment).apply {
                     setOrientationLocked(false)
