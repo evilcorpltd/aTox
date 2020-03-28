@@ -5,6 +5,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.User
+import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
 import javax.inject.Inject
@@ -42,5 +43,10 @@ class UserManager @Inject constructor(
     fun setStatusMessage(statusMessage: String) = launch {
         tox.setStatusMessage(statusMessage)
         userRepository.updateStatusMessage(tox.publicKey.string(), statusMessage)
+    }
+
+    fun setStatus(status: UserStatus) = launch {
+        tox.setStatus(status)
+        userRepository.updateStatus(tox.publicKey.string(), status)
     }
 }

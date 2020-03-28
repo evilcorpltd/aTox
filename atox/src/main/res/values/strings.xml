@@ -73,4 +73,9 @@
     <string name="version_display">aTox v%1$s - %2$d</string>
     <string name="send_as_action">Send as action</string>
     <string name="or_import_existing_save">or import an existing Tox save</string>
+    <string-array name="user_statuses">
+        <item>Available</item>
+        <item>Away</item>
+        <item>Busy</item>
+    </string-array>
 </resources>

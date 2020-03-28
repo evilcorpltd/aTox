@@ -6,6 +6,7 @@ import kotlinx.coroutines.*
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.MessageType
+import ltd.evilcorp.core.vo.UserStatus
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -151,5 +152,9 @@ class Tox @Inject constructor(
 
     fun setTyping(publicKey: PublicKey, typing: Boolean) = launch {
         tox.setTyping(publicKey, typing)
+    }
+
+    fun setStatus(status: UserStatus) = launch {
+        tox.setStatus(status)
     }
 }

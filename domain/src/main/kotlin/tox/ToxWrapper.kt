@@ -5,6 +5,7 @@ import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.exceptions.ToxFriendAddException
 import im.tox.tox4j.impl.jni.ToxCoreImpl
 import ltd.evilcorp.core.vo.MessageType
+import ltd.evilcorp.core.vo.UserStatus
 
 private const val TAG = "ToxWrapper"
 
@@ -93,6 +94,10 @@ class ToxWrapper(
         tox.fileControl(contactByKey(publicKey), fileNumber, ToxFileControl.CANCEL)
 
     fun setTyping(publicKey: PublicKey, typing: Boolean) = tox.setTyping(contactByKey(publicKey), typing)
+
+    fun setStatus(status: UserStatus) {
+        tox.status = status.toToxType()
+    }
 
     private fun contactByKey(publicKey: PublicKey): Int = tox.friendByPublicKey(publicKey.bytes())
 }

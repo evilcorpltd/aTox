@@ -53,6 +53,10 @@ class ToxUtilTest {
             assertEquals(it.ordinal, it.toUserStatus().ordinal)
         }
 
+        UserStatus.values().forEach { type ->
+            assertEquals(type, type.toToxType().toUserStatus())
+        }
+
         assertEquals(ToxUserStatus.NONE.ordinal, UserStatus.None.ordinal)
         assertEquals(ToxUserStatus.AWAY.ordinal, UserStatus.Away.ordinal)
         assertEquals(ToxUserStatus.BUSY.ordinal, UserStatus.Busy.ordinal)

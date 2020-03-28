@@ -9,10 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
-import android.widget.AdapterView
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.addCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
@@ -35,6 +32,7 @@ import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
+import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.tox.PublicKey
 
 private const val REQUEST_CODE_BACKUP_TOX = 9202
@@ -42,6 +40,7 @@ private const val REQUEST_CODE_BACKUP_TOX = 9202
 class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
     private val viewModel: ContactListViewModel by viewModels { vmFactory }
     private var backupFileNameHint = "something_is_broken.tox"
+    private var userIntitialized = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,6 +68,8 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
             navView.getHeaderView(0).apply {
                 profileName.text = user.name
                 profileStatusMessage.text = user.statusMessage
+                statusSelector.setSelection(user.status.ordinal)
+                userIntitialized = true
             }
 
             toolbar.subtitle = if (user.connectionStatus == ConnectionStatus.None) {
@@ -109,6 +110,30 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
                     }
                     .setNegativeButton(R.string.cancel) { _, _ -> }
                     .show()
+            }
+
+            statusSelector.adapter = ArrayAdapter.createFromResource(
+                requireContext(), R.array.user_statuses,
+                android.R.layout.simple_spinner_item
+            ).apply {
+                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            }
+
+            statusSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) =
+                    TODO("This shouldn't happen")
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    // Don't react to changes if the user hasn't been loaded from the db yet.
+                    if (!userIntitialized) return
+                    println("status updated $position")
+                    viewModel.setStatus(UserStatus.values()[position])
+                }
             }
         }
 

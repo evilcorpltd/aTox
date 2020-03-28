@@ -28,6 +28,12 @@ fun SaveOptions.toToxOptions(): ToxOptions = ToxOptions(
     true
 )
 
+fun UserStatus.toToxType(): ToxUserStatus = when(this) {
+    UserStatus.None -> ToxUserStatus.NONE
+    UserStatus.Away -> ToxUserStatus.AWAY
+    UserStatus.Busy -> ToxUserStatus.BUSY
+}
+
 fun MessageType.toToxType(): ToxMessageType = when(this) {
     MessageType.Normal -> ToxMessageType.NORMAL
     MessageType.Action -> ToxMessageType.ACTION

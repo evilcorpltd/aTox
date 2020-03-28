@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import ltd.evilcorp.core.db.UserDao
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.User
+import ltd.evilcorp.core.vo.UserStatus
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -31,4 +32,7 @@ class UserRepository @Inject internal constructor(
 
     fun updateConnection(publicKey: String, connectionStatus: ConnectionStatus) =
         userDao.updateConnection(publicKey, connectionStatus)
+
+    fun updateStatus(publicKey: String, status: UserStatus) =
+        userDao.updateStatus(publicKey, status)
 }

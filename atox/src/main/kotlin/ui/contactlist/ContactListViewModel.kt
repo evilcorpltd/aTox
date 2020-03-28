@@ -12,6 +12,7 @@ import ltd.evilcorp.atox.ToxService
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.User
+import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.feature.FriendRequestManager
 import ltd.evilcorp.domain.feature.UserManager
@@ -43,6 +44,7 @@ class ContactListViewModel @Inject constructor(
 
     fun setName(name: String) = userManager.setName(name)
     fun setStatusMessage(statusMessage: String) = userManager.setStatusMessage(statusMessage)
+    fun setStatus(status: UserStatus) = userManager.setStatus(status)
 
     fun acceptFriendRequest(friendRequest: FriendRequest) = friendRequestManager.accept(friendRequest)
     fun rejectFriendRequest(friendRequest: FriendRequest) = friendRequestManager.reject(friendRequest)
