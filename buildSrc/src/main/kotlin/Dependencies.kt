@@ -31,9 +31,6 @@ object BuildPlugin {
 
     const val ideaExt = "org.jetbrains.gradle.plugin.idea-ext"
     const val ideaExtVersion = "0.7"
-
-    const val download = "de.undercouch.download"
-    const val downloadVersion = "4.0.4"
 }
 
 object AndroidSdk {
