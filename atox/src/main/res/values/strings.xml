@@ -52,7 +52,7 @@
     <string name="clear_history_confirm">Are you sure you want to clear your chat history with
         %1$s?
     </string>
-    <string name="import_tox_save">Import Tox save</string>
+    <string name="import_tox_save">Import</string>
     <string name="import_tox_save_failed">Import failed for some reason</string>
     <string name="export_tox_save">Export Tox save</string>
     <string name="tox_save_exported">Tox save exported</string>
@@ -72,4 +72,5 @@
     </string-array>
     <string name="version_display">aTox v%1$s - %2$d</string>
     <string name="send_as_action">Send as action</string>
+    <string name="or_import_existing_save">or import an existing Tox save</string>
 </resources>

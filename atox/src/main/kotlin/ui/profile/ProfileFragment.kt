@@ -57,20 +57,13 @@ class ProfileFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        toolbar.inflateMenu(R.menu.profile_options_menu)
-        toolbar.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-                R.id.import_tox_save -> {
-                    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                        addCategory(Intent.CATEGORY_OPENABLE)
-                        type = "*/*"
-                    }
-
-                    startActivityForResult(intent, IMPORT)
-                    true
-                }
-                else -> super.onOptionsItemSelected(item)
+        btnImport.setOnClickListener { _ ->
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "*/*"
             }
+
+            startActivityForResult(intent, IMPORT)
         }
     }
 
