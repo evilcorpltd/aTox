@@ -72,11 +72,16 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
                 userIntitialized = true
             }
 
-            toolbar.subtitle = if (user.connectionStatus == ConnectionStatus.None) {
-                getText(R.string.connecting)
-            } else {
+            val connnectionString = if (user.connectionStatus != ConnectionStatus.None) {
                 getText(R.string.connected)
+            } else {
+                getText(R.string.connecting)
             }
+            toolbar.subtitle = getString(
+                R.string.connection_and_status,
+                connnectionString,
+                resources.getStringArray(R.array.user_statuses)[user.status.ordinal]
+            )
         })
 
         navView.setNavigationItemSelectedListener(this@ContactListFragment)
