@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accept">Aceptar</string>
+    <string name="add">Añadir</string>
+    <string name="add_contact">Añadir contacto</string>
+    <string name="add_contact_message_default">Háblame en aTox como un ser humano razonable.</string>
+    <string name="add_contact_message_error_empty">El mensaje no puede estar vacío</string>
+    <string name="cancel">Cancelar</string>
+    <string name="connected">Conectado</string>
+    <string name="connecting">Conectando…</string>
+    <string name="contact_typing">Escribiendo…</string>
+    <string name="copied">Copiado</string>
+    <string name="copy_atox">Copiar</string> <!-- androidx.preference:preference has stolen copy -->
+    <string name="create">Crear</string>
+    <string name="create_a_tox_profile">Crear un perfil de Tox</string>
+    <string name="delete_contact">Eliminar contacto</string>
+    <string name="message">Mensaje</string>
+    <string name="messages">Mensajes</string>
+    <string name="messages_incoming">Mensajes entrantes</string>
+    <string name="name">Nombre</string>
+    <string name="name_default">Usuario aTox</string>
+    <string name="no_contacts_call_to_action">¿Que estas esperando? ¡Agrega un contacto para comenzar!</string>
+    <string name="navigation_drawer_close">Cerrar el cajón de navegación</string>
+    <string name="navigation_drawer_open">Abrir el cajón de navegación</string>
+    <string name="password_optional">Contraseña (opcional)</string>
+    <string name="profile_photo_description">Imagen de perfil</string>
+    <string name="reject">Rechazar</string>
+    <string name="send">Enviar</string>
+    <string name="sending">Enviando…</string>
+    <string name="settings">Configuraciones</string>
+    <string name="status_indicator">Indicador de estado</string>
+    <string name="status_message">Mensaje de estado</string>
+    <string name="status_message_default">Esto es un estado de aTox</string>
+    <string name="tox_id">ID de Tox</string>
+    <string name="tox_id_copied">ID de Tox copiada</string>
+    <string name="tox_id_copy">Copiar la ID de Tox </string>
+    <string name="tox_id_error_length">La ID de Tox debe tener 76 caracteres (%1$d/76)</string>
+    <string name="tox_id_error_checksum">Suma de comprobación no válida</string>
+    <string name="tox_id_error_hex">Solo se permite hexadecimal</string>
+    <string name="tox_id_share">Compartir tu ID de Tox</string>
+    <string name="update">Actualizar</string>
+    <string name="quit">Abandonar</string>
+    <!-- Friend request notification -->
+    <string name="friend_requests">Peticiones de amistad</string>
+    <string name="friend_request_from">Solicitud de amistad de %1$s</string>
+    <!-- Chat history clearing -->
+    <string name="clear_history">Limpiar historial</string>
+    <string name="clear_history_cleared">Historial borrado</string>
+    <string name="clear_history_confirm">¿Estás seguro de que deseas borrar tu historial de chat con %1$s?</string>
+    <string name="import_tox_save">Importar</string>
+    <string name="import_tox_save_failed">La importación falló por alguna razón</string>
+    <string name="export_tox_save">Exportar archivo Tox</string>
+    <string name="tox_save_exported">Tox ha sido exportado</string>
+    <string name="never">Nunca</string>
+    <string name="info">Información</string>
+    <string name="atox_offline">Desconectado</string>
+    <string name="atox_connected_with_tcp">Conectado (TCP)</string>
+    <string name="atox_connected_with_udp">Conectado (UDP)</string>
+    <string name="pref_heading_user">Usuario</string>
+    <string name="read_qr">QR</string>
+    <string name="pref_heading_appearance">Apariencia</string>
+    <string name="pref_heading_theme">Tema</string>
+    <string-array name="pref_theme_options">
+        <item>Según el sistema</item>
+        <item>Claro</item>
+        <item>Oscuro</item>
+    </string-array>
+    <string name="version_display">aTox v%1$s - %2$d</string>
+    <string name="send_as_action">Enviar como acción</string>
+    <string name="or_import_existing_save">o importar un archivo de Tox existente</string>
+    <string-array name="user_statuses">
+        <item>Conectado</item>
+        <item>Ausente</item>
+        <item>Ocupado</item>
+    </string-array>
+</resources>
