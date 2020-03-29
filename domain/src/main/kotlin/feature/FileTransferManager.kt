@@ -35,6 +35,11 @@ class FileTransferManager @Inject constructor(
                     contactRepository.setAvatarUri(ft.publicKey, "")
                     tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
                     return
+                } else if (ft.fileSize > 64 * 1024) {
+                    Log.e(TAG, "Got trash avatar with size ${ft.fileSize} from ${ft.publicKey}")
+                    contactRepository.setAvatarUri(ft.publicKey, "")
+                    tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
+                    return
                 }
 
                 fileTransferRepository.add(ft)
