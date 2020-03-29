@@ -74,6 +74,7 @@
     <string name="send_as_action">Send as action</string>
     <string name="or_import_existing_save">or import an existing Tox save</string>
     <string name="connection_and_status">%1$s - %2$s</string>
+    <string name="status_switcher">Status switcher</string>
     <string-array name="user_statuses">
         <item>Available</item>
         <item>Away</item>

@@ -9,11 +9,15 @@ import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.getSystemService
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
@@ -40,7 +44,7 @@ private const val REQUEST_CODE_BACKUP_TOX = 9202
 class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
     private val viewModel: ContactListViewModel by viewModels { vmFactory }
     private var backupFileNameHint = "something_is_broken.tox"
-    private var userIntitialized = false
+    private lateinit var currentStatus: UserStatus
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,12 +68,18 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
             if (user == null) return@Observer
 
             backupFileNameHint = user.name + ".tox"
+            currentStatus = user.status
 
             navView.getHeaderView(0).apply {
                 profileName.text = user.name
                 profileStatusMessage.text = user.statusMessage
-                statusSelector.setSelection(user.status.ordinal)
-                userIntitialized = true
+
+                val statusColor = when (user.status) {
+                    UserStatus.None -> ResourcesCompat.getColor(resources, R.color.statusAvailable, null)
+                    UserStatus.Away -> ResourcesCompat.getColor(resources, R.color.statusAway, null)
+                    UserStatus.Busy -> ResourcesCompat.getColor(resources, R.color.statusBusy, null)
+                }
+                statusSwitcher.setColorFilter(statusColor)
             }
 
             val connnectionString = if (user.connectionStatus != ConnectionStatus.None) {
@@ -117,28 +127,9 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
                     .show()
             }
 
-            statusSelector.adapter = ArrayAdapter.createFromResource(
-                requireContext(), R.array.user_statuses,
-                android.R.layout.simple_spinner_item
-            ).apply {
-                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            }
-
-            statusSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) =
-                    TODO("This shouldn't happen")
-
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    // Don't react to changes if the user hasn't been loaded from the db yet.
-                    if (!userIntitialized) return
-                    println("status updated $position")
-                    viewModel.setStatus(UserStatus.values()[position])
-                }
+            statusSwitcher.setOnClickListener {
+                val statuses = UserStatus.values()
+                viewModel.setStatus(statuses[(currentStatus.ordinal + 1) % statuses.size])
             }
         }
 
