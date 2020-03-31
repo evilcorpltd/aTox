@@ -82,7 +82,8 @@ class ContactAdapter(
                 }
 
                 contacts[position - friendRequests.size].run {
-                    vh.publicKey.text = publicKey
+                    val shortId = publicKey.take(8)
+                    vh.publicKey.text = String.format("%s %s", shortId.take(4), shortId.takeLast(4))
                     vh.name.text = name
                     vh.lastMessage.text = if (lastMessage != 0L) {
                         DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT)
@@ -90,6 +91,7 @@ class ContactAdapter(
                     } else {
                         resources.getText(R.string.never)
                     }
+                    vh.statusMessage.text = statusMessage
                     vh.status.setColorFilter(colorByStatus(resources, this))
                     setAvatarFromContact(vh.image, this)
                     vh.unreadIndicator.visibility = if (hasUnreadMessages) {
@@ -111,6 +113,7 @@ class ContactAdapter(
     private class ContactViewHolder(row: View) {
         val name: TextView = row.name
         val publicKey: TextView = row.contactPublicKey
+        val statusMessage: TextView = row.statusMessage
         val lastMessage: TextView = row.lastMessage
         val status: ImageView = row.statusIndicator
         val image: ImageView = row.profileImage

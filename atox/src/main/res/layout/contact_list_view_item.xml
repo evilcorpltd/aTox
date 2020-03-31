@@ -6,13 +6,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
-    <include layout="@layout/profile_image_layout"/>
+    <include android:id="@+id/profileImageLayout" layout="@layout/profile_image_layout"/>
 
     <TextView android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="@id/publicKey"
+            app:layout_constraintLeft_toRightOf="@id/profileImageLayout"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="name goes here"/>
     <TextView android:id="@+id/lastMessage"
@@ -22,26 +23,41 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="28 May 2019 11:49"/>
 
-    <TextView android:id="@+id/publicKey"
+    <TextView android:id="@+id/statusMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:ellipsize="end"
             android:singleLine="true"
-            app:layout_constraintLeft_toRightOf="@id/imageContainer"
-            app:layout_constraintRight_toLeftOf="@id/unreadIndicator"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintLeft_toRightOf="@id/profileImageLayout"
+            app:layout_constraintRight_toLeftOf="@id/publicKey"
             app:layout_constraintTop_toBottomOf="@id/name"
-            tools:text="PUBLIC KEY GOES HERE AND GOES ON AND ON AND ON AND ON"/>
+            tools:text="Really long and interesting status message"/>
+    <TextView android:id="@+id/publicKey"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="end"
+            android:singleLine="true"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toRightOf="@id/statusMessage"
+            app:layout_constraintRight_toLeftOf="@id/unreadIndicator"
+            app:layout_constraintTop_toBottomOf="@id/lastMessage"
+            tools:text="AAAA AAAA"/>
     <ImageView android:id="@+id/unreadIndicator"
             android:layout_width="12dp"
             android:layout_height="12dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:contentDescription="@null"
             android:src="@drawable/circle"
             android:tint="@color/colorPrimary"
             android:translationZ="9dp"
+            app:layout_constraintLeft_toRightOf="@id/publicKey"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name"
+            app:layout_constraintTop_toBottomOf="@id/lastMessage"
             tools:targetApi="LOLLIPOP"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
