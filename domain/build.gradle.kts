@@ -42,8 +42,6 @@ android {
     lintOptions {
         isAbortOnError = true
         isWarningsAsErrors = true
-        // TODO(robinlinden): Delete/update invalid packages
-        disable("InvalidPackage")
     }
     sourceSets["main"].java.srcDir("src/main/kotlin")
     sourceSets["test"].java.srcDir("src/test/kotlin")

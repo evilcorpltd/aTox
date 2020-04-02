@@ -38,8 +38,7 @@ android {
         freeCompilerArgs = listOf("-XXLanguage:+InlineClasses")
     }
     lintOptions {
-        // TODO(robinlinden): Delete/update invalid packages
-        disable("InvalidPackage", "GoogleAppIndexingWarning", "MissingTranslation")
+        disable("GoogleAppIndexingWarning", "MissingTranslation")
     }
     sourceSets["main"].java.srcDir("src/main/kotlin")
     sourceSets["androidTest"].java.srcDir("src/androidTest/kotlin")
