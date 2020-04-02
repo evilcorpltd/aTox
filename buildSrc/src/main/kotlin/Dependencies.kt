@@ -74,11 +74,6 @@ object Libraries {
     // 3.6.0 is the last version before API 24 was required.
     const val zxingAndroidEmbedded = "com.journeyapps:zxing-android-embedded:3.6.0"
 
-    const val scalaLibrary = "org.scala-lang:scala-library:2.11.12"
-    const val scalaLogging = "com.typesafe.scala-logging:scala-logging_2.11:3.9.2"
-    const val scalapbRuntime = "com.trueaccord.scalapb:scalapb-runtime_2.11:0.6.7"
-    const val scodecCore = "org.scodec:scodec-core_2.11:1.11.4"
-
     const val leakcanaryAndroid = "com.squareup.leakcanary:leakcanary-android:${Version.leakCanary}"
 
     const val junit = "junit:junit:4.13"
