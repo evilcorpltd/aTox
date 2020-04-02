@@ -7,11 +7,11 @@ object Java {
 }
 
 private object Version {
-    const val coroutines = "1.3.4"
-    const val dagger = "2.26"
+    const val coroutines = "1.3.5"
+    const val dagger = "2.27"
     const val leakCanary = "2.2"
     const val lifecycle = "2.2.0"
-    const val room = "2.2.4"
+    const val room = "2.2.5"
     const val navigation = "2.2.0"
 }
 
