@@ -57,7 +57,7 @@ class ProfileFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        btnImport.setOnClickListener {
+        btnImport.setOnClickListener { _ ->
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
                 type = "*/*"
