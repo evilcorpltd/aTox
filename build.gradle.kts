@@ -2,9 +2,6 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven {
-            url = uri("https://dl.bintray.com/toktok/maven")
-        }
     }
     dependencies {
         classpath(BuildPlugin.gradle)
@@ -13,6 +10,7 @@ buildscript {
 }
 
 plugins {
+    id(BuildPlugin.download) version BuildPlugin.downloadVersion
     id(BuildPlugin.ideaExt) version BuildPlugin.ideaExtVersion
 }
 
@@ -20,9 +18,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven {
-            url = uri("https://dl.bintray.com/toktok/maven")
-        }
     }
 }
 
