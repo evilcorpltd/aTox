@@ -9,7 +9,7 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
-import kotlinx.android.synthetic.main.contact_profile_fragment.view.*
+import kotlinx.android.synthetic.main.fragment_contact_profile.view.*
 import kotlinx.android.synthetic.main.profile_image_layout.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.requireStringArg
@@ -26,7 +26,7 @@ class ContactProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.contact_profile_fragment, container, false).apply {
+    ): View? = inflater.inflate(R.layout.fragment_contact_profile, container, false).apply {
         setUpFullScreenUi { _, insets ->
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
             appBar.updatePadding(

@@ -16,8 +16,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.chat_fragment.*
-import kotlinx.android.synthetic.main.chat_fragment.view.*
+import kotlinx.android.synthetic.main.fragment_chat.*
+import kotlinx.android.synthetic.main.fragment_chat.view.*
 import kotlinx.android.synthetic.main.profile_image_layout.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.requireStringArg
@@ -44,7 +44,7 @@ class ChatFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.chat_fragment, container, false).apply {
+    ): View = inflater.inflate(R.layout.fragment_chat, container, false).apply {
         contactPubKey = requireStringArg(CONTACT_PUBLIC_KEY)
         viewModel.setActiveChat(PublicKey(contactPubKey))
 

@@ -25,9 +25,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.contact_list_fragment.*
-import kotlinx.android.synthetic.main.contact_list_fragment.view.*
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
+import kotlinx.android.synthetic.main.fragment_contact_list.*
+import kotlinx.android.synthetic.main.fragment_contact_list.view.*
 import kotlinx.android.synthetic.main.nav_header_contact_list.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.setUpFullScreenUi
@@ -50,7 +50,7 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.contact_list_fragment, container, false).apply {
+    ): View = inflater.inflate(R.layout.fragment_contact_list, container, false).apply {
         if (!viewModel.isToxRunning()) return@apply
 
         setUpFullScreenUi { v, insets ->
@@ -75,21 +75,25 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
                 profileStatusMessage.text = user.statusMessage
 
                 val statusColor = when (user.status) {
-                    UserStatus.None -> ResourcesCompat.getColor(resources, R.color.statusAvailable, null)
+                    UserStatus.None -> ResourcesCompat.getColor(
+                        resources,
+                        R.color.statusAvailable,
+                        null
+                    )
                     UserStatus.Away -> ResourcesCompat.getColor(resources, R.color.statusAway, null)
                     UserStatus.Busy -> ResourcesCompat.getColor(resources, R.color.statusBusy, null)
                 }
                 statusSwitcher.setColorFilter(statusColor)
             }
 
-            val connnectionString = if (user.connectionStatus != ConnectionStatus.None) {
+            val connectionString = if (user.connectionStatus != ConnectionStatus.None) {
                 getText(R.string.connected)
             } else {
                 getText(R.string.connecting)
             }
             toolbar.subtitle = getString(
                 R.string.connection_and_status,
-                connnectionString,
+                connectionString,
                 resources.getStringArray(R.array.user_statuses)[user.status.ordinal]
             )
         })
@@ -251,9 +255,18 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
             }
             R.id.copy_tox_id -> {
                 val clipboard = requireActivity().getSystemService<ClipboardManager>()!!
-                clipboard.setPrimaryClip(ClipData.newPlainText(getText(R.string.tox_id), viewModel.toxId.string()))
+                clipboard.setPrimaryClip(
+                    ClipData.newPlainText(
+                        getText(R.string.tox_id),
+                        viewModel.toxId.string()
+                    )
+                )
 
-                Toast.makeText(requireContext(), getText(R.string.tox_id_copied), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getText(R.string.tox_id_copied),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             R.id.add_contact -> findNavController().navigate(R.id.action_contactListFragment_to_addContactFragment)
             R.id.settings -> findNavController().navigate(R.id.action_contactListFragment_to_settingsFragment)
