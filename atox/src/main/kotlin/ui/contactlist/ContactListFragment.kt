@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import androidx.activity.addCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
@@ -211,8 +212,14 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
                 }
             }
             R.id.quit_tox -> {
-                viewModel.quitTox()
-                activity?.finishAffinity()
+                AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.quit_confirm)
+                    .setPositiveButton(R.string.quit) { _, _ ->
+                        viewModel.quitTox()
+                        activity?.finishAffinity()
+                    }
+                    .setNegativeButton(R.string.cancel) { _, _ -> }
+                    .show()
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)

@@ -41,6 +41,7 @@
     <string name="tox_id_share">Share Tox ID</string>
     <string name="update">Update</string>
     <string name="quit">Quit</string>
+    <string name="quit_confirm">Are you sure you wish to quit?</string>
     <!-- Friend request notification -->
     <string name="friend_requests">Friend requests</string>
     <string name="friend_request_from">Friend request from %1$s</string>
