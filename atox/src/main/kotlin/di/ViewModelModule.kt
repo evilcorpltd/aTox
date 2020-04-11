@@ -11,6 +11,7 @@ import ltd.evilcorp.atox.ui.contact_profile.ContactProfileViewModel
 import ltd.evilcorp.atox.ui.contactlist.ContactListViewModel
 import ltd.evilcorp.atox.ui.profile.ProfileViewModel
 import ltd.evilcorp.atox.ui.settings.SettingsViewModel
+import ltd.evilcorp.atox.ui.user_profile.UserProfileViewModel
 import kotlin.reflect.KClass
 
 @MustBeDocumented
@@ -55,4 +56,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SettingsViewModel::class)
     abstract fun bindSettingsViewModel(vm: SettingsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(UserProfileViewModel::class)
+    abstract fun bindUserProfileViewModel(vm: UserProfileViewModel): ViewModel
 }

@@ -32,8 +32,6 @@
     <string name="status_message">Mensaje de estado</string>
     <string name="status_message_default">Esto es un estado de aTox</string>
     <string name="tox_id">ID de Tox</string>
-    <string name="tox_id_copied">ID de Tox copiada</string>
-    <string name="tox_id_copy">Copiar la ID de Tox </string>
     <string name="tox_id_error_length">La ID de Tox debe tener 76 caracteres (%1$d/76)</string>
     <string name="tox_id_error_checksum">Suma de comprobación no válida</string>
     <string name="tox_id_error_hex">Solo se permite hexadecimal</string>
@@ -56,7 +54,6 @@
     <string name="atox_offline">Desconectado</string>
     <string name="atox_connected_with_tcp">Conectado (TCP)</string>
     <string name="atox_connected_with_udp">Conectado (UDP)</string>
-    <string name="pref_heading_user">Usuario</string>
     <string name="read_qr">QR</string>
     <string name="pref_heading_appearance">Apariencia</string>
     <string name="pref_heading_theme">Tema</string>

@@ -1,8 +1,6 @@
 package ltd.evilcorp.atox.ui.contactlist
 
 import android.app.Activity
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -10,12 +8,8 @@ import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
@@ -44,7 +38,12 @@ private const val REQUEST_CODE_BACKUP_TOX = 9202
 class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
     private val viewModel: ContactListViewModel by viewModels { vmFactory }
     private var backupFileNameHint = "something_is_broken.tox"
-    private lateinit var currentStatus: UserStatus
+
+    private fun colorFromStatus(status: UserStatus) = when (status) {
+        UserStatus.None -> ResourcesCompat.getColor(resources, R.color.statusAvailable, null)
+        UserStatus.Away -> ResourcesCompat.getColor(resources, R.color.statusAway, null)
+        UserStatus.Busy -> ResourcesCompat.getColor(resources, R.color.statusBusy, null)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,22 +67,11 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
             if (user == null) return@Observer
 
             backupFileNameHint = user.name + ".tox"
-            currentStatus = user.status
 
             navView.getHeaderView(0).apply {
                 profileName.text = user.name
                 profileStatusMessage.text = user.statusMessage
-
-                val statusColor = when (user.status) {
-                    UserStatus.None -> ResourcesCompat.getColor(
-                        resources,
-                        R.color.statusAvailable,
-                        null
-                    )
-                    UserStatus.Away -> ResourcesCompat.getColor(resources, R.color.statusAway, null)
-                    UserStatus.Busy -> ResourcesCompat.getColor(resources, R.color.statusBusy, null)
-                }
-                statusSwitcher.setColorFilter(statusColor)
+                statusSwitcher.setColorFilter(colorFromStatus(user.status))
             }
 
             val connectionString = if (user.connectionStatus != ConnectionStatus.None) {
@@ -99,43 +87,6 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         })
 
         navView.setNavigationItemSelectedListener(this@ContactListFragment)
-        navView.getHeaderView(0).apply {
-            profileName.setOnClickListener {
-                val nameEdit = EditText(requireContext()).apply {
-                    text.append((it as TextView).text.toString())
-                    setSingleLine()
-                }
-                AlertDialog.Builder(requireContext())
-                    .setTitle(R.string.name)
-                    .setView(nameEdit)
-                    .setPositiveButton(R.string.update) { _, _ ->
-                        viewModel.setName(nameEdit.text.toString())
-                    }
-                    .setNegativeButton(R.string.cancel) { _, _ -> }
-                    .show()
-            }
-
-            profileStatusMessage.setOnClickListener {
-                val statusMessageEdit =
-                    EditText(requireContext()).apply {
-                        text.append((it as TextView).text.toString())
-                        setSingleLine()
-                    }
-                AlertDialog.Builder(requireContext())
-                    .setTitle(R.string.status_message)
-                    .setView(statusMessageEdit)
-                    .setPositiveButton(R.string.update) { _, _ ->
-                        viewModel.setStatusMessage(statusMessageEdit.text.toString())
-                    }
-                    .setNegativeButton(R.string.cancel) { _, _ -> }
-                    .show()
-            }
-
-            statusSwitcher.setOnClickListener {
-                val statuses = UserStatus.values()
-                viewModel.setStatus(statuses[(currentStatus.ordinal + 1) % statuses.size])
-            }
-        }
 
         val contactAdapter = ContactAdapter(inflater, resources)
         contactList.adapter = contactAdapter
@@ -245,28 +196,8 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.share_tox_id -> {
-                val shareIntent = Intent().apply {
-                    action = Intent.ACTION_SEND
-                    type = "text/plain"
-                    putExtra(Intent.EXTRA_TEXT, viewModel.toxId.string())
-                }
-                startActivity(Intent.createChooser(shareIntent, getString(R.string.tox_id_share)))
-            }
-            R.id.copy_tox_id -> {
-                val clipboard = requireActivity().getSystemService<ClipboardManager>()!!
-                clipboard.setPrimaryClip(
-                    ClipData.newPlainText(
-                        getText(R.string.tox_id),
-                        viewModel.toxId.string()
-                    )
-                )
-
-                Toast.makeText(
-                    requireContext(),
-                    getText(R.string.tox_id_copied),
-                    Toast.LENGTH_SHORT
-                ).show()
+            R.id.drawer_profile -> {
+                findNavController().navigate(R.id.action_contactListFragment_to_userProfileFragment)
             }
             R.id.add_contact -> findNavController().navigate(R.id.action_contactListFragment_to_addContactFragment)
             R.id.settings -> findNavController().navigate(R.id.action_contactListFragment_to_settingsFragment)

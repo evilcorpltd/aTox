@@ -35,8 +35,6 @@
     <string name="status_message">Status message</string>
     <string name="status_message_default">Brought to you live, by aTox</string>
     <string name="tox_id">Tox ID</string>
-    <string name="tox_id_copied">Tox ID copied</string>
-    <string name="tox_id_copy">Copy Tox ID</string>
     <string name="tox_id_error_length">Tox ID must be 76 characters (%1$d/76)</string>
     <string name="tox_id_error_checksum">Invalid checksum</string>
     <string name="tox_id_error_hex">Only hex allowed</string>
@@ -61,7 +59,6 @@
     <string name="atox_offline">Offline</string>
     <string name="atox_connected_with_tcp">Connected (TCP)</string>
     <string name="atox_connected_with_udp">Connected (UDP)</string>
-    <string name="pref_heading_user">User</string>
     <string name="read_qr">QR</string>
     <string name="pref_heading_appearance">Appearance</string>
     <string name="pref_heading_theme">Theme</string>
@@ -75,6 +72,12 @@
     <string name="or_import_existing_save">or import an existing Tox save</string>
     <string name="connection_and_status">%1$s - %2$s</string>
     <string name="status_switcher">Status switcher</string>
+    <string name="profile_information">Profile information</string>
+    <string name="profile_settings">Profile settings</string>
+    <string name="profile_nickname">Change your nickname</string>
+    <string name="profile_status_message">Change your status message</string>
+    <string name="profile_status">Change your status</string>
+    <string name="profile">Profile</string>
     <string-array name="user_statuses">
         <item>Available</item>
         <item>Away</item>

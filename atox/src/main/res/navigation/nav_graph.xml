@@ -40,6 +40,13 @@
                 app:exitAnim="@anim/fade_out"
                 app:popEnterAnim="@anim/fade_in"
                 app:popExitAnim="@anim/slide_out_right"/>
+        <action
+                android:id="@+id/action_contactListFragment_to_userProfileFragment"
+                app:destination="@id/userProfileFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment android:id="@+id/chatFragment"
@@ -71,4 +78,9 @@
     <fragment android:id="@+id/settingsFragment"
             android:name="ltd.evilcorp.atox.ui.settings.SettingsFragment"
             android:label="SettingsFragment"/>
+    <fragment
+            android:id="@+id/userProfileFragment"
+            android:name="ltd.evilcorp.atox.ui.user_profile.UserProfileFragment"
+            android:label="fragment_user_profile"
+            tools:layout="@layout/fragment_user_profile"/>
 </navigation>

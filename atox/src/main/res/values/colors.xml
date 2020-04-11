@@ -9,4 +9,6 @@
     <color name="statusBusy">@android:color/holo_red_dark</color>
     <color name="statusAway">@android:color/holo_orange_light</color>
     <color name="statusAvailable">@android:color/holo_green_dark</color>
+
+    <item name="dividerColor" type="color">#E0E0E0</item>
 </resources>
