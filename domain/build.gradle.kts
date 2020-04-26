@@ -24,6 +24,8 @@ android {
         targetSdkVersion(AndroidSdk.targetVersion)
         versionCode = 1
         versionName = "0.1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
     }
     buildTypes {
         getByName("release") {
@@ -46,6 +48,7 @@ android {
     }
     sourceSets["main"].java.srcDir("src/main/kotlin")
     sourceSets["test"].java.srcDir("src/test/kotlin")
+    sourceSets["androidTest"].java.srcDir("src/androidTest/kotlin")
 }
 
 idea {
@@ -53,6 +56,7 @@ idea {
         settings {
             packagePrefix["src/main/kotlin"] = "ltd.evilcorp.domain"
             packagePrefix["src/test/kotlin"] = "ltd.evilcorp.domain"
+            packagePrefix["src/androidTest/kotlin"] = "ltd.evilcorp.domain"
         }
     }
 }
@@ -77,6 +81,10 @@ dependencies {
     implementation(Libraries.scodecCore)
 
     testImplementation(Libraries.junit)
+
+    androidTestImplementation(Libraries.runner)
+    androidTestImplementation(Libraries.androidJUnit)
+    androidTestImplementation(Libraries.mockk)
 }
 
 val files = listOf(

@@ -13,6 +13,7 @@ private object Version {
     const val lifecycle = "2.2.0"
     const val room = "2.2.5"
     const val navigation = "2.2.0"
+    const val mockk = "1.10.0"
 }
 
 object BuildPlugin {
@@ -89,5 +90,6 @@ object Libraries {
     const val espressoCore = "androidx.test.espresso:espresso-core:3.2.0"
     const val androidJUnit = "androidx.test.ext:junit:1.1.1"
     const val roomTesting = "androidx.room:room-testing:${Version.room}"
-}
 
+    const val mockk = "io.mockk:mockk-android:${Version.mockk}"
+}
