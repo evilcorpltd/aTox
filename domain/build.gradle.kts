@@ -42,6 +42,7 @@ android {
     lintOptions {
         isAbortOnError = true
         isWarningsAsErrors = true
+        disable("InvalidPackage")
     }
     sourceSets["main"].java.srcDir("src/main/kotlin")
     sourceSets["test"].java.srcDir("src/test/kotlin")
