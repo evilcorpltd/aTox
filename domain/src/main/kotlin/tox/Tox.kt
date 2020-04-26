@@ -50,9 +50,10 @@ class Tox @Inject constructor(
                     bootstrap()
                     isBootstrapNeeded = false
                 }
-                iterate()
+                tox.iterate()
                 delay(tox.iterationInterval())
             }
+            started = false
         }
 
         save()
@@ -62,17 +63,13 @@ class Tox @Inject constructor(
 
     fun stop() = launch {
         running = false
+        while (started) delay(10)
         save()
         tox.stop()
-        started = false
     }
 
     private fun save() = runBlocking {
         saveManager.save(publicKey, tox.getSaveData())
-    }
-
-    private fun iterate() = launch {
-        tox.iterate()
     }
 
     fun acceptFriendRequest(publicKey: PublicKey) = launch {
