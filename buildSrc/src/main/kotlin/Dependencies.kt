@@ -35,6 +35,10 @@ object BuildPlugin {
 
     const val download = "de.undercouch.download"
     const val downloadVersion = "4.0.4"
+
+    const val versions = "com.github.ben-manes.versions"
+    const val versionsVersion = "0.28.0"
+    const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:$versionsVersion"
 }
 
 object AndroidSdk {

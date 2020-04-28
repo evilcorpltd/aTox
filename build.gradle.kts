@@ -1,3 +1,9 @@
+plugins {
+    id(BuildPlugin.download) version BuildPlugin.downloadVersion
+    id(BuildPlugin.ideaExt) version BuildPlugin.ideaExtVersion
+    id(BuildPlugin.versions) version BuildPlugin.versionsVersion
+}
+
 buildscript {
     repositories {
         google()
@@ -6,12 +12,8 @@ buildscript {
     dependencies {
         classpath(BuildPlugin.gradle)
         classpath(BuildPlugin.kotlinGradle)
+        classpath(BuildPlugin.gradleVersionsPlugin)
     }
-}
-
-plugins {
-    id(BuildPlugin.download) version BuildPlugin.downloadVersion
-    id(BuildPlugin.ideaExt) version BuildPlugin.ideaExtVersion
 }
 
 allprojects {
