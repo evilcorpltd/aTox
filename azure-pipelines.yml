@@ -20,7 +20,7 @@ steps:
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
     testResultsFiles: '**/TEST-*.xml'
-    tasks: 'assembleDebug testDebug'
+    tasks: 'assembleDebug lintDebug testDebug'
   displayName: gradlew assembleDebug testDebug
 
 - task: CopyFiles@2
