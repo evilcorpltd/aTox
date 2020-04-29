@@ -14,6 +14,9 @@ private object Version {
     const val room = "2.2.5"
     const val navigation = "2.2.0"
     const val mockk = "1.10.0"
+    const val toxcore = "0.2.11"
+    const val sadToxcore = "0.2.2" // The x86 build has apparently been broken for a while.
+    const val tox4j = "0.2.3"
 }
 
 object BuildPlugin {
@@ -32,9 +35,6 @@ object BuildPlugin {
 
     const val ideaExt = "org.jetbrains.gradle.plugin.idea-ext"
     const val ideaExtVersion = "0.7"
-
-    const val download = "de.undercouch.download"
-    const val downloadVersion = "4.0.4"
 
     const val versions = "com.github.ben-manes.versions"
     const val versionsVersion = "0.28.0"
@@ -82,10 +82,13 @@ object Libraries {
     // 3.6.0 is the last version before API 24 was required.
     const val zxingAndroidEmbedded = "com.journeyapps:zxing-android-embedded:3.6.0"
 
-    const val scalaLibrary = "org.scala-lang:scala-library:2.11.12"
-    const val scalaLogging = "com.typesafe.scala-logging:scala-logging_2.11:3.9.2"
-    const val scalapbRuntime = "com.trueaccord.scalapb:scalapb-runtime_2.11:0.6.7"
-    const val scodecCore = "org.scodec:scodec-core_2.11:1.11.4"
+    const val toxcore_x86_64 = "org.toktok:tox4j-c_x86_64-linux-android:${Version.toxcore}"
+    const val toxcore_i686 = "org.toktok:tox4j-c_i686-linux-android:${Version.sadToxcore}"
+    const val toxcore_arm = "org.toktok:tox4j-c_arm-linux-androideabi:${Version.toxcore}"
+    const val toxcore_aarch64 = "org.toktok:tox4j-c_aarch64-linux-android:${Version.toxcore}"
+
+    const val tox4jApi = "org.toktok:tox4j-api_2.11:${Version.tox4j}"
+    const val tox4jC = "org.toktok:tox4j-c_2.11:${Version.tox4j}"
 
     const val leakcanaryAndroid = "com.squareup.leakcanary:leakcanary-android:${Version.leakCanary}"
 
