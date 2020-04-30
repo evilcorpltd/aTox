@@ -79,6 +79,7 @@
     <string name="profile_status_message">Change your status message</string>
     <string name="profile_status">Change your status</string>
     <string name="profile">Profile</string>
+    <string name="tox_id_error_already_exists">A contact with that ID already exists</string>
     <string-array name="user_statuses">
         <item>Available</item>
         <item>Away</item>

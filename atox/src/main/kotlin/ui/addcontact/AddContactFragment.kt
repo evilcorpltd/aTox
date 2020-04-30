@@ -12,12 +12,14 @@ import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.fragment_add_contact.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.setUpFullScreenUi
 import ltd.evilcorp.atox.vmFactory
+import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.domain.tox.ToxID
 import ltd.evilcorp.domain.tox.ToxIdValidator
 
@@ -26,6 +28,8 @@ class AddContactFragment : Fragment() {
 
     private var toxIdValid: Boolean = false
     private var messageValid: Boolean = true
+
+    private var contacts: List<Contact> = listOf()
 
     private fun isAddAllowed(): Boolean = toxIdValid && messageValid
 
@@ -51,13 +55,18 @@ class AddContactFragment : Fragment() {
             insets
         }
 
+        viewModel.contacts.observe(viewLifecycleOwner, Observer {
+            contacts = it
+        })
+
         toolbar.setNavigationIcon(R.drawable.back)
         toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()
         }
 
         toxId.doAfterTextChanged { s ->
-            toxId.error = when (ToxIdValidator.validate(ToxID(s?.toString() ?: ""))) {
+            val input = ToxID(s?.toString() ?: "")
+            toxId.error = when (ToxIdValidator.validate(input)) {
                 ToxIdValidator.Result.INCORRECT_LENGTH -> getString(
                     R.string.tox_id_error_length,
                     s?.toString()?.length ?: 0
@@ -65,6 +74,12 @@ class AddContactFragment : Fragment() {
                 ToxIdValidator.Result.INVALID_CHECKSUM -> getString(R.string.tox_id_error_checksum)
                 ToxIdValidator.Result.NOT_HEX -> getString(R.string.tox_id_error_hex)
                 ToxIdValidator.Result.NO_ERROR -> null
+            }
+
+            if (toxId.error == null) {
+                if (contacts.find { it.publicKey == input.toPublicKey().string() } != null) {
+                    toxId.error = getString(R.string.tox_id_error_already_exists)
+                }
             }
 
             toxIdValid = toxId.error == null

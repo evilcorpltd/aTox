@@ -12,6 +12,8 @@ class AddContactViewModel @Inject constructor(
     private val tox: Tox,
     private val toxStarter: ToxStarter
 ) : ViewModel() {
+    val contacts = contactManager.getAll()
+
     fun isToxRunning() = tox.started
     fun tryLoadTox(): Boolean = toxStarter.tryLoadTox()
 
