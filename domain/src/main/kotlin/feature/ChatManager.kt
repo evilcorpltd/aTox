@@ -50,6 +50,32 @@ class ChatManager @Inject constructor(
             )
         }
 
+    fun queueMessage(publicKey: PublicKey, message: String, type: MessageType) = launch {
+        messageRepository.add(
+            Message(publicKey.string(), message, Sender.Sent, type, Int.MIN_VALUE)
+        )
+    }
+
+    fun resend(messages: List<Message>) = launch {
+        for (message in messages) {
+            var msg = message.message
+
+            while (msg.length > MAX_MESSAGE_LENGTH) {
+                tox.sendMessage(
+                    PublicKey(message.publicKey),
+                    msg.take(MAX_MESSAGE_LENGTH),
+                    message.type
+                ).start()
+                msg = msg.drop(MAX_MESSAGE_LENGTH)
+            }
+
+            messageRepository.setCorrelationId(
+                message.id,
+                tox.sendMessage(PublicKey(message.publicKey), msg, message.type).await()
+            )
+        }
+    }
+
     fun clearHistory(publicKey: PublicKey) = launch {
         messageRepository.delete(publicKey.string())
         contactRepository.setLastMessage(publicKey.string(), 0)

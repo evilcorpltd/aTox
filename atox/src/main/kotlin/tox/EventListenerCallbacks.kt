@@ -1,5 +1,8 @@
 package ltd.evilcorp.atox.tox
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FriendRequestRepository
@@ -27,7 +30,7 @@ class EventListenerCallbacks @Inject constructor(
     private val fileTransferManager: FileTransferManager,
     private val notificationHelper: NotificationHelper,
     private val tox: Tox
-) {
+) : CoroutineScope by GlobalScope {
     private var contacts: List<Contact> = listOf()
 
     init {
@@ -54,6 +57,14 @@ class EventListenerCallbacks @Inject constructor(
 
         friendConnectionStatusHandler = { publicKey, status ->
             contactRepository.setConnectionStatus(publicKey, status)
+            if (status != ConnectionStatus.None) {
+                launch {
+                    val pending = messageRepository.getPending(publicKey)
+                    if (pending.isNotEmpty()) {
+                        chatManager.resend(pending)
+                    }
+                }
+            }
         }
 
         friendRequestHandler = { publicKey, _, message ->

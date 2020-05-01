@@ -27,6 +27,7 @@ import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Message
+import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.domain.tox.PublicKey
 import java.text.DateFormat
 import java.util.*
@@ -187,18 +188,25 @@ class ChatFragment : Fragment() {
     private fun sendMessage() {
         val message = outgoingMessage.text.toString()
         outgoingMessage.text.clear()
-        viewModel.sendMessage(message)
+        if (contactOnline) {
+            viewModel.send(message, MessageType.Normal)
+        } else {
+            viewModel.queue(message, MessageType.Normal)
+        }
     }
 
     private fun sendAction() {
         val message = outgoingMessage.text.toString()
         outgoingMessage.text.clear()
-        viewModel.sendAction(message)
+        if (contactOnline) {
+            viewModel.send(message, MessageType.Action)
+        } else {
+            viewModel.queue(message, MessageType.Action)
+        }
     }
 
     private fun updateSendButton(layout: View) {
-        layout.send.isEnabled =
-            layout.outgoingMessage.text.isNotEmpty() && layout.outgoingMessage.error.isNullOrEmpty() && contactOnline
+        layout.send.isEnabled = layout.outgoingMessage.text.isNotEmpty()
         send.setColorFilter(
             ResourcesCompat.getColor(
                 resources,

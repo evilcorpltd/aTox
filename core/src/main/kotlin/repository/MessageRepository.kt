@@ -16,6 +16,12 @@ class MessageRepository @Inject internal constructor(
     fun get(conversation: String): LiveData<List<Message>> =
         messageDao.load(conversation)
 
+    fun getPending(conversation: String): List<Message> =
+        messageDao.loadPending(conversation)
+
+    fun setCorrelationId(id: Long, correlationId: Int) =
+        messageDao.setCorrelationId(id, correlationId)
+
     fun delete(conversation: String) =
         messageDao.delete(conversation)
 

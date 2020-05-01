@@ -22,8 +22,8 @@ class ChatViewModel @Inject constructor(
     val contact: LiveData<Contact> by lazy { contactManager.get(publicKey) }
     val messages: LiveData<List<Message>> by lazy { chatManager.messagesFor(publicKey) }
 
-    fun sendMessage(message: String) = chatManager.sendMessage(publicKey, message)
-    fun sendAction(action: String) = chatManager.sendMessage(publicKey, action, MessageType.Action)
+    fun send(message: String, type: MessageType) = chatManager.sendMessage(publicKey, message, type)
+    fun queue(message: String, type: MessageType) = chatManager.queueMessage(publicKey, message, type)
     fun clearHistory() = chatManager.clearHistory(publicKey)
     fun setActiveChat(pubKey: PublicKey) {
         if (pubKey.string().isEmpty()) {
