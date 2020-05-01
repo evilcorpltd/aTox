@@ -90,7 +90,10 @@ class ChatAdapter(
                     View.VISIBLE
                 } else {
                     val next = messages[position + 1]
-                    if (next.sender == message.sender && next.timestamp - message.timestamp < 60_000) {
+                    if (next.timestamp != 0L
+                        && next.sender == message.sender
+                        && next.timestamp - message.timestamp < 60_000
+                    ) {
                         View.GONE
                     } else {
                         View.VISIBLE
