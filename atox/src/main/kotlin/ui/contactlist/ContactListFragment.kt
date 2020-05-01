@@ -28,13 +28,13 @@ import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.setUpFullScreenUi
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.vmFactory
-import ltd.evilcorp.core.vo.ConnectionStatus
-import ltd.evilcorp.core.vo.Contact
-import ltd.evilcorp.core.vo.FriendRequest
-import ltd.evilcorp.core.vo.UserStatus
+import ltd.evilcorp.core.vo.*
 import ltd.evilcorp.domain.tox.PublicKey
 
 private const val REQUEST_CODE_BACKUP_TOX = 9202
+
+private fun User.online(): Boolean =
+    connectionStatus != ConnectionStatus.None
 
 class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
     private val viewModel: ContactListViewModel by viewModels { vmFactory }
@@ -72,19 +72,19 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
             navView.getHeaderView(0).apply {
                 profileName.text = user.name
                 profileStatusMessage.text = user.statusMessage
-                statusSwitcher.setColorFilter(colorFromStatus(user.status))
+
+                if (user.online()) {
+                    statusSwitcher.setColorFilter(colorFromStatus(user.status))
+                } else {
+                    statusSwitcher.setColorFilter(R.color.statusOffline)
+                }
             }
 
-            val connectionString = if (user.connectionStatus != ConnectionStatus.None) {
-                getText(R.string.connected)
+            toolbar.subtitle = if (user.online()) {
+                resources.getStringArray(R.array.user_statuses)[user.status.ordinal]
             } else {
                 getText(R.string.connecting)
             }
-            toolbar.subtitle = getString(
-                R.string.connection_and_status,
-                connectionString,
-                resources.getStringArray(R.array.user_statuses)[user.status.ordinal]
-            )
         })
 
         navView.setNavigationItemSelectedListener(this@ContactListFragment)
