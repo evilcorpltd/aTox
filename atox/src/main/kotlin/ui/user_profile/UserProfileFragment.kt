@@ -3,6 +3,7 @@ package ltd.evilcorp.atox.ui.user_profile
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,9 @@ import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.setUpFullScreenUi
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.UserStatus
+
+private const val TOX_MAX_NAME_LENGTH = 128
+private const val TOX_MAX_STATUS_MESSAGE_LENGTH = 1007
 
 class UserProfileFragment : Fragment() {
     private val vm: UserProfileViewModel by viewModels { vmFactory }
@@ -77,6 +81,7 @@ class UserProfileFragment : Fragment() {
         profile_change_nickname.setOnClickListener {
             val nameEdit = EditText(requireContext()).apply {
                 text.append(this@UserProfileFragment.user_name.text)
+                filters = arrayOf(InputFilter.LengthFilter(TOX_MAX_NAME_LENGTH))
                 setSingleLine()
             }
             AlertDialog.Builder(requireContext())
@@ -93,7 +98,7 @@ class UserProfileFragment : Fragment() {
             val statusMessageEdit =
                 EditText(requireContext()).apply {
                     text.append(this@UserProfileFragment.user_status_message.text)
-                    setSingleLine()
+                    filters = arrayOf(InputFilter.LengthFilter(TOX_MAX_STATUS_MESSAGE_LENGTH))
                 }
             AlertDialog.Builder(requireContext())
                 .setTitle(R.string.status_message)
