@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox.ui.profile
+package ltd.evilcorp.atox.ui.create_profile
 
 import android.app.Activity
 import android.content.Intent
@@ -21,8 +21,8 @@ import ltd.evilcorp.atox.vmFactory
 
 private const val IMPORT = 42
 
-class ProfileFragment : Fragment() {
-    private val viewModel: ProfileViewModel by viewModels { vmFactory }
+class CreateProfileFragment : Fragment() {
+    private val viewModel: CreateProfileViewModel by viewModels { vmFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,7 +57,7 @@ class ProfileFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        btnImport.setOnClickListener { _ ->
+        btnImport.setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
                 type = "*/*"
@@ -79,7 +79,11 @@ class ProfileFragment : Fragment() {
                     viewModel.verifyUserExists(viewModel.publicKey)
                     findNavController().popBackStack()
                 } else {
-                    Toast.makeText(requireContext(), R.string.import_tox_save_failed, Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.import_tox_save_failed,
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }

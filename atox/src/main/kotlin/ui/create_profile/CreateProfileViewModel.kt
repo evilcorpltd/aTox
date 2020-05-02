@@ -1,4 +1,4 @@
-package ltd.evilcorp.atox.ui.profile
+package ltd.evilcorp.atox.ui.create_profile
 
 import android.content.Context
 import android.net.Uri
@@ -9,7 +9,7 @@ import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
 import javax.inject.Inject
 
-class ProfileViewModel @Inject constructor(
+class CreateProfileViewModel @Inject constructor(
     private val context: Context,
     private val userManager: UserManager,
     private val tox: Tox,
