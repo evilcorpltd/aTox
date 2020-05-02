@@ -67,7 +67,6 @@
             android:name="ltd.evilcorp.atox.ui.addcontact.AddContactFragment"
             android:label="add_contact_fragment"
             tools:layout="@layout/fragment_add_contact">
-        <deepLink android:id="@+id/deepLink" app:uri="tox:{toxId}"/>
     </fragment>
 
     <fragment android:id="@+id/contactProfileFragment"
