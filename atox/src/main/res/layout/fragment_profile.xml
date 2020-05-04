@@ -34,6 +34,7 @@
                 android:hint="@string/name"
                 android:inputType="text"
                 android:maxLines="1"
+                android:maxLength="@integer/toxMaxNameLength"
                 app:layout_constraintBottom_toTopOf="@id/password"
                 app:layout_constraintTop_toBottomOf="@id/profileCreationLabel"
                 tools:targetApi="26"/>
