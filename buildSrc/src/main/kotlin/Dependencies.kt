@@ -14,7 +14,7 @@ private object Version {
     const val room = "2.2.5"
     const val navigation = "2.2.0"
     const val mockk = "1.10.0"
-    const val toxcore = "0.2.11"
+    const val toxcore = "0.2.12"
     const val sadToxcore = "0.2.2" // The x86 build has apparently been broken for a while.
     const val tox4j = "0.2.3"
 }
