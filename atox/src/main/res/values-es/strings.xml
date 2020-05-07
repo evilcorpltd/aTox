@@ -27,7 +27,7 @@
     <string name="reject">Rechazar</string>
     <string name="send">Enviar</string>
     <string name="sending">Enviando…</string>
-    <string name="settings">Configuraciones</string>
+    <string name="settings">Configuración</string>
     <string name="status_indicator">Indicador de estado</string>
     <string name="status_message">Mensaje de estado</string>
     <string name="status_message_default">Esto es un estado de aTox</string>
@@ -37,7 +37,8 @@
     <string name="tox_id_error_hex">Solo se permite hexadecimal</string>
     <string name="tox_id_share">Compartir tu ID de Tox</string>
     <string name="update">Actualizar</string>
-    <string name="quit">Abandonar</string>
+    <string name="quit">Salir</string>
+    <string name="quit_confirm">¿Estas seguro de que deseas salir?</string>
     <!-- Friend request notification -->
     <string name="friend_requests">Peticiones de amistad</string>
     <string name="friend_request_from">Solicitud de amistad de %1$s</string>
@@ -58,13 +59,21 @@
     <string name="pref_heading_appearance">Apariencia</string>
     <string name="pref_heading_theme">Tema</string>
     <string-array name="pref_theme_options">
-        <item>Según el sistema</item>
+        <item>Seguir al sistema</item>
         <item>Claro</item>
         <item>Oscuro</item>
     </string-array>
     <string name="version_display">aTox v%1$s - %2$d</string>
     <string name="send_as_action">Enviar como acción</string>
     <string name="or_import_existing_save">o importar un archivo de Tox existente</string>
+    <string name="status_switcher">Seleccionar estado</string>
+    <string name="profile_information">Información del perfil</string>
+    <string name="profile_settings">Configuración del perfil</string>
+    <string name="profile_nickname">Cambia tu nick</string>
+    <string name="profile_status_message">Cambia tu mensaje de estado</string>
+    <string name="profile_status">Cambia tu estado</string>
+    <string name="profile">Perfil</string>
+    <string name="tox_id_error_already_exists">Un contacto con este ID ya existe</string>
     <string-array name="user_statuses">
         <item>Conectado</item>
         <item>Ausente</item>
