@@ -39,7 +39,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = Java.version.toString()
-        freeCompilerArgs = listOf("-XXLanguage:+InlineClasses")
+        freeCompilerArgs = listOf(
+            "-XXLanguage:+InlineClasses",
+            "-Xuse-experimental=kotlinx.coroutines.ObsoleteCoroutinesApi"
+        )
     }
     lintOptions {
         isAbortOnError = true
@@ -104,9 +107,4 @@ dependencies {
 
     api(Libraries.tox4jApi)
     implementation(Libraries.tox4jC)
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    // newSingleThreadContext
-    kotlinOptions.freeCompilerArgs += listOf("-Xuse-experimental=kotlinx.coroutines.ObsoleteCoroutinesApi")
 }
