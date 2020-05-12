@@ -27,13 +27,10 @@ class SettingsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.fragment_settings, container, false).apply {
-        setUpFullScreenUi { _, insets ->
+        setUpFullScreenUi { v, insets ->
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
-            toolbar.updatePadding(
-                left = insets.systemWindowInsetLeft,
-                top = insets.systemWindowInsetTop
-            )
-            content.updatePadding(
+            toolbar.updatePadding(top = insets.systemWindowInsetTop)
+            v.updatePadding(
                 left = insets.systemWindowInsetLeft,
                 right = insets.systemWindowInsetRight
             )
