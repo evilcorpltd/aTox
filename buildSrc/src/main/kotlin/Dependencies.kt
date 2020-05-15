@@ -7,9 +7,9 @@ object Java {
 }
 
 private object Version {
-    const val coroutines = "1.3.5"
+    const val coroutines = "1.3.6"
     const val dagger = "2.27"
-    const val leakCanary = "2.2"
+    const val leakCanary = "2.3"
     const val lifecycle = "2.2.0"
     const val room = "2.2.5"
     const val navigation = "2.2.0"
@@ -69,7 +69,7 @@ object Libraries {
     const val roomRuntime = "androidx.room:room-runtime:${Version.room}"
     const val roomCompiler = "androidx.room:room-compiler:${Version.room}"
 
-    const val preference = "androidx.preference:preference:1.1.0"
+    const val preference = "androidx.preference:preference:1.1.1"
 
     const val material = "com.google.android.material:material:1.1.0"
 
