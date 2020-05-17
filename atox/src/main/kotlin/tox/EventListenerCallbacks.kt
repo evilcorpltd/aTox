@@ -1,5 +1,6 @@
 package ltd.evilcorp.atox.tox
 
+import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -12,11 +13,14 @@ import ltd.evilcorp.core.vo.*
 import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.FileTransferManager
 import ltd.evilcorp.domain.tox.Tox
+import ltd.evilcorp.domain.tox.ToxAvEventListener
 import ltd.evilcorp.domain.tox.ToxEventListener
 import ltd.evilcorp.domain.tox.toMessageType
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
+
+private const val TAG = "EventListenerCallbacks"
 
 private fun getDate() = Date().time
 
@@ -108,6 +112,41 @@ class EventListenerCallbacks @Inject constructor(
 
         friendTypingHandler = { publicKey, isTyping ->
             contactRepository.setTyping(publicKey, isTyping)
+        }
+    }
+
+    fun setUp(listener: ToxAvEventListener) = with(listener) {
+        callHandler = { pk, audioEnabled, videoEnabled ->
+            Log.e(TAG, "call ${pk.take(8)} $audioEnabled $videoEnabled")
+        }
+
+        callStateHandler = { pk, callState ->
+            Log.e(TAG, "callState ${pk.take(8)} $callState")
+        }
+
+        videoBitRateHandler = { pk, bitRate ->
+            Log.e(TAG, "videoBitRate ${pk.take(8)} $bitRate")
+        }
+
+        videoReceiveFrameHandler = { pk,
+                                     width, height,
+                                     y, u, v,
+                                     yStride, uStride, vStride ->
+            Log.v(
+                TAG,
+                "videoReceiveFrame ${pk.take(8)}" +
+                    "$width $height" +
+                    "${y.size} ${u.size} ${v.size}" +
+                    "$yStride $uStride $vStride"
+            )
+        }
+
+        audioReceiveFrameHandler = { pk, pcm, channels, samplingRate ->
+            Log.v(TAG, "audioBitRate ${pk.take(8)} ${pcm.size} $channels $samplingRate")
+        }
+
+        audioBitRateHandler = { pk, bitRate ->
+            Log.e(TAG, "audioBitRate ${pk.take(8)} $bitRate")
         }
     }
 }

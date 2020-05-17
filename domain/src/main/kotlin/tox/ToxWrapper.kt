@@ -3,17 +3,21 @@ package ltd.evilcorp.domain.tox
 import android.util.Log
 import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.exceptions.ToxFriendAddException
+import im.tox.tox4j.impl.jni.ToxAvImpl
 import im.tox.tox4j.impl.jni.ToxCoreImpl
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.UserStatus
+import kotlin.math.min
 
 private const val TAG = "ToxWrapper"
 
 class ToxWrapper(
     private val eventListener: ToxEventListener,
+    private val avEventListener: ToxAvEventListener,
     options: SaveOptions
 ) {
     private val tox: ToxCoreImpl = ToxCoreImpl(options.toToxOptions())
+    private val av: ToxAvImpl = ToxAvImpl(tox)
 
     init {
         updateContactMapping()
@@ -21,6 +25,7 @@ class ToxWrapper(
 
     private fun updateContactMapping() {
         eventListener.contactMapping = getContacts()
+        avEventListener.contactMapping = getContacts()
     }
 
     fun bootstrap(address: String, port: Int, publicKey: ByteArray) {
@@ -28,10 +33,18 @@ class ToxWrapper(
         tox.addTcpRelay(address, port, publicKey)
     }
 
-    fun stop() = tox.close()
+    fun stop() {
+        av.close()
+        tox.close()
+    }
 
-    fun iterate(): Unit = tox.iterate(eventListener, Unit)
-    fun iterationInterval(): Long = tox.iterationInterval().toLong()
+    fun iterate() {
+        tox.iterate(eventListener, Unit)
+        av.iterate(avEventListener, Unit)
+    }
+
+    fun iterationInterval(): Long =
+        min(tox.iterationInterval(), av.iterationInterval()).toLong()
 
     fun getName(): String = String(tox.name)
     fun setName(name: String) {

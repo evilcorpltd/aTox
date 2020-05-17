@@ -18,11 +18,13 @@ class ToxStarter @Inject constructor(
     private val listenerCallbacks: EventListenerCallbacks,
     private val tox: Tox,
     private val eventListener: ToxEventListener,
+    private val avEventListener: ToxAvEventListener,
     private val context: Context
 ) {
     fun startTox(save: ByteArray? = null): Boolean = try {
         listenerCallbacks.setUp(eventListener)
-        tox.start(SaveOptions(save, udpEnabled = false), eventListener)
+        listenerCallbacks.setUp(avEventListener)
+        tox.start(SaveOptions(save, udpEnabled = false), eventListener, avEventListener)
         startService()
         true
     } catch (e: ToxNewException) {
