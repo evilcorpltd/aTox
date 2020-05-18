@@ -1,6 +1,7 @@
 package ltd.evilcorp.domain.tox
 
 import android.util.Log
+import im.tox.tox4j.av.enums.ToxavCallControl
 import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.exceptions.ToxFriendAddException
 import im.tox.tox4j.impl.jni.ToxAvImpl
@@ -113,4 +114,9 @@ class ToxWrapper(
     }
 
     private fun contactByKey(publicKey: PublicKey): Int = tox.friendByPublicKey(publicKey.bytes())
+
+    // ToxAv, probably move these.
+    fun endCall(pk: PublicKey) {
+        av.callControl(contactByKey(pk), ToxavCallControl.CANCEL)
+    }
 }

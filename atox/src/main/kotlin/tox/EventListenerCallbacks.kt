@@ -12,10 +12,7 @@ import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.*
 import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.FileTransferManager
-import ltd.evilcorp.domain.tox.Tox
-import ltd.evilcorp.domain.tox.ToxAvEventListener
-import ltd.evilcorp.domain.tox.ToxEventListener
-import ltd.evilcorp.domain.tox.toMessageType
+import ltd.evilcorp.domain.tox.*
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -118,6 +115,7 @@ class EventListenerCallbacks @Inject constructor(
     fun setUp(listener: ToxAvEventListener) = with(listener) {
         callHandler = { pk, audioEnabled, videoEnabled ->
             Log.e(TAG, "call ${pk.take(8)} $audioEnabled $videoEnabled")
+            tox.endCall(PublicKey(pk))
         }
 
         callStateHandler = { pk, callState ->

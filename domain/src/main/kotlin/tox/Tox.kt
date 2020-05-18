@@ -154,4 +154,9 @@ class Tox @Inject constructor(
     fun setStatus(status: UserStatus) = launch {
         tox.setStatus(status)
     }
+
+    // ToxAv, probably move these.
+    fun endCall(pk: PublicKey) = launch {
+        tox.endCall(pk)
+    }
 }
