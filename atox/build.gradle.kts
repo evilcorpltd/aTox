@@ -71,10 +71,7 @@ dependencies {
     implementation(Libraries.preference)
 
     implementation(Libraries.dagger)
-    implementation(Libraries.daggerAndroid)
-    implementation(Libraries.daggerAndroidSupport)
     kapt(Libraries.daggerCompiler)
-    kapt(Libraries.daggerAndroidProcessor)
 
     implementation(Libraries.multidex)
 

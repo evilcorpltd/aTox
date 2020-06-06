@@ -10,7 +10,6 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.getSystemService
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.observe
-import dagger.android.AndroidInjection
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.ConnectionStatus
@@ -58,7 +57,7 @@ class ToxService : LifecycleService() {
     }
 
     override fun onCreate() {
-        AndroidInjection.inject(this)
+        (application as App).component.inject(this)
 
         super.onCreate()
 

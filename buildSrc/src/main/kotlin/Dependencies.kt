@@ -74,9 +74,6 @@ object Libraries {
     const val material = "com.google.android.material:material:1.1.0"
 
     const val dagger = "com.google.dagger:dagger:${Version.dagger}"
-    const val daggerAndroid = "com.google.dagger:dagger-android:${Version.dagger}"
-    const val daggerAndroidSupport = "com.google.dagger:dagger-android-support:${Version.dagger}"
-    const val daggerAndroidProcessor = "com.google.dagger:dagger-android-processor:${Version.dagger}"
     const val daggerCompiler = "com.google.dagger:dagger-compiler:${Version.dagger}"
 
     // 3.6.0 is the last version before API 24 was required.

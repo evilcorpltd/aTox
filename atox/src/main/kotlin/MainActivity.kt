@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
-import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import ltd.evilcorp.atox.di.ViewModelFactory
 import javax.inject.Inject
@@ -21,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var vmFactory: ViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
+        (application as App).component.inject(this)
 
         super.onCreate(savedInstanceState)
 

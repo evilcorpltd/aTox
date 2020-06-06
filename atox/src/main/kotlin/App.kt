@@ -1,20 +1,11 @@
 package ltd.evilcorp.atox
 
 import androidx.multidex.MultiDexApplication
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
-import ltd.evilcorp.atox.di.AppInjector
-import javax.inject.Inject
+import ltd.evilcorp.atox.di.AppComponent
+import ltd.evilcorp.atox.di.DaggerAppComponent
 
-class App : MultiDexApplication(), HasAndroidInjector {
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
-
-    override fun onCreate() {
-        super.onCreate()
-        AppInjector.inject(this)
+class App : MultiDexApplication() {
+    val component: AppComponent by lazy {
+        DaggerAppComponent.factory().create(applicationContext)
     }
-
-    override fun androidInjector(): AndroidInjector<Any> = androidInjector
 }

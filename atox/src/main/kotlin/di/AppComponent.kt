@@ -1,20 +1,21 @@
 package ltd.evilcorp.atox.di
 
+import android.content.Context
+import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjectionModule
-import dagger.android.AndroidInjector
-import ltd.evilcorp.atox.App
+import ltd.evilcorp.atox.MainActivity
+import ltd.evilcorp.atox.ToxService
 import ltd.evilcorp.core.di.DatabaseModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(
-    modules = [
-        AndroidInjectionModule::class,
-        AndroidModule::class,
-        ApplicationModule::class,
-        DatabaseModule::class,
-        ViewModelModule::class
-    ]
-)
-interface AppComponent : AndroidInjector<App>
+@Component(modules = [DatabaseModule::class, ViewModelModule::class])
+interface AppComponent {
+    @Component.Factory
+    interface Factory {
+        fun create(@BindsInstance appContext: Context): AppComponent
+    }
+
+    fun inject(activity: MainActivity)
+    fun inject(activity: ToxService)
+}
