@@ -42,7 +42,6 @@ android {
         disable("GoogleAppIndexingWarning", "MissingTranslation", "InvalidPackage")
     }
     sourceSets["main"].java.srcDir("src/main/kotlin")
-    sourceSets["androidTest"].java.srcDir("src/androidTest/kotlin")
     packagingOptions {
         // Work around scala-compiler and scala-library (via tox4j) trying to place files in the
         // same place.
