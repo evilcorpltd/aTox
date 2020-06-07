@@ -2,16 +2,19 @@ package ltd.evilcorp.core.db
 
 import androidx.room.testing.MigrationTestHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import ltd.evilcorp.core.vo.*
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
 fun Boolean.toInt() = if (this) 1 else 0
 
 private const val TEST_DB = "migration-test"
 
+@RunWith(AndroidJUnit4::class)
 class DatabaseMigrationTest {
     @Rule
     @JvmField
