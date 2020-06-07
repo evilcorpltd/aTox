@@ -1,0 +1,11 @@
+on: [push, pull_request]
+jobs:
+  android-test:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: android test
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 29
+        script: ./gradlew connectedCheck
