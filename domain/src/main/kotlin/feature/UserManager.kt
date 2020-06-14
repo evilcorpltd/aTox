@@ -19,6 +19,7 @@ class UserManager @Inject constructor(
     fun create(user: User) = launch {
         userRepository.add(user)
         tox.setName(user.name)
+        tox.setStatusMessage(user.statusMessage)
     }
 
     fun verifyExists(publicKey: PublicKey) = launch {
