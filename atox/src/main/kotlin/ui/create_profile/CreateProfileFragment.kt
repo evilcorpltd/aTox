@@ -56,8 +56,7 @@ class CreateProfileFragment : Fragment() {
             viewModel.startTox()
             val user = User(
                 publicKey = viewModel.publicKey.string(),
-                name = if (username.text.isNotEmpty()) username.text.toString() else "aTox user",
-                password = if (password.text.isNotEmpty()) password.text.toString() else ""
+                name = if (username.text.isNotEmpty()) username.text.toString() else "aTox user"
             )
             viewModel.create(user)
 

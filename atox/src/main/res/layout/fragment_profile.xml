@@ -35,21 +35,8 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:maxLength="@integer/toxMaxNameLength"
-                app:layout_constraintBottom_toTopOf="@id/password"
-                app:layout_constraintTop_toBottomOf="@id/profileCreationLabel"
-                tools:targetApi="26"/>
-
-        <!-- TODO(robinlinden): Re-enable once we do something with the password. -->
-        <EditText android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints="password"
-                android:hint="@string/password_optional"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/btnCreate"
-                app:layout_constraintTop_toBottomOf="@id/username"
+                app:layout_constraintTop_toBottomOf="@id/profileCreationLabel"
                 tools:targetApi="26"/>
 
         <Button android:id="@+id/btnCreate"
@@ -57,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/create"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password"/>
+                app:layout_constraintTop_toBottomOf="@+id/username"/>
 
         <TextView android:id="@+id/importLabel"
                 android:layout_width="wrap_content"
