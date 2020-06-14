@@ -223,7 +223,7 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
-        return true
+        return false
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
