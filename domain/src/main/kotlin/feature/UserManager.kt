@@ -16,9 +16,9 @@ class UserManager @Inject constructor(
 ) : CoroutineScope by GlobalScope {
     fun get(publicKey: PublicKey) = userRepository.get(publicKey.string())
 
-    fun create(publicKey: PublicKey, name: String, password: String) = launch {
-        userRepository.add(User(publicKey = publicKey.string(), name = name, password = password))
-        tox.setName(name)
+    fun create(user: User) = launch {
+        userRepository.add(user)
+        tox.setName(user.name)
     }
 
     fun verifyExists(publicKey: PublicKey) = launch {

@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import ltd.evilcorp.atox.tox.ToxStarter
+import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.domain.feature.UserManager
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
@@ -22,8 +23,6 @@ class CreateProfileViewModel @Inject constructor(
     fun tryImportToxSave(uri: Uri): ByteArray? =
         context.contentResolver.openInputStream(uri)?.readBytes()
 
-    fun createUser(publicKey: PublicKey, name: String, password: String) =
-        userManager.create(publicKey, name, password)
-
+    fun create(user: User) = userManager.create(user)
     fun verifyUserExists(publicKey: PublicKey) = userManager.verifyExists(publicKey)
 }

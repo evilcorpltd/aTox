@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_profile.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.setUpFullScreenUi
 import ltd.evilcorp.atox.vmFactory
+import ltd.evilcorp.core.vo.User
 
 private const val IMPORT = 42
 
@@ -53,11 +54,12 @@ class CreateProfileFragment : Fragment() {
             btnCreate.isEnabled = false
 
             viewModel.startTox()
-            viewModel.createUser(
-                viewModel.publicKey,
-                if (username.text.isNotEmpty()) username.text.toString() else "aTox user",
-                if (password.text.isNotEmpty()) password.text.toString() else ""
+            val user = User(
+                publicKey = viewModel.publicKey.string(),
+                name = if (username.text.isNotEmpty()) username.text.toString() else "aTox user",
+                password = if (password.text.isNotEmpty()) password.text.toString() else ""
             )
+            viewModel.create(user)
 
             findNavController().popBackStack()
         }
