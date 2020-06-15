@@ -8,4 +8,4 @@ jobs:
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: 29
-        script: ./gradlew connectedCheck -x :domain:connectedAndroidTest
+        script: ./gradlew connectedCheck -x :atox:connectedAndroidTest -x :domain:connectedAndroidTest

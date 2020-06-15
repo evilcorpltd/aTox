@@ -91,7 +91,9 @@ object Libraries {
 
     const val junit = "junit:junit:4.13"
     const val runner = "androidx.test:runner:1.2.0"
+    const val rules = "androidx.test:rules:1.2.0"
     const val espressoCore = "androidx.test.espresso:espresso-core:3.2.0"
+    const val espressoContrib = "androidx.test.espresso:espresso-contrib:3.2.0"
     const val androidJUnit = "androidx.test.ext:junit:1.1.1"
     const val roomTesting = "androidx.room:room-testing:${Version.room}"
 

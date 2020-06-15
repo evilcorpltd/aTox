@@ -5,11 +5,12 @@ import dagger.BindsInstance
 import dagger.Component
 import ltd.evilcorp.atox.MainActivity
 import ltd.evilcorp.atox.ToxService
+import ltd.evilcorp.core.di.DaoModule
 import ltd.evilcorp.core.di.DatabaseModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [DatabaseModule::class, ViewModelModule::class])
+@Component(modules = [DatabaseModule::class, DaoModule::class, ViewModelModule::class])
 interface AppComponent {
     @Component.Factory
     interface Factory {

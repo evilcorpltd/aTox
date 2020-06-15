@@ -16,7 +16,11 @@ class DatabaseModule {
         Room.databaseBuilder(appContext, Database::class.java, "core_db")
             .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
             .build()
+}
 
+@Suppress("unused")
+@Module
+class DaoModule {
     @Singleton
     @Provides
     internal fun provideContactDao(db: Database): ContactDao = db.contactDao()
