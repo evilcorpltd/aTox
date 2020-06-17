@@ -1,5 +1,6 @@
 package ltd.evilcorp.atox
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -56,6 +57,26 @@ class ToxService : LifecycleService() {
         ConnectionStatus.UDP -> getText(R.string.atox_connected_with_udp)
     }
 
+    private fun notificationFor(status: ConnectionStatus): Notification {
+        val pendingIntent: PendingIntent =
+            Intent(this, MainActivity::class.java).let { notificationIntent ->
+                PendingIntent.getActivity(this, 0, notificationIntent, 0)
+            }
+
+        val builder = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentIntent(pendingIntent)
+
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            builder.setSubText(subTextFor(status))
+        } else {
+            builder.setContentTitle(getString(R.string.tox_service_running))
+            builder.setContentText(subTextFor(status))
+        }
+
+        return builder.build()
+    }
+
     override fun onCreate() {
         (application as App).component.inject(this)
 
@@ -69,33 +90,13 @@ class ToxService : LifecycleService() {
         }
 
         createNotificationChannel()
-
-        val pendingIntent: PendingIntent =
-            Intent(this, MainActivity::class.java).let { notificationIntent ->
-                PendingIntent.getActivity(this, 0, notificationIntent, 0)
-            }
-
-        // TODO(robinlinden): setContentTitle and setContentText for n messages received?
-        val notification = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentIntent(pendingIntent)
-            .setSubText(subTextFor(connectionStatus))
-            .build()
-
-        startForeground(notificationId, notification)
+        startForeground(notificationId, notificationFor(connectionStatus))
 
         userRepository.get(tox.publicKey.string()).observe(this) { user: User? ->
             if (user == null) return@observe // Android is lying. This can be null.
             if (user.connectionStatus == connectionStatus) return@observe
             connectionStatus = user.connectionStatus
-
-            val statusUpdateNotification = NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentIntent(pendingIntent)
-                .setSubText(subTextFor(connectionStatus))
-                .build()
-
-            notifier.notify(notificationId, statusUpdateNotification)
+            notifier.notify(notificationId, notificationFor(connectionStatus))
         }
     }
 
