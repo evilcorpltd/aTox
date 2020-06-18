@@ -37,9 +37,7 @@ class ContactListViewModel @Inject constructor(
 
     fun isToxRunning() = tox.started
     fun tryLoadTox(): Boolean = toxStarter.tryLoadTox()
-    fun quitTox() = context.run {
-        stopService(Intent(this, ToxService::class.java))
-    }
+    fun quitTox() = toxStarter.stopTox()
 
     fun acceptFriendRequest(friendRequest: FriendRequest) = friendRequestManager.accept(friendRequest)
     fun rejectFriendRequest(friendRequest: FriendRequest) = friendRequestManager.reject(friendRequest)

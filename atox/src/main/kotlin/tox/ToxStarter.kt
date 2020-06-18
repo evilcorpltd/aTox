@@ -32,6 +32,10 @@ class ToxStarter @Inject constructor(
         false
     }
 
+    fun stopTox() = context.run {
+        stopService(Intent(this, ToxService::class.java))
+    }
+
     fun tryLoadTox(): Boolean {
         tryLoadSave()?.also { save ->
             startTox(save)
