@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         AppCompatDelegate.setDefaultNightMode(
-            PreferenceManager.getDefaultSharedPreferences(applicationContext).getInt("theme", 0)
+            applicationContext.getPreferences().getInt("theme", 0)
         )
 
         setContentView(R.layout.activity_main)

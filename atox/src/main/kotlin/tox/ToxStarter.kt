@@ -6,6 +6,7 @@ import android.os.Build
 import android.util.Log
 import im.tox.tox4j.core.exceptions.ToxNewException
 import ltd.evilcorp.atox.ToxService
+import ltd.evilcorp.atox.getPreferences
 import ltd.evilcorp.domain.feature.UserManager
 import ltd.evilcorp.domain.tox.*
 import javax.inject.Inject
@@ -24,7 +25,12 @@ class ToxStarter @Inject constructor(
     fun startTox(save: ByteArray? = null): Boolean = try {
         listenerCallbacks.setUp(eventListener)
         listenerCallbacks.setUp(avEventListener)
-        tox.start(SaveOptions(save, udpEnabled = false), eventListener, avEventListener)
+        tox.start(
+            SaveOptions(
+                save,
+                udpEnabled = context.getPreferences().getBoolean("udp_enabled", false)
+            ), eventListener, avEventListener
+        )
         startService()
         true
     } catch (e: ToxNewException) {

@@ -75,7 +75,17 @@ class SettingsFragment : Fragment() {
             }
         }
 
+        settings_udp_enabled.isChecked = vm.getUdpEnabled()
+        settings_udp_enabled.setOnClickListener {
+            vm.setUdpEnabled(settings_udp_enabled.isChecked)
+        }
+
         version.text =
             getString(R.string.version_display, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        vm.commit()
     }
 }

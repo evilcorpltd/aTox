@@ -80,6 +80,8 @@
     <string name="profile">Profile</string>
     <string name="tox_id_error_already_exists">A contact with that ID already exists</string>
     <string name="tox_service_running">aTox is running</string>
+    <string name="pref_heading_network">Network</string>
+    <string name="pref_udp_enabled">UDP enabled</string>
     <string-array name="user_statuses">
         <item>Available</item>
         <item>Away</item>
