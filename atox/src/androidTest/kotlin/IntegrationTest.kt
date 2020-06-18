@@ -17,6 +17,7 @@ import dagger.Module
 import dagger.Provides
 import io.mockk.every
 import io.mockk.mockk
+import ltd.evilcorp.atox.di.AndroidModule
 import ltd.evilcorp.atox.di.AppComponent
 import ltd.evilcorp.atox.di.ViewModelModule
 import ltd.evilcorp.core.db.Database
@@ -52,7 +53,7 @@ class TestModule {
 }
 
 @Singleton
-@Component(modules = [TestModule::class, DaoModule::class, ViewModelModule::class])
+@Component(modules = [AndroidModule::class, TestModule::class, DaoModule::class, ViewModelModule::class])
 interface TestComponent : AppComponent {
     @Component.Factory
     interface Factory {

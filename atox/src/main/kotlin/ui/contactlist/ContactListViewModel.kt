@@ -1,14 +1,13 @@
 package ltd.evilcorp.atox.ui.contactlist
 
+import android.content.ContentResolver
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.ToxService
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.User
@@ -22,6 +21,7 @@ import javax.inject.Inject
 
 class ContactListViewModel @Inject constructor(
     private val context: Context,
+    private val resolver: ContentResolver,
     private val contactManager: ContactManager,
     private val friendRequestManager: FriendRequestManager,
     private val userManager: UserManager,
@@ -44,7 +44,7 @@ class ContactListViewModel @Inject constructor(
     fun deleteContact(publicKey: PublicKey) = contactManager.delete(publicKey)
 
     fun saveToxBackupTo(uri: Uri) = launch(Dispatchers.IO) {
-        context.contentResolver.openFileDescriptor(uri, "w")!!.let { fd ->
+        resolver.openFileDescriptor(uri, "w")!!.let { fd ->
             FileOutputStream(fd.fileDescriptor).let { out ->
                 val saveData = tox.getSaveData().await()
                 out.write(saveData)

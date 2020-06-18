@@ -10,7 +10,7 @@ import ltd.evilcorp.core.di.DatabaseModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [DatabaseModule::class, DaoModule::class, ViewModelModule::class])
+@Component(modules = [AndroidModule::class, DatabaseModule::class, DaoModule::class, ViewModelModule::class])
 interface AppComponent {
     @Component.Factory
     interface Factory {
