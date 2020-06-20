@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
 
@@ -17,8 +18,13 @@
             android:roundIcon="@mipmap/launcher_icon_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <service android:name=".ToxService"
-                android:exported="false"/>
+        <service android:name=".ToxService" android:exported="false"/>
+
+        <receiver android:name=".BootReceiver" android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
 
         <activity android:name=".MainActivity">
             <nav-graph android:value="@navigation/nav_graph"/>

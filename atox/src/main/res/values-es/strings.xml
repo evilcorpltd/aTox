@@ -56,7 +56,6 @@
     <string name="atox_connected_with_tcp">Conectado (TCP)</string>
     <string name="atox_connected_with_udp">Conectado (UDP)</string>
     <string name="read_qr">QR</string>
-    <string name="pref_heading_appearance">Apariencia</string>
     <string name="pref_heading_theme">Tema</string>
     <string-array name="pref_theme_options">
         <item>Seguir al sistema</item>

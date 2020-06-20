@@ -61,7 +61,6 @@
     <string name="atox_connected_with_tcp">Connected (TCP)</string>
     <string name="atox_connected_with_udp">Connected (UDP)</string>
     <string name="read_qr">QR</string>
-    <string name="pref_heading_appearance">Appearance</string>
     <string name="pref_heading_theme">Theme</string>
     <string-array name="pref_theme_options">
         <item>Follow system</item>
@@ -82,6 +81,8 @@
     <string name="tox_service_running">aTox is running</string>
     <string name="pref_heading_network">Network</string>
     <string name="pref_udp_enabled">UDP enabled</string>
+    <string name="pref_heading_general">General</string>
+    <string name="pref_run_at_startup">Run at boot</string>
     <string-array name="user_statuses">
         <item>Available</item>
         <item>Away</item>

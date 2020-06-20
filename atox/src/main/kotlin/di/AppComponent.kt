@@ -3,6 +3,7 @@ package ltd.evilcorp.atox.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import ltd.evilcorp.atox.BootReceiver
 import ltd.evilcorp.atox.MainActivity
 import ltd.evilcorp.atox.ToxService
 import ltd.evilcorp.core.di.DaoModule
@@ -18,5 +19,6 @@ interface AppComponent {
     }
 
     fun inject(activity: MainActivity)
-    fun inject(activity: ToxService)
+    fun inject(service: ToxService)
+    fun inject(receiver: BootReceiver)
 }

@@ -75,6 +75,11 @@ class SettingsFragment : Fragment() {
             }
         }
 
+        setting_run_at_startup.isChecked = vm.getRunAtStartup()
+        setting_run_at_startup.setOnClickListener {
+            vm.setRunAtStartup(setting_run_at_startup.isChecked)
+        }
+
         settings_udp_enabled.isChecked = vm.getUdpEnabled()
         settings_udp_enabled.setOnClickListener {
             vm.setUdpEnabled(settings_udp_enabled.isChecked)
