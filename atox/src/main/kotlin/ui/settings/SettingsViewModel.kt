@@ -53,7 +53,6 @@ class SettingsViewModel @Inject constructor(
 
         launch {
             while (tox.started) {
-                Log.e("asdf", "sleepin")
                 delay(200)
             }
             toxStarter.tryLoadTox()
