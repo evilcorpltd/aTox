@@ -1,15 +1,10 @@
 package ltd.evilcorp.atox
 
-import android.content.Context
 import android.os.Build
 import android.view.View
 import android.view.WindowInsets
 import androidx.fragment.app.Fragment
-import androidx.preference.PreferenceManager
 import ltd.evilcorp.atox.di.ViewModelFactory
-
-fun Context.getPreferences() =
-    PreferenceManager.getDefaultSharedPreferences(this)
 
 val Fragment.vmFactory: ViewModelFactory
     get() = (requireActivity() as MainActivity).vmFactory

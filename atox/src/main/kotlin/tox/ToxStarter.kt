@@ -2,11 +2,11 @@ package ltd.evilcorp.atox.tox
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.util.Log
 import im.tox.tox4j.core.exceptions.ToxNewException
 import ltd.evilcorp.atox.ToxService
-import ltd.evilcorp.atox.getPreferences
 import ltd.evilcorp.domain.feature.UserManager
 import ltd.evilcorp.domain.tox.*
 import javax.inject.Inject
@@ -20,7 +20,8 @@ class ToxStarter @Inject constructor(
     private val tox: Tox,
     private val eventListener: ToxEventListener,
     private val avEventListener: ToxAvEventListener,
-    private val context: Context
+    private val context: Context,
+    private val preferences: SharedPreferences
 ) {
     fun startTox(save: ByteArray? = null): Boolean = try {
         listenerCallbacks.setUp(eventListener)
@@ -28,7 +29,7 @@ class ToxStarter @Inject constructor(
         tox.start(
             SaveOptions(
                 save,
-                udpEnabled = context.getPreferences().getBoolean("udp_enabled", false)
+                udpEnabled = preferences.getBoolean("udp_enabled", false)
             ), eventListener, avEventListener
         )
         startService()

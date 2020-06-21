@@ -1,12 +1,12 @@
 package ltd.evilcorp.atox
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import kotlinx.android.synthetic.main.activity_main.*
 import ltd.evilcorp.atox.di.ViewModelFactory
 import javax.inject.Inject
@@ -19,14 +19,15 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var vmFactory: ViewModelFactory
 
+    @Inject
+    lateinit var preferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as App).component.inject(this)
 
         super.onCreate(savedInstanceState)
 
-        AppCompatDelegate.setDefaultNightMode(
-            applicationContext.getPreferences().getInt("theme", 0)
-        )
+        AppCompatDelegate.setDefaultNightMode(preferences.getInt("theme", 0))
 
         setContentView(R.layout.activity_main)
 
