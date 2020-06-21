@@ -17,7 +17,9 @@ class ToxWrapper(
     private val avEventListener: ToxAvEventListener,
     options: SaveOptions
 ) {
-    private val tox: ToxCoreImpl = ToxCoreImpl(options.toToxOptions())
+    private val tox: ToxCoreImpl =
+        ToxCoreImpl(options.toToxOptions()
+            .also { Log.i(TAG, "Starting Tox with options $it") })
     private val av: ToxAvImpl = ToxAvImpl(tox)
 
     init {
