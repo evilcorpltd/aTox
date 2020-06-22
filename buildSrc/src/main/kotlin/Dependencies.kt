@@ -8,8 +8,8 @@ object Java {
 
 private object Version {
     const val coroutines = "1.3.6"
-    const val dagger = "2.28"
-    const val leakCanary = "2.3"
+    const val dagger = "2.28.1"
+    const val leakCanary = "2.4"
     const val lifecycle = "2.2.0"
     const val room = "2.2.5"
     const val navigation = "2.2.0"
