@@ -6,7 +6,7 @@
 
 The reasonable Tox client for Android.
 
-![aTox screenshot](/img/screenshot.png)
+![aTox screenshot](/fastlane/metadata/android/en-US/images/phoneScreenshots/1.png)
 
 ## Building
 
