@@ -1,0 +1,24 @@
+import org.gradle.api.Plugin
+import org.gradle.api.Project
+import org.gradle.api.tasks.JavaExec
+
+private const val KTLINT_VERSION = "0.37.2"
+private const val KTLINT = "com.pinterest:ktlint:$KTLINT_VERSION"
+
+class KtlintPlugin : Plugin<Project> {
+    override fun apply(target: Project) {
+        val ktlint = target.configurations.create("ktlint") {
+            dependencies.add(target.dependencies.create(KTLINT))
+        }
+
+        target.tasks.register("ktlint", JavaExec::class.java) {
+            group = "verification"
+            description = "Check Kotlin code style."
+            classpath = ktlint
+            main = "com.pinterest.ktlint.Main"
+            args("--android", "src/**/*.kt")
+        }
+
+        target.tasks.getByName("check").dependsOn.add("ktlint")
+    }
+}

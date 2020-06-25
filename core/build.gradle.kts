@@ -17,6 +17,8 @@ plugins {
     id(BuildPlugin.ideaExt)
 }
 
+apply<KtlintPlugin>()
+
 android {
     compileSdkVersion(AndroidSdk.targetVersion)
     defaultConfig {

@@ -6,6 +6,8 @@ plugins {
     id(BuildPlugin.kotlinKapt)
 }
 
+apply<KtlintPlugin>()
+
 android {
     compileSdkVersion(AndroidSdk.targetVersion)
     defaultConfig {
