@@ -20,5 +20,13 @@ class KtlintPlugin : Plugin<Project> {
         }
 
         target.tasks.getByName("check").dependsOn.add("ktlint")
+
+        target.tasks.register("ktlintFormat", JavaExec::class.java) {
+            group = "formatting"
+            description = "Fix Kotlin code style deviations."
+            classpath = ktlint
+            main = "com.pinterest.ktlint.Main"
+            args("--android", "-F", "src/**/*.kt")
+        }
     }
 }
