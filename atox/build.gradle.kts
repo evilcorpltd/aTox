@@ -14,8 +14,8 @@ android {
         applicationId = "ltd.evilcorp.atox"
         minSdkVersion(AndroidSdk.minVersion)
         targetSdkVersion(AndroidSdk.targetVersion)
-        versionCode = 5
-        versionName = "0.3.1"
+        versionCode = 6
+        versionName = "0.4.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
         vectorDrawables.useSupportLibrary = true
