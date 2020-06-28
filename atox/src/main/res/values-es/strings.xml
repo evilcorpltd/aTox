@@ -45,7 +45,7 @@
     <!-- Chat history clearing -->
     <string name="clear_history">Limpiar historial</string>
     <string name="clear_history_cleared">Historial borrado</string>
-    <string name="clear_history_confirm">¿Estás seguro de que deseas borrar tu historial de chat con %1$s?</string>
+    <string name="clear_history_confirm">¿Estás seguro de que deseas borrar el historial del chat con %1$s?</string>
     <string name="import_tox_save">Importar</string>
     <string name="import_tox_save_failed">La importación falló por alguna razón</string>
     <string name="export_tox_save">Exportar archivo Tox</string>
@@ -73,6 +73,11 @@
     <string name="profile_status">Cambia tu estado</string>
     <string name="profile">Perfil</string>
     <string name="tox_id_error_already_exists">Un contacto con este ID ya existe</string>
+    <string name="tox_service_running">aTox se está ejecutando</string>
+    <string name="pref_heading_network">Red</string>
+    <string name="pref_udp_enabled">UDP habilitado</string>
+    <string name="pref_heading_general">General</string>
+    <string name="pref_run_at_startup">Iniciar en el arranque</string>
     <string-array name="user_statuses">
         <item>Conectado</item>
         <item>Ausente</item>
