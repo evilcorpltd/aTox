@@ -2,13 +2,13 @@ package ltd.evilcorp.domain.tox
 
 import android.util.Log
 import im.tox.tox4j.core.exceptions.ToxBootstrapException
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.*
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.UserStatus
-import javax.inject.Inject
-import javax.inject.Singleton
 
 private const val TAG = "Tox"
 

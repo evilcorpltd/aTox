@@ -7,17 +7,17 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import java.text.DateFormat
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
+import kotlinx.android.synthetic.main.contact_list_view_item.view.publicKey as contactPublicKey
 import kotlinx.android.synthetic.main.friend_request_item.view.*
+import kotlinx.android.synthetic.main.friend_request_item.view.publicKey as friendRequestPublicKey
 import kotlinx.android.synthetic.main.profile_image_layout.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.ui.colorByStatus
 import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
-import java.text.DateFormat
-import kotlinx.android.synthetic.main.contact_list_view_item.view.publicKey as contactPublicKey
-import kotlinx.android.synthetic.main.friend_request_item.view.publicKey as friendRequestPublicKey
 
 enum class ContactListItemType {
     FriendRequest,

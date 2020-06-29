@@ -2,6 +2,9 @@ package ltd.evilcorp.domain.feature
 
 import android.content.Context
 import android.util.Log
+import java.io.File
+import java.io.RandomAccessFile
+import javax.inject.Inject
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FileTransferRepository
 import ltd.evilcorp.core.vo.FileKind
@@ -9,9 +12,6 @@ import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.isComplete
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
-import java.io.File
-import java.io.RandomAccessFile
-import javax.inject.Inject
 
 private const val TAG = "FileTransferManager"
 

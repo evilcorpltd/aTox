@@ -1,6 +1,7 @@
 package ltd.evilcorp.domain.feature
 
 import androidx.lifecycle.LiveData
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -10,7 +11,6 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
-import javax.inject.Inject
 
 class FriendRequestManager @Inject constructor(
     private val contactRepository: ContactRepository,

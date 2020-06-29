@@ -1,10 +1,10 @@
 package ltd.evilcorp.core.repository
 
 import androidx.lifecycle.LiveData
-import ltd.evilcorp.core.db.MessageDao
-import ltd.evilcorp.core.vo.Message
 import javax.inject.Inject
 import javax.inject.Singleton
+import ltd.evilcorp.core.db.MessageDao
+import ltd.evilcorp.core.vo.Message
 
 @Singleton
 class MessageRepository @Inject internal constructor(

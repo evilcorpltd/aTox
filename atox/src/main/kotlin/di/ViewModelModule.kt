@@ -5,6 +5,7 @@ import dagger.Binds
 import dagger.MapKey
 import dagger.Module
 import dagger.multibindings.IntoMap
+import kotlin.reflect.KClass
 import ltd.evilcorp.atox.ui.addcontact.AddContactViewModel
 import ltd.evilcorp.atox.ui.chat.ChatViewModel
 import ltd.evilcorp.atox.ui.contact_profile.ContactProfileViewModel
@@ -12,7 +13,6 @@ import ltd.evilcorp.atox.ui.contactlist.ContactListViewModel
 import ltd.evilcorp.atox.ui.create_profile.CreateProfileViewModel
 import ltd.evilcorp.atox.ui.settings.SettingsViewModel
 import ltd.evilcorp.atox.ui.user_profile.UserProfileViewModel
-import kotlin.reflect.KClass
 
 @MustBeDocumented
 @Target(

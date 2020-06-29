@@ -3,8 +3,8 @@ package ltd.evilcorp.atox
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import ltd.evilcorp.atox.tox.ToxStarter
 import javax.inject.Inject
+import ltd.evilcorp.atox.tox.ToxStarter
 
 class BootReceiver : BroadcastReceiver() {
     @Inject

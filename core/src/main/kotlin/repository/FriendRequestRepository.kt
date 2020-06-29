@@ -1,10 +1,10 @@
 package ltd.evilcorp.core.repository
 
 import androidx.lifecycle.LiveData
-import ltd.evilcorp.core.db.FriendRequestDao
-import ltd.evilcorp.core.vo.FriendRequest
 import javax.inject.Inject
 import javax.inject.Singleton
+import ltd.evilcorp.core.db.FriendRequestDao
+import ltd.evilcorp.core.vo.FriendRequest
 
 @Singleton
 class FriendRequestRepository @Inject internal constructor(

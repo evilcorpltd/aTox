@@ -1,6 +1,9 @@
 package ltd.evilcorp.atox.tox
 
 import android.util.Log
+import java.util.*
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -13,9 +16,6 @@ import ltd.evilcorp.core.vo.*
 import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.FileTransferManager
 import ltd.evilcorp.domain.tox.*
-import java.util.*
-import javax.inject.Inject
-import javax.inject.Singleton
 
 private const val TAG = "EventListenerCallbacks"
 
@@ -127,9 +127,9 @@ class EventListenerCallbacks @Inject constructor(
         }
 
         videoReceiveFrameHandler = { pk,
-                                     width, height,
-                                     y, u, v,
-                                     yStride, uStride, vStride ->
+            width, height,
+            y, u, v,
+            yStride, uStride, vStride ->
             Log.v(
                 TAG,
                 "videoReceiveFrame ${pk.take(8)}" +

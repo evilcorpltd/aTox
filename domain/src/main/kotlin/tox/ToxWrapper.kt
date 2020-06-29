@@ -6,9 +6,9 @@ import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.exceptions.ToxFriendAddException
 import im.tox.tox4j.impl.jni.ToxAvImpl
 import im.tox.tox4j.impl.jni.ToxCoreImpl
+import kotlin.math.min
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.UserStatus
-import kotlin.math.min
 
 private const val TAG = "ToxWrapper"
 
@@ -18,8 +18,10 @@ class ToxWrapper(
     options: SaveOptions
 ) {
     private val tox: ToxCoreImpl =
-        ToxCoreImpl(options.toToxOptions()
-            .also { Log.i(TAG, "Starting Tox with options $it") })
+        ToxCoreImpl(
+            options.toToxOptions()
+                .also { Log.i(TAG, "Starting Tox with options $it") }
+        )
     private val av: ToxAvImpl = ToxAvImpl(tox)
 
     init {
@@ -90,11 +92,11 @@ class ToxWrapper(
     }
 
     fun sendMessage(publicKey: PublicKey, message: String, type: MessageType): Int = tox.friendSendMessage(
-            contactByKey(publicKey),
-            type.toToxType(),
-            0,
-            message.toByteArray()
-        )
+        contactByKey(publicKey),
+        type.toToxType(),
+        0,
+        message.toByteArray()
+    )
 
     fun acceptFriendRequest(publicKey: PublicKey) = try {
         tox.addFriendNorequest(publicKey.bytes())

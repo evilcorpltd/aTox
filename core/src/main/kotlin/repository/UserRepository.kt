@@ -1,12 +1,12 @@
 package ltd.evilcorp.core.repository
 
 import androidx.lifecycle.LiveData
+import javax.inject.Inject
+import javax.inject.Singleton
 import ltd.evilcorp.core.db.UserDao
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.core.vo.UserStatus
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Singleton
 class UserRepository @Inject internal constructor(

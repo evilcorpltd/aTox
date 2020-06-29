@@ -27,8 +27,10 @@ internal interface ContactDao {
     fun loadAll(): LiveData<List<Contact>>
 
     @Query("UPDATE contacts SET connection_status = :status, typing = :typing")
-    fun resetTransientData(status: ConnectionStatus = ConnectionStatus.None, typing: Boolean = false)
-
+    fun resetTransientData(
+        status: ConnectionStatus = ConnectionStatus.None,
+        typing: Boolean = false
+    )
 
     @Query("UPDATE contacts SET name = :name WHERE public_key = :publicKey")
     fun setName(publicKey: String, name: String)

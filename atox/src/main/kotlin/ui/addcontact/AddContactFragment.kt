@@ -39,7 +39,8 @@ class AddContactFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.fragment_add_contact, container, false).apply {
         setUpFullScreenUi { _, insets ->
@@ -55,9 +56,12 @@ class AddContactFragment : Fragment() {
             insets
         }
 
-        viewModel.contacts.observe(viewLifecycleOwner, Observer {
-            contacts = it
-        })
+        viewModel.contacts.observe(
+            viewLifecycleOwner,
+            Observer {
+                contacts = it
+            }
+        )
 
         toolbar.setNavigationIcon(R.drawable.back)
         toolbar.setNavigationOnClickListener {

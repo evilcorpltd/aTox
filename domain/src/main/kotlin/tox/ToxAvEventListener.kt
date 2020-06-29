@@ -2,19 +2,24 @@ package ltd.evilcorp.domain.tox
 
 import im.tox.tox4j.av.callbacks.ToxAvEventListener
 import im.tox.tox4j.av.enums.ToxavFriendCallState
-import scala.Option
-import scala.Tuple3
 import java.util.*
 import javax.inject.Inject
+import scala.Option
+import scala.Tuple3
 
 typealias CallHandler = (pk: String, audioEnabled: Boolean, videoEnabled: Boolean) -> Unit
 typealias CallStateHandler = (pk: String, callState: EnumSet<ToxavFriendCallState>) -> Unit
 typealias VideoBitRateHandler = (pk: String, bitRate: Int) -> Unit
 typealias VideoReceiveFrameHandler = (
     pk: String,
-    width: Int, height: Int,
-    y: ByteArray, u: ByteArray, v: ByteArray,
-    yStride: Int, uStride: Int, vStride: Int
+    width: Int,
+    height: Int,
+    y: ByteArray,
+    u: ByteArray,
+    v: ByteArray,
+    yStride: Int,
+    uStride: Int,
+    vStride: Int
 ) -> Unit
 
 typealias AudioReceiveFrameHandler = (pk: String, pcm: ShortArray, channels: Int, samplingRate: Int) -> Unit
@@ -48,9 +53,14 @@ class ToxAvEventListener @Inject constructor() : ToxAvEventListener<Unit> {
 
     override fun videoReceiveFrame(
         friendNo: Int,
-        width: Int, height: Int,
-        y: ByteArray, u: ByteArray, v: ByteArray,
-        yStride: Int, uStride: Int, vStride: Int,
+        width: Int,
+        height: Int,
+        y: ByteArray,
+        u: ByteArray,
+        v: ByteArray,
+        yStride: Int,
+        uStride: Int,
+        vStride: Int,
         s: Unit?
     ) = videoReceiveFrameHandler(
         keyFor(friendNo),

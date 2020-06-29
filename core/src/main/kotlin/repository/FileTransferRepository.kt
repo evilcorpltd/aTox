@@ -1,10 +1,10 @@
 package ltd.evilcorp.core.repository
 
 import androidx.lifecycle.LiveData
-import ltd.evilcorp.core.db.FileTransferDao
-import ltd.evilcorp.core.vo.FileTransfer
 import javax.inject.Inject
 import javax.inject.Singleton
+import ltd.evilcorp.core.db.FileTransferDao
+import ltd.evilcorp.core.vo.FileTransfer
 
 @Singleton
 class FileTransferRepository @Inject internal constructor(

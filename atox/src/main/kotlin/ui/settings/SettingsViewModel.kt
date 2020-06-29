@@ -4,8 +4,8 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.util.Log
 import androidx.lifecycle.ViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -13,7 +13,6 @@ import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.BootReceiver
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.domain.tox.Tox
-import javax.inject.Inject
 
 class SettingsViewModel @Inject constructor(
     private val context: Context,

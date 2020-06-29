@@ -7,9 +7,9 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.findNavController
+import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_main.*
 import ltd.evilcorp.atox.di.ViewModelFactory
-import javax.inject.Inject
 
 private const val TAG = "MainActivity"
 private const val SCHEME = "tox:"

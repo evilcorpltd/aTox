@@ -1,5 +1,7 @@
 package ltd.evilcorp.domain.feature
 
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -11,8 +13,6 @@ import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.domain.tox.MAX_MESSAGE_LENGTH
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Singleton
 class ChatManager @Inject constructor(

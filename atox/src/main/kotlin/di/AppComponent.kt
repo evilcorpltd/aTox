@@ -3,12 +3,12 @@ package ltd.evilcorp.atox.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Singleton
 import ltd.evilcorp.atox.BootReceiver
 import ltd.evilcorp.atox.MainActivity
 import ltd.evilcorp.atox.ToxService
 import ltd.evilcorp.core.di.DaoModule
 import ltd.evilcorp.core.di.DatabaseModule
-import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [AndroidModule::class, DatabaseModule::class, DaoModule::class, ViewModelModule::class])

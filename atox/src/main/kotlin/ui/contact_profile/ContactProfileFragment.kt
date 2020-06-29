@@ -24,7 +24,8 @@ class ContactProfileFragment : Fragment() {
     private val viewModel: ContactProfileViewModel by viewModels { vmFactory }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_contact_profile, container, false).apply {
         setUpFullScreenUi { _, insets ->

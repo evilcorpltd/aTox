@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import java.text.DateFormat
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.Sender
-import java.text.DateFormat
 
 private fun inflateView(type: ChatItemType, inflater: LayoutInflater): View =
     inflater.inflate(
@@ -90,9 +90,9 @@ class ChatAdapter(
                     View.VISIBLE
                 } else {
                     val next = messages[position + 1]
-                    if (next.timestamp != 0L
-                        && next.sender == message.sender
-                        && next.timestamp - message.timestamp < 60_000
+                    if (next.timestamp != 0L &&
+                        next.sender == message.sender &&
+                        next.timestamp - message.timestamp < 60_000
                     ) {
                         View.GONE
                     } else {

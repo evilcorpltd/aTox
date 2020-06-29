@@ -1,11 +1,11 @@
 package ltd.evilcorp.atox.ui.addcontact
 
 import androidx.lifecycle.ViewModel
+import javax.inject.Inject
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxID
-import javax.inject.Inject
 
 class AddContactViewModel @Inject constructor(
     private val contactManager: ContactManager,

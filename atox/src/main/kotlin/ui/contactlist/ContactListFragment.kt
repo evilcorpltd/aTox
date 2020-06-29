@@ -64,28 +64,31 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
 
         toolbar.title = getText(R.string.app_name)
 
-        viewModel.user.observe(viewLifecycleOwner, Observer { user ->
-            if (user == null) return@Observer
+        viewModel.user.observe(
+            viewLifecycleOwner,
+            Observer { user ->
+                if (user == null) return@Observer
 
-            backupFileNameHint = user.name + ".tox"
+                backupFileNameHint = user.name + ".tox"
 
-            navView.getHeaderView(0).apply {
-                profileName.text = user.name
-                profileStatusMessage.text = user.statusMessage
+                navView.getHeaderView(0).apply {
+                    profileName.text = user.name
+                    profileStatusMessage.text = user.statusMessage
 
-                if (user.online()) {
-                    statusSwitcher.setColorFilter(colorFromStatus(user.status))
+                    if (user.online()) {
+                        statusSwitcher.setColorFilter(colorFromStatus(user.status))
+                    } else {
+                        statusSwitcher.setColorFilter(R.color.statusOffline)
+                    }
+                }
+
+                toolbar.subtitle = if (user.online()) {
+                    resources.getStringArray(R.array.user_statuses)[user.status.ordinal]
                 } else {
-                    statusSwitcher.setColorFilter(R.color.statusOffline)
+                    getText(R.string.connecting)
                 }
             }
-
-            toolbar.subtitle = if (user.online()) {
-                resources.getStringArray(R.array.user_statuses)[user.status.ordinal]
-            } else {
-                getText(R.string.connecting)
-            }
-        })
+        )
 
         navView.setNavigationItemSelectedListener(this@ContactListFragment)
 
@@ -93,33 +96,39 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         contactList.adapter = contactAdapter
         registerForContextMenu(contactList)
 
-        viewModel.friendRequests.observe(viewLifecycleOwner, Observer { friendRequests ->
-            contactAdapter.friendRequests = friendRequests
-            contactAdapter.notifyDataSetChanged()
+        viewModel.friendRequests.observe(
+            viewLifecycleOwner,
+            Observer { friendRequests ->
+                contactAdapter.friendRequests = friendRequests
+                contactAdapter.notifyDataSetChanged()
 
-            noContactsCallToAction.visibility = if (contactAdapter.isEmpty) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
-        })
-
-        viewModel.contacts.observe(viewLifecycleOwner, Observer { contacts ->
-            contactAdapter.contacts = contacts.sortedByDescending { contact ->
-                when {
-                    contact.lastMessage != 0L -> contact.lastMessage
-                    contact.connectionStatus == ConnectionStatus.None -> -1000L
-                    else -> -contact.status.ordinal.toLong()
+                noContactsCallToAction.visibility = if (contactAdapter.isEmpty) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
                 }
             }
-            contactAdapter.notifyDataSetChanged()
+        )
 
-            noContactsCallToAction.visibility = if (contactAdapter.isEmpty) {
-                View.VISIBLE
-            } else {
-                View.GONE
+        viewModel.contacts.observe(
+            viewLifecycleOwner,
+            Observer { contacts ->
+                contactAdapter.contacts = contacts.sortedByDescending { contact ->
+                    when {
+                        contact.lastMessage != 0L -> contact.lastMessage
+                        contact.connectionStatus == ConnectionStatus.None -> -1000L
+                        else -> -contact.status.ordinal.toLong()
+                    }
+                }
+                contactAdapter.notifyDataSetChanged()
+
+                noContactsCallToAction.visibility = if (contactAdapter.isEmpty) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
             }
-        })
+        )
 
         contactList.setOnItemClickListener { _, _, position, _ ->
             openChat(contactList.getItemAtPosition(position) as Contact)

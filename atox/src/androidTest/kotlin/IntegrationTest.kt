@@ -17,6 +17,7 @@ import dagger.Module
 import dagger.Provides
 import io.mockk.every
 import io.mockk.mockk
+import javax.inject.Singleton
 import ltd.evilcorp.atox.di.AndroidModule
 import ltd.evilcorp.atox.di.AppComponent
 import ltd.evilcorp.atox.di.ViewModelModule
@@ -27,7 +28,6 @@ import org.hamcrest.core.AllOf.allOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import javax.inject.Singleton
 
 class InjectedActivityTestRule<T : Activity>(
     activityClass: Class<T>,

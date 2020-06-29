@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import java.text.DateFormat
+import java.util.*
 import kotlinx.android.synthetic.main.fragment_chat.*
 import kotlinx.android.synthetic.main.fragment_chat.view.*
 import kotlinx.android.synthetic.main.profile_image_layout.*
@@ -29,8 +31,6 @@ import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.domain.tox.PublicKey
-import java.text.DateFormat
-import java.util.*
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
 
@@ -99,29 +99,36 @@ class ChatFragment : Fragment() {
             )
         }
 
-        viewModel.contact.observe(viewLifecycleOwner, Observer {
-            contactName = it.name
-            contactOnline = it.connectionStatus != ConnectionStatus.None
+        viewModel.contact.observe(
+            viewLifecycleOwner,
+            Observer {
+                contactName = it.name
+                contactOnline = it.connectionStatus != ConnectionStatus.None
 
-            title.text = contactName
-            subtitle.text = when {
-                it.typing -> getString(R.string.contact_typing)
-                it.lastMessage == 0L -> getString(R.string.never)
-                else -> DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT)
-                    .format(it.lastMessage) // TODO(robinlinden): Replace with last seen.
-            }.toLowerCase(Locale.getDefault())
+                title.text = contactName
+                subtitle.text = when {
+                    it.typing -> getString(R.string.contact_typing)
+                    it.lastMessage == 0L -> getString(R.string.never)
+                    else ->
+                        DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT)
+                            .format(it.lastMessage) // TODO(robinlinden): Replace with last seen.
+                }.toLowerCase(Locale.getDefault())
 
-            statusIndicator.setColorFilter(colorByStatus(resources, it))
-            setAvatarFromContact(profileImage, it)
-        })
+                statusIndicator.setColorFilter(colorByStatus(resources, it))
+                setAvatarFromContact(profileImage, it)
+            }
+        )
 
         val adapter = ChatAdapter(inflater, resources)
         messages.adapter = adapter
         registerForContextMenu(messages)
-        viewModel.messages.observe(viewLifecycleOwner, Observer {
-            adapter.messages = it
-            adapter.notifyDataSetChanged()
-        })
+        viewModel.messages.observe(
+            viewLifecycleOwner,
+            Observer {
+                adapter.messages = it
+                adapter.notifyDataSetChanged()
+            }
+        )
 
         registerForContextMenu(send)
         send.setOnClickListener {

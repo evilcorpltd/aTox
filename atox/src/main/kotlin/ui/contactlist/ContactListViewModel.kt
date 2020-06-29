@@ -6,6 +6,8 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import java.io.FileOutputStream
+import javax.inject.Inject
 import kotlinx.coroutines.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.tox.ToxStarter
@@ -16,8 +18,6 @@ import ltd.evilcorp.domain.feature.FriendRequestManager
 import ltd.evilcorp.domain.feature.UserManager
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
-import java.io.FileOutputStream
-import javax.inject.Inject
 
 class ContactListViewModel @Inject constructor(
     private val context: Context,

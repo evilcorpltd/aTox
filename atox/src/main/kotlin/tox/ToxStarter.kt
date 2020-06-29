@@ -6,10 +6,10 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.util.Log
 import im.tox.tox4j.core.exceptions.ToxNewException
+import javax.inject.Inject
 import ltd.evilcorp.atox.ToxService
 import ltd.evilcorp.domain.feature.UserManager
 import ltd.evilcorp.domain.tox.*
-import javax.inject.Inject
 
 private const val TAG = "ToxStarter"
 
@@ -30,7 +30,8 @@ class ToxStarter @Inject constructor(
             SaveOptions(
                 save,
                 udpEnabled = preferences.getBoolean("udp_enabled", false)
-            ), eventListener, avEventListener
+            ),
+            eventListener, avEventListener
         )
         startService()
         true

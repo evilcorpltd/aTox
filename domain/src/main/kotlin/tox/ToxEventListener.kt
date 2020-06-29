@@ -5,9 +5,9 @@ import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
+import javax.inject.Inject
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.UserStatus
-import javax.inject.Inject
 
 typealias FriendLosslessPacketHandler = (publicKey: String, data: ByteArray) -> Unit
 typealias FileRecvControlHandler = (publicKey: String, fileNo: Int, control: ToxFileControl) -> Unit
@@ -16,7 +16,12 @@ typealias FriendReadReceiptHandler = (publicKey: String, messageId: Int) -> Unit
 typealias FriendStatusHandler = (publicKey: String, status: UserStatus) -> Unit
 typealias FriendConnectionStatusHandler = (publicKey: String, status: ConnectionStatus) -> Unit
 typealias FriendRequestHandler = (publicKey: String, timeDelta: Int, message: String) -> Unit
-typealias FriendMessageHandler = (publicKey: String, messageType: ToxMessageType, timeDelta: Int, message: String) -> Unit
+typealias FriendMessageHandler = (
+    publicKey: String,
+    messageType: ToxMessageType,
+    timeDelta: Int,
+    message: String
+) -> Unit
 typealias FriendNameHandler = (publicKey: String, newName: String) -> Unit
 typealias FileRecvChunkHandler = (publicKey: String, fileNo: Int, position: Long, data: ByteArray) -> Unit
 typealias FileRecvHandler = (publicKey: String, fileNo: Int, kind: Int, size: Long, name: String) -> Unit
