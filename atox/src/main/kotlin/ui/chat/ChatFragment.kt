@@ -113,8 +113,6 @@ class ChatFragment : Fragment() {
 
             statusIndicator.setColorFilter(colorByStatus(resources, it))
             setAvatarFromContact(profileImage, it)
-
-            updateSendButton(this)
         })
 
         val adapter = ChatAdapter(inflater, resources)
