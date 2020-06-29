@@ -64,7 +64,8 @@ class ChatAdapter(
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View =
         when (val type = types[getItemViewType(position)]) {
-            ChatItemType.ReceivedMessage, ChatItemType.SentMessage, ChatItemType.ReceivedAction, ChatItemType.SentAction -> {
+            ChatItemType.ReceivedMessage, ChatItemType.SentMessage,
+            ChatItemType.ReceivedAction, ChatItemType.SentAction -> {
                 val message = messages[position]
                 val view: View
                 val vh: MessageViewHolder

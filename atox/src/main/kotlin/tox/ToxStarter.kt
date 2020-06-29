@@ -9,7 +9,12 @@ import im.tox.tox4j.core.exceptions.ToxNewException
 import javax.inject.Inject
 import ltd.evilcorp.atox.ToxService
 import ltd.evilcorp.domain.feature.UserManager
-import ltd.evilcorp.domain.tox.*
+import ltd.evilcorp.domain.tox.PublicKey
+import ltd.evilcorp.domain.tox.SaveManager
+import ltd.evilcorp.domain.tox.SaveOptions
+import ltd.evilcorp.domain.tox.Tox
+import ltd.evilcorp.domain.tox.ToxAvEventListener
+import ltd.evilcorp.domain.tox.ToxEventListener
 
 private const val TAG = "ToxStarter"
 

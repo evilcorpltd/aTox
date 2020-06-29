@@ -1,7 +1,7 @@
 package ltd.evilcorp.atox.tox
 
 import android.util.Log
-import java.util.*
+import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
@@ -12,10 +12,20 @@ import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FriendRequestRepository
 import ltd.evilcorp.core.repository.MessageRepository
 import ltd.evilcorp.core.repository.UserRepository
-import ltd.evilcorp.core.vo.*
+import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.FileKind
+import ltd.evilcorp.core.vo.FileTransfer
+import ltd.evilcorp.core.vo.FriendRequest
+import ltd.evilcorp.core.vo.Message
+import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.FileTransferManager
-import ltd.evilcorp.domain.tox.*
+import ltd.evilcorp.domain.tox.PublicKey
+import ltd.evilcorp.domain.tox.Tox
+import ltd.evilcorp.domain.tox.ToxAvEventListener
+import ltd.evilcorp.domain.tox.ToxEventListener
+import ltd.evilcorp.domain.tox.toMessageType
 
 private const val TAG = "EventListenerCallbacks"
 
