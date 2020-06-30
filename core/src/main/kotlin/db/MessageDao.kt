@@ -1,7 +1,10 @@
 package ltd.evilcorp.core.db
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import ltd.evilcorp.core.vo.Message
 
 @Dao
@@ -21,6 +24,6 @@ internal interface MessageDao {
     @Query("DELETE FROM messages WHERE conversation == :conversation")
     fun delete(conversation: String)
 
-    @Query("UPDATE messages SET timestamp = :timestamp WHERE conversation == :conversation AND correlation_id == :correlationId")
+    @Query("UPDATE messages SET timestamp = :timestamp WHERE conversation == :conversation AND correlation_id == :correlationId") // ktlint-disable
     fun setReceipt(conversation: String, correlationId: Int, timestamp: Long)
 }

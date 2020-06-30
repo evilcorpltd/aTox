@@ -4,7 +4,12 @@ import androidx.room.testing.MigrationTestHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import ltd.evilcorp.core.vo.*
+import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.Message
+import ltd.evilcorp.core.vo.MessageType
+import ltd.evilcorp.core.vo.Sender
+import ltd.evilcorp.core.vo.UserStatus
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test

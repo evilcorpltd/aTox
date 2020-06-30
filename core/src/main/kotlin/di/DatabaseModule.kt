@@ -5,7 +5,14 @@ import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
-import ltd.evilcorp.core.db.*
+import ltd.evilcorp.core.db.ContactDao
+import ltd.evilcorp.core.db.Database
+import ltd.evilcorp.core.db.FileTransferDao
+import ltd.evilcorp.core.db.FriendRequestDao
+import ltd.evilcorp.core.db.MIGRATION_1_2
+import ltd.evilcorp.core.db.MIGRATION_2_3
+import ltd.evilcorp.core.db.MessageDao
+import ltd.evilcorp.core.db.UserDao
 
 @Suppress("unused")
 @Module
