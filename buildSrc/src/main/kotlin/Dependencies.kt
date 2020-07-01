@@ -12,7 +12,7 @@ private object Version {
     const val leakCanary = "2.4"
     const val lifecycle = "2.2.0"
     const val room = "2.2.5"
-    const val navigation = "2.2.0"
+    const val navigation = "2.3.0"
     const val mockk = "1.10.0"
     const val toxcore = "0.2.12"
     const val sadToxcore = "0.2.2" // The x86 build has apparently been broken for a while.
