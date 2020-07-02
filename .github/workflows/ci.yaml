@@ -9,3 +9,13 @@ jobs:
       with:
         api-level: 29
         script: ./gradlew connectedCheck -x :atox:connectedAndroidTest -x :domain:connectedAndroidTest
+  ktlint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: ktlint
+      run: ./gradlew ktlint
