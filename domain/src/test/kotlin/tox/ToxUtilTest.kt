@@ -3,11 +3,13 @@ package ltd.evilcorp.domain.tox
 import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
-import java.util.*
+import java.util.Locale
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.UserStatus
-import org.junit.Assert.*
+import org.junit.Assert.assertArrayEquals
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Test
 
 private fun byteArrayOf(vararg bytes: Int) = ByteArray(bytes.size) { bytes[it].toByte() }

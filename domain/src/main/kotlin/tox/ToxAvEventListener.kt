@@ -2,7 +2,7 @@ package ltd.evilcorp.domain.tox
 
 import im.tox.tox4j.av.callbacks.ToxAvEventListener
 import im.tox.tox4j.av.enums.ToxavFriendCallState
-import java.util.*
+import java.util.EnumSet
 import javax.inject.Inject
 import scala.Option
 import scala.Tuple3

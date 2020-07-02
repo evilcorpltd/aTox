@@ -4,7 +4,15 @@ import android.util.Log
 import im.tox.tox4j.core.exceptions.ToxBootstrapException
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.plus
+import kotlinx.coroutines.runBlocking
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.MessageType

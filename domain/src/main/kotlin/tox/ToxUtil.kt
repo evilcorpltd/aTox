@@ -6,7 +6,7 @@ import im.tox.tox4j.core.enums.ToxUserStatus
 import im.tox.tox4j.core.options.ProxyOptions
 import im.tox.tox4j.core.options.SaveDataOptions
 import im.tox.tox4j.core.options.ToxOptions
-import java.util.*
+import java.util.Locale
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.UserStatus
