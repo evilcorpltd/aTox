@@ -22,17 +22,3 @@ steps:
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'assembleDebug testDebug'
   displayName: gradlew assembleDebug testDebug
-
-- task: CopyFiles@2
-  condition: eq(variables['Agent.OS'], 'Linux')
-  inputs:
-    contents: '**/*.apk'
-    targetFolder: '$(build.artifactStagingDirectory)'
-  displayName: Copy .apks to staging folder
-
-- task: PublishBuildArtifacts@1
-  condition: eq(variables['Agent.OS'], 'Linux')
-  inputs:
-    pathToPublish: '$(build.artifactStagingDirectory)'
-    artifactName: 'drop'
-  displayName: Publish .apks
