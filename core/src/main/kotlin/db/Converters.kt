@@ -6,7 +6,7 @@ import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.core.vo.UserStatus
 
-internal class Converters {
+internal class Converters private constructor() {
     companion object {
         @TypeConverter
         @JvmStatic

@@ -9,8 +9,10 @@ import ltd.evilcorp.atox.di.ViewModelFactory
 val Fragment.vmFactory: ViewModelFactory
     get() = (requireActivity() as MainActivity).vmFactory
 
+class NoSuchArgumentException(arg: String) : Exception("No such argument: $arg")
+
 fun Fragment.requireStringArg(key: String) =
-    arguments?.getString(key) ?: throw Exception("Missing argument $key")
+    arguments?.getString(key) ?: throw NoSuchArgumentException(key)
 
 fun View.setUpFullScreenUi(listener: (v: View, insets: WindowInsets) -> WindowInsets) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

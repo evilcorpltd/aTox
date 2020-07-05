@@ -10,6 +10,7 @@ import ltd.evilcorp.core.repository.FileTransferRepository
 import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.isComplete
+import ltd.evilcorp.domain.tox.MAX_AVATAR_SIZE
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
 
@@ -35,7 +36,7 @@ class FileTransferManager @Inject constructor(
                     contactRepository.setAvatarUri(ft.publicKey, "")
                     tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
                     return
-                } else if (ft.fileSize > 64 * 1024) {
+                } else if (ft.fileSize > MAX_AVATAR_SIZE) {
                     Log.e(TAG, "Got trash avatar with size ${ft.fileSize} from ${ft.publicKey}")
                     contactRepository.setAvatarUri(ft.publicKey, "")
                     tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)

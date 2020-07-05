@@ -8,17 +8,17 @@ import ltd.evilcorp.core.vo.FileTransfer
 
 @Singleton
 class FileTransferRepository @Inject internal constructor(
-    private val FileTransferDao: FileTransferDao
+    private val dao: FileTransferDao
 ) {
-    fun add(FileTransfer: FileTransfer) =
-        FileTransferDao.save(FileTransfer)
+    fun add(ft: FileTransfer) =
+        dao.save(ft)
 
-    fun delete(FileTransfer: FileTransfer) =
-        FileTransferDao.delete(FileTransfer)
+    fun delete(ft: FileTransfer) =
+        dao.delete(ft)
 
     fun get(publicKey: String, fileNumber: Int): LiveData<List<FileTransfer>> =
-        FileTransferDao.load(publicKey, fileNumber)
+        dao.load(publicKey, fileNumber)
 
     fun updateProgress(publicKey: String, fileNumber: Int, progress: Long) =
-        FileTransferDao.updateProgress(publicKey, fileNumber, progress)
+        dao.updateProgress(publicKey, fileNumber, progress)
 }
