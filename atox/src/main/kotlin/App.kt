@@ -1,5 +1,6 @@
 package ltd.evilcorp.atox
 
+import android.os.StrictMode
 import androidx.multidex.MultiDexApplication
 import ltd.evilcorp.atox.di.AppComponent
 import ltd.evilcorp.atox.di.DaggerAppComponent
@@ -10,4 +11,9 @@ class App : MultiDexApplication() {
     }
 
     var componentOverride: AppComponent? = null
+
+    override fun onCreate() {
+        super.onCreate()
+        if (BuildConfig.DEBUG) StrictMode.enableDefaults()
+    }
 }
