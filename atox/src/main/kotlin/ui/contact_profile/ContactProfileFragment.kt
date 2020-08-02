@@ -2,9 +2,7 @@ package ltd.evilcorp.atox.ui.contact_profile
 
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,14 +18,10 @@ import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.domain.tox.PublicKey
 
-class ContactProfileFragment : Fragment() {
+class ContactProfileFragment : Fragment(R.layout.fragment_contact_profile) {
     private val viewModel: ContactProfileViewModel by viewModels { vmFactory }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_contact_profile, container, false).apply {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = view.run {
         setUpFullScreenUi { _, insets ->
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
             appBar.updatePadding(

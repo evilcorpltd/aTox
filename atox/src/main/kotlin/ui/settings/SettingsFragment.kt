@@ -2,9 +2,7 @@ package ltd.evilcorp.atox.ui.settings
 
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatDelegate
@@ -19,14 +17,10 @@ import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.setUpFullScreenUi
 import ltd.evilcorp.atox.vmFactory
 
-class SettingsFragment : Fragment() {
+class SettingsFragment : Fragment(R.layout.fragment_settings) {
     private val vm: SettingsViewModel by viewModels { vmFactory }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_settings, container, false).apply {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = view.run {
         setUpFullScreenUi { v, insets ->
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
             toolbar.updatePadding(top = insets.systemWindowInsetTop)
@@ -85,8 +79,7 @@ class SettingsFragment : Fragment() {
             vm.setUdpEnabled(settings_udp_enabled.isChecked)
         }
 
-        version.text =
-            getString(R.string.version_display, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
+        version.text = getString(R.string.version_display, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
     }
 
     override fun onStop() {

@@ -4,9 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
@@ -23,7 +21,7 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.domain.tox.ToxID
 import ltd.evilcorp.domain.tox.ToxIdValidator
 
-class AddContactFragment : Fragment() {
+class AddContactFragment : Fragment(R.layout.fragment_add_contact) {
     private val viewModel: AddContactViewModel by viewModels { vmFactory }
 
     private var toxIdValid: Boolean = false
@@ -38,11 +36,7 @@ class AddContactFragment : Fragment() {
         if (!viewModel.isToxRunning() && !viewModel.tryLoadTox()) findNavController().navigateUp()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_add_contact, container, false).apply {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = view.run {
         setUpFullScreenUi { _, insets ->
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
             toolbar.updatePadding(

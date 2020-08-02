@@ -5,9 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowInsets
 import android.widget.Toast
 import androidx.activity.addCallback
@@ -23,14 +21,10 @@ import ltd.evilcorp.core.vo.User
 
 private const val IMPORT = 42
 
-class CreateProfileFragment : Fragment() {
+class CreateProfileFragment : Fragment(R.layout.fragment_profile) {
     private val viewModel: CreateProfileViewModel by viewModels { vmFactory }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_profile, container, false).apply {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = view.run {
         setUpFullScreenUi { _: View, insets: WindowInsets ->
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
             toolbar.updatePadding(

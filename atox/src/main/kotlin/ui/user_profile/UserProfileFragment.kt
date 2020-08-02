@@ -4,9 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.InputFilter
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
@@ -25,7 +23,7 @@ import ltd.evilcorp.core.vo.UserStatus
 private const val TOX_MAX_NAME_LENGTH = 128
 private const val TOX_MAX_STATUS_MESSAGE_LENGTH = 1007
 
-class UserProfileFragment : Fragment() {
+class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
     private val vm: UserProfileViewModel by viewModels { vmFactory }
     private lateinit var currentStatus: UserStatus
 
@@ -35,11 +33,7 @@ class UserProfileFragment : Fragment() {
         UserStatus.Busy -> ResourcesCompat.getColor(resources, R.color.statusBusy, null)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_user_profile, container, false).apply {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = view.run {
         setUpFullScreenUi { _, insets ->
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
             profile_collapsing_toolbar.updatePadding(

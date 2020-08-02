@@ -6,11 +6,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.ContextMenu
-import android.view.LayoutInflater
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import androidx.activity.addCallback
@@ -46,7 +44,7 @@ private const val REQUEST_CODE_BACKUP_TOX = 9202
 private fun User.online(): Boolean =
     connectionStatus != ConnectionStatus.None
 
-class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
+class ContactListFragment : Fragment(R.layout.fragment_contact_list), NavigationView.OnNavigationItemSelectedListener {
     private val viewModel: ContactListViewModel by viewModels { vmFactory }
     private var backupFileNameHint = "something_is_broken.tox"
 
@@ -56,12 +54,8 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         UserStatus.Busy -> ResourcesCompat.getColor(resources, R.color.statusBusy, null)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_contact_list, container, false).apply {
-        if (!viewModel.isToxRunning()) return@apply
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = view.run {
+        if (!viewModel.isToxRunning()) return@run
 
         setUpFullScreenUi { v, insets ->
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
@@ -102,7 +96,7 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
 
         navView.setNavigationItemSelectedListener(this@ContactListFragment)
 
-        val contactAdapter = ContactAdapter(inflater, resources)
+        val contactAdapter = ContactAdapter(layoutInflater, resources)
         contactList.adapter = contactAdapter
         registerForContextMenu(contactList)
 
@@ -167,6 +161,10 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
             } else {
                 activity?.finish()
             }
+        }
+
+        activity?.getSystemService<InputMethodManager>().let { imm ->
+            imm?.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 
@@ -272,14 +270,6 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         super.onStart()
         if (!viewModel.isToxRunning()) {
             findNavController().navigate(R.id.action_contactListFragment_to_profileFragment)
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        activity?.getSystemService<InputMethodManager>().let { imm ->
-            imm?.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 

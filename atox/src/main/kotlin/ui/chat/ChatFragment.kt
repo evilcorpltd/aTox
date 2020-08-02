@@ -6,10 +6,8 @@ import android.content.ClipboardManager
 import android.os.Build
 import android.os.Bundle
 import android.view.ContextMenu
-import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.core.content.getSystemService
@@ -38,18 +36,14 @@ import ltd.evilcorp.domain.tox.PublicKey
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
 
-class ChatFragment : Fragment() {
+class ChatFragment : Fragment(R.layout.fragment_chat) {
     private val viewModel: ChatViewModel by viewModels { vmFactory }
 
     private lateinit var contactPubKey: String
     private var contactName = ""
     private var contactOnline = false
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_chat, container, false).apply {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = view.run {
         contactPubKey = requireStringArg(CONTACT_PUBLIC_KEY)
         viewModel.setActiveChat(PublicKey(contactPubKey))
 
@@ -123,7 +117,7 @@ class ChatFragment : Fragment() {
             }
         )
 
-        val adapter = ChatAdapter(inflater, resources)
+        val adapter = ChatAdapter(layoutInflater, resources)
         messages.adapter = adapter
         registerForContextMenu(messages)
         viewModel.messages.observe(
@@ -144,7 +138,7 @@ class ChatFragment : Fragment() {
 
         outgoingMessage.doAfterTextChanged {
             viewModel.setTyping(outgoingMessage.text.isNotEmpty())
-            updateSendButton(this@apply)
+            updateSendButton(this@run)
         }
     }
 
