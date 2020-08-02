@@ -74,11 +74,9 @@ dependencies {
     implementation(Libraries.kotlinStdLib)
     implementation(Libraries.javaxInject)
 
-    // Lifecycle
-    api(Libraries.lifecycleExtensions)
-
     // Room
     api(Libraries.roomRuntime)
+    api(Libraries.roomKtx)
     kapt(Libraries.roomCompiler)
 
     // Dagger

@@ -6,6 +6,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.repository.ContactRepository
@@ -45,8 +46,10 @@ class EventListenerCallbacks @Inject constructor(
     private var contacts: List<Contact> = listOf()
 
     init {
-        contactRepository.getAll().observeForever {
-            contacts = it
+        launch {
+            contactRepository.getAll().collect {
+                contacts = it
+            }
         }
     }
 

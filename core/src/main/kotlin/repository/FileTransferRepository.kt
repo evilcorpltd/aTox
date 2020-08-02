@@ -1,8 +1,8 @@
 package ltd.evilcorp.core.repository
 
-import androidx.lifecycle.LiveData
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.db.FileTransferDao
 import ltd.evilcorp.core.vo.FileTransfer
 
@@ -16,7 +16,7 @@ class FileTransferRepository @Inject internal constructor(
     fun delete(ft: FileTransfer) =
         dao.delete(ft)
 
-    fun get(publicKey: String, fileNumber: Int): LiveData<List<FileTransfer>> =
+    fun get(publicKey: String, fileNumber: Int): Flow<List<FileTransfer>> =
         dao.load(publicKey, fileNumber)
 
     fun updateProgress(publicKey: String, fileNumber: Int, progress: Long) =

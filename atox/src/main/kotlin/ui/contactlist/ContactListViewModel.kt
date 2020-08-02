@@ -6,6 +6,7 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import java.io.FileOutputStream
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.tox.ToxStarter
+import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.domain.feature.ContactManager
@@ -28,16 +30,15 @@ class ContactListViewModel @Inject constructor(
     private val resolver: ContentResolver,
     private val contactManager: ContactManager,
     private val friendRequestManager: FriendRequestManager,
-    private val userManager: UserManager,
     private val tox: Tox,
-    private val toxStarter: ToxStarter
+    private val toxStarter: ToxStarter,
+    userManager: UserManager
 ) : ViewModel(), CoroutineScope by GlobalScope {
     val publicKey by lazy { tox.publicKey }
-    val toxId by lazy { tox.toxId }
 
-    val user: LiveData<User> by lazy { userManager.get(publicKey) }
-    val contacts = contactManager.getAll()
-    val friendRequests = friendRequestManager.getAll()
+    val user: LiveData<User> by lazy { userManager.get(publicKey).asLiveData() }
+    val contacts: LiveData<List<Contact>> = contactManager.getAll().asLiveData()
+    val friendRequests: LiveData<List<FriendRequest>> = friendRequestManager.getAll().asLiveData()
 
     fun isToxRunning() = tox.started
     fun tryLoadTox(): Boolean = toxStarter.tryLoadTox()

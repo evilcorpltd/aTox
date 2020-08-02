@@ -2,6 +2,7 @@ package ltd.evilcorp.atox.ui.user_profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import javax.inject.Inject
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.core.vo.UserStatus
@@ -14,7 +15,7 @@ class UserProfileViewModel @Inject constructor(
 ) : ViewModel() {
     val publicKey by lazy { tox.publicKey }
     val toxId by lazy { tox.toxId }
-    val user: LiveData<User> by lazy { userManager.get(publicKey) }
+    val user: LiveData<User> = userManager.get(publicKey).asLiveData()
 
     fun setName(name: String) = userManager.setName(name)
     fun setStatusMessage(statusMessage: String) = userManager.setStatusMessage(statusMessage)

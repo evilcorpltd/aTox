@@ -1,8 +1,8 @@
 package ltd.evilcorp.core.repository
 
-import androidx.lifecycle.LiveData
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.db.ContactDao
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
@@ -16,8 +16,8 @@ class ContactRepository @Inject internal constructor(
     fun add(contact: Contact) = dao.save(contact)
     fun update(contact: Contact) = dao.update(contact)
     fun delete(contact: Contact) = dao.delete(contact)
-    fun get(publicKey: String): LiveData<Contact> = dao.load(publicKey)
-    fun getAll(): LiveData<List<Contact>> = dao.loadAll()
+    fun get(publicKey: String): Flow<Contact> = dao.load(publicKey)
+    fun getAll(): Flow<List<Contact>> = dao.loadAll()
     fun resetTransientData() = dao.resetTransientData()
 
     fun setName(publicKey: String, name: String) = dao.setName(publicKey, name)

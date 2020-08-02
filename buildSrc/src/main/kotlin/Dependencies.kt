@@ -63,10 +63,12 @@ object Libraries {
     const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:${Version.navigation}"
 
     const val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Version.lifecycle}"
+    const val lifecycleLivedataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:${Version.lifecycle}"
 
     const val multidex = "androidx.multidex:multidex:2.0.1"
 
     const val roomRuntime = "androidx.room:room-runtime:${Version.room}"
+    const val roomKtx = "androidx.room:room-ktx:${Version.room}"
     const val roomCompiler = "androidx.room:room-compiler:${Version.room}"
 
     const val preference = "androidx.preference:preference:1.1.1"

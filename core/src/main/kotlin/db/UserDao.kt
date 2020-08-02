@@ -1,12 +1,12 @@
 package ltd.evilcorp.core.db
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.core.vo.UserStatus
@@ -38,5 +38,5 @@ internal interface UserDao {
     fun exists(publicKey: String): Boolean
 
     @Query("SELECT * FROM users WHERE public_key = :publicKey")
-    fun load(publicKey: String): LiveData<User>
+    fun load(publicKey: String): Flow<User>
 }

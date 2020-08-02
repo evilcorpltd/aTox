@@ -1,9 +1,9 @@
 package ltd.evilcorp.domain.feature
 
-import androidx.lifecycle.LiveData
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FriendRequestRepository
@@ -17,8 +17,8 @@ class FriendRequestManager @Inject constructor(
     private val friendRequestRepository: FriendRequestRepository,
     private val tox: Tox
 ) : CoroutineScope by GlobalScope {
-    fun getAll(): LiveData<List<FriendRequest>> = friendRequestRepository.getAll()
-    fun get(id: PublicKey): LiveData<FriendRequest> = friendRequestRepository.get(id.string())
+    fun getAll(): Flow<List<FriendRequest>> = friendRequestRepository.getAll()
+    fun get(id: PublicKey): Flow<FriendRequest> = friendRequestRepository.get(id.string())
 
     fun accept(friendRequest: FriendRequest) = launch {
         tox.acceptFriendRequest(PublicKey(friendRequest.publicKey))

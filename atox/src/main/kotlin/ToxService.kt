@@ -10,8 +10,10 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.getSystemService
 import androidx.lifecycle.LifecycleService
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.observe
 import javax.inject.Inject
+import kotlinx.coroutines.flow.filter
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.ConnectionStatus
@@ -92,12 +94,12 @@ class ToxService : LifecycleService() {
         createNotificationChannel()
         startForeground(notificationId, notificationFor(connectionStatus))
 
-        userRepository.get(tox.publicKey.string()).observe(this) { user: User? ->
-            if (user == null) return@observe // Android is lying. This can be null.
-            if (user.connectionStatus == connectionStatus) return@observe
-            connectionStatus = user.connectionStatus
-            notifier.notify(notificationId, notificationFor(connectionStatus))
-        }
+        userRepository.get(tox.publicKey.string())
+            .filter { user: User? -> user != null }.asLiveData().observe(this) { user ->
+                if (user.connectionStatus == connectionStatus) return@observe
+                connectionStatus = user.connectionStatus
+                notifier.notify(notificationId, notificationFor(connectionStatus))
+            }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

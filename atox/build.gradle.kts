@@ -72,6 +72,9 @@ dependencies {
 
     implementation(Libraries.preference)
 
+    implementation(Libraries.lifecycleExtensions)
+    implementation(Libraries.lifecycleLivedataKtx)
+
     implementation(Libraries.dagger)
     kapt(Libraries.daggerCompiler)
 

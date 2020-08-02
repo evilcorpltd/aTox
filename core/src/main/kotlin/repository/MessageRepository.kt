@@ -1,8 +1,8 @@
 package ltd.evilcorp.core.repository
 
-import androidx.lifecycle.LiveData
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.db.MessageDao
 import ltd.evilcorp.core.vo.Message
 
@@ -13,7 +13,7 @@ class MessageRepository @Inject internal constructor(
     fun add(message: Message) =
         messageDao.save(message)
 
-    fun get(conversation: String): LiveData<List<Message>> =
+    fun get(conversation: String): Flow<List<Message>> =
         messageDao.load(conversation)
 
     fun getPending(conversation: String): List<Message> =

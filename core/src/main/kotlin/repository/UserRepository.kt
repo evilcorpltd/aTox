@@ -1,8 +1,8 @@
 package ltd.evilcorp.core.repository
 
-import androidx.lifecycle.LiveData
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.db.UserDao
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.User
@@ -21,7 +21,7 @@ class UserRepository @Inject internal constructor(
     fun update(user: User) =
         userDao.update(user)
 
-    fun get(publicKey: String): LiveData<User> =
+    fun get(publicKey: String): Flow<User> =
         userDao.load(publicKey)
 
     fun updateName(publicKey: String, name: String) =

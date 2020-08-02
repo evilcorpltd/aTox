@@ -1,12 +1,12 @@
 package ltd.evilcorp.core.db
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.UserStatus
@@ -26,10 +26,10 @@ internal interface ContactDao {
     fun exists(publicKey: String): Boolean
 
     @Query("SELECT * FROM contacts WHERE public_key = :publicKey")
-    fun load(publicKey: String): LiveData<Contact>
+    fun load(publicKey: String): Flow<Contact>
 
     @Query("SELECT * FROM contacts")
-    fun loadAll(): LiveData<List<Contact>>
+    fun loadAll(): Flow<List<Contact>>
 
     @Query("UPDATE contacts SET connection_status = :status, typing = :typing")
     fun resetTransientData(

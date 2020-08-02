@@ -1,8 +1,8 @@
 package ltd.evilcorp.core.repository
 
-import androidx.lifecycle.LiveData
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.db.FriendRequestDao
 import ltd.evilcorp.core.vo.FriendRequest
 
@@ -16,9 +16,9 @@ class FriendRequestRepository @Inject internal constructor(
     fun delete(friendRequest: FriendRequest) =
         friendRequestDao.delete(friendRequest)
 
-    fun getAll(): LiveData<List<FriendRequest>> =
+    fun getAll(): Flow<List<FriendRequest>> =
         friendRequestDao.loadAll()
 
-    fun get(publicKey: String): LiveData<FriendRequest> =
+    fun get(publicKey: String): Flow<FriendRequest> =
         friendRequestDao.load(publicKey)
 }
