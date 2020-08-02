@@ -32,6 +32,7 @@ import kotlinx.android.synthetic.main.nav_header_contact_list.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.setUpFullScreenUi
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
+import ltd.evilcorp.atox.ui.friend_request.FRIEND_REQUEST_PUBLIC_KEY
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
@@ -140,7 +141,14 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
         )
 
         contactList.setOnItemClickListener { _, _, position, _ ->
-            openChat(contactList.getItemAtPosition(position) as Contact)
+            when (contactList.adapter.getItemViewType(position)) {
+                ContactListItemType.FriendRequest.ordinal -> {
+                    openFriendRequest(contactList.getItemAtPosition(position) as FriendRequest)
+                }
+                ContactListItemType.Contact.ordinal -> {
+                    openChat(contactList.getItemAtPosition(position) as Contact)
+                }
+            }
         }
 
         val toggle = ActionBarDrawerToggle(
@@ -278,5 +286,10 @@ class ContactListFragment : Fragment(), NavigationView.OnNavigationItemSelectedL
     private fun openChat(contact: Contact) = findNavController().navigate(
         R.id.action_contactListFragment_to_chatFragment,
         Bundle().apply { putString(CONTACT_PUBLIC_KEY, contact.publicKey) }
+    )
+
+    private fun openFriendRequest(friendRequest: FriendRequest) = findNavController().navigate(
+        R.id.action_contactListFragment_to_friendRequestFragment,
+        Bundle().apply { putString(FRIEND_REQUEST_PUBLIC_KEY, friendRequest.publicKey) }
     )
 }

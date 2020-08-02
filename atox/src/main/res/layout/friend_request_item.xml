@@ -4,7 +4,6 @@
         android:id="@+id/friendRequestItem"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:longClickable="true"
         android:orientation="vertical"
         android:padding="10dp">
     <TextView android:id="@+id/publicKey"

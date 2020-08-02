@@ -18,6 +18,7 @@ class FriendRequestManager @Inject constructor(
     private val tox: Tox
 ) : CoroutineScope by GlobalScope {
     fun getAll(): LiveData<List<FriendRequest>> = friendRequestRepository.getAll()
+    fun get(id: PublicKey): LiveData<FriendRequest> = friendRequestRepository.get(id.string())
 
     fun accept(friendRequest: FriendRequest) = launch {
         tox.acceptFriendRequest(PublicKey(friendRequest.publicKey))

@@ -20,6 +20,13 @@
                 app:popEnterAnim="@anim/fade_in"
                 app:popExitAnim="@anim/slide_out_right"/>
 
+        <action android:id="@+id/action_contactListFragment_to_friendRequestFragment"
+                app:destination="@id/friendRequestFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/slide_out_right"/>
+
         <action android:id="@+id/action_contactListFragment_to_addContactFragment"
                 app:destination="@id/addContactFragment"
                 app:enterAnim="@anim/slide_in_right"
@@ -48,6 +55,11 @@
                 app:popEnterAnim="@anim/fade_in"
                 app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
+
+    <fragment android:id="@+id/friendRequestFragment"
+        android:name="ltd.evilcorp.atox.ui.friend_request.FriendRequestFragment"
+        android:label="FriendRequestFragment"
+        tools:layout="@layout/fragment_friend_request"/>
 
     <fragment android:id="@+id/chatFragment"
             android:name="ltd.evilcorp.atox.ui.chat.ChatFragment"

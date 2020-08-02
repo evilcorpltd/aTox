@@ -83,9 +83,11 @@
     <string name="pref_udp_enabled">UDP enabled</string>
     <string name="pref_heading_general">General</string>
     <string name="pref_run_at_startup">Run at boot</string>
+    <string name="friend_request">Friend request</string>
     <string-array name="user_statuses">
         <item>Available</item>
         <item>Away</item>
         <item>Busy</item>
     </string-array>
+    <string name="from">From</string>
 </resources>

@@ -18,4 +18,7 @@ class FriendRequestRepository @Inject internal constructor(
 
     fun getAll(): LiveData<List<FriendRequest>> =
         friendRequestDao.loadAll()
+
+    fun get(publicKey: String): LiveData<FriendRequest> =
+        friendRequestDao.load(publicKey)
 }

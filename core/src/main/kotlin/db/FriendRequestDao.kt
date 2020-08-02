@@ -18,4 +18,7 @@ internal interface FriendRequestDao {
 
     @Query("SELECT * FROM friend_requests")
     fun loadAll(): LiveData<List<FriendRequest>>
+
+    @Query("SELECT * FROM friend_requests WHERE public_key == :publicKey")
+    fun load(publicKey: String): LiveData<FriendRequest>
 }
