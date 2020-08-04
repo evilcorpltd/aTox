@@ -27,6 +27,7 @@ import ltd.evilcorp.atox.di.AppComponent
 import ltd.evilcorp.atox.di.ViewModelModule
 import ltd.evilcorp.core.db.Database
 import ltd.evilcorp.core.di.DaoModule
+import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.SaveManager
 import org.hamcrest.core.AllOf.allOf
 import org.junit.Rule
@@ -52,7 +53,9 @@ class TestModule {
 
     @Provides
     fun provideSaveManager(): SaveManager = mockk(relaxUnitFun = true) {
-        every { list() } returns listOf()
+        every { list() } returns listOf("workaround") // mockk crashes w/ `listOf()`.
+        every { load(PublicKey("workaround")) } returns null
+        // Am I using mockk wrong or something? `every { save(any(), any() }` crashes.
     }
 }
 
