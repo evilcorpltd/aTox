@@ -1,33 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-    <androidx.cardview.widget.CardView android:id="@+id/imageContainer"
+    <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profileImage"
             android:layout_width="38dp"
             android:layout_height="38dp"
-            app:cardCornerRadius="19dp"
-            app:cardPreventCornerOverlap="false"
+            android:contentDescription="@string/profile_photo_description"
+            android:src="@mipmap/ic_launcher"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-        <ImageView android:id="@+id/profileImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/profile_photo_description"
-                android:src="@mipmap/ic_launcher"/>
-    </androidx.cardview.widget.CardView>
-
-    <ImageView android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:contentDescription="@null"
-            android:src="@drawable/circle"
-            android:tint="?android:attr/colorBackground"
-            android:translationZ="9dp"
-            app:layout_constraintBottom_toBottomOf="@id/imageContainer"
-            app:layout_constraintRight_toRightOf="@id/imageContainer"
-            tools:targetApi="LOLLIPOP"/>
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/CircleImageView" />
     <ImageView android:id="@+id/statusIndicator"
             android:layout_width="10dp"
             android:layout_height="10dp"
@@ -36,7 +22,7 @@
             android:src="@drawable/circle"
             android:tint="@color/statusOffline"
             android:translationZ="10dp"
-            app:layout_constraintBottom_toBottomOf="@id/imageContainer"
-            app:layout_constraintRight_toRightOf="@id/imageContainer"
-            tools:targetApi="LOLLIPOP"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:targetApi="LOLLIPOP" />
 </androidx.constraintlayout.widget.ConstraintLayout>
