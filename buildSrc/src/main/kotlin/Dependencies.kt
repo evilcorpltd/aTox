@@ -7,8 +7,8 @@ object Java {
 }
 
 private object Version {
-    const val coroutines = "1.3.6"
-    const val dagger = "2.28.1"
+    const val coroutines = "1.3.8"
+    const val dagger = "2.28.3"
     const val leakCanary = "2.4"
     const val lifecycle = "2.2.0"
     const val room = "2.2.5"
@@ -21,7 +21,7 @@ private object Version {
 
 object BuildPlugin {
     private object Version {
-        const val gradle = "4.0.0"
+        const val gradle = "4.0.1"
     }
 
     const val androidApplication = "com.android.application"
@@ -34,10 +34,10 @@ object BuildPlugin {
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
     const val ideaExt = "org.jetbrains.gradle.plugin.idea-ext"
-    const val ideaExtVersion = "0.7"
+    const val ideaExtVersion = "0.8.1"
 
     const val versions = "com.github.ben-manes.versions"
-    const val versionsVersion = "0.28.0"
+    const val versionsVersion = "0.29.0"
     const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:$versionsVersion"
 }
 
@@ -54,9 +54,9 @@ object Libraries {
     const val ktxCoroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Version.coroutines}"
     const val ktxCoroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Version.coroutines}"
 
-    const val androidxCoreKtx = "androidx.core:core-ktx:1.3.0"
+    const val androidxCoreKtx = "androidx.core:core-ktx:1.3.1"
 
-    const val appcompat = "androidx.appcompat:appcompat:1.1.0"
+    const val appcompat = "androidx.appcompat:appcompat:1.2.0"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:1.1.3"
 
     const val navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:${Version.navigation}"
@@ -73,7 +73,7 @@ object Libraries {
 
     const val preference = "androidx.preference:preference:1.1.1"
 
-    const val material = "com.google.android.material:material:1.1.0"
+    const val material = "com.google.android.material:material:1.2.0"
 
     const val dagger = "com.google.dagger:dagger:${Version.dagger}"
     const val daggerCompiler = "com.google.dagger:dagger-compiler:${Version.dagger}"
