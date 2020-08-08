@@ -6,6 +6,7 @@
     </string>
     <string name="add_contact_message_error_empty">Message can\'t be empty</string>
     <string name="app_name" translatable="false">aTox</string>
+    <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="connected">Connected</string>
     <string name="connecting">Connecting…</string>
@@ -84,10 +85,17 @@
     <string name="pref_heading_general">General</string>
     <string name="pref_run_at_startup">Run at boot</string>
     <string name="friend_request">Friend request</string>
+
+    <string name="status_available">Available</string>
+    <string name="status_away">Away</string>
+    <string name="status_busy">Busy</string>
     <string-array name="user_statuses">
-        <item>Available</item>
-        <item>Away</item>
-        <item>Busy</item>
+        <item>@string/status_available</item>
+        <item>@string/status_away</item>
+        <item>@string/status_busy</item>
     </string-array>
     <string name="from">From</string>
+
+    <!-- Status dialog -->
+    <string name="status_dialog_edit_user_status">Edit your status</string>
 </resources>

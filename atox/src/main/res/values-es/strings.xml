@@ -78,9 +78,13 @@
     <string name="pref_udp_enabled">UDP habilitado</string>
     <string name="pref_heading_general">General</string>
     <string name="pref_run_at_startup">Iniciar en el arranque</string>
+
+    <string name="status_available">Conectado</string>
+    <string name="status_away">Ausente</string>
+    <string name="status_busy">Ocupado</string>
     <string-array name="user_statuses">
-        <item>Conectado</item>
-        <item>Ausente</item>
-        <item>Ocupado</item>
+        <item>@string/status_available</item>
+        <item>@string/status_away</item>
+        <item>@string/status_busy</item>
     </string-array>
 </resources>

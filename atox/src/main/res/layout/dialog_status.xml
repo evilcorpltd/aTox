@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:background="@null"
+        tools:targetApi="21">
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:elevation="3dp">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/dialogBackground"
+                android:orientation="vertical"
+                android:paddingBottom="25dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingTop="80dp">
+            <TextView android:id="@+id/simple_dialog_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/status_dialog_edit_user_status"
+                    android:textColor="@color/textWhiteColor"
+                    android:textSize="20sp" />
+
+            <LinearLayout android:id="@+id/status_available"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="4dp"
+                    android:background="@drawable/status_background"
+                    android:backgroundTint="@color/transparentBar"
+                    android:layout_marginTop="4dp"
+                    android:paddingBottom="8dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="8dp">
+                <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="1dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/circle"
+                        android:tint="@color/statusAvailable"
+                        android:translationZ="10dp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/status_available"
+                        android:textColor="@color/textWhiteColor"
+                        android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/status_away"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/status_background"
+                    android:backgroundTint="@color/transparentBar"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="8dp">
+                <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="1dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/circle"
+                        android:tint="@color/statusAway"
+                        android:translationZ="10dp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/status_away"
+                        android:textColor="@color/textWhiteColor"
+                        android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/status_busy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/status_background"
+                    android:backgroundTint="@color/transparentBar"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="8dp">
+                <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="1dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/circle"
+                        android:tint="@color/statusBusy"
+                        android:translationZ="10dp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/status_busy"
+                        android:textColor="@color/textWhiteColor"
+                        android:textSize="16sp" />
+            </LinearLayout>
+
+            <Button android:id="@+id/confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/dialogIconButton"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/confirm"
+                    android:textColor="@color/dialogTextButton" />
+
+            <Button android:id="@+id/cancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/dialogIconButton"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/cancel"
+                    android:textColor="@color/dialogTextButton" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/circle"
+            android:backgroundTint="@color/colorAccent"
+            android:baselineAligned="false"
+            android:elevation="4dp"
+            android:focusable="false">
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_launcher_foreground"
+                android:tint="@color/textWhiteColor" />
+    </LinearLayout>
+</RelativeLayout>

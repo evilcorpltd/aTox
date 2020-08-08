@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_user_profile.view.*
 import kotlinx.android.synthetic.main.profile_options.view.*
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.setUpFullScreenUi
+import ltd.evilcorp.atox.ui.StatusDialog
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.UserStatus
 
@@ -105,8 +106,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         }
 
         profile_change_status.setOnClickListener {
-            val statuses = UserStatus.values()
-            vm.setStatus(statuses[(currentStatus.ordinal + 1) % statuses.size])
+            StatusDialog(context, currentStatus) { status -> vm.setStatus(status) }.show()
         }
     }
 }

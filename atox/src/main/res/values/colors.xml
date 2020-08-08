@@ -12,4 +12,18 @@
     <color name="statusAvailable">@android:color/holo_green_dark</color>
 
     <item name="dividerColor" type="color">#E0E0E0</item>
+
+    <item name="textDarkColor" type="color">#212121</item>
+    <item name="textLightColor" type="color">#757575</item>
+    <item name="textWhiteColor" type="color">#FFFFFF</item>
+
+    <item name="dialogIcon" type="color">#7D7D7D</item>
+    <item name="dialogIconButton" type="color">#546E7A</item>
+    <item name="dialogIconButtonDisable" type="color">#78909C</item>
+    <item name="dialogTextButton" type="color">#ECEFF1</item>
+    <item name="dialogTextButtonDisable" type="color">#B0BEC5</item>
+    <item name="dialogBackground" type="color">#3E4651</item>
+    <item name="dialogIconButtonAssets" type="color">#FFFFFF</item>
+
+    <item name="transparentBar" type="color">#40000000</item>
 </resources>
