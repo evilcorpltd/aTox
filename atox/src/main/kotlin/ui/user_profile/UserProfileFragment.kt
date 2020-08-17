@@ -11,7 +11,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 import kotlinx.android.synthetic.main.fragment_user_profile.view.*
 import kotlinx.android.synthetic.main.profile_options.view.*

@@ -98,8 +98,6 @@ tasks.register("fixPaths") {
 }
 
 dependencies {
-    implementation(Libraries.kotlinStdLib)
-
     implementation(project(":core"))
 
     implementation(Libraries.javaxInject)

@@ -53,8 +53,6 @@ android {
 }
 
 dependencies {
-    implementation(Libraries.kotlinStdLib)
-
     implementation(project(":core"))
     implementation(project(":domain"))
 

@@ -1,13 +1,13 @@
 import org.gradle.api.JavaVersion
 
-const val kotlinVersion = "1.3.72"
+const val kotlinVersion = "1.4.0"
 
 object Java {
     val version = JavaVersion.VERSION_1_8
 }
 
 private object Version {
-    const val coroutines = "1.3.8"
+    const val coroutines = "1.3.9"
     const val dagger = "2.28.3"
     const val leakCanary = "2.4"
     const val lifecycle = "2.2.0"
@@ -47,8 +47,6 @@ object AndroidSdk {
 }
 
 object Libraries {
-    const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
-
     const val javaxInject = "javax.inject:javax.inject:1"
 
     const val ktxCoroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Version.coroutines}"

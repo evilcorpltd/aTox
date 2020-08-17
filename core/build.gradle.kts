@@ -70,8 +70,6 @@ idea {
 }
 
 dependencies {
-    // Stdlib
-    implementation(Libraries.kotlinStdLib)
     implementation(Libraries.javaxInject)
 
     // Room

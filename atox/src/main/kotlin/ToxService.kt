@@ -11,7 +11,6 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.getSystemService
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.observe
 import javax.inject.Inject
 import kotlinx.coroutines.flow.filter
 import ltd.evilcorp.atox.tox.ToxStarter

@@ -6,7 +6,6 @@ import android.view.View
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_friend_request.view.*
 import ltd.evilcorp.atox.R
@@ -41,16 +40,13 @@ class FriendRequestFragment : Fragment(R.layout.fragment_friend_request) {
             activity?.onBackPressed()
         }
 
-        vm.byId(PublicKey(requireStringArg(FRIEND_REQUEST_PUBLIC_KEY))).observe(
-            viewLifecycleOwner,
-            Observer {
-                friendRequest = it
-                from.text = it.publicKey
-                message.text = it.message
-                reject.isEnabled = true
-                accept.isEnabled = true
-            }
-        )
+        vm.byId(PublicKey(requireStringArg(FRIEND_REQUEST_PUBLIC_KEY))).observe(viewLifecycleOwner) {
+            friendRequest = it
+            from.text = it.publicKey
+            message.text = it.message
+            reject.isEnabled = true
+            accept.isEnabled = true
+        }
 
         accept.setOnClickListener {
             vm.accept(friendRequest)

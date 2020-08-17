@@ -20,7 +20,6 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.contact_list_view_item.view.*
@@ -68,31 +67,28 @@ class ContactListFragment : Fragment(R.layout.fragment_contact_list), Navigation
 
         toolbar.title = getText(R.string.app_name)
 
-        viewModel.user.observe(
-            viewLifecycleOwner,
-            Observer { user ->
-                if (user == null) return@Observer
+        viewModel.user.observe(viewLifecycleOwner) { user ->
+            if (user == null) return@observe
 
-                backupFileNameHint = user.name + ".tox"
+            backupFileNameHint = user.name + ".tox"
 
-                navView.getHeaderView(0).apply {
-                    profileName.text = user.name
-                    profileStatusMessage.text = user.statusMessage
+            navView.getHeaderView(0).apply {
+                profileName.text = user.name
+                profileStatusMessage.text = user.statusMessage
 
-                    if (user.online()) {
-                        statusSwitcher.setColorFilter(colorFromStatus(user.status))
-                    } else {
-                        statusSwitcher.setColorFilter(R.color.statusOffline)
-                    }
-                }
-
-                toolbar.subtitle = if (user.online()) {
-                    resources.getStringArray(R.array.user_statuses)[user.status.ordinal]
+                if (user.online()) {
+                    statusSwitcher.setColorFilter(colorFromStatus(user.status))
                 } else {
-                    getText(R.string.connecting)
+                    statusSwitcher.setColorFilter(R.color.statusOffline)
                 }
             }
-        )
+
+            toolbar.subtitle = if (user.online()) {
+                resources.getStringArray(R.array.user_statuses)[user.status.ordinal]
+            } else {
+                getText(R.string.connecting)
+            }
+        }
 
         navView.setNavigationItemSelectedListener(this@ContactListFragment)
 
@@ -100,39 +96,33 @@ class ContactListFragment : Fragment(R.layout.fragment_contact_list), Navigation
         contactList.adapter = contactAdapter
         registerForContextMenu(contactList)
 
-        viewModel.friendRequests.observe(
-            viewLifecycleOwner,
-            Observer { friendRequests ->
-                contactAdapter.friendRequests = friendRequests
-                contactAdapter.notifyDataSetChanged()
+        viewModel.friendRequests.observe(viewLifecycleOwner) { friendRequests ->
+            contactAdapter.friendRequests = friendRequests
+            contactAdapter.notifyDataSetChanged()
 
-                noContactsCallToAction.visibility = if (contactAdapter.isEmpty) {
-                    View.VISIBLE
-                } else {
-                    View.GONE
+            noContactsCallToAction.visibility = if (contactAdapter.isEmpty) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+        }
+
+        viewModel.contacts.observe(viewLifecycleOwner) { contacts ->
+            contactAdapter.contacts = contacts.sortedByDescending { contact ->
+                when {
+                    contact.lastMessage != 0L -> contact.lastMessage
+                    contact.connectionStatus == ConnectionStatus.None -> -1000L
+                    else -> -contact.status.ordinal.toLong()
                 }
             }
-        )
+            contactAdapter.notifyDataSetChanged()
 
-        viewModel.contacts.observe(
-            viewLifecycleOwner,
-            Observer { contacts ->
-                contactAdapter.contacts = contacts.sortedByDescending { contact ->
-                    when {
-                        contact.lastMessage != 0L -> contact.lastMessage
-                        contact.connectionStatus == ConnectionStatus.None -> -1000L
-                        else -> -contact.status.ordinal.toLong()
-                    }
-                }
-                contactAdapter.notifyDataSetChanged()
-
-                noContactsCallToAction.visibility = if (contactAdapter.isEmpty) {
-                    View.VISIBLE
-                } else {
-                    View.GONE
-                }
+            noContactsCallToAction.visibility = if (contactAdapter.isEmpty) {
+                View.VISIBLE
+            } else {
+                View.GONE
             }
-        )
+        }
 
         contactList.setOnItemClickListener { _, _, position, _ ->
             when (contactList.adapter.getItemViewType(position)) {
