@@ -25,6 +25,7 @@ class FileTransferManager @Inject constructor(
     private val fileTransfers: MutableList<FileTransfer> = mutableListOf()
 
     fun add(ft: FileTransfer) {
+        Log.i(TAG, "Add ${ft.fileNumber} for ${ft.publicKey.take(8)}")
         when (ft.fileKind) {
             FileKind.Data.ordinal -> {
                 // TODO(robinlinden): Add a chat message allowing the user to accept/reject the transfer.
@@ -54,6 +55,7 @@ class FileTransferManager @Inject constructor(
     }
 
     private fun accept(ft: FileTransfer) {
+        Log.i(TAG, "Accept ${ft.fileNumber} for ${ft.publicKey.take(8)}")
         val avatarFolder = File(context.filesDir, "avatar")
         if (!avatarFolder.exists()) {
             avatarFolder.mkdir()
@@ -68,7 +70,10 @@ class FileTransferManager @Inject constructor(
         tox.startFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
     }
 
-    private fun reject(ft: FileTransfer) = tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
+    private fun reject(ft: FileTransfer) {
+        Log.i(TAG, "Reject ${ft.fileNumber} for ${ft.publicKey.take(8)}")
+        tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
+    }
 
     fun addDataToTransfer(publicKey: String, fileNumber: Int, position: Long, data: ByteArray) {
         fileTransfers.find { it.publicKey == publicKey && it.fileNumber == fileNumber }?.let { ft ->
@@ -83,6 +88,7 @@ class FileTransferManager @Inject constructor(
             fileTransfers[fileTransfers.indexOf(ft)] = ft.copy(progress = ft.progress + data.size)
 
             if (ft.isComplete()) {
+                Log.i(TAG, "Finished ${ft.fileNumber} for ${ft.publicKey.take(8)}")
                 contactRepository.setAvatarUri(ft.publicKey, File(avatarFolder, ft.fileName).toURI().toString())
             }
         } ?: Log.e(TAG, "Got chunk for file transfer $fileNumber for $publicKey we don't know about")
