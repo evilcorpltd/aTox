@@ -76,21 +76,27 @@ class FileTransferManager @Inject constructor(
     }
 
     fun addDataToTransfer(publicKey: String, fileNumber: Int, position: Long, data: ByteArray) {
-        fileTransfers.find { it.publicKey == publicKey && it.fileNumber == fileNumber }?.let { ft ->
-            val avatarFolder = File(context.filesDir, "avatar")
-            RandomAccessFile(File(avatarFolder, ft.fileName), "rwd").apply {
-                seek(position)
-                write(data)
-                close()
+        val ft = fileTransfers.find { it.publicKey == publicKey && it.fileNumber == fileNumber }
+        if (ft == null) {
+            if (data.isNotEmpty()) {
+                Log.e(TAG, "Got data for ft $fileNumber for ${publicKey.take(8)} we don't know about")
             }
+            return
+        }
 
-            fileTransferRepository.updateProgress(ft.publicKey, ft.fileNumber, ft.progress + data.size)
-            fileTransfers[fileTransfers.indexOf(ft)] = ft.copy(progress = ft.progress + data.size)
+        val avatarFolder = File(context.filesDir, "avatar")
+        RandomAccessFile(File(avatarFolder, ft.fileName), "rwd").apply {
+            seek(position)
+            write(data)
+            close()
+        }
 
-            if (ft.isComplete()) {
-                Log.i(TAG, "Finished ${ft.fileNumber} for ${ft.publicKey.take(8)}")
-                contactRepository.setAvatarUri(ft.publicKey, File(avatarFolder, ft.fileName).toURI().toString())
-            }
-        } ?: Log.e(TAG, "Got chunk for file transfer $fileNumber for $publicKey we don't know about")
+        fileTransferRepository.updateProgress(ft.publicKey, ft.fileNumber, ft.progress + data.size)
+        fileTransfers[fileTransfers.indexOf(ft)] = ft.copy(progress = ft.progress + data.size)
+
+        if (ft.isComplete()) {
+            Log.i(TAG, "Finished ${ft.fileNumber} for ${ft.publicKey.take(8)}")
+            contactRepository.setAvatarUri(ft.publicKey, File(avatarFolder, ft.fileName).toURI().toString())
+        }
     }
 }
