@@ -1,27 +1,35 @@
 package ltd.evilcorp.atox.ui.chat
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.ContactManager
+import ltd.evilcorp.domain.feature.FileTransferManager
 import ltd.evilcorp.domain.tox.PublicKey
 
 class ChatViewModel @Inject constructor(
     private val chatManager: ChatManager,
-    private val notificationHelper: NotificationHelper,
-    contactManager: ContactManager
-) : ViewModel() {
+    private val contactManager: ContactManager,
+    private val fileTransferManager: FileTransferManager,
+    private val notificationHelper: NotificationHelper
+) : ViewModel(), CoroutineScope by GlobalScope {
     private var publicKey = PublicKey("")
     private var sentTyping = false
 
     val contact: LiveData<Contact> by lazy { contactManager.get(publicKey).asLiveData() }
     val messages: LiveData<List<Message>> by lazy { chatManager.messagesFor(publicKey).asLiveData() }
+    val fileTransfers: LiveData<List<FileTransfer>> by lazy { fileTransferManager.transfersFor(publicKey).asLiveData() }
 
     fun send(message: String, type: MessageType) = chatManager.sendMessage(publicKey, message, type)
     fun queue(message: String, type: MessageType) = chatManager.queueMessage(publicKey, message, type)
@@ -42,5 +50,13 @@ class ChatViewModel @Inject constructor(
             chatManager.setTyping(publicKey, typing)
             sentTyping = typing
         }
+    }
+
+    fun acceptFt(id: Int, destination: Uri) = launch {
+        fileTransferManager.accept(id, destination)
+    }
+
+    fun rejectFt(id: Int) = launch {
+        fileTransferManager.reject(id)
     }
 }

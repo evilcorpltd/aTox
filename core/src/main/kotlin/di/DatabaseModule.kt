@@ -11,6 +11,7 @@ import ltd.evilcorp.core.db.FileTransferDao
 import ltd.evilcorp.core.db.FriendRequestDao
 import ltd.evilcorp.core.db.MIGRATION_1_2
 import ltd.evilcorp.core.db.MIGRATION_2_3
+import ltd.evilcorp.core.db.MIGRATION_3_4
 import ltd.evilcorp.core.db.MessageDao
 import ltd.evilcorp.core.db.UserDao
 
@@ -21,7 +22,7 @@ class DatabaseModule {
     @Provides
     fun provideDatabase(appContext: Context): Database =
         Room.databaseBuilder(appContext, Database::class.java, "core_db")
-            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
             .build()
 }
 

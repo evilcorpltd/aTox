@@ -6,6 +6,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.FileKind
+import ltd.evilcorp.core.vo.FileTransfer
+import ltd.evilcorp.core.vo.FtNotStarted
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.Sender
@@ -144,6 +147,54 @@ class DatabaseMigrationTest {
     }
 
     @Test
+    fun migrate_3_to_4() {
+        val ft = FileTransfer(
+            "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39",
+            123,
+            FileKind.Avatar.ordinal,
+            9876,
+            "bird.png2",
+            false,
+            FtNotStarted
+        )
+
+        var db = helper.createDatabase(TEST_DB, 3).apply {
+            with(ft) {
+                execSQL(
+                    "INSERT INTO file_transfers VALUES (" +
+                        "'$publicKey'," +
+                        "$fileNumber," +
+                        "$fileKind," +
+                        "$fileSize," +
+                        "'$fileName'," +
+                        "${outgoing.toInt()}," +
+                        "$progress)"
+                )
+            }
+        }
+
+        db.query("SELECT * FROM file_transfers").let { cursor ->
+            assertEquals(7, cursor.columnCount)
+            with(ft) {
+                cursor.moveToFirst()
+                assertEquals(publicKey, cursor.getString(0))
+                assertEquals(fileNumber, cursor.getInt(1))
+                assertEquals(fileKind, cursor.getInt(2))
+                assertEquals(fileSize, cursor.getLong(3))
+                assertEquals(fileName, cursor.getString(4))
+                assertEquals(outgoing.toInt(), cursor.getInt(5))
+                assertEquals(progress, cursor.getLong(6))
+            }
+        }
+        db.close()
+
+        db = helper.runMigrationsAndValidate(TEST_DB, 4, true, MIGRATION_3_4)
+        // The table is nuked during the migration because it was useless before.
+        assertEquals(db.query("SELECT * FROM messages").count, 0)
+        db.close()
+    }
+
+    @Test
     fun run_all_migrations() {
         val contact = Contact(
             "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39",
@@ -154,6 +205,16 @@ class DatabaseMigrationTest {
             ConnectionStatus.TCP,
             true,
             "file:///home/robin/fantastic_bird.png"
+        )
+
+        val ft = FileTransfer(
+            "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39",
+            123,
+            FileKind.Avatar.ordinal,
+            9876,
+            "bird.png2",
+            false,
+            FtNotStarted
         )
 
         val msg = Message(
@@ -190,6 +251,18 @@ class DatabaseMigrationTest {
                         "$timestamp)"
                 )
             }
+            with(ft) {
+                execSQL(
+                    "INSERT INTO file_transfers VALUES (" +
+                        "'$publicKey'," +
+                        "$fileNumber," +
+                        "$fileKind," +
+                        "$fileSize," +
+                        "'$fileName'," +
+                        "${outgoing.toInt()}," +
+                        "$progress)"
+                )
+            }
         }
 
         db.query("SELECT * FROM contacts").let { cursor ->
@@ -218,9 +291,22 @@ class DatabaseMigrationTest {
                 assertEquals(timestamp, cursor.getLong(5))
             }
         }
+        db.query("SELECT * FROM file_transfers").let { cursor ->
+            assertEquals(7, cursor.columnCount)
+            with(ft) {
+                cursor.moveToFirst()
+                assertEquals(publicKey, cursor.getString(0))
+                assertEquals(fileNumber, cursor.getInt(1))
+                assertEquals(fileKind, cursor.getInt(2))
+                assertEquals(fileSize, cursor.getLong(3))
+                assertEquals(fileName, cursor.getString(4))
+                assertEquals(outgoing.toInt(), cursor.getInt(5))
+                assertEquals(progress, cursor.getLong(6))
+            }
+        }
         db.close()
 
-        db = helper.runMigrationsAndValidate(TEST_DB, 3, true, MIGRATION_1_2, MIGRATION_2_3)
+        db = helper.runMigrationsAndValidate(TEST_DB, 3, true, MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
 
         db.query("SELECT * FROM contacts").let { cursor ->
             assertEquals(cursor.columnCount, 9)

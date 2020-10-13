@@ -12,6 +12,7 @@ enum class Sender {
 enum class MessageType {
     Normal,
     Action,
+    FileTransfer
 }
 
 @Entity(tableName = "messages")

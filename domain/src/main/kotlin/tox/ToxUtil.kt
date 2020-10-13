@@ -37,4 +37,5 @@ fun UserStatus.toToxType(): ToxUserStatus = when (this) {
 fun MessageType.toToxType(): ToxMessageType = when (this) {
     MessageType.Normal -> ToxMessageType.NORMAL
     MessageType.Action -> ToxMessageType.ACTION
+    MessageType.FileTransfer -> throw Exception("File transfer message type doesn't exist in Tox")
 }

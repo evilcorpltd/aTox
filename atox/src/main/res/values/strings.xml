@@ -98,4 +98,7 @@
 
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Edit your status</string>
+    <string name="mimetype_handler_not_found">Unable to find something that can handle mimetype
+        %1$s
+    </string>
 </resources>

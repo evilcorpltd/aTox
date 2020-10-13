@@ -1,10 +1,15 @@
 package ltd.evilcorp.atox.ui.chat
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
@@ -17,6 +22,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import java.net.URLConnection
 import java.text.DateFormat
 import java.util.Locale
 import kotlinx.android.synthetic.main.fragment_chat.*
@@ -31,9 +37,12 @@ import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
+import ltd.evilcorp.core.vo.isComplete
 import ltd.evilcorp.domain.tox.PublicKey
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
+private const val REQUEST_CODE_FT_FILE = 1234
+private const val TAG = "ChatFragment"
 
 class ChatFragment : Fragment(R.layout.fragment_chat) {
     private val viewModel: ChatViewModel by viewModels { vmFactory }
@@ -41,6 +50,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
     private lateinit var contactPubKey: String
     private var contactName = ""
     private var contactOnline = false
+    private var selectedFt: Int = Int.MIN_VALUE
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = view.run {
         contactPubKey = requireStringArg(CONTACT_PUBLIC_KEY)
@@ -121,6 +131,50 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
             adapter.notifyDataSetChanged()
         }
 
+        viewModel.fileTransfers.observe(viewLifecycleOwner) {
+            adapter.fileTransfers = it
+            adapter.notifyDataSetChanged()
+        }
+
+        messages.setOnItemClickListener { _, view, position, _ ->
+            when (view.id) {
+                R.id.accept -> {
+                    selectedFt = adapter.messages[position].correlationId
+                    Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                        addCategory(Intent.CATEGORY_OPENABLE)
+                        type = "application/octet-stream"
+                        putExtra(Intent.EXTRA_TITLE, adapter.messages[position].message)
+                    }.also {
+                        startActivityForResult(it, REQUEST_CODE_FT_FILE)
+                    }
+                }
+                R.id.reject -> viewModel.rejectFt(adapter.messages[position].correlationId)
+                R.id.fileTransfer -> {
+                    val id = adapter.messages[position].correlationId
+                    val ft = adapter.fileTransfers.find { it.id == id } ?: return@setOnItemClickListener
+                    if (!ft.isComplete()) return@setOnItemClickListener
+                    Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse(ft.destination)
+                        type = URLConnection.guessContentTypeFromName(ft.fileName)
+                    }.also {
+                        try {
+                            startActivity(it)
+                        } catch (e: ActivityNotFoundException) {
+                            Toast.makeText(
+                                requireContext(),
+                                getString(
+                                    R.string.mimetype_handler_not_found,
+                                    URLConnection.guessContentTypeFromName(ft.fileName)
+                                ),
+                                Toast.LENGTH_LONG
+                            ).show()
+                            Log.i(TAG, e.toString())
+                        }
+                    }
+                }
+            }
+        }
+
         registerForContextMenu(send)
         send.setOnClickListener {
             sendMessage()
@@ -154,7 +208,11 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         super.onCreateContextMenu(menu, v, menuInfo)
         when (v.id) {
             R.id.messages -> {
-                requireActivity().menuInflater.inflate(R.menu.chat_message_context_menu, menu)
+                val info = menuInfo as AdapterView.AdapterContextMenuInfo
+                val message = messages.adapter.getItem(info.position) as Message
+                if (message.type != MessageType.FileTransfer) {
+                    requireActivity().menuInflater.inflate(R.menu.chat_message_context_menu, menu)
+                }
             }
             R.id.send -> {
                 requireActivity().menuInflater.inflate(R.menu.chat_send_long_press_menu, menu)
@@ -178,6 +236,17 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
                 true
             }
             else -> super.onContextItemSelected(item)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            REQUEST_CODE_FT_FILE -> {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    viewModel.acceptFt(selectedFt, data.data as Uri)
+                }
+            }
+            else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
 

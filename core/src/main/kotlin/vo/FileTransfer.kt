@@ -2,13 +2,19 @@ package ltd.evilcorp.core.vo
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 enum class FileKind {
     Data,
     Avatar,
 }
 
-@Entity(tableName = "file_transfers", primaryKeys = ["public_key", "file_number"])
+// Since the progress can't be negative, I'm reusing that part for some markers.
+const val FtStarted = 0L
+const val FtNotStarted = -1L
+const val FtRejected = -2L
+
+@Entity(tableName = "file_transfers")
 data class FileTransfer(
     @ColumnInfo(name = "public_key")
     val publicKey: String,
@@ -29,7 +35,16 @@ data class FileTransfer(
     val outgoing: Boolean,
 
     @ColumnInfo(name = "progress")
-    var progress: Long = 0
-)
+    var progress: Long = FtNotStarted,
 
-fun FileTransfer.isComplete() = progress == fileSize
+    @ColumnInfo(name = "destination")
+    var destination: String = ""
+) {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    var id: Int = 0
+}
+
+fun FileTransfer.isComplete() = progress >= fileSize
+fun FileTransfer.isStarted() = progress >= FtStarted
+fun FileTransfer.isRejected() = progress == FtRejected

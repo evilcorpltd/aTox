@@ -11,16 +11,17 @@ import ltd.evilcorp.core.vo.FileTransfer
 @Dao
 internal interface FileTransferDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun save(fileTransfer: FileTransfer)
+    fun save(fileTransfer: FileTransfer): Long
 
     @Delete
     fun delete(fileTransfer: FileTransfer)
 
-    @Query("SELECT * FROM file_transfers WHERE public_key == :publicKey AND file_number == :fileNumber")
-    fun load(publicKey: String, fileNumber: Int): Flow<List<FileTransfer>>
+    @Query("SELECT * FROM file_transfers WHERE public_key == :publicKey")
+    fun load(publicKey: String): Flow<List<FileTransfer>>
 
-    @Query(
-        "UPDATE file_transfers SET progress = :progress WHERE public_key == :publicKey AND file_number == :fileNumber"
-    )
-    fun updateProgress(publicKey: String, fileNumber: Int, progress: Long)
+    @Query("UPDATE file_transfers SET progress = :progress WHERE id == :id")
+    fun updateProgress(id: Int, progress: Long)
+
+    @Query("UPDATE file_transfers SET destination = :destination WHERE id == :id")
+    fun setDestination(id: Int, destination: String)
 }
