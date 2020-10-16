@@ -1,6 +1,6 @@
 import org.gradle.api.JavaVersion
 
-const val kotlinVersion = "1.4.0"
+const val kotlinVersion = "1.4.10"
 
 object Java {
     val version = JavaVersion.VERSION_1_8
