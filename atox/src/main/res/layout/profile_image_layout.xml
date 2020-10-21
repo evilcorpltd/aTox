@@ -20,9 +20,9 @@
             android:layout_margin="1dp"
             android:contentDescription="@string/status_indicator"
             android:src="@drawable/circle"
-            android:tint="@color/statusOffline"
             android:translationZ="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            app:tint="@color/statusOffline"
             tools:targetApi="LOLLIPOP" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -61,7 +61,7 @@
                                 android:layout_marginBottom="6dp"
                                 android:contentDescription="@string/status_indicator"
                                 android:src="@drawable/circle"
-                                android:tint="@color/statusAvailable"/>
+                                app:tint="@color/statusAvailable"/>
                         <TextView
                                 android:id="@+id/user_name"
                                 style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
