@@ -6,9 +6,11 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.ContextMenu
+import android.view.LayoutInflater
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import androidx.activity.addCallback
@@ -18,16 +20,16 @@ import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.updatePadding
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.contact_list_view_item.view.*
-import kotlinx.android.synthetic.main.fragment_contact_list.*
-import kotlinx.android.synthetic.main.fragment_contact_list.view.*
-import kotlinx.android.synthetic.main.nav_header_contact_list.view.*
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.databinding.ContactListViewItemBinding
+import ltd.evilcorp.atox.databinding.FragmentContactListBinding
+import ltd.evilcorp.atox.databinding.FriendRequestItemBinding
+import ltd.evilcorp.atox.databinding.NavHeaderContactListBinding
 import ltd.evilcorp.atox.setUpFullScreenUi
+import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.ui.friend_request.FRIEND_REQUEST_PUBLIC_KEY
 import ltd.evilcorp.atox.vmFactory
@@ -43,8 +45,15 @@ private const val REQUEST_CODE_BACKUP_TOX = 9202
 private fun User.online(): Boolean =
     connectionStatus != ConnectionStatus.None
 
-class ContactListFragment : Fragment(R.layout.fragment_contact_list), NavigationView.OnNavigationItemSelectedListener {
+class ContactListFragment :
+    BaseFragment<FragmentContactListBinding>(FragmentContactListBinding::inflate),
+    NavigationView.OnNavigationItemSelectedListener {
+
     private val viewModel: ContactListViewModel by viewModels { vmFactory }
+
+    private var _navHeader: NavHeaderContactListBinding? = null
+    private val navHeader get() = _navHeader!!
+
     private var backupFileNameHint = "something_is_broken.tox"
 
     private fun colorFromStatus(status: UserStatus) = when (status) {
@@ -53,10 +62,16 @@ class ContactListFragment : Fragment(R.layout.fragment_contact_list), Navigation
         UserStatus.Busy -> ResourcesCompat.getColor(resources, R.color.statusBusy, null)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = view.run {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val v = super.onCreateView(inflater, container, savedInstanceState)
+        _navHeader = NavHeaderContactListBinding.bind(binding.navView.getHeaderView(0))
+        return v
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = binding.run {
         if (!viewModel.isToxRunning()) return@run
 
-        setUpFullScreenUi { v, insets ->
+        view.setUpFullScreenUi { v, insets ->
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
             v.updatePadding(left = insets.systemWindowInsetLeft)
             toolbar.updatePadding(left = insets.systemWindowInsetLeft)
@@ -72,7 +87,7 @@ class ContactListFragment : Fragment(R.layout.fragment_contact_list), Navigation
 
             backupFileNameHint = user.name + ".tox"
 
-            navView.getHeaderView(0).apply {
+            navHeader.apply {
                 profileName.text = user.name
                 profileStatusMessage.text = user.statusMessage
 
@@ -158,6 +173,11 @@ class ContactListFragment : Fragment(R.layout.fragment_contact_list), Navigation
         }
     }
 
+    override fun onDestroyView() {
+        _navHeader = null
+        super.onDestroyView()
+    }
+
     override fun onCreateContextMenu(
         menu: ContextMenu,
         v: View,
@@ -168,13 +188,15 @@ class ContactListFragment : Fragment(R.layout.fragment_contact_list), Navigation
         val inflater: MenuInflater = requireActivity().menuInflater
         val info = menuInfo as AdapterView.AdapterContextMenuInfo
 
-        when (contactList.adapter.getItemViewType(info.position)) {
+        when (binding.contactList.adapter.getItemViewType(info.position)) {
             ContactListItemType.FriendRequest.ordinal -> {
-                menu.setHeaderTitle(info.targetView.publicKey.text)
+                val f = FriendRequestItemBinding.bind(info.targetView)
+                menu.setHeaderTitle(f.publicKey.text)
                 inflater.inflate(R.menu.friend_request_context_menu, menu)
             }
             ContactListItemType.Contact.ordinal -> {
-                menu.setHeaderTitle(info.targetView.name.text)
+                val c = ContactListViewItemBinding.bind(info.targetView)
+                menu.setHeaderTitle(c.name.text)
                 inflater.inflate(R.menu.contact_list_context_menu, menu)
             }
         }
@@ -185,7 +207,7 @@ class ContactListFragment : Fragment(R.layout.fragment_contact_list), Navigation
 
         return when (info.targetView.id) {
             R.id.friendRequestItem -> {
-                val friendRequest = contactList.adapter.getItem(info.position) as FriendRequest
+                val friendRequest = binding.contactList.adapter.getItem(info.position) as FriendRequest
                 when (item.itemId) {
                     R.id.accept -> {
                         viewModel.acceptFriendRequest(friendRequest)
@@ -199,7 +221,7 @@ class ContactListFragment : Fragment(R.layout.fragment_contact_list), Navigation
             R.id.contactListItem -> {
                 when (item.itemId) {
                     R.id.delete -> {
-                        val contact = contactList.adapter.getItem(info.position) as Contact
+                        val contact = binding.contactList.adapter.getItem(info.position) as Contact
                         viewModel.deleteContact(PublicKey(contact.publicKey))
                     }
                 }
@@ -236,7 +258,7 @@ class ContactListFragment : Fragment(R.layout.fragment_contact_list), Navigation
                     .show()
             }
         }
-        drawerLayout.closeDrawer(GravityCompat.START)
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
         return false
     }
 

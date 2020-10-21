@@ -19,18 +19,16 @@ import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import java.net.URLConnection
 import java.text.DateFormat
 import java.util.Locale
-import kotlinx.android.synthetic.main.fragment_chat.*
-import kotlinx.android.synthetic.main.fragment_chat.view.*
-import kotlinx.android.synthetic.main.profile_image_layout.*
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.databinding.FragmentChatBinding
 import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.setUpFullScreenUi
+import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.colorByStatus
 import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.atox.vmFactory
@@ -44,7 +42,7 @@ const val CONTACT_PUBLIC_KEY = "publicKey"
 private const val REQUEST_CODE_FT_FILE = 1234
 private const val TAG = "ChatFragment"
 
-class ChatFragment : Fragment(R.layout.fragment_chat) {
+class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::inflate) {
     private val viewModel: ChatViewModel by viewModels { vmFactory }
 
     private lateinit var contactPubKey: String
@@ -52,11 +50,11 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
     private var contactOnline = false
     private var selectedFt: Int = Int.MIN_VALUE
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = view.run {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = binding.run {
         contactPubKey = requireStringArg(CONTACT_PUBLIC_KEY)
         viewModel.setActiveChat(PublicKey(contactPubKey))
 
-        setUpFullScreenUi { _, insets ->
+        view.setUpFullScreenUi { _, insets ->
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
             toolbar.updatePadding(
                 left = insets.systemWindowInsetLeft,
@@ -119,8 +117,8 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
                         .format(it.lastMessage) // TODO(robinlinden): Replace with last seen.
             }.toLowerCase(Locale.getDefault())
 
-            statusIndicator.setColorFilter(colorByStatus(resources, it))
-            setAvatarFromContact(profileImage, it)
+            profileLayout.statusIndicator.setColorFilter(colorByStatus(resources, it))
+            setAvatarFromContact(profileLayout.profileImage, it)
         }
 
         val adapter = ChatAdapter(layoutInflater, resources)
@@ -185,7 +183,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
 
         outgoingMessage.doAfterTextChanged {
             viewModel.setTyping(outgoingMessage.text.isNotEmpty())
-            updateSendButton(this@run)
+            updateSendButton()
         }
     }
 
@@ -194,7 +192,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         super.onPause()
     }
 
-    override fun onResume() {
+    override fun onResume() = binding.run {
         viewModel.setActiveChat(PublicKey(contactPubKey))
         viewModel.setTyping(outgoingMessage.text.isNotEmpty())
         super.onResume()
@@ -204,7 +202,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         menu: ContextMenu,
         v: View,
         menuInfo: ContextMenu.ContextMenuInfo?
-    ) {
+    ) = binding.run {
         super.onCreateContextMenu(menu, v, menuInfo)
         when (v.id) {
             R.id.messages -> {
@@ -220,7 +218,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         }
     }
 
-    override fun onContextItemSelected(item: MenuItem): Boolean {
+    override fun onContextItemSelected(item: MenuItem): Boolean = binding.run {
         return when (item.itemId) {
             R.id.copy -> {
                 val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
@@ -250,7 +248,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         }
     }
 
-    private fun sendMessage() {
+    private fun sendMessage() = binding.run {
         val message = outgoingMessage.text.toString()
         outgoingMessage.text.clear()
         if (contactOnline) {
@@ -260,7 +258,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         }
     }
 
-    private fun sendAction() {
+    private fun sendAction() = binding.run {
         val message = outgoingMessage.text.toString()
         outgoingMessage.text.clear()
         if (contactOnline) {
@@ -270,12 +268,12 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         }
     }
 
-    private fun updateSendButton(layout: View) {
-        layout.send.isEnabled = layout.outgoingMessage.text.isNotEmpty()
+    private fun updateSendButton() = binding.run {
+        send.isEnabled = outgoingMessage.text.isNotEmpty()
         send.setColorFilter(
             ResourcesCompat.getColor(
                 resources,
-                if (layout.send.isEnabled) R.color.colorPrimary else android.R.color.darker_gray,
+                if (send.isEnabled) R.color.colorPrimary else android.R.color.darker_gray,
                 null
             )
         )

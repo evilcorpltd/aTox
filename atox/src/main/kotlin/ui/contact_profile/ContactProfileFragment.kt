@@ -4,24 +4,23 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.updatePadding
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import kotlinx.android.synthetic.main.fragment_contact_profile.view.*
-import kotlinx.android.synthetic.main.profile_image_layout.view.*
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.databinding.FragmentContactProfileBinding
 import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.setUpFullScreenUi
+import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.ui.colorByStatus
 import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.domain.tox.PublicKey
 
-class ContactProfileFragment : Fragment(R.layout.fragment_contact_profile) {
+class ContactProfileFragment : BaseFragment<FragmentContactProfileBinding>(FragmentContactProfileBinding::inflate) {
     private val viewModel: ContactProfileViewModel by viewModels { vmFactory }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = view.run {
-        setUpFullScreenUi { _, insets ->
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
+        view.setUpFullScreenUi { _, insets ->
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
             appBar.updatePadding(
                 left = insets.systemWindowInsetLeft,
@@ -42,8 +41,8 @@ class ContactProfileFragment : Fragment(R.layout.fragment_contact_profile) {
         viewModel.publicKey = PublicKey(requireStringArg(CONTACT_PUBLIC_KEY))
         viewModel.contact.observe(viewLifecycleOwner) { contact ->
             headerMainText.text = contact.name
-            setAvatarFromContact(profileImage, contact)
-            statusIndicator.setColorFilter(colorByStatus(resources, contact))
+            setAvatarFromContact(profileLayout.profileImage, contact)
+            profileLayout.statusIndicator.setColorFilter(colorByStatus(resources, contact))
 
             contactPublicKey.text = contact.publicKey
             contactName.text = contact.name

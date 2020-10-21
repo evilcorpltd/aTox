@@ -10,22 +10,22 @@ import android.view.WindowInsets
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.view.updatePadding
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.fragment_profile.view.*
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.databinding.FragmentProfileBinding
 import ltd.evilcorp.atox.setUpFullScreenUi
+import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.User
 
 private const val IMPORT = 42
 
-class CreateProfileFragment : Fragment(R.layout.fragment_profile) {
+class CreateProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
     private val viewModel: CreateProfileViewModel by viewModels { vmFactory }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = view.run {
-        setUpFullScreenUi { _: View, insets: WindowInsets ->
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
+        view.setUpFullScreenUi { _: View, insets: WindowInsets ->
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
             toolbar.updatePadding(
                 left = insets.systemWindowInsetLeft,

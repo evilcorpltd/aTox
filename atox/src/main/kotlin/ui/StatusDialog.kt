@@ -8,8 +8,8 @@ import android.graphics.drawable.TransitionDrawable
 import android.os.Bundle
 import android.view.Window
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.dialog_status.*
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.databinding.DialogStatusBinding
 import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.feature.UserManager
 
@@ -23,27 +23,33 @@ class StatusDialog(
     @Inject
     lateinit var userManager: UserManager
 
+    private var _binding: DialogStatusBinding? = null
+    private val binding get() = _binding!!
+
     private fun viewByStatus(status: UserStatus): TransitionDrawable = when (status) {
-        UserStatus.None -> status_available.background as TransitionDrawable
-        UserStatus.Away -> status_away.background as TransitionDrawable
-        UserStatus.Busy -> status_busy.background as TransitionDrawable
+        UserStatus.None -> binding.statusAvailable.background as TransitionDrawable
+        UserStatus.Away -> binding.statusAway.background as TransitionDrawable
+        UserStatus.Busy -> binding.statusBusy.background as TransitionDrawable
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        setContentView(R.layout.dialog_status)
+        _binding = DialogStatusBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         selectStatus(activeStatus)
-        status_available.setOnClickListener { selectStatus(UserStatus.None) }
-        status_away.setOnClickListener { selectStatus(UserStatus.Away) }
-        status_busy.setOnClickListener { selectStatus(UserStatus.Busy) }
+        binding.run {
+            statusAvailable.setOnClickListener { selectStatus(UserStatus.None) }
+            statusAway.setOnClickListener { selectStatus(UserStatus.Away) }
+            statusBusy.setOnClickListener { selectStatus(UserStatus.Busy) }
 
-        cancel.setOnClickListener { dismiss() }
-        confirm.setOnClickListener {
-            setStatusFunc(activeStatus)
-            dismiss()
+            cancel.setOnClickListener { dismiss() }
+            confirm.setOnClickListener {
+                setStatusFunc(activeStatus)
+                dismiss()
+            }
         }
     }
 

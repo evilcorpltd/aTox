@@ -8,20 +8,20 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import androidx.core.view.updatePadding
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceManager
-import kotlinx.android.synthetic.main.fragment_settings.view.*
 import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.databinding.FragmentSettingsBinding
 import ltd.evilcorp.atox.setUpFullScreenUi
+import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.vmFactory
 
-class SettingsFragment : Fragment(R.layout.fragment_settings) {
+class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
     private val vm: SettingsViewModel by viewModels { vmFactory }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = view.run {
-        setUpFullScreenUi { v, insets ->
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
+        view.setUpFullScreenUi { v, insets ->
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
             toolbar.updatePadding(top = insets.systemWindowInsetTop)
             v.updatePadding(
@@ -69,14 +69,14 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             }
         }
 
-        setting_run_at_startup.isChecked = vm.getRunAtStartup()
-        setting_run_at_startup.setOnClickListener {
-            vm.setRunAtStartup(setting_run_at_startup.isChecked)
+        settingRunAtStartup.isChecked = vm.getRunAtStartup()
+        settingRunAtStartup.setOnClickListener {
+            vm.setRunAtStartup(settingRunAtStartup.isChecked)
         }
 
-        settings_udp_enabled.isChecked = vm.getUdpEnabled()
-        settings_udp_enabled.setOnClickListener {
-            vm.setUdpEnabled(settings_udp_enabled.isChecked)
+        settingsUdpEnabled.isChecked = vm.getUdpEnabled()
+        settingsUdpEnabled.setOnClickListener {
+            vm.setUdpEnabled(settingsUdpEnabled.isChecked)
         }
 
         version.text = getString(R.string.version_display, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)

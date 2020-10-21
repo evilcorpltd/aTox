@@ -9,13 +9,11 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.updatePadding
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import kotlinx.android.synthetic.main.fragment_user_profile.*
-import kotlinx.android.synthetic.main.fragment_user_profile.view.*
-import kotlinx.android.synthetic.main.profile_options.view.*
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.databinding.FragmentUserProfileBinding
 import ltd.evilcorp.atox.setUpFullScreenUi
+import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.StatusDialog
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.UserStatus
@@ -23,7 +21,7 @@ import ltd.evilcorp.core.vo.UserStatus
 private const val TOX_MAX_NAME_LENGTH = 128
 private const val TOX_MAX_STATUS_MESSAGE_LENGTH = 1007
 
-class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
+class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUserProfileBinding::inflate) {
     private val vm: UserProfileViewModel by viewModels { vmFactory }
     private lateinit var currentStatus: UserStatus
 
@@ -33,22 +31,22 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         UserStatus.Busy -> ResourcesCompat.getColor(resources, R.color.statusBusy, null)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = view.run {
-        setUpFullScreenUi { _, insets ->
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
+        view.setUpFullScreenUi { _, insets ->
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
-            profile_collapsing_toolbar.updatePadding(
+            profileCollapsingToolbar.updatePadding(
                 left = insets.systemWindowInsetLeft,
                 right = insets.systemWindowInsetRight
             )
-            profile_toolbar.updatePadding(top = insets.systemWindowInsetTop)
-            main_section.updatePadding(
+            profileToolbar.updatePadding(top = insets.systemWindowInsetTop)
+            mainSection.updatePadding(
                 left = insets.systemWindowInsetLeft,
                 right = insets.systemWindowInsetRight
             )
             insets
         }
 
-        profile_toolbar.apply {
+        profileToolbar.apply {
             setNavigationOnClickListener {
                 activity?.onBackPressed()
             }
@@ -57,13 +55,13 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         vm.user.observe(viewLifecycleOwner) { user ->
             currentStatus = user.status
 
-            user_name.text = user.name
-            user_status_message.text = user.statusMessage
-            user_status.setColorFilter(colorFromStatus(user.status))
+            userName.text = user.name
+            userStatusMessage.text = user.statusMessage
+            userStatus.setColorFilter(colorFromStatus(user.status))
         }
 
-        user_tox_id.text = vm.toxId.string()
-        profile_share_id.setOnClickListener {
+        userToxId.text = vm.toxId.string()
+        profileShareId.setOnClickListener {
             val shareIntent = Intent().apply {
                 action = Intent.ACTION_SEND
                 type = "text/plain"
@@ -72,9 +70,9 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
             startActivity(Intent.createChooser(shareIntent, getString(R.string.tox_id_share)))
         }
 
-        profile_change_nickname.setOnClickListener {
+        profileOptions.profileChangeNickname.setOnClickListener {
             val nameEdit = EditText(requireContext()).apply {
-                text.append(this@UserProfileFragment.user_name.text)
+                text.append(binding.userName.text)
                 filters = arrayOf(InputFilter.LengthFilter(TOX_MAX_NAME_LENGTH))
                 setSingleLine()
             }
@@ -88,10 +86,10 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
                 .show()
         }
 
-        profile_change_status_text.setOnClickListener {
+        profileOptions.profileChangeStatusText.setOnClickListener {
             val statusMessageEdit =
                 EditText(requireContext()).apply {
-                    text.append(this@UserProfileFragment.user_status_message.text)
+                    text.append(binding.userStatusMessage.text)
                     filters = arrayOf(InputFilter.LengthFilter(TOX_MAX_STATUS_MESSAGE_LENGTH))
                 }
             AlertDialog.Builder(requireContext())
@@ -104,8 +102,8 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
                 .show()
         }
 
-        profile_change_status.setOnClickListener {
-            StatusDialog(context, currentStatus) { status -> vm.setStatus(status) }.show()
+        profileOptions.profileChangeStatus.setOnClickListener {
+            StatusDialog(requireContext(), currentStatus) { status -> vm.setStatus(status) }.show()
         }
     }
 }

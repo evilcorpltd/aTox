@@ -8,12 +8,9 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import java.text.DateFormat
-import kotlinx.android.synthetic.main.contact_list_view_item.view.*
-import kotlinx.android.synthetic.main.contact_list_view_item.view.publicKey as contactPublicKey
-import kotlinx.android.synthetic.main.friend_request_item.view.*
-import kotlinx.android.synthetic.main.friend_request_item.view.publicKey as friendRequestPublicKey
-import kotlinx.android.synthetic.main.profile_image_layout.view.*
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.databinding.ContactListViewItemBinding
+import ltd.evilcorp.atox.databinding.FriendRequestItemBinding
 import ltd.evilcorp.atox.ui.colorByStatus
 import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.core.vo.Contact
@@ -54,7 +51,7 @@ class ContactAdapter(
 
                 if (convertView == null) {
                     view = inflater.inflate(R.layout.friend_request_item, parent, false)
-                    vh = FriendRequestViewHolder(view)
+                    vh = FriendRequestViewHolder(FriendRequestItemBinding.bind(view))
                     view.tag = vh
                 } else {
                     view = convertView
@@ -74,7 +71,7 @@ class ContactAdapter(
 
                 if (convertView == null) {
                     view = inflater.inflate(R.layout.contact_list_view_item, parent, false)
-                    vh = ContactViewHolder(view)
+                    vh = ContactViewHolder(ContactListViewItemBinding.bind(view))
                     view.tag = vh
                 } else {
                     view = convertView
@@ -105,18 +102,18 @@ class ContactAdapter(
             }
         }
 
-    private class FriendRequestViewHolder(row: View) {
-        val publicKey: TextView = row.friendRequestPublicKey
+    private class FriendRequestViewHolder(row: FriendRequestItemBinding) {
+        val publicKey: TextView = row.publicKey
         val message: TextView = row.message
     }
 
-    private class ContactViewHolder(row: View) {
+    private class ContactViewHolder(row: ContactListViewItemBinding) {
         val name: TextView = row.name
-        val publicKey: TextView = row.contactPublicKey
+        val publicKey: TextView = row.publicKey
         val statusMessage: TextView = row.statusMessage
         val lastMessage: TextView = row.lastMessage
-        val status: ImageView = row.statusIndicator
-        val image: ImageView = row.profileImage
+        val status: ImageView = row.profileImageLayout.statusIndicator
+        val image: ImageView = row.profileImageLayout.profileImage
         val unreadIndicator: ImageView = row.unreadIndicator
     }
 }

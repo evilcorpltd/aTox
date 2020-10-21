@@ -17,7 +17,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp">
-            <include layout="@layout/profile_image_layout"/>
+            <include android:id="@+id/profileLayout" layout="@layout/profile_image_layout"/>
 
             <TextView android:id="@+id/headerMainText"
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"

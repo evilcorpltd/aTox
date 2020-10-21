@@ -8,19 +8,19 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.zxing.integration.android.IntentIntegrator
-import kotlinx.android.synthetic.main.fragment_add_contact.view.*
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.databinding.FragmentAddContactBinding
 import ltd.evilcorp.atox.setUpFullScreenUi
+import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.domain.tox.ToxID
 import ltd.evilcorp.domain.tox.ToxIdValidator
 
-class AddContactFragment : Fragment(R.layout.fragment_add_contact) {
+class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddContactBinding::inflate) {
     private val viewModel: AddContactViewModel by viewModels { vmFactory }
 
     private var toxIdValid: Boolean = false
@@ -35,8 +35,8 @@ class AddContactFragment : Fragment(R.layout.fragment_add_contact) {
         if (!viewModel.isToxRunning() && !viewModel.tryLoadTox()) findNavController().navigateUp()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = view.run {
-        setUpFullScreenUi { _, insets ->
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
+        view.setUpFullScreenUi { _, insets ->
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
             toolbar.updatePadding(
                 left = insets.systemWindowInsetLeft,
@@ -97,14 +97,14 @@ class AddContactFragment : Fragment(R.layout.fragment_add_contact) {
         }
 
         if (requireContext().packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
-            read_qr.setOnClickListener {
+            readQr.setOnClickListener {
                 IntentIntegrator.forSupportFragment(this@AddContactFragment).apply {
                     setOrientationLocked(false)
                     setBeepEnabled(false)
                 }.initiateScan(listOf(IntentIntegrator.QR_CODE))
             }
         } else {
-            read_qr.visibility = View.GONE
+            readQr.visibility = View.GONE
         }
 
         add.isEnabled = false
@@ -114,6 +114,6 @@ class AddContactFragment : Fragment(R.layout.fragment_add_contact) {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) =
         IntentIntegrator.parseActivityResult(requestCode, resultCode, data)?.contents?.let {
-            view?.toxId?.setText(it.removePrefix("tox:"))
+            binding.toxId.setText(it.removePrefix("tox:"))
         } ?: super.onActivityResult(requestCode, resultCode, data)
 }

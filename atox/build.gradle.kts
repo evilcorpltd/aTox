@@ -2,7 +2,6 @@ plugins {
     id(BuildPlugin.androidApplication)
 
     id(BuildPlugin.kotlinAndroid)
-    id(BuildPlugin.kotlinAndroidExtensions)
     id(BuildPlugin.kotlinKapt)
 }
 
@@ -28,6 +27,9 @@ android {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
         }
+    }
+    buildFeatures {
+        viewBinding = true
     }
     compileOptions {
         sourceCompatibility = Java.version
