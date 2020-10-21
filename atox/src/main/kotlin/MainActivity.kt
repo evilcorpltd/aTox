@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.findNavController
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.activity_main.*
 import ltd.evilcorp.atox.di.ViewModelFactory
 
 private const val TAG = "MainActivity"
@@ -40,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                 return
             }
 
-            nav_host_fragment.findNavController().navigate(
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.findNavController()?.navigate(
                 R.id.action_contactListFragment_to_addContactFragment,
                 Bundle().apply { putString("toxId", data.drop(SCHEME.length)) }
             )
