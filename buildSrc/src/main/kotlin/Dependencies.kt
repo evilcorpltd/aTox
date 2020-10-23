@@ -8,12 +8,14 @@ object Java {
 
 private object Version {
     const val coroutines = "1.3.9"
-    const val dagger = "2.28.3"
-    const val leakCanary = "2.4"
+    const val dagger = "2.29.1"
+    const val espresso = "3.3.0"
+    const val leakCanary = "2.5"
     const val lifecycle = "2.2.0"
-    const val room = "2.2.5"
-    const val navigation = "2.3.0"
     const val mockk = "1.10.0"
+    const val navigation = "2.3.1"
+    const val room = "2.2.5"
+    const val test = "1.3.0"
     const val toxcore = "0.2.12"
     const val sadToxcore = "0.2.2" // The x86 build has apparently been broken for a while.
     const val tox4j = "0.2.3"
@@ -33,10 +35,10 @@ object BuildPlugin {
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
     const val ideaExt = "org.jetbrains.gradle.plugin.idea-ext"
-    const val ideaExtVersion = "0.8.1"
+    const val ideaExtVersion = "0.9"
 
     const val versions = "com.github.ben-manes.versions"
-    const val versionsVersion = "0.29.0"
+    const val versionsVersion = "0.33.0"
     const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:$versionsVersion"
 }
 
@@ -51,10 +53,10 @@ object Libraries {
     const val ktxCoroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Version.coroutines}"
     const val ktxCoroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Version.coroutines}"
 
-    const val androidxCoreKtx = "androidx.core:core-ktx:1.3.1"
+    const val androidxCoreKtx = "androidx.core:core-ktx:1.3.2"
 
     const val appcompat = "androidx.appcompat:appcompat:1.2.0"
-    const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.0"
+    const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.2"
 
     const val navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:${Version.navigation}"
     const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:${Version.navigation}"
@@ -70,7 +72,7 @@ object Libraries {
 
     const val preference = "androidx.preference:preference:1.1.1"
 
-    const val material = "com.google.android.material:material:1.2.0"
+    const val material = "com.google.android.material:material:1.2.1"
 
     const val dagger = "com.google.dagger:dagger:${Version.dagger}"
     const val daggerCompiler = "com.google.dagger:dagger-compiler:${Version.dagger}"
@@ -88,12 +90,12 @@ object Libraries {
 
     const val leakcanaryAndroid = "com.squareup.leakcanary:leakcanary-android:${Version.leakCanary}"
 
-    const val junit = "junit:junit:4.13"
-    const val runner = "androidx.test:runner:1.2.0"
-    const val rules = "androidx.test:rules:1.2.0"
-    const val espressoCore = "androidx.test.espresso:espresso-core:3.2.0"
-    const val espressoContrib = "androidx.test.espresso:espresso-contrib:3.2.0"
-    const val androidJUnit = "androidx.test.ext:junit:1.1.1"
+    const val junit = "junit:junit:4.13.1"
+    const val runner = "androidx.test:runner:${Version.test}"
+    const val rules = "androidx.test:rules:${Version.test}"
+    const val espressoCore = "androidx.test.espresso:espresso-core:${Version.espresso}"
+    const val espressoContrib = "androidx.test.espresso:espresso-contrib:${Version.espresso}"
+    const val androidJUnit = "androidx.test.ext:junit:1.1.2"
     const val roomTesting = "androidx.room:room-testing:${Version.room}"
 
     const val mockk = "io.mockk:mockk-android:${Version.mockk}"
