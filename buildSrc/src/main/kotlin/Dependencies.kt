@@ -56,7 +56,7 @@ object Libraries {
     const val androidxCoreKtx = "androidx.core:core-ktx:1.3.2"
 
     const val appcompat = "androidx.appcompat:appcompat:1.2.0"
-    const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.2"
+    const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.1"
 
     const val navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:${Version.navigation}"
     const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:${Version.navigation}"
