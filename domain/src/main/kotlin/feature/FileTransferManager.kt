@@ -3,7 +3,9 @@ package ltd.evilcorp.domain.feature
 import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
+import android.provider.OpenableColumns
 import android.util.Log
+import im.tox.tox4j.core.enums.ToxFileControl
 import java.io.File
 import java.io.FileInputStream
 import java.io.RandomAccessFile
@@ -15,6 +17,7 @@ import ltd.evilcorp.core.repository.FileTransferRepository
 import ltd.evilcorp.core.repository.MessageRepository
 import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.FileTransfer
+import ltd.evilcorp.core.vo.FtNotStarted
 import ltd.evilcorp.core.vo.FtRejected
 import ltd.evilcorp.core.vo.FtStarted
 import ltd.evilcorp.core.vo.Message
@@ -194,5 +197,82 @@ class FileTransferManager @Inject constructor(
         val folder = File(context.cacheDir, "ft")
         if (!folder.exists()) folder.mkdir()
         return File(folder, uri.hashCode().toString())
+    }
+
+    suspend fun create(pk: PublicKey, file: Uri) {
+        val cursor = context.contentResolver.query(file, null, null, null)
+        if (cursor == null) {
+            Log.e(TAG, "oh no")
+            return
+        }
+
+        cursor.moveToFirst()
+        val fileSize = cursor.getLong(cursor.getColumnIndexOrThrow(OpenableColumns.SIZE))
+        val name = cursor.getString(cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
+        cursor.close()
+        val ft = FileTransfer(
+            pk.string(),
+            tox.sendFile(pk, FileKind.Data, fileSize, name).await(),
+            FileKind.Data.ordinal,
+            fileSize,
+            name,
+            true,
+            FtNotStarted,
+            file.toString()
+        )
+        val id = fileTransferRepository.add(ft).toInt()
+        messageRepository.add(
+            Message(
+                ft.publicKey,
+                ft.fileName,
+                Sender.Sent,
+                MessageType.FileTransfer,
+                id,
+                Date().time
+            )
+        )
+        fileTransfers.add(ft.copy().apply { this.id = id })
+    }
+
+    fun sendChunk(pk: String, fileNo: Int, pos: Long, length: Int) {
+        val ft = fileTransfers.find { it.publicKey == pk && it.fileNumber == fileNo }
+        if (ft == null) {
+            Log.e(TAG, "Received request for chunk of unknown ft ${pk.take(8)} $fileNo")
+            tox.stopFileTransfer(PublicKey(pk), fileNo)
+            return
+        }
+
+        if (length == 0) {
+            if (!ft.isComplete()) {
+                Log.e(TAG, "Got a request for 0-sized chunk before ft was done ${pk.take(8)} $fileNo")
+                return
+            }
+
+            Log.i(TAG, "Finished outgoing ft ${pk.take(8)} $fileNo")
+            fileTransfers.remove(ft)
+            return
+        }
+
+        val src = Uri.parse(ft.destination)
+        val istream = resolver.openInputStream(src) ?: return
+        istream.skip(pos)
+        val bytes = ByteArray(length)
+        istream.read(bytes, 0, length)
+        istream.close()
+        tox.sendFileChunk(PublicKey(pk), fileNo, pos, bytes)
+        setProgress(ft, ft.progress + length)
+    }
+
+    fun setStatus(pk: String, fileNo: Int, fileStatus: ToxFileControl) {
+        Log.e(TAG, "Setting ${pk.take(8)} $fileNo to status $fileStatus")
+        val ft = fileTransfers.find { it.publicKey == pk && it.fileNumber == fileNo }
+        if (ft == null) {
+            Log.e(TAG, "Attempted to set status for unknown ft ${pk.take(8)} $fileNo")
+            return
+        }
+
+        if (fileStatus == ToxFileControl.RESUME && ft.progress == FtNotStarted) {
+            ft.progress = FtStarted
+        }
     }
 }

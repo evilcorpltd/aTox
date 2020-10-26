@@ -1,10 +1,12 @@
 package ltd.evilcorp.domain.tox
 
 import im.tox.tox4j.core.enums.ToxConnection
+import im.tox.tox4j.core.enums.ToxFileKind
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
 import java.util.Locale
 import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.UserStatus
 import org.junit.Assert.assertArrayEquals
@@ -58,6 +60,14 @@ class ToxUtilTest {
         assertEquals(ToxUserStatus.NONE.ordinal, UserStatus.None.ordinal)
         assertEquals(ToxUserStatus.AWAY.ordinal, UserStatus.Away.ordinal)
         assertEquals(ToxUserStatus.BUSY.ordinal, UserStatus.Busy.ordinal)
+    }
+
+    @Test
+    fun `file kind can be converted`() {
+        assertEquals(ToxFileKind.AVATAR, FileKind.Avatar.ordinal)
+        assertEquals(ToxFileKind.AVATAR, FileKind.Avatar.toToxtype())
+        assertEquals(ToxFileKind.DATA, FileKind.Data.ordinal)
+        assertEquals(ToxFileKind.DATA, FileKind.Data.toToxtype())
     }
 
     @Test

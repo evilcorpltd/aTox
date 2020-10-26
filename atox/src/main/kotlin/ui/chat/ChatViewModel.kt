@@ -1,6 +1,7 @@
 package ltd.evilcorp.atox.ui.chat
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -17,6 +18,8 @@ import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.feature.FileTransferManager
 import ltd.evilcorp.domain.tox.PublicKey
+
+private const val TAG = "ChatViewModel"
 
 class ChatViewModel @Inject constructor(
     private val chatManager: ChatManager,
@@ -36,7 +39,10 @@ class ChatViewModel @Inject constructor(
     fun clearHistory() = chatManager.clearHistory(publicKey)
     fun setActiveChat(pubKey: PublicKey) {
         if (pubKey.string().isEmpty()) {
+            Log.i(TAG, "Clearing active chat")
             setTyping(false)
+        } else {
+            Log.i(TAG, "Setting active chat ${pubKey.string().take(8)}")
         }
 
         publicKey = pubKey
@@ -58,5 +64,9 @@ class ChatViewModel @Inject constructor(
 
     fun rejectFt(id: Int) = launch {
         fileTransferManager.reject(id)
+    }
+
+    fun createFt(file: Uri) = launch {
+        fileTransferManager.create(publicKey, file)
     }
 }

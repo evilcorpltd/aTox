@@ -1,6 +1,7 @@
 package ltd.evilcorp.atox.tox
 
 import android.util.Log
+import im.tox.tox4j.core.enums.ToxFileControl
 import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -114,6 +115,14 @@ class EventListenerCallbacks @Inject constructor(
             fileTransferManager.add(
                 FileTransfer(publicKey, fileNumber, kind, fileSize, name, outgoing = false)
             )
+        }
+
+        fileRecvControlHandler = { publicKey: String, fileNo: Int, control: ToxFileControl ->
+            fileTransferManager.setStatus(publicKey, fileNo, control)
+        }
+
+        fileChunkRequestHandler = { publicKey: String, fileNo: Int, position: Long, length: Int ->
+            fileTransferManager.sendChunk(publicKey, fileNo, position, length)
         }
 
         selfConnectionStatusHandler = { status ->

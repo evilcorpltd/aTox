@@ -40,6 +40,7 @@ import ltd.evilcorp.domain.tox.PublicKey
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
 private const val REQUEST_CODE_FT_FILE = 1234
+private const val REQUEST_CODE_ATTACH = 5678
 private const val TAG = "ChatFragment"
 
 class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::inflate) {
@@ -119,6 +120,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
 
             profileLayout.statusIndicator.setColorFilter(colorByStatus(resources, it))
             setAvatarFromContact(profileLayout.profileImage, it)
+            updateAttachButton()
         }
 
         val adapter = ChatAdapter(layoutInflater, resources)
@@ -150,6 +152,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                 R.id.fileTransfer -> {
                     val id = adapter.messages[position].correlationId
                     val ft = adapter.fileTransfers.find { it.id == id } ?: return@setOnItemClickListener
+                    if (ft.outgoing) return@setOnItemClickListener
                     if (!ft.isComplete()) return@setOnItemClickListener
                     Intent(Intent.ACTION_VIEW).apply {
                         data = Uri.parse(ft.destination)
@@ -178,11 +181,21 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             sendMessage()
         }
 
-        send.isEnabled = false
-        send.setColorFilter(ResourcesCompat.getColor(resources, android.R.color.darker_gray, null))
+        attach.setOnClickListener {
+            Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "*/*"
+            }.also {
+                startActivityForResult(it, REQUEST_CODE_ATTACH)
+            }
+        }
+
+        updateSendButton()
+        updateAttachButton()
 
         outgoingMessage.doAfterTextChanged {
             viewModel.setTyping(outgoingMessage.text.isNotEmpty())
+            updateAttachButton()
             updateSendButton()
         }
     }
@@ -238,10 +251,17 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        // Runs before onResume, so add back some required state..
+        viewModel.setActiveChat(PublicKey(contactPubKey))
         when (requestCode) {
             REQUEST_CODE_FT_FILE -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     viewModel.acceptFt(selectedFt, data.data as Uri)
+                }
+            }
+            REQUEST_CODE_ATTACH -> {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    viewModel.createFt(data.data as Uri)
                 }
             }
             else -> super.onActivityResult(requestCode, resultCode, data)
@@ -268,7 +288,20 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         }
     }
 
+    private fun updateAttachButton() = binding.run {
+        attach.visibility = if (outgoingMessage.text.isNotEmpty()) View.GONE else View.VISIBLE
+        attach.isEnabled = outgoingMessage.text.isEmpty() && contactOnline
+        attach.setColorFilter(
+            ResourcesCompat.getColor(
+                resources,
+                if (attach.isEnabled) R.color.colorPrimary else android.R.color.darker_gray,
+                null
+            )
+        )
+    }
+
     private fun updateSendButton() = binding.run {
+        send.visibility = if (outgoingMessage.text.isEmpty()) View.GONE else View.VISIBLE
         send.isEnabled = outgoingMessage.text.isNotEmpty()
         send.setColorFilter(
             ResourcesCompat.getColor(

@@ -3,10 +3,14 @@ package ltd.evilcorp.domain.tox
 import android.util.Log
 import im.tox.tox4j.av.enums.ToxavCallControl
 import im.tox.tox4j.core.enums.ToxFileControl
+import im.tox.tox4j.core.exceptions.ToxFileControlException
+import im.tox.tox4j.core.exceptions.ToxFileSendChunkException
 import im.tox.tox4j.core.exceptions.ToxFriendAddException
 import im.tox.tox4j.impl.jni.ToxAvImpl
 import im.tox.tox4j.impl.jni.ToxCoreImpl
 import kotlin.math.min
+import kotlin.random.Random
+import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.UserStatus
 
@@ -108,8 +112,20 @@ class ToxWrapper(
     fun startFileTransfer(publicKey: PublicKey, fileNumber: Int) =
         tox.fileControl(contactByKey(publicKey), fileNumber, ToxFileControl.RESUME)
 
-    fun stopFileTransfer(publicKey: PublicKey, fileNumber: Int) =
+    fun stopFileTransfer(publicKey: PublicKey, fileNumber: Int) = try {
         tox.fileControl(contactByKey(publicKey), fileNumber, ToxFileControl.CANCEL)
+    } catch (e: ToxFileControlException) {
+        Log.e(TAG, "Error stopping ft ${publicKey.string().take(8)} $fileNumber\n$e")
+    }
+
+    fun sendFile(pk: PublicKey, fileKind: FileKind, fileSize: Long, fileName: String) =
+        tox.fileSend(contactByKey(pk), fileKind.toToxtype(), fileSize, Random.nextBytes(32), fileName.toByteArray())
+
+    fun sendFileChunk(pk: PublicKey, fileNo: Int, pos: Long, data: ByteArray) = try {
+        tox.fileSendChunk(contactByKey(pk), fileNo, pos, data)
+    } catch (e: ToxFileSendChunkException) {
+        Log.e(TAG, "Error sending chunk $pos:${data.size} to ${pk.string().take(8)} $fileNo\n$e")
+    }
 
     fun setTyping(publicKey: PublicKey, typing: Boolean) = tox.setTyping(contactByKey(publicKey), typing)
 

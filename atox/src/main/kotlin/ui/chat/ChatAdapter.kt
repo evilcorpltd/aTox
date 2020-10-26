@@ -26,6 +26,7 @@ private fun inflateView(type: ChatItemType, inflater: LayoutInflater): View =
             ChatItemType.ReceivedMessage -> R.layout.message_received
             ChatItemType.SentAction -> R.layout.action_sent
             ChatItemType.ReceivedAction -> R.layout.action_received
+            ChatItemType.SentFileTransfer -> R.layout.filetransfer_sent
             ChatItemType.ReceivedFileTransfer -> R.layout.filetransfer_received
         },
         null,
@@ -38,6 +39,7 @@ private enum class ChatItemType {
     ReceivedAction,
     SentAction,
     ReceivedFileTransfer,
+    SentFileTransfer,
 }
 
 private val types = ChatItemType.values()
@@ -52,9 +54,9 @@ private class FileTransferViewHolder(row: View) {
     val fileName = row.findViewById(R.id.fileName) as TextView
     val progress = row.findViewById(R.id.progress) as ProgressBar
     val timestamp = row.findViewById(R.id.timestamp) as TextView
-    val acceptLayout = row.findViewById(R.id.acceptLayout) as View
-    val accept = row.findViewById(R.id.accept) as Button
-    val reject = row.findViewById(R.id.reject) as Button
+    val acceptLayout = row.findViewById(R.id.acceptLayout) as View?
+    val accept = row.findViewById(R.id.accept) as Button?
+    val reject = row.findViewById(R.id.reject) as Button?
 }
 
 private const val TAG = "ChatAdapter"
@@ -80,8 +82,9 @@ class ChatAdapter(
                 Sender.Sent -> ChatItemType.SentAction.ordinal
                 Sender.Received -> ChatItemType.ReceivedAction.ordinal
             }
-            MessageType.FileTransfer -> {
-                ChatItemType.ReceivedFileTransfer.ordinal
+            MessageType.FileTransfer -> when (sender) {
+                Sender.Sent -> ChatItemType.SentFileTransfer.ordinal
+                Sender.Received -> ChatItemType.ReceivedFileTransfer.ordinal
             }
         }
     }
@@ -127,7 +130,7 @@ class ChatAdapter(
 
                 view
             }
-            ChatItemType.ReceivedFileTransfer -> {
+            ChatItemType.SentFileTransfer, ChatItemType.ReceivedFileTransfer -> {
                 val message = messages[position]
                 var fileTransfer = fileTransfers.find { it.id == message.correlationId }
                 if (fileTransfer == null) {
@@ -148,19 +151,19 @@ class ChatAdapter(
                 }
 
                 if (fileTransfer.isRejected()) {
-                    vh.acceptLayout.visibility = View.GONE
+                    vh.acceptLayout?.visibility = View.GONE
                     vh.progress.visibility = View.GONE
                 } else if (!fileTransfer.isStarted()) {
-                    vh.acceptLayout.visibility = View.VISIBLE
-                    vh.progress.visibility = View.GONE
-                    vh.accept.setOnClickListener {
+                    vh.acceptLayout?.visibility = View.VISIBLE
+                    vh.progress.visibility = if (fileTransfer.outgoing) View.VISIBLE else View.GONE
+                    vh.accept?.setOnClickListener {
                         (parent as ListView).performItemClick(it, position, position.toLong())
                     }
-                    vh.reject.setOnClickListener {
+                    vh.reject?.setOnClickListener {
                         (parent as ListView).performItemClick(it, position, position.toLong())
                     }
                 } else {
-                    vh.acceptLayout.visibility = View.GONE
+                    vh.acceptLayout?.visibility = View.GONE
                     vh.progress.visibility = View.VISIBLE
                 }
 

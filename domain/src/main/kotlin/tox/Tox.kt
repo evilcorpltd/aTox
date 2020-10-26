@@ -15,6 +15,7 @@ import kotlinx.coroutines.plus
 import kotlinx.coroutines.runBlocking
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.UserStatus
 
@@ -93,6 +94,14 @@ class Tox @Inject constructor(
     fun stopFileTransfer(publicKey: PublicKey, fileNumber: Int) = launch {
         Log.e(TAG, "Stopping file transfer $fileNumber from $publicKey")
         tox.stopFileTransfer(publicKey, fileNumber)
+    }
+
+    fun sendFile(pk: PublicKey, fileKind: FileKind, fileSize: Long, fileName: String) = async {
+        tox.sendFile(pk, fileKind, fileSize, fileName)
+    }
+
+    fun sendFileChunk(pk: PublicKey, fileNo: Int, pos: Long, data: ByteArray) = launch {
+        tox.sendFileChunk(pk, fileNo, pos, data)
     }
 
     fun getName() = async { tox.getName() }
