@@ -22,12 +22,12 @@ import ltd.evilcorp.core.vo.isStarted
 private fun inflateView(type: ChatItemType, inflater: LayoutInflater): View =
     inflater.inflate(
         when (type) {
-            ChatItemType.SentMessage -> R.layout.message_sent
-            ChatItemType.ReceivedMessage -> R.layout.message_received
-            ChatItemType.SentAction -> R.layout.action_sent
-            ChatItemType.ReceivedAction -> R.layout.action_received
-            ChatItemType.SentFileTransfer -> R.layout.filetransfer_sent
-            ChatItemType.ReceivedFileTransfer -> R.layout.filetransfer_received
+            ChatItemType.SentMessage -> R.layout.chat_message_sent
+            ChatItemType.ReceivedMessage -> R.layout.chat_message_received
+            ChatItemType.SentAction -> R.layout.chat_action_sent
+            ChatItemType.ReceivedAction -> R.layout.chat_action_received
+            ChatItemType.SentFileTransfer -> R.layout.chat_filetransfer_sent
+            ChatItemType.ReceivedFileTransfer -> R.layout.chat_filetransfer_received
         },
         null,
         true
