@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import android.widget.TextView
 import java.text.DateFormat
 import ltd.evilcorp.atox.R
@@ -26,8 +28,7 @@ private fun inflateView(type: ChatItemType, inflater: LayoutInflater): View =
             ChatItemType.ReceivedMessage -> R.layout.chat_message_received
             ChatItemType.SentAction -> R.layout.chat_action_sent
             ChatItemType.ReceivedAction -> R.layout.chat_action_received
-            ChatItemType.SentFileTransfer -> R.layout.chat_filetransfer_sent
-            ChatItemType.ReceivedFileTransfer -> R.layout.chat_filetransfer_received
+            ChatItemType.ReceivedFileTransfer, ChatItemType.SentFileTransfer -> R.layout.chat_filetransfer
         },
         null,
         true
@@ -51,12 +52,13 @@ private class MessageViewHolder(row: View) {
 }
 
 private class FileTransferViewHolder(row: View) {
+    val container = row.findViewById(R.id.fileTransferContainer) as LinearLayout
     val fileName = row.findViewById(R.id.fileName) as TextView
     val progress = row.findViewById(R.id.progress) as ProgressBar
     val timestamp = row.findViewById(R.id.timestamp) as TextView
-    val acceptLayout = row.findViewById(R.id.acceptLayout) as View?
-    val accept = row.findViewById(R.id.accept) as Button?
-    val reject = row.findViewById(R.id.reject) as Button?
+    val acceptLayout = row.findViewById(R.id.acceptLayout) as View
+    val accept = row.findViewById(R.id.accept) as Button
+    val reject = row.findViewById(R.id.reject) as Button
 }
 
 private const val TAG = "ChatAdapter"
@@ -151,19 +153,24 @@ class ChatAdapter(
                 }
 
                 if (fileTransfer.isRejected()) {
-                    vh.acceptLayout?.visibility = View.GONE
+                    vh.acceptLayout.visibility = View.GONE
                     vh.progress.visibility = View.GONE
                 } else if (!fileTransfer.isStarted()) {
-                    vh.acceptLayout?.visibility = View.VISIBLE
-                    vh.progress.visibility = if (fileTransfer.outgoing) View.VISIBLE else View.GONE
-                    vh.accept?.setOnClickListener {
+                    if (fileTransfer.outgoing) {
+                        vh.acceptLayout.visibility = View.GONE
+                        vh.progress.visibility = View.VISIBLE
+                    } else {
+                        vh.acceptLayout.visibility = View.VISIBLE
+                        vh.progress.visibility = View.GONE
+                    }
+                    vh.accept.setOnClickListener {
                         (parent as ListView).performItemClick(it, position, position.toLong())
                     }
-                    vh.reject?.setOnClickListener {
+                    vh.reject.setOnClickListener {
                         (parent as ListView).performItemClick(it, position, position.toLong())
                     }
                 } else {
-                    vh.acceptLayout?.visibility = View.GONE
+                    vh.acceptLayout.visibility = View.GONE
                     vh.progress.visibility = View.VISIBLE
                 }
 
@@ -182,6 +189,15 @@ class ChatAdapter(
                         View.VISIBLE
                     }
                 }
+
+                val layout = vh.container.layoutParams as RelativeLayout.LayoutParams
+                val alignment = if (fileTransfer.outgoing) {
+                    RelativeLayout.ALIGN_PARENT_END
+                } else {
+                    RelativeLayout.ALIGN_PARENT_START
+                }
+                layout.addRule(alignment)
+                vh.container.layoutParams = layout
 
                 view
             }
