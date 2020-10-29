@@ -69,4 +69,8 @@ class ChatViewModel @Inject constructor(
     fun createFt(file: Uri) = launch {
         fileTransferManager.create(publicKey, file)
     }
+
+    fun deleteMessage(id: Long) = launch {
+        chatManager.deleteMessage(id)
+    }
 }

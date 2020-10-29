@@ -25,6 +25,9 @@ class MessageRepository @Inject internal constructor(
     fun delete(conversation: String) =
         messageDao.delete(conversation)
 
+    fun deleteMessage(id: Long) =
+        messageDao.deleteMessage(id)
+
     fun setReceipt(conversation: String, correlationId: Int, timestamp: Long) =
         messageDao.setReceipt(conversation, correlationId, timestamp)
 }

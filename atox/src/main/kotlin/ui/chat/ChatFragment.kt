@@ -42,6 +42,14 @@ const val CONTACT_PUBLIC_KEY = "publicKey"
 private const val REQUEST_CODE_FT_FILE = 1234
 private const val REQUEST_CODE_ATTACH = 5678
 private const val TAG = "ChatFragment"
+private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 20
+
+private fun trimString(s: String): String =
+    if (s.length > MAX_CONFIRM_DELETE_STRING_LENGTH) {
+        s.take(MAX_CONFIRM_DELETE_STRING_LENGTH - 1) + "…"
+    } else {
+        s
+    }
 
 class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::inflate) {
     private val viewModel: ChatViewModel by viewModels { vmFactory }
@@ -240,6 +248,19 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                 clipboard.setPrimaryClip(ClipData.newPlainText(getText(R.string.message), message.message))
 
                 Toast.makeText(requireContext(), getText(R.string.copied), Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.delete -> {
+                val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
+                val message = messages.adapter.getItem(info.position) as Message
+
+                AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.clear_history)
+                    .setMessage(getString(R.string.delete_message_confirm, trimString(message.message)))
+                    .setPositiveButton(R.string.delete) { _, _ ->
+                        viewModel.deleteMessage(message.id)
+                    }
+                    .setNegativeButton(R.string.cancel, null).show()
                 true
             }
             R.id.send_action -> {

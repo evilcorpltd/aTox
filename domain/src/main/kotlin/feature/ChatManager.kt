@@ -76,6 +76,10 @@ class ChatManager @Inject constructor(
         }
     }
 
+    fun deleteMessage(id: Long) = launch {
+        messageRepository.deleteMessage(id)
+    }
+
     fun clearHistory(publicKey: PublicKey) = launch {
         messageRepository.delete(publicKey.string())
         contactRepository.setLastMessage(publicKey.string(), 0)

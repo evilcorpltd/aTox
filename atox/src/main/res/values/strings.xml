@@ -52,6 +52,7 @@
     <string name="clear_history_confirm">Are you sure you want to clear your chat history with
         %1$s?
     </string>
+    <string name="delete_message_confirm">Are you sure you want to delete the message \"%1$s\"?</string>
     <string name="import_tox_save">Import</string>
     <string name="import_tox_save_failed">Import failed for some reason</string>
     <string name="export_tox_save">Export Tox save</string>
@@ -102,4 +103,5 @@
         %1$s
     </string>
     <string name="attach_file">Attach file</string>
+    <string name="delete">Delete</string>
 </resources>
