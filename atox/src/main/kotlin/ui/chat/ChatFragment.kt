@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.ContextMenu
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
@@ -225,6 +226,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         menuInfo: ContextMenu.ContextMenuInfo?
     ) = binding.run {
         super.onCreateContextMenu(menu, v, menuInfo)
+        v.dispatchTouchEvent(MotionEvent.obtain(0, 0, MotionEvent.ACTION_CANCEL, 0f, 0f, 0))
         when (v.id) {
             R.id.messages -> {
                 val info = menuInfo as AdapterView.AdapterContextMenuInfo
