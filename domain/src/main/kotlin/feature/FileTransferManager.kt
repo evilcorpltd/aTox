@@ -277,6 +277,9 @@ class FileTransferManager @Inject constructor(
 
         if (fileStatus == ToxFileControl.RESUME && ft.progress == FtNotStarted) {
             ft.progress = FtStarted
+        } else if (fileStatus == ToxFileControl.CANCEL) {
+            Log.i(TAG, "Friend canceled ft ${pk.take(8)} $fileNo")
+            reject(ft)
         }
     }
 }
