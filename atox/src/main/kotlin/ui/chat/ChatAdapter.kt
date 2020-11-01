@@ -3,6 +3,7 @@ package ltd.evilcorp.atox.ui.chat
 import android.content.res.Resources
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
@@ -18,6 +19,7 @@ import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.Sender
+import ltd.evilcorp.core.vo.isComplete
 import ltd.evilcorp.core.vo.isRejected
 import ltd.evilcorp.core.vo.isStarted
 
@@ -59,6 +61,8 @@ private class FileTransferViewHolder(row: View) {
     val acceptLayout = row.findViewById(R.id.acceptLayout) as View
     val accept = row.findViewById(R.id.accept) as Button
     val reject = row.findViewById(R.id.reject) as Button
+    val cancelLayout = row.findViewById(R.id.cancelLayout) as View
+    val cancel = row.findViewById(R.id.cancel) as Button
 }
 
 private const val TAG = "ChatAdapter"
@@ -152,25 +156,36 @@ class ChatAdapter(
                     view.tag = vh
                 }
 
-                if (fileTransfer.isRejected()) {
+                // TODO(robinlinden)
+                // Updating the file transfer progress refreshes this so often that onClick-listeners never trigger
+                // for some reason. Will revisit this once I've replaced the ListView with a RecyclerView.
+                val touchListener = View.OnTouchListener { v, event ->
+                    if (event.actionMasked == MotionEvent.ACTION_DOWN) {
+                        (parent as ListView).performItemClick(v, position, position.toLong())
+                    }
+                    false
+                }
+                vh.accept.setOnTouchListener(touchListener)
+                vh.reject.setOnTouchListener(touchListener)
+                vh.cancel.setOnTouchListener(touchListener)
+
+                if (fileTransfer.isRejected() || fileTransfer.isComplete()) {
                     vh.acceptLayout.visibility = View.GONE
-                    vh.progress.visibility = View.GONE
+                    vh.cancelLayout.visibility = View.GONE
+                    vh.progress.visibility = if (fileTransfer.isRejected()) View.GONE else View.VISIBLE
                 } else if (!fileTransfer.isStarted()) {
                     if (fileTransfer.outgoing) {
                         vh.acceptLayout.visibility = View.GONE
+                        vh.cancelLayout.visibility = View.VISIBLE
                         vh.progress.visibility = View.VISIBLE
                     } else {
                         vh.acceptLayout.visibility = View.VISIBLE
+                        vh.cancelLayout.visibility = View.GONE
                         vh.progress.visibility = View.GONE
-                    }
-                    vh.accept.setOnClickListener {
-                        (parent as ListView).performItemClick(it, position, position.toLong())
-                    }
-                    vh.reject.setOnClickListener {
-                        (parent as ListView).performItemClick(it, position, position.toLong())
                     }
                 } else {
                     vh.acceptLayout.visibility = View.GONE
+                    vh.cancelLayout.visibility = View.VISIBLE
                     vh.progress.visibility = View.VISIBLE
                 }
 

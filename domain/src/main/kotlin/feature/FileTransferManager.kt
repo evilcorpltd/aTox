@@ -138,9 +138,13 @@ class FileTransferManager @Inject constructor(
     }
 
     private fun setProgress(ft: FileTransfer, progress: Long) {
-        fileTransfers[fileTransfers.indexOf(ft)].progress = progress
-        if (ft.fileKind == FileKind.Data.ordinal) {
-            fileTransferRepository.updateProgress(ft.id, progress)
+        try {
+            fileTransfers[fileTransfers.indexOf(ft)].progress = progress
+            if (ft.fileKind == FileKind.Data.ordinal) {
+                fileTransferRepository.updateProgress(ft.id, progress)
+            }
+        } catch (e: ArrayIndexOutOfBoundsException) {
+            Log.e(TAG, "Tried setting the progress for an unknown ft ${ft.publicKey.take(8)} ${ft.fileNumber}")
         }
     }
 

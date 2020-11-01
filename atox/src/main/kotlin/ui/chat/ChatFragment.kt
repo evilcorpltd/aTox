@@ -158,6 +158,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                     }
                 }
                 R.id.reject -> viewModel.rejectFt(adapter.messages[position].correlationId)
+                R.id.cancel -> viewModel.rejectFt(adapter.messages[position].correlationId)
                 R.id.fileTransfer -> {
                     val id = adapter.messages[position].correlationId
                     val ft = adapter.fileTransfers.find { it.id == id } ?: return@setOnItemClickListener
