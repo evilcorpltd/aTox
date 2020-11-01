@@ -200,7 +200,7 @@ class FileTransferManager @Inject constructor(
     }
 
     suspend fun create(pk: PublicKey, file: Uri) {
-        val cursor = context.contentResolver.query(file, null, null, null)
+        val cursor = context.contentResolver.query(file, null, null, null, null, null)
         if (cursor == null) {
             Log.e(TAG, "oh no")
             return
