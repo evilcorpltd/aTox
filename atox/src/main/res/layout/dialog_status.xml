@@ -17,10 +17,9 @@
                 android:layout_height="wrap_content"
                 android:background="@color/dialogBackground"
                 android:orientation="vertical"
-                android:paddingBottom="25dp"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:paddingTop="80dp">
+                android:paddingHorizontal="25dp"
+                android:paddingTop="80dp"
+                android:paddingBottom="25dp">
             <TextView android:id="@+id/simple_dialog_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -42,10 +41,8 @@
                     android:background="@drawable/status_background"
                     android:backgroundTint="@color/transparentBar"
                     android:layout_marginTop="4dp"
-                    android:paddingBottom="8dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:paddingTop="8dp">
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp">
                 <ImageView
                         android:layout_width="10dp"
                         android:layout_height="10dp"
@@ -76,9 +73,8 @@
                     android:focusable="true"
                     android:background="@drawable/status_background"
                     android:backgroundTint="@color/transparentBar"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="16dp"
-                    android:paddingTop="8dp">
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp">
                 <ImageView
                         android:layout_width="10dp"
                         android:layout_height="10dp"
@@ -109,9 +105,8 @@
                     android:focusable="true"
                     android:background="@drawable/status_background"
                     android:backgroundTint="@color/transparentBar"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="16dp"
-                    android:paddingTop="8dp">
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp">
                 <ImageView
                         android:layout_width="10dp"
                         android:layout_height="10dp"
@@ -164,6 +159,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_launcher_foreground"
-                app:tint="@color/textWhiteColor" />
+                app:tint="@color/textWhiteColor"
+                tools:ignore="ContentDescription" />
     </LinearLayout>
 </RelativeLayout>
