@@ -7,7 +7,7 @@ object Java {
 }
 
 private object Version {
-    const val coroutines = "1.3.9"
+    const val coroutines = "1.4.1"
     const val dagger = "2.29.1"
     const val espresso = "3.3.0"
     const val leakCanary = "2.5"
@@ -38,7 +38,7 @@ object BuildPlugin {
     const val ideaExtVersion = "0.9"
 
     const val versions = "com.github.ben-manes.versions"
-    const val versionsVersion = "0.33.0"
+    const val versionsVersion = "0.36.0"
     const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:$versionsVersion"
 }
 
