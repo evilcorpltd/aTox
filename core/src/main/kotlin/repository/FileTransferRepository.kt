@@ -24,4 +24,6 @@ class FileTransferRepository @Inject internal constructor(
 
     fun updateProgress(id: Int, progress: Long) =
         dao.updateProgress(id, progress)
+
+    fun resetTransientData() = dao.resetTransientData()
 }

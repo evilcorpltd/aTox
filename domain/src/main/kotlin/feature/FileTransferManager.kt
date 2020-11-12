@@ -12,6 +12,8 @@ import java.io.RandomAccessFile
 import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FileTransferRepository
 import ltd.evilcorp.core.repository.MessageRepository
@@ -40,6 +42,13 @@ class FileTransferManager @Inject constructor(
     private val tox: Tox
 ) {
     private val fileTransfers: MutableList<FileTransfer> = mutableListOf()
+
+    fun reset() {
+        fileTransfers.clear()
+        GlobalScope.launch {
+            fileTransferRepository.resetTransientData()
+        }
+    }
 
     fun add(ft: FileTransfer) {
         Log.i(TAG, "Add ${ft.fileNumber} for ${ft.publicKey.take(8)}")

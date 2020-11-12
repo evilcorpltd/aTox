@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.vo.FileTransfer
+import ltd.evilcorp.core.vo.FtRejected
 
 @Dao
 internal interface FileTransferDao {
@@ -24,4 +25,7 @@ internal interface FileTransferDao {
 
     @Query("UPDATE file_transfers SET destination = :destination WHERE id == :id")
     fun setDestination(id: Int, destination: String)
+
+    @Query("UPDATE file_transfers SET progress = :progress WHERE progress < file_size")
+    fun resetTransientData(progress: Long = FtRejected)
 }

@@ -8,6 +8,7 @@ import android.util.Log
 import im.tox.tox4j.core.exceptions.ToxNewException
 import javax.inject.Inject
 import ltd.evilcorp.atox.ToxService
+import ltd.evilcorp.domain.feature.FileTransferManager
 import ltd.evilcorp.domain.feature.UserManager
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.SaveManager
@@ -19,6 +20,7 @@ import ltd.evilcorp.domain.tox.ToxEventListener
 private const val TAG = "ToxStarter"
 
 class ToxStarter @Inject constructor(
+    private val fileTransferManager: FileTransferManager,
     private val saveManager: SaveManager,
     private val userManager: UserManager,
     private val listenerCallbacks: EventListenerCallbacks,
@@ -38,6 +40,9 @@ class ToxStarter @Inject constructor(
             ),
             eventListener, avEventListener
         )
+        // This can stay alive across core restarts and it doesn't work well when toxcore resets its numbers
+        fileTransferManager.reset()
+
         startService()
         true
     } catch (e: ToxNewException) {
