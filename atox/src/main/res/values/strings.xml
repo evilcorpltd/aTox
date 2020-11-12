@@ -72,7 +72,6 @@
     <string name="version_display">aTox v%1$s - %2$d</string>
     <string name="send_as_action">Send as action</string>
     <string name="or_import_existing_save">or import an existing Tox save</string>
-    <string name="status_switcher">Status switcher</string>
     <string name="profile_information">Profile information</string>
     <string name="profile_settings">Profile settings</string>
     <string name="profile_nickname">Change your nickname</string>

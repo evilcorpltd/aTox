@@ -92,9 +92,9 @@ class ContactListFragment :
                 profileStatusMessage.text = user.statusMessage
 
                 if (user.online()) {
-                    statusSwitcher.setColorFilter(colorFromStatus(user.status))
+                    statusIndicator.setColorFilter(colorFromStatus(user.status))
                 } else {
-                    statusSwitcher.setColorFilter(R.color.statusOffline)
+                    statusIndicator.setColorFilter(R.color.statusOffline)
                 }
             }
 
