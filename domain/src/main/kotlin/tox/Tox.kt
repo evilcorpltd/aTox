@@ -39,6 +39,7 @@ class Tox @Inject constructor(
 
     fun start(saveOption: SaveOptions, listener: ToxEventListener, avListener: ToxAvEventListener) {
         started = true
+        isBootstrapNeeded = true
 
         tox = ToxWrapper(listener, avListener, saveOption)
 
