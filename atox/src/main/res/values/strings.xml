@@ -103,4 +103,5 @@
     </string>
     <string name="attach_file">Attach file</string>
     <string name="delete">Delete</string>
+    <string name="notification_file_transfer">Incoming file transfer \"%1$s\"</string>
 </resources>

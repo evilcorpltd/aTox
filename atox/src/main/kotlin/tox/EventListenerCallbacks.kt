@@ -1,5 +1,6 @@
 package ltd.evilcorp.atox.tox
 
+import android.content.Context
 import android.util.Log
 import im.tox.tox4j.core.enums.ToxFileControl
 import java.util.Date
@@ -9,6 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FriendRequestRepository
@@ -35,6 +37,7 @@ private fun getDate() = Date().time
 
 @Singleton
 class EventListenerCallbacks @Inject constructor(
+    private val ctx: Context,
     private val contactRepository: ContactRepository,
     private val friendRequestRepository: FriendRequestRepository,
     private val messageRepository: MessageRepository,
@@ -112,6 +115,15 @@ class EventListenerCallbacks @Inject constructor(
 
         fileRecvHandler = { publicKey, fileNumber, kind, fileSize, filename ->
             val name = if (kind == FileKind.Avatar.ordinal) publicKey else filename
+            if (kind == FileKind.Data.ordinal) {
+                contactRepository.setLastMessage(publicKey, getDate())
+                if (chatManager.activeChat != publicKey) {
+                    val msg = ctx.getString(R.string.notification_file_transfer, name)
+                    notificationHelper.showMessageNotification(contactByPublicKey(publicKey), msg)
+                    contactRepository.setHasUnreadMessages(publicKey, true)
+                }
+            }
+
             fileTransferManager.add(
                 FileTransfer(publicKey, fileNumber, kind, fileSize, name, outgoing = false)
             )
