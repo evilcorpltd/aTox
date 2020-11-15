@@ -1,6 +1,7 @@
 package ltd.evilcorp.atox.ui.chat
 
 import android.content.res.Resources
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -8,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
+import java.net.URLConnection
 import java.text.DateFormat
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.core.vo.FileTransfer
@@ -22,6 +25,9 @@ import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.core.vo.isComplete
 import ltd.evilcorp.core.vo.isRejected
 import ltd.evilcorp.core.vo.isStarted
+
+private fun FileTransfer.isImage() =
+    URLConnection.guessContentTypeFromName(fileName).startsWith("image/")
 
 private fun inflateView(type: ChatItemType, inflater: LayoutInflater): View =
     inflater.inflate(
@@ -63,6 +69,8 @@ private class FileTransferViewHolder(row: View) {
     val reject = row.findViewById(R.id.reject) as Button
     val cancelLayout = row.findViewById(R.id.cancelLayout) as View
     val cancel = row.findViewById(R.id.cancel) as Button
+    val completedLayout = row.findViewById(R.id.completedLayout) as View
+    val imagePreview = row.findViewById(R.id.imagePreview) as ImageView
 }
 
 private const val TAG = "ChatAdapter"
@@ -168,6 +176,19 @@ class ChatAdapter(
                 vh.accept.setOnTouchListener(touchListener)
                 vh.reject.setOnTouchListener(touchListener)
                 vh.cancel.setOnTouchListener(touchListener)
+
+                if (fileTransfer.isImage() && (fileTransfer.isComplete() || fileTransfer.outgoing)) {
+                    vh.completedLayout.visibility = View.VISIBLE
+                    try {
+                        // This fails if the user's deleted the outgoing/received file.
+                        vh.imagePreview.setImageURI(Uri.parse(fileTransfer.destination))
+                    } catch (_: Exception) {
+                        vh.imagePreview.setImageURI(null)
+                        vh.completedLayout.visibility = View.GONE
+                    }
+                } else {
+                    vh.completedLayout.visibility = View.GONE
+                }
 
                 if (fileTransfer.isRejected() || fileTransfer.isComplete()) {
                     vh.acceptLayout.visibility = View.GONE
