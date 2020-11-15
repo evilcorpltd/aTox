@@ -80,6 +80,8 @@ dependencies {
 
     implementation(Libraries.multidex)
 
+    implementation(Libraries.picasso)
+
     implementation(Libraries.zxingAndroidEmbedded)
 
     debugImplementation(Libraries.leakcanaryAndroid)

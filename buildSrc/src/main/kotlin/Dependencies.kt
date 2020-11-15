@@ -77,6 +77,8 @@ object Libraries {
     const val dagger = "com.google.dagger:dagger:${Version.dagger}"
     const val daggerCompiler = "com.google.dagger:dagger-compiler:${Version.dagger}"
 
+    const val picasso = "com.squareup.picasso:picasso:2.8"
+
     // 3.6.0 is the last version before API 24 was required.
     const val zxingAndroidEmbedded = "com.journeyapps:zxing-android-embedded:3.6.0"
 

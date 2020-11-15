@@ -1,7 +1,6 @@
 package ltd.evilcorp.atox.ui.chat
 
 import android.content.res.Resources
-import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -15,6 +14,7 @@ import android.widget.ListView
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 import java.net.URLConnection
 import java.text.DateFormat
 import ltd.evilcorp.atox.R
@@ -179,13 +179,7 @@ class ChatAdapter(
 
                 if (fileTransfer.isImage() && (fileTransfer.isComplete() || fileTransfer.outgoing)) {
                     vh.completedLayout.visibility = View.VISIBLE
-                    try {
-                        // This fails if the user's deleted the outgoing/received file.
-                        vh.imagePreview.setImageURI(Uri.parse(fileTransfer.destination))
-                    } catch (_: Exception) {
-                        vh.imagePreview.setImageURI(null)
-                        vh.completedLayout.visibility = View.GONE
-                    }
+                    Picasso.get().load(fileTransfer.destination).into(vh.imagePreview)
                 } else {
                     vh.completedLayout.visibility = View.GONE
                 }
