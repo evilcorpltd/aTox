@@ -17,6 +17,7 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import java.net.URLConnection
 import java.text.DateFormat
+import kotlin.math.roundToInt
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.Message
@@ -179,7 +180,10 @@ class ChatAdapter(
 
                 if (fileTransfer.isImage() && (fileTransfer.isComplete() || fileTransfer.outgoing)) {
                     vh.completedLayout.visibility = View.VISIBLE
-                    Picasso.get().load(fileTransfer.destination).into(vh.imagePreview)
+                    Picasso.get().load(fileTransfer.destination)
+                        .resize((Resources.getSystem().displayMetrics.widthPixels * 0.75).roundToInt(), 0)
+                        .onlyScaleDown()
+                        .into(vh.imagePreview)
                 } else {
                     vh.completedLayout.visibility = View.GONE
                 }
