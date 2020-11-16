@@ -82,6 +82,8 @@ class EventListenerCallbacks @Inject constructor(
                         chatManager.resend(pending)
                     }
                 }
+            } else {
+                fileTransferManager.resetForContact(publicKey)
             }
         }
 

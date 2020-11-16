@@ -50,6 +50,14 @@ class FileTransferManager @Inject constructor(
         }
     }
 
+    fun resetForContact(pk: String) {
+        Log.i(TAG, "Clearing fts for contact ${pk.take(8)}")
+        fileTransfers.filter { it.publicKey == pk }.forEach { ft ->
+            setProgress(ft, FtRejected)
+            fileTransfers.remove(ft)
+        }
+    }
+
     fun add(ft: FileTransfer) {
         Log.i(TAG, "Add ${ft.fileNumber} for ${ft.publicKey.take(8)}")
         when (ft.fileKind) {
