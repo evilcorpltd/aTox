@@ -109,8 +109,11 @@ class ToxWrapper(
         Log.e(TAG, "Exception while accepting friend request $publicKey: $e")
     }
 
-    fun startFileTransfer(publicKey: PublicKey, fileNumber: Int) =
+    fun startFileTransfer(publicKey: PublicKey, fileNumber: Int) = try {
         tox.fileControl(contactByKey(publicKey), fileNumber, ToxFileControl.RESUME)
+    } catch (e: ToxFileControlException) {
+        Log.e(TAG, "Error starting ft ${publicKey.string().take(8)} $fileNumber\n$e")
+    }
 
     fun stopFileTransfer(publicKey: PublicKey, fileNumber: Int) = try {
         tox.fileControl(contactByKey(publicKey), fileNumber, ToxFileControl.CANCEL)
@@ -118,8 +121,11 @@ class ToxWrapper(
         Log.e(TAG, "Error stopping ft ${publicKey.string().take(8)} $fileNumber\n$e")
     }
 
-    fun sendFile(pk: PublicKey, fileKind: FileKind, fileSize: Long, fileName: String) =
+    fun sendFile(pk: PublicKey, fileKind: FileKind, fileSize: Long, fileName: String) = try {
         tox.fileSend(contactByKey(pk), fileKind.toToxtype(), fileSize, Random.nextBytes(32), fileName.toByteArray())
+    } catch (e: ToxFileControlException) {
+        Log.e(TAG, "Error sending ft $fileName ${pk.string().take(8)}\n$e")
+    }
 
     fun sendFileChunk(pk: PublicKey, fileNo: Int, pos: Long, data: ByteArray) = try {
         tox.fileSendChunk(contactByKey(pk), fileNo, pos, data)

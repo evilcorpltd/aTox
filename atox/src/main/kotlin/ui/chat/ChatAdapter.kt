@@ -27,8 +27,14 @@ import ltd.evilcorp.core.vo.isComplete
 import ltd.evilcorp.core.vo.isRejected
 import ltd.evilcorp.core.vo.isStarted
 
-private fun FileTransfer.isImage() =
+private const val TAG = "ChatAdapter"
+
+private fun FileTransfer.isImage() = try {
     URLConnection.guessContentTypeFromName(fileName).startsWith("image/")
+} catch (e: Exception) {
+    Log.e(TAG, e.toString())
+    false
+}
 
 private fun inflateView(type: ChatItemType, inflater: LayoutInflater): View =
     inflater.inflate(
@@ -73,8 +79,6 @@ private class FileTransferViewHolder(row: View) {
     val completedLayout = row.findViewById(R.id.completedLayout) as View
     val imagePreview = row.findViewById(R.id.imagePreview) as ImageView
 }
-
-private const val TAG = "ChatAdapter"
 
 class ChatAdapter(
     private val inflater: LayoutInflater,
