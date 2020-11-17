@@ -34,8 +34,16 @@ class ChatViewModel @Inject constructor(
     val messages: LiveData<List<Message>> by lazy { chatManager.messagesFor(publicKey).asLiveData() }
     val fileTransfers: LiveData<List<FileTransfer>> by lazy { fileTransferManager.transfersFor(publicKey).asLiveData() }
 
-    fun send(message: String, type: MessageType) = chatManager.sendMessage(publicKey, message, type)
-    fun queue(message: String, type: MessageType) = chatManager.queueMessage(publicKey, message, type)
+    var contactOnline = false
+
+    fun send(message: String, type: MessageType) {
+        if (contactOnline) {
+            chatManager.sendMessage(publicKey, message, type)
+        } else {
+            chatManager.queueMessage(publicKey, message, type)
+        }
+    }
+
     fun clearHistory() = chatManager.clearHistory(publicKey)
     fun setActiveChat(pubKey: PublicKey) {
         if (pubKey.string().isEmpty()) {

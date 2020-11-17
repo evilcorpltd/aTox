@@ -9,7 +9,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.MotionEvent
@@ -18,6 +17,7 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
@@ -42,7 +42,6 @@ import ltd.evilcorp.domain.tox.PublicKey
 const val CONTACT_PUBLIC_KEY = "publicKey"
 private const val REQUEST_CODE_FT_FILE = 1234
 private const val REQUEST_CODE_ATTACH = 5678
-private const val TAG = "ChatFragment"
 private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 20
 
 private fun trimString(s: String): String =
@@ -57,7 +56,6 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
 
     private lateinit var contactPubKey: String
     private var contactName = ""
-    private var contactOnline = false
     private var selectedFt: Int = Int.MIN_VALUE
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = binding.run {
@@ -84,10 +82,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         }
 
         toolbar.setNavigationIcon(R.drawable.back)
-        toolbar.setNavigationOnClickListener {
-            viewModel.setActiveChat(PublicKey(""))
-            activity?.onBackPressed()
-        }
+        toolbar.setNavigationOnClickListener { activity?.onBackPressed() }
 
         toolbar.inflateMenu(R.menu.chat_options_menu)
         toolbar.setOnMenuItemClickListener { item ->
@@ -110,26 +105,25 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         contactHeader.setOnClickListener {
             findNavController().navigate(
                 R.id.action_chatFragment_to_contactProfileFragment,
-                Bundle().apply { putString(CONTACT_PUBLIC_KEY, contactPubKey) }
+                bundleOf(CONTACT_PUBLIC_KEY to contactPubKey)
             )
         }
 
         viewModel.contact.observe(viewLifecycleOwner) {
             contactName = it.name
-            contactOnline = it.connectionStatus != ConnectionStatus.None
+            viewModel.contactOnline = it.connectionStatus != ConnectionStatus.None
 
             title.text = contactName
+            // TODO(robinlinden): Replace last message with last seen.
             subtitle.text = when {
                 it.typing -> getString(R.string.contact_typing)
                 it.lastMessage == 0L -> getString(R.string.never)
-                else ->
-                    DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT)
-                        .format(it.lastMessage) // TODO(robinlinden): Replace with last seen.
+                else -> DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(it.lastMessage)
             }.toLowerCase(Locale.getDefault())
 
             profileLayout.statusIndicator.setColorFilter(colorByStatus(resources, it))
             setAvatarFromContact(profileLayout.profileImage, it)
-            updateAttachButton()
+            updateActions()
         }
 
         val adapter = ChatAdapter(layoutInflater, resources)
@@ -157,29 +151,25 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                         startActivityForResult(it, REQUEST_CODE_FT_FILE)
                     }
                 }
-                R.id.reject -> viewModel.rejectFt(adapter.messages[position].correlationId)
-                R.id.cancel -> viewModel.rejectFt(adapter.messages[position].correlationId)
+                R.id.reject, R.id.cancel -> viewModel.rejectFt(adapter.messages[position].correlationId)
                 R.id.fileTransfer -> {
                     val id = adapter.messages[position].correlationId
                     val ft = adapter.fileTransfers.find { it.id == id } ?: return@setOnItemClickListener
                     if (ft.outgoing) return@setOnItemClickListener
                     if (!ft.isComplete()) return@setOnItemClickListener
+                    val contentType = URLConnection.guessContentTypeFromName(ft.fileName)
                     Intent(Intent.ACTION_VIEW).apply {
                         data = Uri.parse(ft.destination)
-                        type = URLConnection.guessContentTypeFromName(ft.fileName)
+                        type = contentType
                     }.also {
                         try {
                             startActivity(it)
-                        } catch (e: ActivityNotFoundException) {
+                        } catch (_: ActivityNotFoundException) {
                             Toast.makeText(
                                 requireContext(),
-                                getString(
-                                    R.string.mimetype_handler_not_found,
-                                    URLConnection.guessContentTypeFromName(ft.fileName)
-                                ),
+                                getString(R.string.mimetype_handler_not_found, contentType),
                                 Toast.LENGTH_LONG
                             ).show()
-                            Log.i(TAG, e.toString())
                         }
                     }
                 }
@@ -187,9 +177,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         }
 
         registerForContextMenu(send)
-        send.setOnClickListener {
-            sendMessage()
-        }
+        send.setOnClickListener { send(MessageType.Normal) }
 
         attach.setOnClickListener {
             Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
@@ -200,14 +188,12 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             }
         }
 
-        updateSendButton()
-        updateAttachButton()
-
         outgoingMessage.doAfterTextChanged {
             viewModel.setTyping(outgoingMessage.text.isNotEmpty())
-            updateAttachButton()
-            updateSendButton()
+            updateActions()
         }
+
+        updateActions()
     }
 
     override fun onPause() {
@@ -236,9 +222,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                     requireActivity().menuInflater.inflate(R.menu.chat_message_context_menu, menu)
                 }
             }
-            R.id.send -> {
-                requireActivity().menuInflater.inflate(R.menu.chat_send_long_press_menu, menu)
-            }
+            R.id.send -> requireActivity().menuInflater.inflate(R.menu.chat_send_long_press_menu, menu)
         }
     }
 
@@ -267,7 +251,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                 true
             }
             R.id.send_action -> {
-                sendAction()
+                send(MessageType.Action)
                 true
             }
             else -> super.onContextItemSelected(item)
@@ -292,45 +276,19 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         }
     }
 
-    private fun sendMessage() = binding.run {
-        val message = outgoingMessage.text.toString()
+    private fun send(type: MessageType) = binding.run {
+        viewModel.send(outgoingMessage.text.toString(), type)
         outgoingMessage.text.clear()
-        if (contactOnline) {
-            viewModel.send(message, MessageType.Normal)
-        } else {
-            viewModel.queue(message, MessageType.Normal)
-        }
     }
 
-    private fun sendAction() = binding.run {
-        val message = outgoingMessage.text.toString()
-        outgoingMessage.text.clear()
-        if (contactOnline) {
-            viewModel.send(message, MessageType.Action)
-        } else {
-            viewModel.queue(message, MessageType.Action)
-        }
-    }
-
-    private fun updateAttachButton() = binding.run {
-        attach.visibility = if (outgoingMessage.text.isNotEmpty()) View.GONE else View.VISIBLE
-        attach.isEnabled = outgoingMessage.text.isEmpty() && contactOnline
+    private fun updateActions() = binding.run {
+        send.visibility = if (outgoingMessage.text.isEmpty()) View.GONE else View.VISIBLE
+        attach.visibility = if (send.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+        attach.isEnabled = viewModel.contactOnline
         attach.setColorFilter(
             ResourcesCompat.getColor(
                 resources,
                 if (attach.isEnabled) R.color.colorPrimary else android.R.color.darker_gray,
-                null
-            )
-        )
-    }
-
-    private fun updateSendButton() = binding.run {
-        send.visibility = if (outgoingMessage.text.isEmpty()) View.GONE else View.VISIBLE
-        send.isEnabled = outgoingMessage.text.isNotEmpty()
-        send.setColorFilter(
-            ResourcesCompat.getColor(
-                resources,
-                if (send.isEnabled) R.color.colorPrimary else android.R.color.darker_gray,
                 null
             )
         )

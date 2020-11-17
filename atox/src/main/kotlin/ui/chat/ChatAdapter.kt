@@ -43,7 +43,7 @@ private fun inflateView(type: ChatItemType, inflater: LayoutInflater): View =
             ChatItemType.ReceivedMessage -> R.layout.chat_message_received
             ChatItemType.SentAction -> R.layout.chat_action_sent
             ChatItemType.ReceivedAction -> R.layout.chat_action_received
-            ChatItemType.ReceivedFileTransfer, ChatItemType.SentFileTransfer -> R.layout.chat_filetransfer
+            ChatItemType.FileTransfer -> R.layout.chat_filetransfer
         },
         null,
         true
@@ -54,8 +54,7 @@ private enum class ChatItemType {
     SentMessage,
     ReceivedAction,
     SentAction,
-    ReceivedFileTransfer,
-    SentFileTransfer,
+    FileTransfer,
 }
 
 private val types = ChatItemType.values()
@@ -101,10 +100,7 @@ class ChatAdapter(
                 Sender.Sent -> ChatItemType.SentAction.ordinal
                 Sender.Received -> ChatItemType.ReceivedAction.ordinal
             }
-            MessageType.FileTransfer -> when (sender) {
-                Sender.Sent -> ChatItemType.SentFileTransfer.ordinal
-                Sender.Received -> ChatItemType.ReceivedFileTransfer.ordinal
-            }
+            MessageType.FileTransfer -> ChatItemType.FileTransfer.ordinal
         }
     }
 
@@ -149,7 +145,7 @@ class ChatAdapter(
 
                 view
             }
-            ChatItemType.SentFileTransfer, ChatItemType.ReceivedFileTransfer -> {
+            ChatItemType.FileTransfer -> {
                 val message = messages[position]
                 var fileTransfer = fileTransfers.find { it.id == message.correlationId }
                 if (fileTransfer == null) {

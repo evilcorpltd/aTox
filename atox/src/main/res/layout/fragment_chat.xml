@@ -76,7 +76,8 @@
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/send"
                 android:visibility="gone"
-                app:srcCompat="@drawable/send" />
+                app:srcCompat="@drawable/send"
+                app:tint="@color/colorPrimary" />
 
         <ImageButton android:id="@+id/attach"
                 android:layout_width="wrap_content"
