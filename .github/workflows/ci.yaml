@@ -9,6 +9,7 @@ jobs:
       with:
         api-level: 29
         script: ./gradlew connectedCheck -x :atox:connectedAndroidTest -x :domain:connectedAndroidTest
+
   ktlint:
     runs-on: ubuntu-latest
     steps:
@@ -19,6 +20,7 @@ jobs:
         java-version: 1.8
     - name: ktlint
       run: ./gradlew ktlint
+
   build:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -37,3 +39,11 @@ jobs:
     - name: Building with Gradle
       run: ./gradlew build
 
+  bazel:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Bazelisk
+      run: wget https://github.com/bazelbuild/bazelisk/releases/download/v1.7.4/bazelisk-linux-amd64 --output-document=bazelisk
+    - name: Build with Bazel
+      run: USE_BAZEL_VERSION=3.7.0 bazelisk build //...
