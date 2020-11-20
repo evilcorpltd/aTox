@@ -72,20 +72,16 @@ idea {
 }
 
 dependencies {
-    implementation(Libraries.javaxInject)
+    implementation(JavaX.inject)
+    api(AndroidX.Room.runtime)
+    api(AndroidX.Room.ktx)
+    kapt(AndroidX.Room.compiler)
+    implementation(Google.dagger)
+    kapt(Google.Dagger.compiler)
 
-    // Room
-    api(Libraries.roomRuntime)
-    api(Libraries.roomKtx)
-    kapt(Libraries.roomCompiler)
+    testImplementation(Test.junit)
 
-    // Dagger
-    implementation(Libraries.dagger)
-    kapt(Libraries.daggerCompiler)
-
-    testImplementation(Libraries.junit)
-
-    androidTestImplementation(Libraries.runner)
-    androidTestImplementation(Libraries.androidJUnit)
-    androidTestImplementation(Libraries.roomTesting)
+    androidTestImplementation(AndroidX.Test.runner)
+    androidTestImplementation(AndroidX.Test.Ext.junit)
+    androidTestImplementation(AndroidX.Room.testing)
 }

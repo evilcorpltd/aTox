@@ -58,40 +58,41 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":domain"))
 
-    implementation(Libraries.androidxCoreKtx)
+    implementation(AndroidX.Core.ktx)
+    implementation(AndroidX.appcompat)
+    implementation(AndroidX.constraintlayout)
 
-    implementation(Libraries.appcompat)
-    implementation(Libraries.constraintlayout)
+    implementation(Google.Android.material)
 
-    implementation(Libraries.material)
-    implementation(Libraries.ktxCoroutinesCore)
-    implementation(Libraries.ktxCoroutinesAndroid)
+    implementation(KotlinX.Coroutines.core)
+    implementation(KotlinX.Coroutines.android)
 
-    implementation(Libraries.navigationFragmentKtx)
-    implementation(Libraries.navigationUiKtx)
+    implementation(AndroidX.Navigation.fragmentKtx)
+    implementation(AndroidX.Navigation.uiKtx)
 
-    implementation(Libraries.preference)
+    implementation(AndroidX.preference)
 
-    implementation(Libraries.lifecycleExtensions)
-    implementation(Libraries.lifecycleLivedataKtx)
+    implementation(AndroidX.Lifecycle.extensions)
+    implementation(AndroidX.Lifecycle.livedataKtx)
 
-    implementation(Libraries.dagger)
-    kapt(Libraries.daggerCompiler)
+    implementation(Google.dagger)
+    kapt(Google.Dagger.compiler)
 
-    implementation(Libraries.multidex)
+    implementation(AndroidX.multidex)
 
-    implementation(Libraries.picasso)
+    implementation(Square.picasso)
 
-    implementation(Libraries.zxingAndroidEmbedded)
+    implementation(JourneyApps.zxing)
 
-    debugImplementation(Libraries.leakcanaryAndroid)
+    debugImplementation(Square.leakcanary)
 
-    testImplementation(Libraries.junit)
-    androidTestImplementation(Libraries.rules)
-    androidTestImplementation(Libraries.runner)
-    androidTestImplementation(Libraries.espressoCore)
-    androidTestImplementation(Libraries.espressoContrib)
-    androidTestImplementation(Libraries.androidJUnit)
-    androidTestImplementation(Libraries.mockk)
-    kaptAndroidTest(Libraries.daggerCompiler)
+    testImplementation(Test.junit)
+
+    androidTestImplementation(AndroidX.Test.rules)
+    androidTestImplementation(AndroidX.Test.runner)
+    androidTestImplementation(AndroidX.Test.Espresso.core)
+    androidTestImplementation(AndroidX.Test.Espresso.contrib)
+    androidTestImplementation(AndroidX.Test.Ext.junit)
+    androidTestImplementation(Test.mockk)
+    kaptAndroidTest(Google.Dagger.compiler)
 }
