@@ -43,7 +43,7 @@ private fun inflateView(type: ChatItemType, inflater: LayoutInflater): View =
             ChatItemType.ReceivedMessage -> R.layout.chat_message_received
             ChatItemType.SentAction -> R.layout.chat_action_sent
             ChatItemType.ReceivedAction -> R.layout.chat_action_received
-            ChatItemType.FileTransfer -> R.layout.chat_filetransfer
+            ChatItemType.SentFileTransfer, ChatItemType.ReceivedFileTransfer -> R.layout.chat_filetransfer
         },
         null,
         true
@@ -54,7 +54,8 @@ private enum class ChatItemType {
     SentMessage,
     ReceivedAction,
     SentAction,
-    FileTransfer,
+    ReceivedFileTransfer,
+    SentFileTransfer,
 }
 
 private val types = ChatItemType.values()
@@ -100,7 +101,10 @@ class ChatAdapter(
                 Sender.Sent -> ChatItemType.SentAction.ordinal
                 Sender.Received -> ChatItemType.ReceivedAction.ordinal
             }
-            MessageType.FileTransfer -> ChatItemType.FileTransfer.ordinal
+            MessageType.FileTransfer -> when (sender) {
+                Sender.Sent -> ChatItemType.SentFileTransfer.ordinal
+                Sender.Received -> ChatItemType.ReceivedFileTransfer.ordinal
+            }
         }
     }
 
@@ -145,12 +149,12 @@ class ChatAdapter(
 
                 view
             }
-            ChatItemType.FileTransfer -> {
+            ChatItemType.ReceivedFileTransfer, ChatItemType.SentFileTransfer -> {
                 val message = messages[position]
                 var fileTransfer = fileTransfers.find { it.id == message.correlationId }
                 if (fileTransfer == null) {
                     Log.e(TAG, "Unable to find ft ${message.correlationId} for ${message.publicKey} required for view")
-                    fileTransfer = FileTransfer("", 0, 0, 0, "", false)
+                    fileTransfer = FileTransfer("", 0, 0, 0, "", message.sender == Sender.Sent)
                 }
 
                 val view: View
