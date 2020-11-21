@@ -218,9 +218,11 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             R.id.messages -> {
                 val info = menuInfo as AdapterView.AdapterContextMenuInfo
                 val message = messages.adapter.getItem(info.position) as Message
-                if (message.type != MessageType.FileTransfer) {
-                    requireActivity().menuInflater.inflate(R.menu.chat_message_context_menu, menu)
+                val id = when (message.type) {
+                    MessageType.Action, MessageType.Normal -> R.menu.chat_message_context_menu
+                    MessageType.FileTransfer -> R.menu.ft_message_context_menu
                 }
+                requireActivity().menuInflater.inflate(id, menu)
             }
             R.id.send -> requireActivity().menuInflater.inflate(R.menu.chat_send_long_press_menu, menu)
         }
@@ -245,7 +247,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                     .setTitle(R.string.clear_history)
                     .setMessage(getString(R.string.delete_message_confirm, trimString(message.message)))
                     .setPositiveButton(R.string.delete) { _, _ ->
-                        viewModel.deleteMessage(message.id)
+                        viewModel.delete(message)
                     }
                     .setNegativeButton(R.string.cancel, null).show()
                 true

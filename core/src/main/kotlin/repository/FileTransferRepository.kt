@@ -13,8 +13,8 @@ class FileTransferRepository @Inject internal constructor(
     fun add(ft: FileTransfer): Long =
         dao.save(ft)
 
-    fun delete(ft: FileTransfer) =
-        dao.delete(ft)
+    fun delete(id: Int) =
+        dao.delete(id)
 
     fun get(publicKey: String): Flow<List<FileTransfer>> =
         dao.load(publicKey)

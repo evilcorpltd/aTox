@@ -26,6 +26,7 @@ import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.core.vo.isComplete
+import ltd.evilcorp.core.vo.isStarted
 import ltd.evilcorp.domain.tox.MAX_AVATAR_SIZE
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
@@ -298,5 +299,13 @@ class FileTransferManager @Inject constructor(
             Log.i(TAG, "Friend canceled ft ${pk.take(8)} $fileNo")
             reject(ft)
         }
+    }
+
+    fun delete(id: Int) {
+        fileTransfers.find { it.id == id }?.let {
+            if (it.isStarted() && !it.isComplete()) { reject(it) }
+            fileTransfers.remove(it)
+        }
+        fileTransferRepository.delete(id)
     }
 }

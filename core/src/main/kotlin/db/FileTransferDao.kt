@@ -1,7 +1,6 @@
 package ltd.evilcorp.core.db
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -14,8 +13,8 @@ internal interface FileTransferDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(fileTransfer: FileTransfer): Long
 
-    @Delete
-    fun delete(fileTransfer: FileTransfer)
+    @Query("DELETE FROM file_transfers WHERE id == :id")
+    fun delete(id: Int)
 
     @Query("SELECT * FROM file_transfers WHERE public_key == :publicKey")
     fun load(publicKey: String): Flow<List<FileTransfer>>

@@ -78,7 +78,10 @@ class ChatViewModel @Inject constructor(
         fileTransferManager.create(publicKey, file)
     }
 
-    fun deleteMessage(id: Long) = launch {
-        chatManager.deleteMessage(id)
+    fun delete(msg: Message) = launch {
+        if (msg.type == MessageType.FileTransfer) {
+            fileTransferManager.delete(msg.correlationId)
+        }
+        chatManager.deleteMessage(msg.id)
     }
 }
