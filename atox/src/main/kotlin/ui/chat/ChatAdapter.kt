@@ -17,6 +17,7 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import java.net.URLConnection
 import java.text.DateFormat
+import java.util.Locale
 import kotlin.math.roundToInt
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.core.vo.FileTransfer
@@ -70,6 +71,7 @@ private class FileTransferViewHolder(row: View) {
     val container = row.findViewById(R.id.fileTransferContainer) as LinearLayout
     val fileName = row.findViewById(R.id.fileName) as TextView
     val progress = row.findViewById(R.id.progress) as ProgressBar
+    val state = row.findViewById(R.id.state) as TextView
     val timestamp = row.findViewById(R.id.timestamp) as TextView
     val acceptLayout = row.findViewById(R.id.acceptLayout) as View
     val accept = row.findViewById(R.id.accept) as Button
@@ -192,10 +194,12 @@ class ChatAdapter(
                     vh.completedLayout.visibility = View.GONE
                 }
 
+                vh.state.visibility = View.GONE
                 if (fileTransfer.isRejected() || fileTransfer.isComplete()) {
                     vh.acceptLayout.visibility = View.GONE
                     vh.cancelLayout.visibility = View.GONE
-                    vh.progress.visibility = if (fileTransfer.isRejected()) View.GONE else View.VISIBLE
+                    vh.progress.visibility = View.GONE
+                    vh.state.visibility = View.VISIBLE
                 } else if (!fileTransfer.isStarted()) {
                     if (fileTransfer.outgoing) {
                         vh.acceptLayout.visibility = View.GONE
@@ -215,6 +219,9 @@ class ChatAdapter(
                 vh.fileName.text = fileTransfer.fileName
                 vh.progress.max = fileTransfer.fileSize.toInt()
                 vh.progress.progress = fileTransfer.progress.toInt()
+                // TODO(robinlinden): paused, but that requires a database update and a release is overdue.
+                val stateId = if (fileTransfer.isRejected()) R.string.cancelled else R.string.completed
+                vh.state.text = resources.getString(stateId).toLowerCase(Locale.getDefault())
                 vh.timestamp.text = timeFormatter.format(message.timestamp)
 
                 vh.timestamp.visibility = if (position == messages.lastIndex) {
