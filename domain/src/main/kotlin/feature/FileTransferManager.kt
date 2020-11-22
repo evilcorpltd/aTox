@@ -44,10 +44,20 @@ class FileTransferManager @Inject constructor(
 ) {
     private val fileTransfers: MutableList<FileTransfer> = mutableListOf()
 
+    init {
+        File(context.cacheDir, "ft").deleteRecursively()
+    }
+
     fun reset() {
         fileTransfers.clear()
         GlobalScope.launch {
             fileTransferRepository.resetTransientData()
+        }
+    }
+
+    private fun clearTmpFile(ft: FileTransfer) {
+        if (ft.fileKind == FileKind.Data.ordinal) {
+            tmpFileFor(Uri.parse(ft.destination)).delete()
         }
     }
 
@@ -56,6 +66,7 @@ class FileTransferManager @Inject constructor(
         fileTransfers.filter { it.publicKey == pk }.forEach { ft ->
             setProgress(ft, FtRejected)
             fileTransfers.remove(ft)
+            clearTmpFile(ft)
         }
     }
 
@@ -146,6 +157,7 @@ class FileTransferManager @Inject constructor(
         setProgress(ft, FtRejected)
         fileTransfers.remove(ft)
         tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
+        clearTmpFile(ft)
     }
 
     private fun setDestination(ft: FileTransfer, destination: Uri?) {
