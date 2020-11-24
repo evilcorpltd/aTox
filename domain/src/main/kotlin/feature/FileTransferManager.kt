@@ -154,8 +154,8 @@ class FileTransferManager @Inject constructor(
 
     fun reject(ft: FileTransfer) {
         Log.i(TAG, "Reject ${ft.fileNumber} for ${ft.publicKey.take(8)}")
-        setProgress(ft, FtRejected)
         fileTransfers.remove(ft)
+        setProgress(ft, FtRejected)
         tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
         clearTmpFile(ft)
     }
@@ -168,13 +168,10 @@ class FileTransferManager @Inject constructor(
     }
 
     private fun setProgress(ft: FileTransfer, progress: Long) {
-        try {
-            fileTransfers[fileTransfers.indexOf(ft)].progress = progress
-            if (ft.fileKind == FileKind.Data.ordinal) {
-                fileTransferRepository.updateProgress(ft.id, progress)
-            }
-        } catch (e: ArrayIndexOutOfBoundsException) {
-            Log.e(TAG, "Tried setting the progress for an unknown ft ${ft.publicKey.take(8)} ${ft.fileNumber}")
+        val id = fileTransfers.indexOf(ft)
+        fileTransfers.elementAtOrNull(id)?.progress = progress
+        if (ft.fileKind == FileKind.Data.ordinal) {
+            fileTransferRepository.updateProgress(ft.id, progress)
         }
     }
 
