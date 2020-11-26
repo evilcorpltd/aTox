@@ -1,6 +1,7 @@
 package ltd.evilcorp.atox.ui.chat
 
 import android.content.res.Resources
+import android.text.format.Formatter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -70,6 +71,7 @@ private class MessageViewHolder(row: View) {
 private class FileTransferViewHolder(row: View) {
     val container = row.findViewById(R.id.fileTransferContainer) as LinearLayout
     val fileName = row.findViewById(R.id.fileName) as TextView
+    val fileSize = row.findViewById(R.id.fileSize) as TextView
     val progress = row.findViewById(R.id.progress) as ProgressBar
     val state = row.findViewById(R.id.state) as TextView
     val timestamp = row.findViewById(R.id.timestamp) as TextView
@@ -217,6 +219,7 @@ class ChatAdapter(
                 }
 
                 vh.fileName.text = fileTransfer.fileName
+                vh.fileSize.text = Formatter.formatFileSize(inflater.context, fileTransfer.fileSize)
                 vh.progress.max = fileTransfer.fileSize.toInt()
                 vh.progress.progress = fileTransfer.progress.toInt()
                 // TODO(robinlinden): paused, but that requires a database update and a release is overdue.
