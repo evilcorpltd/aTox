@@ -47,10 +47,10 @@ maven_install(
         "androidx.room:room-compiler:2.2.5",
         "androidx.room:room-ktx:2.2.5",
         "androidx.room:room-runtime:2.2.5",
-        "com.google.dagger:dagger-compiler:2.29.1",
-        "com.google.dagger:dagger:2.29.1",
+        "com.google.dagger:dagger-compiler:2.30.1",
+        "com.google.dagger:dagger:2.30.1",
         "javax.inject:javax.inject:1",
-        "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2",
     ],
     repositories = [
         "https://jcenter.bintray.com/",

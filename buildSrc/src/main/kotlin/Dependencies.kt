@@ -20,7 +20,7 @@ object BuildPlugin {
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
     const val ideaExt = "org.jetbrains.gradle.plugin.idea-ext"
-    const val ideaExtVersion = "0.9"
+    const val ideaExtVersion = "0.10"
 
     const val versions = "com.github.ben-manes.versions"
     const val versionsVersion = "0.36.0"
@@ -38,7 +38,7 @@ object JavaX {
 
 object KotlinX {
     object Coroutines {
-        private const val version = "1.4.1"
+        private const val version = "1.4.2"
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
     }
@@ -98,7 +98,7 @@ object Google {
 
     const val dagger = "com.google.dagger:dagger:${Dagger.version}"
     object Dagger {
-        internal const val version = "2.29.1"
+        internal const val version = "2.30.1"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
     }
 }
