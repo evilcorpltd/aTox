@@ -33,8 +33,6 @@ import ltd.evilcorp.domain.tox.toMessageType
 
 private const val TAG = "EventListenerCallbacks"
 
-private fun getDate() = Date().time
-
 @Singleton
 class EventListenerCallbacks @Inject constructor(
     private val ctx: Context,
@@ -66,7 +64,7 @@ class EventListenerCallbacks @Inject constructor(
         }
 
         friendReadReceiptHandler = { publicKey, messageId ->
-            messageRepository.setReceipt(publicKey, messageId, getDate())
+            messageRepository.setReceipt(publicKey, messageId, Date().time)
         }
 
         friendStatusHandler = { publicKey, status ->
@@ -95,10 +93,8 @@ class EventListenerCallbacks @Inject constructor(
         }
 
         friendMessageHandler = { publicKey, type, _, msg ->
-            val time = getDate()
-            contactRepository.setLastMessage(publicKey, time)
             messageRepository.add(
-                Message(publicKey, msg, Sender.Received, type.toMessageType(), Int.MIN_VALUE, time)
+                Message(publicKey, msg, Sender.Received, type.toMessageType(), Int.MIN_VALUE, Date().time)
             )
 
             if (chatManager.activeChat != publicKey) {
@@ -118,7 +114,6 @@ class EventListenerCallbacks @Inject constructor(
         fileRecvHandler = { publicKey, fileNumber, kind, fileSize, filename ->
             val name = if (kind == FileKind.Avatar.ordinal) publicKey else filename
             if (kind == FileKind.Data.ordinal) {
-                contactRepository.setLastMessage(publicKey, getDate())
                 if (chatManager.activeChat != publicKey) {
                     val msg = ctx.getString(R.string.notification_file_transfer, name)
                     notificationHelper.showMessageNotification(contactByPublicKey(publicKey), msg)

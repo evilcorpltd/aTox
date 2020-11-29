@@ -1,5 +1,6 @@
 package ltd.evilcorp.core.repository
 
+import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
@@ -8,10 +9,13 @@ import ltd.evilcorp.core.vo.Message
 
 @Singleton
 class MessageRepository @Inject internal constructor(
-    private val messageDao: MessageDao
+    private val messageDao: MessageDao,
+    private val contactRepository: ContactRepository,
 ) {
-    fun add(message: Message) =
+    fun add(message: Message) {
         messageDao.save(message)
+        contactRepository.setLastMessage(message.publicKey, Date().time)
+    }
 
     fun get(conversation: String): Flow<List<Message>> =
         messageDao.load(conversation)
