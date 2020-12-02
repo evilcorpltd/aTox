@@ -1,14 +1,24 @@
 package ltd.evilcorp.atox.ui.chat
 
+import android.content.ContentResolver
+import android.content.Context
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import java.io.File
+import java.io.FileInputStream
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FileTransfer
@@ -25,7 +35,9 @@ class ChatViewModel @Inject constructor(
     private val chatManager: ChatManager,
     private val contactManager: ContactManager,
     private val fileTransferManager: FileTransferManager,
-    private val notificationHelper: NotificationHelper
+    private val notificationHelper: NotificationHelper,
+    private val resolver: ContentResolver,
+    private val context: Context
 ) : ViewModel(), CoroutineScope by GlobalScope {
     private var publicKey = PublicKey("")
     private var sentTyping = false
@@ -66,8 +78,8 @@ class ChatViewModel @Inject constructor(
         }
     }
 
-    fun acceptFt(id: Int, destination: Uri) = launch {
-        fileTransferManager.accept(id, destination)
+    fun acceptFt(id: Int) = launch {
+        fileTransferManager.accept(id)
     }
 
     fun rejectFt(id: Int) = launch {
@@ -83,5 +95,27 @@ class ChatViewModel @Inject constructor(
             fileTransferManager.delete(msg.correlationId)
         }
         chatManager.deleteMessage(msg.id)
+    }
+
+    fun exportFt(id: Int, dest: Uri) = launch {
+        fileTransferManager.get(id).take(1).collect { ft ->
+            launch(Dispatchers.IO) {
+                try {
+                    val ins = FileInputStream(File(Uri.parse(ft.destination).path!!))
+                    val os = resolver.openOutputStream(dest)
+                    ins.copyTo(os!!)
+                    os.close()
+                    ins.close()
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(context, R.string.export_file_success, Toast.LENGTH_LONG).show()
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, e.toString())
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(context, R.string.export_file_failure, Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+        }
     }
 }

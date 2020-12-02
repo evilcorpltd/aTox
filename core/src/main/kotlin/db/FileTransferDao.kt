@@ -19,6 +19,9 @@ internal interface FileTransferDao {
     @Query("SELECT * FROM file_transfers WHERE public_key == :publicKey")
     fun load(publicKey: String): Flow<List<FileTransfer>>
 
+    @Query("SELECT * FROM file_transfers WHERE id == :id")
+    fun load(id: Int): Flow<FileTransfer>
+
     @Query("UPDATE file_transfers SET progress = :progress WHERE id == :id AND progress != :rejected")
     fun updateProgress(id: Int, progress: Long, rejected: Long = FtRejected)
 

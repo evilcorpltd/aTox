@@ -7,12 +7,14 @@ import android.provider.OpenableColumns
 import android.util.Log
 import im.tox.tox4j.core.enums.ToxFileControl
 import java.io.File
-import java.io.FileInputStream
 import java.io.RandomAccessFile
 import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.random.Random
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FileTransferRepository
@@ -45,7 +47,7 @@ class FileTransferManager @Inject constructor(
     private val fileTransfers: MutableList<FileTransfer> = mutableListOf()
 
     init {
-        File(context.cacheDir, "ft").deleteRecursively()
+        File(context.filesDir, "ft").mkdir()
     }
 
     fun reset() {
@@ -55,18 +57,12 @@ class FileTransferManager @Inject constructor(
         }
     }
 
-    private fun clearTmpFile(ft: FileTransfer) {
-        if (ft.fileKind == FileKind.Data.ordinal) {
-            tmpFileFor(Uri.parse(ft.destination)).delete()
-        }
-    }
-
     fun resetForContact(pk: String) {
         Log.i(TAG, "Clearing fts for contact ${pk.take(8)}")
         fileTransfers.filter { it.publicKey == pk }.forEach { ft ->
             setProgress(ft, FtRejected)
             fileTransfers.remove(ft)
-            clearTmpFile(ft)
+            File(ft.destination).delete()
         }
     }
 
@@ -108,19 +104,21 @@ class FileTransferManager @Inject constructor(
         }
     }
 
-    fun accept(id: Int, destination: Uri? = null) {
+    fun accept(id: Int) {
         fileTransfers.find { it.id == id }?.let {
-            accept(it, destination)
+            accept(it)
         } ?: Log.e(TAG, "Unable to find & accept ft $id")
     }
 
-    fun accept(ft: FileTransfer, destination: Uri? = null) {
+    fun accept(ft: FileTransfer) {
         Log.i(TAG, "Accept ${ft.fileNumber} for ${ft.publicKey.take(8)}")
         when (ft.fileKind) {
             FileKind.Data.ordinal -> {
-                require(destination != null)
-                setDestination(ft, destination)
-                RandomAccessFile(tmpFileFor(destination), "rwd").run {
+                val dest = makeDestination(ft)
+                setDestination(ft, dest)
+                val file = File(dest.path!!)
+                file.parentFile!!.mkdirs()
+                RandomAccessFile(file, "rwd").run {
                     setLength(ft.fileSize)
                     close()
                 }
@@ -157,13 +155,13 @@ class FileTransferManager @Inject constructor(
         fileTransfers.remove(ft)
         setProgress(ft, FtRejected)
         tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
-        clearTmpFile(ft)
+        File(Uri.parse(ft.destination).path!!).delete()
     }
 
-    private fun setDestination(ft: FileTransfer, destination: Uri?) {
-        fileTransfers[fileTransfers.indexOf(ft)].destination = destination?.toString() ?: ""
+    private fun setDestination(ft: FileTransfer, destination: Uri) {
+        fileTransfers[fileTransfers.indexOf(ft)].destination = destination.toString()
         if (ft.fileKind == FileKind.Data.ordinal) {
-            fileTransferRepository.setDestination(ft.id, destination?.toString() ?: "")
+            fileTransferRepository.setDestination(ft.id, destination.toString())
         }
     }
 
@@ -189,18 +187,10 @@ class FileTransferManager @Inject constructor(
             return
         }
 
-        if (ft.fileKind == FileKind.Data.ordinal) {
-            RandomAccessFile(tmpFileFor(Uri.parse(ft.destination)), "rwd").run {
-                seek(position)
-                write(data)
-                close()
-            }
-        } else {
-            RandomAccessFile(File(Uri.parse(ft.destination).path!!), "rwd").apply {
-                seek(position)
-                write(data)
-                close()
-            }
+        RandomAccessFile(File(Uri.parse(ft.destination).path!!), "rwd").apply {
+            seek(position)
+            write(data)
+            close()
         }
 
         setProgress(ft, ft.progress + data.size)
@@ -209,26 +199,12 @@ class FileTransferManager @Inject constructor(
             Log.i(TAG, "Finished ${ft.fileNumber} for ${ft.publicKey.take(8)}")
             if (ft.fileKind == FileKind.Avatar.ordinal) {
                 contactRepository.setAvatarUri(ft.publicKey, ft.destination)
-            } else {
-                val file = tmpFileFor(Uri.parse(ft.destination))
-                val ins = FileInputStream(file)
-                val os = resolver.openOutputStream(Uri.parse(ft.destination))
-                ins.copyTo(os!!)
-                os.close()
-                ins.close()
-                file.delete()
             }
             fileTransfers.remove(ft)
         }
     }
 
     fun transfersFor(publicKey: PublicKey) = fileTransferRepository.get(publicKey.string())
-
-    private fun tmpFileFor(uri: Uri): File {
-        val folder = File(context.cacheDir, "ft")
-        if (!folder.exists()) folder.mkdir()
-        return File(folder, uri.hashCode().toString())
-    }
 
     suspend fun create(pk: PublicKey, file: Uri) {
         val cursor = context.contentResolver.query(file, null, null, null, null, null)
@@ -310,11 +286,21 @@ class FileTransferManager @Inject constructor(
         }
     }
 
-    fun delete(id: Int) {
+    suspend fun delete(id: Int) {
         fileTransfers.find { it.id == id }?.let {
             if (it.isStarted() && !it.isComplete()) { reject(it) }
             fileTransfers.remove(it)
         }
-        fileTransferRepository.delete(id)
+        fileTransferRepository.get(id).take(1).collect {
+            if (!it.outgoing && it.destination.startsWith("file://")) {
+                File(Uri.parse(it.destination).path!!).delete()
+            }
+            fileTransferRepository.delete(id)
+        }
     }
+
+    fun get(id: Int) = fileTransferRepository.get(id)
+
+    private fun makeDestination(ft: FileTransfer) =
+        Uri.fromFile(File(File(File(context.filesDir, "ft"), ft.publicKey.take(8)), Random.nextLong().toString()))
 }

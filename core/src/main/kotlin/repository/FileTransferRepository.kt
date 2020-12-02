@@ -19,6 +19,9 @@ class FileTransferRepository @Inject internal constructor(
     fun get(publicKey: String): Flow<List<FileTransfer>> =
         dao.load(publicKey)
 
+    fun get(id: Int): Flow<FileTransfer> =
+        dao.load(id)
+
     fun setDestination(id: Int, destination: String) =
         dao.setDestination(id, destination)
 

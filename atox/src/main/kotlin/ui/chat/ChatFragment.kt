@@ -15,6 +15,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.core.content.FileProvider
 import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
@@ -22,6 +23,7 @@ import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import java.io.File
 import java.net.URLConnection
 import java.text.DateFormat
 import java.util.Locale
@@ -34,13 +36,14 @@ import ltd.evilcorp.atox.ui.colorByStatus
 import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.isComplete
 import ltd.evilcorp.domain.tox.PublicKey
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
-private const val REQUEST_CODE_FT_FILE = 1234
+private const val REQUEST_CODE_FT_EXPORT = 1234
 private const val REQUEST_CODE_ATTACH = 5678
 private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 20
 
@@ -57,6 +60,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
     private lateinit var contactPubKey: String
     private var contactName = ""
     private var selectedFt: Int = Int.MIN_VALUE
+    private var fts: List<FileTransfer> = listOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = binding.run {
         contactPubKey = requireStringArg(CONTACT_PUBLIC_KEY)
@@ -135,42 +139,40 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         }
 
         viewModel.fileTransfers.observe(viewLifecycleOwner) {
+            fts = it
             adapter.fileTransfers = it
             adapter.notifyDataSetChanged()
         }
 
         messages.setOnItemClickListener { _, view, position, _ ->
             when (view.id) {
-                R.id.accept -> {
-                    selectedFt = adapter.messages[position].correlationId
-                    Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-                        addCategory(Intent.CATEGORY_OPENABLE)
-                        type = "application/octet-stream"
-                        putExtra(Intent.EXTRA_TITLE, adapter.messages[position].message)
-                    }.also {
-                        startActivityForResult(it, REQUEST_CODE_FT_FILE)
-                    }
-                }
+                R.id.accept -> viewModel.acceptFt(adapter.messages[position].correlationId)
                 R.id.reject, R.id.cancel -> viewModel.rejectFt(adapter.messages[position].correlationId)
                 R.id.fileTransfer -> {
                     val id = adapter.messages[position].correlationId
                     val ft = adapter.fileTransfers.find { it.id == id } ?: return@setOnItemClickListener
                     if (ft.outgoing) return@setOnItemClickListener
                     if (!ft.isComplete()) return@setOnItemClickListener
+                    if (!ft.destination.startsWith("file://")) return@setOnItemClickListener
                     val contentType = URLConnection.guessContentTypeFromName(ft.fileName)
-                    Intent(Intent.ACTION_VIEW).apply {
-                        data = Uri.parse(ft.destination)
-                        type = contentType
-                    }.also {
-                        try {
-                            startActivity(it)
-                        } catch (_: ActivityNotFoundException) {
-                            Toast.makeText(
-                                requireContext(),
-                                getString(R.string.mimetype_handler_not_found, contentType),
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
+                    val uri = FileProvider.getUriForFile(
+                        requireContext(),
+                        "ltd.evilcorp.fileprovider",
+                        File(Uri.parse(ft.destination).path!!)
+                    )
+                    val shareIntent = Intent(Intent.ACTION_VIEW).apply {
+                        putExtra(Intent.EXTRA_TITLE, ft.fileName)
+                        setDataAndType(uri, contentType)
+                        flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    }
+                    try {
+                        startActivity(Intent.createChooser(shareIntent, null))
+                    } catch (_: ActivityNotFoundException) {
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.mimetype_handler_not_found, contentType),
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
             }
@@ -214,15 +216,21 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
     ) = binding.run {
         super.onCreateContextMenu(menu, v, menuInfo)
         v.dispatchTouchEvent(MotionEvent.obtain(0, 0, MotionEvent.ACTION_CANCEL, 0f, 0f, 0))
+        val inflater = requireActivity().menuInflater
         when (v.id) {
             R.id.messages -> {
                 val info = menuInfo as AdapterView.AdapterContextMenuInfo
                 val message = messages.adapter.getItem(info.position) as Message
-                val id = when (message.type) {
-                    MessageType.Action, MessageType.Normal -> R.menu.chat_message_context_menu
-                    MessageType.FileTransfer -> R.menu.ft_message_context_menu
+                when (message.type) {
+                    MessageType.Action, MessageType.Normal -> inflater.inflate(R.menu.chat_message_context_menu, menu)
+                    MessageType.FileTransfer -> {
+                        inflater.inflate(R.menu.ft_message_context_menu, menu)
+                        val ft = fts.find { it.id == message.correlationId } ?: return
+                        if (!ft.isComplete() || ft.outgoing || !ft.destination.startsWith("file://")) {
+                            menu.findItem(R.id.export).isVisible = false
+                        }
+                    }
                 }
-                requireActivity().menuInflater.inflate(id, menu)
             }
             R.id.send -> requireActivity().menuInflater.inflate(R.menu.chat_send_long_press_menu, menu)
         }
@@ -256,6 +264,19 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                 send(MessageType.Action)
                 true
             }
+            R.id.export -> {
+                val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
+                val message = messages.adapter.getItem(info.position) as Message
+                selectedFt = message.correlationId
+                Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                    addCategory(Intent.CATEGORY_OPENABLE)
+                    type = "application/octet-stream"
+                    putExtra(Intent.EXTRA_TITLE, message.message)
+                }.let {
+                    startActivityForResult(it, REQUEST_CODE_FT_EXPORT)
+                }
+                true
+            }
             else -> super.onContextItemSelected(item)
         }
     }
@@ -264,9 +285,9 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         // Runs before onResume, so add back some required state..
         viewModel.setActiveChat(PublicKey(contactPubKey))
         when (requestCode) {
-            REQUEST_CODE_FT_FILE -> {
+            REQUEST_CODE_FT_EXPORT -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
-                    viewModel.acceptFt(selectedFt, data.data as Uri)
+                    viewModel.exportFt(selectedFt, data.data as Uri)
                 }
             }
             REQUEST_CODE_ATTACH -> {
