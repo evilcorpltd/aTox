@@ -42,7 +42,6 @@
                 android:background="@null"
                 android:contentDescription="@string/status_indicator"
                 android:src="@drawable/circle"
-                android:tint="@color/statusOffline"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="1"
                 app:layout_constraintLeft_toRightOf="@+id/profileStatusMessage"
