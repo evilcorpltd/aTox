@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import javax.inject.Inject
 import ltd.evilcorp.atox.di.ViewModelFactory
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.findNavController()?.navigate(
                 R.id.action_contactListFragment_to_addContactFragment,
-                Bundle().apply { putString("toxId", data.drop(SCHEME.length)) }
+                bundleOf("toxId" to data.drop(SCHEME.length))
             )
         }
     }

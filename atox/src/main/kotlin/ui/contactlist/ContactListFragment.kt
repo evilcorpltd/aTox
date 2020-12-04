@@ -18,6 +18,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
@@ -287,11 +288,11 @@ class ContactListFragment :
 
     private fun openChat(contact: Contact) = findNavController().navigate(
         R.id.action_contactListFragment_to_chatFragment,
-        Bundle().apply { putString(CONTACT_PUBLIC_KEY, contact.publicKey) }
+        bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey)
     )
 
     private fun openFriendRequest(friendRequest: FriendRequest) = findNavController().navigate(
         R.id.action_contactListFragment_to_friendRequestFragment,
-        Bundle().apply { putString(FRIEND_REQUEST_PUBLIC_KEY, friendRequest.publicKey) }
+        bundleOf(FRIEND_REQUEST_PUBLIC_KEY to friendRequest.publicKey)
     )
 }
