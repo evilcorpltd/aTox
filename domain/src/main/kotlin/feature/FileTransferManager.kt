@@ -48,6 +48,7 @@ class FileTransferManager @Inject constructor(
 
     init {
         File(context.filesDir, "ft").mkdir()
+        File(context.filesDir, "avatar").mkdir()
     }
 
     fun reset() {
@@ -124,15 +125,11 @@ class FileTransferManager @Inject constructor(
                 }
             }
             FileKind.Avatar.ordinal -> {
-                val folder = File(context.filesDir, "avatar")
-                if (!folder.exists()) {
-                    folder.mkdir()
-                }
-                RandomAccessFile(File(folder, ft.fileName), "rwd").apply {
+                RandomAccessFile(wipAvatar(ft.fileName), "rwd").apply {
                     setLength(ft.fileSize)
                     close()
                 }
-                setDestination(ft, Uri.fromFile(File(folder, ft.fileName)))
+                setDestination(ft, Uri.fromFile(wipAvatar(ft.fileName)))
             }
             else -> {
                 Log.e(TAG, "Got unknown file kind when accepting ft: $ft")
@@ -197,8 +194,10 @@ class FileTransferManager @Inject constructor(
 
         if (ft.isComplete()) {
             Log.i(TAG, "Finished ${ft.fileNumber} for ${ft.publicKey.take(8)}")
+            wipAvatar(ft.fileName).copyTo(avatar(ft.fileName), overwrite = true)
+            wipAvatar(ft.fileName).delete()
             if (ft.fileKind == FileKind.Avatar.ordinal) {
-                contactRepository.setAvatarUri(ft.publicKey, ft.destination)
+                contactRepository.setAvatarUri(ft.publicKey, Uri.fromFile(avatar(ft.fileName)).toString())
             }
             fileTransfers.remove(ft)
         }
@@ -303,4 +302,7 @@ class FileTransferManager @Inject constructor(
 
     private fun makeDestination(ft: FileTransfer) =
         Uri.fromFile(File(File(File(context.filesDir, "ft"), ft.publicKey.take(8)), Random.nextLong().toString()))
+
+    private fun wipAvatar(name: String): File = File(File(context.filesDir, "avatar"), "$name.wip")
+    private fun avatar(name: String): File = File(File(context.filesDir, "avatar"), name)
 }
