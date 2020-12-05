@@ -80,7 +80,8 @@
                 <ImageView android:id="@+id/imagePreview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:adjustViewBounds="true" />
+                        android:adjustViewBounds="true"
+                        android:importantForAccessibility="no" />
             </LinearLayout>
         </LinearLayout>
         <TextView android:id="@+id/timestamp"

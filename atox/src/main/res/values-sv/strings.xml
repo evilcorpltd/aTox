@@ -8,7 +8,6 @@
     <string name="clear_history_cleared">Historik rensad</string>
     <string name="clear_history_confirm">Är du säker på att du vill rensa din historik med %1$s?
     </string>
-    <string name="connected">Ansluten</string>
     <string name="connecting">Ansluter…</string>
     <string name="contact_typing">Skriver…</string>
     <string name="copied">Kopierat</string>
@@ -30,7 +29,6 @@
     <string name="add_contact_message_error_empty">Meddelandefältet kan inte vara tomt</string>
     <string name="add_contact_message_default">Prata med mig på aTox som en rimlig människa.
     </string>
-    <string name="password_optional">Lösenord (ej obligatoriskt)</string>
     <string name="profile_photo_description">Profilfoto</string>
     <string name="reject">Neka</string>
     <string name="send">Skicka</string>

@@ -6,7 +6,6 @@
     <string name="add_contact_message_default">Háblame en aTox como un ser humano razonable.</string>
     <string name="add_contact_message_error_empty">El mensaje no puede estar vacío</string>
     <string name="cancel">Cancelar</string>
-    <string name="connected">Conectado</string>
     <string name="connecting">Conectando…</string>
     <string name="contact_typing">Escribiendo…</string>
     <string name="copied">Copiado</string>
@@ -22,7 +21,6 @@
     <string name="no_contacts_call_to_action">¿Que estas esperando? ¡Agrega un contacto para comenzar!</string>
     <string name="navigation_drawer_close">Cerrar el cajón de navegación</string>
     <string name="navigation_drawer_open">Abrir el cajón de navegación</string>
-    <string name="password_optional">Contraseña (opcional)</string>
     <string name="profile_photo_description">Imagen de perfil</string>
     <string name="reject">Rechazar</string>
     <string name="send">Enviar</string>

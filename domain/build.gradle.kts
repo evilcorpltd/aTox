@@ -1,4 +1,3 @@
-import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.gradle.plugins.ide.idea.model.IdeaModule
 import org.jetbrains.gradle.ext.ModuleSettings
 import org.jetbrains.gradle.ext.PackagePrefixContainer
