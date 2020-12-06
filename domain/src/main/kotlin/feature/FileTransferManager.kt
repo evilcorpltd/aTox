@@ -73,14 +73,7 @@ class FileTransferManager @Inject constructor(
             FileKind.Data.ordinal -> {
                 val id = fileTransferRepository.add(ft).toInt()
                 messageRepository.add(
-                    Message(
-                        ft.publicKey,
-                        ft.fileName,
-                        Sender.Received,
-                        MessageType.FileTransfer,
-                        id,
-                        Date().time
-                    )
+                    Message(ft.publicKey, ft.fileName, Sender.Received, MessageType.FileTransfer, id, Date().time)
                 )
                 fileTransfers.add(ft.copy().apply { this.id = id })
             }
@@ -113,30 +106,22 @@ class FileTransferManager @Inject constructor(
 
     fun accept(ft: FileTransfer) {
         Log.i(TAG, "Accept ${ft.fileNumber} for ${ft.publicKey.take(8)}")
-        when (ft.fileKind) {
+        val file = when (ft.fileKind) {
             FileKind.Data.ordinal -> {
                 val dest = makeDestination(ft)
-                setDestination(ft, dest)
                 val file = File(dest.path!!)
                 file.parentFile!!.mkdirs()
-                RandomAccessFile(file, "rwd").run {
-                    setLength(ft.fileSize)
-                    close()
-                }
+                file
             }
-            FileKind.Avatar.ordinal -> {
-                RandomAccessFile(wipAvatar(ft.fileName), "rwd").apply {
-                    setLength(ft.fileSize)
-                    close()
-                }
-                setDestination(ft, Uri.fromFile(wipAvatar(ft.fileName)))
-            }
+            FileKind.Avatar.ordinal -> wipAvatar(ft.fileName)
             else -> {
                 Log.e(TAG, "Got unknown file kind when accepting ft: $ft")
                 return
             }
         }
 
+        RandomAccessFile(file, "rwd").use { it.setLength(ft.fileSize) }
+        setDestination(ft, Uri.fromFile(file))
         setProgress(ft, FtStarted)
         tox.startFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
     }
@@ -184,10 +169,9 @@ class FileTransferManager @Inject constructor(
             return
         }
 
-        RandomAccessFile(File(Uri.parse(ft.destination).path!!), "rwd").apply {
-            seek(position)
-            write(data)
-            close()
+        RandomAccessFile(File(Uri.parse(ft.destination).path!!), "rwd").use {
+            it.seek(position)
+            it.write(data)
         }
 
         setProgress(ft, ft.progress + data.size)
@@ -206,21 +190,18 @@ class FileTransferManager @Inject constructor(
     fun transfersFor(publicKey: PublicKey) = fileTransferRepository.get(publicKey.string())
 
     suspend fun create(pk: PublicKey, file: Uri) {
-        val cursor = context.contentResolver.query(file, null, null, null, null, null)
-        if (cursor == null) {
-            Log.e(TAG, "oh no")
-            return
-        }
+        val (name, size) = context.contentResolver.query(file, null, null, null, null, null)?.use { cursor ->
+            cursor.moveToFirst()
+            val fileSize = cursor.getLong(cursor.getColumnIndexOrThrow(OpenableColumns.SIZE))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
+            Pair(name, fileSize)
+        } ?: return
 
-        cursor.moveToFirst()
-        val fileSize = cursor.getLong(cursor.getColumnIndexOrThrow(OpenableColumns.SIZE))
-        val name = cursor.getString(cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
-        cursor.close()
         val ft = FileTransfer(
             pk.string(),
-            tox.sendFile(pk, FileKind.Data, fileSize, name).await(),
+            tox.sendFile(pk, FileKind.Data, size, name).await(),
             FileKind.Data.ordinal,
-            fileSize,
+            size,
             name,
             true,
             FtNotStarted,
@@ -228,14 +209,7 @@ class FileTransferManager @Inject constructor(
         )
         val id = fileTransferRepository.add(ft).toInt()
         messageRepository.add(
-            Message(
-                ft.publicKey,
-                ft.fileName,
-                Sender.Sent,
-                MessageType.FileTransfer,
-                id,
-                Date().time
-            )
+            Message(ft.publicKey, ft.fileName, Sender.Sent, MessageType.FileTransfer, id, Date().time)
         )
         fileTransfers.add(ft.copy().apply { this.id = id })
     }
@@ -260,11 +234,12 @@ class FileTransferManager @Inject constructor(
         }
 
         val src = Uri.parse(ft.destination)
-        val istream = resolver.openInputStream(src) ?: return
-        istream.skip(pos)
-        val bytes = ByteArray(length)
-        istream.read(bytes, 0, length)
-        istream.close()
+        val bytes = resolver.openInputStream(src)?.use {
+            it.skip(pos)
+            val bytes = ByteArray(length)
+            it.read(bytes, 0, length)
+            bytes
+        } ?: return
         tox.sendFileChunk(PublicKey(pk), fileNo, pos, bytes)
         setProgress(ft, ft.progress + length)
     }
@@ -287,7 +262,9 @@ class FileTransferManager @Inject constructor(
 
     suspend fun delete(id: Int) {
         fileTransfers.find { it.id == id }?.let {
-            if (it.isStarted() && !it.isComplete()) { reject(it) }
+            if (it.isStarted() && !it.isComplete()) {
+                reject(it)
+            }
             fileTransfers.remove(it)
         }
         fileTransferRepository.get(id).take(1).collect {
