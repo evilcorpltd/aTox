@@ -194,9 +194,9 @@ class FileTransferManager @Inject constructor(
 
         if (ft.isComplete()) {
             Log.i(TAG, "Finished ${ft.fileNumber} for ${ft.publicKey.take(8)}")
-            wipAvatar(ft.fileName).copyTo(avatar(ft.fileName), overwrite = true)
-            wipAvatar(ft.fileName).delete()
             if (ft.fileKind == FileKind.Avatar.ordinal) {
+                wipAvatar(ft.fileName).copyTo(avatar(ft.fileName), overwrite = true)
+                wipAvatar(ft.fileName).delete()
                 contactRepository.setAvatarUri(ft.publicKey, Uri.fromFile(avatar(ft.fileName)).toString())
             }
             fileTransfers.remove(ft)
