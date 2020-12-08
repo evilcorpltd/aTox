@@ -5,10 +5,8 @@ kt_android_library(
     srcs = glob(["src/main/**/*.kt"]),
     custom_package = "ltd.evilcorp.core",
     deps = [
-        "@maven//:androidx_room_room_compiler",
         "@maven//:androidx_room_room_runtime",
         "@maven//:com_google_dagger_dagger",
-        "@maven//:com_google_dagger_dagger_compiler",
         "@maven//:javax_inject_javax_inject",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
