@@ -1,6 +1,6 @@
 import org.gradle.api.JavaVersion
 
-const val kotlinVersion = "1.4.20"
+const val kotlinVersion = "1.4.21"
 
 object Java {
     val version = JavaVersion.VERSION_1_8
@@ -53,7 +53,7 @@ object AndroidX {
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.1"
 
     object Navigation {
-        private const val version = "2.3.1"
+        private const val version = "2.3.2"
         const val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:$version"
         const val uiKtx = "androidx.navigation:navigation-ui-ktx:$version"
     }
