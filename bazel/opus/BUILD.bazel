@@ -1,0 +1,19 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+genrule(
+    name = "platform_header",
+    srcs = select({
+        "@atox//bazel/tools/config:android_aarch64": ["android_arm/config.h"],
+        "@atox//bazel/tools/config:android_arm": ["android_arm/config.h"],
+        "@atox//bazel/tools/config:android_x86_32": ["android_x86/config.h"],
+        "@atox//bazel/tools/config:android_x86_64": ["android_x86/config.h"],
+    }),
+    outs = ["config.h"],
+    cmd = "cp $< $@",
+)
+
+cc_library(
+    name = "config",
+    hdrs = [":platform_header"],
+    visibility = ["@opus//:__pkg__"],
+)

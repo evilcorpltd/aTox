@@ -1,1 +1,8 @@
+build --per_file_copt='[-_]avx\\.c$@-mavx'
+build --per_file_copt='[-_]avx2\\.c$@-mavx2'
+build --per_file_copt='[-_]sse\\.c$@-mssse3,-msse4'
+build --per_file_copt='[-_]sse4\\.c$@-msse4'
+build --per_file_copt='[-_]sse41\\.c$@-msse4.1'
+build --per_file_copt='[-_]sse4_1\\.c$@-msse4.1'
+build --per_file_copt='[-_]ssse3\\.c$@-mssse3'
 test --test_output=errors

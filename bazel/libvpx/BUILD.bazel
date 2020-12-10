@@ -1,0 +1,31 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+licenses(["notice"])
+
+exports_files(
+    srcs = [
+        "vpx_config.mk",
+        "vpx_version.h",
+    ],
+    visibility = ["@libvpx//:__pkg__"],
+)
+
+cc_library(
+    name = "platform_asm_header",
+    hdrs = ["vpx_config.asm"],
+    visibility = ["@libvpx//:__pkg__"],
+)
+
+cc_library(
+    name = "vpx_config",
+    hdrs = ["vpx_config.h"],
+    includes = ["."],
+    visibility = ["@libvpx//:__pkg__"],
+)
+
+cc_library(
+    name = "vpx_version",
+    hdrs = ["vpx_version.h"],
+    includes = ["."],
+    visibility = ["@libvpx//:__pkg__"],
+)

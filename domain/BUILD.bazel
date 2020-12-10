@@ -1,0 +1,58 @@
+load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_android_library", "kt_jvm_test")
+load("@rules_android//android:rules.bzl", "android_library")
+load("@rules_java//java:defs.bzl", "java_import")
+
+java_import(
+    name = "jvm-toxcore-c",
+    jars = [
+        "@jvm-toxcore-c//:jvm-toxcore-c.jar",
+        "@jvm-toxcore-api//:jvm-toxcore-api.jar",
+        "@jvm-toxcore-api//:libjvm-toxcore-api-java.jar",
+    ],
+    deps = ["@maven//:org_scala_lang_scala_library"],
+)
+
+android_library(
+    name = "tox4j",
+    exports = [
+        ":jvm-toxcore-c",
+        "@jvm-toxcore-c//:libtox4j-c.so",
+    ],
+)
+
+kt_android_library(
+    name = "domain",
+    srcs = glob(["src/main/**/*.kt"]),
+    custom_package = "ltd.evilcorp.domain",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":tox4j",
+        "//core",
+    ],
+)
+
+TEST_DEPS = [
+    ":domain",
+    "@maven//:junit_junit",
+]
+
+kt_jvm_test(
+    name = "ToxIdValidatorTest",
+    srcs = ["src/test/kotlin/tox/ToxIdValidatorTest.kt"],
+    test_class = "ltd.evilcorp.domain.tox.ToxIdValidatorTest",
+    deps = TEST_DEPS,
+)
+
+kt_jvm_test(
+    name = "ToxTypesTest",
+    srcs = ["src/test/kotlin/tox/ToxTypesTest.kt"],
+    test_class = "ltd.evilcorp.domain.tox.ToxTypesTest",
+    deps = TEST_DEPS,
+)
+
+kt_jvm_test(
+    name = "ToxUtilTest",
+    srcs = ["src/test/kotlin/tox/ToxUtilTest.kt"],
+    test_class = "ltd.evilcorp.domain.tox.ToxUtilTest",
+    deps = TEST_DEPS,
+)

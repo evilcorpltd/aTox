@@ -1,0 +1,47 @@
+config_setting(
+    name = "linux",
+    constraint_values = ["@bazel_tools//platforms:linux"],
+    visibility = ["//visibility:public"],
+)
+
+config_setting(
+    name = "freebsd",
+    constraint_values = ["@bazel_tools//platforms:freebsd"],
+    visibility = ["//visibility:public"],
+)
+
+config_setting(
+    name = "osx",
+    constraint_values = ["@bazel_tools//platforms:osx"],
+    visibility = ["//visibility:public"],
+)
+
+config_setting(
+    name = "windows",
+    constraint_values = ["@bazel_tools//platforms:windows"],
+    visibility = ["//visibility:public"],
+)
+
+config_setting(
+    name = "android_x86_32",
+    values = {"android_cpu": "x86"},
+    visibility = ["//visibility:public"],
+)
+
+config_setting(
+    name = "android_x86_64",
+    values = {"android_cpu": "x86_64"},
+    visibility = ["//visibility:public"],
+)
+
+config_setting(
+    name = "android_arm",
+    values = {"android_cpu": "armeabi-v7a"},
+    visibility = ["//visibility:public"],
+)
+
+config_setting(
+    name = "android_aarch64",
+    values = {"android_cpu": "aarch64"},
+    visibility = ["//visibility:public"],
+)

@@ -43,9 +43,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: nttld/setup-ndk@v1
+      id: setup-ndk
+      with:
+        ndk-version: r21d
     - name: Set up Bazelisk
       run: wget https://github.com/bazelbuild/bazelisk/releases/download/v1.7.4/bazelisk-linux-amd64 --output-document=bazelisk
     - name: Build with Bazel
       run: USE_BAZEL_VERSION=3.7.0 bazelisk build //...
+      env:
+        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
     - name: Test with Bazel
       run: USE_BAZEL_VERSION=3.7.0 bazelisk test //...
+      env:
+        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
