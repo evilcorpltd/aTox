@@ -1,0 +1,13 @@
+load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_android_library")
+
+kt_android_library(
+    name = "db",
+    srcs = glob(["*.kt"]),
+    custom_package = "ltd.evilcorp.core.db",
+    visibility = ["//core:__subpackages__"],
+    deps = [
+        "//core/src/main/kotlin/vo",
+        "@maven//:androidx_room_room_runtime",
+        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+    ],
+)

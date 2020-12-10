@@ -1,0 +1,14 @@
+load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_android_library")
+
+kt_android_library(
+    name = "repository",
+    srcs = glob(["*.kt"]),
+    custom_package = "ltd.evilcorp.core.repository",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//core/src/main/kotlin/db",
+        "//core/src/main/kotlin/vo",
+        "@maven//:javax_inject_javax_inject",
+        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+    ],
+)

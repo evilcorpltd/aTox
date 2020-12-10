@@ -1,0 +1,9 @@
+load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_android_library")
+
+kt_android_library(
+    name = "vo",
+    srcs = glob(["*.kt"]),
+    custom_package = "ltd.evilcorp.core.vo",
+    visibility = ["//visibility:public"],
+    deps = ["@maven//:androidx_room_room_runtime"],
+)

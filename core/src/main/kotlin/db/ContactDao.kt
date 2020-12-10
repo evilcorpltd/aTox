@@ -12,7 +12,7 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.UserStatus
 
 @Dao
-internal interface ContactDao {
+interface ContactDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(contact: Contact)
 

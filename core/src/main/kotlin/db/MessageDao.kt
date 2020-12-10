@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.vo.Message
 
 @Dao
-internal interface MessageDao {
+interface MessageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(message: Message)
 

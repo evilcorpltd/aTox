@@ -9,7 +9,7 @@ import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.FtRejected
 
 @Dao
-internal interface FileTransferDao {
+interface FileTransferDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(fileTransfer: FileTransfer): Long
 

@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.vo.FriendRequest
 
 @Dao
-internal interface FriendRequestDao {
+interface FriendRequestDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(friendRequest: FriendRequest)
 
