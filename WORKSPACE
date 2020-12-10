@@ -48,6 +48,7 @@ maven_install(
         "androidx.room:room-runtime:2.2.5",
         "com.google.dagger:dagger:2.30.1",
         "javax.inject:javax.inject:1",
+        "junit:junit:4.13.1",
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2",
     ],
     repositories = [

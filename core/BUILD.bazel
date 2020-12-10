@@ -1,4 +1,4 @@
-load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_android_library")
+load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_android_library", "kt_jvm_test")
 
 android_library(
     name = "core",
@@ -9,5 +9,15 @@ android_library(
         "//core/src/main/kotlin/di",
         "//core/src/main/kotlin/repository",
         "//core/src/main/kotlin/vo",
+    ],
+)
+
+kt_jvm_test(
+    name = "ConvertersTest",
+    srcs = ["src/test/kotlin/db/ConvertersTest.kt"],
+    test_class = "ltd.evilcorp.core.db.ConvertersTest",
+    deps = [
+        "//core/src/main/kotlin/db",
+        "@maven//:junit_junit",
     ],
 )
