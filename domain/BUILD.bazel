@@ -38,6 +38,7 @@ TEST_DEPS = [
 
 kt_jvm_test(
     name = "ToxIdValidatorTest",
+    size = "small",
     srcs = ["src/test/kotlin/tox/ToxIdValidatorTest.kt"],
     test_class = "ltd.evilcorp.domain.tox.ToxIdValidatorTest",
     deps = TEST_DEPS,
@@ -45,6 +46,7 @@ kt_jvm_test(
 
 kt_jvm_test(
     name = "ToxTypesTest",
+    size = "small",
     srcs = ["src/test/kotlin/tox/ToxTypesTest.kt"],
     test_class = "ltd.evilcorp.domain.tox.ToxTypesTest",
     deps = TEST_DEPS,
@@ -52,6 +54,7 @@ kt_jvm_test(
 
 kt_jvm_test(
     name = "ToxUtilTest",
+    size = "small",
     srcs = ["src/test/kotlin/tox/ToxUtilTest.kt"],
     test_class = "ltd.evilcorp.domain.tox.ToxUtilTest",
     deps = TEST_DEPS,

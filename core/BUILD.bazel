@@ -15,6 +15,7 @@ android_library(
 
 kt_jvm_test(
     name = "ConvertersTest",
+    size = "small",
     srcs = ["src/test/kotlin/db/ConvertersTest.kt"],
     test_class = "ltd.evilcorp.core.db.ConvertersTest",
     deps = [
