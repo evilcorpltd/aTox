@@ -55,3 +55,14 @@ jobs:
       run: bazelisk build //...
     - name: Test with Bazel
       run: bazelisk test //...
+
+  buildifier:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install
+      run: |
+          wget https://github.com/bazelbuild/buildtools/releases/download/3.5.0/buildifier
+          sudo chmod +x buildifier
+    - name: Check
+      run: ./buildifier --lint=warn --warnings=all -mode diff WORKSPACE $(find . -type f -iname BUILD.*)
