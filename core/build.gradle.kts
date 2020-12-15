@@ -84,4 +84,8 @@ dependencies {
     androidTestImplementation(AndroidX.Test.runner)
     androidTestImplementation(AndroidX.Test.Ext.junit)
     androidTestImplementation(AndroidX.Room.testing)
+    androidTestImplementation(KotlinX.Coroutines.test) {
+        // Conflicts with a lot of things due to having embedded "byte buddy" instead of depending on it.
+        exclude("org.jetbrains.kotlinx", "kotlinx-coroutines-debug")
+    }
 }
