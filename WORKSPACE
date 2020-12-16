@@ -27,9 +27,9 @@ http_archive(
 
 http_archive(
     name = "rules_android",
-    urls = ["https://github.com/bazelbuild/rules_android/archive/v0.1.1.zip"],
     sha256 = "cd06d15dd8bb59926e4d65f9003bfc20f9da4b2519985c27e190cddc8b7a7806",
     strip_prefix = "rules_android-0.1.1",
+    urls = ["https://github.com/bazelbuild/rules_android/archive/v0.1.1.zip"],
 )
 
 STARDOC_TAG = "0.4.0"
@@ -78,7 +78,7 @@ maven_install(
     ],
 )
 
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository", "new_git_repository")
 
 git_repository(
     name = "io_bazel_rules_kotlin",
@@ -112,8 +112,6 @@ scala_repositories()
 scala_proto_repositories()
 
 scala_proto_register_enable_all_options_toolchain()
-
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "new_git_repository")
 
 new_git_repository(
     name = "jvm-toxcore-api",
