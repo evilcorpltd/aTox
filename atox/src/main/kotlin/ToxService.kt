@@ -11,7 +11,9 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.getSystemService
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.asLiveData
+import java.util.Timer
 import javax.inject.Inject
+import kotlin.concurrent.schedule
 import kotlinx.coroutines.flow.filter
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.core.repository.UserRepository
@@ -28,6 +30,7 @@ class ToxService : LifecycleService() {
     private var connectionStatus = ConnectionStatus.None
 
     private val notifier by lazy { getSystemService<NotificationManager>()!! }
+    private var bootstrapTimer = Timer()
 
     @Inject
     lateinit var tox: Tox
@@ -98,6 +101,17 @@ class ToxService : LifecycleService() {
                 if (user.connectionStatus == connectionStatus) return@observe
                 connectionStatus = user.connectionStatus
                 notifier.notify(notificationId, notificationFor(connectionStatus))
+                if (connectionStatus == ConnectionStatus.None) {
+                    Log.i(TAG, "Gone offline, scheduling bootstrap")
+                    bootstrapTimer.schedule(60_000) {
+                        Log.i(TAG, "Been offline for too long, bootstrapping")
+                        tox.isBootstrapNeeded = true
+                    }
+                } else {
+                    Log.i(TAG, "Online, cancelling bootstrap")
+                    bootstrapTimer.cancel()
+                    bootstrapTimer = Timer()
+                }
             }
     }
 
