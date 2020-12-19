@@ -32,305 +32,57 @@ class DatabaseMigrationTest {
         FrameworkSQLiteOpenHelperFactory()
     )
 
+    private val ft = FileTransfer(
+        "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39",
+        123,
+        FileKind.Avatar.ordinal,
+        9876,
+        "bird.png2",
+        false,
+        FtNotStarted
+    )
+
+    private val msg = Message(
+        "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39",
+        "hello i am robot beep beep boop",
+        Sender.Sent,
+        MessageType.Normal,
+        99,
+        12L
+    )
+
+    private val contact = Contact(
+        "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39",
+        "robinli",
+        "Hello I am robot beep beep boop",
+        100,
+        UserStatus.Busy,
+        ConnectionStatus.TCP,
+        true,
+        "file:///home/robin/fantastic_bird.png"
+    )
+
     @Test
     fun migrate_1_to_2() {
-        val publicKey = "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39"
-        val name = "robinli"
-        val statusMessage = "Hello I am robot beep beep boop"
-        val lastMessage = 100
-        val status = UserStatus.Busy
-        val connectionStatus = ConnectionStatus.TCP
-        val isTyping = true
-        val avatar = "file:///home/robin/fantastic_bird.png"
-
-        var db = helper.createDatabase(TEST_DB, 1).apply {
-            execSQL(
-                "INSERT INTO contacts VALUES (" +
-                    "'$publicKey'," +
-                    "'$name'," +
-                    "'$statusMessage'," +
-                    "$lastMessage," +
-                    "${status.ordinal}," +
-                    "${connectionStatus.ordinal}," +
-                    "${isTyping.toInt()}," +
-                    "'$avatar'" +
-                    ")"
-            )
-        }
-
-        var cursor = db.query("SELECT * FROM contacts")
-        cursor.moveToFirst()
-        assertEquals(cursor.columnCount, 8)
-        assertEquals(publicKey, cursor.getString(0))
-        assertEquals(name, cursor.getString(1))
-        assertEquals(statusMessage, cursor.getString(2))
-        assertEquals(lastMessage, cursor.getInt(3))
-        assertEquals(status.ordinal, cursor.getInt(4))
-        assertEquals(connectionStatus.ordinal, cursor.getInt(5))
-        assertEquals(isTyping.toInt(), cursor.getInt(6))
-        assertEquals(avatar, cursor.getString(7))
-        db.close()
-
-        db = helper.runMigrationsAndValidate(TEST_DB, 2, true, MIGRATION_1_2)
-        val hasUnreadMessages = false
-
-        cursor = db.query("SELECT * FROM contacts")
-        assertEquals(cursor.columnCount, 9)
-        cursor.moveToFirst()
-        assertEquals(publicKey, cursor.getString(0))
-        assertEquals(name, cursor.getString(1))
-        assertEquals(statusMessage, cursor.getString(2))
-        assertEquals(lastMessage, cursor.getInt(3))
-        assertEquals(status.ordinal, cursor.getInt(4))
-        assertEquals(connectionStatus.ordinal, cursor.getInt(5))
-        assertEquals(isTyping.toInt(), cursor.getInt(6))
-        assertEquals(avatar, cursor.getString(7))
-        assertEquals(hasUnreadMessages.toInt(), cursor.getInt(8))
-        db.close()
-    }
-
-    @Test
-    fun migrate_2_to_3() {
-        val msg = Message(
-            "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39",
-            "hello i am robot beep beep boop",
-            Sender.Sent,
-            MessageType.Normal,
-            99,
-            12L
-        )
-
-        var db = helper.createDatabase(TEST_DB, 2).apply {
-            with(msg) {
-                execSQL(
-                    "INSERT INTO messages VALUES (" +
-                        "$id," +
-                        "'$publicKey'," +
-                        "'$message'," +
-                        "${sender.ordinal}," +
-                        "$correlationId," +
-                        "$timestamp)"
-                )
-            }
-        }
-
-        db.query("SELECT * FROM messages").let { cursor ->
-            assertEquals(cursor.columnCount, 6)
-            with(msg) {
-                cursor.moveToFirst()
-                assertEquals(id, cursor.getLong(0))
-                assertEquals(publicKey, cursor.getString(1))
-                assertEquals(message, cursor.getString(2))
-                assertEquals(sender.ordinal, cursor.getInt(3))
-                assertEquals(correlationId, cursor.getInt(4))
-                assertEquals(timestamp, cursor.getLong(5))
-            }
-        }
-        db.close()
-
-        db = helper.runMigrationsAndValidate(TEST_DB, 3, true, MIGRATION_2_3)
-
-        db.query("SELECT * FROM messages").let { cursor ->
-            assertEquals(cursor.columnCount, 7)
-            with(msg) {
-                cursor.moveToFirst()
-                assertEquals(id, cursor.getLong(0))
-                assertEquals(publicKey, cursor.getString(1))
-                assertEquals(message, cursor.getString(2))
-                assertEquals(sender.ordinal, cursor.getInt(3))
-                assertEquals(correlationId, cursor.getInt(4))
-                assertEquals(timestamp, cursor.getLong(5))
-                assertEquals(type.ordinal, cursor.getInt(6))
-            }
-        }
-        db.close()
-    }
-
-    @Test
-    fun migrate_3_to_4() {
-        val ft = FileTransfer(
-            "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39",
-            123,
-            FileKind.Avatar.ordinal,
-            9876,
-            "bird.png2",
-            false,
-            FtNotStarted
-        )
-
-        var db = helper.createDatabase(TEST_DB, 3).apply {
-            with(ft) {
-                execSQL(
-                    "INSERT INTO file_transfers VALUES (" +
-                        "'$publicKey'," +
-                        "$fileNumber," +
-                        "$fileKind," +
-                        "$fileSize," +
-                        "'$fileName'," +
-                        "${outgoing.toInt()}," +
-                        "$progress)"
-                )
-            }
-        }
-
-        db.query("SELECT * FROM file_transfers").let { cursor ->
-            assertEquals(7, cursor.columnCount)
-            with(ft) {
-                cursor.moveToFirst()
-                assertEquals(publicKey, cursor.getString(0))
-                assertEquals(fileNumber, cursor.getInt(1))
-                assertEquals(fileKind, cursor.getInt(2))
-                assertEquals(fileSize, cursor.getLong(3))
-                assertEquals(fileName, cursor.getString(4))
-                assertEquals(outgoing.toInt(), cursor.getInt(5))
-                assertEquals(progress, cursor.getLong(6))
-            }
-        }
-        db.close()
-
-        db = helper.runMigrationsAndValidate(TEST_DB, 4, true, MIGRATION_3_4)
-        // The table is nuked during the migration because it was useless before.
-        assertEquals(db.query("SELECT * FROM messages").count, 0)
-        db.close()
-    }
-
-    @Test
-    fun migrate_4_to_5() {
-        val publicKey = "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39"
-        val name = "robinli"
-        val statusMessage = "Hello I am robot beep beep boop"
-        val lastMessage = 100
-        val status = UserStatus.Busy
-        val connectionStatus = ConnectionStatus.TCP
-        val isTyping = true
-        val avatar = "file:///home/robin/fantastic_bird.png"
-        val hasUnreadMessages = true
-
-        var db = helper.createDatabase(TEST_DB, 4).apply {
-            execSQL(
-                """INSERT INTO contacts VALUES (
-                    '$publicKey',
-                    '$name',
-                    '$statusMessage',
-                    $lastMessage,
-                    ${status.ordinal},
-                    ${connectionStatus.ordinal},
-                    ${isTyping.toInt()},
-                    '$avatar',
-                    ${hasUnreadMessages.toInt()}
-                    )
-                """.trimIndent()
-            )
-        }
-
-        var cursor = db.query("SELECT * FROM contacts")
-        cursor.moveToFirst()
-        assertEquals(9, cursor.columnCount)
-        assertEquals(publicKey, cursor.getString(0))
-        assertEquals(name, cursor.getString(1))
-        assertEquals(statusMessage, cursor.getString(2))
-        assertEquals(lastMessage, cursor.getInt(3))
-        assertEquals(status.ordinal, cursor.getInt(4))
-        assertEquals(connectionStatus.ordinal, cursor.getInt(5))
-        assertEquals(isTyping.toInt(), cursor.getInt(6))
-        assertEquals(avatar, cursor.getString(7))
-        assertEquals(hasUnreadMessages.toInt(), cursor.getInt(8))
-        db.close()
-
-        db = helper.runMigrationsAndValidate(TEST_DB, 5, true, MIGRATION_4_5)
-        val draftMessage = ""
-
-        cursor = db.query("SELECT * FROM contacts")
-        assertEquals(10, cursor.columnCount)
-        cursor.moveToFirst()
-        assertEquals(publicKey, cursor.getString(0))
-        assertEquals(name, cursor.getString(1))
-        assertEquals(statusMessage, cursor.getString(2))
-        assertEquals(lastMessage, cursor.getInt(3))
-        assertEquals(status.ordinal, cursor.getInt(4))
-        assertEquals(connectionStatus.ordinal, cursor.getInt(5))
-        assertEquals(isTyping.toInt(), cursor.getInt(6))
-        assertEquals(avatar, cursor.getString(7))
-        assertEquals(hasUnreadMessages.toInt(), cursor.getInt(8))
-        assertEquals(draftMessage, cursor.getString(9))
-        db.close()
-    }
-
-    @Test
-    fun run_all_migrations() {
-        val contact = Contact(
-            "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39",
-            "robinli",
-            "Hello I am robot beep beep boop",
-            100,
-            UserStatus.Busy,
-            ConnectionStatus.TCP,
-            true,
-            "file:///home/robin/fantastic_bird.png"
-        )
-
-        val ft = FileTransfer(
-            "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39",
-            123,
-            FileKind.Avatar.ordinal,
-            9876,
-            "bird.png2",
-            false,
-            FtNotStarted
-        )
-
-        val msg = Message(
-            "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39",
-            "hello i am robot beep beep boop",
-            Sender.Sent,
-            MessageType.Normal,
-            99,
-            12L
-        )
-
-        var db = helper.createDatabase(TEST_DB, 1).apply {
+        helper.createDatabase(TEST_DB, 1).use { db ->
             with(contact) {
-                execSQL(
-                    "INSERT INTO contacts VALUES (" +
-                        "'$publicKey'," +
-                        "'$name'," +
-                        "'$statusMessage'," +
-                        "$lastMessage," +
-                        "${status.ordinal}," +
-                        "${connectionStatus.ordinal}," +
-                        "${typing.toInt()}," +
-                        "'$avatarUri')"
+                db.execSQL(
+                    """INSERT INTO contacts VALUES (
+                        '$publicKey',
+                        '$name',
+                        '$statusMessage',
+                        $lastMessage,
+                        ${status.ordinal},
+                        ${connectionStatus.ordinal},
+                        ${typing.toInt()},
+                        '$avatarUri')
+                    """.trimIndent()
                 )
             }
-            with(msg) {
-                execSQL(
-                    "INSERT INTO messages VALUES (" +
-                        "$id," +
-                        "'$publicKey'," +
-                        "'$message'," +
-                        "${sender.ordinal}," +
-                        "$correlationId," +
-                        "$timestamp)"
-                )
-            }
-            with(ft) {
-                execSQL(
-                    "INSERT INTO file_transfers VALUES (" +
-                        "'$publicKey'," +
-                        "$fileNumber," +
-                        "$fileKind," +
-                        "$fileSize," +
-                        "'$fileName'," +
-                        "${outgoing.toInt()}," +
-                        "$progress)"
-                )
-            }
-        }
 
-        db.query("SELECT * FROM contacts").let { cursor ->
+            val cursor = db.query("SELECT * FROM contacts").apply { moveToFirst() }
             assertEquals(cursor.columnCount, 8)
             with(contact) {
-                cursor.moveToFirst()
                 assertEquals(publicKey, cursor.getString(0))
                 assertEquals(name, cursor.getString(1))
                 assertEquals(statusMessage, cursor.getString(2))
@@ -341,39 +93,148 @@ class DatabaseMigrationTest {
                 assertEquals(avatarUri, cursor.getString(7))
             }
         }
-        db.query("SELECT * FROM messages").let { cursor ->
-            assertEquals(cursor.columnCount, 6)
-            with(msg) {
-                cursor.moveToFirst()
-                assertEquals(id, cursor.getLong(0))
-                assertEquals(publicKey, cursor.getString(1))
-                assertEquals(message, cursor.getString(2))
-                assertEquals(sender.ordinal, cursor.getInt(3))
-                assertEquals(correlationId, cursor.getInt(4))
-                assertEquals(timestamp, cursor.getLong(5))
-            }
-        }
-        db.query("SELECT * FROM file_transfers").let { cursor ->
-            assertEquals(7, cursor.columnCount)
-            with(ft) {
-                cursor.moveToFirst()
-                assertEquals(publicKey, cursor.getString(0))
-                assertEquals(fileNumber, cursor.getInt(1))
-                assertEquals(fileKind, cursor.getInt(2))
-                assertEquals(fileSize, cursor.getLong(3))
-                assertEquals(fileName, cursor.getString(4))
-                assertEquals(outgoing.toInt(), cursor.getInt(5))
-                assertEquals(progress, cursor.getLong(6))
-            }
-        }
-        db.close()
 
-        db = helper.runMigrationsAndValidate(TEST_DB, 5, true, *ALL_MIGRATIONS)
-
-        db.query("SELECT * FROM contacts").let { cursor ->
-            assertEquals(cursor.columnCount, 10)
+        helper.runMigrationsAndValidate(TEST_DB, 2, true, MIGRATION_1_2).use { db ->
+            val cursor = db.query("SELECT * FROM contacts").apply { moveToFirst() }
+            assertEquals(cursor.columnCount, 9)
             with(contact) {
-                cursor.moveToFirst()
+                assertEquals(publicKey, cursor.getString(0))
+                assertEquals(name, cursor.getString(1))
+                assertEquals(statusMessage, cursor.getString(2))
+                assertEquals(lastMessage, cursor.getLong(3))
+                assertEquals(status.ordinal, cursor.getInt(4))
+                assertEquals(connectionStatus.ordinal, cursor.getInt(5))
+                assertEquals(typing.toInt(), cursor.getInt(6))
+                assertEquals(avatarUri, cursor.getString(7))
+                assertEquals(hasUnreadMessages.toInt(), cursor.getInt(8))
+            }
+        }
+    }
+
+    @Test
+    fun migrate_2_to_3() {
+        helper.createDatabase(TEST_DB, 2).use { db ->
+            with(msg) {
+                db.execSQL(
+                    """INSERT INTO messages VALUES (
+                        $id,
+                        '$publicKey',
+                        '$message',
+                        ${sender.ordinal},
+                        $correlationId,
+                        $timestamp)
+                    """.trimIndent()
+                )
+            }
+
+            db.query("SELECT * FROM messages").let { cursor ->
+                assertEquals(cursor.columnCount, 6)
+                with(msg) {
+                    cursor.moveToFirst()
+                    assertEquals(id, cursor.getLong(0))
+                    assertEquals(publicKey, cursor.getString(1))
+                    assertEquals(message, cursor.getString(2))
+                    assertEquals(sender.ordinal, cursor.getInt(3))
+                    assertEquals(correlationId, cursor.getInt(4))
+                    assertEquals(timestamp, cursor.getLong(5))
+                }
+            }
+        }
+
+        helper.runMigrationsAndValidate(TEST_DB, 3, true, MIGRATION_2_3).use { db ->
+            db.query("SELECT * FROM messages").let { cursor ->
+                assertEquals(cursor.columnCount, 7)
+                with(msg) {
+                    cursor.moveToFirst()
+                    assertEquals(id, cursor.getLong(0))
+                    assertEquals(publicKey, cursor.getString(1))
+                    assertEquals(message, cursor.getString(2))
+                    assertEquals(sender.ordinal, cursor.getInt(3))
+                    assertEquals(correlationId, cursor.getInt(4))
+                    assertEquals(timestamp, cursor.getLong(5))
+                    assertEquals(type.ordinal, cursor.getInt(6))
+                }
+            }
+        }
+    }
+
+    @Test
+    fun migrate_3_to_4() {
+        helper.createDatabase(TEST_DB, 3).use { db ->
+            with(ft) {
+                db.execSQL(
+                    """INSERT INTO file_transfers VALUES (
+                        '$publicKey',
+                        $fileNumber,
+                        $fileKind,
+                        $fileSize,
+                        '$fileName',
+                        ${outgoing.toInt()},
+                        $progress)
+                    """.trimIndent()
+                )
+            }
+
+            db.query("SELECT * FROM file_transfers").let { cursor ->
+                assertEquals(7, cursor.columnCount)
+                with(ft) {
+                    cursor.moveToFirst()
+                    assertEquals(publicKey, cursor.getString(0))
+                    assertEquals(fileNumber, cursor.getInt(1))
+                    assertEquals(fileKind, cursor.getInt(2))
+                    assertEquals(fileSize, cursor.getLong(3))
+                    assertEquals(fileName, cursor.getString(4))
+                    assertEquals(outgoing.toInt(), cursor.getInt(5))
+                    assertEquals(progress, cursor.getLong(6))
+                }
+            }
+        }
+
+        helper.runMigrationsAndValidate(TEST_DB, 4, true, MIGRATION_3_4).use { db ->
+            // The table is nuked during the migration because it was useless before.
+            // TODO(robinlinden): Wrong table. :(
+            assertEquals(db.query("SELECT * FROM messages").count, 0)
+        }
+    }
+
+    @Test
+    fun migrate_4_to_5() {
+        helper.createDatabase(TEST_DB, 4).use { db ->
+            with(contact) {
+                db.execSQL(
+                    """INSERT INTO contacts VALUES (
+                        '$publicKey',
+                        '$name',
+                        '$statusMessage',
+                        $lastMessage,
+                        ${status.ordinal},
+                        ${connectionStatus.ordinal},
+                        ${typing.toInt()},
+                        '$avatarUri',
+                        ${hasUnreadMessages.toInt()})
+                    """.trimIndent()
+                )
+            }
+
+            val cursor = db.query("SELECT * FROM contacts").apply { moveToFirst() }
+            assertEquals(9, cursor.columnCount)
+            with(contact) {
+                assertEquals(publicKey, cursor.getString(0))
+                assertEquals(name, cursor.getString(1))
+                assertEquals(statusMessage, cursor.getString(2))
+                assertEquals(lastMessage, cursor.getLong(3))
+                assertEquals(status.ordinal, cursor.getInt(4))
+                assertEquals(connectionStatus.ordinal, cursor.getInt(5))
+                assertEquals(typing.toInt(), cursor.getInt(6))
+                assertEquals(avatarUri, cursor.getString(7))
+                assertEquals(hasUnreadMessages.toInt(), cursor.getInt(8))
+            }
+        }
+
+        helper.runMigrationsAndValidate(TEST_DB, 5, true, MIGRATION_4_5).use { db ->
+            val cursor = db.query("SELECT * FROM contacts").apply { moveToFirst() }
+            assertEquals(10, cursor.columnCount)
+            with(contact) {
                 assertEquals(publicKey, cursor.getString(0))
                 assertEquals(name, cursor.getString(1))
                 assertEquals(statusMessage, cursor.getString(2))
@@ -386,19 +247,122 @@ class DatabaseMigrationTest {
                 assertEquals(draftMessage, cursor.getString(9))
             }
         }
-        db.query("SELECT * FROM messages").let { cursor ->
-            assertEquals(cursor.columnCount, 7)
+    }
+
+    @Test
+    fun run_all_migrations() {
+        helper.createDatabase(TEST_DB, 1).use { db ->
+            with(contact) {
+                db.execSQL(
+                    """INSERT INTO contacts VALUES (
+                        '$publicKey',
+                        '$name',
+                        '$statusMessage',
+                        $lastMessage,
+                        ${status.ordinal},
+                        ${connectionStatus.ordinal},
+                        ${typing.toInt()},
+                        '$avatarUri')
+                    """.trimIndent()
+                )
+            }
             with(msg) {
-                cursor.moveToFirst()
-                assertEquals(id, cursor.getLong(0))
-                assertEquals(publicKey, cursor.getString(1))
-                assertEquals(message, cursor.getString(2))
-                assertEquals(sender.ordinal, cursor.getInt(3))
-                assertEquals(correlationId, cursor.getInt(4))
-                assertEquals(timestamp, cursor.getLong(5))
-                assertEquals(type.ordinal, cursor.getInt(6))
+                db.execSQL(
+                    """INSERT INTO messages VALUES (
+                        $id,
+                        '$publicKey',
+                        '$message',
+                        ${sender.ordinal},
+                        $correlationId,
+                        $timestamp)
+                    """.trimIndent()
+                )
+            }
+            with(ft) {
+                db.execSQL(
+                    """INSERT INTO file_transfers VALUES (
+                        '$publicKey',
+                        $fileNumber,
+                        $fileKind,
+                        $fileSize,
+                        '$fileName',
+                        ${outgoing.toInt()},
+                        $progress)
+                    """.trimIndent()
+                )
+            }
+
+            db.query("SELECT * FROM contacts").let { cursor ->
+                assertEquals(cursor.columnCount, 8)
+                with(contact) {
+                    cursor.moveToFirst()
+                    assertEquals(publicKey, cursor.getString(0))
+                    assertEquals(name, cursor.getString(1))
+                    assertEquals(statusMessage, cursor.getString(2))
+                    assertEquals(lastMessage, cursor.getLong(3))
+                    assertEquals(status.ordinal, cursor.getInt(4))
+                    assertEquals(connectionStatus.ordinal, cursor.getInt(5))
+                    assertEquals(typing.toInt(), cursor.getInt(6))
+                    assertEquals(avatarUri, cursor.getString(7))
+                }
+            }
+            db.query("SELECT * FROM messages").let { cursor ->
+                assertEquals(cursor.columnCount, 6)
+                with(msg) {
+                    cursor.moveToFirst()
+                    assertEquals(id, cursor.getLong(0))
+                    assertEquals(publicKey, cursor.getString(1))
+                    assertEquals(message, cursor.getString(2))
+                    assertEquals(sender.ordinal, cursor.getInt(3))
+                    assertEquals(correlationId, cursor.getInt(4))
+                    assertEquals(timestamp, cursor.getLong(5))
+                }
+            }
+            db.query("SELECT * FROM file_transfers").let { cursor ->
+                assertEquals(7, cursor.columnCount)
+                with(ft) {
+                    cursor.moveToFirst()
+                    assertEquals(publicKey, cursor.getString(0))
+                    assertEquals(fileNumber, cursor.getInt(1))
+                    assertEquals(fileKind, cursor.getInt(2))
+                    assertEquals(fileSize, cursor.getLong(3))
+                    assertEquals(fileName, cursor.getString(4))
+                    assertEquals(outgoing.toInt(), cursor.getInt(5))
+                    assertEquals(progress, cursor.getLong(6))
+                }
             }
         }
-        db.close()
+
+        helper.runMigrationsAndValidate(TEST_DB, 5, true, *ALL_MIGRATIONS).use { db ->
+            db.query("SELECT * FROM contacts").let { cursor ->
+                assertEquals(cursor.columnCount, 10)
+                with(contact) {
+                    cursor.moveToFirst()
+                    assertEquals(publicKey, cursor.getString(0))
+                    assertEquals(name, cursor.getString(1))
+                    assertEquals(statusMessage, cursor.getString(2))
+                    assertEquals(lastMessage, cursor.getLong(3))
+                    assertEquals(status.ordinal, cursor.getInt(4))
+                    assertEquals(connectionStatus.ordinal, cursor.getInt(5))
+                    assertEquals(typing.toInt(), cursor.getInt(6))
+                    assertEquals(avatarUri, cursor.getString(7))
+                    assertEquals(hasUnreadMessages.toInt(), cursor.getInt(8))
+                    assertEquals(draftMessage, cursor.getString(9))
+                }
+            }
+            db.query("SELECT * FROM messages").let { cursor ->
+                assertEquals(cursor.columnCount, 7)
+                with(msg) {
+                    cursor.moveToFirst()
+                    assertEquals(id, cursor.getLong(0))
+                    assertEquals(publicKey, cursor.getString(1))
+                    assertEquals(message, cursor.getString(2))
+                    assertEquals(sender.ordinal, cursor.getInt(3))
+                    assertEquals(correlationId, cursor.getInt(4))
+                    assertEquals(timestamp, cursor.getLong(5))
+                    assertEquals(type.ordinal, cursor.getInt(6))
+                }
+            }
+        }
     }
 }

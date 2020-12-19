@@ -19,16 +19,17 @@ val MIGRATION_3_4 = object : Migration(3, 4) {
     override fun migrate(db: SupportSQLiteDatabase) {
         db.execSQL("DROP TABLE IF EXISTS 'file_transfers'")
         db.execSQL(
-            "CREATE TABLE IF NOT EXISTS 'file_transfers'" +
-                "('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                "'public_key' TEXT NOT NULL," +
-                "'file_number' INTEGER NOT NULL," +
-                "'file_kind' INTEGER NOT NULL," +
-                "'file_size' INTEGER NOT NULL," +
-                "'file_name' TEXT NOT NULL," +
-                "'destination' TEXT NOT NULL," +
-                "'outgoing' INTEGER NOT NULL," +
-                "'progress' INTEGER NOT NULL)"
+            """CREATE TABLE IF NOT EXISTS 'file_transfers' (
+                'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                'public_key' TEXT NOT NULL,
+                'file_number' INTEGER NOT NULL,
+                'file_kind' INTEGER NOT NULL,
+                'file_size' INTEGER NOT NULL,
+                'file_name' TEXT NOT NULL,
+                'destination' TEXT NOT NULL,
+                'outgoing' INTEGER NOT NULL,
+                'progress' INTEGER NOT NULL)
+            """.trimIndent()
         )
     }
 }
