@@ -26,4 +26,8 @@ class ContactManager @Inject constructor(
         tox.deleteContact(publicKey)
         contactRepository.delete(Contact(publicKey.string()))
     }
+
+    fun setDraft(pk: PublicKey, draft: String) = launch {
+        contactRepository.setDraftMessage(pk.string(), draft)
+    }
 }

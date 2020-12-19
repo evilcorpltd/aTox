@@ -118,4 +118,7 @@ class ChatViewModel @Inject constructor(
             }
         }
     }
+
+    fun setDraft(draft: String) = contactManager.setDraft(publicKey, draft)
+    fun clearDraft() = setDraft("")
 }

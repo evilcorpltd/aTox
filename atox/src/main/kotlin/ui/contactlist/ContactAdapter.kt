@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import java.text.DateFormat
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.ContactListViewItemBinding
@@ -88,7 +89,13 @@ class ContactAdapter(
                     } else {
                         resources.getText(R.string.never)
                     }
-                    vh.statusMessage.text = statusMessage
+                    if (draftMessage.isNotEmpty()) {
+                        vh.statusMessage.text = resources.getString(R.string.draft_message, draftMessage)
+                        vh.statusMessage.setTextColor(ResourcesCompat.getColor(resources, R.color.colorAccent, null))
+                    } else {
+                        vh.statusMessage.text = statusMessage
+                        vh.statusMessage.setTextColor(vh.lastMessage.currentTextColor)
+                    }
                     vh.status.setColorFilter(colorByStatus(resources, this))
                     setAvatarFromContact(vh.image, this)
                     vh.unreadIndicator.visibility = if (hasUnreadMessages) {

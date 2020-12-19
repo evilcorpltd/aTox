@@ -195,6 +195,68 @@ class DatabaseMigrationTest {
     }
 
     @Test
+    fun migrate_4_to_5() {
+        val publicKey = "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39"
+        val name = "robinli"
+        val statusMessage = "Hello I am robot beep beep boop"
+        val lastMessage = 100
+        val status = UserStatus.Busy
+        val connectionStatus = ConnectionStatus.TCP
+        val isTyping = true
+        val avatar = "file:///home/robin/fantastic_bird.png"
+        val hasUnreadMessages = true
+
+        var db = helper.createDatabase(TEST_DB, 4).apply {
+            execSQL(
+                """INSERT INTO contacts VALUES (
+                    '$publicKey',
+                    '$name',
+                    '$statusMessage',
+                    $lastMessage,
+                    ${status.ordinal},
+                    ${connectionStatus.ordinal},
+                    ${isTyping.toInt()},
+                    '$avatar',
+                    ${hasUnreadMessages.toInt()}
+                    )
+                """.trimIndent()
+            )
+        }
+
+        var cursor = db.query("SELECT * FROM contacts")
+        cursor.moveToFirst()
+        assertEquals(9, cursor.columnCount)
+        assertEquals(publicKey, cursor.getString(0))
+        assertEquals(name, cursor.getString(1))
+        assertEquals(statusMessage, cursor.getString(2))
+        assertEquals(lastMessage, cursor.getInt(3))
+        assertEquals(status.ordinal, cursor.getInt(4))
+        assertEquals(connectionStatus.ordinal, cursor.getInt(5))
+        assertEquals(isTyping.toInt(), cursor.getInt(6))
+        assertEquals(avatar, cursor.getString(7))
+        assertEquals(hasUnreadMessages.toInt(), cursor.getInt(8))
+        db.close()
+
+        db = helper.runMigrationsAndValidate(TEST_DB, 5, true, MIGRATION_4_5)
+        val draftMessage = ""
+
+        cursor = db.query("SELECT * FROM contacts")
+        assertEquals(10, cursor.columnCount)
+        cursor.moveToFirst()
+        assertEquals(publicKey, cursor.getString(0))
+        assertEquals(name, cursor.getString(1))
+        assertEquals(statusMessage, cursor.getString(2))
+        assertEquals(lastMessage, cursor.getInt(3))
+        assertEquals(status.ordinal, cursor.getInt(4))
+        assertEquals(connectionStatus.ordinal, cursor.getInt(5))
+        assertEquals(isTyping.toInt(), cursor.getInt(6))
+        assertEquals(avatar, cursor.getString(7))
+        assertEquals(hasUnreadMessages.toInt(), cursor.getInt(8))
+        assertEquals(draftMessage, cursor.getString(9))
+        db.close()
+    }
+
+    @Test
     fun run_all_migrations() {
         val contact = Contact(
             "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39",
@@ -306,10 +368,10 @@ class DatabaseMigrationTest {
         }
         db.close()
 
-        db = helper.runMigrationsAndValidate(TEST_DB, 3, true, MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+        db = helper.runMigrationsAndValidate(TEST_DB, 5, true, *ALL_MIGRATIONS)
 
         db.query("SELECT * FROM contacts").let { cursor ->
-            assertEquals(cursor.columnCount, 9)
+            assertEquals(cursor.columnCount, 10)
             with(contact) {
                 cursor.moveToFirst()
                 assertEquals(publicKey, cursor.getString(0))
@@ -321,6 +383,7 @@ class DatabaseMigrationTest {
                 assertEquals(typing.toInt(), cursor.getInt(6))
                 assertEquals(avatarUri, cursor.getString(7))
                 assertEquals(hasUnreadMessages.toInt(), cursor.getInt(8))
+                assertEquals(draftMessage, cursor.getString(9))
             }
         }
         db.query("SELECT * FROM messages").let { cursor ->

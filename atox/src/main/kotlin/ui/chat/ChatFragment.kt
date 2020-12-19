@@ -127,6 +127,12 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
 
             profileLayout.statusIndicator.setColorFilter(colorByStatus(resources, it))
             setAvatarFromContact(profileLayout.profileImage, it)
+
+            if (it.draftMessage.isNotEmpty() && outgoingMessage.text.isEmpty()) {
+                outgoingMessage.setText(it.draftMessage)
+                viewModel.clearDraft()
+            }
+
             updateActions()
         }
 
@@ -199,6 +205,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
     }
 
     override fun onPause() {
+        viewModel.setDraft(binding.outgoingMessage.text.toString())
         viewModel.setActiveChat(PublicKey(""))
         super.onPause()
     }
@@ -300,6 +307,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
     }
 
     private fun send(type: MessageType) = binding.run {
+        viewModel.clearDraft()
         viewModel.send(outgoingMessage.text.toString(), type)
         outgoingMessage.text.clear()
     }

@@ -60,4 +60,7 @@ interface ContactDao {
 
     @Query("UPDATE contacts SET has_unread_messages = :anyUnread WHERE public_key = :publicKey")
     fun setHasUnreadMessages(publicKey: String, anyUnread: Boolean)
+
+    @Query("UPDATE contacts SET draft_message = :draft WHERE public_key = :publicKey")
+    fun setDraftMessage(publicKey: String, draft: String)
 }

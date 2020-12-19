@@ -32,7 +32,19 @@ class ContactDaoTest {
             .build()
     private val dao = db.contactDao()
 
-    private val first = Contact("1234", "name", "status", 5, UserStatus.Away, ConnectionStatus.UDP, true, "uri", true)
+    private val first = Contact(
+        publicKey = "1234",
+        name = "name",
+        statusMessage = "status",
+        lastMessage = 5,
+        status = UserStatus.Away,
+        connectionStatus = ConnectionStatus.UDP,
+        typing = true,
+        avatarUri = "uri",
+        hasUnreadMessages = true,
+        draftMessage = "i made this"
+    )
+
     private val second = first.copy(publicKey = "5678")
 
     @Before
@@ -106,6 +118,7 @@ class ContactDaoTest {
         dao.setTyping(second.publicKey, first.typing)
         dao.setAvatarUri(second.publicKey, first.avatarUri)
         dao.setHasUnreadMessages(second.publicKey, first.hasUnreadMessages)
+        dao.setDraftMessage(second.publicKey, first.draftMessage)
         assertEquals(first, dao.load(second.publicKey).first().copy(publicKey = first.publicKey))
     }
 

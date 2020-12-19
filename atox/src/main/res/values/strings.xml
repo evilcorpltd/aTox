@@ -107,4 +107,5 @@
     <string name="save_as">Save as…</string>
     <string name="export_file_success">File exported</string>
     <string name="export_file_failure">Something went wrong exporting that. Pre-0.5.1 transfers were exported by default.</string>
+    <string name="draft_message">Draft: %1$s</string>
 </resources>
