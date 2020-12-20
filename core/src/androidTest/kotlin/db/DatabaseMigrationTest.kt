@@ -192,8 +192,7 @@ class DatabaseMigrationTest {
 
         helper.runMigrationsAndValidate(TEST_DB, 4, true, MIGRATION_3_4).use { db ->
             // The table is nuked during the migration because it was useless before.
-            // TODO(robinlinden): Wrong table. :(
-            assertEquals(db.query("SELECT * FROM messages").count, 0)
+            assertEquals(db.query("SELECT * FROM file_transfers").count, 0)
         }
     }
 
