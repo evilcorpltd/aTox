@@ -38,10 +38,10 @@ class Tox @Inject constructor(
     private lateinit var tox: ToxWrapper
 
     fun start(saveOption: SaveOptions, listener: ToxEventListener, avListener: ToxAvEventListener) {
+        tox = ToxWrapper(listener, avListener, saveOption)
+
         started = true
         isBootstrapNeeded = true
-
-        tox = ToxWrapper(listener, avListener, saveOption)
 
         fun loadContacts() = launch {
             contactRepository.resetTransientData()

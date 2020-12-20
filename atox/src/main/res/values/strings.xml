@@ -67,6 +67,12 @@
         <item>Light</item>
         <item>Dark</item>
     </string-array>
+    <string name="pref_heading_type">Type</string>
+    <string-array name="pref_proxy_type_options">
+        <item>None</item>
+        <item>HTTP</item>
+        <item>SOCKS5</item>
+    </string-array>
     <string name="version_display">aTox v%1$s - %2$d</string>
     <string name="send_as_action">Send as action</string>
     <string name="or_import_existing_save">or import an existing Tox save</string>
@@ -108,4 +114,12 @@
     <string name="export_file_success">File exported</string>
     <string name="export_file_failure">Something went wrong exporting that. Pre-0.5.1 transfers were exported by default.</string>
     <string name="draft_message">Draft: %1$s</string>
+    <string name="pref_heading_address">Address</string>
+    <string name="pref_heading_port">Port</string>
+    <string name="pref_heading_proxy">Proxy</string>
+    <string name="warn_proxy_broken">Bad proxy configured. Fix or disable before using app.</string>
+    <string name="proxy_not_found">Proxy not found</string>
+    <string name="bad_type">Bad type</string>
+    <string name="bad_host">Bad host</string>
+    <string name="bad_port">Bad port</string>
 </resources>

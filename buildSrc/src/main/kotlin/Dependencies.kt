@@ -63,6 +63,7 @@ object AndroidX {
         private const val version = "2.2.0"
         const val extensions = "androidx.lifecycle:lifecycle-extensions:$version"
         const val livedataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
+        const val viewmodelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
     }
 
     const val multidex = "androidx.multidex:multidex:2.0.1"

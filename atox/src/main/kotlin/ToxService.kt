@@ -20,6 +20,7 @@ import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.domain.tox.Tox
+import ltd.evilcorp.domain.tox.ToxSaveStatus
 
 private const val TAG = "ToxService"
 
@@ -87,7 +88,7 @@ class ToxService : LifecycleService() {
         super.onCreate()
 
         if (!tox.started) {
-            if (!toxStarter.tryLoadTox()) {
+            if (toxStarter.tryLoadTox() != ToxSaveStatus.Ok) {
                 Log.e(TAG, "Tox service started without a Tox save")
                 stopSelf()
             }

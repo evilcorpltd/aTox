@@ -10,12 +10,15 @@ import javax.inject.Inject
 import ltd.evilcorp.atox.ToxService
 import ltd.evilcorp.domain.feature.FileTransferManager
 import ltd.evilcorp.domain.feature.UserManager
+import ltd.evilcorp.domain.tox.ProxyType
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.SaveManager
 import ltd.evilcorp.domain.tox.SaveOptions
 import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxAvEventListener
 import ltd.evilcorp.domain.tox.ToxEventListener
+import ltd.evilcorp.domain.tox.ToxSaveStatus
+import ltd.evilcorp.domain.tox.testToxSave
 
 private const val TAG = "ToxStarter"
 
@@ -30,37 +33,42 @@ class ToxStarter @Inject constructor(
     private val context: Context,
     private val preferences: SharedPreferences
 ) {
-    fun startTox(save: ByteArray? = null): Boolean = try {
+    fun startTox(save: ByteArray? = null): ToxSaveStatus {
         listenerCallbacks.setUp(eventListener)
         listenerCallbacks.setUp(avEventListener)
-        tox.start(
-            SaveOptions(
-                save,
-                udpEnabled = preferences.getBoolean("udp_enabled", false)
-            ),
-            eventListener, avEventListener
+        val options = SaveOptions(
+            save,
+            udpEnabled = preferences.getBoolean("udp_enabled", false),
+            proxyType = ProxyType.values()[preferences.getInt("proxy_type", ProxyType.None.ordinal)],
+            proxyAddress = preferences.getString("proxy_address", null) ?: "",
+            proxyPort = preferences.getInt("proxy_port", 0),
         )
+        try {
+            tox.start(options, eventListener, avEventListener)
+        } catch (e: ToxNewException) {
+            Log.e(TAG, e.message)
+            return testToxSave(options)
+        }
+
         // This can stay alive across core restarts and it doesn't work well when toxcore resets its numbers
         fileTransferManager.reset()
-
         startService()
-        true
-    } catch (e: ToxNewException) {
-        Log.e(TAG, e.message)
-        false
+        return ToxSaveStatus.Ok
     }
 
     fun stopTox() = context.run {
         stopService(Intent(this, ToxService::class.java))
     }
 
-    fun tryLoadTox(): Boolean {
+    fun tryLoadTox(): ToxSaveStatus {
         tryLoadSave()?.also { save ->
-            startTox(save)
-            userManager.verifyExists(tox.publicKey)
-            return true
+            val status = startTox(save)
+            if (status == ToxSaveStatus.Ok) {
+                userManager.verifyExists(tox.publicKey)
+            }
+            return status
         }
-        return false
+        return ToxSaveStatus.SaveNotFound
     }
 
     private fun startService() = context.run {

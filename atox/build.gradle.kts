@@ -74,6 +74,7 @@ dependencies {
 
     implementation(AndroidX.Lifecycle.extensions)
     implementation(AndroidX.Lifecycle.livedataKtx)
+    implementation(AndroidX.Lifecycle.viewmodelKtx)
 
     implementation(Google.dagger)
     kapt(Google.Dagger.compiler)

@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
@@ -40,6 +41,7 @@ import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.tox.PublicKey
+import ltd.evilcorp.domain.tox.ToxSaveStatus
 
 private const val REQUEST_CODE_BACKUP_TOX = 9202
 
@@ -282,7 +284,18 @@ class ContactListFragment :
     override fun onStart() {
         super.onStart()
         if (!viewModel.isToxRunning()) {
-            findNavController().navigate(R.id.action_contactListFragment_to_profileFragment)
+            when (val status = viewModel.tryLoadTox()) {
+                ToxSaveStatus.BadProxyHost, ToxSaveStatus.BadProxyPort,
+                ToxSaveStatus.BadProxyType, ToxSaveStatus.ProxyNotFound -> {
+                    Toast.makeText(requireContext(), getString(R.string.warn_proxy_broken), Toast.LENGTH_LONG).show()
+                    findNavController().navigate(R.id.action_contactListFragment_to_settingsFragment)
+                }
+                ToxSaveStatus.SaveNotFound ->
+                    findNavController().navigate(R.id.action_contactListFragment_to_profileFragment)
+                ToxSaveStatus.Ok -> {
+                }
+                else -> throw Exception("Unhandled tox save error $status")
+            }
         }
     }
 

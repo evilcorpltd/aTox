@@ -9,6 +9,7 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxID
+import ltd.evilcorp.domain.tox.ToxSaveStatus
 
 class AddContactViewModel @Inject constructor(
     private val contactManager: ContactManager,
@@ -18,7 +19,7 @@ class AddContactViewModel @Inject constructor(
     val contacts: LiveData<List<Contact>> = contactManager.getAll().asLiveData()
 
     fun isToxRunning() = tox.started
-    fun tryLoadTox(): Boolean = toxStarter.tryLoadTox()
+    fun tryLoadTox(): Boolean = toxStarter.tryLoadTox() == ToxSaveStatus.Ok
 
     fun addContact(toxId: ToxID, message: String) = contactManager.add(toxId, message)
 }

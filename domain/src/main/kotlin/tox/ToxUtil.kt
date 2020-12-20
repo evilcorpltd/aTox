@@ -22,7 +22,11 @@ fun SaveOptions.toToxOptions(): ToxOptions = ToxOptions(
     true,
     udpEnabled,
     true,
-    ProxyOptions.`None$`(),
+    when (proxyType) {
+        ProxyType.None -> ProxyOptions.`None$`()
+        ProxyType.HTTP -> ProxyOptions.Http(proxyAddress, proxyPort)
+        ProxyType.SOCKS5 -> ProxyOptions.Socks5(proxyAddress, proxyPort)
+    },
     0,
     0,
     0,

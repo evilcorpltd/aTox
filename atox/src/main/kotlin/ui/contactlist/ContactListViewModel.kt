@@ -24,6 +24,7 @@ import ltd.evilcorp.domain.feature.FriendRequestManager
 import ltd.evilcorp.domain.feature.UserManager
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
+import ltd.evilcorp.domain.tox.ToxSaveStatus
 
 class ContactListViewModel @Inject constructor(
     private val context: Context,
@@ -41,7 +42,7 @@ class ContactListViewModel @Inject constructor(
     val friendRequests: LiveData<List<FriendRequest>> = friendRequestManager.getAll().asLiveData()
 
     fun isToxRunning() = tox.started
-    fun tryLoadTox(): Boolean = toxStarter.tryLoadTox()
+    fun tryLoadTox(): ToxSaveStatus = toxStarter.tryLoadTox()
     fun quitTox() = toxStarter.stopTox()
 
     fun acceptFriendRequest(friendRequest: FriendRequest) = friendRequestManager.accept(friendRequest)
