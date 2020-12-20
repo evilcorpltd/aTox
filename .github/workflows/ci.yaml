@@ -1,10 +1,10 @@
 on: [push, pull_request]
 jobs:
-  android-test:
+  gradle-android-test:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - name: android test
+    - name: Test
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: 29
@@ -14,14 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v1
+    - uses: actions/setup-java@v1
       with:
         java-version: 1.8
     - name: ktlint
       run: ./gradlew ktlint
 
-  build:
+  gradle:
     runs-on: ${{ matrix.os }}
     strategy:
       max-parallel: 6
@@ -32,11 +31,10 @@ jobs:
         - windows-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Setup JDK 1.8
-      uses: actions/setup-java@v1
+    - uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Building with Gradle
+    - name: Build and test
       run: ./gradlew build
 
   bazel:
@@ -49,11 +47,11 @@ jobs:
           echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/$NDK_VERSION" >> $GITHUB_ENV
       env:
         NDK_VERSION: 21.3.6528147
-    - name: Set up Bazelisk
+    - name: Install
       run: wget https://github.com/bazelbuild/bazelisk/releases/download/v1.7.4/bazelisk-linux-amd64 --output-document=bazelisk
-    - name: Build with Bazel
+    - name: Build
       run: bazelisk build //...
-    - name: Test with Bazel
+    - name: Test
       run: bazelisk test //...
 
   buildifier:
