@@ -1,0 +1,110 @@
+<resources>
+    <string name="accept">Aceitar</string>
+    <string name="add">Adicionar</string>
+    <string name="add_contact">Adicionar contato</string>
+    <string name="add_contact_message_default">Fale comigo no aTox como um ser humano razoável.
+    </string>
+    <string name="add_contact_message_error_empty">A mensagem não pode estar vazia</string>
+    <string name="confirm">Confirmar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="connecting">Conectado…</string>
+    <string name="contact_typing">Escrevendo…</string>
+    <string name="copied">Copiado</string>
+    <string name="copy_atox">Copiar</string> <!-- androidx.preference:preference has stolen copy -->
+    <string name="create">Criar</string>
+    <string name="create_a_tox_profile">Criar um perfil de Tox</string>
+    <string name="delete_contact">Excluir o contato</string>
+    <string name="message">Mensagem</string>
+    <string name="messages">Mensagens</string>
+    <string name="messages_incoming">Mensagens recebidas</string>
+    <string name="name">Nome</string>
+    <string name="name_default">usuário aTox</string>
+    <string name="no_contacts_call_to_action">O que você está esperando? Adicione um contato para
+                começar!
+    </string>
+    <string name="navigation_drawer_close">Fechar o menu de navegação</string>
+    <string name="navigation_drawer_open">Abrir o menu de navegação</string>
+    <string name="profile_photo_description">Foto do perfil</string>
+    <string name="reject">Recusar</string>
+    <string name="send">Enviar</string>
+    <string name="sending">Enviando…</string>
+    <string name="settings">Configurações</string>
+    <string name="status_indicator">Indicador de status</string>
+    <string name="status_message">Mensagem de status</string>
+    <string name="status_message_default">Produzido pela equipe de aTox</string>
+    <string name="tox_id">ID de Tox</string>
+    <string name="tox_id_error_length">ID de Tox deve ter 76 caracteres (%1$d/76)</string>
+    <string name="tox_id_error_checksum">Checksum inválido</string>
+    <string name="tox_id_error_hex">Apenas hexadecimal é permitido</string>
+    <string name="tox_id_share">Compartilhar ID do Tox</string>
+    <string name="update">Atualizar</string>
+    <string name="quit">Sair</string>
+    <string name="quit_confirm">Tem certeza de que quer sair?</string>
+    <!-- Friend request notification -->
+    <string name="friend_requests">Pedidos de amigos</string>
+    <string name="friend_request_from">Pedido de amigo de %1$s</string>
+    <!-- Chat history clearing -->
+    <string name="clear_history">Excluir o histórico</string>
+    <string name="clear_history_cleared">Histórico excluído</string>
+    <string name="clear_history_confirm">Tem certeza de que quer excluir o histórico de conversa com
+        %1$s?
+    </string>
+    <string name="delete_message_confirm">Tem certeza de que quer excluir a mensagem \"%1$s\"?</string>
+    <string name="import_tox_save">Importar</string>
+    <string name="import_tox_save_failed">A importação falhou por algum motivo</string>
+    <string name="export_tox_save">Exportar o arquivo Tox</string>
+    <string name="tox_save_exported">Tox foi exportado</string>
+    <string name="never">Nunca</string>
+    <string name="info">Info</string>
+    <string name="atox_offline">Desconectado</string>
+    <string name="atox_connected_with_tcp">Conectado (TCP)</string>
+    <string name="atox_connected_with_udp">Conectado (UDP)</string>
+    <string name="read_qr">QR</string>
+    <string name="pref_heading_theme">Tema</string>
+    <string-array name="pref_theme_options">
+        <item>Adaptar do sistema</item>
+        <item>Claro</item>
+        <item>Escuro</item>
+    </string-array>
+    <string name="version_display">aTox v%1$s - %2$d</string>
+    <string name="send_as_action">Enviar como ação</string>
+    <string name="or_import_existing_save">ou importar um arquivo de Tox existente</string>
+    <string name="profile_information">Informações do perfil</string>
+    <string name="profile_settings">Configurações do perfil</string>
+    <string name="profile_nickname">Mudar seu apelido</string>
+    <string name="profile_status_message">Alterar sua mensagem de status</string>
+    <string name="profile_status">Alterar seu status</string>
+    <string name="profile">Perfil</string>
+    <string name="tox_id_error_already_exists">Já existe um contato com essa ID</string>
+    <string name="tox_service_running">aTox está em andamento</string>
+    <string name="pref_heading_network">Rede</string>
+    <string name="pref_udp_enabled">UDP habilitado</string>
+    <string name="pref_heading_general">Geral</string>
+    <string name="pref_run_at_startup">Executar na inicialização</string>
+    <string name="friend_request">Pedido de amigo</string>
+
+    <string name="status_available">Disponível</string>
+    <string name="status_away">Indisponível</string>
+    <string name="status_busy">Ocupado</string>
+    <string-array name="user_statuses">
+        <item>@string/status_available</item>
+        <item>@string/status_away</item>
+        <item>@string/status_busy</item>
+    </string-array>
+    <string name="from">De</string>
+
+    <!-- Status dialog -->
+    <string name="status_dialog_edit_user_status">Editar seu status</string>
+    <string name="mimetype_handler_not_found">Incapaz de encontrar algo que suporta mimetype
+        %1$s
+    </string>
+    <string name="attach_file">Anexar um arquivo</string>
+    <string name="delete">Excluir</string>
+    <string name="notification_file_transfer">Transferência de arquivo a ser recebida \"%1$s\"</string>
+    <string name="cancelled">Cancelada</string>
+    <string name="completed">Concluído</string>
+    <string name="save_as">Salvar como…</string>
+    <string name="export_file_success">Arquivo exportado</string>
+    <string name="export_file_failure">Algo deu errado ao exportá-lo. Pre-0.5.1 transferências foram exportadas por padrão.</string>
+    <string name="draft_message">Rascunho: %1$s</string>
+</resources>
