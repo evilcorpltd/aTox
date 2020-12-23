@@ -11,6 +11,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import java.lang.NumberFormatException
 import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
@@ -28,8 +29,15 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         }
     }
 
+    private val applySettingsCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            vm.commit()
+        }
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        requireActivity().onBackPressedDispatcher.addCallback(this, applySettingsCallback)
         requireActivity().onBackPressedDispatcher.addCallback(this, blockBackCallback)
     }
 
@@ -116,11 +124,12 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         }
         vm.checkProxy()
 
-        version.text = getString(R.string.version_display, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
-    }
+        vm.committed.observe(viewLifecycleOwner) { committed ->
+            if (committed) {
+                findNavController().popBackStack()
+            }
+        }
 
-    override fun onStop() {
-        super.onStop()
-        vm.commit()
+        version.text = getString(R.string.version_display, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
     }
 }

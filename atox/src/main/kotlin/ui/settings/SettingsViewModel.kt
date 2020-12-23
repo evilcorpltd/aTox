@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -42,6 +41,9 @@ class SettingsViewModel @Inject constructor(
 
     private val _proxyStatus = MutableLiveData<ProxyStatus>()
     val proxyStatus: LiveData<ProxyStatus> get() = _proxyStatus
+
+    private val _committed = MutableLiveData<Boolean>().apply { value = false }
+    val committed: LiveData<Boolean> get() = _committed
 
     fun getTheme(): Int = preferences.getInt("theme", 0)
     fun setTheme(theme: Int) {
@@ -74,14 +76,19 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun commit() {
-        if (!restartNeeded) return
+        if (!restartNeeded) {
+            _committed.value = true
+            return
+        }
+
         toxStarter.stopTox()
 
-        GlobalScope.launch {
+        viewModelScope.launch {
             while (tox.started) {
                 delay(200)
             }
             toxStarter.tryLoadTox()
+            _committed.value = true
         }
     }
 
