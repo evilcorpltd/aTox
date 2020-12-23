@@ -101,11 +101,11 @@ class ChatViewModel @Inject constructor(
         fileTransferManager.get(id).take(1).collect { ft ->
             launch(Dispatchers.IO) {
                 try {
-                    val ins = FileInputStream(File(Uri.parse(ft.destination).path!!))
-                    val os = resolver.openOutputStream(dest)
-                    ins.copyTo(os!!)
-                    os.close()
-                    ins.close()
+                    FileInputStream(File(Uri.parse(ft.destination).path!!)).use { ins ->
+                        resolver.openOutputStream(dest).use { os ->
+                            ins.copyTo(os!!)
+                        }
+                    }
                     withContext(Dispatchers.Main) {
                         Toast.makeText(context, R.string.export_file_success, Toast.LENGTH_LONG).show()
                     }

@@ -50,17 +50,14 @@ class ContactListViewModel @Inject constructor(
     fun deleteContact(publicKey: PublicKey) = contactManager.delete(publicKey)
 
     fun saveToxBackupTo(uri: Uri) = launch(Dispatchers.IO) {
-        resolver.openFileDescriptor(uri, "w")!!.let { fd ->
-            FileOutputStream(fd.fileDescriptor).let { out ->
+        resolver.openFileDescriptor(uri, "w")!!.use { fd ->
+            FileOutputStream(fd.fileDescriptor).use { out ->
                 val saveData = tox.getSaveData().await()
                 out.write(saveData)
-                out.close()
             }
-            fd.close()
-
-            withContext(Dispatchers.Main) {
-                Toast.makeText(context, context.getText(R.string.tox_save_exported), Toast.LENGTH_SHORT).show()
-            }
+        }
+        withContext(Dispatchers.Main) {
+            Toast.makeText(context, context.getText(R.string.tox_save_exported), Toast.LENGTH_SHORT).show()
         }
     }
 }
