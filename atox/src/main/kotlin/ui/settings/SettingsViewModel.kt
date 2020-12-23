@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -41,6 +42,12 @@ class SettingsViewModel @Inject constructor(
 
     private val _proxyStatus = MutableLiveData<ProxyStatus>()
     val proxyStatus: LiveData<ProxyStatus> get() = _proxyStatus
+
+    fun getTheme(): Int = preferences.getInt("theme", 0)
+    fun setTheme(theme: Int) {
+        preferences.edit { putInt("theme", theme) }
+        AppCompatDelegate.setDefaultNightMode(theme)
+    }
 
     fun getUdpEnabled(): Boolean = preferences.getBoolean("udp_enabled", false)
     fun setUdpEnabled(enabled: Boolean) {

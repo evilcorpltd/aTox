@@ -8,12 +8,9 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.edit
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
-import androidx.preference.PreferenceManager
 import java.lang.NumberFormatException
 import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
@@ -25,7 +22,6 @@ import ltd.evilcorp.domain.tox.ProxyType
 
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
     private val vm: SettingsViewModel by viewModels { vmFactory }
-    private val preferences get() = PreferenceManager.getDefaultSharedPreferences(requireContext())
     private val blockBackCallback = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {
             Toast.makeText(requireContext(), getString(R.string.warn_proxy_broken), Toast.LENGTH_LONG).show()
@@ -51,45 +47,28 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
 
         toolbar.apply {
             setNavigationIcon(R.drawable.back)
-            setNavigationOnClickListener {
-                activity?.onBackPressed()
-            }
+            setNavigationOnClickListener { requireActivity().onBackPressed() }
         }
 
         theme.adapter = ArrayAdapter.createFromResource(
             requireContext(), R.array.pref_theme_options,
             android.R.layout.simple_spinner_item
-        ).apply {
-            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        }
+        ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
 
-        theme.setSelection(preferences.getInt("theme", 0))
+        theme.setSelection(vm.getTheme())
 
         theme.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("not implemented")
-            }
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                preferences.edit { putInt("theme", position) }
-                AppCompatDelegate.setDefaultNightMode(position)
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                vm.setTheme(position)
             }
         }
 
         settingRunAtStartup.isChecked = vm.getRunAtStartup()
-        settingRunAtStartup.setOnClickListener {
-            vm.setRunAtStartup(settingRunAtStartup.isChecked)
-        }
+        settingRunAtStartup.setOnClickListener { vm.setRunAtStartup(settingRunAtStartup.isChecked) }
 
         settingsUdpEnabled.isChecked = vm.getUdpEnabled()
-        settingsUdpEnabled.setOnClickListener {
-            vm.setUdpEnabled(settingsUdpEnabled.isChecked)
-        }
+        settingsUdpEnabled.setOnClickListener { vm.setUdpEnabled(settingsUdpEnabled.isChecked) }
 
         proxyType.adapter = ArrayAdapter.createFromResource(
             requireContext(), R.array.pref_proxy_type_options, android.R.layout.simple_spinner_item
@@ -105,9 +84,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         }
 
         proxyAddress.setText(vm.getProxyAddress())
-        proxyAddress.doAfterTextChanged {
-            vm.setProxyAddress(it?.toString() ?: "")
-        }
+        proxyAddress.doAfterTextChanged { vm.setProxyAddress(it?.toString() ?: "") }
 
         proxyPort.setText(vm.getProxyPort().toString())
         proxyPort.doAfterTextChanged {
