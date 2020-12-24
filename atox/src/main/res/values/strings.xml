@@ -122,4 +122,5 @@
     <string name="bad_type">Bad type</string>
     <string name="bad_host">Bad host</string>
     <string name="bad_port">Bad port</string>
+    <string name="tox_save_export_failure">Save export failed: %1$s</string>
 </resources>

@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import java.io.FileInputStream
 import java.io.FileOutputStream
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
@@ -22,9 +23,12 @@ import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.feature.FriendRequestManager
 import ltd.evilcorp.domain.feature.UserManager
+import ltd.evilcorp.domain.tox.ProxyType
 import ltd.evilcorp.domain.tox.PublicKey
+import ltd.evilcorp.domain.tox.SaveOptions
 import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxSaveStatus
+import ltd.evilcorp.domain.tox.testToxSave
 
 class ContactListViewModel @Inject constructor(
     private val context: Context,
@@ -50,14 +54,28 @@ class ContactListViewModel @Inject constructor(
     fun deleteContact(publicKey: PublicKey) = contactManager.delete(publicKey)
 
     fun saveToxBackupTo(uri: Uri) = launch(Dispatchers.IO) {
+        // Export the save.
         resolver.openFileDescriptor(uri, "w")!!.use { fd ->
             FileOutputStream(fd.fileDescriptor).use { out ->
                 val saveData = tox.getSaveData().await()
                 out.write(saveData)
             }
         }
-        withContext(Dispatchers.Main) {
-            Toast.makeText(context, context.getText(R.string.tox_save_exported), Toast.LENGTH_SHORT).show()
+
+        // Verify that the exported save can be imported.
+        resolver.openFileDescriptor(uri, "r")!!.use { fd ->
+            FileInputStream(fd.fileDescriptor).use { ios ->
+                val saveData = ios.readBytes()
+                val save = SaveOptions(saveData, true, ProxyType.None, "", 0)
+                val toast = when (val status = testToxSave(save)) {
+                    ToxSaveStatus.Ok -> context.getText(R.string.tox_save_exported)
+                    else -> context.getString(R.string.tox_save_export_failure, status.name)
+                }
+
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, toast, Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 }
