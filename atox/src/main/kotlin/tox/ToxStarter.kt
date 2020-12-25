@@ -2,15 +2,14 @@ package ltd.evilcorp.atox.tox
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Build
 import android.util.Log
 import im.tox.tox4j.core.exceptions.ToxNewException
 import javax.inject.Inject
 import ltd.evilcorp.atox.ToxService
+import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.domain.feature.FileTransferManager
 import ltd.evilcorp.domain.feature.UserManager
-import ltd.evilcorp.domain.tox.ProxyType
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.SaveManager
 import ltd.evilcorp.domain.tox.SaveOptions
@@ -31,18 +30,13 @@ class ToxStarter @Inject constructor(
     private val eventListener: ToxEventListener,
     private val avEventListener: ToxAvEventListener,
     private val context: Context,
-    private val preferences: SharedPreferences
+    private val settings: Settings,
 ) {
     fun startTox(save: ByteArray? = null): ToxSaveStatus {
         listenerCallbacks.setUp(eventListener)
         listenerCallbacks.setUp(avEventListener)
-        val options = SaveOptions(
-            save,
-            udpEnabled = preferences.getBoolean("udp_enabled", false),
-            proxyType = ProxyType.values()[preferences.getInt("proxy_type", ProxyType.None.ordinal)],
-            proxyAddress = preferences.getString("proxy_address", null) ?: "",
-            proxyPort = preferences.getInt("proxy_port", 0),
-        )
+        val options =
+            SaveOptions(save, settings.udpEnabled, settings.proxyType, settings.proxyAddress, settings.proxyPort)
         try {
             tox.start(options, eventListener, avEventListener)
         } catch (e: ToxNewException) {

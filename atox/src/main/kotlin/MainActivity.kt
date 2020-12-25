@@ -1,7 +1,6 @@
 package ltd.evilcorp.atox
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import javax.inject.Inject
 import ltd.evilcorp.atox.di.ViewModelFactory
+import ltd.evilcorp.atox.settings.Settings
 
 private const val TAG = "MainActivity"
 private const val SCHEME = "tox:"
@@ -20,14 +20,14 @@ class MainActivity : AppCompatActivity() {
     lateinit var vmFactory: ViewModelFactory
 
     @Inject
-    lateinit var preferences: SharedPreferences
+    lateinit var settings: Settings
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as App).component.inject(this)
 
         super.onCreate(savedInstanceState)
 
-        AppCompatDelegate.setDefaultNightMode(preferences.getInt("theme", 0))
+        AppCompatDelegate.setDefaultNightMode(settings.theme)
 
         setContentView(R.layout.activity_main)
 

@@ -1,11 +1,5 @@
 package ltd.evilcorp.atox.ui.settings
 
-import android.content.ComponentName
-import android.content.Context
-import android.content.SharedPreferences
-import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import ltd.evilcorp.atox.BootReceiver
+import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.domain.tox.ProxyType
 import ltd.evilcorp.domain.tox.SaveOptions
@@ -32,8 +26,7 @@ enum class ProxyStatus {
 }
 
 class SettingsViewModel @Inject constructor(
-    private val context: Context,
-    private val preferences: SharedPreferences,
+    private val settings: Settings,
     private val toxStarter: ToxStarter,
     private val tox: Tox
 ) : ViewModel() {
@@ -45,34 +38,20 @@ class SettingsViewModel @Inject constructor(
     private val _committed = MutableLiveData<Boolean>().apply { value = false }
     val committed: LiveData<Boolean> get() = _committed
 
-    fun getTheme(): Int = preferences.getInt("theme", 0)
+    fun getTheme(): Int = settings.theme
     fun setTheme(theme: Int) {
-        preferences.edit { putInt("theme", theme) }
-        AppCompatDelegate.setDefaultNightMode(theme)
+        settings.theme = theme
     }
 
-    fun getUdpEnabled(): Boolean = preferences.getBoolean("udp_enabled", false)
+    fun getUdpEnabled(): Boolean = settings.udpEnabled
     fun setUdpEnabled(enabled: Boolean) {
-        preferences.edit().putBoolean("udp_enabled", enabled).apply()
+        settings.udpEnabled = enabled
         restartNeeded = true
     }
 
-    fun getRunAtStartup(): Boolean = context.packageManager.getComponentEnabledSetting(
-        ComponentName(context, BootReceiver::class.java)
-    ) == PackageManager.COMPONENT_ENABLED_STATE_ENABLED
-
+    fun getRunAtStartup(): Boolean = settings.runAtStartup
     fun setRunAtStartup(enabled: Boolean) {
-        val state = if (enabled) {
-            PackageManager.COMPONENT_ENABLED_STATE_ENABLED
-        } else {
-            PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-        }
-
-        context.packageManager.setComponentEnabledSetting(
-            ComponentName(context, BootReceiver::class.java),
-            state,
-            PackageManager.DONT_KILL_APP
-        )
+        settings.runAtStartup = enabled
     }
 
     fun commit() {
@@ -92,7 +71,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    var checkProxyJob: Job? = null
+    private var checkProxyJob: Job? = null
     fun checkProxy() {
         checkProxyJob?.cancel(null)
         checkProxyJob = viewModelScope.launch(Dispatchers.IO) {
@@ -112,19 +91,19 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun getProxyType(): ProxyType = ProxyType.values()[preferences.getInt("proxy_type", 0)]
-    fun setProxyType(proxyType: ProxyType) {
-        if (proxyType != getProxyType()) {
-            preferences.edit { putInt("proxy_type", proxyType.ordinal) }
+    fun getProxyType(): ProxyType = settings.proxyType
+    fun setProxyType(type: ProxyType) {
+        if (type != getProxyType()) {
+            settings.proxyType = type
             restartNeeded = true
             checkProxy()
         }
     }
 
-    fun getProxyAddress(): String = preferences.getString("proxy_address", null) ?: ""
+    fun getProxyAddress(): String = settings.proxyAddress
     fun setProxyAddress(address: String) {
         if (address != getProxyAddress()) {
-            preferences.edit { putString("proxy_address", address) }
+            settings.proxyAddress = address
             if (getProxyType() != ProxyType.None) {
                 restartNeeded = true
             }
@@ -132,10 +111,10 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun getProxyPort(): Int = preferences.getInt("proxy_port", 0)
+    fun getProxyPort(): Int = settings.proxyPort
     fun setProxyPort(port: Int) {
         if (port != getProxyPort()) {
-            preferences.edit { putInt("proxy_port", port) }
+            settings.proxyPort = port
             if (getProxyType() != ProxyType.None) {
                 restartNeeded = true
             }
