@@ -1,0 +1,54 @@
+#!/usr/bin/make -f
+
+TARGET := host
+
+include scripts/common.mk
+include scripts/$(shell uname -s).mk
+
+TOOLCHAIN	:= $(DESTDIR)/$(TARGET)
+TOOLCHAIN_FILE	:= $(TOOLCHAIN)/.stamp
+PREFIX		:= $(TOOLCHAIN)
+
+export CC		:= $(shell which clang || which gcc)
+export CXX		:= $(shell which clang++ || which g++)
+export PKG_CONFIG_PATH	:= $(PREFIX)/lib/pkgconfig
+export TOX4J_PLATFORM	:= $(shell perl -e 'print $$^O')-$(shell uname -m)
+
+build: $(PREFIX)/tox4j.stamp $(foreach i,jvm-macros jvm-toxcore-api tox4j-c,$(DESTDIR)/$i.stamp)
+
+test: build
+	$(MAKE) -C _build/$(TARGET)/tox4j test
+	$(MAKE) -f scripts/build-host regenerate
+	git diff --exit-code
+	sbt -Djava.library.path=$(PREFIX)/lib "coverage" "test" "coverageReport"
+
+cpp/src/ToxAv/generated/im_tox_tox4j_impl_jni_ToxAvJni.h: build
+	javah -cp target/scala-2.11/classes im.tox.tox4j.impl.jni.ToxAvJni
+	mv $(@F) $@
+
+cpp/src/ToxCore/generated/im_tox_tox4j_impl_jni_ToxCoreJni.h: build
+	javah -cp target/scala-2.11/classes im.tox.tox4j.impl.jni.ToxCoreJni
+	mv $(@F) $@
+
+cpp/src/ToxCrypto/generated/im_tox_tox4j_impl_jni_ToxCryptoJni.h: build
+	javah -cp target/scala-2.11/classes im.tox.tox4j.impl.jni.ToxCryptoJni
+	mv $(@F) $@
+
+%.run: ; $*
+regenerate: $(foreach i,$(wildcard bin/Jni*),$i.run) $(wildcard cpp/src/*/generated/*.h)
+
+protobuf_CONFIGURE	:= --prefix=$(PREFIX) --disable-shared
+libsodium_CONFIGURE	:= --prefix=$(PREFIX) --disable-shared
+opus_CONFIGURE		:= --prefix=$(PREFIX) --disable-shared
+libvpx_CONFIGURE	:= --prefix=$(PREFIX) --disable-examples --disable-unit-tests --enable-pic
+toxcore_CONFIGURE	:= -DCMAKE_INSTALL_PREFIX:PATH=$(PREFIX) -DENABLE_STATIC=ON -DENABLE_SHARED=OFF
+tox4j_CONFIGURE		:= -DCMAKE_INSTALL_PREFIX:PATH=$(PREFIX)
+
+$(TOOLCHAIN):
+	mkdir -p $@
+
+$(TOOLCHAIN_FILE): $(TOOLCHAIN)
+	touch $@
+
+include scripts/release.mk
+include scripts/dependencies.mk

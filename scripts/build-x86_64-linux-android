@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+
+TARGET := x86_64-linux-android
+
+include scripts/common.mk
+
+NDK_API := 21
+NDK_ARCH := x86_64
+VPX_ARCH := x86_64-android-gcc
+VPX_TARGET := $(TARGET)
+
+include scripts/android.mk
+include scripts/dependencies.mk

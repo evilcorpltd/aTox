@@ -8,9 +8,7 @@ buildscript {
         mavenLocal()
         google()
         jcenter()
-        maven {
-            url = uri("https://dl.bintray.com/toktok/maven")
-        }
+         maven { url = uri("https://dl.bintray.com/toktok/maven") }
     }
     dependencies {
         classpath(BuildPlugin.gradle)
@@ -24,9 +22,7 @@ allprojects {
         mavenLocal()
         google()
         jcenter()
-        maven {
-            url = uri("https://dl.bintray.com/toktok/maven")
-        }
+         maven { url = uri("https://dl.bintray.com/toktok/maven") }
     }
 }
 

@@ -7,3 +7,8 @@ bazel-*
 build
 captures
 local.properties
+
+# gradle-from-source build
+_build
+_git
+_install
