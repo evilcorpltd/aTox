@@ -8,7 +8,7 @@ jobs:
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: 29
-        script: ./gradlew connectedCheck -x :atox:connectedAndroidTest -x :domain:connectedAndroidTest
+        script: ./gradlew connectedCheck
 
   ktlint:
     runs-on: ubuntu-latest
