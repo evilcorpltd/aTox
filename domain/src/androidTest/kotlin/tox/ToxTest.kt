@@ -12,7 +12,7 @@ class ToxTest {
     fun quitting_does_not_crash() {
         for (i in 1..10) {
             val tox = Tox(mockk(relaxUnitFun = true), mockk(relaxUnitFun = true))
-            tox.start(SaveOptions(null, false), ToxEventListener(), ToxAvEventListener())
+            tox.start(SaveOptions(null, false, ProxyType.None, "", 0), ToxEventListener(), ToxAvEventListener())
             sleep(25)
             tox.stop()
         }
