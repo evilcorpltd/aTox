@@ -32,6 +32,17 @@ http_archive(
     urls = ["https://github.com/bazelbuild/rules_android/archive/v0.1.1.zip"],
 )
 
+http_archive(
+    name = "robolectric",
+    sha256 = "d4f2eb078a51f4e534ebf5e18b6cd4646d05eae9b362ac40b93831bdf46112c7",
+    strip_prefix = "robolectric-bazel-4.4",
+    urls = ["https://github.com/robolectric/robolectric-bazel/archive/4.4.tar.gz"],
+)
+
+load("@robolectric//bazel:robolectric.bzl", "robolectric_repositories")
+
+robolectric_repositories()
+
 STARDOC_TAG = "0.4.0"
 
 STARDOC_SHA = "36b8d6c2260068b9ff82faea2f7add164bf3436eac9ba3ec14809f335346d66a"
@@ -58,16 +69,22 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 maven_install(
     artifacts = [
+        "androidx.room:room-compiler:2.2.5",
         "androidx.room:room-ktx:2.2.5",
         "androidx.room:room-runtime:2.2.5",
+        "androidx.room:room-testing:2.2.5",
+        "androidx.test.ext:junit:1.1.2",
+        "com.google.code.gson:gson:2.8.6",
         "com.google.dagger:dagger:2.30.1",
         "com.google.guava:guava:19.0",
         "com.typesafe.scala-logging:scala-logging_2.11:3.7.2",
         "javax.inject:javax.inject:1",
         "junit:junit:4.13.1",
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2",
         "org.jetbrains:annotations:13.0",
         "org.slf4j:slf4j-api:1.7.25",
+        "org.robolectric:robolectric:4.4",
         "org.scala-lang:scala-library:2.11.12",
         "androidx.lifecycle:lifecycle-extensions:2.2.0",
         "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0",

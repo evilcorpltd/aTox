@@ -1,4 +1,5 @@
 load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_android_library")
+load("@rules_java//java:defs.bzl", "java_library", "java_plugin")
 
 kt_android_library(
     name = "db",
@@ -6,8 +7,27 @@ kt_android_library(
     custom_package = "ltd.evilcorp.core.db",
     visibility = ["//core:__subpackages__"],
     deps = [
+        ":androidx_room_room_compiler_library",
         "//core/src/main/kotlin/vo",
         "@maven//:androidx_room_room_runtime",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+    ],
+)
+
+java_plugin(
+    name = "androidx_room_room_compiler_plugin",
+    processor_class = "androidx.room.RoomProcessor",
+    deps = ["@maven//:androidx_room_room_compiler"],
+)
+
+java_library(
+    name = "androidx_room_room_compiler_library",
+    exported_plugins = [":androidx_room_room_compiler_plugin"],
+    neverlink = True,
+    exports = [
+        "@maven//:androidx_room_room_common",
+        "@maven//:androidx_room_room_compiler",
+        "@maven//:androidx_room_room_ktx",
+        "@maven//:androidx_room_room_runtime",
     ],
 )

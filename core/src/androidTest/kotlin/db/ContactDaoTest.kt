@@ -29,6 +29,7 @@ class ContactDaoTest {
         Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getInstrumentation().targetContext, Database::class.java)
             .setTransactionExecutor(dispatcher.asExecutor())
             .setQueryExecutor(dispatcher.asExecutor())
+            .allowMainThreadQueries()
             .build()
     private val dao = db.contactDao()
 

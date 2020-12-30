@@ -1,5 +1,5 @@
-load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_jvm_test")
-load("@rules_android//android:rules.bzl", "android_library")
+load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_android_library", "kt_jvm_test")
+load("@rules_android//android:rules.bzl", "android_library", "android_local_test")
 
 android_library(
     name = "core",
@@ -21,5 +21,37 @@ kt_jvm_test(
     deps = [
         "//core/src/main/kotlin/db",
         "@maven//:junit_junit",
+    ],
+)
+
+kt_android_library(
+    name = "contact_dao_test_lib",
+    srcs = ["src/androidTest/kotlin/db/ContactDaoTest.kt"],
+    custom_package = "ltd.evilcorp.core.db",
+    manifest = "src/main/AndroidManifest.xml",
+    deps = [
+        "//core/src/main/kotlin/db",
+        "@maven//:androidx_room_room_ktx",
+        "@maven//:androidx_room_room_testing",
+        "@maven//:androidx_test_ext_junit",
+        "@maven//:com_google_code_gson_gson",
+        "@maven//:junit_junit",
+        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_test",
+    ],
+)
+
+android_local_test(
+    name = "contact_dao_test",
+    size = "small",
+    custom_package = "ltd.evilcorp.core.db",
+    manifest_values = {
+        "minSdkVersion": "19",
+        "targetSdkVersion": "29",
+    },
+    test_class = "ltd.evilcorp.core.db.ContactDaoTest",
+    deps = [
+        ":contact_dao_test_lib",
+        "@maven//:org_robolectric_robolectric",
+        "@robolectric//bazel:android-all",
     ],
 )
