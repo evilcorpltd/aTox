@@ -39,9 +39,7 @@ class Tox @Inject constructor(
 
     fun start(saveOption: SaveOptions, listener: ToxEventListener, avListener: ToxAvEventListener) {
         tox = ToxWrapper(listener, avListener, saveOption)
-
         started = true
-        isBootstrapNeeded = true
 
         fun loadContacts() = launch {
             contactRepository.resetTransientData()

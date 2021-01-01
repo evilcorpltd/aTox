@@ -38,6 +38,7 @@ class ToxStarter @Inject constructor(
         val options =
             SaveOptions(save, settings.udpEnabled, settings.proxyType, settings.proxyAddress, settings.proxyPort)
         try {
+            tox.isBootstrapNeeded = true
             tox.start(options, eventListener, avEventListener)
         } catch (e: ToxNewException) {
             Log.e(TAG, e.message)
