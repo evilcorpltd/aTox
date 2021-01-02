@@ -1,1 +1,14 @@
-The reasonable Tox client for Android.
+<p><b>aTox, a beautiful and modern Tox client.</b></p>
+
+<p>aTox is a free open-source messaging app for the Tox protocol.</p>
+
+<p><b>Why aTox?</b></p>
+<ul>
+<li>Open-source: free to share, inspect, and change as you like.</li>
+<li>Reasonable: sane defaults, no guesses about what you care about, doesn't ignore what <b>you</b> want.</li>
+<li>End-to-end encrypted: the only people who can see your conversations are the people you're talking to.</li>
+<li>Distributed: no central servers that can be taken down or compelled to turn over data.</li>
+<li>Lightweight: no telemetry, ads, or other forms of monitoring.</li>
+</ul>
+
+<p>More info: <a href="https://github.com/evilcorpltd/aTox/">aTox</a>, <a href="https://tox.chat/">Tox</a>.</p>
