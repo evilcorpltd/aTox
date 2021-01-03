@@ -1,7 +1,6 @@
 package ltd.evilcorp.core.db
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -30,9 +29,6 @@ interface UserDao {
 
     @Query("UPDATE users SET status = :status WHERE public_key == :publicKey")
     fun updateStatus(publicKey: String, status: UserStatus)
-
-    @Delete
-    fun delete(user: User)
 
     @Query("SELECT COUNT(*) FROM users WHERE public_key = :publicKey")
     fun exists(publicKey: String): Boolean
