@@ -7,10 +7,7 @@ instant messaging and audio/video conference functionality.
 server.
 
 2.2 If someone gains access to the Tox profile stored on your device, they can
-claim your identity on Tox. If you have created a password for your Tox
-profile, the Tox profile is stored encrypted with your password, which
-mitigates the issue of someone stealing the Tox profile file, assuming the
-attacker can't easily guess the password.
+claim your identity on Tox.
 
 2.3 As a consequence of storing the profile only on the device, you can't
 restore your Tox profile if you lose it.
