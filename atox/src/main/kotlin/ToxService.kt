@@ -9,6 +9,7 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.getSystemService
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.asLiveData
 import java.util.Timer
@@ -69,7 +70,8 @@ class ToxService : LifecycleService() {
             }
 
         val builder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(R.drawable.notification_icon)
+            .setColor(ResourcesCompat.getColor(resources, R.color.colorPrimary, null))
             .setContentIntent(pendingIntent)
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
