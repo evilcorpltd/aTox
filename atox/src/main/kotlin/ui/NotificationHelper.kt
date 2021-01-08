@@ -4,12 +4,21 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffXfermode
+import android.graphics.Rect
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationCompat.EXTRA_TEXT_LINES
+import androidx.core.app.Person
 import androidx.core.content.getSystemService
+import androidx.core.graphics.drawable.IconCompat
 import androidx.core.os.bundleOf
 import androidx.navigation.NavDeepLinkBuilder
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Transformation
 import javax.inject.Inject
 import javax.inject.Singleton
 import ltd.evilcorp.atox.R
@@ -55,6 +64,27 @@ class NotificationHelper @Inject constructor(
 
     fun dismissNotifications(publicKey: PublicKey) = notifier.cancel(publicKey.string().hashCode())
 
+    private val circleTransform = object : Transformation {
+        override fun transform(bitmap: Bitmap): Bitmap {
+            val output = Bitmap.createBitmap(bitmap.width, bitmap.height, Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(output)
+            val paint = Paint()
+            val rect = Rect(0, 0, bitmap.width, bitmap.height)
+
+            paint.isAntiAlias = true
+            canvas.drawARGB(0, 0, 0, 0)
+            canvas.drawCircle(bitmap.width / 2.0f, bitmap.height / 2.0f, bitmap.width / 2.0f, paint)
+            paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+            canvas.drawBitmap(bitmap, rect, rect, paint)
+            if (bitmap != output) {
+                bitmap.recycle()
+            }
+            return output
+        }
+
+        override fun key() = "circleTransform"
+    }
+
     fun showMessageNotification(contact: Contact, message: String) {
         val notificationBuilder = NotificationCompat.Builder(context, MESSAGE)
             .setSmallIcon(android.R.drawable.sym_action_chat)
@@ -74,16 +104,25 @@ class NotificationHelper @Inject constructor(
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val messages = notifier.activeNotifications.find { it.notification.group == contact.publicKey }
-                ?.notification?.extras?.getCharSequenceArray(EXTRA_TEXT_LINES)?.toMutableList()
-                ?: ArrayList<CharSequence>()
+            val icon = if (contact.avatarUri.isNotEmpty()) {
+                IconCompat.createWithBitmap(Picasso.get().load(contact.avatarUri).transform(circleTransform).get())
+            } else null
 
-            messages.add(message)
+            val chatPartner = Person.Builder()
+                .setName(contact.name)
+                .setKey(contact.publicKey)
+                .setIcon(icon)
+                .setImportant(true)
+                .build()
 
-            val style = NotificationCompat.InboxStyle()
-            messages.forEach {
-                style.addLine(it)
-            }
+            val style =
+                notifier.activeNotifications.find { it.notification.group == contact.publicKey }?.notification?.let {
+                    NotificationCompat.MessagingStyle.extractMessagingStyleFromNotification(it)
+                } ?: NotificationCompat.MessagingStyle(chatPartner)
+
+            style.messages.add(
+                NotificationCompat.MessagingStyle.Message(message, System.currentTimeMillis(), chatPartner)
+            )
 
             notificationBuilder
                 .setStyle(style)
