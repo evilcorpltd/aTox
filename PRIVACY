@@ -16,27 +16,27 @@ restore your Tox profile if you lose it.
 are not stored on any other server.
 
 4. All the data sent over the network, including messages and audio/video
-calls, are sent encrypted in such a way that only the intended recepient can
+calls, are sent encrypted in such a way that only the intended recipient can
 decrypt them.
 
 5.1 All the data sent over the network, including messages and audio/video
-calls, are sent directly to the intended recepient without use of any central
+calls, are sent directly to the intended recipient without use of any central
 server, with a few exceptions as follows.
 
 5.2 Tox tries to establish a direct, peer-to-peer, connection with the
-recepients. In some cases it's not possible due to the network restrictions
+recipients. In some cases it's not possible due to the network restrictions
 (restrictive NATs), in which case libtoxcore uses a relay node to relay all
-your conversations with a recepient. Note that by #4 the relay node can't
+your conversations with a recipient. Note that by #4 the relay node can't
 decrypt contents of messages and audio/video calls, as the relay node is not
-the intended recepient of them.
+the intended recipient of them.
 
 5.3 If you have TCP mode enabled, your traffic is routed though a relay node.
 Note that by #4 the relay node can't decrypt contents of messages and
-audio/video calls, as the relay node is not the intended recepient of them.
+audio/video calls, as the relay node is not the intended recipient of them.
 
 5.4 If you have specified a HTTP or SOCKS5 proxy, libtoxcore will relay the
 traffic using that proxy. Note that by #4 the proxy can't decrypt contents of
-messages and audio/video calls, as the proxy is not the intended recepient of
+messages and audio/video calls, as the proxy is not the intended recipient of
 them.
 
 6.1 In order to be able to discover other Tox users and be discovered by them,
@@ -53,8 +53,9 @@ If you don't want to let anyone know that you are running Tox on your IP
 address, you should use a proxy.
 
 6.3 Tox is designed to prevent any user you have not authorized (added as a
-friend) from finding the association of your Tox ID and IP based on DHT data.
+friend) from finding the association of your Tox ID and IP address based on DHT
+data.
 
 7. To connect to the DHT aTox utilizes a list of bootstrap nodes maintained by
-Tox Project at https://nodes.tox.chat/. aTox choses several of the bootstrap
+Tox Project at https://nodes.tox.chat/. aTox chooses several of the bootstrap
 nodes of this list at random and connects to them.
