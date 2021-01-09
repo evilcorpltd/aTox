@@ -6,6 +6,7 @@ import dagger.Component
 import javax.inject.Singleton
 import ltd.evilcorp.atox.BootReceiver
 import ltd.evilcorp.atox.MainActivity
+import ltd.evilcorp.atox.ReplyReceiver
 import ltd.evilcorp.atox.ToxService
 import ltd.evilcorp.core.di.DaoModule
 import ltd.evilcorp.core.di.DatabaseModule
@@ -21,4 +22,5 @@ interface AppComponent {
     fun inject(activity: MainActivity)
     fun inject(service: ToxService)
     fun inject(receiver: BootReceiver)
+    fun inject(receiver: ReplyReceiver)
 }

@@ -26,6 +26,8 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".ReplyReceiver"/>
+
         <provider
                 android:name="androidx.core.content.FileProvider"
                 android:authorities="ltd.evilcorp.fileprovider"

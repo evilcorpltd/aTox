@@ -3,7 +3,9 @@ package ltd.evilcorp.atox.ui
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -13,6 +15,7 @@ import android.graphics.Rect
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.Person
+import androidx.core.app.RemoteInput
 import androidx.core.content.getSystemService
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.os.bundleOf
@@ -21,7 +24,10 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Transformation
 import javax.inject.Inject
 import javax.inject.Singleton
+import ltd.evilcorp.atox.KEY_CONTACT_PK
+import ltd.evilcorp.atox.KEY_TEXT_REPLY
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.ReplyReceiver
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
@@ -85,7 +91,7 @@ class NotificationHelper @Inject constructor(
         override fun key() = "circleTransform"
     }
 
-    fun showMessageNotification(contact: Contact, message: String) {
+    fun showMessageNotification(contact: Contact, message: String, outgoing: Boolean = false) {
         val notificationBuilder = NotificationCompat.Builder(context, MESSAGE)
             .setSmallIcon(android.R.drawable.sym_action_chat)
             .setContentTitle(contact.name)
@@ -98,6 +104,31 @@ class NotificationHelper @Inject constructor(
                     .createPendingIntent()
             )
             .setAutoCancel(true)
+            .addAction(
+                NotificationCompat.Action
+                    .Builder(
+                        IconCompat.createWithResource(context, R.drawable.send),
+                        context.getString(R.string.reply),
+                        PendingIntent.getBroadcast(
+                            context,
+                            contact.publicKey.hashCode(),
+                            Intent(context, ReplyReceiver::class.java).putExtra(KEY_CONTACT_PK, contact.publicKey),
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                        )
+                    )
+                    .addRemoteInput(
+                        RemoteInput.Builder(KEY_TEXT_REPLY)
+                            .setLabel(context.getString(R.string.message))
+                            .build()
+                    )
+                    .setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_REPLY)
+                    .setAllowGeneratedReplies(true)
+                    .build()
+            )
+
+        if (outgoing) {
+            notificationBuilder.setNotificationSilent()
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             notificationBuilder.setCategory(Notification.CATEGORY_MESSAGE)
@@ -110,7 +141,7 @@ class NotificationHelper @Inject constructor(
 
             val chatPartner = Person.Builder()
                 .setName(contact.name)
-                .setKey(contact.publicKey)
+                .setKey(if (outgoing) "myself" else contact.publicKey)
                 .setIcon(icon)
                 .setImportant(true)
                 .build()
