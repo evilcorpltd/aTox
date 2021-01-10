@@ -82,6 +82,39 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginEnd="8dp"/>
                     </LinearLayout>
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/dividerColor"/>
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="56dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+                        <TextView
+                                style="@style/OptionItemText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/pref_auto_away"/>
+                        <androidx.appcompat.widget.SwitchCompat android:id="@+id/setting_auto_away_enabled"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="96dp"
+                                android:layout_height="match_parent">
+                            <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/setting_auto_away_seconds"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/seconds"
+                                    android:importantForAutofill="no"
+                                    android:inputType="number"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

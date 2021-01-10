@@ -135,6 +135,7 @@ class ToxWrapper(
 
     fun setTyping(publicKey: PublicKey, typing: Boolean) = tox.setTyping(contactByKey(publicKey), typing)
 
+    fun getStatus() = tox.status.toUserStatus()
     fun setStatus(status: UserStatus) {
         tox.status = status.toToxType()
     }

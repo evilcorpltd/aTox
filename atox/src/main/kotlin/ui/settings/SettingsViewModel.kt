@@ -54,6 +54,16 @@ class SettingsViewModel @Inject constructor(
         settings.runAtStartup = enabled
     }
 
+    fun getAutoAwayEnabled() = settings.autoAwayEnabled
+    fun setAutoAwayEnabled(enabled: Boolean) {
+        settings.autoAwayEnabled = enabled
+    }
+
+    fun getAutoAwaySeconds() = settings.autoAwaySeconds
+    fun setAutoAwaySeconds(seconds: Long) {
+        settings.autoAwaySeconds = seconds
+    }
+
     fun commit() {
         if (!restartNeeded) {
             _committed.value = true

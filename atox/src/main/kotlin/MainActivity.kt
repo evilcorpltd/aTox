@@ -20,6 +20,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var vmFactory: ViewModelFactory
 
     @Inject
+    lateinit var autoAway: AutoAway
+
+    @Inject
     lateinit var settings: Settings
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,5 +48,15 @@ class MainActivity : AppCompatActivity() {
                 bundleOf("toxId" to data.drop(SCHEME.length))
             )
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        autoAway.onBackground()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        autoAway.onForeground()
     }
 }

@@ -75,6 +75,22 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         settingRunAtStartup.isChecked = vm.getRunAtStartup()
         settingRunAtStartup.setOnClickListener { vm.setRunAtStartup(settingRunAtStartup.isChecked) }
 
+        settingAutoAwayEnabled.isChecked = vm.getAutoAwayEnabled()
+        settingAutoAwayEnabled.setOnClickListener { vm.setAutoAwayEnabled(settingAutoAwayEnabled.isChecked) }
+
+        settingAutoAwaySeconds.setText(vm.getAutoAwaySeconds().toString())
+        settingAutoAwaySeconds.doAfterTextChanged {
+            val str = it?.toString() ?: ""
+            val seconds = try {
+                str.toLong()
+            } catch (e: NumberFormatException) {
+                settingAutoAwaySeconds.error = getString(R.string.bad_positive_number)
+                return@doAfterTextChanged
+            }
+
+            vm.setAutoAwaySeconds(seconds)
+        }
+
         settingsUdpEnabled.isChecked = vm.getUdpEnabled()
         settingsUdpEnabled.setOnClickListener { vm.setUdpEnabled(settingsUdpEnabled.isChecked) }
 

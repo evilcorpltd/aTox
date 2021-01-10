@@ -167,9 +167,8 @@ class Tox @Inject constructor(
         tox.setTyping(publicKey, typing)
     }
 
-    fun setStatus(status: UserStatus) = launch {
-        tox.setStatus(status)
-    }
+    fun setStatus(status: UserStatus) = launch { tox.setStatus(status) }
+    fun getStatus() = async { tox.getStatus() }
 
     // ToxAv, probably move these.
     fun endCall(pk: PublicKey) = launch {

@@ -42,6 +42,14 @@ class Settings @Inject constructor(private val ctx: Context) {
             )
         }
 
+    var autoAwayEnabled: Boolean
+        get() = preferences.getBoolean("auto_away_enabled", false)
+        set(enabled) = preferences.edit().putBoolean("auto_away_enabled", enabled).apply()
+
+    var autoAwaySeconds: Long
+        get() = preferences.getLong("auto_away_seconds", 180)
+        set(seconds) = preferences.edit().putLong("auto_away_seconds", seconds).apply()
+
     var proxyType: ProxyType
         get() = ProxyType.values()[preferences.getInt("proxy_type", 0)]
         set(type) = preferences.edit { putInt("proxy_type", type.ordinal) }

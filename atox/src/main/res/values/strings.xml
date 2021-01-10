@@ -124,4 +124,7 @@
     <string name="bad_port">Bad port</string>
     <string name="tox_save_export_failure">Save export failed: %1$s</string>
     <string name="reply">Reply</string>
+    <string name="pref_auto_away">Auto away</string>
+    <string name="seconds">Seconds</string>
+    <string name="bad_positive_number">Must be a positive number</string>
 </resources>
