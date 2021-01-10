@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -6,6 +6,19 @@
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="OptionGroup">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:elevation" tools:targetApi="21">4dp</item>
+    </style>
+
+    <style name="OptionRow">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginStart">56dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
 
     <style name="OptionItemText">
         <item name="android:fontFamily">sans-serif-light</item>
