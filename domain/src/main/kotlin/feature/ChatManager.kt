@@ -4,9 +4,11 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.MessageRepository
+import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.Sender
@@ -32,6 +34,11 @@ class ChatManager @Inject constructor(
 
     fun sendMessage(publicKey: PublicKey, message: String, type: MessageType = MessageType.Normal) =
         launch {
+            if (contactRepository.get(publicKey.string()).first().connectionStatus == ConnectionStatus.None) {
+                queueMessage(publicKey, message, type)
+                return@launch
+            }
+
             var msg = message
 
             while (msg.length > MAX_MESSAGE_LENGTH) {
@@ -50,11 +57,8 @@ class ChatManager @Inject constructor(
             )
         }
 
-    fun queueMessage(publicKey: PublicKey, message: String, type: MessageType) = launch {
-        messageRepository.add(
-            Message(publicKey.string(), message, Sender.Sent, type, Int.MIN_VALUE)
-        )
-    }
+    private fun queueMessage(publicKey: PublicKey, message: String, type: MessageType) =
+        messageRepository.add(Message(publicKey.string(), message, Sender.Sent, type, Int.MIN_VALUE))
 
     fun resend(messages: List<Message>) = launch {
         for (message in messages) {
