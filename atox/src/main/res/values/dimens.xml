@@ -8,4 +8,6 @@
     <dimen name="message_corner_radius_small">5dp</dimen>
     <dimen name="message_corner_radius_large">15dp</dimen>
     <dimen name="message_margin">50dp</dimen>
+
+    <dimen name="contact_avatar_placeholder_text">32dp</dimen>
 </resources>
