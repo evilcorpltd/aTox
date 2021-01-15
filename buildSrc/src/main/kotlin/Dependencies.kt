@@ -29,7 +29,7 @@ object BuildPlugin {
 
 object AndroidSdk {
     const val minVersion = 19
-    const val targetVersion = 29
+    const val targetVersion = 30
 }
 
 object JavaX {
@@ -47,7 +47,7 @@ object KotlinX {
 
 object AndroidX {
     object Core {
-        const val ktx = "androidx.core:core-ktx:1.3.2"
+        const val ktx = "androidx.core:core-ktx:1.5.0-beta01"
     }
 
     const val appcompat = "androidx.appcompat:appcompat:1.2.0"

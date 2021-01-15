@@ -2,10 +2,11 @@ package ltd.evilcorp.atox.ui.addcontact
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
@@ -13,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.zxing.integration.android.IntentIntegrator
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentAddContactBinding
-import ltd.evilcorp.atox.setUpFullScreenUi
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.Contact
@@ -36,17 +36,11 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
-        view.setUpFullScreenUi { _, insets ->
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
-            toolbar.updatePadding(
-                left = insets.systemWindowInsetLeft,
-                top = insets.systemWindowInsetTop
-            )
-            content.updatePadding(
-                left = insets.systemWindowInsetLeft,
-                right = insets.systemWindowInsetRight
-            )
-            insets
+        ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
+            val insets = compat.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime())
+            toolbar.updatePadding(left = insets.left, top = insets.top)
+            content.updatePadding(left = insets.left, right = insets.right)
+            compat
         }
 
         viewModel.contacts.observe(viewLifecycleOwner) {

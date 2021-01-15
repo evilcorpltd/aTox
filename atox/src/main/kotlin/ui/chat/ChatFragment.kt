@@ -7,7 +7,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.ContextMenu
 import android.view.MenuItem
@@ -19,6 +18,8 @@ import androidx.core.content.FileProvider
 import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
@@ -30,7 +31,6 @@ import java.util.Locale
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentChatBinding
 import ltd.evilcorp.atox.requireStringArg
-import ltd.evilcorp.atox.setUpFullScreenUi
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.colorByStatus
 import ltd.evilcorp.atox.ui.setAvatarFromContact
@@ -66,23 +66,12 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         contactPubKey = requireStringArg(CONTACT_PUBLIC_KEY)
         viewModel.setActiveChat(PublicKey(contactPubKey))
 
-        view.setUpFullScreenUi { _, insets ->
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
-            toolbar.updatePadding(
-                left = insets.systemWindowInsetLeft,
-                top = insets.systemWindowInsetTop,
-                right = insets.systemWindowInsetRight
-            )
-            bottomBar.updatePadding(
-                left = insets.systemWindowInsetLeft,
-                right = insets.systemWindowInsetRight,
-                bottom = insets.systemWindowInsetBottom
-            )
-            messages.updatePadding(
-                left = insets.systemWindowInsetLeft,
-                right = insets.systemWindowInsetRight
-            )
-            insets
+        ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
+            val insets = compat.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime())
+            toolbar.updatePadding(left = insets.left, top = insets.top, right = insets.right)
+            bottomBar.updatePadding(left = insets.left, right = insets.right, bottom = insets.bottom)
+            messages.updatePadding(left = insets.left, right = insets.right)
+            compat
         }
 
         toolbar.setNavigationIcon(R.drawable.back)

@@ -1,18 +1,18 @@
 package ltd.evilcorp.atox.ui.user_profile
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentUserProfileBinding
-import ltd.evilcorp.atox.setUpFullScreenUi
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.StatusDialog
 import ltd.evilcorp.atox.vmFactory
@@ -32,18 +32,12 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
-        view.setUpFullScreenUi { _, insets ->
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
-            profileCollapsingToolbar.updatePadding(
-                left = insets.systemWindowInsetLeft,
-                right = insets.systemWindowInsetRight
-            )
-            profileToolbar.updatePadding(top = insets.systemWindowInsetTop)
-            mainSection.updatePadding(
-                left = insets.systemWindowInsetLeft,
-                right = insets.systemWindowInsetRight
-            )
-            insets
+        ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
+            val insets = compat.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime())
+            profileCollapsingToolbar.updatePadding(left = insets.left, right = insets.right)
+            profileToolbar.updatePadding(top = insets.top)
+            mainSection.updatePadding(left = insets.left, right = insets.right)
+            compat
         }
 
         profileToolbar.apply {

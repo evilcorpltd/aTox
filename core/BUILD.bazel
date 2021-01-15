@@ -47,6 +47,7 @@ kt_android_library(
     deps = DAO_TEST_LIB_DEPS,
 )
 
+# TODO(robinlinden): targetSdk 30 once robolectric supports it.
 android_local_test(
     name = "contact_dao_test",
     size = "small",
@@ -67,6 +68,7 @@ kt_android_library(
     deps = DAO_TEST_LIB_DEPS,
 )
 
+# TODO(robinlinden): targetSdk 30 once robolectric supports it.
 android_local_test(
     name = "user_dao_test",
     size = "small",

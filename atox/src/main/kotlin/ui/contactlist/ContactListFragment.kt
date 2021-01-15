@@ -3,7 +3,6 @@ package ltd.evilcorp.atox.ui.contactlist
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.ContextMenu
 import android.view.LayoutInflater
@@ -21,6 +20,8 @@ import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -30,7 +31,6 @@ import ltd.evilcorp.atox.databinding.ContactListViewItemBinding
 import ltd.evilcorp.atox.databinding.FragmentContactListBinding
 import ltd.evilcorp.atox.databinding.FriendRequestItemBinding
 import ltd.evilcorp.atox.databinding.NavHeaderContactListBinding
-import ltd.evilcorp.atox.setUpFullScreenUi
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.ui.friend_request.FRIEND_REQUEST_PUBLIC_KEY
@@ -74,13 +74,12 @@ class ContactListFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = binding.run {
         if (!viewModel.isToxRunning()) return@run
 
-        view.setUpFullScreenUi { v, insets ->
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
-            v.updatePadding(left = insets.systemWindowInsetLeft)
-            toolbar.updatePadding(left = insets.systemWindowInsetLeft)
-            navView.updatePadding(left = insets.systemWindowInsetLeft)
-            contactList.updatePadding(bottom = insets.systemWindowInsetBottom)
-            insets
+        ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
+            val insets = compat.getInsets(WindowInsetsCompat.Type.systemBars())
+            toolbar.updatePadding(left = insets.left)
+            navView.updatePadding(left = insets.left)
+            contactList.updatePadding(bottom = insets.bottom)
+            compat
         }
 
         toolbar.title = getText(R.string.app_name)

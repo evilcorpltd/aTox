@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
+import androidx.core.view.WindowCompat
 import androidx.navigation.fragment.findNavController
 import javax.inject.Inject
 import ltd.evilcorp.atox.di.ViewModelFactory
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         AppCompatDelegate.setDefaultNightMode(settings.theme)
 
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_main)
 
         // Handle potential tox link.

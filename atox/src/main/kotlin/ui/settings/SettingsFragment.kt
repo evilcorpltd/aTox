@@ -1,13 +1,14 @@
 package ltd.evilcorp.atox.ui.settings
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
@@ -16,7 +17,6 @@ import java.lang.NumberFormatException
 import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentSettingsBinding
-import ltd.evilcorp.atox.setUpFullScreenUi
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.domain.tox.ProxyType
@@ -42,15 +42,12 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
-        view.setUpFullScreenUi { v, insets ->
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
-            toolbar.updatePadding(top = insets.systemWindowInsetTop)
-            v.updatePadding(
-                left = insets.systemWindowInsetLeft,
-                right = insets.systemWindowInsetRight
-            )
-            version.updatePadding(bottom = insets.systemWindowInsetBottom)
-            insets
+        ViewCompat.setOnApplyWindowInsetsListener(view) { v, compat ->
+            val insets = compat.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime())
+            toolbar.updatePadding(top = insets.top)
+            v.updatePadding(left = insets.left, right = insets.right)
+            version.updatePadding(bottom = insets.bottom)
+            compat
         }
 
         toolbar.apply {

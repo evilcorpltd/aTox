@@ -2,19 +2,18 @@ package ltd.evilcorp.atox.ui.create_profile
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.WindowInsets
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentProfileBinding
-import ltd.evilcorp.atox.setUpFullScreenUi
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.User
@@ -25,19 +24,11 @@ class CreateProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfi
     private val viewModel: CreateProfileViewModel by viewModels { vmFactory }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
-        view.setUpFullScreenUi { _: View, insets: WindowInsets ->
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
-            toolbar.updatePadding(
-                left = insets.systemWindowInsetLeft,
-                top = insets.systemWindowInsetTop,
-                right = insets.systemWindowInsetRight
-            )
-            content.updatePadding(
-                left = insets.systemWindowInsetLeft,
-                right = insets.systemWindowInsetRight
-            )
-
-            insets
+        ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
+            val insets = compat.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime())
+            toolbar.updatePadding(left = insets.left, top = insets.top, right = insets.right)
+            content.updatePadding(left = insets.left, right = insets.right)
+            compat
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {

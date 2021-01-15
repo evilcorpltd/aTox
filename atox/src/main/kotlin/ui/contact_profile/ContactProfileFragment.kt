@@ -1,14 +1,14 @@
 package ltd.evilcorp.atox.ui.contact_profile
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentContactProfileBinding
 import ltd.evilcorp.atox.requireStringArg
-import ltd.evilcorp.atox.setUpFullScreenUi
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.ui.colorByStatus
@@ -20,17 +20,11 @@ class ContactProfileFragment : BaseFragment<FragmentContactProfileBinding>(Fragm
     private val viewModel: ContactProfileViewModel by viewModels { vmFactory }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
-        view.setUpFullScreenUi { _, insets ->
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return@setUpFullScreenUi insets
-            appBar.updatePadding(
-                left = insets.systemWindowInsetLeft,
-                right = insets.systemWindowInsetRight
-            )
-            content.updatePadding(
-                left = insets.systemWindowInsetLeft,
-                right = insets.systemWindowInsetRight
-            )
-            insets
+        ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
+            val insets = compat.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime())
+            appBar.updatePadding(left = insets.left, right = insets.right)
+            content.updatePadding(left = insets.left, right = insets.right)
+            compat
         }
 
         toolbar.setNavigationIcon(R.drawable.back)
