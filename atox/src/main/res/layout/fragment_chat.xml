@@ -75,9 +75,9 @@
                 android:layout_weight="0"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/send"
+                android:src="@drawable/send"
                 android:visibility="gone"
-                app:srcCompat="@drawable/send"
-                app:tint="@color/colorPrimary" />
+                app:tint="@color/colorPrimary"/>
 
         <ImageButton android:id="@+id/attach"
                 android:layout_width="wrap_content"
@@ -85,6 +85,6 @@
                 android:layout_weight="0"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/attach_file"
-                app:srcCompat="@drawable/attach_file" />
+                android:src="@drawable/attach_file"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
