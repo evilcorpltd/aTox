@@ -127,7 +127,7 @@ class NotificationHelper @Inject constructor(
             )
 
         if (outgoing) {
-            notificationBuilder.setNotificationSilent()
+            notificationBuilder.setSilent(true)
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
