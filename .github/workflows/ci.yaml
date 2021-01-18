@@ -69,28 +69,3 @@ jobs:
           sudo chmod +x buildifier
     - name: Check
       run: ./buildifier --lint=warn --warnings=all -mode diff WORKSPACE $(find . -type f -iname BUILD.*)
-
-  gradle-from-source:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
-    - name: Install tox4j dependencies
-      run: sudo apt install yasm
-    - name: Disallow fetching tox4j
-      run: sed -i '/dl.bintray.com\/toktok\/maven/d' build.gradle.kts
-    - name: Fix tox4j dependency versions
-      run: |
-        sed -i 's/\$oldVersion/\$version/' buildSrc/src/main/kotlin/Dependencies.kt
-        sed -i 's/tox4j-c_arm-linux-androideabi/tox4j-c_armv7a-linux-androideabi/' buildSrc/src/main/kotlin/Dependencies.kt
-    - name: Build tox4j
-      run: |
-        ./scripts/build-host -j$(nproc || sysctl -n hw.ncpu)
-        ./scripts/build-aarch64-linux-android -j$(nproc || sysctl -n hw.ncpu) release
-        ./scripts/build-arm-linux-androideabi -j$(nproc || sysctl -n hw.ncpu) release
-        ./scripts/build-i686-linux-android -j$(nproc || sysctl -n hw.ncpu) release
-        ./scripts/build-x86_64-linux-android -j$(nproc || sysctl -n hw.ncpu) release
-    - name: Build aTox
-      run: ./gradlew build
