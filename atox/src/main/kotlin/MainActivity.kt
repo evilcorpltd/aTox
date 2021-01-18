@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_main)
 
-        // Handle potential tox link.
-        if (intent.action == Intent.ACTION_VIEW) {
+        // Handle potential tox link, but only the first time it triggers the app.
+        if (savedInstanceState == null && intent.action == Intent.ACTION_VIEW) {
             val data = intent.dataString ?: ""
             Log.i(TAG, "Got uri with data: $data")
             if (!data.startsWith(SCHEME) || data.length != SCHEME.length + TOX_ID_LENGTH) {
