@@ -99,5 +99,13 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
         profileOptions.profileChangeStatus.setOnClickListener {
             StatusDialog(requireContext(), currentStatus) { status -> vm.setStatus(status) }.show()
         }
+
+        // TODO(robinlinden): Remove hack. It's used to make sure we can scroll to the settings
+        //  further down when in landscape orientation. This is only needed if the view is recreated
+        //  while we're on this screen as Android changes the size of the contents of the NestedScrollView
+        //  when that happens.
+        if (savedInstanceState != null) {
+            needsHacks.updatePadding(bottom = (150 * resources.displayMetrics.density).toInt())
+        }
     }
 }
