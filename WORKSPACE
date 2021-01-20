@@ -69,13 +69,13 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 maven_install(
     artifacts = [
-        "androidx.room:room-compiler:2.2.5",
-        "androidx.room:room-ktx:2.2.5",
-        "androidx.room:room-runtime:2.2.5",
-        "androidx.room:room-testing:2.2.5",
+        "androidx.room:room-compiler:2.2.6",
+        "androidx.room:room-ktx:2.2.6",
+        "androidx.room:room-runtime:2.2.6",
+        "androidx.room:room-testing:2.2.6",
         "androidx.test.ext:junit:1.1.2",
         "com.google.code.gson:gson:2.8.6",
-        "com.google.dagger:dagger:2.30.1",
+        "com.google.dagger:dagger:2.31.1",
         "com.google.guava:guava:19.0",
         "com.typesafe.scala-logging:scala-logging_2.11:3.7.2",
         "javax.inject:javax.inject:1",

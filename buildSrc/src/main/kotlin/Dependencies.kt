@@ -51,6 +51,9 @@ object AndroidX {
     }
 
     const val appcompat = "androidx.appcompat:appcompat:1.2.0"
+    // Leaving constraintlayout at 2.0.1 due to versions after that causing layout issues.
+    // TODO(robinlinden): Work around layout issues. Probably a bug that the behaviour
+    //                    broke in a patch version, but oh well, such is life.
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.1"
 
     object Navigation {
@@ -69,7 +72,7 @@ object AndroidX {
     const val multidex = "androidx.multidex:multidex:2.0.1"
 
     object Room {
-        private const val version = "2.2.5"
+        private const val version = "2.2.6"
         const val runtime = "androidx.room:room-runtime:$version"
         const val ktx = "androidx.room:room-ktx:$version"
         const val compiler = "androidx.room:room-compiler:$version"
@@ -100,7 +103,7 @@ object Google {
 
     const val dagger = "com.google.dagger:dagger:${Dagger.version}"
     object Dagger {
-        internal const val version = "2.30.1"
+        internal const val version = "2.31.1"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
     }
 }
@@ -131,5 +134,6 @@ object Tox4j {
 
 object Test {
     const val junit = "junit:junit:4.13.1"
+    // Leaving mockk at 1.10.0 due to weird commits and no changelogs after that point.
     const val mockk = "io.mockk:mockk-android:1.10.0"
 }
