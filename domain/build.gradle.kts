@@ -82,7 +82,7 @@ dependencies {
 tasks.register("fixPaths") {
     needFixing.asFileTree.forEach { jar ->
         val arch = when {
-            jar.name.contains("aarch64") -> "arm64_v8a"
+            jar.name.contains("aarch64") -> "arm64-v8a"
             jar.name.contains("arm") -> "armeabi-v7a"
             jar.name.contains("i686") -> "x86"
             jar.name.contains("x86_64") -> "x86_64"
