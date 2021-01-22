@@ -17,6 +17,7 @@ import ltd.evilcorp.atox.databinding.FragmentProfileBinding
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.User
+import ltd.evilcorp.domain.tox.ToxSaveStatus
 
 private const val IMPORT = 42
 
@@ -66,13 +67,14 @@ class CreateProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfi
         resultData?.data?.let { uri ->
             Log.e("ProfileFragment", "Importing file $uri")
             viewModel.tryImportToxSave(uri)?.also { save ->
-                if (viewModel.startTox(save)) {
+                val startStatus = viewModel.startTox(save)
+                if (startStatus == ToxSaveStatus.Ok) {
                     viewModel.verifyUserExists(viewModel.publicKey)
                     findNavController().popBackStack()
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        R.string.import_tox_save_failed,
+                        resources.getString(R.string.import_tox_save_failed, startStatus.name),
                         Toast.LENGTH_LONG
                     ).show()
                 }

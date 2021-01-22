@@ -51,7 +51,7 @@
     </string>
     <string name="delete_message_confirm">Tem certeza de que quer excluir a mensagem \"%1$s\"?</string>
     <string name="import_tox_save">Importar</string>
-    <string name="import_tox_save_failed">A importação falhou por algum motivo</string>
+    <string name="import_tox_save_failed">A importação falhou: %1$s</string>
     <string name="export_tox_save">Exportar o arquivo Tox</string>
     <string name="tox_save_exported">Tox foi exportado</string>
     <string name="never">Nunca</string>

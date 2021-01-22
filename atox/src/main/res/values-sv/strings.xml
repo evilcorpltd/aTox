@@ -18,7 +18,7 @@
     <string name="friend_request_from">Vänförfrågan från %1$s</string>
     <string name="friend_requests">Vänförfrågor</string>
     <string name="import_tox_save">Importera Tox-profil</string>
-    <string name="import_tox_save_failed">Import misslyckades av någon anledning</string>
+    <string name="import_tox_save_failed">Import misslyckades: %1$s</string>
     <string name="message">Meddelande</string>
     <string name="messages">Meddelanden</string>
     <string name="messages_incoming">Inkommande meddelanden</string>
