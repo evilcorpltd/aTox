@@ -1,0 +1,129 @@
+<resources>
+    <string name="accept">Принять</string>
+    <string name="add">Добавить</string>
+    <string name="add_contact">Добавить контакт</string>
+    <string name="add_contact_message_default">Общайся со мной в aTox, как разумный человек
+    </string>
+    <string name="add_contact_message_error_empty">Сообщение не может быть пустым</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="cancel">Отменить</string>
+    <string name="connecting">Подключение…</string>
+    <string name="contact_typing">Печатает…</string>
+    <string name="copied">Скопировано</string>
+    <string name="copy_atox">Копировать</string> <!-- androidx.preference:preference has stolen copy -->
+    <string name="create">Создать</string>
+    <string name="create_a_tox_profile">Создать профиль Tox</string>
+    <string name="delete_contact">Удалить контакт</string>
+    <string name="message">Сообщение</string>
+    <string name="messages">Сообщения</string>
+    <string name="messages_incoming">Входящие сообщения</string>
+    <string name="name">Имя пользователя</string>
+    <string name="name_default">Пользователь aTox</string>
+    <string name="no_contacts_call_to_action">Чего ты ждёшь? Добавь контакт чтобы
+        начать!
+    </string>
+    <string name="navigation_drawer_close">Закрыть панель навигации</string>
+    <string name="navigation_drawer_open">Открыть панель навигации</string>
+    <string name="profile_photo_description">Фотография профиля</string>
+    <string name="reject">Отклонить</string>
+    <string name="send">Отправить</string>
+    <string name="sending">Отправка…</string>
+    <string name="settings">Настройки</string>
+    <string name="status_indicator">Индикатор статуса</string>
+    <string name="status_message">Сообщение в статусе</string>
+    <string name="status_message_default">Использую Android клиент aTox</string>
+    <string name="tox_id">Tox ID</string>
+    <string name="tox_id_error_length">Tox ID должен иметь 76 символов (%1$d/76)</string>
+    <string name="tox_id_error_checksum">Неверная контрольная сумма</string>
+    <string name="tox_id_error_hex">Разрешены только hex-символы</string>
+    <string name="tox_id_share">Поделиться Tox ID</string>
+    <string name="update">Обновить</string>
+    <string name="quit">Выйти</string>
+    <string name="quit_confirm">Вы действительно хотите выйти?</string>
+    <!-- Friend request notification -->
+    <string name="friend_requests">Запросы в друзья</string>
+    <string name="friend_request_from">Запрос в друзья от %1$s</string>
+    <!-- Chat history clearing -->
+    <string name="clear_history">Очистить историю</string>
+    <string name="clear_history_cleared">История очищена</string>
+    <string name="clear_history_confirm">Вы действительно хотите очистить вашу историю чата с
+        %1$s?
+    </string>
+    <string name="delete_message_confirm">Вы действительно хотите удалить сообщение \"%1$s\"?</string>
+    <string name="import_tox_save">Импортировать</string>
+    <string name="import_tox_save_failed">Импортирование не удалось: %1$s</string>
+    <string name="export_tox_save">Экспортировать профиль Tox</string>
+    <string name="tox_save_exported">Профиль Tox экспортирован</string>
+    <string name="never">Никогда</string>
+    <string name="info">Информация</string>
+    <string name="atox_offline">Не подключено</string>
+    <string name="atox_connected_with_tcp">Подключено (TCP)</string>
+    <string name="atox_connected_with_udp">Подключено (UDP)</string>
+    <string name="read_qr">QR-код</string>
+    <string name="pref_heading_theme">Тема</string>
+    <string-array name="pref_theme_options">
+        <item>Использовать системную</item>
+        <item>Светлая</item>
+        <item>Тёмная</item>
+    </string-array>
+    <string name="pref_heading_type">Тип</string>
+    <string-array name="pref_proxy_type_options">
+        <item>Нет</item>
+        <item>HTTP</item>
+        <item>SOCKS5</item>
+    </string-array>
+    <string name="version_display">aTox v%1$s - %2$d</string>
+    <string name="send_as_action">Отправить как действие</string>
+    <string name="or_import_existing_save">или импортировать уже существующий профиль Tox</string>
+    <string name="profile_information">Информация профиля</string>
+    <string name="profile_settings">Настройки профиля</string>
+    <string name="profile_nickname">Сменить ваше имя пользователя</string>
+    <string name="profile_status_message">Сменить ваше сообщение в статусе</string>
+    <string name="profile_status">Изменить ваш статус</string>
+    <string name="profile">Профиль</string>
+    <string name="tox_id_error_already_exists">Контакт с данным ID уже существует</string>
+    <string name="tox_service_running">aTox запущен</string>
+    <string name="pref_heading_network">Сеть</string>
+    <string name="pref_udp_enabled">UDP включён</string>
+    <string name="pref_heading_general">Основные</string>
+    <string name="pref_run_at_startup">Запускать при загрузке Android</string>
+    <string name="friend_request">Запрос в друзья</string>
+
+    <string name="status_available">Доступен</string>
+    <string name="status_away">Отошёл</string>
+    <string name="status_busy">Занят</string>
+    <string-array name="user_statuses">
+        <item>@string/status_available</item>
+        <item>@string/status_away</item>
+        <item>@string/status_busy</item>
+    </string-array>
+    <string name="from">Из</string>
+
+    <!-- Status dialog -->
+    <string name="status_dialog_edit_user_status">Изменить ваш статус</string>
+    <string name="mimetype_handler_not_found">Инструмент обработки MIME-типов не найден
+        %1$s
+    </string>
+    <string name="attach_file">Прикрепить файл</string>
+    <string name="delete">Удалить</string>
+    <string name="notification_file_transfer">Входящая передача файла \"%1$s\"</string>
+    <string name="cancelled">Отменено</string>
+    <string name="completed">Завершено</string>
+    <string name="save_as">Сохранить как…</string>
+    <string name="export_file_success">Файл экспортирован</string>
+    <string name="export_file_failure">Что-то пошло не так при экспортировании файла. До aTox 0.5.1 передачи файлов экспортировались по умолчанию</string>
+    <string name="draft_message">Черновик: %1$s</string>
+    <string name="pref_heading_address">IP адрес</string>
+    <string name="pref_heading_port">Порт</string>
+    <string name="pref_heading_proxy">Прокси</string>
+    <string name="warn_proxy_broken">Прокси неверно настроена. Исправьте, или отключите её перед использованием приложения</string>
+    <string name="proxy_not_found">Прокси не найдена</string>
+    <string name="bad_type">Неверный тип</string>
+    <string name="bad_host">Неверный хост</string>
+    <string name="bad_port">Неверный порт</string>
+    <string name="tox_save_export_failure">Экспортирование профиля не удалось: %1$s</string>
+    <string name="reply">Ответить</string>
+    <string name="pref_auto_away">Статус \"Отошёл\" после:</string>
+    <string name="seconds">Секунд</string>
+    <string name="bad_positive_number">Должно быть положительным числом</string>
+</resources>
