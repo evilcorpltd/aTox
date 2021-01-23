@@ -28,6 +28,7 @@ import java.io.File
 import java.net.URLConnection
 import java.text.DateFormat
 import java.util.Locale
+import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentChatBinding
 import ltd.evilcorp.atox.requireStringArg
@@ -152,7 +153,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                     val contentType = URLConnection.guessContentTypeFromName(ft.fileName)
                     val uri = FileProvider.getUriForFile(
                         requireContext(),
-                        "ltd.evilcorp.fileprovider",
+                        "${BuildConfig.APPLICATION_ID}.fileprovider",
                         File(Uri.parse(ft.destination).path!!)
                     )
                     val shareIntent = Intent(Intent.ACTION_VIEW).apply {
