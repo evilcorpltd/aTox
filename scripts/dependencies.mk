@@ -105,7 +105,7 @@ $(PREFIX)/libsodium.stamp: $(SRCDIR)/libsodium $(TOOLCHAIN_FILE)
 
 # HEAD as of 2021-01-03
 $(SRCDIR)/opus:
-	git clone --depth=1 https://github.com/xiph/opus $@
+	git clone https://github.com/xiph/opus $@
 	cd $@ && git checkout 794392e
 
 $(PREFIX)/opus.stamp: $(SRCDIR)/opus $(TOOLCHAIN_FILE)
