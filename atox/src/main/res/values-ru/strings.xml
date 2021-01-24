@@ -97,7 +97,7 @@
         <item>@string/status_away</item>
         <item>@string/status_busy</item>
     </string-array>
-    <string name="from">Из</string>
+    <string name="from">От</string>
 
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Изменить ваш статус</string>
