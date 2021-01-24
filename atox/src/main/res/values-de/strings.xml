@@ -1,0 +1,120 @@
+<resources>
+    <string name="accept">Akzeptieren</string>
+    <string name="add">Hinzufügen</string>
+    <string name="add_contact">Kontakt hinzufügen</string>
+    <string name="add_contact_message_error_empty">Nachricht darf nicht leer sein</string>
+    <string name="confirm">Bestätigen</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="connecting">Verbindet…</string>
+    <string name="contact_typing">tippt…</string>
+    <string name="copied">Kopiert</string>
+    <string name="copy_atox">Kopieren</string> <!-- androidx.preference:preference has stolen copy -->
+    <string name="create">Erstellen</string>
+    <string name="create_a_tox_profile">Tox-Profil erstellen</string>
+    <string name="delete_contact">Kontakt löschen</string>
+    <string name="message">Nachricht</string>
+    <string name="messages">Nachrichten</string>
+    <string name="messages_incoming">Eingehende Nachrichten</string>
+    <string name="name">Name</string>
+    <string name="name_default">aTox Benutzer</string>
+    <string name="no_contacts_call_to_action">Worauf wartest du? Füge einen Freund hinzu und starte sofort!</string>
+    <string name="navigation_drawer_close">Navigationsschublade schließen</string>
+    <string name="navigation_drawer_open">Navigationsschublade öffnen</string>
+    <string name="profile_photo_description">Profilbild</string>
+    <string name="reject">Ablehnen</string>
+    <string name="send">Senden</string>
+    <string name="sending">Wird gesendet…</string>
+    <string name="settings">Einstellungen</string>
+    <string name="status_indicator">Statusanzeige</string>
+    <string name="status_message">Statusmeldung</string>
+    <string name="tox_id">Tox-ID</string>
+    <string name="tox_id_error_length">Die Tox-ID ist immer 76 Zeichen lang (%1$d/76)</string>
+    <string name="tox_id_error_checksum">Prüfsumme ungültig</string>
+    <string name="tox_id_error_hex">Nur Hexadezimal erlaubt</string>
+    <string name="tox_id_share">Tox-ID teilen</string>
+    <string name="update">Aktualisieren</string>
+    <string name="quit">Beenden</string>
+    <string name="quit_confirm">Bist du sicher, dass du dich ausloggen willst?</string>
+    <!-- Friend request notification -->
+    <string name="friend_requests">Freundschaftsanfragen</string>
+    <string name="friend_request_from">Freundschaftsanfrage von %1$s</string>
+    <!-- Chat history clearing -->
+    <string name="clear_history">Verlauf löschen</string>
+    <string name="clear_history_cleared">Verlauf gelöscht</string>
+    <string name="clear_history_confirm">Bist du sicher, dass du den Verlauf mit %1$s löschen willst?</string>
+    <string name="delete_message_confirm">Bist du sicher, dass du die Nachricht löschen willst? \"%1$s\"?</string>
+    <string name="import_tox_save">Importieren</string>
+    <string name="import_tox_save_failed">Importieren hat nicht funktioniert: %1$s</string>
+    <string name="export_tox_save">Tox-Profil exportieren</string>
+    <string name="tox_save_exported">Tox-Profil exportiert</string>
+    <string name="never">Nie</string>
+    <string name="info">Information</string>
+    <string name="atox_offline">Offline</string>
+    <string name="atox_connected_with_tcp">Verbunden (TCP)</string>
+    <string name="atox_connected_with_udp">Verbunden (UDP)</string>
+    <string name="read_qr">QR</string>
+    <string name="pref_heading_theme">Design</string>
+    <string-array name="pref_theme_options">
+        <item>Wie System</item>
+        <item>Hell</item>
+        <item>Dunkel</item>
+    </string-array>
+    <string name="pref_heading_type">Typ</string>
+    <string-array name="pref_proxy_type_options">
+        <item>Kein</item>
+        <item>HTTP</item>
+        <item>SOCKS5</item>
+    </string-array>
+    <string name="version_display">aTox v%1$s - %2$d</string>
+    <string name="send_as_action">Als Aktion senden</string>
+    <string name="or_import_existing_save">Oder importiere ein bestehendes Tox-Profil</string>
+    <string name="profile_information">Profil-Information</string>
+    <string name="profile_settings">Profil-Einstellungen</string>
+    <string name="profile_nickname">Ändere deinen Namen</string>
+    <string name="profile_status_message">Ändere deine Statusmeldung</string>
+    <string name="profile_status">Ändere deinen Status</string>
+    <string name="profile">Profil</string>
+    <string name="tox_id_error_already_exists">Einen Kontakt mit dieser Tox-ID gibt es bereits</string>
+    <string name="tox_service_running">aTox läuft</string>
+    <string name="pref_heading_network">Netzwerk</string>
+    <string name="pref_udp_enabled">UDP aktiviert</string>
+    <string name="pref_heading_general">Allgemein</string>
+    <string name="pref_run_at_startup">Beim Hochfahren ausführen</string>
+    <string name="friend_request">Freundschaftsanfrage</string>
+
+    <string name="status_available">Anwesend</string>
+    <string name="status_away">Abwesend</string>
+    <string name="status_busy">Beschäftigt</string>
+    <string-array name="user_statuses">
+        <item>@string/status_available</item>
+        <item>@string/status_away</item>
+        <item>@string/status_busy</item>
+    </string-array>
+    <string name="from">Von</string>
+
+    <!-- Status dialog -->
+    <string name="status_dialog_edit_user_status">Status ändern</string>
+    <string name="mimetype_handler_not_found">Es konnte keine Anwendung gefunden werden, welche diesen Dateityp öffnen kann %1$s</string>
+    <string name="attach_file">Datei anhängen</string>
+    <string name="delete">Löschen</string>
+    <string name="notification_file_transfer">Eingehende Datenübertragung \"%1$s\"</string>
+    <string name="cancelled">Abgebrochen</string>
+    <string name="completed">Abgeschlossen</string>
+    <string name="save_as">Speichern unter…</string>
+    <string name="export_file_success">Datei erfolgreich gesendet</string>
+    <string name="export_file_failure">Etwas ist beim Exportieren schiefgegangen. Pre-0.5.1 Übertragung wurde standardmäßig exportiert.</string>
+    <string name="draft_message">Entwurf: %1$s</string>
+    <string name="pref_heading_address">Adresse</string>
+    <string name="pref_heading_port">Port</string>
+    <string name="pref_heading_proxy">Proxy</string>
+    <string name="warn_proxy_broken">Falscher Proxy konfiguriert. Vor Verwendung der App beheben oder deaktivieren.</string>
+    <string name="proxy_not_found">Proxy nicht gefunden</string>
+    <string name="bad_type">Ungültiger Typ</string>
+    <string name="bad_host">Ungültiger Host</string>
+    <string name="bad_port">Ungültiger Port</string>
+    <string name="tox_save_export_failure">Export fehlgeschlagen: %1$s</string>
+    <string name="reply">Antwort</string>
+    <string name="pref_auto_away">Auto abwesend</string>
+    <string name="seconds">Sekunden</string>
+    <string name="bad_positive_number">Muss eine positive Zahl sein</string>
+</resources>
