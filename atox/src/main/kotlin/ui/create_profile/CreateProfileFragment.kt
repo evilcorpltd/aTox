@@ -42,7 +42,8 @@ class CreateProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfi
             viewModel.startTox()
             val user = User(
                 publicKey = viewModel.publicKey.string(),
-                name = if (username.text.isNotEmpty()) username.text.toString() else "aTox user"
+                name = if (username.text.isNotEmpty()) username.text.toString() else getString(R.string.name_default),
+                statusMessage = getString(R.string.status_message_default)
             )
             viewModel.create(user)
 
