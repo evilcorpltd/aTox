@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ltd.evilcorp.atox.settings.FtAutoAccept
 import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.domain.tox.ProxyType
@@ -41,6 +42,11 @@ class SettingsViewModel @Inject constructor(
     fun getTheme(): Int = settings.theme
     fun setTheme(theme: Int) {
         settings.theme = theme
+    }
+
+    fun getFtAutoAccept(): FtAutoAccept = settings.ftAutoAccept
+    fun setFtAutoAccept(autoAccept: FtAutoAccept) {
+        settings.ftAutoAccept = autoAccept
     }
 
     fun getUdpEnabled(): Boolean = settings.udpEnabled

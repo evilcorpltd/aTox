@@ -67,6 +67,12 @@
         <item>Light</item>
         <item>Dark</item>
     </string-array>
+    <string name="pref_heading_ft_auto_accept">Auto-accept file transfers</string>
+    <string-array name="pref_ft_auto_accept_options">
+        <item>None</item>
+        <item>Images</item>
+        <item>All</item>
+    </string-array>
     <string name="pref_heading_type">Type</string>
     <string-array name="pref_proxy_type_options">
         <item>None</item>

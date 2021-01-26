@@ -17,6 +17,7 @@ import java.lang.NumberFormatException
 import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentSettingsBinding
+import ltd.evilcorp.atox.settings.FtAutoAccept
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.domain.tox.ProxyType
@@ -86,6 +87,20 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
             }
 
             vm.setAutoAwaySeconds(seconds)
+        }
+
+        settingFtAutoAccept.adapter = ArrayAdapter.createFromResource(
+            requireContext(), R.array.pref_ft_auto_accept_options,
+            android.R.layout.simple_spinner_item
+        ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+
+        settingFtAutoAccept.setSelection(vm.getFtAutoAccept().ordinal)
+
+        settingFtAutoAccept.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                vm.setFtAutoAccept(FtAutoAccept.values()[position])
+            }
         }
 
         settingsUdpEnabled.isChecked = vm.getUdpEnabled()

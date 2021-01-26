@@ -49,9 +49,7 @@
                         <Spinner
                                 android:id="@+id/theme"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginEnd="8dp"/>
+                                android:layout_height="wrap_content"/>
                     </LinearLayout>
                     <View
                             android:layout_width="match_parent"
@@ -103,6 +101,24 @@
                                     android:importantForAutofill="no"
                                     android:inputType="number"/>
                         </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/dividerColor"/>
+                    <LinearLayout
+                            style="@style/OptionRow"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                style="@style/OptionItemText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/pref_heading_ft_auto_accept"/>
+                        <Spinner android:id="@+id/setting_ft_auto_accept"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

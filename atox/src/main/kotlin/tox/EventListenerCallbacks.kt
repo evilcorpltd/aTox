@@ -3,6 +3,7 @@ package ltd.evilcorp.atox.tox
 import android.content.Context
 import android.util.Log
 import im.tox.tox4j.core.enums.ToxFileControl
+import java.net.URLConnection
 import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -11,6 +12,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.settings.FtAutoAccept
+import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FriendRequestRepository
@@ -33,6 +36,13 @@ import ltd.evilcorp.domain.tox.toMessageType
 
 private const val TAG = "EventListenerCallbacks"
 
+private fun isImage(filename: String) = try {
+    URLConnection.guessContentTypeFromName(filename).startsWith("image/")
+} catch (e: Exception) {
+    Log.e(TAG, e.toString())
+    false
+}
+
 @Singleton
 class EventListenerCallbacks @Inject constructor(
     private val ctx: Context,
@@ -43,7 +53,8 @@ class EventListenerCallbacks @Inject constructor(
     private val chatManager: ChatManager,
     private val fileTransferManager: FileTransferManager,
     private val notificationHelper: NotificationHelper,
-    private val tox: Tox
+    private val tox: Tox,
+    private val settings: Settings,
 ) : CoroutineScope by GlobalScope {
     private var contacts: List<Contact> = listOf()
 
@@ -111,7 +122,7 @@ class EventListenerCallbacks @Inject constructor(
             fileTransferManager.addDataToTransfer(publicKey, fileNumber, position, data)
         }
 
-        fileRecvHandler = { publicKey, fileNumber, kind, fileSize, filename ->
+        fileRecvHandler = { publicKey, fileNo, kind, fileSize, filename ->
             val name = if (kind == FileKind.Avatar.ordinal) publicKey else filename
             if (kind == FileKind.Data.ordinal) {
                 if (chatManager.activeChat != publicKey) {
@@ -121,9 +132,12 @@ class EventListenerCallbacks @Inject constructor(
                 }
             }
 
-            fileTransferManager.add(
-                FileTransfer(publicKey, fileNumber, kind, fileSize, name, outgoing = false)
-            )
+            val id = fileTransferManager.add(FileTransfer(publicKey, fileNo, kind, fileSize, name, outgoing = false))
+
+            val autoAccept = settings.ftAutoAccept
+            if (autoAccept == FtAutoAccept.All || autoAccept == FtAutoAccept.Images && isImage(filename)) {
+                fileTransferManager.accept(id)
+            }
         }
 
         fileRecvControlHandler = { publicKey: String, fileNo: Int, control: ToxFileControl ->

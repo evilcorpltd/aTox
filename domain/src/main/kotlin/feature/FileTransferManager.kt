@@ -67,33 +67,36 @@ class FileTransferManager @Inject constructor(
         }
     }
 
-    fun add(ft: FileTransfer) {
+    fun add(ft: FileTransfer): Int {
         Log.i(TAG, "Add ${ft.fileNumber} for ${ft.publicKey.take(8)}")
-        when (ft.fileKind) {
+        return when (ft.fileKind) {
             FileKind.Data.ordinal -> {
                 val id = fileTransferRepository.add(ft).toInt()
                 messageRepository.add(
                     Message(ft.publicKey, ft.fileName, Sender.Received, MessageType.FileTransfer, id, Date().time)
                 )
                 fileTransfers.add(ft.copy().apply { this.id = id })
+                id
             }
             FileKind.Avatar.ordinal -> {
                 if (ft.fileSize == 0L) {
                     contactRepository.setAvatarUri(ft.publicKey, "")
                     reject(ft)
-                    return
+                    return -1
                 } else if (ft.fileSize > MAX_AVATAR_SIZE) {
                     Log.e(TAG, "Got trash avatar with size ${ft.fileSize} from ${ft.publicKey}")
                     contactRepository.setAvatarUri(ft.publicKey, "")
                     tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
-                    return
+                    return -1
                 }
 
                 fileTransfers.add(ft)
                 accept(ft)
+                -1
             }
             else -> {
                 Log.e(TAG, "Got unknown file kind ${ft.fileKind} in file transfer")
+                -1
             }
         }
     }

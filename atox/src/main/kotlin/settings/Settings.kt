@@ -10,6 +10,12 @@ import javax.inject.Inject
 import ltd.evilcorp.atox.BootReceiver
 import ltd.evilcorp.domain.tox.ProxyType
 
+enum class FtAutoAccept {
+    None,
+    Images,
+    All,
+}
+
 class Settings @Inject constructor(private val ctx: Context) {
     private val preferences = PreferenceManager.getDefaultSharedPreferences(ctx)
 
@@ -61,4 +67,8 @@ class Settings @Inject constructor(private val ctx: Context) {
     var proxyPort: Int
         get() = preferences.getInt("proxy_port", 0)
         set(port) = preferences.edit { putInt("proxy_port", port) }
+
+    var ftAutoAccept: FtAutoAccept
+        get() = FtAutoAccept.values()[preferences.getInt("ft_auto_accept", 0)]
+        set(autoAccept) = preferences.edit { putInt("ft_auto_accept", autoAccept.ordinal) }
 }
