@@ -16,7 +16,7 @@
 
     <style name="OptionRow">
         <item name="android:gravity">center_vertical</item>
-        <item name="android:layout_marginStart">56dp</item>
+        <item name="android:layout_marginStart">16dp</item>
         <item name="android:orientation">horizontal</item>
     </style>
 
