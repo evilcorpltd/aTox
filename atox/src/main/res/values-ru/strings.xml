@@ -2,8 +2,7 @@
     <string name="accept">Принять</string>
     <string name="add">Добавить</string>
     <string name="add_contact">Добавить контакт</string>
-    <string name="add_contact_message_default">Общайся со мной в aTox, как разумный человек
-    </string>
+    <string name="add_contact_message_default">Общайся со мной в aTox, как разумный человек</string>
     <string name="add_contact_message_error_empty">Сообщение не может быть пустым</string>
     <string name="confirm">Подтвердить</string>
     <string name="cancel">Отменить</string>
@@ -19,9 +18,7 @@
     <string name="messages_incoming">Входящие сообщения</string>
     <string name="name">Имя пользователя</string>
     <string name="name_default">Пользователь aTox</string>
-    <string name="no_contacts_call_to_action">Чего ты ждёшь? Добавь контакт чтобы
-        начать!
-    </string>
+    <string name="no_contacts_call_to_action">Чего ты ждёшь? Добавь контакт чтобы начать!</string>
     <string name="navigation_drawer_close">Закрыть панель навигации</string>
     <string name="navigation_drawer_open">Открыть панель навигации</string>
     <string name="profile_photo_description">Фотография профиля</string>
@@ -46,9 +43,7 @@
     <!-- Chat history clearing -->
     <string name="clear_history">Очистить историю</string>
     <string name="clear_history_cleared">История очищена</string>
-    <string name="clear_history_confirm">Вы действительно хотите очистить вашу историю чата с
-        %1$s?
-    </string>
+    <string name="clear_history_confirm">Вы действительно хотите очистить вашу историю чата с %1$s?</string>
     <string name="delete_message_confirm">Вы действительно хотите удалить сообщение \"%1$s\"?</string>
     <string name="import_tox_save">Импортировать</string>
     <string name="import_tox_save_failed">Импортирование не удалось: %1$s</string>

@@ -2,8 +2,7 @@
     <string name="accept">Aceitar</string>
     <string name="add">Adicionar</string>
     <string name="add_contact">Adicionar contato</string>
-    <string name="add_contact_message_default">Fale comigo no aTox como um ser humano razoável.
-    </string>
+    <string name="add_contact_message_default">Fale comigo no aTox como um ser humano razoável.</string>
     <string name="add_contact_message_error_empty">A mensagem não pode estar vazia</string>
     <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
@@ -19,9 +18,7 @@
     <string name="messages_incoming">Mensagens recebidas</string>
     <string name="name">Nome</string>
     <string name="name_default">usuário aTox</string>
-    <string name="no_contacts_call_to_action">O que você está esperando? Adicione um contato para
-                começar!
-    </string>
+    <string name="no_contacts_call_to_action">O que você está esperando? Adicione um contato para começar!</string>
     <string name="navigation_drawer_close">Fechar o menu de navegação</string>
     <string name="navigation_drawer_open">Abrir o menu de navegação</string>
     <string name="profile_photo_description">Foto do perfil</string>
@@ -46,9 +43,7 @@
     <!-- Chat history clearing -->
     <string name="clear_history">Excluir o histórico</string>
     <string name="clear_history_cleared">Histórico excluído</string>
-    <string name="clear_history_confirm">Tem certeza de que quer excluir o histórico de conversa com
-        %1$s?
-    </string>
+    <string name="clear_history_confirm">Tem certeza de que quer excluir o histórico de conversa com %1$s?</string>
     <string name="delete_message_confirm">Tem certeza de que quer excluir a mensagem \"%1$s\"?</string>
     <string name="import_tox_save">Importar</string>
     <string name="import_tox_save_failed">A importação falhou: %1$s</string>
@@ -94,9 +89,7 @@
 
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Editar seu status</string>
-    <string name="mimetype_handler_not_found">Incapaz de encontrar algo que suporta mimetype
-        %1$s
-    </string>
+    <string name="mimetype_handler_not_found">Incapaz de encontrar algo que suporta mimetype %1$s</string>
     <string name="attach_file">Anexar um arquivo</string>
     <string name="delete">Excluir</string>
     <string name="notification_file_transfer">Transferência de arquivo a ser recebida \"%1$s\"</string>
