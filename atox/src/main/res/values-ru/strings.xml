@@ -72,7 +72,6 @@
         <item>HTTP</item>
         <item>SOCKS5</item>
     </string-array>
-    <string name="version_display">aTox v%1$s - %2$d</string>
     <string name="send_as_action">Отправить как действие</string>
     <string name="or_import_existing_save">или импортировать уже существующий профиль Tox</string>
     <string name="profile_information">Информация профиля</string>

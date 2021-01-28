@@ -57,7 +57,6 @@
     <string name="atox_connected_with_udp">Ansluten (UDP)</string>
     <string name="read_qr">QR</string>
     <string name="pref_heading_theme">Tema</string>
-    <string name="version_display">aTox v%1$s - %2$d</string>
     <string name="send_as_action">Skicka som handling</string>
     <string name="or_import_existing_save">eller importera en Tox profil som redan finns</string>
     <string name="profile_information">Profilinformation</string>
