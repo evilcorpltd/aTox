@@ -124,19 +124,20 @@ class EventListenerCallbacks @Inject constructor(
 
         fileRecvHandler = { publicKey, fileNo, kind, fileSize, filename ->
             val name = if (kind == FileKind.Avatar.ordinal) publicKey else filename
+
+            val id = fileTransferManager.add(FileTransfer(publicKey, fileNo, kind, fileSize, name, outgoing = false))
+
             if (kind == FileKind.Data.ordinal) {
                 if (chatManager.activeChat != publicKey) {
                     val msg = ctx.getString(R.string.notification_file_transfer, name)
                     notificationHelper.showMessageNotification(contactByPublicKey(publicKey), msg)
                     contactRepository.setHasUnreadMessages(publicKey, true)
                 }
-            }
 
-            val id = fileTransferManager.add(FileTransfer(publicKey, fileNo, kind, fileSize, name, outgoing = false))
-
-            val autoAccept = settings.ftAutoAccept
-            if (autoAccept == FtAutoAccept.All || autoAccept == FtAutoAccept.Images && isImage(filename)) {
-                fileTransferManager.accept(id)
+                val autoAccept = settings.ftAutoAccept
+                if (autoAccept == FtAutoAccept.All || autoAccept == FtAutoAccept.Images && isImage(filename)) {
+                    fileTransferManager.accept(id)
+                }
             }
         }
 
