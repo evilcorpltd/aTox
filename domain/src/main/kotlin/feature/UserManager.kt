@@ -23,17 +23,12 @@ class UserManager @Inject constructor(
     }
 
     fun verifyExists(publicKey: PublicKey) = launch {
-        val name = tox.getName().await()
-        val statusMessage = tox.getStatusMessage().await()
-        val user = User(publicKey.string(), name, statusMessage)
-
         if (!userRepository.exists(publicKey.string())) {
+            val name = tox.getName().await()
+            val statusMessage = tox.getStatusMessage().await()
+            val user = User(publicKey.string(), name, statusMessage)
             userRepository.add(user)
-        } else {
-            userRepository.update(user)
         }
-
-        userRepository.update(user)
     }
 
     fun setName(name: String) = launch {
