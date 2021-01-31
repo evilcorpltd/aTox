@@ -57,7 +57,7 @@ object AndroidX {
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.1"
 
     object Navigation {
-        private const val version = "2.3.2"
+        private const val version = "2.3.3"
         const val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:$version"
         const val uiKtx = "androidx.navigation:navigation-ui-ktx:$version"
     }
@@ -103,7 +103,7 @@ object Google {
 
     const val dagger = "com.google.dagger:dagger:${Dagger.version}"
     object Dagger {
-        internal const val version = "2.31.1"
+        internal const val version = "2.31.2"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
     }
 }
