@@ -75,7 +75,7 @@ maven_install(
         "androidx.room:room-testing:2.2.6",
         "androidx.test.ext:junit:1.1.2",
         "com.google.code.gson:gson:2.8.6",
-        "com.google.dagger:dagger:2.31.1",
+        "com.google.dagger:dagger:2.31.2",
         "com.google.guava:guava:19.0",
         "com.typesafe.scala-logging:scala-logging_2.11:3.7.2",
         "javax.inject:javax.inject:1",
