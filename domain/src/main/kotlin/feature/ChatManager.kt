@@ -1,5 +1,8 @@
 package ltd.evilcorp.domain.feature
 
+import java.nio.ByteBuffer
+import java.nio.CharBuffer
+import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
@@ -15,6 +18,24 @@ import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.domain.tox.MAX_MESSAGE_LENGTH
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
+
+private fun String.chunked(chunkSizeInBytes: Int): MutableList<String> {
+    val encoder = StandardCharsets.UTF_8.newEncoder()
+    val tmp = ByteBuffer.allocate(chunkSizeInBytes - 1)
+    val input = CharBuffer.wrap(this)
+    val chunks: MutableList<String> = ArrayList()
+    var currentIdx = 0
+
+    do {
+        val res = encoder.encode(input, tmp, true)
+        val nextIdx = this.length - input.length
+        chunks.add(this.substring(currentIdx, nextIdx))
+        currentIdx = nextIdx
+        tmp.rewind()
+    } while (res.isOverflow)
+
+    return chunks
+}
 
 @Singleton
 class ChatManager @Inject constructor(
@@ -39,11 +60,9 @@ class ChatManager @Inject constructor(
                 return@launch
             }
 
-            var msg = message
-
-            while (msg.length > MAX_MESSAGE_LENGTH) {
-                tox.sendMessage(publicKey, msg.take(MAX_MESSAGE_LENGTH), type).start()
-                msg = msg.drop(MAX_MESSAGE_LENGTH)
+            val msgs = message.chunked(MAX_MESSAGE_LENGTH)
+            while (msgs.size > 1) {
+                tox.sendMessage(publicKey, msgs.removeFirst(), type).start()
             }
 
             messageRepository.add(
@@ -52,7 +71,7 @@ class ChatManager @Inject constructor(
                     message,
                     Sender.Sent,
                     type,
-                    tox.sendMessage(publicKey, msg, type).await()
+                    tox.sendMessage(publicKey, msgs.first(), type).await()
                 )
             )
         }
@@ -62,20 +81,15 @@ class ChatManager @Inject constructor(
 
     fun resend(messages: List<Message>) = launch {
         for (message in messages) {
-            var msg = message.message
+            val msgs = message.message.chunked(MAX_MESSAGE_LENGTH)
 
-            while (msg.length > MAX_MESSAGE_LENGTH) {
-                tox.sendMessage(
-                    PublicKey(message.publicKey),
-                    msg.take(MAX_MESSAGE_LENGTH),
-                    message.type
-                ).start()
-                msg = msg.drop(MAX_MESSAGE_LENGTH)
+            while (msgs.size > 1) {
+                tox.sendMessage(PublicKey(message.publicKey), msgs.removeFirst(), message.type).start()
             }
 
             messageRepository.setCorrelationId(
                 message.id,
-                tox.sendMessage(PublicKey(message.publicKey), msg, message.type).await()
+                tox.sendMessage(PublicKey(message.publicKey), msgs.first(), message.type).await()
             )
         }
     }
