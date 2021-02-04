@@ -61,6 +61,12 @@
         <item>Светлая</item>
         <item>Тёмная</item>
     </string-array>
+    <string name="pref_heading_ft_auto_accept">Автоматически принимаемые файлы</string>
+    <string-array name="pref_ft_auto_accept_options">
+        <item>Нет</item>
+        <item>Изображения</item>
+        <item>Все файлы</item>
+    </string-array>
     <string name="pref_heading_type">Тип</string>
     <string-array name="pref_proxy_type_options">
         <item>Нет</item>
