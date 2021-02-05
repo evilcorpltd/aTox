@@ -49,7 +49,12 @@ class ChatViewModel @Inject constructor(
     var contactOnline = false
 
     fun send(message: String, type: MessageType) = chatManager.sendMessage(publicKey, message, type)
-    fun clearHistory() = chatManager.clearHistory(publicKey)
+
+    fun clearHistory() = launch {
+        chatManager.clearHistory(publicKey)
+        fileTransferManager.deleteAll(publicKey)
+    }
+
     fun setActiveChat(pubKey: PublicKey) {
         if (pubKey.string().isEmpty()) {
             Log.i(TAG, "Clearing active chat")

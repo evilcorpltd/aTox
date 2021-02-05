@@ -263,6 +263,12 @@ class FileTransferManager @Inject constructor(
         }
     }
 
+    suspend fun deleteAll(publicKey: PublicKey) {
+        fileTransferRepository.get(publicKey.string()).take(1).collect { fts ->
+            fts.forEach { delete(it.id) }
+        }
+    }
+
     suspend fun delete(id: Int) {
         fileTransfers.find { it.id == id }?.let {
             if (it.isStarted() && !it.isComplete()) {
