@@ -25,7 +25,8 @@ private const val TAG = "Tox"
 @Singleton
 class Tox @Inject constructor(
     private val contactRepository: ContactRepository,
-    private val saveManager: SaveManager
+    private val saveManager: SaveManager,
+    private val nodeRegistry: BootstrapNodeRegistry,
 ) : CoroutineScope by GlobalScope + newSingleThreadContext("Tox") {
     val toxId: ToxID by lazy { tox.getToxId() }
     val publicKey: PublicKey by lazy { tox.getPublicKey() }
@@ -134,27 +135,8 @@ class Tox @Inject constructor(
     }
 
     private fun bootstrap() = launch {
-        // TODO(robinlinden): Read these from somewhere else.
-        val nodes = listOf(
-            BootstrapNode(
-                "tox.verdict.gg",
-                33445,
-                PublicKey("1C5293AEF2114717547B39DA8EA6F1E331E5E358B35F9B6B5F19317911C5F976")
-            ),
-            BootstrapNode(
-                "tox.kurnevsky.net",
-                33445,
-                PublicKey("82EF82BA33445A1F91A7DB27189ECFC0C013E06E3DA71F588ED692BED625EC23")
-            ),
-            BootstrapNode(
-                "tox.abilinski.com",
-                33445,
-                PublicKey("10C00EB250C3233E343E2AEBA07115A5C28920E9C8D29492F6D00B29049EDC7E")
-            )
-        )
-
         try {
-            nodes.shuffled().take(3).forEach { node ->
+            nodeRegistry.get(4).forEach { node ->
                 tox.bootstrap(node.address, node.port, node.publicKey.bytes())
             }
         } catch (e: ToxBootstrapException) {

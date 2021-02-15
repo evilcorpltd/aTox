@@ -12,7 +12,15 @@ import ltd.evilcorp.core.di.DaoModule
 import ltd.evilcorp.core.di.DatabaseModule
 
 @Singleton
-@Component(modules = [AndroidModule::class, DatabaseModule::class, DaoModule::class, ViewModelModule::class])
+@Component(
+    modules = [
+        AndroidModule::class,
+        AppModule::class,
+        DatabaseModule::class,
+        DaoModule::class,
+        ViewModelModule::class
+    ]
+)
 interface AppComponent {
     @Component.Factory
     interface Factory {
