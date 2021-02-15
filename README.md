@@ -4,6 +4,8 @@
 [![License](https://img.shields.io/github/license/evilcorpltd/aTox)](https://github.com/evilcorpltd/aTox/blob/master/LICENSE)
 [![Last release](https://img.shields.io/github/v/release/evilcorpltd/aTox)](https://github.com/evilcorpltd/aTox/releases)
 
+[<img src="img/get-it-on-fdroid.png" alt="Get aTox on F-Droid" height="80">](https://f-droid.org/packages/ltd.evilcorp.atox)
+
 The reasonable Tox client for Android.
 
 ![aTox screenshot](/fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg)
