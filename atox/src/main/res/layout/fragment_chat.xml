@@ -8,11 +8,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
+            android:elevation="16dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="?attr/homeAsUpIndicator">
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            tools:targetApi="21">
         <include android:id="@+id/profileLayout" layout="@layout/profile_image_layout"/>
 
         <LinearLayout android:id="@+id/contactHeader"
