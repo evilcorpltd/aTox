@@ -20,7 +20,7 @@ object BuildPlugin {
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
     const val ideaExt = "org.jetbrains.gradle.plugin.idea-ext"
-    const val ideaExtVersion = "0.10"
+    const val ideaExtVersion = "1.0"
 
     const val versions = "com.github.ben-manes.versions"
     const val versionsVersion = "0.36.0"
@@ -63,9 +63,9 @@ object AndroidX {
     }
 
     object Lifecycle {
-        private const val version = "2.2.0"
-        const val extensions = "androidx.lifecycle:lifecycle-extensions:$version"
+        private const val version = "2.3.0"
         const val livedataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
+        const val service = "androidx.lifecycle:lifecycle-service:$version"
         const val viewmodelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
     }
 
@@ -98,12 +98,12 @@ object AndroidX {
 
 object Google {
     object Android {
-        const val material = "com.google.android.material:material:1.2.1"
+        const val material = "com.google.android.material:material:1.3.0"
     }
 
     const val dagger = "com.google.dagger:dagger:${Dagger.version}"
     object Dagger {
-        internal const val version = "2.31.2"
+        internal const val version = "2.32"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
     }
 }
@@ -115,7 +115,7 @@ object JourneyApps {
 
 object Square {
     const val picasso = "com.squareup.picasso:picasso:2.8"
-    const val leakcanary = "com.squareup.leakcanary:leakcanary-android:2.5"
+    const val leakcanary = "com.squareup.leakcanary:leakcanary-android:2.6"
 }
 
 object Tox4j {
@@ -133,7 +133,8 @@ object Tox4j {
 }
 
 object Test {
-    const val junit = "junit:junit:4.13.1"
+    const val junit = "junit:junit:4.13.2"
     // Leaving mockk at 1.10.0 due to weird commits and no changelogs after that point.
+    // TODO(robinlinden): Different mocking library.
     const val mockk = "io.mockk:mockk-android:1.10.0"
 }

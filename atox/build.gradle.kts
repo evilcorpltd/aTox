@@ -71,8 +71,8 @@ dependencies {
 
     implementation(AndroidX.preference)
 
-    implementation(AndroidX.Lifecycle.extensions)
     implementation(AndroidX.Lifecycle.livedataKtx)
+    implementation(AndroidX.Lifecycle.service)
     implementation(AndroidX.Lifecycle.viewmodelKtx)
 
     implementation(Google.dagger)
