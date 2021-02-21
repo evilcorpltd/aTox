@@ -56,8 +56,12 @@ class Tox @Inject constructor(
             running = true
             while (running) {
                 if (isBootstrapNeeded) {
-                    bootstrap()
-                    isBootstrapNeeded = false
+                    try {
+                        bootstrap()
+                        isBootstrapNeeded = false
+                    } catch (e: ToxBootstrapException) {
+                        Log.e(TAG, e.toString())
+                    }
                 }
                 tox.iterate()
                 delay(tox.iterationInterval())
@@ -134,14 +138,9 @@ class Tox @Inject constructor(
         tox.getSaveData()
     }
 
-    private fun bootstrap() = launch {
-        try {
-            nodeRegistry.get(4).forEach { node ->
-                tox.bootstrap(node.address, node.port, node.publicKey.bytes())
-            }
-        } catch (e: ToxBootstrapException) {
-            Log.e(TAG, e.toString())
-            isBootstrapNeeded = true
+    private fun bootstrap() {
+        nodeRegistry.get(4).forEach { node ->
+            tox.bootstrap(node.address, node.port, node.publicKey.bytes())
         }
     }
 
