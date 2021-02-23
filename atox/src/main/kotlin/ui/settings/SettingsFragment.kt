@@ -1,6 +1,9 @@
 package ltd.evilcorp.atox.ui.settings
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -14,13 +17,20 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import java.lang.NumberFormatException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentSettingsBinding
+import ltd.evilcorp.atox.settings.BootstrapNodeSource
 import ltd.evilcorp.atox.settings.FtAutoAccept
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.domain.tox.ProxyType
+
+private const val REQUEST_CODE_NODE_JSON = 6660
 
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
     private val vm: SettingsViewModel by viewModels { vmFactory }
@@ -158,6 +168,58 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
             }
         }
 
+        settingBootstrapNodes.adapter = ArrayAdapter.createFromResource(
+            requireContext(), R.array.pref_bootstrap_node_options,
+            android.R.layout.simple_spinner_item
+        ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+
+        settingBootstrapNodes.setSelection(vm.getBootstrapNodeSource().ordinal)
+
+        settingBootstrapNodes.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val source = BootstrapNodeSource.values()[position]
+
+                // Hack to avoid triggering the document chooser again if the user has set it to UserProvided.
+                if (source == vm.getBootstrapNodeSource()) return
+
+                if (source == BootstrapNodeSource.BuiltIn) {
+                    vm.setBootstrapNodeSource(source)
+                } else {
+                    Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                        addCategory(Intent.CATEGORY_OPENABLE)
+                        type = "application/json"
+                    }.also {
+                        startActivityForResult(it, REQUEST_CODE_NODE_JSON)
+                    }
+                }
+            }
+        }
+
         version.text = getString(R.string.version_display, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            REQUEST_CODE_NODE_JSON -> GlobalScope.launch {
+                if (resultCode == Activity.RESULT_OK && data != null && vm.validateNodeJson(data.data as Uri)) {
+                    if (vm.importNodeJson(data.data as Uri)) {
+                        vm.setBootstrapNodeSource(BootstrapNodeSource.UserProvided)
+                        return@launch
+                    }
+                }
+
+                withContext(Dispatchers.Main) {
+                    binding.settingBootstrapNodes.setSelection(BootstrapNodeSource.BuiltIn.ordinal)
+
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.warn_node_json_import_failed),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+            else -> super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 }

@@ -140,6 +140,7 @@ class Tox @Inject constructor(
 
     private fun bootstrap() {
         nodeRegistry.get(4).forEach { node ->
+            Log.i(TAG, "Bootstrapping from $node")
             tox.bootstrap(node.address, node.port, node.publicKey.bytes())
         }
     }

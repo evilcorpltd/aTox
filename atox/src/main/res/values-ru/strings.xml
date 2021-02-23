@@ -73,6 +73,13 @@
         <item>HTTP</item>
         <item>SOCKS5</item>
     </string-array>
+    <string name="pref_heading_advanced">Расширенные</string>
+    <string name="pref_heading_bootstrap_nodes">Источник начальных узлов</string>
+    <string-array name="pref_bootstrap_node_options">
+        <item>Встроенные</item>
+        <item>Пользовательские</item>
+    </string-array>
+    <string name="pref_bootstrap_nodes_description">Пользовательские json файлы должны иметь тот же формат как и здесь: https://nodes.tox.chat/json</string>
     <string name="send_as_action">Отправить как действие</string>
     <string name="or_import_existing_save">или импортировать уже существующий профиль Tox</string>
     <string name="profile_information">Информация профиля</string>
@@ -126,4 +133,6 @@
     <string name="pref_auto_away">Статус \"Отошёл\" после:</string>
     <string name="seconds">Секунд</string>
     <string name="bad_positive_number">Должно быть положительным числом</string>
+    <string name="warn_node_json_import_failed">Ошибка при импортировании узлов</string>
+    <string name="error_no_nodes_loaded">Невозможно загрузить начальные узлы, пожалуйста, переключитесь на встроенные узлы или попробуйте импортировать их снова</string>
 </resources>

@@ -16,6 +16,11 @@ enum class FtAutoAccept {
     All,
 }
 
+enum class BootstrapNodeSource {
+    BuiltIn,
+    UserProvided,
+}
+
 class Settings @Inject constructor(private val ctx: Context) {
     private val preferences = PreferenceManager.getDefaultSharedPreferences(ctx)
 
@@ -71,4 +76,8 @@ class Settings @Inject constructor(private val ctx: Context) {
     var ftAutoAccept: FtAutoAccept
         get() = FtAutoAccept.values()[preferences.getInt("ft_auto_accept", 0)]
         set(autoAccept) = preferences.edit { putInt("ft_auto_accept", autoAccept.ordinal) }
+
+    var bootstrapNodeSource: BootstrapNodeSource
+        get() = BootstrapNodeSource.values()[preferences.getInt("bootstrap_node_source", 0)]
+        set(source) = preferences.edit { putInt("bootstrap_node_source", source.ordinal) }
 }

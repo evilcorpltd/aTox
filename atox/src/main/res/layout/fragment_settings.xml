@@ -247,6 +247,45 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView style="@style/OptionGroup">
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
+                            android:text="@string/pref_heading_advanced"
+                            android:textSize="16sp"/>
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/dividerColor"/>
+                    <LinearLayout
+                            style="@style/OptionRow"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                style="@style/OptionItemText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/pref_heading_bootstrap_nodes"/>
+                        <Spinner
+                                android:id="@+id/setting_bootstrap_nodes"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <TextView
+                            style="@style/OptionItemText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:autoLink="web"
+                            android:text="@string/pref_bootstrap_nodes_description"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
             <TextView
                     android:id="@+id/version"
                     android:layout_width="match_parent"

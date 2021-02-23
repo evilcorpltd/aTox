@@ -1,17 +1,25 @@
 package ltd.evilcorp.atox.ui.settings
 
+import android.content.ContentResolver
+import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import java.io.File
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import ltd.evilcorp.atox.settings.BootstrapNodeSource
 import ltd.evilcorp.atox.settings.FtAutoAccept
 import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.atox.tox.ToxStarter
+import ltd.evilcorp.domain.tox.BootstrapNodeJsonParser
+import ltd.evilcorp.domain.tox.BootstrapNodeRegistry
 import ltd.evilcorp.domain.tox.ProxyType
 import ltd.evilcorp.domain.tox.SaveOptions
 import ltd.evilcorp.domain.tox.Tox
@@ -27,9 +35,13 @@ enum class ProxyStatus {
 }
 
 class SettingsViewModel @Inject constructor(
+    private val context: Context,
+    private val resolver: ContentResolver,
     private val settings: Settings,
     private val toxStarter: ToxStarter,
-    private val tox: Tox
+    private val tox: Tox,
+    private val nodeParser: BootstrapNodeJsonParser,
+    private val nodeRegistry: BootstrapNodeRegistry,
 ) : ViewModel() {
     private var restartNeeded = false
 
@@ -136,5 +148,33 @@ class SettingsViewModel @Inject constructor(
             }
             checkProxy()
         }
+    }
+
+    fun getBootstrapNodeSource(): BootstrapNodeSource = settings.bootstrapNodeSource
+    fun setBootstrapNodeSource(source: BootstrapNodeSource) {
+        settings.bootstrapNodeSource = source
+        nodeRegistry.reset()
+        restartNeeded = true
+    }
+
+    suspend fun validateNodeJson(uri: Uri): Boolean = withContext(Dispatchers.IO) {
+        val bytes = resolver.openInputStream(uri)?.use {
+            it.readBytes()
+        } ?: return@withContext false
+
+        return@withContext nodeParser.parse(bytes.decodeToString()).isNotEmpty()
+    }
+
+    suspend fun importNodeJson(uri: Uri): Boolean = withContext(Dispatchers.IO) {
+        val bytes = resolver.openInputStream(uri)?.use {
+            it.readBytes()
+        } ?: return@withContext false
+
+        val out = File(context.filesDir, "user_nodes.json")
+        out.delete()
+        if (!out.createNewFile()) return@withContext false
+
+        out.outputStream().use { it.write(bytes) }
+        return@withContext true
     }
 }

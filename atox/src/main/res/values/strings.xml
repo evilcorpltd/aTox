@@ -74,6 +74,13 @@
         <item>HTTP</item>
         <item>SOCKS5</item>
     </string-array>
+    <string name="pref_heading_advanced">Advanced</string>
+    <string name="pref_heading_bootstrap_nodes">Bootstrap node source</string>
+    <string-array name="pref_bootstrap_node_options">
+        <item>Built-in</item>
+        <item>User-provided</item>
+    </string-array>
+    <string name="pref_bootstrap_nodes_description">User-provided json files must have the same format as on https://nodes.tox.chat/json</string>
     <string name="version_display" translatable="false">aTox v%1$s - %2$d</string>
     <string name="send_as_action">Send as action</string>
     <string name="or_import_existing_save">or import an existing Tox save</string>
@@ -126,4 +133,6 @@
     <string name="pref_auto_away">Auto away</string>
     <string name="seconds">Seconds</string>
     <string name="bad_positive_number">Must be a positive number</string>
+    <string name="warn_node_json_import_failed">Error importing nodes</string>
+    <string name="error_no_nodes_loaded">Unable to load bootstrap nodes, please switch to built-in nodes or import nodes again</string>
 </resources>

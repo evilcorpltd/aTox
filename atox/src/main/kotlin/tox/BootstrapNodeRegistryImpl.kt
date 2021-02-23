@@ -1,6 +1,8 @@
 package ltd.evilcorp.atox.tox
 
 import android.content.Context
+import android.widget.Toast
+import java.io.File
 import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -8,42 +10,39 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.settings.BootstrapNodeSource
+import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.domain.tox.BootstrapNode
+import ltd.evilcorp.domain.tox.BootstrapNodeJsonParser
 import ltd.evilcorp.domain.tox.BootstrapNodeRegistry
-import ltd.evilcorp.domain.tox.PublicKey
-import org.json.JSONObject
 
 @Singleton
-class BootstrapNodeRegistryImpl @Inject constructor(context: Context) : BootstrapNodeRegistry {
-    private val nodes = mutableListOf<BootstrapNode>()
+class BootstrapNodeRegistryImpl @Inject constructor(
+    private val context: Context,
+    private val parser: BootstrapNodeJsonParser,
+    private val settings: Settings,
+) : BootstrapNodeRegistry {
+    private lateinit var nodes: List<BootstrapNode>
 
     init {
+        reset()
+    }
+
+    override fun reset() {
         GlobalScope.launch(Dispatchers.IO) {
-            val str = context.resources.openRawResource(R.raw.nodes).use {
-                val bytes = ByteArray(it.available())
-                it.read(bytes)
-                String(bytes, StandardCharsets.UTF_8)
+            val str = if (settings.bootstrapNodeSource == BootstrapNodeSource.BuiltIn) {
+                context.resources.openRawResource(R.raw.nodes).use {
+                    val bytes = ByteArray(it.available())
+                    it.read(bytes)
+                    String(bytes, StandardCharsets.UTF_8)
+                }
+            } else {
+                File(context.filesDir, "user_nodes.json").readBytes().decodeToString()
             }
 
-            val json = JSONObject(str)
-            val jsonNodes = json.getJSONArray("nodes")
-            for (i in 0 until jsonNodes.length()) {
-                val jsonNode = jsonNodes.getJSONObject(i)
-                if (!jsonNode.getBoolean("status_udp") || !jsonNode.getBoolean("status_tcp")) {
-                    continue
-                }
-
-                if (jsonNode.getString("ipv4") == "-" || jsonNode.getString("ipv6") == "-") {
-                    continue
-                }
-
-                nodes.add(
-                    BootstrapNode(
-                        address = jsonNode.getString("ipv4"),
-                        port = jsonNode.getInt("port"),
-                        publicKey = PublicKey(jsonNode.getString("public_key"))
-                    )
-                )
+            nodes = parser.parse(str)
+            if (nodes.isEmpty()) {
+                Toast.makeText(context, context.getString(R.string.error_no_nodes_loaded), Toast.LENGTH_LONG).show()
             }
         }
     }
