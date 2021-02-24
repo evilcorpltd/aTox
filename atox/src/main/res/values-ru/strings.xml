@@ -79,7 +79,7 @@
         <item>Встроенные</item>
         <item>Пользовательские</item>
     </string-array>
-    <string name="pref_bootstrap_nodes_description">Пользовательские json файлы должны иметь тот же формат как и здесь: https://nodes.tox.chat/json</string>
+    <string name="pref_bootstrap_nodes_description">Пользовательские json файлы должны иметь ту же структуру как и здесь: https://nodes.tox.chat/json</string>
     <string name="send_as_action">Отправить как действие</string>
     <string name="or_import_existing_save">или импортировать уже существующий профиль Tox</string>
     <string name="profile_information">Информация профиля</string>

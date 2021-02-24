@@ -78,4 +78,50 @@
     <string name="mimetype_handler_not_found">Hittade inget program som kan hantera mimetypen %1$s</string>
     <string name="attach_file">Bifoga fil</string>
     <string name="delete">Ta bort</string>
+    <string name="pref_heading_ft_auto_accept">Autoacceptera filöverföringar</string>
+    <string name="pref_heading_type">Typ</string>
+    <string name="pref_heading_advanced">Advancerat</string>
+    <string name="pref_heading_bootstrap_nodes">Bootstrapnodkälla</string>
+    <string name="pref_bootstrap_nodes_description">Användardefinierada json-filer måste ha samma format som på https://nodes.tox.chat/json</string>
+    <string name="notification_file_transfer">Inkommande filöverföring \"%1$s\"</string>
+    <string name="cancelled">Avbruten</string>
+    <string name="completed">Färdig</string>
+    <string name="save_as">Spara som…</string>
+    <string name="export_file_success">Fil exporterad</string>
+    <string name="export_file_failure">Något gick fel när det där skulle exporteras. Filöverföringar från innan 0.5.1 exporterades som standard.</string>
+    <string name="draft_message">Utkast: %1$s</string>
+    <string name="pref_heading_address">Adress</string>
+    <string name="pref_heading_port">Port</string>
+    <string name="pref_heading_proxy">Proxy</string>
+    <string name="warn_proxy_broken">Felaktig proxy konfigurerad. Fixa eller stäng av innan du använder appen.</string>
+    <string name="proxy_not_found">Proxyn kunde ej hittas</string>
+    <string name="bad_type">Felaktig typ</string>
+    <string name="bad_host">Felaktig värd</string>
+    <string name="bad_port">Felaktig port</string>
+    <string name="tox_save_export_failure">Exportering av sparfilen misslyckades: %1$s</string>
+    <string name="reply">Svara</string>
+    <string name="pref_auto_away">Auto-afk</string>
+    <string name="seconds">Sekunder</string>
+    <string name="bad_positive_number">Måste vara en positiv siffra</string>
+    <string name="warn_node_json_import_failed">Fel vid nodimportering</string>
+    <string name="error_no_nodes_loaded">Det gick inte att ladda bootstrapnoderna. Var god och byt till inbyggt läge eller försök importera igen</string>
+    <string-array name="pref_theme_options">
+        <item>Följ systemet</item>
+        <item>Ljust</item>
+        <item>Mörkt</item>
+    </string-array>
+    <string-array name="pref_ft_auto_accept_options">
+        <item>Aldrig</item>
+        <item>Bilder</item>
+        <item>Alltid</item>
+    </string-array>
+    <string-array name="pref_proxy_type_options">
+        <item>Ingen</item>
+        <item>HTTP</item>
+        <item>SOCKS5</item>
+    </string-array>
+    <string-array name="pref_bootstrap_node_options">
+        <item>Inbyggda</item>
+        <item>Användardefinierade</item>
+    </string-array>
 </resources>
