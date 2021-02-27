@@ -11,7 +11,8 @@ class ToxTest {
     @Test
     fun quitting_does_not_crash() {
         for (i in 1..10) {
-            val tox = Tox(mockk(relaxUnitFun = true), mockk(relaxUnitFun = true)).apply { isBootstrapNeeded = false }
+            val tox =
+                Tox(mockk(relaxUnitFun = true), mockk(relaxUnitFun = true), mockk()).apply { isBootstrapNeeded = false }
             tox.start(SaveOptions(null, false, ProxyType.None, "", 0), ToxEventListener(), ToxAvEventListener())
             sleep(25)
             tox.stop()

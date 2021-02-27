@@ -24,6 +24,7 @@ import io.mockk.mockk
 import javax.inject.Singleton
 import ltd.evilcorp.atox.di.AndroidModule
 import ltd.evilcorp.atox.di.AppComponent
+import ltd.evilcorp.atox.di.AppModule
 import ltd.evilcorp.atox.di.ViewModelModule
 import ltd.evilcorp.core.db.Database
 import ltd.evilcorp.core.di.DaoModule
@@ -60,7 +61,15 @@ class TestModule {
 }
 
 @Singleton
-@Component(modules = [AndroidModule::class, TestModule::class, DaoModule::class, ViewModelModule::class])
+@Component(
+    modules = [
+        AppModule::class,
+        AndroidModule::class,
+        TestModule::class,
+        DaoModule::class,
+        ViewModelModule::class
+    ]
+)
 interface TestComponent : AppComponent {
     @Component.Factory
     interface Factory {
