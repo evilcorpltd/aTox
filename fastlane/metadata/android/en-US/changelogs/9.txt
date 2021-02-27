@@ -1,0 +1,12 @@
+Unsent messages are saved as drafts
+Proxy support
+Option to automatically get marked as away
+Option to override the bootstrap nodes used
+You can now reply directly from the notifications
+Auto-accept support for file transfers
+Pretty avatar placeholders
+Clearing a chat now deletes the associated file transfers
+Fixed splitting of messages with multi-byte characters
+Translated to Brazilian Portuguese, Russian, and German
+
+Full changelog: https://github.com/evilcorpltd/aTox/releases
