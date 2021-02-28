@@ -181,6 +181,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
                 type = "*/*"
+                putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             }.also {
                 startActivityForResult(it, REQUEST_CODE_ATTACH)
             }
@@ -289,7 +290,16 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             }
             REQUEST_CODE_ATTACH -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
-                    viewModel.createFt(data.data as Uri)
+                    if (data.data != null) {
+                        // Single file.
+                        viewModel.createFt(data.data as Uri)
+                    } else if (data.clipData != null) {
+                        // Multiple files.
+                        val clipData = data.clipData ?: return
+                        for (i in 0 until clipData.itemCount) {
+                            viewModel.createFt(clipData.getItemAt(i).uri)
+                        }
+                    }
                 }
             }
             else -> super.onActivityResult(requestCode, resultCode, data)
