@@ -1,11 +1,17 @@
 package ltd.evilcorp.atox.ui.user_profile
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputFilter
+import android.view.ContextMenu
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -63,6 +69,7 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
             }
             startActivity(Intent.createChooser(shareIntent, getString(R.string.tox_id_share)))
         }
+        registerForContextMenu(profileShareId)
 
         profileOptions.profileChangeNickname.setOnClickListener {
             val nameEdit = EditText(requireContext()).apply {
@@ -106,6 +113,28 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
         //  when that happens.
         if (savedInstanceState != null) {
             needsHacks.updatePadding(bottom = (150 * resources.displayMetrics.density).toInt())
+        }
+    }
+
+    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) = binding.run {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        when (v.id) {
+            R.id.profile_share_id -> requireActivity().menuInflater.inflate(
+                R.menu.user_profile_share_id_context_menu,
+                menu
+            )
+        }
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean = binding.run {
+        return when (item.itemId) {
+            R.id.copy -> {
+                val clipboard = requireActivity().getSystemService<ClipboardManager>()!!
+                clipboard.setPrimaryClip(ClipData.newPlainText(getText(R.string.tox_id), vm.toxId.string()))
+                Toast.makeText(requireContext(), getText(R.string.copied), Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onContextItemSelected(item)
         }
     }
 }
