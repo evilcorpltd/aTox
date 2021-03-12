@@ -201,7 +201,8 @@ class ChatAdapter(
                     vh.acceptLayout.visibility = View.GONE
                     vh.cancelLayout.visibility = View.GONE
                     vh.progress.visibility = View.GONE
-                    vh.state.visibility = View.VISIBLE
+                    vh.state.visibility =
+                        if (fileTransfer.isImage() && fileTransfer.isComplete()) View.GONE else View.VISIBLE
                 } else if (!fileTransfer.isStarted()) {
                     if (fileTransfer.outgoing) {
                         vh.acceptLayout.visibility = View.GONE
