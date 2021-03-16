@@ -108,11 +108,6 @@ object Google {
     }
 }
 
-object JourneyApps {
-    // 3.6.0 is the last version before API 24 was required.
-    const val zxing = "com.journeyapps:zxing-android-embedded:3.6.0"
-}
-
 object Square {
     const val picasso = "com.squareup.picasso:picasso:2.8"
     const val leakcanary = "com.squareup.leakcanary:leakcanary-android:2.6"

@@ -1,7 +1,10 @@
 package ltd.evilcorp.atox.ui.addcontact
 
+import android.app.Activity.RESULT_OK
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -11,7 +14,6 @@ import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.zxing.integration.android.IntentIntegrator
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentAddContactBinding
 import ltd.evilcorp.atox.ui.BaseFragment
@@ -19,6 +21,8 @@ import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.domain.tox.ToxID
 import ltd.evilcorp.domain.tox.ToxIdValidator
+
+private const val REQUEST_CODE_SCAN_QR = 6100
 
 class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddContactBinding::inflate) {
     private val viewModel: AddContactViewModel by viewModels { vmFactory }
@@ -92,10 +96,17 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
 
         if (requireContext().packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
             readQr.setOnClickListener {
-                IntentIntegrator.forSupportFragment(this@AddContactFragment).apply {
-                    setOrientationLocked(false)
-                    setBeepEnabled(false)
-                }.initiateScan(listOf(IntentIntegrator.QR_CODE))
+                try {
+                    val intent = Intent("com.google.zxing.client.android.SCAN").apply {
+                        putExtra("SCAN_FORMATS", "QR_CODE")
+                        putExtra("SCAN_ORIENTATION_LOCKED", false)
+                        putExtra("BEEP_ENABLED", false)
+                    }
+                    startActivityForResult(intent, REQUEST_CODE_SCAN_QR)
+                } catch (e: ActivityNotFoundException) {
+                    val uri = Uri.parse("https://f-droid.org/en/packages/com.google.zxing.client.android/")
+                    startActivity(Intent(Intent.ACTION_VIEW, uri))
+                }
             }
         } else {
             readQr.visibility = View.GONE
@@ -106,8 +117,9 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
         toxId.setText(arguments?.getString("toxId"), TextView.BufferType.EDITABLE)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) =
-        IntentIntegrator.parseActivityResult(requestCode, resultCode, data)?.contents?.let {
-            binding.toxId.setText(it.removePrefix("tox:"))
-        } ?: super.onActivityResult(requestCode, resultCode, data)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode != REQUEST_CODE_SCAN_QR || resultCode != RESULT_OK) return
+        val toxId = data?.getStringExtra("SCAN_RESULT") ?: return
+        binding.toxId.setText(toxId.removePrefix("tox:"))
+    }
 }

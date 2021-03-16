@@ -82,8 +82,6 @@ dependencies {
 
     implementation(Square.picasso)
 
-    implementation(JourneyApps.zxing)
-
     debugImplementation(Square.leakcanary)
 
     testImplementation(Test.junit)
