@@ -129,7 +129,5 @@ object Tox4j {
 
 object Test {
     const val junit = "junit:junit:4.13.2"
-    // Leaving mockk at 1.10.0 due to weird commits and no changelogs after that point.
-    // TODO(robinlinden): Different mocking library.
-    const val mockk = "io.mockk:mockk-android:1.10.0"
+    const val mockk = "io.mockk:mockk-android:1.11.0"
 }
