@@ -7,7 +7,7 @@ buildscript {
     repositories {
         mavenLocal()
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath(BuildPlugin.gradle)
@@ -20,8 +20,13 @@ allprojects {
     repositories {
         mavenLocal()
         google()
-        jcenter()
+        mavenCentral()
         maven { url = uri("https://dl.bintray.com/toktok/maven") }
+        jcenter {
+            content {
+                includeModule("org.jetbrains.trove4j", "trove4j")
+            }
+        }
     }
 }
 
