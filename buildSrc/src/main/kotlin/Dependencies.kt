@@ -23,7 +23,7 @@ object BuildPlugin {
     const val ideaExtVersion = "1.0"
 
     const val versions = "com.github.ben-manes.versions"
-    const val versionsVersion = "0.36.0"
+    const val versionsVersion = "0.38.0"
     const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:$versionsVersion"
 }
 
@@ -38,7 +38,7 @@ object JavaX {
 
 object KotlinX {
     object Coroutines {
-        private const val version = "1.4.2"
+        private const val version = "1.4.3"
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
         const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
@@ -57,7 +57,7 @@ object AndroidX {
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.1"
 
     object Navigation {
-        private const val version = "2.3.3"
+        private const val version = "2.3.4"
         const val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:$version"
         const val uiKtx = "androidx.navigation:navigation-ui-ktx:$version"
     }
@@ -103,7 +103,7 @@ object Google {
 
     const val dagger = "com.google.dagger:dagger:${Dagger.version}"
     object Dagger {
-        internal const val version = "2.32"
+        internal const val version = "2.33"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
     }
 }
