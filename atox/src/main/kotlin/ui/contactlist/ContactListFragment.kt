@@ -187,9 +187,9 @@ class ContactListFragment :
             }
             shareDialog?.setOnDismissListener {
                 shareDialog = null
+                arguments?.remove(ARG_SHARE)
             }
             shareDialog?.show()
-            arguments?.remove(ARG_SHARE)
         }
 
         activity?.getSystemService<InputMethodManager>().let { imm ->
