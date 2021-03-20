@@ -135,4 +135,6 @@
     <string name="bad_positive_number">Must be a positive number</string>
     <string name="warn_node_json_import_failed">Error importing nodes</string>
     <string name="error_no_nodes_loaded">Unable to load bootstrap nodes, please switch to built-in nodes or import nodes again</string>
+
+    <string name="receive_share_share_to">Share to…</string>
 </resources>

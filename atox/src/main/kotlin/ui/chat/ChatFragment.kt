@@ -32,6 +32,7 @@ import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentChatBinding
 import ltd.evilcorp.atox.requireStringArg
+import ltd.evilcorp.atox.truncated
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.colorByStatus
 import ltd.evilcorp.atox.ui.setAvatarFromContact
@@ -47,13 +48,6 @@ const val CONTACT_PUBLIC_KEY = "publicKey"
 private const val REQUEST_CODE_FT_EXPORT = 1234
 private const val REQUEST_CODE_ATTACH = 5678
 private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 20
-
-private fun trimString(s: String): String =
-    if (s.length > MAX_CONFIRM_DELETE_STRING_LENGTH) {
-        s.take(MAX_CONFIRM_DELETE_STRING_LENGTH - 1) + "…"
-    } else {
-        s
-    }
 
 class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::inflate) {
     private val viewModel: ChatViewModel by viewModels { vmFactory }
@@ -251,7 +245,12 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
 
                 AlertDialog.Builder(requireContext())
                     .setTitle(R.string.clear_history)
-                    .setMessage(getString(R.string.delete_message_confirm, trimString(message.message)))
+                    .setMessage(
+                        getString(
+                            R.string.delete_message_confirm,
+                            message.message.truncated(MAX_CONFIRM_DELETE_STRING_LENGTH)
+                        )
+                    )
                     .setPositiveButton(R.string.delete) { _, _ ->
                         viewModel.delete(message)
                     }

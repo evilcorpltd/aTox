@@ -10,3 +10,10 @@ class NoSuchArgumentException(arg: String) : Exception("No such argument: $arg")
 
 fun Fragment.requireStringArg(key: String) =
     arguments?.getString(key) ?: throw NoSuchArgumentException(key)
+
+fun String.truncated(length: Int): String =
+    if (this.length > length) {
+        this.take(length - 1) + "…"
+    } else {
+        this
+    }

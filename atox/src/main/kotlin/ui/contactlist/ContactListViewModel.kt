@@ -20,6 +20,7 @@ import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.User
+import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.feature.FriendRequestManager
 import ltd.evilcorp.domain.feature.UserManager
@@ -33,6 +34,7 @@ import ltd.evilcorp.domain.tox.testToxSave
 class ContactListViewModel @Inject constructor(
     private val context: Context,
     private val resolver: ContentResolver,
+    private val chatManager: ChatManager,
     private val contactManager: ContactManager,
     private val friendRequestManager: FriendRequestManager,
     private val tox: Tox,
@@ -78,4 +80,7 @@ class ContactListViewModel @Inject constructor(
             }
         }
     }
+
+    fun onShareText(what: String, to: Contact) =
+        chatManager.sendMessage(PublicKey(to.publicKey), what)
 }

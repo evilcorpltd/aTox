@@ -135,4 +135,6 @@
     <string name="bad_positive_number">Должно быть положительным числом</string>
     <string name="warn_node_json_import_failed">Ошибка при импортировании узлов</string>
     <string name="error_no_nodes_loaded">Невозможно загрузить начальные узлы, пожалуйста, переключитесь на встроенные узлы или попробуйте импортировать их снова</string>
+
+    <string name="receive_share_share_to">Поделиться с…</string>
 </resources>

@@ -32,6 +32,7 @@ import ltd.evilcorp.atox.databinding.FragmentContactListBinding
 import ltd.evilcorp.atox.databinding.FriendRequestItemBinding
 import ltd.evilcorp.atox.databinding.NavHeaderContactListBinding
 import ltd.evilcorp.atox.ui.BaseFragment
+import ltd.evilcorp.atox.ui.ReceiveShareDialog
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.ui.friend_request.FRIEND_REQUEST_PUBLIC_KEY
 import ltd.evilcorp.atox.vmFactory
@@ -43,6 +44,7 @@ import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.ToxSaveStatus
 
+const val ARG_SHARE = "share"
 private const val REQUEST_CODE_BACKUP_TOX = 9202
 
 private fun User.online(): Boolean =
@@ -58,6 +60,8 @@ class ContactListFragment :
     private val navHeader get() = _navHeader!!
 
     private var backupFileNameHint = "something_is_broken.tox"
+
+    private var shareDialog: ReceiveShareDialog? = null
 
     private fun colorFromStatus(status: UserStatus) = when (status) {
         UserStatus.None -> ResourcesCompat.getColor(resources, R.color.statusAvailable, null)
@@ -139,6 +143,8 @@ class ContactListFragment :
             } else {
                 View.GONE
             }
+
+            shareDialog?.setContacts(contactAdapter.contacts)
         }
 
         contactList.setOnItemClickListener { _, _, position, _ ->
@@ -168,6 +174,22 @@ class ContactListFragment :
             } else {
                 activity?.finish()
             }
+        }
+
+        arguments?.getString(ARG_SHARE)?.let { share ->
+            shareDialog = ReceiveShareDialog(
+                requireContext(),
+                (binding.contactList.adapter as ContactAdapter).contacts,
+                share,
+            ) {
+                viewModel.onShareText(share, it)
+                openChat(it)
+            }
+            shareDialog?.setOnDismissListener {
+                shareDialog = null
+            }
+            shareDialog?.show()
+            arguments?.remove(ARG_SHARE)
         }
 
         activity?.getSystemService<InputMethodManager>().let { imm ->
