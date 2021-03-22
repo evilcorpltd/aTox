@@ -1,11 +1,11 @@
 strategy:
   matrix:
     linux:
-      imageName: 'ubuntu-latest'
+      imageName: ubuntu-20.04
     mac:
-      imageName: 'macOS-latest'
+      imageName: macOS-10.15
     windows:
-      imageName: 'windows-latest'
+      imageName: windows-2019
 
 pool:
   vmImage: $(imageName)
