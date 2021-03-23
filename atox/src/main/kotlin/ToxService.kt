@@ -69,19 +69,13 @@ class ToxService : LifecycleService() {
                 PendingIntent.getActivity(this, 0, notificationIntent, 0)
             }
 
-        val builder = NotificationCompat.Builder(this, channelId)
+        return NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.notification_icon)
             .setColor(ResourcesCompat.getColor(resources, R.color.colorPrimary, null))
             .setContentIntent(pendingIntent)
-
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            builder.setSubText(subTextFor(status))
-        } else {
-            builder.setContentTitle(getString(R.string.tox_service_running))
-            builder.setContentText(subTextFor(status))
-        }
-
-        return builder.build()
+            .setContentTitle(getString(R.string.tox_service_running))
+            .setContentText(subTextFor(status))
+            .build()
     }
 
     override fun onCreate() {
