@@ -9,7 +9,7 @@
 
 The reasonable Tox client for Android.
 
-![aTox screenshot](/fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg)
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg" alt="chat screen" height="600"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" alt="contact screen" height="600">
 
 ## Building
 
