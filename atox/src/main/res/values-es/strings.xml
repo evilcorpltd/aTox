@@ -9,7 +9,7 @@
     <string name="connecting">Conectando…</string>
     <string name="contact_typing">Escribiendo…</string>
     <string name="copied">Copiado</string>
-    <string name="copy_atox">Copiar</string> <!-- androidx.preference:preference has stolen copy -->
+    <string name="copy_atox">Copiar</string>
     <string name="create">Crear</string>
     <string name="create_a_tox_profile">Crear un perfil de Tox</string>
     <string name="delete_contact">Eliminar contacto</string>
@@ -74,7 +74,6 @@
     <string name="pref_udp_enabled">UDP habilitado</string>
     <string name="pref_heading_general">General</string>
     <string name="pref_run_at_startup">Iniciar en el arranque</string>
-
     <string name="status_available">Conectado</string>
     <string name="status_away">Ausente</string>
     <string name="status_busy">Ocupado</string>

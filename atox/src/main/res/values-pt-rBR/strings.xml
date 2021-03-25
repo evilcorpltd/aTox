@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="accept">Aceitar</string>
     <string name="add">Adicionar</string>
@@ -9,7 +10,7 @@
     <string name="connecting">Conectado…</string>
     <string name="contact_typing">Escrevendo…</string>
     <string name="copied">Copiado</string>
-    <string name="copy_atox">Copiar</string> <!-- androidx.preference:preference has stolen copy -->
+    <string name="copy_atox">Copiar</string>
     <string name="create">Criar</string>
     <string name="create_a_tox_profile">Criar um perfil de Tox</string>
     <string name="delete_contact">Excluir o contato</string>

@@ -1,15 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="accept">Принять</string>
     <string name="add">Добавить</string>
     <string name="add_contact">Добавить контакт</string>
-    <string name="add_contact_message_default">Общайся со мной в aTox, как разумный человек</string>
+    <string name="add_contact_message_default">Общайся со мной в aTox, как разумный человек.</string>
     <string name="add_contact_message_error_empty">Сообщение не может быть пустым</string>
     <string name="confirm">Подтвердить</string>
     <string name="cancel">Отменить</string>
     <string name="connecting">Подключение…</string>
     <string name="contact_typing">Печатает…</string>
     <string name="copied">Скопировано</string>
-    <string name="copy_atox">Копировать</string> <!-- androidx.preference:preference has stolen copy -->
+    <string name="copy_atox">Копировать</string>
     <string name="create">Создать</string>
     <string name="create_a_tox_profile">Создать профиль Tox</string>
     <string name="delete_contact">Удалить контакт</string>
@@ -79,7 +80,7 @@
         <item>Встроенные</item>
         <item>Пользовательские</item>
     </string-array>
-    <string name="pref_bootstrap_nodes_description">Пользовательские json файлы должны иметь ту же структуру как и здесь: https://nodes.tox.chat/json</string>
+    <string name="pref_bootstrap_nodes_description">Пользовательские JSON файлы должны иметь ту же структуру как и здесь: https://nodes.tox.chat/json</string>
     <string name="send_as_action">Отправить как действие</string>
     <string name="or_import_existing_save">или импортировать уже существующий профиль Tox</string>
     <string name="profile_information">Информация профиля</string>
@@ -95,7 +96,6 @@
     <string name="pref_heading_general">Основные</string>
     <string name="pref_run_at_startup">Запускать при загрузке Android</string>
     <string name="friend_request">Запрос в друзья</string>
-
     <string name="status_available">Доступен</string>
     <string name="status_away">Отошёл</string>
     <string name="status_busy">Занят</string>
@@ -105,12 +105,9 @@
         <item>@string/status_busy</item>
     </string-array>
     <string name="from">От</string>
-
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Изменить ваш статус</string>
-    <string name="mimetype_handler_not_found">Инструмент обработки MIME-типов не найден
-        %1$s
-    </string>
+    <string name="mimetype_handler_not_found">Инструмент обработки этого медиа типа не найден %1$s</string>
     <string name="attach_file">Прикрепить файл</string>
     <string name="delete">Удалить</string>
     <string name="notification_file_transfer">Входящая передача файла \"%1$s\"</string>
@@ -118,23 +115,22 @@
     <string name="completed">Завершено</string>
     <string name="save_as">Сохранить как…</string>
     <string name="export_file_success">Файл экспортирован</string>
-    <string name="export_file_failure">Что-то пошло не так при экспортировании файла. До aTox 0.5.1 передачи файлов экспортировались по умолчанию</string>
+    <string name="export_file_failure">Что-то пошло не так при экспортировании файла. До aTox 0.5.1 передачи файлов экспортировались по умолчанию.</string>
     <string name="draft_message">Черновик: %1$s</string>
     <string name="pref_heading_address">IP адрес</string>
     <string name="pref_heading_port">Порт</string>
     <string name="pref_heading_proxy">Прокси</string>
-    <string name="warn_proxy_broken">Прокси неверно настроена. Исправьте, или отключите её перед использованием приложения</string>
+    <string name="warn_proxy_broken">Прокси неверно настроена. Исправьте, или отключите её перед использованием приложения.</string>
     <string name="proxy_not_found">Прокси не найдена</string>
     <string name="bad_type">Неверный тип</string>
     <string name="bad_host">Неверный хост</string>
     <string name="bad_port">Неверный порт</string>
     <string name="tox_save_export_failure">Экспортирование профиля не удалось: %1$s</string>
     <string name="reply">Ответить</string>
-    <string name="pref_auto_away">Статус \"Отошёл\" после:</string>
+    <string name="pref_auto_away">Статус \"Отошёл\" после</string>
     <string name="seconds">Секунд</string>
     <string name="bad_positive_number">Должно быть положительным числом</string>
     <string name="warn_node_json_import_failed">Ошибка при импортировании узлов</string>
     <string name="error_no_nodes_loaded">Невозможно загрузить начальные узлы, пожалуйста, переключитесь на встроенные узлы или попробуйте импортировать их снова</string>
-
     <string name="receive_share_share_to">Поделиться с…</string>
 </resources>

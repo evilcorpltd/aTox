@@ -41,7 +41,7 @@
     <string name="tox_save_exported">Tox-profil exporterad</string>
     <string name="export_tox_save">Exportera Tox-profil</string>
     <string name="confirm">Acceptera</string>
-    <string name="no_contacts_call_to_action">Vad väntar du på? Lägg till en kontakt för att komma igång.</string>
+    <string name="no_contacts_call_to_action">Vad väntar du på\? Lägg till en kontakt för att komma igång!</string>
     <string name="sending">Skickar…</string>
     <string name="tox_id_error_checksum">Ogiltig checksumma</string>
     <string name="tox_id_error_hex">Endast hexadecimal tillåtet</string>
@@ -75,14 +75,14 @@
     <string name="status_busy">Upptagen</string>
     <string name="from">Från</string>
     <string name="status_dialog_edit_user_status">Ändra din status</string>
-    <string name="mimetype_handler_not_found">Hittade inget program som kan hantera mimetypen %1$s</string>
+    <string name="mimetype_handler_not_found">Hittade inget program som kan hantera mediatypen %1$s</string>
     <string name="attach_file">Bifoga fil</string>
     <string name="delete">Ta bort</string>
     <string name="pref_heading_ft_auto_accept">Autoacceptera filöverföringar</string>
     <string name="pref_heading_type">Typ</string>
     <string name="pref_heading_advanced">Advancerat</string>
     <string name="pref_heading_bootstrap_nodes">Bootstrapnodkälla</string>
-    <string name="pref_bootstrap_nodes_description">Användardefinierada json-filer måste ha samma format som på https://nodes.tox.chat/json</string>
+    <string name="pref_bootstrap_nodes_description">Användardefinierada JSON-filer måste ha samma format som på https://nodes.tox.chat/json</string>
     <string name="notification_file_transfer">Inkommande filöverföring \"%1$s\"</string>
     <string name="cancelled">Avbruten</string>
     <string name="completed">Färdig</string>
@@ -124,4 +124,5 @@
         <item>Inbyggda</item>
         <item>Användardefinierade</item>
     </string-array>
+    <string name="receive_share_share_to">Dela till…</string>
 </resources>

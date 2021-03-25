@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="accept">Akzeptieren</string>
     <string name="add">Hinzufügen</string>
@@ -8,7 +9,7 @@
     <string name="connecting">Verbindet…</string>
     <string name="contact_typing">tippt…</string>
     <string name="copied">Kopiert</string>
-    <string name="copy_atox">Kopieren</string> <!-- androidx.preference:preference has stolen copy -->
+    <string name="copy_atox">Kopieren</string>
     <string name="create">Erstellen</string>
     <string name="create_a_tox_profile">Tox-Profil erstellen</string>
     <string name="delete_contact">Kontakt löschen</string>
@@ -65,7 +66,6 @@
         <item>HTTP</item>
         <item>SOCKS5</item>
     </string-array>
-    <string name="version_display">aTox v%1$s - %2$d</string>
     <string name="send_as_action">Als Aktion senden</string>
     <string name="or_import_existing_save">Oder importiere ein bestehendes Tox-Profil</string>
     <string name="profile_information">Profil-Information</string>
@@ -81,7 +81,6 @@
     <string name="pref_heading_general">Allgemein</string>
     <string name="pref_run_at_startup">Beim Hochfahren ausführen</string>
     <string name="friend_request">Freundschaftsanfrage</string>
-
     <string name="status_available">Anwesend</string>
     <string name="status_away">Abwesend</string>
     <string name="status_busy">Beschäftigt</string>
@@ -91,7 +90,6 @@
         <item>@string/status_busy</item>
     </string-array>
     <string name="from">Von</string>
-
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Status ändern</string>
     <string name="mimetype_handler_not_found">Es konnte keine Anwendung gefunden werden, welche diesen Dateityp öffnen kann %1$s</string>

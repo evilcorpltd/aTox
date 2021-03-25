@@ -12,7 +12,6 @@
     <string name="contact_typing">Typing…</string>
     <string name="copied">Copied</string>
     <string name="copy_atox">Copy</string>
-    <!-- androidx.preference:preference has stolen copy -->
     <string name="create">Create</string>
     <string name="create_a_tox_profile">Create a Tox profile</string>
     <string name="delete_contact">Delete contact</string>

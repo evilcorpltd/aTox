@@ -7,7 +7,7 @@
     <string name="tox_save_exported">Tox-profil eksportert</string>
     <string name="export_tox_save">Eksporter Tox-profil</string>
     <string name="update">Oppdater</string>
-    <string name="contact_typing">Skriver …</string>
+    <string name="contact_typing">Skriver…</string>
     <string name="or_import_existing_save">eller importer en sikkerhetskopiert Tox-profil</string>
     <string name="pref_bootstrap_nodes_description">Brukerangitte JSON-filer må ha samme format som på https://nodes.tox.chat/json</string>
     <string name="import_tox_save_failed">Importering mislyktes: %1$s</string>
@@ -15,7 +15,7 @@
     <string name="tox_id_error_hex">Kun heksadesimale verdier tillates</string>
     <string name="tox_id_error_length">Tox-ID må være 76 tegn (%1$d/76)</string>
     <string name="status_message_default">Bragt deg til hende på vegne av aTox</string>
-    <string name="no_contacts_call_to_action">Hva venter du på\? Legg til en kontakt for å begynne.</string>
+    <string name="no_contacts_call_to_action">Hva venter du på\? Legg til en kontakt for å begynne!</string>
     <string name="receive_share_share_to">Del til…</string>
     <string name="bad_positive_number">Må være et positivt tall</string>
     <string name="seconds">Sekunder</string>
