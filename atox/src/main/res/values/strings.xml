@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="accept">Accept</string>
     <string name="add">Add</string>
@@ -10,7 +11,8 @@
     <string name="connecting">Connecting…</string>
     <string name="contact_typing">Typing…</string>
     <string name="copied">Copied</string>
-    <string name="copy_atox">Copy</string> <!-- androidx.preference:preference has stolen copy -->
+    <string name="copy_atox">Copy</string>
+    <!-- androidx.preference:preference has stolen copy -->
     <string name="create">Create</string>
     <string name="create_a_tox_profile">Create a Tox profile</string>
     <string name="delete_contact">Delete contact</string>
@@ -80,7 +82,7 @@
         <item>Built-in</item>
         <item>User-provided</item>
     </string-array>
-    <string name="pref_bootstrap_nodes_description">User-provided json files must have the same format as on https://nodes.tox.chat/json</string>
+    <string name="pref_bootstrap_nodes_description">User-provided JSON files must have the same format as on https://nodes.tox.chat/json</string>
     <string name="version_display" translatable="false">aTox v%1$s - %2$d</string>
     <string name="send_as_action">Send as action</string>
     <string name="or_import_existing_save">or import an existing Tox save</string>
@@ -97,7 +99,6 @@
     <string name="pref_heading_general">General</string>
     <string name="pref_run_at_startup">Run at boot</string>
     <string name="friend_request">Friend request</string>
-
     <string name="status_available">Available</string>
     <string name="status_away">Away</string>
     <string name="status_busy">Busy</string>
@@ -107,10 +108,9 @@
         <item>@string/status_busy</item>
     </string-array>
     <string name="from">From</string>
-
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Edit your status</string>
-    <string name="mimetype_handler_not_found">Unable to find something that can handle mimetype %1$s</string>
+    <string name="mimetype_handler_not_found">Unable to find something that can handle that media type %1$s</string>
     <string name="attach_file">Attach file</string>
     <string name="delete">Delete</string>
     <string name="notification_file_transfer">Incoming file transfer \"%1$s\"</string>
@@ -135,6 +135,5 @@
     <string name="bad_positive_number">Must be a positive number</string>
     <string name="warn_node_json_import_failed">Error importing nodes</string>
     <string name="error_no_nodes_loaded">Unable to load bootstrap nodes, please switch to built-in nodes or import nodes again</string>
-
     <string name="receive_share_share_to">Share to…</string>
 </resources>

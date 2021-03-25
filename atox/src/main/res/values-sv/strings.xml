@@ -33,9 +33,9 @@
     <string name="settings">Inställningar</string>
     <string name="status_indicator">Statusindikator</string>
     <string name="status_message_default">Tillgänglig live, från aTox</string>
-    <string name="tox_id">Tox-id</string>
-    <string name="tox_id_error_length">Tox-id:t måste vara 76 tecken (%1$d/76)</string>
-    <string name="tox_id_share">Dela Tox-id</string>
+    <string name="tox_id">Tox-ID</string>
+    <string name="tox_id_error_length">Tox-ID-et måste vara 76 tecken (%1$d/76)</string>
+    <string name="tox_id_share">Dela Tox-ID</string>
     <string name="status_message">Statusmeddelande</string>
     <string name="update">Uppdatera</string>
     <string name="tox_save_exported">Tox-profil exporterad</string>
@@ -63,7 +63,7 @@
     <string name="profile_status_message">Ändra ditt statusmeddelande</string>
     <string name="profile_status">Ändra din status</string>
     <string name="profile">Profil</string>
-    <string name="tox_id_error_already_exists">En kontakt med det idt finns redan</string>
+    <string name="tox_id_error_already_exists">En kontakt med samma ID finns redan</string>
     <string name="tox_service_running">aTox kör</string>
     <string name="pref_heading_network">Nätverk</string>
     <string name="pref_udp_enabled">UDP aktiverat</string>
