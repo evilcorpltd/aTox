@@ -207,13 +207,18 @@ class FileTransferManager @Inject constructor(
 
     fun transfersFor(publicKey: PublicKey) = fileTransferRepository.get(publicKey.string())
 
-    fun create(pk: PublicKey, file: Uri) {
-        val (name, size) = context.contentResolver.query(file, null, null, null, null, null)?.use { cursor ->
-            cursor.moveToFirst()
-            val fileSize = cursor.getLong(cursor.getColumnIndexOrThrow(OpenableColumns.SIZE))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
-            Pair(name, fileSize)
-        } ?: return
+    fun create(pk: PublicKey, file: Uri, fileO: File?) {
+        val (name, size) =
+
+            if (fileO == null) {
+                context.contentResolver.query(file, null, null, null, null, null)?.use { cursor ->
+                    cursor.moveToFirst()
+                    val fileSize = cursor.getLong(cursor.getColumnIndexOrThrow(OpenableColumns.SIZE))
+                    val name = cursor.getString(cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
+                    Pair(name, fileSize)
+                } ?: return
+            } else
+                Pair(fileO.name, fileO.length())
 
         val ft = FileTransfer(
             pk.string(),
@@ -282,6 +287,11 @@ class FileTransferManager @Inject constructor(
         fileTransferRepository.get(publicKey.string()).take(1).collect { fts ->
             fts.forEach { delete(it.id) }
         }
+    }
+
+    fun deleteLocalFile(filePath: String) {
+        val file = File(filePath)
+        if (file.exists()) file.delete()
     }
 
     suspend fun delete(id: Int) {

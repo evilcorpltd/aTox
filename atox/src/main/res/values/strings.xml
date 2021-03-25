@@ -173,4 +173,5 @@
     <string name="pref_confirm_password">Confirm new password</string>
     <string name="password_updated">Password updated</string>
     <string name="passwords_must_match">The passwords must match</string>
+    <string name="default_timer">00:00</string>
 </resources>
