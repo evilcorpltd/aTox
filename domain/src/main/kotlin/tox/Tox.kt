@@ -14,6 +14,8 @@ import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.plus
 import kotlinx.coroutines.runBlocking
 import ltd.evilcorp.core.repository.ContactRepository
+import ltd.evilcorp.core.repository.UserRepository
+import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.MessageType
@@ -25,6 +27,7 @@ private const val TAG = "Tox"
 @Singleton
 class Tox @Inject constructor(
     private val contactRepository: ContactRepository,
+    private val userRepository: UserRepository,
     private val saveManager: SaveManager,
     private val nodeRegistry: BootstrapNodeRegistry,
 ) : CoroutineScope by GlobalScope + newSingleThreadContext("Tox") {
@@ -66,6 +69,7 @@ class Tox @Inject constructor(
                 tox.iterate()
                 delay(tox.iterationInterval())
             }
+            userRepository.updateConnection(publicKey.string(), ConnectionStatus.None)
             started = false
         }
 
