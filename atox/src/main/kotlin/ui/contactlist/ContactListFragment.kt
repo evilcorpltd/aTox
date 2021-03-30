@@ -31,6 +31,7 @@ import ltd.evilcorp.atox.databinding.ContactListViewItemBinding
 import ltd.evilcorp.atox.databinding.FragmentContactListBinding
 import ltd.evilcorp.atox.databinding.FriendRequestItemBinding
 import ltd.evilcorp.atox.databinding.NavHeaderContactListBinding
+import ltd.evilcorp.atox.truncated
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.ReceiveShareDialog
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
@@ -46,6 +47,7 @@ import ltd.evilcorp.domain.tox.ToxSaveStatus
 
 const val ARG_SHARE = "share"
 private const val REQUEST_CODE_BACKUP_TOX = 9202
+private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 32
 
 private fun User.online(): Boolean =
     connectionStatus != ConnectionStatus.None
@@ -246,7 +248,19 @@ class ContactListFragment :
                 when (item.itemId) {
                     R.id.delete -> {
                         val contact = binding.contactList.adapter.getItem(info.position) as Contact
-                        viewModel.deleteContact(PublicKey(contact.publicKey))
+
+                        AlertDialog.Builder(requireContext())
+                            .setTitle(R.string.clear_history)
+                            .setMessage(
+                                getString(
+                                    R.string.contact_list_delete_contact_confirm,
+                                    contact.name.truncated(MAX_CONFIRM_DELETE_STRING_LENGTH)
+                                )
+                            )
+                            .setPositiveButton(R.string.delete) { _, _ ->
+                                viewModel.deleteContact(PublicKey(contact.publicKey))
+                            }
+                            .setNegativeButton(R.string.cancel, null).show()
                     }
                 }
                 true

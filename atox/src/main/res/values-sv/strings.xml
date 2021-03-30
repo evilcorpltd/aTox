@@ -125,4 +125,5 @@
         <item>Användardefinierade</item>
     </string-array>
     <string name="receive_share_share_to">Dela till…</string>
+    <string name="contact_list_delete_contact_confirm">Är du säker på att du vill ta bort \"%1$s\" från dina kontakter?</string>
 </resources>

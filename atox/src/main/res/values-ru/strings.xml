@@ -133,4 +133,5 @@
     <string name="warn_node_json_import_failed">Ошибка при импортировании узлов</string>
     <string name="error_no_nodes_loaded">Невозможно загрузить начальные узлы, пожалуйста, переключитесь на встроенные узлы или попробуйте импортировать их снова</string>
     <string name="receive_share_share_to">Поделиться с…</string>
+    <string name="contact_list_delete_contact_confirm">Вы уверены, что вы хотите удалить \"%1$s\" из ваших контактов?</string>
 </resources>
