@@ -100,7 +100,7 @@ class ToxService : LifecycleService() {
                 notifier.notify(notificationId, notificationFor(connectionStatus))
                 if (connectionStatus == ConnectionStatus.None) {
                     Log.i(TAG, "Gone offline, scheduling bootstrap")
-                    bootstrapTimer.schedule(60_000) {
+                    bootstrapTimer.schedule(60_000, 60_000) {
                         Log.i(TAG, "Been offline for too long, bootstrapping")
                         tox.isBootstrapNeeded = true
                     }
@@ -119,6 +119,7 @@ class ToxService : LifecycleService() {
 
     override fun onDestroy() {
         super.onDestroy()
+        bootstrapTimer.cancel()
         tox.stop()
     }
 }
