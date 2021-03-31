@@ -29,7 +29,7 @@ class ToxService : LifecycleService() {
     private val channelId = "ToxService"
     private val notificationId = 1984
 
-    private var connectionStatus = ConnectionStatus.None
+    private var connectionStatus: ConnectionStatus? = null
 
     private val notifier by lazy { getSystemService<NotificationManager>()!! }
     private var bootstrapTimer = Timer()
@@ -57,13 +57,13 @@ class ToxService : LifecycleService() {
         notifier.createNotificationChannels(listOf(friendRequestChannel))
     }
 
-    private fun subTextFor(status: ConnectionStatus) = when (status) {
-        ConnectionStatus.None -> getText(R.string.atox_offline)
+    private fun subTextFor(status: ConnectionStatus?) = when (status) {
+        null, ConnectionStatus.None -> getText(R.string.atox_offline)
         ConnectionStatus.TCP -> getText(R.string.atox_connected_with_tcp)
         ConnectionStatus.UDP -> getText(R.string.atox_connected_with_udp)
     }
 
-    private fun notificationFor(status: ConnectionStatus): Notification {
+    private fun notificationFor(status: ConnectionStatus?): Notification {
         val pendingIntent: PendingIntent =
             Intent(this, MainActivity::class.java).let { notificationIntent ->
                 PendingIntent.getActivity(this, 0, notificationIntent, 0)
