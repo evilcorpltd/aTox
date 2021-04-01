@@ -3,6 +3,7 @@ package ltd.evilcorp.atox.ui.chat
 import android.content.res.Resources
 import android.text.format.Formatter
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -10,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
@@ -69,7 +69,7 @@ private class MessageViewHolder(row: View) {
 }
 
 private class FileTransferViewHolder(row: View) {
-    val container = row.findViewById(R.id.fileTransferContainer) as LinearLayout
+    val container = row.findViewById(R.id.fileTransfer) as RelativeLayout
     val fileName = row.findViewById(R.id.fileName) as TextView
     val fileSize = row.findViewById(R.id.fileSize) as TextView
     val progress = row.findViewById(R.id.progress) as ProgressBar
@@ -239,14 +239,11 @@ class ChatAdapter(
                     }
                 }
 
-                val layout = vh.container.layoutParams as RelativeLayout.LayoutParams
-                val alignment = if (fileTransfer.outgoing) {
-                    RelativeLayout.ALIGN_PARENT_END
+                vh.container.gravity = if (fileTransfer.outgoing) {
+                    Gravity.END
                 } else {
-                    RelativeLayout.ALIGN_PARENT_START
+                    Gravity.START
                 }
-                layout.addRule(alignment)
-                vh.container.layoutParams = layout
 
                 view
             }
