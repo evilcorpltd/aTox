@@ -6,6 +6,7 @@
 [![Translation status](https://hosted.weblate.org/widgets/atox/-/app/svg-badge.svg)](https://hosted.weblate.org/engage/atox/)
 
 [<img src="img/get-it-on-fdroid.png" alt="Get aTox on F-Droid" height="80">](https://f-droid.org/packages/ltd.evilcorp.atox)
+[<img src="img/get-it-on-google-play.png" alt="Get aTox on Google Play" height="80">](https://play.google.com/store/apps/details?id=ltd.evilcorp.atox)
 
 The reasonable Tox client for Android.
 
