@@ -47,7 +47,7 @@ object KotlinX {
 
 object AndroidX {
     object Core {
-        const val ktx = "androidx.core:core-ktx:1.5.0-beta01"
+        const val ktx = "androidx.core:core-ktx:1.5.0-rc01"
     }
 
     const val appcompat = "androidx.appcompat:appcompat:1.2.0"
@@ -63,7 +63,7 @@ object AndroidX {
     }
 
     object Lifecycle {
-        private const val version = "2.3.0"
+        private const val version = "2.3.1"
         const val livedataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
         const val service = "androidx.lifecycle:lifecycle-service:$version"
         const val viewmodelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
@@ -110,7 +110,7 @@ object Google {
 
 object Square {
     const val picasso = "com.squareup.picasso:picasso:2.8"
-    const val leakcanary = "com.squareup.leakcanary:leakcanary-android:2.6"
+    const val leakcanary = "com.squareup.leakcanary:leakcanary-android:2.7"
 }
 
 object Tox4j {
