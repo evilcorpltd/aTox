@@ -57,7 +57,7 @@ jobs:
           echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install "ndk;$NDK_VERSION" | grep -v = || true
           echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/$NDK_VERSION" >> $GITHUB_ENV
       env:
-        NDK_VERSION: 21.3.6528147
+        NDK_VERSION: 22.1.7171670
     - name: Install
       run: wget https://github.com/bazelbuild/bazelisk/releases/download/v1.7.4/bazelisk-linux-amd64 --output-document=bazelisk
     - name: Build
