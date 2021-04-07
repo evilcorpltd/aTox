@@ -115,4 +115,10 @@
     <string name="pref_auto_away">Auto abwesend</string>
     <string name="seconds">Sekunden</string>
     <string name="bad_positive_number">Muss eine positive Zahl sein</string>
+    <string name="contact_list_delete_contact_confirm">Bist du sicher, dass du \"%1$s\" aus deiner Kontaktliste löschen möchtest\?</string>
+    <string name="receive_share_share_to">Teilen mit…</string>
+    <string name="warn_node_json_import_failed">Fehler beim Importieren der Knoten</string>
+    <string name="pref_heading_advanced">Fortgeschritten</string>
+    <string name="pref_heading_ft_auto_accept">Dateiübertragungen automatisch akzeptieren</string>
+    <string name="status_message_default">Ich bin für dich erreichbar, dank aTox</string>
 </resources>
