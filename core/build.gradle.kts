@@ -51,10 +51,6 @@ android {
     kotlinOptions {
         jvmTarget = Java.version.toString()
     }
-    lintOptions {
-        isAbortOnError = true
-        isWarningsAsErrors = true
-    }
     sourceSets["main"].java.srcDir("src/main/kotlin")
     sourceSets["test"].java.srcDir("src/test/kotlin")
     sourceSets["androidTest"].assets.srcDir("$projectDir/schemas")

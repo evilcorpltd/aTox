@@ -47,8 +47,6 @@ android {
         )
     }
     lintOptions {
-        isAbortOnError = true
-        isWarningsAsErrors = true
         disable("InvalidPackage") // tox4j is still not really allowed on Android. :/
     }
     sourceSets["main"].java.srcDir("src/main/kotlin")
