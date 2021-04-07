@@ -5,6 +5,7 @@
     <string name="add_contact">Añadir contacto</string>
     <string name="add_contact_message_default">Háblame en aTox como un ser humano razonable.</string>
     <string name="add_contact_message_error_empty">El mensaje no puede estar vacío</string>
+    <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
     <string name="connecting">Conectando…</string>
     <string name="contact_typing">Escribiendo…</string>
@@ -60,13 +61,32 @@
         <item>Claro</item>
         <item>Oscuro</item>
     </string-array>
+    <string name="pref_heading_ft_auto_accept">Auto-aceptar transferencias de archivos</string>
+    <string-array name="pref_ft_auto_accept_options">
+        <item>No</item>
+        <item>Imágenes</item>
+        <item>Todos los archivos</item>
+    </string-array>
+    <string name="pref_heading_type">Tipo</string>
+    <string-array name="pref_proxy_type_options">
+        <item>No</item>
+        <item>HTTP</item>
+        <item>SOCKS5</item>
+    </string-array>
+    <string name="pref_heading_advanced">Avanzada</string>
+    <string name="pref_heading_bootstrap_nodes">Fuente de los nodos bootstrap</string>
+    <string-array name="pref_bootstrap_node_options">
+        <item>Incorporados</item>
+        <item>Personalizados</item>
+    </string-array>
+    <string name="pref_bootstrap_nodes_description">Los archivos JSON personalizados debe tener el mismo formato que https://nodes.tox.chat/json</string>
     <string name="send_as_action">Enviar como acción</string>
     <string name="or_import_existing_save">o importar un archivo de Tox existente</string>
     <string name="profile_information">Información del perfil</string>
     <string name="profile_settings">Configuración del perfil</string>
-    <string name="profile_nickname">Cambia tu nick</string>
-    <string name="profile_status_message">Cambia tu mensaje de estado</string>
-    <string name="profile_status">Cambia tu estado</string>
+    <string name="profile_nickname">Cambiar tu nick</string>
+    <string name="profile_status_message">Cambiar tu mensaje de estado</string>
+    <string name="profile_status">Cambiar tu estado</string>
     <string name="profile">Perfil</string>
     <string name="tox_id_error_already_exists">Un contacto con este ID ya existe</string>
     <string name="tox_service_running">aTox se está ejecutando</string>
@@ -74,6 +94,7 @@
     <string name="pref_udp_enabled">UDP habilitado</string>
     <string name="pref_heading_general">General</string>
     <string name="pref_run_at_startup">Iniciar en el arranque</string>
+    <string name="friend_request">Solicitud de amistad</string>
     <string name="status_available">Conectado</string>
     <string name="status_away">Ausente</string>
     <string name="status_busy">Ocupado</string>
@@ -82,4 +103,34 @@
         <item>@string/status_away</item>
         <item>@string/status_busy</item>
     </string-array>
+    <string name="from">De</string>
+    <!-- Status dialog -->
+    <string name="status_dialog_edit_user_status">Editar tu estado</string>
+    <string name="mimetype_handler_not_found">No ha podido encontrar algo que maneja este tipo de medio %1$s</string>
+    <string name="attach_file">Adjuntar archivo</string>
+    <string name="delete">Eliminar</string>
+    <string name="notification_file_transfer">Transferencia de archivo entrante \"%1$s\"</string>
+    <string name="cancelled">Cancelada</string>
+    <string name="completed">Completada</string>
+    <string name="save_as">Guardar como…</string>
+    <string name="export_file_success">Archivo exportado</string>
+    <string name="export_file_failure">La exportación falló. Las transferencias pre-0.5.1 fueron exportadas de forma predeterminada.</string>
+    <string name="draft_message">Borrador: %1$s</string>
+    <string name="pref_heading_address">Dirección</string>
+    <string name="pref_heading_port">Puerto</string>
+    <string name="pref_heading_proxy">Proxy</string>
+    <string name="warn_proxy_broken">Un proxy incorrecto fue configurado. Corrige o desactiva antes de utilizar la aplicación.</string>
+    <string name="proxy_not_found">Proxy no existe</string>
+    <string name="bad_type">Tipo incorrecto</string>
+    <string name="bad_host">Host incorrecto</string>
+    <string name="bad_port">Puerto incorrecto</string>
+    <string name="tox_save_export_failure">La exportación falló: %1$s</string>
+    <string name="reply">Responder</string>
+    <string name="pref_auto_away">Ausencia automática</string>
+    <string name="seconds">Segundos</string>
+    <string name="bad_positive_number">Debe ser un número positivo</string>
+    <string name="warn_node_json_import_failed">Error al importar los nodos</string>
+    <string name="error_no_nodes_loaded">No ha podido cargar los nodos bootstrap, por favor, cambia a los nodos incorporados o importa los nodos de nuevo</string>
+    <string name="receive_share_share_to">Compartir con…</string>
+    <string name="contact_list_delete_contact_confirm">¿Estas seguro de que deseas eliminar \"%1$s\" de tu contactos?</string>
 </resources>
