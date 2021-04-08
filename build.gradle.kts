@@ -22,11 +22,6 @@ allprojects {
         google()
         mavenCentral()
         maven { url = uri("https://dl.bintray.com/toktok/maven") }
-        jcenter {
-            content {
-                includeModule("org.jetbrains.trove4j", "trove4j")
-            }
-        }
     }
 }
 
