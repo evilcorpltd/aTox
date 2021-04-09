@@ -73,6 +73,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         toolbar.setNavigationOnClickListener { activity?.onBackPressed() }
 
         toolbar.inflateMenu(R.menu.chat_options_menu)
+        toolbar.menu.findItem(R.id.call).isEnabled = !viewModel.inCall()
         toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.clear_history -> {
@@ -84,6 +85,13 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                             viewModel.clearHistory()
                         }
                         .setNegativeButton(R.string.cancel, null).show()
+                    true
+                }
+                R.id.call -> {
+                    findNavController().navigate(
+                        R.id.action_chatFragment_to_callFragment,
+                        bundleOf(CONTACT_PUBLIC_KEY to contactPubKey)
+                    )
                     true
                 }
                 else -> super.onOptionsItemSelected(item)

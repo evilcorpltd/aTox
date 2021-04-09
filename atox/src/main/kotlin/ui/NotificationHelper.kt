@@ -35,6 +35,7 @@ import ltd.evilcorp.domain.tox.PublicKey
 
 private const val MESSAGE = "aTox messages"
 private const val FRIEND_REQUEST = "aTox friend requests"
+private const val CALL = "aTox call"
 
 @Singleton
 class NotificationHelper @Inject constructor(
@@ -65,7 +66,13 @@ class NotificationHelper @Inject constructor(
             NotificationManager.IMPORTANCE_HIGH
         )
 
-        notifier.createNotificationChannels(listOf(messageChannel, friendRequestChannel))
+        val callChannel = NotificationChannel(
+            CALL,
+            context.getString(R.string.calls),
+            NotificationManager.IMPORTANCE_HIGH
+        )
+
+        notifier.createNotificationChannels(listOf(messageChannel, friendRequestChannel, callChannel))
     }
 
     fun dismissNotifications(publicKey: PublicKey) = notifier.cancel(publicKey.string().hashCode())
@@ -181,5 +188,32 @@ class NotificationHelper @Inject constructor(
         }
 
         notifier.notify(friendRequest.publicKey.hashCode(), notificationBuilder.build())
+    }
+
+    fun dismissCallNotification(contact: Contact) =
+        notifier.cancel(contact.publicKey.hashCode() + CALL.hashCode())
+
+    fun showCallNotification(contact: Contact) {
+        val notificationBuilder = NotificationCompat.Builder(context, FRIEND_REQUEST)
+            .setSmallIcon(android.R.drawable.ic_menu_call)
+            .setContentTitle(context.getString(R.string.ongoing_call))
+            .setContentText(context.getString(R.string.in_call_with, contact.name))
+            .setUsesChronometer(true)
+            .setWhen(System.currentTimeMillis())
+            .setContentIntent(
+                NavDeepLinkBuilder(context)
+                    .setGraph(R.navigation.nav_graph)
+                    .setDestination(R.id.callFragment)
+                    .setArguments(bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey))
+                    .createPendingIntent()
+            )
+            .setOngoing(true)
+            .setSilent(true)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            notificationBuilder.setCategory(Notification.CATEGORY_CALL)
+        }
+
+        notifier.notify(contact.publicKey.hashCode() + CALL.hashCode(), notificationBuilder.build())
     }
 }

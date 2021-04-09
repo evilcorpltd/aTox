@@ -136,4 +136,11 @@
     <string name="error_no_nodes_loaded">Unable to load bootstrap nodes, please switch to built-in nodes or import nodes again</string>
     <string name="receive_share_share_to">Share to…</string>
     <string name="contact_list_delete_contact_confirm">Are you sure you want to delete \"%1$s\" from your contacts?</string>
+
+    <string name="call">Call</string>
+    <string name="microphone_control">Microphone control</string>
+    <string name="end_call">End call</string>
+    <string name="calls">Calls</string>
+    <string name="ongoing_call">Ongoing call</string>
+    <string name="in_call_with">In call with %1$s</string>
 </resources>

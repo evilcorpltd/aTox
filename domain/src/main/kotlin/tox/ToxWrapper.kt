@@ -8,7 +8,6 @@ import im.tox.tox4j.core.exceptions.ToxFileSendChunkException
 import im.tox.tox4j.core.exceptions.ToxFriendAddException
 import im.tox.tox4j.impl.jni.ToxAvImpl
 import im.tox.tox4j.impl.jni.ToxCoreImpl
-import kotlin.math.min
 import kotlin.random.Random
 import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.MessageType
@@ -47,13 +46,10 @@ class ToxWrapper(
         tox.close()
     }
 
-    fun iterate() {
-        tox.iterate(eventListener, Unit)
-        av.iterate(avEventListener, Unit)
-    }
-
-    fun iterationInterval(): Long =
-        min(tox.iterationInterval(), av.iterationInterval()).toLong()
+    fun iterate(): Unit = tox.iterate(eventListener, Unit)
+    fun iterateAv(): Unit = av.iterate(avEventListener, Unit)
+    fun iterationInterval(): Long = tox.iterationInterval().toLong()
+    fun iterationIntervalAv(): Long = av.iterationInterval().toLong()
 
     fun getName(): String = String(tox.name)
     fun setName(name: String) {
@@ -143,7 +139,8 @@ class ToxWrapper(
     private fun contactByKey(publicKey: PublicKey): Int = tox.friendByPublicKey(publicKey.bytes())
 
     // ToxAv, probably move these.
-    fun endCall(pk: PublicKey) {
-        av.callControl(contactByKey(pk), ToxavCallControl.CANCEL)
-    }
+    fun startCall(pk: PublicKey) = av.call(contactByKey(pk), 128, 0)
+    fun endCall(pk: PublicKey) = av.callControl(contactByKey(pk), ToxavCallControl.CANCEL)
+    fun sendAudio(pk: PublicKey, pcm: ShortArray, channels: Int, samplingRate: Int) =
+        av.audioSendFrame(contactByKey(pk), pcm, pcm.size, channels, samplingRate)
 }

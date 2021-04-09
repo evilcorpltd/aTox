@@ -9,6 +9,11 @@
             android:label="ProfileFragment"
             tools:layout="@layout/fragment_profile"/>
 
+    <fragment android:id="@+id/callFragment"
+            android:name="ltd.evilcorp.atox.ui.call.CallFragment"
+            android:label="CallFragment"
+            tools:layout="@layout/fragment_call"/>
+
     <fragment android:id="@+id/contactListFragment"
             android:name="ltd.evilcorp.atox.ui.contactlist.ContactListFragment"
             android:label="ContactListFragment"
@@ -69,6 +74,13 @@
 
         <action android:id="@+id/action_chatFragment_to_contactProfileFragment"
                 app:destination="@id/contactProfileFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/slide_out_right"/>
+
+        <action android:id="@+id/action_chatFragment_to_callFragment"
+                app:destination="@id/callFragment"
                 app:enterAnim="@anim/slide_in_right"
                 app:exitAnim="@anim/fade_out"
                 app:popEnterAnim="@anim/fade_in"

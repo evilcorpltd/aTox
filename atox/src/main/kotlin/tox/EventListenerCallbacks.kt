@@ -2,6 +2,7 @@ package ltd.evilcorp.atox.tox
 
 import android.content.Context
 import android.util.Log
+import im.tox.tox4j.av.enums.ToxavFriendCallState
 import im.tox.tox4j.core.enums.ToxFileControl
 import java.net.URLConnection
 import java.util.Date
@@ -26,6 +27,7 @@ import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.Sender
+import ltd.evilcorp.domain.av.AudioPlayer
 import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.FileTransferManager
 import ltd.evilcorp.domain.tox.PublicKey
@@ -57,6 +59,7 @@ class EventListenerCallbacks @Inject constructor(
     private val settings: Settings,
 ) : CoroutineScope by GlobalScope {
     private var contacts: List<Contact> = listOf()
+    private var audioPlayer: AudioPlayer? = null
 
     init {
         launch {
@@ -166,6 +169,10 @@ class EventListenerCallbacks @Inject constructor(
 
         callStateHandler = { pk, callState ->
             Log.e(TAG, "callState ${pk.take(8)} $callState")
+            if (callState.contains(ToxavFriendCallState.FINISHED)) {
+                audioPlayer?.stop()
+                audioPlayer = null
+            }
         }
 
         videoBitRateHandler = { pk, bitRate ->
@@ -191,6 +198,14 @@ class EventListenerCallbacks @Inject constructor(
 
         audioBitRateHandler = { pk, bitRate ->
             Log.e(TAG, "audioBitRate ${pk.take(8)} $bitRate")
+        }
+
+        audioReceiveFrameHandler = { _, pcm, channels, samplingRate ->
+            if (audioPlayer == null) {
+                audioPlayer = AudioPlayer(samplingRate, channels)
+                audioPlayer?.start()
+            }
+            audioPlayer?.buffer(pcm)
         }
     }
 }

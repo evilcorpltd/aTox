@@ -38,6 +38,7 @@ class Tox @Inject constructor(
     var isBootstrapNeeded = true
 
     private var running = false
+    private var toxAvRunning = false
 
     private lateinit var tox: ToxWrapper
 
@@ -55,9 +56,18 @@ class Tox @Inject constructor(
             }
         }
 
+        fun iterateForeverAv() = launch {
+            toxAvRunning = true
+            while (running) {
+                tox.iterateAv()
+                delay(tox.iterationIntervalAv())
+            }
+            toxAvRunning = false
+        }
+
         fun iterateForever() = launch {
             running = true
-            while (running) {
+            while (running || toxAvRunning) {
                 if (isBootstrapNeeded) {
                     try {
                         bootstrap()
@@ -76,6 +86,7 @@ class Tox @Inject constructor(
         save()
         loadContacts()
         iterateForever()
+        iterateForeverAv()
     }
 
     fun stop() = launch {
@@ -157,7 +168,8 @@ class Tox @Inject constructor(
     fun getStatus() = async { tox.getStatus() }
 
     // ToxAv, probably move these.
-    fun endCall(pk: PublicKey) = launch {
-        tox.endCall(pk)
-    }
+    fun startCall(pk: PublicKey) = tox.startCall(pk)
+    fun endCall(pk: PublicKey) = tox.endCall(pk)
+    fun sendAudio(pk: PublicKey, pcm: ShortArray, channels: Int, samplingRate: Int) =
+        tox.sendAudio(pk, pcm, channels, samplingRate)
 }

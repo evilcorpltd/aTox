@@ -24,6 +24,7 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
+import ltd.evilcorp.domain.feature.CallManager
 import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.feature.FileTransferManager
@@ -32,6 +33,7 @@ import ltd.evilcorp.domain.tox.PublicKey
 private const val TAG = "ChatViewModel"
 
 class ChatViewModel @Inject constructor(
+    private val callManager: CallManager,
     private val chatManager: ChatManager,
     private val contactManager: ContactManager,
     private val fileTransferManager: FileTransferManager,
@@ -119,4 +121,6 @@ class ChatViewModel @Inject constructor(
 
     fun setDraft(draft: String) = contactManager.setDraft(publicKey, draft)
     fun clearDraft() = setDraft("")
+
+    fun inCall() = callManager.isInCall()
 }
