@@ -1,11 +1,15 @@
 package ltd.evilcorp.atox.ui.create_profile
 
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -13,6 +17,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentProfileBinding
+import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.User
@@ -26,12 +31,39 @@ class CreateProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfi
 
         Log.i("ProfileFragment", "Importing file $uri")
         viewModel.tryImportToxSave(uri)?.also { save ->
-            val startStatus = viewModel.startTox(save)
-            if (startStatus == ToxSaveStatus.Ok) {
-                viewModel.verifyUserExists(viewModel.publicKey)
-                findNavController().popBackStack()
-            } else {
-                Toast.makeText(
+            when (val startStatus = viewModel.startTox(save)) {
+                ToxSaveStatus.Ok -> {
+                    viewModel.verifyUserExists(viewModel.publicKey)
+                    findNavController().popBackStack()
+                }
+                ToxSaveStatus.Encrypted -> {
+                    val passwordEdit = EditText(requireContext()).apply {
+                        hint = getString(R.string.password)
+                        inputType = EditorInfo.TYPE_TEXT_VARIATION_PASSWORD
+                        setSingleLine()
+                        transformationMethod = PasswordTransformationMethod()
+                    }
+                    AlertDialog.Builder(requireContext())
+                        .setTitle(R.string.unlock_profile)
+                        .setView(passwordEdit)
+                        .setPositiveButton(android.R.string.ok) { _, _ ->
+                            Settings.password = passwordEdit.text.toString()
+                            if (viewModel.startTox(save) == ToxSaveStatus.Ok) {
+                                viewModel.verifyUserExists(viewModel.publicKey)
+                                findNavController().popBackStack()
+                            } else {
+                                Settings.password = null
+                                Toast.makeText(
+                                    requireContext(),
+                                    getString(R.string.incorrect_password),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                        .setNegativeButton(R.string.cancel) { _, _ -> }
+                        .show()
+                }
+                else -> Toast.makeText(
                     requireContext(),
                     resources.getString(R.string.import_tox_save_failed, startStatus.name),
                     Toast.LENGTH_LONG

@@ -2,6 +2,7 @@ package ltd.evilcorp.domain.tox
 
 import im.tox.tox4j.core.exceptions.ToxNewException
 import im.tox.tox4j.impl.jni.ToxCoreImpl
+import im.tox.tox4j.impl.jni.ToxCryptoImpl
 
 enum class ToxSaveStatus {
     Ok,
@@ -17,8 +18,15 @@ enum class ToxSaveStatus {
     SaveNotFound,
 }
 
-fun testToxSave(options: SaveOptions): ToxSaveStatus = try {
-    val t = ToxCoreImpl(options.toToxOptions())
+fun testToxSave(options: SaveOptions, password: String?): ToxSaveStatus = try {
+    val toxOptions = if (password == null) {
+        options.toToxOptions()
+    } else {
+        val salt = ToxCryptoImpl.getSalt(options.saveData)
+        val passkey = ToxCryptoImpl.passKeyDeriveWithSalt(password.toByteArray(), salt)
+        options.copy(saveData = ToxCryptoImpl.decrypt(options.saveData, passkey)).toToxOptions()
+    }
+    val t = ToxCoreImpl(toxOptions)
     t.close()
     ToxSaveStatus.Ok
 } catch (e: ToxNewException) {

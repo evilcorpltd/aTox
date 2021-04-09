@@ -1,13 +1,16 @@
 package ltd.evilcorp.atox.ui.contactlist
 
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
@@ -27,6 +30,7 @@ import ltd.evilcorp.atox.databinding.ContactListViewItemBinding
 import ltd.evilcorp.atox.databinding.FragmentContactListBinding
 import ltd.evilcorp.atox.databinding.FriendRequestItemBinding
 import ltd.evilcorp.atox.databinding.NavHeaderContactListBinding
+import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.atox.truncated
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.ReceiveShareDialog
@@ -282,6 +286,7 @@ class ContactListFragment :
                     .setTitle(R.string.quit_confirm)
                     .setPositiveButton(R.string.quit) { _, _ ->
                         viewModel.quitTox()
+                        Settings.password = null
                         activity?.finishAffinity()
                     }
                     .setNegativeButton(R.string.cancel) { _, _ -> }
@@ -308,6 +313,37 @@ class ContactListFragment :
                 }
                 ToxSaveStatus.SaveNotFound ->
                     findNavController().navigate(R.id.action_contactListFragment_to_profileFragment)
+                ToxSaveStatus.Encrypted -> {
+                    view?.visibility = View.INVISIBLE
+                    val passwordEdit = EditText(requireContext()).apply {
+                        hint = getString(R.string.password)
+                        inputType = EditorInfo.TYPE_TEXT_VARIATION_PASSWORD
+                        setSingleLine()
+                        transformationMethod = PasswordTransformationMethod()
+                    }
+                    AlertDialog.Builder(requireContext())
+                        .setTitle(getString(R.string.unlock_profile))
+                        .setView(passwordEdit)
+                        .setPositiveButton(android.R.string.ok) { _, _ ->
+                            Settings.password = passwordEdit.text.toString()
+                            if (viewModel.tryLoadTox() == ToxSaveStatus.Ok) {
+                                // Hack to reload fragment.
+                                parentFragmentManager.beginTransaction().detach(this).commitAllowingStateLoss()
+                                parentFragmentManager.beginTransaction().attach(this).commitAllowingStateLoss()
+                            } else {
+                                Settings.password = null
+                                Toast.makeText(
+                                    requireContext(),
+                                    getString(R.string.incorrect_password),
+                                    Toast.LENGTH_LONG,
+                                ).show()
+                                activity?.finishAffinity()
+                            }
+                        }
+                        .setNegativeButton(R.string.cancel) { _, _ -> activity?.finishAffinity() }
+                        .setOnDismissListener { activity?.finishAffinity() }
+                        .show()
+                }
                 ToxSaveStatus.Ok -> {
                 }
                 else -> throw Exception("Unhandled tox save error $status")

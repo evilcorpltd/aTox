@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.util.Log
 import im.tox.tox4j.core.exceptions.ToxNewException
+import im.tox.tox4j.crypto.exceptions.ToxDecryptionException
 import javax.inject.Inject
 import ltd.evilcorp.atox.ToxService
 import ltd.evilcorp.atox.settings.Settings
@@ -39,10 +40,13 @@ class ToxStarter @Inject constructor(
             SaveOptions(save, settings.udpEnabled, settings.proxyType, settings.proxyAddress, settings.proxyPort)
         try {
             tox.isBootstrapNeeded = true
-            tox.start(options, eventListener, avEventListener)
+            tox.start(options, Settings.password, eventListener, avEventListener)
         } catch (e: ToxNewException) {
             Log.e(TAG, e.message)
-            return testToxSave(options)
+            return testToxSave(options, Settings.password)
+        } catch (e: ToxDecryptionException) {
+            Log.e(TAG, e.message)
+            return ToxSaveStatus.Encrypted
         }
 
         // This can stay alive across core restarts and it doesn't work well when toxcore resets its numbers

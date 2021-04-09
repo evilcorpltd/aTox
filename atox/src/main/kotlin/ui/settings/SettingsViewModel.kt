@@ -120,7 +120,7 @@ class SettingsViewModel @Inject constructor(
         checkProxyJob?.cancel(null)
         checkProxyJob = viewModelScope.launch(Dispatchers.IO) {
             val saveStatus = testToxSave(
-                SaveOptions(saveData = null, getUdpEnabled(), getProxyType(), getProxyAddress(), getProxyPort())
+                SaveOptions(saveData = null, getUdpEnabled(), getProxyType(), getProxyAddress(), getProxyPort()), null
             )
 
             val proxyStatus = when (saveStatus) {

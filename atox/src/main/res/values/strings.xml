@@ -164,4 +164,7 @@
     <string name="incoming_call">Incoming call</string>
     <string name="incoming_call_from">Incoming call from %1$s</string>
     <string name="call_mic_permission_needed">Microphone permission required to enable sending audio</string>
+    <string name="password">Password</string>
+    <string name="incorrect_password">Incorrect password</string>
+    <string name="unlock_profile">Unlock profile</string>
 </resources>

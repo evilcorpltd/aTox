@@ -2,6 +2,7 @@ package ltd.evilcorp.domain.tox
 
 import android.util.Log
 import im.tox.tox4j.core.exceptions.ToxBootstrapException
+import im.tox.tox4j.impl.jni.ToxCryptoImpl
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
@@ -39,10 +40,24 @@ class Tox @Inject constructor(
     private var running = false
     private var toxAvRunning = false
 
+    private var passkey: ByteArray? = null
+
     private lateinit var tox: ToxWrapper
 
-    fun start(saveOption: SaveOptions, listener: ToxEventListener, avListener: ToxAvEventListener) {
-        tox = ToxWrapper(listener, avListener, saveOption)
+    fun start(saveOption: SaveOptions, password: String?, listener: ToxEventListener, avListener: ToxAvEventListener) {
+        tox = if (password == null) {
+            passkey = null
+            ToxWrapper(listener, avListener, saveOption)
+        } else {
+            val salt = ToxCryptoImpl.getSalt(saveOption.saveData)
+            passkey = ToxCryptoImpl.passKeyDeriveWithSalt(password.toByteArray(), salt)
+            ToxWrapper(
+                listener,
+                avListener,
+                saveOption.copy(saveData = ToxCryptoImpl.decrypt(saveOption.saveData, passkey)),
+            )
+        }
+
         started = true
 
         fun loadContacts() = launch {
@@ -93,12 +108,21 @@ class Tox @Inject constructor(
         while (started) delay(10)
         save().join()
         tox.stop()
+        passkey = null
     }
 
     private val saveMutex = Mutex()
     private fun save() = launch {
         saveMutex.withLock {
-            saveManager.save(publicKey, tox.getSaveData())
+            val passkey = passkey
+            saveManager.save(
+                publicKey,
+                if (passkey == null) {
+                    tox.getSaveData()
+                } else {
+                    ToxCryptoImpl.encrypt(tox.getSaveData(), passkey)
+                }
+            )
         }
     }
 
@@ -148,7 +172,14 @@ class Tox @Inject constructor(
     fun sendMessage(publicKey: PublicKey, message: String, type: MessageType) =
         tox.sendMessage(publicKey, message, type)
 
-    fun getSaveData() = tox.getSaveData()
+    fun getSaveData(): ByteArray {
+        val passkey = passkey
+        return if (passkey == null) {
+            tox.getSaveData()
+        } else {
+            ToxCryptoImpl.encrypt(tox.getSaveData(), passkey)
+        }
+    }
 
     private fun bootstrap() {
         nodeRegistry.get(4).forEach { node ->
