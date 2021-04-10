@@ -134,4 +134,11 @@
     <string name="error_no_nodes_loaded">Nodurile bootstrap nu pot fi pornite, rugăm să treci la noduri integrate sau importă din nou</string>
     <string name="receive_share_share_to">Partajează cu…</string>
     <string name="contact_list_delete_contact_confirm">Sigur ștergem „%1$s” din contacte\?</string>
+
+    <string name="call">Apelează</string>
+    <string name="microphone_control">Control microfon</string>
+    <string name="end_call">Închide apel</string>
+    <string name="calls">Apeluri</string>
+    <string name="ongoing_call">Apel în curs</string>
+    <string name="in_call_with">În apel cu %1$s</string>
 </resources>

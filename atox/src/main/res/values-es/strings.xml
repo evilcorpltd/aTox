@@ -79,7 +79,7 @@
         <item>Incorporados</item>
         <item>Personalizados</item>
     </string-array>
-    <string name="pref_bootstrap_nodes_description">Los archivos JSON personalizados debe tener el mismo formato que https://nodes.tox.chat/json</string>
+    <string name="pref_bootstrap_nodes_description">Los archivos JSON personalizados deben tener el mismo formato que https://nodes.tox.chat/json</string>
     <string name="send_as_action">Enviar como acción</string>
     <string name="or_import_existing_save">o importar un archivo de Tox existente</string>
     <string name="profile_information">Información del perfil</string>
@@ -134,4 +134,11 @@
     <string name="receive_share_share_to">Compartir con…</string>
     <string name="contact_list_delete_contact_confirm">¿Estas seguro/a de que deseas eliminar «%1$s» de tu contactos\?</string>
     <string name="delete_message_confirm">¿Estás seguro/a de que quieres borrar el mensaje «%1$s»\?</string>
+
+    <string name="call">Llamar</string>
+    <string name="microphone_control">Control del micrófono</string>
+    <string name="end_call">Finalizar llamada</string>
+    <string name="calls">Llamadas</string>
+    <string name="ongoing_call">Llamada en curso</string>
+    <string name="in_call_with">Llamada con %1$s</string>
 </resources>
