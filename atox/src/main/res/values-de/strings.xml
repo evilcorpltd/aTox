@@ -125,4 +125,10 @@
     <string name="pref_heading_bootstrap_nodes">Bootstrap-Knotenquelle</string>
     <string name="pref_bootstrap_nodes_description">Vom Benutzer bereitgestellte JSON-Dateien müssen das gleiche Format wie auf https://nodes.tox.chat/json haben</string>
     <string name="add_contact_message_default">Sprich mit mir auf aTox wie ein vernünftiger Mensch.</string>
+    <string name="in_call_with">Im Anruf mit %1$s</string>
+    <string name="ongoing_call">Derzeitiger Anruf</string>
+    <string name="calls">Anrufe</string>
+    <string name="end_call">Anruf beenden</string>
+    <string name="microphone_control">Mikrofonsteuerung</string>
+    <string name="call">Anruf</string>
 </resources>

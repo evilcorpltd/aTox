@@ -107,4 +107,10 @@
     <string name="add_contact">Ajouter le contact</string>
     <string name="add">Ajouter</string>
     <string name="accept">Accepter</string>
+    <string name="in_call_with">En appel avec %1$s</string>
+    <string name="ongoing_call">Appel en cours</string>
+    <string name="calls">Appels</string>
+    <string name="end_call">Finir l’appel</string>
+    <string name="microphone_control">Contrôle du microphone</string>
+    <string name="call">Appel</string>
 </resources>
