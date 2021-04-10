@@ -106,4 +106,5 @@
     <string name="mimetype_handler_not_found">Fant ikke noe som kan håndtere den mediatypen %1$s</string>
     <string name="pref_heading_bootstrap_nodes">Kilde for oppstartsnoder</string>
     <string name="warn_proxy_broken">Feilaktig mellomtjener oppsatt. Fiks eller skru den av før du bruker programmet.</string>
+    <string name="contact_list_delete_contact_confirm">Er du sikker på at du vil slette «%1$s» fra kontaktene dine\?</string>
 </resources>

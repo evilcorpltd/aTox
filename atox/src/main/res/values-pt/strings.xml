@@ -22,7 +22,7 @@
     <string name="save_as">Gravar como…</string>
     <string name="completed">Concluído</string>
     <string name="cancelled">Cancelado</string>
-    <string name="notification_file_transfer">Transferência de ficheiro recebida \"%1$s</string>
+    <string name="notification_file_transfer">Transferência de ficheiro recebida «%1$s»</string>
     <string name="delete">Eliminar</string>
     <string name="attach_file">Anexar ficheiro</string>
     <string name="mimetype_handler_not_found">Incapaz de encontrar algo associado a esse tipo de mídia %1$s</string>
@@ -62,7 +62,7 @@
     <string name="export_tox_save">Exportar o arquivo do Tox</string>
     <string name="import_tox_save_failed">A importação falhou: %1$s</string>
     <string name="import_tox_save">Importar</string>
-    <string name="delete_message_confirm">Tem a certeza que quer eliminar a mensagem \"%1$s\"\?</string>
+    <string name="delete_message_confirm">Tem a certeza que quer eliminar a mensagem «%1$s»\?</string>
     <string name="clear_history_confirm">Tem a certeza de que quer limpar o seu histórico de conversação com %1$s\?</string>
     <string name="clear_history_cleared">Histórico limpo</string>
     <string name="clear_history">Limpar histórico</string>
@@ -106,4 +106,5 @@
     <string name="add_contact">Adicionar contacto</string>
     <string name="add">Adicionar</string>
     <string name="accept">Aceitar</string>
+    <string name="contact_list_delete_contact_confirm">Tem certeza de que deseja excluir «%1$s» de seus contatos\?</string>
 </resources>

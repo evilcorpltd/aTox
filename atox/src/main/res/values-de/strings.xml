@@ -6,8 +6,8 @@
     <string name="add_contact_message_error_empty">Nachricht darf nicht leer sein</string>
     <string name="confirm">Bestätigen</string>
     <string name="cancel">Abbrechen</string>
-    <string name="connecting">Verbindet…</string>
-    <string name="contact_typing">tippt…</string>
+    <string name="connecting">Verbindet …</string>
+    <string name="contact_typing">tippt …</string>
     <string name="copied">Kopiert</string>
     <string name="copy_atox">Kopieren</string>
     <string name="create">Erstellen</string>
@@ -24,7 +24,7 @@
     <string name="profile_photo_description">Profilbild</string>
     <string name="reject">Ablehnen</string>
     <string name="send">Senden</string>
-    <string name="sending">Wird gesendet…</string>
+    <string name="sending">Wird gesendet …</string>
     <string name="settings">Einstellungen</string>
     <string name="status_indicator">Statusanzeige</string>
     <string name="status_message">Statusmeldung</string>
@@ -43,13 +43,13 @@
     <string name="clear_history">Verlauf löschen</string>
     <string name="clear_history_cleared">Verlauf gelöscht</string>
     <string name="clear_history_confirm">Bist du sicher, dass du den Verlauf mit %1$s löschen willst?</string>
-    <string name="delete_message_confirm">Bist du sicher, dass du die Nachricht löschen willst? \"%1$s\"?</string>
+    <string name="delete_message_confirm">Bist du sicher, dass du die Nachricht löschen willst\? „%1$s“\?</string>
     <string name="import_tox_save">Importieren</string>
     <string name="import_tox_save_failed">Importieren hat nicht funktioniert: %1$s</string>
     <string name="export_tox_save">Tox-Profil exportieren</string>
     <string name="tox_save_exported">Tox-Profil exportiert</string>
     <string name="never">Nie</string>
-    <string name="info">Information</string>
+    <string name="info">Informationen</string>
     <string name="atox_offline">Offline</string>
     <string name="atox_connected_with_tcp">Verbunden (TCP)</string>
     <string name="atox_connected_with_udp">Verbunden (UDP)</string>
@@ -68,8 +68,8 @@
     </string-array>
     <string name="send_as_action">Als Aktion senden</string>
     <string name="or_import_existing_save">Oder importiere ein bestehendes Tox-Profil</string>
-    <string name="profile_information">Profil-Information</string>
-    <string name="profile_settings">Profil-Einstellungen</string>
+    <string name="profile_information">Profilinformationen</string>
+    <string name="profile_settings">Profileinstellungen</string>
     <string name="profile_nickname">Ändere deinen Namen</string>
     <string name="profile_status_message">Ändere deine Statusmeldung</string>
     <string name="profile_status">Ändere deinen Status</string>
@@ -95,10 +95,10 @@
     <string name="mimetype_handler_not_found">Es konnte keine Anwendung gefunden werden, welche diesen Dateityp öffnen kann %1$s</string>
     <string name="attach_file">Datei anhängen</string>
     <string name="delete">Löschen</string>
-    <string name="notification_file_transfer">Eingehende Datenübertragung \"%1$s\"</string>
+    <string name="notification_file_transfer">Eingehende Datenübertragung „%1$s“</string>
     <string name="cancelled">Abgebrochen</string>
     <string name="completed">Abgeschlossen</string>
-    <string name="save_as">Speichern unter…</string>
+    <string name="save_as">Speichern unter …</string>
     <string name="export_file_success">Datei erfolgreich gesendet</string>
     <string name="export_file_failure">Etwas ist beim Exportieren schiefgegangen. Pre-0.5.1 Übertragung wurde standardmäßig exportiert.</string>
     <string name="draft_message">Entwurf: %1$s</string>
@@ -115,10 +115,14 @@
     <string name="pref_auto_away">Auto abwesend</string>
     <string name="seconds">Sekunden</string>
     <string name="bad_positive_number">Muss eine positive Zahl sein</string>
-    <string name="contact_list_delete_contact_confirm">Bist du sicher, dass du \"%1$s\" aus deiner Kontaktliste löschen möchtest\?</string>
-    <string name="receive_share_share_to">Teilen mit…</string>
+    <string name="contact_list_delete_contact_confirm">Bist du sicher, dass du „%1$s“ aus deiner Kontaktliste löschen möchtest\?</string>
+    <string name="receive_share_share_to">Teilen mit …</string>
     <string name="warn_node_json_import_failed">Fehler beim Importieren der Knoten</string>
     <string name="pref_heading_advanced">Fortgeschritten</string>
     <string name="pref_heading_ft_auto_accept">Dateiübertragungen automatisch akzeptieren</string>
     <string name="status_message_default">Ich bin für dich erreichbar, dank aTox</string>
+    <string name="error_no_nodes_loaded">Bootstrap-Knoten können nicht geladen werden, bitte wechsel zu eingebauten Knoten oder importiere erneut Knoten</string>
+    <string name="pref_heading_bootstrap_nodes">Bootstrap-Knotenquelle</string>
+    <string name="pref_bootstrap_nodes_description">Vom Benutzer bereitgestellte JSON-Dateien müssen das gleiche Format wie auf https://nodes.tox.chat/json haben</string>
+    <string name="add_contact_message_default">Sprich mit mir auf aTox wie ein vernünftiger Mensch.</string>
 </resources>

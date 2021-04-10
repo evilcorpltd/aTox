@@ -45,7 +45,7 @@
     <string name="clear_history">Șterge istoricul</string>
     <string name="clear_history_cleared">Istoric șters</string>
     <string name="clear_history_confirm">Sigur ștergem istoricul de chat cu %1$s?</string>
-    <string name="delete_message_confirm">Sigur ștergem mesajul \"%1$s\"?</string>
+    <string name="delete_message_confirm">Sigur ștergem mesajul „%1$s”\?</string>
     <string name="import_tox_save">Importă</string>
     <string name="import_tox_save_failed">Importare eșuată: %1$s</string>
     <string name="export_tox_save">Exportă profil Tox</string>
@@ -110,7 +110,7 @@
     <string name="mimetype_handler_not_found">Instrumentul de procesare al acestui tip media n-a fost găsit %1$s</string>
     <string name="attach_file">Atașează fișier</string>
     <string name="delete">Șterge</string>
-    <string name="notification_file_transfer">Fișier de intrare \"%1$s\"</string>
+    <string name="notification_file_transfer">Fișier de intrare „%1$s”</string>
     <string name="cancelled">Anulat</string>
     <string name="completed">Finalizat</string>
     <string name="save_as">Salvează ca…</string>
@@ -127,11 +127,11 @@
     <string name="bad_port">Port incorect</string>
     <string name="tox_save_export_failure">Exportarea profilului a eșuat: %1$s</string>
     <string name="reply">Răspunde</string>
-    <string name="pref_auto_away">Stare \"Plecat\" în</string>
+    <string name="pref_auto_away">Stare „Plecat” în</string>
     <string name="seconds">Secunde</string>
     <string name="bad_positive_number">Trebuie să fie un număr pozitiv</string>
     <string name="warn_node_json_import_failed">Eroare la importarea nodurilor</string>
     <string name="error_no_nodes_loaded">Nodurile bootstrap nu pot fi pornite, rugăm să treci la noduri integrate sau importă din nou</string>
     <string name="receive_share_share_to">Partajează cu…</string>
-    <string name="contact_list_delete_contact_confirm">Sigur ștergem \"%1$s\" din contacte?</string>
+    <string name="contact_list_delete_contact_confirm">Sigur ștergem „%1$s” din contacte\?</string>
 </resources>
