@@ -57,15 +57,15 @@ class ChatViewModel @Inject constructor(
         fileTransferManager.deleteAll(publicKey)
     }
 
-    fun setActiveChat(pubKey: PublicKey) {
-        if (pubKey.string().isEmpty()) {
+    fun setActiveChat(pk: PublicKey) {
+        if (pk.string().isEmpty()) {
             Log.i(TAG, "Clearing active chat")
             setTyping(false)
         } else {
-            Log.i(TAG, "Setting active chat ${pubKey.string().take(8)}")
+            Log.i(TAG, "Setting active chat ${pk.fingerprint()}")
         }
 
-        publicKey = pubKey
+        publicKey = pk
         notificationHelper.dismissNotifications(publicKey)
         chatManager.activeChat = publicKey.string()
     }

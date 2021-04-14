@@ -105,14 +105,14 @@ class Tox @Inject constructor(
         save()
     }
 
-    fun startFileTransfer(publicKey: PublicKey, fileNumber: Int) = launch {
-        Log.e(TAG, "Starting file transfer $fileNumber from $publicKey")
-        tox.startFileTransfer(publicKey, fileNumber)
+    fun startFileTransfer(pk: PublicKey, fileNumber: Int) = launch {
+        Log.i(TAG, "Starting file transfer $fileNumber from ${pk.fingerprint()}")
+        tox.startFileTransfer(pk, fileNumber)
     }
 
-    fun stopFileTransfer(publicKey: PublicKey, fileNumber: Int) = launch {
-        Log.e(TAG, "Stopping file transfer $fileNumber from $publicKey")
-        tox.stopFileTransfer(publicKey, fileNumber)
+    fun stopFileTransfer(pk: PublicKey, fileNumber: Int) = launch {
+        Log.i(TAG, "Stopping file transfer $fileNumber from ${pk.fingerprint()}")
+        tox.stopFileTransfer(pk, fileNumber)
     }
 
     fun sendFile(pk: PublicKey, fileKind: FileKind, fileSize: Long, fileName: String) = async {

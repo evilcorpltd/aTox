@@ -32,8 +32,9 @@ class ToxWrapper(
     }
 
     private fun updateContactMapping() {
-        eventListener.contactMapping = getContacts()
-        avEventListener.contactMapping = getContacts()
+        val contacts = getContacts()
+        eventListener.contactMapping = contacts
+        avEventListener.contactMapping = contacts
     }
 
     fun bootstrap(address: String, port: Int, publicKey: ByteArray) {
@@ -71,9 +72,9 @@ class ToxWrapper(
         updateContactMapping()
     }
 
-    fun deleteContact(publicKey: PublicKey) {
-        Log.e(TAG, "Deleting $publicKey")
-        tox.friendList.find { PublicKey.fromBytes(tox.getFriendPublicKey(it)) == publicKey }?.let { friend ->
+    fun deleteContact(pk: PublicKey) {
+        Log.i(TAG, "Deleting ${pk.fingerprint()}")
+        tox.friendList.find { PublicKey.fromBytes(tox.getFriendPublicKey(it)) == pk }?.let { friend ->
             tox.deleteFriend(friend)
         } ?: Log.e(
             TAG, "Tried to delete nonexistent contact, this can happen if the database is out of sync with the Tox save"
@@ -86,7 +87,6 @@ class ToxWrapper(
         val friendNumbers = tox.friendList
         Log.i(TAG, "Loading ${friendNumbers.size} friends")
         return List(friendNumbers.size) {
-            Log.i(TAG, "${friendNumbers[it]}: ${tox.getFriendPublicKey(friendNumbers[it]).bytesToHex()}")
             Pair(PublicKey.fromBytes(tox.getFriendPublicKey(friendNumbers[it])), friendNumbers[it])
         }
     }
@@ -98,35 +98,35 @@ class ToxWrapper(
         message.toByteArray()
     )
 
-    fun acceptFriendRequest(publicKey: PublicKey) = try {
-        tox.addFriendNorequest(publicKey.bytes())
+    fun acceptFriendRequest(pk: PublicKey) = try {
+        tox.addFriendNorequest(pk.bytes())
         updateContactMapping()
     } catch (e: ToxFriendAddException) {
-        Log.e(TAG, "Exception while accepting friend request $publicKey: $e")
+        Log.e(TAG, "Exception while accepting friend request $pk: $e")
     }
 
-    fun startFileTransfer(publicKey: PublicKey, fileNumber: Int) = try {
-        tox.fileControl(contactByKey(publicKey), fileNumber, ToxFileControl.RESUME)
+    fun startFileTransfer(pk: PublicKey, fileNumber: Int) = try {
+        tox.fileControl(contactByKey(pk), fileNumber, ToxFileControl.RESUME)
     } catch (e: ToxFileControlException) {
-        Log.e(TAG, "Error starting ft ${publicKey.string().take(8)} $fileNumber\n$e")
+        Log.e(TAG, "Error starting ft ${pk.fingerprint()} $fileNumber\n$e")
     }
 
-    fun stopFileTransfer(publicKey: PublicKey, fileNumber: Int) = try {
-        tox.fileControl(contactByKey(publicKey), fileNumber, ToxFileControl.CANCEL)
+    fun stopFileTransfer(pk: PublicKey, fileNumber: Int) = try {
+        tox.fileControl(contactByKey(pk), fileNumber, ToxFileControl.CANCEL)
     } catch (e: ToxFileControlException) {
-        Log.e(TAG, "Error stopping ft ${publicKey.string().take(8)} $fileNumber\n$e")
+        Log.e(TAG, "Error stopping ft ${pk.fingerprint()} $fileNumber\n$e")
     }
 
     fun sendFile(pk: PublicKey, fileKind: FileKind, fileSize: Long, fileName: String) = try {
         tox.fileSend(contactByKey(pk), fileKind.toToxtype(), fileSize, Random.nextBytes(32), fileName.toByteArray())
     } catch (e: ToxFileControlException) {
-        Log.e(TAG, "Error sending ft $fileName ${pk.string().take(8)}\n$e")
+        Log.e(TAG, "Error sending ft $fileName ${pk.fingerprint()}\n$e")
     }
 
     fun sendFileChunk(pk: PublicKey, fileNo: Int, pos: Long, data: ByteArray) = try {
         tox.fileSendChunk(contactByKey(pk), fileNo, pos, data)
     } catch (e: ToxFileSendChunkException) {
-        Log.e(TAG, "Error sending chunk $pos:${data.size} to ${pk.string().take(8)} $fileNo\n$e")
+        Log.e(TAG, "Error sending chunk $pos:${data.size} to ${pk.fingerprint()} $fileNo\n$e")
     }
 
     fun setTyping(publicKey: PublicKey, typing: Boolean) = tox.setTyping(contactByKey(publicKey), typing)
@@ -136,7 +136,7 @@ class ToxWrapper(
         tox.status = status.toToxType()
     }
 
-    private fun contactByKey(publicKey: PublicKey): Int = tox.friendByPublicKey(publicKey.bytes())
+    private fun contactByKey(pk: PublicKey): Int = tox.friendByPublicKey(pk.bytes())
 
     // ToxAv, probably move these.
     fun startCall(pk: PublicKey) = av.call(contactByKey(pk), 128, 0)
