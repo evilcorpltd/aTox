@@ -73,7 +73,6 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         toolbar.setNavigationOnClickListener { activity?.onBackPressed() }
 
         toolbar.inflateMenu(R.menu.chat_options_menu)
-        toolbar.menu.findItem(R.id.call).isEnabled = !viewModel.inCall()
         toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.clear_history -> {
@@ -124,6 +123,8 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                 outgoingMessage.setText(it.draftMessage)
                 viewModel.clearDraft()
             }
+
+            toolbar.menu.findItem(R.id.call).isEnabled = viewModel.contactOnline && !viewModel.inCall()
 
             updateActions()
         }
