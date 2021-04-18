@@ -126,4 +126,10 @@
     </string-array>
     <string name="receive_share_share_to">Dela till…</string>
     <string name="contact_list_delete_contact_confirm">Är du säker på att du vill ta bort ”%1$s” från dina kontakter\?</string>
+    <string name="in_call_with">I samtal med %1$s</string>
+    <string name="ongoing_call">Pågående samtal</string>
+    <string name="calls">Samtal</string>
+    <string name="end_call">Avsluta samtal</string>
+    <string name="microphone_control">Mikrofonkontroll</string>
+    <string name="call">Ring</string>
 </resources>
