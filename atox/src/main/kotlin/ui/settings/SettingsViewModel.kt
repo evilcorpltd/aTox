@@ -63,6 +63,7 @@ class SettingsViewModel @Inject constructor(
 
     fun getUdpEnabled(): Boolean = settings.udpEnabled
     fun setUdpEnabled(enabled: Boolean) {
+        if (enabled == getUdpEnabled()) return
         settings.udpEnabled = enabled
         restartNeeded = true
     }

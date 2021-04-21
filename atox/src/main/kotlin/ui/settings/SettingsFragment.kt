@@ -113,7 +113,12 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
             }
         }
 
+        if (vm.getProxyType() != ProxyType.None) {
+            vm.setUdpEnabled(false)
+        }
+
         settingsUdpEnabled.isChecked = vm.getUdpEnabled()
+        settingsUdpEnabled.isEnabled = vm.getProxyType() == ProxyType.None
         settingsUdpEnabled.setOnClickListener { vm.setUdpEnabled(settingsUdpEnabled.isChecked) }
 
         proxyType.adapter = ArrayAdapter.createFromResource(
@@ -125,7 +130,13 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         proxyType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                vm.setProxyType(ProxyType.values()[position])
+                val selected = ProxyType.values()[position]
+                vm.setProxyType(selected)
+
+                // Disable UDP if a proxy is selected to ensure all traffic goes through the proxy.
+                settingsUdpEnabled.isEnabled = selected == ProxyType.None
+                settingsUdpEnabled.isChecked = settingsUdpEnabled.isChecked && selected == ProxyType.None
+                vm.setUdpEnabled(settingsUdpEnabled.isChecked)
             }
         }
 
