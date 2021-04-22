@@ -72,7 +72,7 @@ object AndroidX {
     const val multidex = "androidx.multidex:multidex:2.0.1"
 
     object Room {
-        private const val version = "2.2.6"
+        private const val version = "2.3.0"
         const val runtime = "androidx.room:room-runtime:$version"
         const val ktx = "androidx.room:room-ktx:$version"
         const val compiler = "androidx.room:room-compiler:$version"
@@ -103,7 +103,7 @@ object Google {
 
     const val dagger = "com.google.dagger:dagger:${Dagger.version}"
     object Dagger {
-        internal const val version = "2.34"
+        internal const val version = "2.34.1"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
     }
 }
