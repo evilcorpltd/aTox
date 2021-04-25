@@ -169,7 +169,7 @@ class EventListenerCallbacks @Inject constructor(
 
         callStateHandler = { pk, callState ->
             Log.e(TAG, "callState ${pk.take(8)} $callState")
-            if (callState.contains(ToxavFriendCallState.FINISHED)) {
+            if (callState.contains(ToxavFriendCallState.FINISHED) || callState.contains(ToxavFriendCallState.ERROR)) {
                 audioPlayer?.stop()
                 audioPlayer = null
             }
