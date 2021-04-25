@@ -7,6 +7,8 @@ import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ltd.evilcorp.domain.av.AudioCapture
 import ltd.evilcorp.domain.tox.PublicKey
@@ -18,13 +20,12 @@ private const val TAG = "CallManager"
 class CallManager @Inject constructor(
     private val tox: Tox,
 ) : CoroutineScope by GlobalScope {
-    private var inCall = false
-
-    fun isInCall() = inCall
+    private val _inCall = MutableStateFlow(false)
+    val inCall: StateFlow<Boolean> get() = _inCall
 
     fun startCall(publicKey: PublicKey): Boolean {
         tox.startCall(publicKey)
-        inCall = true
+        _inCall.value = true
 
         val recorder = AudioCapture(48_000, 1)
         if (!recorder.isOk()) {
@@ -33,7 +34,7 @@ class CallManager @Inject constructor(
 
         launch {
             recorder.start()
-            while (inCall) {
+            while (inCall.value) {
                 val start = System.currentTimeMillis()
                 val audioFrame = recorder.read()
                 try {
@@ -52,7 +53,7 @@ class CallManager @Inject constructor(
     }
 
     fun endCall(publicKey: PublicKey) {
-        inCall = false
+        _inCall.value = false
         try {
             tox.endCall(publicKey)
         } catch (e: ToxavCallControlException) {

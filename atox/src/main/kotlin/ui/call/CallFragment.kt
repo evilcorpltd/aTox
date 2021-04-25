@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import ltd.evilcorp.atox.databinding.FragmentCallBinding
 import ltd.evilcorp.atox.requireStringArg
@@ -41,12 +42,12 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
             findNavController().popBackStack()
         }
 
-        if (vm.inCall()) {
+        if (vm.inCall.value) {
             return
         }
 
         if (ContextCompat.checkSelfPermission(requireContext(), PERMISSIONS[0]) == PackageManager.PERMISSION_GRANTED) {
-            vm.startCall()
+            startCall()
             return
         }
 
@@ -65,7 +66,16 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
         if (!granted) {
             findNavController().popBackStack()
         } else {
-            vm.startCall()
+            startCall()
+        }
+    }
+
+    private fun startCall() {
+        vm.startCall()
+        vm.inCall.asLiveData().observe(viewLifecycleOwner) { inCall ->
+            if (!inCall) {
+                findNavController().popBackStack()
+            }
         }
     }
 }

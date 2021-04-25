@@ -43,5 +43,5 @@ class CallViewModel @Inject constructor(
         notificationHelper.dismissCallNotification(contactManager.get(publicKey).first())
     }
 
-    fun inCall() = callManager.isInCall()
+    val inCall = callManager.inCall
 }

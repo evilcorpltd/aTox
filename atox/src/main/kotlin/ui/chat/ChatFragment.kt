@@ -23,6 +23,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import java.io.File
 import java.net.URLConnection
@@ -124,9 +125,13 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                 viewModel.clearDraft()
             }
 
-            toolbar.menu.findItem(R.id.call).isEnabled = viewModel.contactOnline && !viewModel.inCall()
+            toolbar.menu.findItem(R.id.call).isEnabled = viewModel.contactOnline && !viewModel.inCall.value
 
             updateActions()
+        }
+
+        viewModel.inCall.asLiveData().observe(viewLifecycleOwner) { inCall ->
+            toolbar.menu.findItem(R.id.call).isEnabled = viewModel.contactOnline && !inCall
         }
 
         val adapter = ChatAdapter(layoutInflater, resources)

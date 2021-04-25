@@ -28,6 +28,7 @@ import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.domain.av.AudioPlayer
+import ltd.evilcorp.domain.feature.CallManager
 import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.FileTransferManager
 import ltd.evilcorp.domain.tox.PublicKey
@@ -52,6 +53,7 @@ class EventListenerCallbacks @Inject constructor(
     private val friendRequestRepository: FriendRequestRepository,
     private val messageRepository: MessageRepository,
     private val userRepository: UserRepository,
+    private val callManager: CallManager,
     private val chatManager: ChatManager,
     private val fileTransferManager: FileTransferManager,
     private val notificationHelper: NotificationHelper,
@@ -172,6 +174,8 @@ class EventListenerCallbacks @Inject constructor(
             if (callState.contains(ToxavFriendCallState.FINISHED) || callState.contains(ToxavFriendCallState.ERROR)) {
                 audioPlayer?.stop()
                 audioPlayer = null
+                notificationHelper.dismissCallNotification(contactByPublicKey(pk))
+                callManager.endCall(PublicKey(pk))
             }
         }
 

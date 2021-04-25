@@ -122,5 +122,5 @@ class ChatViewModel @Inject constructor(
     fun setDraft(draft: String) = contactManager.setDraft(publicKey, draft)
     fun clearDraft() = setDraft("")
 
-    fun inCall() = callManager.isInCall()
+    val inCall = callManager.inCall
 }
