@@ -16,15 +16,6 @@ buildscript {
     }
 }
 
-allprojects {
-    repositories {
-        mavenLocal()
-        google()
-        mavenCentral()
-        maven { url = uri("https://dl.bintray.com/toktok/maven") }
-    }
-}
-
 tasks.register("clean").configure {
     delete("build")
 }
