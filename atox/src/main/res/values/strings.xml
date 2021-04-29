@@ -143,4 +143,5 @@
     <string name="calls">Calls</string>
     <string name="ongoing_call">Ongoing call</string>
     <string name="in_call_with">In call with %1$s</string>
+    <string name="tox_id_error_self_add">You can\'t add yourself</string>
 </resources>

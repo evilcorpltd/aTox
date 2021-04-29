@@ -16,6 +16,7 @@ class AddContactViewModel @Inject constructor(
     private val tox: Tox,
     private val toxStarter: ToxStarter
 ) : ViewModel() {
+    val toxId by lazy { tox.toxId }
     val contacts: LiveData<List<Contact>> = contactManager.getAll().asLiveData()
 
     fun isToxRunning() = tox.started

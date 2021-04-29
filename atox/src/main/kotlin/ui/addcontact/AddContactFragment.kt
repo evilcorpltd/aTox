@@ -68,6 +68,10 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
                 ToxIdValidator.Result.NO_ERROR -> null
             }
 
+            if (input == viewModel.toxId) {
+                toxId.error = getString(R.string.tox_id_error_self_add)
+            }
+
             if (toxId.error == null) {
                 if (contacts.find { it.publicKey == input.toPublicKey().string() } != null) {
                     toxId.error = getString(R.string.tox_id_error_already_exists)
