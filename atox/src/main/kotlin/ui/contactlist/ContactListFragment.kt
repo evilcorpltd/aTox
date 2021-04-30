@@ -246,6 +246,10 @@ class ContactListFragment :
             }
             R.id.contactListItem -> {
                 when (item.itemId) {
+                    R.id.profile -> {
+                        val contact = binding.contactList.adapter.getItem(info.position) as Contact
+                        openProfile(contact)
+                    }
                     R.id.delete -> {
                         val contact = binding.contactList.adapter.getItem(info.position) as Contact
 
@@ -342,5 +346,10 @@ class ContactListFragment :
     private fun openFriendRequest(friendRequest: FriendRequest) = findNavController().navigate(
         R.id.action_contactListFragment_to_friendRequestFragment,
         bundleOf(FRIEND_REQUEST_PUBLIC_KEY to friendRequest.publicKey)
+    )
+
+    private fun openProfile(contact: Contact) = findNavController().navigate(
+        R.id.action_contactListFragment_to_contactProfileFragment,
+        bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey)
     )
 }
