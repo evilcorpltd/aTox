@@ -36,64 +36,86 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/dividerColor"/>
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             style="@style/OptionRow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
                                 android:id="@+id/profile_change_nickname"
                                 style="@style/OptionItemText"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="@string/pref_heading_theme"/>
+                                android:text="@string/pref_heading_theme"
+                                app:layout_constraintEnd_toStartOf="@id/theme"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
                         <Spinner
                                 android:id="@+id/theme"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                    </LinearLayout>
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                     <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/dividerColor"/>
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             style="@style/OptionRow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
                                 style="@style/OptionItemText"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="@string/pref_run_at_startup"/>
+                                android:text="@string/pref_run_at_startup"
+                                app:layout_constraintEnd_toStartOf="@id/setting_run_at_startup"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
                         <androidx.appcompat.widget.SwitchCompat
                                 android:id="@+id/setting_run_at_startup"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:layout_marginEnd="8dp"/>
-                    </LinearLayout>
-
+                                android:layout_marginEnd="8dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                     <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/dividerColor"/>
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             style="@style/OptionRow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
                                 style="@style/OptionItemText"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="@string/pref_auto_away"/>
-                        <androidx.appcompat.widget.SwitchCompat android:id="@+id/setting_auto_away_enabled"
+                                android:text="@string/pref_auto_away"
+                                app:layout_constraintEnd_toStartOf="@id/setting_auto_away_enabled"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                        <androidx.appcompat.widget.SwitchCompat
+                                android:id="@+id/setting_auto_away_enabled"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:layout_marginEnd="8dp"/>
+                                android:layout_marginEnd="8dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/container_auto_away_seconds"
+                                app:layout_constraintTop_toTopOf="parent"/>
                         <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/container_auto_away_seconds"
                                 android:layout_width="96dp"
-                                android:layout_height="match_parent">
-                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_height="match_parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+                        <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/setting_auto_away_seconds"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -101,25 +123,30 @@
                                     android:importantForAutofill="no"
                                     android:inputType="number"/>
                         </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
-
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                     <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/dividerColor"/>
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             style="@style/OptionRow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
                                 style="@style/OptionItemText"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="@string/pref_heading_ft_auto_accept"/>
+                                android:text="@string/pref_heading_ft_auto_accept"
+                                app:layout_constraintEnd_toStartOf="@id/setting_ft_auto_accept"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
                         <Spinner android:id="@+id/setting_ft_auto_accept"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                    </LinearLayout>
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -138,22 +165,28 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/dividerColor"/>
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             style="@style/OptionRow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
                                 style="@style/OptionItemText"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="@string/pref_udp_enabled"/>
+                                android:text="@string/pref_udp_enabled"
+                                app:layout_constraintEnd_toStartOf="@id/settings_udp_enabled"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
                         <androidx.appcompat.widget.SwitchCompat
                                 android:id="@+id/settings_udp_enabled"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:layout_marginEnd="8dp"/>
-                    </LinearLayout>
+                                android:layout_marginEnd="8dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -183,35 +216,46 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/dividerColor"/>
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             style="@style/OptionRow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
                                 style="@style/OptionItemText"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="@string/pref_heading_type"/>
+                                android:text="@string/pref_heading_type"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/proxy_type"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
                         <Spinner android:id="@+id/proxy_type"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:layout_marginEnd="8dp"/>
-                    </LinearLayout>
+                                android:layout_marginEnd="8dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                     <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/dividerColor"/>
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             style="@style/OptionRow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
                                 style="@style/OptionItemText"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:labelFor="@id/proxy_address"
-                                android:text="@string/pref_heading_address" />
+                                android:text="@string/pref_heading_address"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/proxy_address"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
                         <EditText android:id="@+id/proxy_address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -219,22 +263,29 @@
                                 android:layout_marginEnd="8dp"
                                 android:importantForAutofill="no"
                                 android:inputType="textUri"
-                                android:minWidth="64dp" />
-                    </LinearLayout>
+                                android:minWidth="64dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                     <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/dividerColor"/>
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             style="@style/OptionRow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
                                 style="@style/OptionItemText"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:labelFor="@id/proxy_port"
-                                android:text="@string/pref_heading_port"/>
+                                android:text="@string/pref_heading_port"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/proxy_port"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
                         <EditText android:id="@+id/proxy_port"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -242,8 +293,11 @@
                                 android:layout_marginEnd="8dp"
                                 android:importantForAutofill="no"
                                 android:inputType="number"
-                                android:minWidth="64dp" />
-                    </LinearLayout>
+                                android:minWidth="64dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -262,20 +316,27 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/dividerColor"/>
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             style="@style/OptionRow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
                                 style="@style/OptionItemText"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="@string/pref_heading_bootstrap_nodes"/>
+                                android:text="@string/pref_heading_bootstrap_nodes"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/setting_bootstrap_nodes"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
                         <Spinner
                                 android:id="@+id/setting_bootstrap_nodes"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                    </LinearLayout>
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                     <TextView
                             style="@style/OptionItemText"
                             android:layout_width="wrap_content"
