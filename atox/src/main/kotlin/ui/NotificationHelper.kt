@@ -1,7 +1,5 @@
 package ltd.evilcorp.atox.ui
 
-import android.app.Notification
-import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
@@ -13,7 +11,9 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
 import android.os.Build
+import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.Person
 import androidx.core.app.RemoteInput
 import androidx.core.content.getSystemService
@@ -41,38 +41,28 @@ private const val CALL = "aTox call"
 class NotificationHelper @Inject constructor(
     private val context: Context
 ) {
-    private val notifier = context.getSystemService<NotificationManager>()!!
+    private val notifier = NotificationManagerCompat.from(context)
+    private val notifierOld = context.getSystemService<NotificationManager>()!!
 
     init {
         createNotificationChannel()
     }
 
     private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            return
-        }
+        val messageChannel = NotificationChannelCompat.Builder(MESSAGE, NotificationManagerCompat.IMPORTANCE_HIGH)
+            .setName(context.getString(R.string.messages))
+            .setDescription(context.getString(R.string.messages_incoming))
+            .build()
 
-        val messageChannel = NotificationChannel(
-            MESSAGE,
-            context.getString(R.string.messages),
-            NotificationManager.IMPORTANCE_HIGH
-        ).apply {
-            description = context.getString(R.string.messages_incoming)
-        }
+        val friendChannel = NotificationChannelCompat.Builder(FRIEND_REQUEST, NotificationManagerCompat.IMPORTANCE_HIGH)
+            .setName(context.getString(R.string.friend_requests))
+            .build()
 
-        val friendRequestChannel = NotificationChannel(
-            FRIEND_REQUEST,
-            context.getString(R.string.friend_requests),
-            NotificationManager.IMPORTANCE_HIGH
-        )
+        val callChannel = NotificationChannelCompat.Builder(CALL, NotificationManagerCompat.IMPORTANCE_HIGH)
+            .setName(context.getString(R.string.calls))
+            .build()
 
-        val callChannel = NotificationChannel(
-            CALL,
-            context.getString(R.string.calls),
-            NotificationManager.IMPORTANCE_HIGH
-        )
-
-        notifier.createNotificationChannels(listOf(messageChannel, friendRequestChannel, callChannel))
+        notifier.createNotificationChannelsCompat(listOf(messageChannel, friendChannel, callChannel))
     }
 
     fun dismissNotifications(publicKey: PublicKey) = notifier.cancel(publicKey.string().hashCode())
@@ -100,6 +90,7 @@ class NotificationHelper @Inject constructor(
 
     fun showMessageNotification(contact: Contact, message: String, outgoing: Boolean = false) {
         val notificationBuilder = NotificationCompat.Builder(context, MESSAGE)
+            .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setSmallIcon(android.R.drawable.sym_action_chat)
             .setContentTitle(contact.name)
             .setContentText(message)
@@ -137,10 +128,6 @@ class NotificationHelper @Inject constructor(
             notificationBuilder.setSilent(true)
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            notificationBuilder.setCategory(Notification.CATEGORY_MESSAGE)
-        }
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val icon = if (contact.avatarUri.isNotEmpty()) {
                 IconCompat.createWithBitmap(Picasso.get().load(contact.avatarUri).transform(circleTransform).get())
@@ -154,7 +141,7 @@ class NotificationHelper @Inject constructor(
                 .build()
 
             val style =
-                notifier.activeNotifications.find { it.notification.group == contact.publicKey }?.notification?.let {
+                notifierOld.activeNotifications.find { it.notification.group == contact.publicKey }?.notification?.let {
                     NotificationCompat.MessagingStyle.extractMessagingStyleFromNotification(it)
                 } ?: NotificationCompat.MessagingStyle(chatPartner)
 
@@ -172,6 +159,7 @@ class NotificationHelper @Inject constructor(
 
     fun showFriendRequestNotification(friendRequest: FriendRequest) {
         val notificationBuilder = NotificationCompat.Builder(context, FRIEND_REQUEST)
+            .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setSmallIcon(android.R.drawable.btn_star_big_on)
             .setContentTitle(context.getString(R.string.friend_request_from, friendRequest.publicKey))
             .setContentText(friendRequest.message)
@@ -183,10 +171,6 @@ class NotificationHelper @Inject constructor(
             )
             .setAutoCancel(true)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            notificationBuilder.setCategory(Notification.CATEGORY_MESSAGE)
-        }
-
         notifier.notify(friendRequest.publicKey.hashCode(), notificationBuilder.build())
     }
 
@@ -195,6 +179,7 @@ class NotificationHelper @Inject constructor(
 
     fun showCallNotification(contact: Contact) {
         val notificationBuilder = NotificationCompat.Builder(context, FRIEND_REQUEST)
+            .setCategory(NotificationCompat.CATEGORY_CALL)
             .setSmallIcon(android.R.drawable.ic_menu_call)
             .setContentTitle(context.getString(R.string.ongoing_call))
             .setContentText(context.getString(R.string.in_call_with, contact.name))
@@ -209,10 +194,6 @@ class NotificationHelper @Inject constructor(
             )
             .setOngoing(true)
             .setSilent(true)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            notificationBuilder.setCategory(Notification.CATEGORY_CALL)
-        }
 
         notifier.notify(contact.publicKey.hashCode() + CALL.hashCode(), notificationBuilder.build())
     }

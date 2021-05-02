@@ -1,14 +1,12 @@
 package ltd.evilcorp.atox
 
 import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
-import android.os.Build
 import android.util.Log
+import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
-import androidx.core.content.getSystemService
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.asLiveData
@@ -31,7 +29,7 @@ class ToxService : LifecycleService() {
 
     private var connectionStatus: ConnectionStatus? = null
 
-    private val notifier by lazy { getSystemService<NotificationManager>()!! }
+    private val notifier by lazy { NotificationManagerCompat.from(this) }
     private var bootstrapTimer = Timer()
 
     @Inject
@@ -44,17 +42,11 @@ class ToxService : LifecycleService() {
     lateinit var userRepository: UserRepository
 
     private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            return
-        }
+        val channel = NotificationChannelCompat.Builder(channelId, NotificationManagerCompat.IMPORTANCE_LOW)
+            .setName("Tox Service")
+            .build()
 
-        val friendRequestChannel = NotificationChannel(
-            channelId,
-            "Tox Service",
-            NotificationManager.IMPORTANCE_LOW
-        )
-
-        notifier.createNotificationChannels(listOf(friendRequestChannel))
+        notifier.createNotificationChannel(channel)
     }
 
     private fun subTextFor(status: ConnectionStatus?) = when (status) {
