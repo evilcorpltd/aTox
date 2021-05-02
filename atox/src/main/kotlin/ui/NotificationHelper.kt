@@ -178,7 +178,7 @@ class NotificationHelper @Inject constructor(
         notifier.cancel(contact.publicKey.hashCode() + CALL.hashCode())
 
     fun showCallNotification(contact: Contact) {
-        val notificationBuilder = NotificationCompat.Builder(context, FRIEND_REQUEST)
+        val notificationBuilder = NotificationCompat.Builder(context, CALL)
             .setCategory(NotificationCompat.CATEGORY_CALL)
             .setSmallIcon(android.R.drawable.ic_menu_call)
             .setContentTitle(context.getString(R.string.ongoing_call))
