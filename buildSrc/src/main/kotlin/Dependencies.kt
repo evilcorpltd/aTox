@@ -51,10 +51,7 @@ object AndroidX {
     }
 
     const val appcompat = "androidx.appcompat:appcompat:1.2.0"
-    // Leaving constraintlayout at 2.0.1 due to versions after that causing layout issues.
-    // TODO(robinlinden): Work around layout issues. Probably a bug that the behaviour
-    //                    broke in a patch version, but oh well, such is life.
-    const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.1"
+    const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.4"
 
     object Navigation {
         private const val version = "2.3.5"

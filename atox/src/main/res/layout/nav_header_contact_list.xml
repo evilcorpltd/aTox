@@ -28,10 +28,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
         <TextView android:id="@+id/profileStatusMessage"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/status_message_default"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/statusIndicator"
                 app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageButton android:id="@+id/statusIndicator"
@@ -41,8 +42,6 @@
                 android:contentDescription="@string/status_indicator"
                 android:src="@drawable/circle"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintLeft_toRightOf="@+id/profileStatusMessage"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
