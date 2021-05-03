@@ -113,4 +113,5 @@
     <string name="end_call">Finir l’appel</string>
     <string name="microphone_control">Contrôle du microphone</string>
     <string name="call">Appel</string>
+    <string name="tox_id_error_self_add">Vous ne pouvez pas vous ajouter vous-même</string>
 </resources>

@@ -131,4 +131,5 @@
     <string name="end_call">Anruf beenden</string>
     <string name="microphone_control">Mikrofonsteuerung</string>
     <string name="call">Anruf</string>
+    <string name="tox_id_error_self_add">Du kannst dich nicht selbst hinzufügen</string>
 </resources>
