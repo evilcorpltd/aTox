@@ -1,48 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="@dimen/nav_header_height"
         android:background="@drawable/side_nav_bar_background"
         android:gravity="bottom"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:padding="16dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
-    <ImageView android:id="@+id/profilePhoto"
+    <ImageView
+            android:id="@+id/profilePhoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/profile_photo_description"
-            android:paddingTop="@dimen/nav_header_vertical_spacing"/>
-
-    <TextView android:id="@+id/profileName"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            app:layout_constraintBottom_toTopOf="@id/profileName"
+            app:layout_constraintStart_toStartOf="parent"/>
+    <TextView
+            android:id="@+id/profileName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             android:text="@string/name_default"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:layout_constraintBottom_toTopOf="@id/profileStatusMessage"/>
+    <TextView
+            android:id="@+id/profileStatusMessage"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-        <TextView android:id="@+id/profileStatusMessage"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/status_message_default"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/statusIndicator"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-        <ImageButton android:id="@+id/statusIndicator"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:background="@null"
-                android:contentDescription="@string/status_indicator"
-                android:src="@drawable/circle"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+            android:text="@string/status_message_default"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/statusIndicator"
+            app:layout_constraintStart_toStartOf="parent"/>
+    <ImageButton
+            android:id="@+id/statusIndicator"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@null"
+            android:contentDescription="@string/status_indicator"
+            android:src="@drawable/circle"
+            app:layout_constraintBottom_toBottomOf="@id/profileStatusMessage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/profileStatusMessage"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
