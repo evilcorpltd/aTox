@@ -140,4 +140,5 @@
     <string name="end_call">Завершить звонок</string>
     <string name="microphone_control">Управление микрофоном</string>
     <string name="call">Позвонить</string>
+    <string name="tox_id_error_self_add">Нельзя добавить самого себя</string>
 </resources>
