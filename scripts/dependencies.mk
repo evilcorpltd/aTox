@@ -2,6 +2,20 @@ PRE_RULE = (echo "=== Building $@ ==="; ls -ld $@; true) && ls -ld $+
 POST_RULE = ls -ld $@
 
 #############################################################################
+# jvm-sbt-plugins
+
+# HEAD as of 2021-05-05
+$(SRCDIR)/jvm-sbt-plugins:
+	git clone https://github.com/toktok/jvm-sbt-plugins $@
+	cd $@ && git checkout b3c7a430e8f27dd8eb6230b2f5bfde5668825971
+
+$(DESTDIR)/jvm-sbt-plugins.stamp: $(SRCDIR)/jvm-sbt-plugins
+	@$(PRE_RULE)
+	cd $< && sbt publishM2
+	mkdir -p $(@D) && touch $@
+	@$(POST_RULE)
+
+#############################################################################
 # jvm-macros
 
 # HEAD as of 2021-01-03

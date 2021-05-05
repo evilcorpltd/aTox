@@ -14,7 +14,7 @@ export CXX		:= $(shell which clang++ || which g++)
 export PKG_CONFIG_PATH	:= $(PREFIX)/lib/pkgconfig
 export TOX4J_PLATFORM	:= $(shell perl -e 'print $$^O')-$(shell uname -m)
 
-build: $(PREFIX)/tox4j.stamp $(foreach i,jvm-macros jvm-toxcore-api tox4j-c,$(DESTDIR)/$i.stamp)
+build: $(PREFIX)/tox4j.stamp $(foreach i,jvm-macros jvm-sbt-plugins jvm-toxcore-api tox4j-c,$(DESTDIR)/$i.stamp)
 
 test: build
 	$(MAKE) -C _build/$(TARGET)/tox4j test
