@@ -90,7 +90,7 @@ maven_install(
         "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0",
     ],
     repositories = [
-        "https://jcenter.bintray.com/",
+        "https://repo1.maven.org/maven2/",
         "https://dl.google.com/dl/android/maven2/",
     ],
 )

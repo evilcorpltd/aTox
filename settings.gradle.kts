@@ -5,7 +5,6 @@ dependencyResolutionManagement {
         mavenLocal()
         google()
         mavenCentral()
-        maven { url = uri("https://dl.bintray.com/toktok/maven") }
     }
 }
 

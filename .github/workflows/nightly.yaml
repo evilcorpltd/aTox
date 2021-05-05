@@ -13,8 +13,6 @@ jobs:
         java-version: 1.8
     - name: Install tox4j dependencies
       run: sudo apt install yasm
-    - name: Disallow fetching tox4j
-      run: sed -i '/dl.bintray.com\/toktok\/maven/d' build.gradle.kts
     - name: Fix tox4j dependency versions
       run: |
         sed -i 's/\$oldVersion/\$version/' buildSrc/src/main/kotlin/Dependencies.kt
