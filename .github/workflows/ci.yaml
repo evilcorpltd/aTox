@@ -27,22 +27,23 @@ jobs:
     - uses: actions/checkout@v2
     - uses: gradle/wrapper-validation-action@v1
 
-  gradle:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      max-parallel: 6
-      matrix:
-        os:
-        - ubuntu-20.04
-        - macOS-10.15
-        - windows-2019
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
-    - name: Build and test
-      run: ./gradlew build
+  # TODO(robinlinden): Re-enable once the jvm-toxcore-* libraries are published somewhere.
+  # gradle:
+  #   runs-on: ${{ matrix.os }}
+  #   strategy:
+  #     max-parallel: 6
+  #     matrix:
+  #       os:
+  #       - ubuntu-20.04
+  #       - macOS-10.15
+  #       - windows-2019
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: actions/setup-java@v1
+  #     with:
+  #       java-version: 1.8
+  #   - name: Build and test
+  #     run: ./gradlew build
 
   bazel:
     runs-on: ubuntu-20.04
