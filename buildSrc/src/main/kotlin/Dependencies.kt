@@ -119,11 +119,10 @@ object Tox4j {
     const val c = "org.toktok:tox4j-c_2.11:$version"
     object Android {
         private const val version = "0.2.12"
-        private const val oldVersion = "0.2.2" // The x86 build has been broken for a while.
         const val x86_64 = "org.toktok:tox4j-c_x86_64-linux-android:$version"
-        const val arm = "org.toktok:tox4j-c_arm-linux-androideabi:$version"
+        const val arm = "org.toktok:tox4j-c_armv7a-linux-androideabi:$version"
         const val aarch64 = "org.toktok:tox4j-c_aarch64-linux-android:$version"
-        const val i686 = "org.toktok:tox4j-c_i686-linux-android:$oldVersion"
+        const val i686 = "org.toktok:tox4j-c_i686-linux-android:$version"
     }
 }
 

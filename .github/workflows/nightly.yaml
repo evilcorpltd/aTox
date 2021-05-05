@@ -13,10 +13,6 @@ jobs:
         java-version: 1.8
     - name: Install tox4j dependencies
       run: sudo apt install yasm
-    - name: Fix tox4j dependency versions
-      run: |
-        sed -i 's/\$oldVersion/\$version/' buildSrc/src/main/kotlin/Dependencies.kt
-        sed -i 's/tox4j-c_arm-linux-androideabi/tox4j-c_armv7a-linux-androideabi/' buildSrc/src/main/kotlin/Dependencies.kt
     - name: Build tox4j
       run: |
         ./scripts/build-host -j$(nproc || sysctl -n hw.ncpu)
