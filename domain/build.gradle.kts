@@ -41,7 +41,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = Java.version.toString()
-        freeCompilerArgs = listOf("-XXLanguage:+InlineClasses")
     }
     lintOptions {
         disable("InvalidPackage") // tox4j is still not really allowed on Android. :/

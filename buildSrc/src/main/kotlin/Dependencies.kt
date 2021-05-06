@@ -1,6 +1,6 @@
 import org.gradle.api.JavaVersion
 
-const val kotlinVersion = "1.4.32"
+const val kotlinVersion = "1.5.20"
 
 object Java {
     val version = JavaVersion.VERSION_1_8
@@ -38,7 +38,7 @@ object JavaX {
 
 object KotlinX {
     object Coroutines {
-        private const val version = "1.4.3"
+        private const val version = "1.5.0"
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
         const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
