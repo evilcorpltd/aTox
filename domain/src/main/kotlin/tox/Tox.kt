@@ -31,8 +31,11 @@ class Tox @Inject constructor(
     private val saveManager: SaveManager,
     private val nodeRegistry: BootstrapNodeRegistry,
 ) : CoroutineScope by GlobalScope + newSingleThreadContext("Tox") {
-    val toxId: ToxID by lazy { tox.getToxId() }
+    val toxId: ToxID get() = tox.getToxId()
     val publicKey: PublicKey by lazy { tox.getPublicKey() }
+    var nospam: Int
+        get() = tox.getNospam()
+        set(value) = tox.setNospam(value)
 
     var started = false
     var isBootstrapNeeded = true

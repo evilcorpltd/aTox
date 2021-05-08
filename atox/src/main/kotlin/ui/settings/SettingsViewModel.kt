@@ -51,6 +51,11 @@ class SettingsViewModel @Inject constructor(
     private val _committed = MutableLiveData<Boolean>().apply { value = false }
     val committed: LiveData<Boolean> get() = _committed
 
+    fun getNospam(): Int = tox.nospam
+    fun setNospam(value: Int) {
+        tox.nospam = value
+    }
+
     fun getTheme(): Int = settings.theme
     fun setTheme(theme: Int) {
         settings.theme = theme

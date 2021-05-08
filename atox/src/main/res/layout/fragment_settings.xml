@@ -324,6 +324,54 @@
                                 style="@style/OptionItemText"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:labelFor="@id/nospam"
+                                android:text="@string/pref_nospam"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/nospam"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                        <EditText
+                                android:id="@+id/nospam"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:digits="0123456789ABCDEF"
+                                android:importantForAutofill="no"
+                                android:inputType="textCapCharacters"
+                                android:maxLength="8"
+                                android:minWidth="96dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/save_nospam"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                        <Button
+                                android:id="@+id/save_nospam"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/save"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                            style="@style/OptionItemText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/pref_nospam_description"/>
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/dividerColor"/>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            style="@style/OptionRow"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                style="@style/OptionItemText"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
                                 android:text="@string/pref_heading_bootstrap_nodes"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="@id/setting_bootstrap_nodes"

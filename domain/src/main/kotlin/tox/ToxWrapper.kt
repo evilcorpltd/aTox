@@ -64,6 +64,10 @@ class ToxWrapper(
 
     fun getToxId() = ToxID.fromBytes(tox.address)
     fun getPublicKey() = PublicKey.fromBytes(tox.publicKey)
+    fun getNospam(): Int = tox.nospam
+    fun setNospam(value: Int) {
+        tox.nospam = value
+    }
 
     fun getSaveData() = tox.savedata
 

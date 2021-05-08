@@ -144,4 +144,8 @@
     <string name="ongoing_call">Ongoing call</string>
     <string name="in_call_with">In call with %1$s</string>
     <string name="tox_id_error_self_add">You can\'t add yourself</string>
+    <string name="save">Save</string>
+    <string name="pref_nospam">Nospam</string>
+    <string name="pref_nospam_description">Changing your nospam means that your Tox ID changes, and that your current Tox ID can no longer be used to send you friend requests</string>
+    <string name="saved">Saved</string>
 </resources>

@@ -179,6 +179,18 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
             }
         }
 
+        nospam.setText("%08X".format(vm.getNospam()))
+        nospam.doAfterTextChanged {
+            saveNospam.isEnabled =
+                nospam.text.length == 8 && nospam.text.toString().toUInt(16).toInt() != vm.getNospam()
+        }
+        saveNospam.isEnabled = false
+        saveNospam.setOnClickListener {
+            vm.setNospam(nospam.text.toString().toUInt(16).toInt())
+            saveNospam.isEnabled = false
+            Toast.makeText(requireContext(), R.string.saved, Toast.LENGTH_LONG).show()
+        }
+
         settingBootstrapNodes.adapter = ArrayAdapter.createFromResource(
             requireContext(), R.array.pref_bootstrap_node_options,
             android.R.layout.simple_spinner_item
