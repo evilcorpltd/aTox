@@ -47,7 +47,7 @@ object KotlinX {
 
 object AndroidX {
     object Core {
-        const val ktx = "androidx.core:core-ktx:1.5.0-rc01"
+        const val ktx = "androidx.core:core-ktx:1.5.0-rc02"
     }
 
     const val appcompat = "androidx.appcompat:appcompat:1.2.0"
@@ -100,7 +100,7 @@ object Google {
 
     const val dagger = "com.google.dagger:dagger:${Dagger.version}"
     object Dagger {
-        internal const val version = "2.34.1"
+        internal const val version = "2.35.1"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
     }
 }
