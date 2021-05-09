@@ -258,7 +258,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                 val message = messages.adapter.getItem(info.position) as Message
 
                 AlertDialog.Builder(requireContext())
-                    .setTitle(R.string.clear_history)
+                    .setTitle(R.string.delete_message)
                     .setMessage(
                         getString(
                             R.string.delete_message_confirm,

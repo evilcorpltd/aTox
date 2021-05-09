@@ -254,7 +254,7 @@ class ContactListFragment :
                         val contact = binding.contactList.adapter.getItem(info.position) as Contact
 
                         AlertDialog.Builder(requireContext())
-                            .setTitle(R.string.clear_history)
+                            .setTitle(R.string.delete_contact)
                             .setMessage(
                                 getString(
                                     R.string.contact_list_delete_contact_confirm,
