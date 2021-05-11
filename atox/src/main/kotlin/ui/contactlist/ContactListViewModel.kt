@@ -22,6 +22,7 @@ import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.ContactManager
+import ltd.evilcorp.domain.feature.FileTransferManager
 import ltd.evilcorp.domain.feature.FriendRequestManager
 import ltd.evilcorp.domain.feature.UserManager
 import ltd.evilcorp.domain.tox.ProxyType
@@ -36,6 +37,7 @@ class ContactListViewModel @Inject constructor(
     private val resolver: ContentResolver,
     private val chatManager: ChatManager,
     private val contactManager: ContactManager,
+    private val fileTransferManager: FileTransferManager,
     private val friendRequestManager: FriendRequestManager,
     private val tox: Tox,
     private val toxStarter: ToxStarter,
@@ -53,7 +55,13 @@ class ContactListViewModel @Inject constructor(
 
     fun acceptFriendRequest(friendRequest: FriendRequest) = friendRequestManager.accept(friendRequest)
     fun rejectFriendRequest(friendRequest: FriendRequest) = friendRequestManager.reject(friendRequest)
-    fun deleteContact(publicKey: PublicKey) = contactManager.delete(publicKey)
+    fun deleteContact(publicKey: PublicKey) {
+        contactManager.delete(publicKey)
+        chatManager.clearHistory(publicKey)
+        launch {
+            fileTransferManager.deleteAll(publicKey)
+        }
+    }
 
     fun saveToxBackupTo(uri: Uri) = launch(Dispatchers.IO) {
         // Export the save.
