@@ -11,7 +11,7 @@ $(SRCDIR)/jvm-sbt-plugins:
 
 $(DESTDIR)/jvm-sbt-plugins.stamp: $(SRCDIR)/jvm-sbt-plugins
 	@$(PRE_RULE)
-	cd $< && sbt publishM2
+	cd $< && sbt publishLocal
 	mkdir -p $(@D) && touch $@
 	@$(POST_RULE)
 
@@ -25,6 +25,7 @@ $(SRCDIR)/jvm-macros:
 
 $(DESTDIR)/jvm-macros.stamp: $(SRCDIR)/jvm-macros
 	@$(PRE_RULE)
+	cd $< && sbt publishLocal
 	cd $< && sbt publishM2
 	mkdir -p $(@D) && touch $@
 	@$(POST_RULE)
@@ -39,6 +40,7 @@ $(SRCDIR)/jvm-toxcore-api:
 
 $(DESTDIR)/jvm-toxcore-api.stamp: $(SRCDIR)/jvm-toxcore-api
 	@$(PRE_RULE)
+	cd $< && sbt publishLocal
 	cd $< && sbt publishM2
 	mkdir -p $(@D) && touch $@
 	@$(POST_RULE)
