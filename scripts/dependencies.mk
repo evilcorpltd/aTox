@@ -23,7 +23,7 @@ $(SRCDIR)/jvm-macros:
 	git clone https://github.com/toktok/jvm-macros $@
 	cd $@ && git checkout f22e243
 
-$(DESTDIR)/jvm-macros.stamp: $(SRCDIR)/jvm-macros
+$(DESTDIR)/jvm-macros.stamp: $(SRCDIR)/jvm-macros $(DESTDIR)/jvm-sbt-plugins.stamp
 	@$(PRE_RULE)
 	cd $< && sbt publishLocal
 	cd $< && sbt publishM2
@@ -38,7 +38,7 @@ $(SRCDIR)/jvm-toxcore-api:
 	git clone https://github.com/toktok/jvm-toxcore-api $@
 	cd $@ && git checkout adb8355
 
-$(DESTDIR)/jvm-toxcore-api.stamp: $(SRCDIR)/jvm-toxcore-api
+$(DESTDIR)/jvm-toxcore-api.stamp: $(SRCDIR)/jvm-toxcore-api $(DESTDIR)/jvm-sbt-plugins.stamp
 	@$(PRE_RULE)
 	cd $< && sbt publishLocal
 	cd $< && sbt publishM2
@@ -65,7 +65,7 @@ $(PREFIX)/tox4j.stamp: $(BUILDDIR)/tox4j/Makefile
 	mkdir -p $(@D) && touch $@
 	@$(POST_RULE)
 
-$(DESTDIR)/tox4j-c.stamp: $(SRCDIR)/tox4j
+$(DESTDIR)/tox4j-c.stamp: $(SRCDIR)/tox4j $(foreach i,jvm-toxcore-api jvm-macros jvm-sbt-plugins,$(DESTDIR)/$i.stamp)
 	@$(PRE_RULE)
 	cd $< && sbt publishM2
 	mkdir -p $(@D) && touch $@
