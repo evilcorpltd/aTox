@@ -4,19 +4,13 @@ import android.media.AudioFormat
 import android.media.AudioManager
 import android.media.AudioTrack
 import android.os.Build
-import java.util.Queue
-import java.util.concurrent.ConcurrentLinkedQueue
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 private fun intToChannel(channels: Int) = when (channels) {
     1 -> AudioFormat.CHANNEL_OUT_MONO
     else -> AudioFormat.CHANNEL_OUT_STEREO
 }
 
-class AudioPlayer(private val sampleRate: Int, channels: Int) : CoroutineScope by GlobalScope {
+class AudioPlayer(sampleRate: Int, channels: Int) {
     private val minBufferSize =
         AudioTrack.getMinBufferSize(sampleRate, intToChannel(channels), AudioFormat.ENCODING_PCM_16BIT)
     private val audioTrack = if (Build.VERSION.SDK_INT < 23) {
@@ -41,34 +35,17 @@ class AudioPlayer(private val sampleRate: Int, channels: Int) : CoroutineScope b
             .setBufferSizeInBytes(minBufferSize)
             .build()
     }
-    private val audioQueue: Queue<ShortArray> = ConcurrentLinkedQueue()
 
-    private var active = false
-
-    fun buffer(data: ShortArray) = audioQueue.add(data)
+    fun buffer(data: ShortArray) {
+        audioTrack.write(data, 0, data.size)
+    }
 
     fun start() {
-        active = true
-        launch {
-            audioTrack.play()
-            while (active) {
-                val sleepTime = playAudioFrame()
-                delay(sleepTime.toLong())
-            }
-            audioTrack.pause()
-            audioTrack.flush()
-        }
+        audioTrack.play()
     }
 
     fun stop() {
-        active = false
-    }
-
-    private fun playAudioFrame(): Int = if (audioQueue.isEmpty()) {
-        0
-    } else {
-        val data = audioQueue.remove()
-        audioTrack.write(data, 0, data.size)
-        data.size * 1000 / sampleRate
+        audioTrack.pause()
+        audioTrack.flush()
     }
 }
