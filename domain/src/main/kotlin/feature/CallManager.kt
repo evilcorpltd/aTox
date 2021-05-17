@@ -24,13 +24,13 @@ class CallManager @Inject constructor(
     val inCall: StateFlow<Boolean> get() = _inCall
 
     fun startCall(publicKey: PublicKey): Boolean {
-        tox.startCall(publicKey)
-        _inCall.value = true
-
         val recorder = AudioCapture(48_000, 1)
         if (!recorder.isOk()) {
             return false
         }
+
+        tox.startCall(publicKey)
+        _inCall.value = true
 
         launch {
             recorder.start()
