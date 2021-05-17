@@ -107,7 +107,8 @@
 
     <fragment android:id="@+id/settingsFragment"
             android:name="ltd.evilcorp.atox.ui.settings.SettingsFragment"
-            android:label="SettingsFragment"/>
+            android:label="SettingsFragment"
+            tools:layout="@layout/fragment_settings"/>
     <fragment
             android:id="@+id/userProfileFragment"
             android:name="ltd.evilcorp.atox.ui.user_profile.UserProfileFragment"
