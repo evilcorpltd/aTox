@@ -18,19 +18,20 @@ private fun findAudioRecord(sampleRate: Int, channels: Int): AudioRecord? {
         return null
     }
 
-    val recorder = AudioRecord(
+    // Seems like not all Xiaomi phones have a VOICE_COMMUNICATION audio source, so try a few different ones.
+    val audioSources = arrayOf(
         MediaRecorder.AudioSource.VOICE_COMMUNICATION,
-        sampleRate,
-        channelConfig,
-        audioFormat,
-        bufferSize
+        MediaRecorder.AudioSource.MIC,
+        MediaRecorder.AudioSource.DEFAULT,
     )
-
-    if (recorder.state != AudioRecord.STATE_INITIALIZED) {
-        return null
+    for (audioSource in audioSources) {
+        val recorder = AudioRecord(audioSource, sampleRate, channelConfig, audioFormat, bufferSize)
+        if (recorder.state == AudioRecord.STATE_INITIALIZED) {
+            return recorder
+        }
     }
 
-    return recorder
+    return null
 }
 
 class AudioCapture(private val sampleRate: Int, private val channels: Int) {
