@@ -70,6 +70,7 @@ class Tox @Inject constructor(
 
         fun iterateForever() = launch {
             running = true
+            userRepository.updateConnection(publicKey.string(), ConnectionStatus.None)
             while (running || toxAvRunning) {
                 if (isBootstrapNeeded) {
                     try {
@@ -82,7 +83,6 @@ class Tox @Inject constructor(
                 tox.iterate()
                 delay(tox.iterationInterval())
             }
-            userRepository.updateConnection(publicKey.string(), ConnectionStatus.None)
             started = false
         }
 
