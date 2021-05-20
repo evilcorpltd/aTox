@@ -29,7 +29,7 @@ class AutoAway @Inject constructor(
         Log.i(TAG, "In background, scheduling away")
         awayTimer.schedule(settings.autoAwaySeconds * 1_000) {
             GlobalScope.launch {
-                if (tox.getStatus().await() != UserStatus.None) return@launch
+                if (tox.getStatus() != UserStatus.None) return@launch
                 Log.i(TAG, "Setting away")
                 userManager.setStatus(UserStatus.Away)
                 autoAway = true

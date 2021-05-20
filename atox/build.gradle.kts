@@ -36,10 +36,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = Java.version.toString()
-        freeCompilerArgs = listOf(
-            "-XXLanguage:+InlineClasses",
-            "-Xuse-experimental=kotlinx.coroutines.ObsoleteCoroutinesApi"
-        )
+        freeCompilerArgs = listOf("-XXLanguage:+InlineClasses")
     }
     lintOptions {
         disable("GoogleAppIndexingWarning", "MissingTranslation", "InvalidPackage")

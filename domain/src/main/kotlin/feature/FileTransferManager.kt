@@ -202,7 +202,7 @@ class FileTransferManager @Inject constructor(
 
         val ft = FileTransfer(
             pk.string(),
-            tox.sendFile(pk, FileKind.Data, size, name).await(),
+            tox.sendFile(pk, FileKind.Data, size, name),
             FileKind.Data.ordinal,
             size,
             name,

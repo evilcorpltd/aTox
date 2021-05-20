@@ -6,13 +6,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.ObsoleteCoroutinesApi
-import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.newSingleThreadContext
-import kotlinx.coroutines.plus
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.ConnectionStatus
@@ -23,14 +20,13 @@ import ltd.evilcorp.core.vo.UserStatus
 
 private const val TAG = "Tox"
 
-@ObsoleteCoroutinesApi
 @Singleton
 class Tox @Inject constructor(
     private val contactRepository: ContactRepository,
     private val userRepository: UserRepository,
     private val saveManager: SaveManager,
     private val nodeRegistry: BootstrapNodeRegistry,
-) : CoroutineScope by GlobalScope + newSingleThreadContext("Tox") {
+) : CoroutineScope by GlobalScope {
     val toxId: ToxID get() = tox.getToxId()
     val publicKey: PublicKey by lazy { tox.getPublicKey() }
     var nospam: Int
@@ -95,66 +91,64 @@ class Tox @Inject constructor(
     fun stop() = launch {
         running = false
         while (started) delay(10)
-        save()
+        save().join()
         tox.stop()
     }
 
-    private fun save() = runBlocking {
-        saveManager.save(publicKey, tox.getSaveData())
+    private val saveMutex = Mutex()
+    private fun save() = launch {
+        saveMutex.withLock {
+            saveManager.save(publicKey, tox.getSaveData())
+        }
     }
 
-    fun acceptFriendRequest(publicKey: PublicKey) = launch {
+    fun acceptFriendRequest(publicKey: PublicKey) {
         tox.acceptFriendRequest(publicKey)
         save()
     }
 
-    fun startFileTransfer(pk: PublicKey, fileNumber: Int) = launch {
+    fun startFileTransfer(pk: PublicKey, fileNumber: Int) {
         Log.i(TAG, "Starting file transfer $fileNumber from ${pk.fingerprint()}")
         tox.startFileTransfer(pk, fileNumber)
     }
 
-    fun stopFileTransfer(pk: PublicKey, fileNumber: Int) = launch {
+    fun stopFileTransfer(pk: PublicKey, fileNumber: Int) {
         Log.i(TAG, "Stopping file transfer $fileNumber from ${pk.fingerprint()}")
         tox.stopFileTransfer(pk, fileNumber)
     }
 
-    fun sendFile(pk: PublicKey, fileKind: FileKind, fileSize: Long, fileName: String) = async {
+    fun sendFile(pk: PublicKey, fileKind: FileKind, fileSize: Long, fileName: String) =
         tox.sendFile(pk, fileKind, fileSize, fileName)
-    }
 
-    fun sendFileChunk(pk: PublicKey, fileNo: Int, pos: Long, data: ByteArray) = launch {
+    fun sendFileChunk(pk: PublicKey, fileNo: Int, pos: Long, data: ByteArray) =
         tox.sendFileChunk(pk, fileNo, pos, data)
-    }
 
-    fun getName() = async { tox.getName() }
-    fun setName(name: String) = launch {
+    fun getName() = tox.getName()
+    fun setName(name: String) {
         tox.setName(name)
         save()
     }
 
-    fun getStatusMessage() = async { tox.getStatusMessage() }
-    fun setStatusMessage(statusMessage: String) = launch {
+    fun getStatusMessage() = tox.getStatusMessage()
+    fun setStatusMessage(statusMessage: String) {
         tox.setStatusMessage(statusMessage)
         save()
     }
 
-    fun addContact(toxId: ToxID, message: String) = launch {
+    fun addContact(toxId: ToxID, message: String) {
         tox.addContact(toxId, message)
         save()
     }
 
-    fun deleteContact(publicKey: PublicKey) = launch {
+    fun deleteContact(publicKey: PublicKey) {
         tox.deleteContact(publicKey)
         save()
     }
 
-    fun sendMessage(publicKey: PublicKey, message: String, type: MessageType) = async {
+    fun sendMessage(publicKey: PublicKey, message: String, type: MessageType) =
         tox.sendMessage(publicKey, message, type)
-    }
 
-    fun getSaveData() = async {
-        tox.getSaveData()
-    }
+    fun getSaveData() = tox.getSaveData()
 
     private fun bootstrap() {
         nodeRegistry.get(4).forEach { node ->
@@ -163,12 +157,10 @@ class Tox @Inject constructor(
         }
     }
 
-    fun setTyping(publicKey: PublicKey, typing: Boolean) = launch {
-        tox.setTyping(publicKey, typing)
-    }
+    fun setTyping(publicKey: PublicKey, typing: Boolean) = tox.setTyping(publicKey, typing)
 
-    fun setStatus(status: UserStatus) = launch { tox.setStatus(status) }
-    fun getStatus() = async { tox.getStatus() }
+    fun setStatus(status: UserStatus) = tox.setStatus(status)
+    fun getStatus() = tox.getStatus()
 
     // ToxAv, probably move these.
     fun startCall(pk: PublicKey) = tox.startCall(pk)

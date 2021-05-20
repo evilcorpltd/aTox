@@ -67,8 +67,7 @@ class ContactListViewModel @Inject constructor(
         // Export the save.
         resolver.openFileDescriptor(uri, "w")!!.use { fd ->
             FileOutputStream(fd.fileDescriptor).use { out ->
-                val saveData = tox.getSaveData().await()
-                out.write(saveData)
+                out.write(tox.getSaveData())
             }
         }
 

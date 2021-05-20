@@ -62,7 +62,7 @@ class ChatManager @Inject constructor(
 
             val msgs = message.chunked(MAX_MESSAGE_LENGTH)
             while (msgs.size > 1) {
-                tox.sendMessage(publicKey, msgs.removeFirst(), type).start()
+                tox.sendMessage(publicKey, msgs.removeFirst(), type)
             }
 
             messageRepository.add(
@@ -71,7 +71,7 @@ class ChatManager @Inject constructor(
                     message,
                     Sender.Sent,
                     type,
-                    tox.sendMessage(publicKey, msgs.first(), type).await()
+                    tox.sendMessage(publicKey, msgs.first(), type),
                 )
             )
         }
@@ -84,12 +84,12 @@ class ChatManager @Inject constructor(
             val msgs = message.message.chunked(MAX_MESSAGE_LENGTH)
 
             while (msgs.size > 1) {
-                tox.sendMessage(PublicKey(message.publicKey), msgs.removeFirst(), message.type).start()
+                tox.sendMessage(PublicKey(message.publicKey), msgs.removeFirst(), message.type)
             }
 
             messageRepository.setCorrelationId(
                 message.id,
-                tox.sendMessage(PublicKey(message.publicKey), msgs.first(), message.type).await()
+                tox.sendMessage(PublicKey(message.publicKey), msgs.first(), message.type),
             )
         }
     }
