@@ -39,6 +39,7 @@ class AudioCapture(private val sampleRate: Int, private val channels: Int) {
     fun isOk() = audioRecord != null
     fun start() = audioRecord?.startRecording()
     fun stop() = audioRecord?.stop()
+    fun release() = audioRecord?.release()
     fun read(): ShortArray {
         val bytes = ShortArray((sampleRate * channels * 0.1).toInt()) // E.g. 16-bit, 48kHz, 1 channel, 100ms
         audioRecord?.read(bytes, 0, bytes.size)

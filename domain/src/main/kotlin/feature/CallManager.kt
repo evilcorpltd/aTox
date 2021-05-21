@@ -48,6 +48,7 @@ class CallManager @Inject constructor(
                 }
             }
             recorder.stop()
+            recorder.release()
         }
         return true
     }
