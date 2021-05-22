@@ -14,14 +14,19 @@ import ltd.evilcorp.domain.av.AudioCapture
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
 
+sealed class CallState {
+    object NotInCall : CallState()
+    data class InCall(val publicKey: PublicKey) : CallState()
+}
+
 private const val TAG = "CallManager"
 
 @Singleton
 class CallManager @Inject constructor(
     private val tox: Tox,
 ) : CoroutineScope by GlobalScope {
-    private val _inCall = MutableStateFlow(false)
-    val inCall: StateFlow<Boolean> get() = _inCall
+    private val _inCall = MutableStateFlow<CallState>(CallState.NotInCall)
+    val inCall: StateFlow<CallState> get() = _inCall
 
     fun startCall(publicKey: PublicKey): Boolean {
         val recorder = AudioCapture(48_000, 1)
@@ -30,11 +35,11 @@ class CallManager @Inject constructor(
         }
 
         tox.startCall(publicKey)
-        _inCall.value = true
+        _inCall.value = CallState.InCall(publicKey)
 
         launch {
             recorder.start()
-            while (inCall.value) {
+            while (inCall.value is CallState.InCall) {
                 val start = System.currentTimeMillis()
                 val audioFrame = recorder.read()
                 try {
@@ -54,7 +59,7 @@ class CallManager @Inject constructor(
     }
 
     fun endCall(publicKey: PublicKey) {
-        _inCall.value = false
+        _inCall.value = CallState.NotInCall
         try {
             tox.endCall(publicKey)
         } catch (e: ToxavCallControlException) {

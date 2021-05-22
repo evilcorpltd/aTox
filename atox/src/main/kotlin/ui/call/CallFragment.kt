@@ -17,6 +17,7 @@ import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.atox.vmFactory
+import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.tox.PublicKey
 
 private val PERMISSIONS = arrayOf(Manifest.permission.RECORD_AUDIO)
@@ -42,7 +43,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
             findNavController().popBackStack()
         }
 
-        if (vm.inCall.value) {
+        if (vm.inCall.value is CallState.InCall) {
             return
         }
 
@@ -73,7 +74,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
     private fun startCall() {
         vm.startCall()
         vm.inCall.asLiveData().observe(viewLifecycleOwner) { inCall ->
-            if (!inCall) {
+            if (inCall == CallState.NotInCall) {
                 findNavController().popBackStack()
             }
         }

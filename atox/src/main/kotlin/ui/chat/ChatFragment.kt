@@ -23,7 +23,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import java.io.File
 import java.net.URLConnection
@@ -125,13 +124,25 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                 viewModel.clearDraft()
             }
 
-            toolbar.menu.findItem(R.id.call).isEnabled = viewModel.contactOnline && !viewModel.inCall.value
-
             updateActions()
         }
 
-        viewModel.inCall.asLiveData().observe(viewLifecycleOwner) { inCall ->
-            toolbar.menu.findItem(R.id.call).isEnabled = viewModel.contactOnline && !inCall
+        viewModel.callState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                CallAvailability.Unavailable -> {
+                    toolbar.menu.findItem(R.id.call).title = getString(R.string.call)
+                    toolbar.menu.findItem(R.id.call).isEnabled = false
+                }
+                CallAvailability.Available -> {
+                    toolbar.menu.findItem(R.id.call).title = getString(R.string.call)
+                    toolbar.menu.findItem(R.id.call).isEnabled = true
+                }
+                CallAvailability.Active -> {
+                    toolbar.menu.findItem(R.id.call).title = "Ongoing call"
+                    toolbar.menu.findItem(R.id.call).isEnabled = true
+                }
+                null -> {}
+            }
         }
 
         val adapter = ChatAdapter(layoutInflater, resources)

@@ -15,22 +15,32 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.ui.NotificationHelper
+import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.domain.feature.CallManager
+import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.feature.FileTransferManager
 import ltd.evilcorp.domain.tox.PublicKey
 
 private const val TAG = "ChatViewModel"
+
+enum class CallAvailability {
+    Unavailable,
+    Available,
+    Active,
+}
 
 class ChatViewModel @Inject constructor(
     private val callManager: CallManager,
@@ -47,6 +57,22 @@ class ChatViewModel @Inject constructor(
     val contact: LiveData<Contact> by lazy { contactManager.get(publicKey).asLiveData() }
     val messages: LiveData<List<Message>> by lazy { chatManager.messagesFor(publicKey).asLiveData() }
     val fileTransfers: LiveData<List<FileTransfer>> by lazy { fileTransferManager.transfersFor(publicKey).asLiveData() }
+
+    val callState get() = contactManager.get(publicKey)
+        .transform { emit(it.connectionStatus != ConnectionStatus.None) }
+        .combine(callManager.inCall) { contactOnline, callState ->
+            if (!contactOnline) return@combine CallAvailability.Unavailable
+            when (callState) {
+                CallState.NotInCall -> CallAvailability.Available
+                is CallState.InCall -> {
+                    if (callState.publicKey == publicKey) {
+                        CallAvailability.Active
+                    } else {
+                        CallAvailability.Unavailable
+                    }
+                }
+            }
+        }.asLiveData()
 
     var contactOnline = false
 
@@ -121,6 +147,4 @@ class ChatViewModel @Inject constructor(
 
     fun setDraft(draft: String) = contactManager.setDraft(publicKey, draft)
     fun clearDraft() = setDraft("")
-
-    val inCall = callManager.inCall
 }
