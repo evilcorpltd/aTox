@@ -48,4 +48,6 @@ class AudioPlayer(sampleRate: Int, channels: Int) {
         audioTrack.pause()
         audioTrack.flush()
     }
+
+    fun release() = audioTrack.release()
 }
