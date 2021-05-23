@@ -138,7 +138,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                     toolbar.menu.findItem(R.id.call).isEnabled = true
                 }
                 CallAvailability.Active -> {
-                    toolbar.menu.findItem(R.id.call).title = "Ongoing call"
+                    toolbar.menu.findItem(R.id.call).title = getString(R.string.ongoing_call)
                     toolbar.menu.findItem(R.id.call).isEnabled = true
                 }
                 null -> {}
