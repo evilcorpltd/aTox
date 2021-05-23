@@ -32,7 +32,10 @@
             <ListView android:id="@+id/contactList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@null"
                     android:clipToPadding="false"
+                    android:drawSelectorOnTop="true"
+                    android:listSelector="@drawable/disable_ripple_effect"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:listitem="@layout/contact_list_view_item"/>
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,6 +20,7 @@
     <item name="dialogBackground" type="color">#3E4651</item>
 
     <item name="transparentBar" type="color">#40000000</item>
+    <item name="transparent" type="color">#00000000</item>
 
     <array name="contactBackgrounds">
         <item>#f16364</item>
