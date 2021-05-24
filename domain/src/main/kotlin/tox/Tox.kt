@@ -164,6 +164,7 @@ class Tox @Inject constructor(
 
     // ToxAv, probably move these.
     fun startCall(pk: PublicKey) = tox.startCall(pk)
+    fun answerCall(pk: PublicKey) = tox.answerCall(pk)
     fun endCall(pk: PublicKey) = tox.endCall(pk)
     fun sendAudio(pk: PublicKey, pcm: ShortArray, channels: Int, samplingRate: Int) =
         tox.sendAudio(pk, pcm, channels, samplingRate)

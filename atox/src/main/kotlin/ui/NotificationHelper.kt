@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Transformation
 import javax.inject.Inject
 import javax.inject.Singleton
+import ltd.evilcorp.atox.KEY_CALL
 import ltd.evilcorp.atox.KEY_CONTACT_PK
 import ltd.evilcorp.atox.KEY_TEXT_REPLY
 import ltd.evilcorp.atox.R
@@ -177,7 +178,7 @@ class NotificationHelper @Inject constructor(
     fun dismissCallNotification(contact: Contact) =
         notifier.cancel(contact.publicKey.hashCode() + CALL.hashCode())
 
-    fun showCallNotification(contact: Contact) {
+    fun showOngoingCallNotification(contact: Contact) {
         val notificationBuilder = NotificationCompat.Builder(context, CALL)
             .setCategory(NotificationCompat.CATEGORY_CALL)
             .setSmallIcon(android.R.drawable.ic_menu_call)
@@ -201,5 +202,55 @@ class NotificationHelper @Inject constructor(
             .setSilent(true)
 
         notifier.notify(contact.publicKey.hashCode() + CALL.hashCode(), notificationBuilder.build())
+    }
+
+    fun showPendingCallNotification(c: Contact) {
+        val notificationBuilder = NotificationCompat.Builder(context, CALL)
+            .setCategory(NotificationCompat.CATEGORY_CALL)
+            .setSmallIcon(android.R.drawable.ic_menu_call)
+            .setContentTitle(context.getString(R.string.incoming_call))
+            .setContentText(context.getString(R.string.incoming_call_from, c.name))
+            .setContentIntent(
+                NavDeepLinkBuilder(context)
+                    .setGraph(R.navigation.nav_graph)
+                    .setDestination(R.id.chatFragment)
+                    .setArguments(bundleOf(CONTACT_PUBLIC_KEY to c.publicKey))
+                    .createPendingIntent()
+            )
+            .addAction(
+                NotificationCompat.Action
+                    .Builder(
+                        IconCompat.createWithResource(context, R.drawable.ic_call),
+                        context.getString(R.string.accept),
+                        PendingIntent.getBroadcast(
+                            context,
+                            "${c.publicKey}_accept_call".hashCode(),
+                            Intent(context, ReplyReceiver::class.java)
+                                .putExtra(KEY_CONTACT_PK, c.publicKey)
+                                .putExtra(KEY_CALL, "accept"),
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                        )
+                    )
+                    .setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_CALL)
+                    .build()
+            )
+            .addAction(
+                NotificationCompat.Action
+                    .Builder(
+                        IconCompat.createWithResource(context, R.drawable.ic_not_interested),
+                        context.getString(R.string.reject),
+                        PendingIntent.getBroadcast(
+                            context,
+                            "${c.publicKey}_reject_call".hashCode(),
+                            Intent(context, ReplyReceiver::class.java)
+                                .putExtra(KEY_CONTACT_PK, c.publicKey)
+                                .putExtra(KEY_CALL, "reject"),
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                        )
+                    )
+                    .build()
+            )
+
+        notifier.notify(c.publicKey.hashCode() + CALL.hashCode(), notificationBuilder.build())
     }
 }

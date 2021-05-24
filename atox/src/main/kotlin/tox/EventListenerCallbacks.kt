@@ -166,7 +166,7 @@ class EventListenerCallbacks @Inject constructor(
     fun setUp(listener: ToxAvEventListener) = with(listener) {
         callHandler = { pk, audioEnabled, videoEnabled ->
             Log.e(TAG, "call ${pk.take(8)} $audioEnabled $videoEnabled")
-            tox.endCall(PublicKey(pk))
+            notificationHelper.showPendingCallNotification(contactByPublicKey(pk))
         }
 
         callStateHandler = { pk, callState ->

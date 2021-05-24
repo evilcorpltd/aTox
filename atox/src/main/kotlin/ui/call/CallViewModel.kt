@@ -31,7 +31,7 @@ class CallViewModel @Inject constructor(
 
     fun startCall(): Boolean {
         if (callManager.startCall(publicKey)) {
-            launch { notificationHelper.showCallNotification(contactManager.get(publicKey).first()) }
+            launch { notificationHelper.showOngoingCallNotification(contactManager.get(publicKey).first()) }
             return true
         }
 

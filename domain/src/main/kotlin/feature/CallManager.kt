@@ -36,25 +36,19 @@ class CallManager @Inject constructor(
 
         tox.startCall(publicKey)
         _inCall.value = CallState.InCall(publicKey)
+        startAudioSender(recorder, publicKey)
+        return true
+    }
 
-        launch {
-            recorder.start()
-            while (inCall.value is CallState.InCall) {
-                val start = System.currentTimeMillis()
-                val audioFrame = recorder.read()
-                try {
-                    tox.sendAudio(publicKey, audioFrame, 1, 48_000)
-                } catch (e: Exception) {
-                    Log.e(TAG, e.toString())
-                }
-                val elapsed = System.currentTimeMillis() - start
-                if (elapsed < 20) {
-                    delay(20 - elapsed)
-                }
-            }
-            recorder.stop()
-            recorder.release()
+    fun answerCall(publicKey: PublicKey): Boolean {
+        val recorder = AudioCapture(48_000, 1)
+        if (!recorder.isOk()) {
+            return false
         }
+
+        tox.answerCall(publicKey)
+        _inCall.value = CallState.InCall(publicKey)
+        startAudioSender(recorder, publicKey)
         return true
     }
 
@@ -66,6 +60,27 @@ class CallManager @Inject constructor(
             if (e.code() != ToxavCallControlException.Code.FRIEND_NOT_IN_CALL) {
                 throw e
             }
+        }
+    }
+
+    private fun startAudioSender(recorder: AudioCapture, to: PublicKey) {
+        launch {
+            recorder.start()
+            while (inCall.value is CallState.InCall) {
+                val start = System.currentTimeMillis()
+                val audioFrame = recorder.read()
+                try {
+                    tox.sendAudio(to, audioFrame, 1, 48_000)
+                } catch (e: Exception) {
+                    Log.e(TAG, e.toString())
+                }
+                val elapsed = System.currentTimeMillis() - start
+                if (elapsed < 20) {
+                    delay(20 - elapsed)
+                }
+            }
+            recorder.stop()
+            recorder.release()
         }
     }
 }
