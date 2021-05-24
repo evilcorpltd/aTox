@@ -44,6 +44,11 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
         }
 
         if (vm.inCall.value is CallState.InCall) {
+            vm.inCall.asLiveData().observe(viewLifecycleOwner) { inCall ->
+                if (inCall == CallState.NotInCall) {
+                    findNavController().popBackStack()
+                }
+            }
             return
         }
 
