@@ -11,3 +11,5 @@ dependencyResolutionManagement {
 include(":atox")
 include(":core")
 include(":domain")
+
+enableFeaturePreview("VERSION_CATALOGS")

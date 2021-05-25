@@ -71,10 +71,10 @@ idea {
 
 val needFixing: Configuration by configurations.creating
 dependencies {
-    needFixing(Tox4j.Android.x86_64)
-    needFixing(Tox4j.Android.i686)
-    needFixing(Tox4j.Android.arm)
-    needFixing(Tox4j.Android.aarch64)
+    needFixing(libs.tox4j.android.amd64)
+    needFixing(libs.tox4j.android.i686)
+    needFixing(libs.tox4j.android.arm)
+    needFixing(libs.tox4j.android.aarch64)
 }
 
 tasks.register("fixPaths") {
@@ -100,13 +100,13 @@ tasks.named("preBuild") { dependsOn("fixPaths") }
 dependencies {
     implementation(project(":core"))
 
-    implementation(JavaX.inject)
-    implementation(KotlinX.Coroutines.core)
-    api(Tox4j.api)
-    implementation(Tox4j.c)
+    implementation(libs.javax.inject)
+    implementation(libs.kotlinx.coroutines.core)
+    api(libs.tox4j.api)
+    implementation(libs.tox4j.c)
 
-    testImplementation(Test.junit)
-    androidTestImplementation(AndroidX.Test.runner)
-    androidTestImplementation(AndroidX.Test.Ext.junit)
-    androidTestImplementation(Test.mockk)
+    testImplementation(libs.test.junit.core)
+    androidTestImplementation(libs.test.runner)
+    androidTestImplementation(libs.test.junit.ext)
+    androidTestImplementation(libs.test.mockk)
 }
