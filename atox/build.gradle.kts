@@ -54,40 +54,40 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":domain"))
 
-    implementation(AndroidX.Core.ktx)
-    implementation(AndroidX.appcompat)
-    implementation(AndroidX.constraintlayout)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.constraintlayout)
 
-    implementation(Google.Android.material)
+    implementation(libs.google.android.material)
 
-    implementation(KotlinX.Coroutines.core)
-    implementation(KotlinX.Coroutines.android)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
-    implementation(AndroidX.Navigation.fragmentKtx)
-    implementation(AndroidX.Navigation.uiKtx)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
-    implementation(AndroidX.preference)
+    implementation(libs.androidx.preference)
 
-    implementation(AndroidX.Lifecycle.livedataKtx)
-    implementation(AndroidX.Lifecycle.service)
-    implementation(AndroidX.Lifecycle.viewmodelKtx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.service)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
-    implementation(Google.dagger)
-    kapt(Google.Dagger.compiler)
+    implementation(libs.google.dagger.core)
+    kapt(libs.google.dagger.compiler)
 
-    implementation(AndroidX.multidex)
+    implementation(libs.androidx.multidex)
 
-    implementation(Square.picasso)
+    implementation(libs.square.picasso)
 
-    debugImplementation(Square.leakcanary)
+    debugImplementation(libs.square.leakcanary)
 
-    testImplementation(Test.junit)
+    testImplementation(libs.test.junit.core)
 
-    androidTestImplementation(AndroidX.Test.rules)
-    androidTestImplementation(AndroidX.Test.runner)
-    androidTestImplementation(AndroidX.Test.Espresso.core)
-    androidTestImplementation(AndroidX.Test.Espresso.contrib)
-    androidTestImplementation(AndroidX.Test.Ext.junit)
-    androidTestImplementation(Test.mockk)
-    kaptAndroidTest(Google.Dagger.compiler)
+    androidTestImplementation(libs.test.rules)
+    androidTestImplementation(libs.test.runner)
+    androidTestImplementation(libs.test.espresso.core)
+    androidTestImplementation(libs.test.espresso.contrib)
+    androidTestImplementation(libs.test.junit.ext)
+    androidTestImplementation(libs.test.mockk)
+    kaptAndroidTest(libs.google.dagger.compiler)
 }
