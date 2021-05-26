@@ -1,6 +1,6 @@
 # aTox
 
-[![IRC](https://img.shields.io/badge/freenode-%23atox-brightgreen.svg)][freenode]
+[![IRC](https://img.shields.io/badge/libera-%23atox-brightgreen.svg)][libera]
 [![License](https://img.shields.io/github/license/evilcorpltd/aTox)][license]
 [![Last release](https://img.shields.io/github/v/release/evilcorpltd/aTox)][releases]
 [![Translation status](https://hosted.weblate.org/widgets/atox/-/app/svg-badge.svg)][weblate]
@@ -29,8 +29,8 @@ Want to see aTox in your language? Contribute a translation on [Weblate!][weblat
 [![Translation status](https://hosted.weblate.org/widgets/atox/-/app/multi-auto.svg)][weblate]
 
 [fdroid]: https://f-droid.org/packages/ltd.evilcorp.atox
-[freenode]: https://webchat.freenode.net/?channels=#atox
 [gplay]: https://play.google.com/store/apps/details?id=ltd.evilcorp.atox
+[libera]: https://kiwiirc.com/nextclient/irc.libera.chat/atox
 [license]: https://github.com/evilcorpltd/aTox/blob/master/LICENSE
 [releases]: https://github.com/evilcorpltd/aTox/releases
 [weblate]: https://hosted.weblate.org/engage/atox/
