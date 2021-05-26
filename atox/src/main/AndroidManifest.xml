@@ -27,7 +27,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".ReplyReceiver"/>
+        <receiver android:name=".ActionReceiver"/>
 
         <provider
                 android:name="androidx.core.content.FileProvider"

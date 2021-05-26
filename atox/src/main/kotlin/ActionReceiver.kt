@@ -16,7 +16,7 @@ const val KEY_TEXT_REPLY = "text_reply"
 const val KEY_CALL = "accept_or_reject_call"
 const val KEY_CONTACT_PK = "contact_pk"
 
-class ReplyReceiver : BroadcastReceiver() {
+class ActionReceiver : BroadcastReceiver() {
     @Inject
     lateinit var callManager: CallManager
 

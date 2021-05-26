@@ -24,11 +24,11 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Transformation
 import javax.inject.Inject
 import javax.inject.Singleton
+import ltd.evilcorp.atox.ActionReceiver
 import ltd.evilcorp.atox.KEY_CALL
 import ltd.evilcorp.atox.KEY_CONTACT_PK
 import ltd.evilcorp.atox.KEY_TEXT_REPLY
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.ReplyReceiver
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
@@ -111,7 +111,7 @@ class NotificationHelper @Inject constructor(
                         PendingIntent.getBroadcast(
                             context,
                             contact.publicKey.hashCode(),
-                            Intent(context, ReplyReceiver::class.java).putExtra(KEY_CONTACT_PK, contact.publicKey),
+                            Intent(context, ActionReceiver::class.java).putExtra(KEY_CONTACT_PK, contact.publicKey),
                             PendingIntent.FLAG_UPDATE_CURRENT
                         )
                     )
@@ -225,7 +225,7 @@ class NotificationHelper @Inject constructor(
                         PendingIntent.getBroadcast(
                             context,
                             "${c.publicKey}_accept_call".hashCode(),
-                            Intent(context, ReplyReceiver::class.java)
+                            Intent(context, ActionReceiver::class.java)
                                 .putExtra(KEY_CONTACT_PK, c.publicKey)
                                 .putExtra(KEY_CALL, "accept"),
                             PendingIntent.FLAG_UPDATE_CURRENT
@@ -242,7 +242,7 @@ class NotificationHelper @Inject constructor(
                         PendingIntent.getBroadcast(
                             context,
                             "${c.publicKey}_reject_call".hashCode(),
-                            Intent(context, ReplyReceiver::class.java)
+                            Intent(context, ActionReceiver::class.java)
                                 .putExtra(KEY_CONTACT_PK, c.publicKey)
                                 .putExtra(KEY_CALL, "reject"),
                             PendingIntent.FLAG_UPDATE_CURRENT
