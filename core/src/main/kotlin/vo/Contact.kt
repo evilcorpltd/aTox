@@ -24,7 +24,7 @@ data class Contact(
     val publicKey: String,
 
     @ColumnInfo(name = "name")
-    var name: String = "Unknown",
+    var name: String = "",
 
     @ColumnInfo(name = "status_message")
     var statusMessage: String = "...",

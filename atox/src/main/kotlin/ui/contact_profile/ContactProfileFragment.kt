@@ -34,6 +34,8 @@ class ContactProfileFragment : BaseFragment<FragmentContactProfileBinding>(Fragm
 
         viewModel.publicKey = PublicKey(requireStringArg(CONTACT_PUBLIC_KEY))
         viewModel.contact.observe(viewLifecycleOwner) { contact ->
+            contact.name = contact.name.ifEmpty { getString(R.string.contact_default_name) }
+
             headerMainText.text = contact.name
             setAvatarFromContact(profileLayout.profileImage, contact)
             profileLayout.statusIndicator.setColorFilter(colorByStatus(resources, contact))

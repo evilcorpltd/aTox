@@ -105,6 +105,8 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         }
 
         viewModel.contact.observe(viewLifecycleOwner) {
+            it.name = it.name.ifEmpty { getString(R.string.contact_default_name) }
+
             contactName = it.name
             viewModel.contactOnline = it.connectionStatus != ConnectionStatus.None
 

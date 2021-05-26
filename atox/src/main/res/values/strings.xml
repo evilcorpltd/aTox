@@ -149,4 +149,5 @@
     <string name="pref_nospam_description">Changing your nospam means that your Tox ID changes, and that your current Tox ID can no longer be used to send you friend requests</string>
     <string name="saved">Saved</string>
     <string name="delete_message">Delete message</string>
+    <string name="contact_default_name">Unknown</string>
 </resources>

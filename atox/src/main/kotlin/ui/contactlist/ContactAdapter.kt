@@ -80,6 +80,8 @@ class ContactAdapter(
                 }
 
                 contacts[position - friendRequests.size].run {
+                    name = name.ifEmpty { resources.getString(R.string.contact_default_name) }
+
                     val shortId = publicKey.take(8)
                     vh.publicKey.text = String.format("%s %s", shortId.take(4), shortId.takeLast(4))
                     vh.name.text = name

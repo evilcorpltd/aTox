@@ -92,7 +92,7 @@ class NotificationHelper @Inject constructor(
         val notificationBuilder = NotificationCompat.Builder(context, MESSAGE)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setSmallIcon(android.R.drawable.sym_action_chat)
-            .setContentTitle(contact.name)
+            .setContentTitle(contact.name.ifEmpty { context.getText(R.string.contact_default_name) })
             .setContentText(message)
             .setContentIntent(
                 NavDeepLinkBuilder(context)
@@ -134,7 +134,7 @@ class NotificationHelper @Inject constructor(
             } else null
 
             val chatPartner = Person.Builder()
-                .setName(contact.name)
+                .setName(contact.name.ifEmpty { context.getText(R.string.contact_default_name) })
                 .setKey(if (outgoing) "myself" else contact.publicKey)
                 .setIcon(icon)
                 .setImportant(true)
@@ -182,7 +182,12 @@ class NotificationHelper @Inject constructor(
             .setCategory(NotificationCompat.CATEGORY_CALL)
             .setSmallIcon(android.R.drawable.ic_menu_call)
             .setContentTitle(context.getString(R.string.ongoing_call))
-            .setContentText(context.getString(R.string.in_call_with, contact.name))
+            .setContentText(
+                context.getString(
+                    R.string.in_call_with,
+                    contact.name.ifEmpty { context.getString(R.string.contact_default_name) }
+                )
+            )
             .setUsesChronometer(true)
             .setWhen(System.currentTimeMillis())
             .setContentIntent(
