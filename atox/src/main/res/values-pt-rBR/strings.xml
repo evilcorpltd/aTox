@@ -88,18 +88,23 @@
     <string name="from">De</string>
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Editar seu status</string>
-    <string name="mimetype_handler_not_found">Incapaz de encontrar algo que suporta mimetype %1$s</string>
+    <string name="mimetype_handler_not_found">Incapaz de encontrar algo que suporte este tipo de mídia %1$s</string>
     <string name="attach_file">Anexar um arquivo</string>
     <string name="delete">Excluir</string>
     <string name="notification_file_transfer">Transferência de arquivo a ser recebida “%1$s”</string>
     <string name="cancelled">Cancelada</string>
     <string name="completed">Concluído</string>
     <string name="save_as">Salvar como…</string>
-    <string name="export_file_success">Arquivo exportado</string>
+    <string name="export_file_success">Arquivo salvo com sucesso</string>
     <string name="export_file_failure">Algo deu errado ao exportá-lo. Pre-0.5.1 transferências foram exportadas por padrão.</string>
     <string name="draft_message">Rascunho: %1$s</string>
     <string name="pref_bootstrap_nodes_description">Arquivos JSON fornecidos por usuários devem ter o mesmo formato em https://nodes.tox.chat/json</string>
     <string name="pref_heading_advanced">Avançado</string>
     <string name="pref_heading_type">Tipo</string>
     <string name="pref_heading_ft_auto_accept">Aceitar automaticamente transferências de arquivos</string>
+    <string name="reply">Responder</string>
+    <string name="proxy_not_found">Proxy não encontrada</string>
+    <string name="pref_heading_proxy">Proxy</string>
+    <string name="pref_heading_port">Porta</string>
+    <string name="pref_heading_address">Endereço</string>
 </resources>
