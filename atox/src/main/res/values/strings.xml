@@ -4,7 +4,7 @@
     <string name="add">Add</string>
     <string name="add_contact">Add contact</string>
     <string name="add_contact_message_default">Talk to me on aTox like a reasonable human being.</string>
-    <string name="add_contact_message_error_empty">Message can\'t be empty</string>
+    <string name="add_contact_message_error_empty">Write something to send first</string>
     <string name="app_name" translatable="false">aTox</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
@@ -82,7 +82,7 @@
         <item>User-provided</item>
     </string-array>
     <string name="pref_bootstrap_nodes_description">User-provided JSON files must have the same format as on https://nodes.tox.chat/json</string>
-    <string name="version_display" translatable="false">aTox v%1$s - %2$d</string>
+    <string name="version_display" translatable="false">aTox v%1$s — %2$d</string>
     <string name="send_as_action">Send as action</string>
     <string name="or_import_existing_save">or import an existing Tox save</string>
     <string name="profile_information">Profile information</string>
@@ -91,8 +91,8 @@
     <string name="profile_status_message">Change your status message</string>
     <string name="profile_status">Change your status</string>
     <string name="profile">Profile</string>
-    <string name="tox_id_error_already_exists">A contact with that ID already exists</string>
-    <string name="tox_service_running">aTox is running</string>
+    <string name="tox_id_error_already_exists">A contact with that Tox ID already exists</string>
+    <string name="tox_service_running">aTox is running…</string>
     <string name="pref_heading_network">Network</string>
     <string name="pref_udp_enabled">UDP enabled</string>
     <string name="pref_heading_general">General</string>
@@ -109,7 +109,7 @@
     <string name="from">From</string>
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Edit your status</string>
-    <string name="mimetype_handler_not_found">Unable to find something that can handle that media type %1$s</string>
+    <string name="mimetype_handler_not_found">There are no apps installed to handle the \"%1$s\" media type</string>
     <string name="attach_file">Attach file</string>
     <string name="delete">Delete</string>
     <string name="notification_file_transfer">Incoming file transfer \"%1$s\"</string>
@@ -122,12 +122,12 @@
     <string name="pref_heading_address">Address</string>
     <string name="pref_heading_port">Port</string>
     <string name="pref_heading_proxy">Proxy</string>
-    <string name="warn_proxy_broken">Bad proxy configured. Fix or disable before using app.</string>
+    <string name="warn_proxy_broken">Set up your proxy correctly (or turn it off) before using the app</string>
     <string name="proxy_not_found">Proxy not found</string>
     <string name="bad_type">Bad type</string>
     <string name="bad_host">Bad host</string>
     <string name="bad_port">Bad port</string>
-    <string name="tox_save_export_failure">Save export failed: %1$s</string>
+    <string name="tox_save_export_failure">Could not export Tox save: %1$s</string>
     <string name="reply">Reply</string>
     <string name="pref_auto_away">Auto away</string>
     <string name="seconds">Seconds</string>
@@ -135,7 +135,7 @@
     <string name="warn_node_json_import_failed">Error importing nodes</string>
     <string name="error_no_nodes_loaded">Unable to load bootstrap nodes, please switch to built-in nodes or import nodes again</string>
     <string name="receive_share_share_to">Share to…</string>
-    <string name="contact_list_delete_contact_confirm">Are you sure you want to delete \"%1$s\" from your contacts?</string>
+    <string name="contact_list_delete_contact_confirm">Really delete \"%1$s\" from contacts?</string>
 
     <string name="call">Call</string>
     <string name="microphone_control">Microphone control</string>
@@ -145,8 +145,8 @@
     <string name="in_call_with">In call with %1$s</string>
     <string name="tox_id_error_self_add">You can\'t add yourself</string>
     <string name="save">Save</string>
-    <string name="pref_nospam">Nospam</string>
-    <string name="pref_nospam_description">Changing your nospam means that your Tox ID changes, and that your current Tox ID can no longer be used to send you friend requests</string>
+    <string name="pref_nospam">NoSpam</string>
+    <string name="pref_nospam_description">Changing your NoSpam alters your Tox ID, meaning friend requests must be sent to the updated one</string>
     <string name="saved">Saved</string>
     <string name="delete_message">Delete message</string>
     <string name="contact_default_name">Unknown</string>
