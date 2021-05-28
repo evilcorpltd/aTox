@@ -197,10 +197,6 @@ class EventListenerCallbacks @Inject constructor(
             )
         }
 
-        audioReceiveFrameHandler = { pk, pcm, channels, samplingRate ->
-            Log.v(TAG, "audioBitRate ${pk.take(8)} ${pcm.size} $channels $samplingRate")
-        }
-
         audioBitRateHandler = { pk, bitRate ->
             Log.e(TAG, "audioBitRate ${pk.take(8)} $bitRate")
         }
