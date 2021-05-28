@@ -19,7 +19,7 @@
     <string name="pref_heading_address">Indirizzo</string>
     <string name="draft_message">Bozza: %1$s</string>
     <string name="export_file_failure">Qualcosa è andato storto nell’esportazione. I trasferimenti precedenti alla versione 0.5.1 erano esportati impostazione predefinita.</string>
-    <string name="export_file_success">File esportato</string>
+    <string name="export_file_success">File salvato con successo</string>
     <string name="save_as">Salva come…</string>
     <string name="completed">Completato</string>
     <string name="cancelled">Annullato</string>
@@ -114,4 +114,10 @@
     <string name="microphone_control">Controllo del microfono</string>
     <string name="call">Chiamata</string>
     <string name="tox_id_error_self_add">Non puoi aggiungere te stesso</string>
+    <string name="saved">Salvato</string>
+    <string name="pref_nospam_description">Cambiare il tuo nospam significa che il tuo ID Tox cambia, e che il tuo attuale ID Tox non può più essere usato per inviarti richieste di amicizia</string>
+    <string name="pref_nospam">Nospam</string>
+    <string name="save">Salva</string>
+    <string name="delete_message">Elimina il messaggio</string>
+    <string name="contact_default_name">Sconosciuto</string>
 </resources>

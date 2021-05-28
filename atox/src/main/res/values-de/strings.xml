@@ -112,7 +112,7 @@
     <string name="bad_port">Ungültiger Port</string>
     <string name="tox_save_export_failure">Export fehlgeschlagen: %1$s</string>
     <string name="reply">Antworten</string>
-    <string name="pref_auto_away">Auto abwesend</string>
+    <string name="pref_auto_away">Automatisch abwesend</string>
     <string name="seconds">Sekunden</string>
     <string name="bad_positive_number">Muss eine positive Zahl sein</string>
     <string name="contact_list_delete_contact_confirm">Bist du sicher, dass du „%1$s“ aus deiner Kontaktliste löschen möchtest\?</string>
@@ -136,4 +136,6 @@
     <string name="saved">Gesichert</string>
     <string name="pref_nospam">Nospam</string>
     <string name="save">Speichern</string>
+    <string name="delete_message">Nachricht löschen</string>
+    <string name="contact_default_name">Unbekannt</string>
 </resources>
