@@ -68,8 +68,8 @@
     </string-array>
     <string name="send_as_action">Als Aktion senden</string>
     <string name="or_import_existing_save">Oder importiere ein bestehendes Tox-Profil</string>
-    <string name="profile_information">Profilinformationen</string>
-    <string name="profile_settings">Profileinstellungen</string>
+    <string name="profile_information">Profil-Informationen</string>
+    <string name="profile_settings">Profil-Einstellungen</string>
     <string name="profile_nickname">Ändere deinen Namen</string>
     <string name="profile_status_message">Ändere deine Statusmeldung</string>
     <string name="profile_status">Ändere deinen Status</string>
@@ -89,7 +89,7 @@
         <item>@string/status_away</item>
         <item>@string/status_busy</item>
     </string-array>
-    <string name="from">Von</string>
+    <string name="from">Von Tox-ID:</string>
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Status ändern</string>
     <string name="mimetype_handler_not_found">Es konnte keine Anwendung gefunden werden, welche diesen Dateityp öffnen kann %1$s</string>
@@ -99,7 +99,7 @@
     <string name="cancelled">Abgebrochen</string>
     <string name="completed">Abgeschlossen</string>
     <string name="save_as">Speichern unter …</string>
-    <string name="export_file_success">Datei erfolgreich gesendet</string>
+    <string name="export_file_success">Datei erfolgreich gespeichert</string>
     <string name="export_file_failure">Etwas ist beim Exportieren schiefgegangen. Pre-0.5.1 Übertragung wurde standardmäßig exportiert.</string>
     <string name="draft_message">Entwurf: %1$s</string>
     <string name="pref_heading_address">Adresse</string>
@@ -111,7 +111,7 @@
     <string name="bad_host">Ungültiger Host</string>
     <string name="bad_port">Ungültiger Port</string>
     <string name="tox_save_export_failure">Export fehlgeschlagen: %1$s</string>
-    <string name="reply">Antwort</string>
+    <string name="reply">Antworten</string>
     <string name="pref_auto_away">Auto abwesend</string>
     <string name="seconds">Sekunden</string>
     <string name="bad_positive_number">Muss eine positive Zahl sein</string>
@@ -121,15 +121,19 @@
     <string name="pref_heading_advanced">Fortgeschritten</string>
     <string name="pref_heading_ft_auto_accept">Dateiübertragungen automatisch akzeptieren</string>
     <string name="status_message_default">Ich bin für dich erreichbar, dank aTox</string>
-    <string name="error_no_nodes_loaded">Bootstrap-Knoten können nicht geladen werden, bitte wechsel zu eingebauten Knoten oder importiere erneut Knoten</string>
+    <string name="error_no_nodes_loaded">Bootstrap-Knoten können nicht geladen werden, bitte wechsele zu eingebetteten Knoten oder importiere Knoten erneut</string>
     <string name="pref_heading_bootstrap_nodes">Bootstrap-Knotenquelle</string>
     <string name="pref_bootstrap_nodes_description">Vom Benutzer bereitgestellte JSON-Dateien müssen das gleiche Format wie auf https://nodes.tox.chat/json haben</string>
     <string name="add_contact_message_default">Sprich mit mir auf aTox wie ein vernünftiger Mensch.</string>
-    <string name="in_call_with">Im Anruf mit %1$s</string>
-    <string name="ongoing_call">Derzeitiger Anruf</string>
+    <string name="in_call_with">Im Gespräch mit %1$s</string>
+    <string name="ongoing_call">Laufendes Gespräch</string>
     <string name="calls">Anrufe</string>
     <string name="end_call">Anruf beenden</string>
     <string name="microphone_control">Mikrofonsteuerung</string>
     <string name="call">Anruf</string>
     <string name="tox_id_error_self_add">Du kannst dich nicht selbst hinzufügen</string>
+    <string name="pref_nospam_description">Das Ändern deiner Nospams bedeutet, dass sich deine Tox-ID ändert und dass deine aktuelle Tox-ID nicht mehr verwendet werden kann, um dir Freundschaftsanfragen zu senden</string>
+    <string name="saved">Gesichert</string>
+    <string name="pref_nospam">Nospam</string>
+    <string name="save">Speichern</string>
 </resources>
