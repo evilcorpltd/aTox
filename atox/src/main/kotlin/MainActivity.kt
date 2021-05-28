@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import javax.inject.Inject
 import ltd.evilcorp.atox.di.ViewModelFactory

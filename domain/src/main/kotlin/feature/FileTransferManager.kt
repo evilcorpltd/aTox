@@ -192,7 +192,7 @@ class FileTransferManager @Inject constructor(
 
     fun transfersFor(publicKey: PublicKey) = fileTransferRepository.get(publicKey.string())
 
-    suspend fun create(pk: PublicKey, file: Uri) {
+    fun create(pk: PublicKey, file: Uri) {
         val (name, size) = context.contentResolver.query(file, null, null, null, null, null)?.use { cursor ->
             cursor.moveToFirst()
             val fileSize = cursor.getLong(cursor.getColumnIndexOrThrow(OpenableColumns.SIZE))
