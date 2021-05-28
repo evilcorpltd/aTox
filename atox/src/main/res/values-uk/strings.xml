@@ -103,7 +103,7 @@
     <string name="profile_information">Відомості профілю</string>
     <string name="or_import_existing_save">або імпортувати існуючий профіль Tox</string>
     <string name="send_as_action">Надіслати як дію</string>
-    <string name="pref_bootstrap_nodes_description">Власні JSON файли повинні мати ту ж структуру як і тут: https://nodes.tox.chat/json</string>
+    <string name="pref_bootstrap_nodes_description">Власні JSON файли повинні мати ту ж структуру як і тут https://nodes.tox.chat/json</string>
     <string name="contact_list_delete_contact_confirm">Ви впевнені, що хочете видалити \"%1$s\" зі своїх контактів\?</string>
     <string name="receive_share_share_to">Поділитися…</string>
     <string name="error_no_nodes_loaded">Неможливо завантажити початкові вузли, будь ласка, перейдіть на вбудовані вузли або спробуйте імпортувати їх знову</string>

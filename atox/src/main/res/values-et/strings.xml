@@ -54,7 +54,7 @@
     <string name="profile_information">Profiili teave</string>
     <string name="or_import_existing_save">või importige olemasolev Toxi salvestus</string>
     <string name="send_as_action">Saada tegevusena</string>
-    <string name="pref_bootstrap_nodes_description">Kohandatud JSON-failidel peaks olema sama struktuur nagu siin: https://nodes.tox.chat/json</string>
+    <string name="pref_bootstrap_nodes_description">Kohandatud JSON-failidel peaks olema sama struktuur nagu siin https://nodes.tox.chat/json</string>
     <string name="pref_heading_bootstrap_nodes">Stardisõlmede allikas</string>
     <string name="pref_heading_advanced">Laiendatud</string>
     <string name="pref_heading_type">Tüüp</string>

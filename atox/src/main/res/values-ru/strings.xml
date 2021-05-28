@@ -80,7 +80,7 @@
         <item>Встроенные</item>
         <item>Пользовательские</item>
     </string-array>
-    <string name="pref_bootstrap_nodes_description">Пользовательские JSON файлы должны иметь ту же структуру как и здесь: https://nodes.tox.chat/json</string>
+    <string name="pref_bootstrap_nodes_description">Пользовательские JSON файлы должны иметь ту же структуру как и здесь https://nodes.tox.chat/json</string>
     <string name="send_as_action">Отправить как действие</string>
     <string name="or_import_existing_save">или импортировать уже существующий профиль Tox</string>
     <string name="profile_information">Информация профиля</string>
@@ -96,9 +96,9 @@
     <string name="pref_heading_general">Основные</string>
     <string name="pref_run_at_startup">Запускать при загрузке Android</string>
     <string name="friend_request">Запрос в друзья</string>
-    <string name="status_available">Доступен</string>
-    <string name="status_away">Отошёл</string>
-    <string name="status_busy">Занят</string>
+    <string name="status_available">Доступен/Доступна</string>
+    <string name="status_away">Отошёл/Отошла</string>
+    <string name="status_busy">Занят/Занята</string>
     <string-array name="user_statuses">
         <item>@string/status_available</item>
         <item>@string/status_away</item>
@@ -114,7 +114,7 @@
     <string name="cancelled">Отменено</string>
     <string name="completed">Завершено</string>
     <string name="save_as">Сохранить как…</string>
-    <string name="export_file_success">Файл экспортирован</string>
+    <string name="export_file_success">Файл успешно сохранён</string>
     <string name="export_file_failure">Что-то пошло не так при экспортировании файла. До aTox 0.5.1 передачи файлов экспортировались по умолчанию.</string>
     <string name="draft_message">Черновик: %1$s</string>
     <string name="pref_heading_address">IP адрес</string>
@@ -127,7 +127,7 @@
     <string name="bad_port">Неверный порт</string>
     <string name="tox_save_export_failure">Экспортирование профиля не удалось: %1$s</string>
     <string name="reply">Ответить</string>
-    <string name="pref_auto_away">Статус «Отошёл» после</string>
+    <string name="pref_auto_away">Статус \"Отошёл\" после</string>
     <string name="seconds">Секунд</string>
     <string name="bad_positive_number">Должно быть положительным числом</string>
     <string name="warn_node_json_import_failed">Ошибка при импортировании узлов</string>
@@ -141,4 +141,9 @@
     <string name="microphone_control">Управление микрофоном</string>
     <string name="call">Позвонить</string>
     <string name="tox_id_error_self_add">Нельзя добавить самого себя</string>
+    <string name="pref_nospam_description">Изменение АнтиСпама означает, что ваш Tox ID изменится, и текущий Tox ID больше не сможет быть использован для отправки вам запросов в друзья</string>
+    <string name="saved">Сохранено</string>
+    <string name="pref_nospam">АнтиСпам</string>
+    <string name="save">Сохранить</string>
+    <string name="delete_message">Удалить сообщение</string>
 </resources>

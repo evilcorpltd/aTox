@@ -89,7 +89,7 @@
         <item>@string/status_away</item>
         <item>@string/status_busy</item>
     </string-array>
-    <string name="from">Von Tox-ID:</string>
+    <string name="from">Von</string>
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Status ändern</string>
     <string name="mimetype_handler_not_found">Es konnte keine Anwendung gefunden werden, welche diesen Dateityp öffnen kann %1$s</string>

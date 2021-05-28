@@ -80,7 +80,7 @@
         <item>Integrate</item>
         <item>Personalizate</item>
     </string-array>
-    <string name="pref_bootstrap_nodes_description">Fișierele JSON personalizate vin cu structura: https://nodes.tox.chat/json</string>
+    <string name="pref_bootstrap_nodes_description">Fișierele JSON personalizate vin cu structura https://nodes.tox.chat/json</string>
     <string name="send_as_action">Trimite ca acțiune</string>
     <string name="or_import_existing_save">sau importă profilul Tox existent</string>
     <string name="profile_information">Informație profil</string>
@@ -96,15 +96,14 @@
     <string name="pref_heading_general">Generale</string>
     <string name="pref_run_at_startup">Rulează la pornirea Android</string>
     <string name="friend_request">Cerere de prietenie</string>
-    <string name="status_available">Disponibil</string>
-    <string name="status_away">Plecat</string>
-    <string name="status_busy">Ocupat</string>
+    <string name="status_available">Disponibil(ă)</string>
+    <string name="status_away">Plecat(ă)</string>
+    <string name="status_busy">Ocupat(ă)</string>
     <string-array name="user_statuses">
         <item>@string/status_available</item>
         <item>@string/status_away</item>
         <item>@string/status_busy</item>
     </string-array>
-    <string name="from">De la</string>
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Modifică stare</string>
     <string name="mimetype_handler_not_found">Instrumentul de procesare al acestui tip media n-a fost găsit %1$s</string>
@@ -114,7 +113,7 @@
     <string name="cancelled">Anulat</string>
     <string name="completed">Finalizat</string>
     <string name="save_as">Salvează ca…</string>
-    <string name="export_file_success">Fișier exportat</string>
+    <string name="export_file_success">Fișier salvat cu succes</string>
     <string name="export_file_failure">Exportarea fișierului a eșuat. Până la aTox 0.5.1 fișierele erau exportate în mod implicit.</string>
     <string name="draft_message">Ciornă: %1$s</string>
     <string name="pref_heading_address">Adresă IP</string>
@@ -127,18 +126,22 @@
     <string name="bad_port">Port incorect</string>
     <string name="tox_save_export_failure">Exportarea profilului a eșuat: %1$s</string>
     <string name="reply">Răspunde</string>
-    <string name="pref_auto_away">Stare „Plecat” în</string>
+    <string name="pref_auto_away">Stare „Plecat(ă)” în</string>
     <string name="seconds">Secunde</string>
     <string name="bad_positive_number">Trebuie să fie un număr pozitiv</string>
     <string name="warn_node_json_import_failed">Eroare la importarea nodurilor</string>
     <string name="error_no_nodes_loaded">Nodurile bootstrap nu pot fi pornite, rugăm să treci la noduri integrate sau importă din nou</string>
     <string name="receive_share_share_to">Partajează cu…</string>
     <string name="contact_list_delete_contact_confirm">Sigur ștergem „%1$s” din contacte\?</string>
-
     <string name="call">Apelează</string>
     <string name="microphone_control">Control microfon</string>
     <string name="end_call">Închide apel</string>
     <string name="calls">Apeluri</string>
     <string name="ongoing_call">Apel în curs</string>
     <string name="in_call_with">În apel cu %1$s</string>
+    <string name="pref_nospam_description">La schimbarea antispam se schimbă și Tox ID-ul tău, iar Tox ID-ul curent nu mai poate fi utilizat pentru a primi cereri de prietenie</string>
+    <string name="saved">Salvat</string>
+    <string name="pref_nospam">Antispam</string>
+    <string name="save">Salvează</string>
+    <string name="tox_id_error_self_add">Nu te poți adăuga</string>
 </resources>
