@@ -113,4 +113,11 @@
     <string name="end_call">Legg på</string>
     <string name="microphone_control">Mikrofoninnstillinger</string>
     <string name="call">Ring</string>
+    <string name="incoming_call_from">Innkommende anrop fra %1$s</string>
+    <string name="incoming_call">Innkommende anrop</string>
+    <string name="contact_default_name">Ukjent</string>
+    <string name="delete_message">Slett melding</string>
+    <string name="saved">Lagret</string>
+    <string name="save">Lagre</string>
+    <string name="tox_id_error_self_add">Du kan ikke legge til deg selv</string>
 </resources>
