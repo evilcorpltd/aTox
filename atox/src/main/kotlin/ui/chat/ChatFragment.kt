@@ -7,11 +7,14 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsAnimation
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.core.content.FileProvider
@@ -24,6 +27,7 @@ import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.math.MathUtils.lerp
 import java.io.File
 import java.net.URLConnection
 import java.text.DateFormat
@@ -67,6 +71,44 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             bottomBar.updatePadding(left = insets.left, right = insets.right, bottom = insets.bottom)
             messages.updatePadding(left = insets.left, right = insets.right)
             compat
+        }
+
+        if (Build.VERSION.SDK_INT >= 30) {
+            view.setWindowInsetsAnimationCallback(object : WindowInsetsAnimation.Callback(DISPATCH_MODE_STOP) {
+                var startBottom = 0
+                var endBottom = 0
+
+                override fun onPrepare(animation: WindowInsetsAnimation) {
+                    val pos = IntArray(2)
+                    outgoingMessage.getLocationInWindow(pos)
+                    startBottom = pos[1]
+                }
+
+                override fun onStart(
+                    animation: WindowInsetsAnimation,
+                    bounds: WindowInsetsAnimation.Bounds
+                ): WindowInsetsAnimation.Bounds {
+                    val pos = IntArray(2)
+                    outgoingMessage.getLocationInWindow(pos)
+                    endBottom = pos[1]
+                    val offset = (startBottom - endBottom).toFloat()
+                    messages.translationY = offset
+                    bottomBar.translationY = offset
+
+                    return bounds
+                }
+
+                override fun onProgress(
+                    insets: WindowInsets,
+                    runningAnimations: MutableList<WindowInsetsAnimation>
+                ): WindowInsets {
+                    val animation = runningAnimations[0]
+                    val offset = lerp((startBottom - endBottom).toFloat(), 0f, animation.interpolatedFraction)
+                    messages.translationY = offset
+                    bottomBar.translationY = offset
+                    return insets
+                }
+            })
         }
 
         toolbar.setNavigationIcon(R.drawable.back)
