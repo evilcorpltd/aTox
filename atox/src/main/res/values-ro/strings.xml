@@ -4,7 +4,7 @@
     <string name="add">Adaugă</string>
     <string name="add_contact">Adaugă contact</string>
     <string name="add_contact_message_default">Fii rațional, comunică cu mine în aTox.</string>
-    <string name="add_contact_message_error_empty">Mesajul nu poate fi gol</string>
+    <string name="add_contact_message_error_empty">Mai întâi să scriem ceva</string>
     <string name="confirm">Confirmă</string>
     <string name="cancel">Anulează</string>
     <string name="connecting">Conectare…</string>
@@ -44,12 +44,12 @@
     <!-- Chat history clearing -->
     <string name="clear_history">Șterge istoricul</string>
     <string name="clear_history_cleared">Istoric șters</string>
-    <string name="clear_history_confirm">Sigur ștergem istoricul de chat cu %1$s?</string>
-    <string name="delete_message_confirm">Sigur ștergem mesajul „%1$s”\?</string>
+    <string name="clear_history_confirm">Sigur ștergi istoricul de chat cu %1$s?</string>
+    <string name="delete_message_confirm">Sigur ștergi mesajul „%1$s”\?</string>
     <string name="import_tox_save">Importă</string>
     <string name="import_tox_save_failed">Importare eșuată: %1$s</string>
-    <string name="export_tox_save">Exportă profil Tox</string>
-    <string name="tox_save_exported">Profil Tox exportat</string>
+    <string name="export_tox_save">Salvează profil Tox</string>
+    <string name="tox_save_exported">Profil Tox salvat</string>
     <string name="never">Niciodată</string>
     <string name="info">Informație</string>
     <string name="atox_offline">Deconectat</string>
@@ -58,7 +58,7 @@
     <string name="read_qr">Cod QR</string>
     <string name="pref_heading_theme">Temă</string>
     <string-array name="pref_theme_options">
-        <item>Conform setărilor</item>
+        <item>Urmez sistemul</item>
         <item>Luminoasă</item>
         <item>Întunecată</item>
     </string-array>
@@ -89,12 +89,12 @@
     <string name="profile_status_message">Modifică mesaj stare</string>
     <string name="profile_status">Modifică stare</string>
     <string name="profile">Profil</string>
-    <string name="tox_id_error_already_exists">Contactul cu acest ID deja există</string>
-    <string name="tox_service_running">aTox rulează</string>
+    <string name="tox_id_error_already_exists">Contactul cu acest Tox ID deja există</string>
+    <string name="tox_service_running">aTox rulează…</string>
     <string name="pref_heading_network">Rețea</string>
     <string name="pref_udp_enabled">UDP activat</string>
     <string name="pref_heading_general">Generale</string>
-    <string name="pref_run_at_startup">Rulează la pornirea Android</string>
+    <string name="pref_run_at_startup">Rulează la pornire</string>
     <string name="friend_request">Cerere de prietenie</string>
     <string name="status_available">Disponibil(ă)</string>
     <string name="status_away">Plecat(ă)</string>
@@ -106,7 +106,7 @@
     </string-array>
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Modifică stare</string>
-    <string name="mimetype_handler_not_found">Instrumentul de procesare al acestui tip media n-a fost găsit %1$s</string>
+    <string name="mimetype_handler_not_found">Nu am găsit aplicația care ar procesa tipul media \"%1$s\"</string>
     <string name="attach_file">Atașează fișier</string>
     <string name="delete">Șterge</string>
     <string name="notification_file_transfer">Fișier de intrare „%1$s”</string>
@@ -114,17 +114,17 @@
     <string name="completed">Finalizat</string>
     <string name="save_as">Salvează ca…</string>
     <string name="export_file_success">Fișier salvat cu succes</string>
-    <string name="export_file_failure">Exportarea fișierului a eșuat. Până la aTox 0.5.1 fișierele erau exportate în mod implicit.</string>
+    <string name="export_file_failure">Salvarea fișierului a eșuat. Până la aTox 0.5.1 fișierele erau salvate în mod implicit.</string>
     <string name="draft_message">Ciornă: %1$s</string>
     <string name="pref_heading_address">Adresă IP</string>
     <string name="pref_heading_port">Port</string>
     <string name="pref_heading_proxy">Proxy</string>
-    <string name="warn_proxy_broken">Configurare proxy incorectă. Modifică sau dezactivează înainte de utilizarea aplicației.</string>
-    <string name="proxy_not_found">Acest proxy n-a fost găsit</string>
+    <string name="warn_proxy_broken">Setează proxy corect (sau oprește-l) înainte de a utiliza aplicația</string>
+    <string name="proxy_not_found">Acest proxy nu a fost găsit</string>
     <string name="bad_type">Tip incorect</string>
     <string name="bad_host">Host incorect</string>
     <string name="bad_port">Port incorect</string>
-    <string name="tox_save_export_failure">Exportarea profilului a eșuat: %1$s</string>
+    <string name="tox_save_export_failure">Nu am putut salva profilul: %1$s</string>
     <string name="reply">Răspunde</string>
     <string name="pref_auto_away">Stare „Plecat(ă)” în</string>
     <string name="seconds">Secunde</string>
@@ -132,16 +132,18 @@
     <string name="warn_node_json_import_failed">Eroare la importarea nodurilor</string>
     <string name="error_no_nodes_loaded">Nodurile bootstrap nu pot fi pornite, rugăm să treci la noduri integrate sau importă din nou</string>
     <string name="receive_share_share_to">Partajează cu…</string>
-    <string name="contact_list_delete_contact_confirm">Sigur ștergem „%1$s” din contacte\?</string>
+    <string name="contact_list_delete_contact_confirm">Sigur ștergi „%1$s” din contacte\?</string>
     <string name="call">Apelează</string>
     <string name="microphone_control">Control microfon</string>
     <string name="end_call">Închide apel</string>
     <string name="calls">Apeluri</string>
     <string name="ongoing_call">Apel în curs</string>
     <string name="in_call_with">În apel cu %1$s</string>
-    <string name="pref_nospam_description">La schimbarea antispam se schimbă și Tox ID-ul tău, iar Tox ID-ul curent nu mai poate fi utilizat pentru a primi cereri de prietenie</string>
-    <string name="saved">Salvat</string>
-    <string name="pref_nospam">Antispam</string>
     <string name="save">Salvează</string>
+    <string name="pref_nospam">AntiSpam</string>
+    <string name="pref_nospam_description">La schimbarea AntiSpam se alterează Tox ID-ul tău, care după actualizare va fi folosit pentru a primi cereri de prietenie noi</string>
+    <string name="saved">Salvat</string>
     <string name="tox_id_error_self_add">Nu te poți adăuga</string>
+    <string name="delete_message">Șterge mesaj</string>
+    <string name="contact_default_name">Necunoscut</string>
 </resources>
