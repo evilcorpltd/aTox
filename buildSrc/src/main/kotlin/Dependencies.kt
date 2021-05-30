@@ -23,7 +23,7 @@ object BuildPlugin {
     const val ideaExtVersion = "1.0"
 
     const val versions = "com.github.ben-manes.versions"
-    const val versionsVersion = "0.38.0"
+    const val versionsVersion = "0.39.0"
     const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:$versionsVersion"
 }
 
@@ -47,10 +47,10 @@ object KotlinX {
 
 object AndroidX {
     object Core {
-        const val ktx = "androidx.core:core-ktx:1.5.0-rc02"
+        const val ktx = "androidx.core:core-ktx:1.5.0"
     }
 
-    const val appcompat = "androidx.appcompat:appcompat:1.2.0"
+    const val appcompat = "androidx.appcompat:appcompat:1.3.0"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.4"
 
     object Navigation {
@@ -100,7 +100,7 @@ object Google {
 
     const val dagger = "com.google.dagger:dagger:${Dagger.version}"
     object Dagger {
-        internal const val version = "2.35.1"
+        internal const val version = "2.36"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
     }
 }
