@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
@@ -58,6 +59,8 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
 
         toolbar.setNavigationIcon(R.drawable.back)
         toolbar.setNavigationOnClickListener {
+            WindowInsetsControllerCompat(requireActivity().window, view)
+                .hide(WindowInsetsCompat.Type.ime())
             activity?.onBackPressed()
         }
 

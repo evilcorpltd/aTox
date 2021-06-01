@@ -23,6 +23,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
@@ -123,7 +124,11 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         }
 
         toolbar.setNavigationIcon(R.drawable.back)
-        toolbar.setNavigationOnClickListener { activity?.onBackPressed() }
+        toolbar.setNavigationOnClickListener {
+            WindowInsetsControllerCompat(requireActivity().window, view)
+                .hide(WindowInsetsCompat.Type.ime())
+            activity?.onBackPressed()
+        }
 
         toolbar.inflateMenu(R.menu.chat_options_menu)
         toolbar.setOnMenuItemClickListener { item ->

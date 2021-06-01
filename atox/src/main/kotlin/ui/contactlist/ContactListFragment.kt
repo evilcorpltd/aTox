@@ -7,14 +7,12 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
@@ -194,10 +192,6 @@ class ContactListFragment :
                 arguments?.remove(ARG_SHARE)
             }
             shareDialog?.show()
-        }
-
-        activity?.getSystemService<InputMethodManager>().let { imm ->
-            imm?.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 
