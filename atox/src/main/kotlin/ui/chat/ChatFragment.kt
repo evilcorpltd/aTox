@@ -1,6 +1,5 @@
 package ltd.evilcorp.atox.ui.chat
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.ClipData
@@ -17,6 +16,7 @@ import android.view.WindowInsets
 import android.view.WindowInsetsAnimation
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
@@ -49,8 +49,6 @@ import ltd.evilcorp.core.vo.isComplete
 import ltd.evilcorp.domain.tox.PublicKey
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
-private const val REQUEST_CODE_FT_EXPORT = 1234
-private const val REQUEST_CODE_ATTACH = 5678
 private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 20
 
 class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::inflate) {
@@ -60,6 +58,19 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
     private var contactName = ""
     private var selectedFt: Int = Int.MIN_VALUE
     private var fts: List<FileTransfer> = listOf()
+
+    private val exportFtLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument()) { dest ->
+        if (dest == null) return@registerForActivityResult
+        viewModel.exportFt(selectedFt, dest)
+    }
+
+    private val attachFilesLauncher =
+        registerForActivityResult(ActivityResultContracts.OpenMultipleDocuments()) { files ->
+            viewModel.setActiveChat(PublicKey(contactPubKey))
+            for (file in files) {
+                viewModel.createFt(file)
+            }
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = binding.run {
         contactPubKey = requireStringArg(CONTACT_PUBLIC_KEY)
@@ -241,13 +252,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         send.setOnClickListener { send(MessageType.Normal) }
 
         attach.setOnClickListener {
-            Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                addCategory(Intent.CATEGORY_OPENABLE)
-                type = "*/*"
-                putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            }.also {
-                startActivityForResult(it, REQUEST_CODE_ATTACH)
-            }
+            attachFilesLauncher.launch(arrayOf("*/*"))
         }
 
         outgoingMessage.doAfterTextChanged {
@@ -334,43 +339,10 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                 val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
                 val message = messages.adapter.getItem(info.position) as Message
                 selectedFt = message.correlationId
-                Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-                    addCategory(Intent.CATEGORY_OPENABLE)
-                    type = "application/octet-stream"
-                    putExtra(Intent.EXTRA_TITLE, message.message)
-                }.let {
-                    startActivityForResult(it, REQUEST_CODE_FT_EXPORT)
-                }
+                exportFtLauncher.launch(message.message)
                 true
             }
             else -> super.onContextItemSelected(item)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        // Runs before onResume, so add back some required state..
-        viewModel.setActiveChat(PublicKey(contactPubKey))
-        when (requestCode) {
-            REQUEST_CODE_FT_EXPORT -> {
-                if (resultCode == Activity.RESULT_OK && data != null) {
-                    viewModel.exportFt(selectedFt, data.data as Uri)
-                }
-            }
-            REQUEST_CODE_ATTACH -> {
-                if (resultCode == Activity.RESULT_OK && data != null) {
-                    if (data.data != null) {
-                        // Single file.
-                        viewModel.createFt(data.data as Uri)
-                    } else if (data.clipData != null) {
-                        // Multiple files.
-                        val clipData = data.clipData ?: return
-                        for (i in 0 until clipData.itemCount) {
-                            viewModel.createFt(clipData.getItemAt(i).uri)
-                        }
-                    }
-                }
-            }
-            else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
 

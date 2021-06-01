@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -22,8 +23,6 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.domain.tox.ToxID
 import ltd.evilcorp.domain.tox.ToxIdValidator
 
-private const val REQUEST_CODE_SCAN_QR = 6100
-
 class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddContactBinding::inflate) {
     private val viewModel: AddContactViewModel by viewModels { vmFactory }
 
@@ -37,6 +36,12 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (!viewModel.isToxRunning() && !viewModel.tryLoadTox()) findNavController().navigateUp()
+    }
+
+    val scanQrLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != RESULT_OK) return@registerForActivityResult
+        val toxId = it.data?.getStringExtra("SCAN_RESULT") ?: return@registerForActivityResult
+        binding.toxId.setText(toxId.removePrefix("tox:"))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
@@ -101,12 +106,13 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
         if (requireContext().packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
             readQr.setOnClickListener {
                 try {
-                    val intent = Intent("com.google.zxing.client.android.SCAN").apply {
-                        putExtra("SCAN_FORMATS", "QR_CODE")
-                        putExtra("SCAN_ORIENTATION_LOCKED", false)
-                        putExtra("BEEP_ENABLED", false)
-                    }
-                    startActivityForResult(intent, REQUEST_CODE_SCAN_QR)
+                    scanQrLauncher.launch(
+                        Intent("com.google.zxing.client.android.SCAN").apply {
+                            putExtra("SCAN_FORMATS", "QR_CODE")
+                            putExtra("SCAN_ORIENTATION_LOCKED", false)
+                            putExtra("BEEP_ENABLED", false)
+                        }
+                    )
                 } catch (e: ActivityNotFoundException) {
                     val uri = Uri.parse("https://f-droid.org/en/packages/com.google.zxing.client.android/")
                     startActivity(Intent(Intent.ACTION_VIEW, uri))
@@ -119,11 +125,5 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
         add.isEnabled = false
 
         toxId.setText(arguments?.getString("toxId"), TextView.BufferType.EDITABLE)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode != REQUEST_CODE_SCAN_QR || resultCode != RESULT_OK) return
-        val toxId = data?.getStringExtra("SCAN_RESULT") ?: return
-        binding.toxId.setText(toxId.removePrefix("tox:"))
     }
 }

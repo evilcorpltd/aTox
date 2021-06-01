@@ -1,15 +1,13 @@
 package ltd.evilcorp.atox.ui.settings
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -30,8 +28,6 @@ import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.domain.tox.ProxyType
 
-private const val REQUEST_CODE_NODE_JSON = 6660
-
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
     private val vm: SettingsViewModel by viewModels { vmFactory }
     private val blockBackCallback = object : OnBackPressedCallback(false) {
@@ -43,6 +39,27 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
     private val applySettingsCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             vm.commit()
+        }
+    }
+
+    private val importNodesLauncher = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        GlobalScope.launch {
+            if (uri != null && vm.validateNodeJson(uri)) {
+                if (vm.importNodeJson(uri)) {
+                    vm.setBootstrapNodeSource(BootstrapNodeSource.UserProvided)
+                    return@launch
+                }
+
+                withContext(Dispatchers.Main) {
+                    binding.settingBootstrapNodes.setSelection(BootstrapNodeSource.BuiltIn.ordinal)
+
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.warn_node_json_import_failed),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
         }
     }
 
@@ -209,40 +226,11 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
                 if (source == BootstrapNodeSource.BuiltIn) {
                     vm.setBootstrapNodeSource(source)
                 } else {
-                    Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                        addCategory(Intent.CATEGORY_OPENABLE)
-                        type = "application/json"
-                    }.also {
-                        startActivityForResult(it, REQUEST_CODE_NODE_JSON)
-                    }
+                    importNodesLauncher.launch(arrayOf("application/json"))
                 }
             }
         }
 
         version.text = getString(R.string.version_display, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_CODE_NODE_JSON -> GlobalScope.launch {
-                if (resultCode == Activity.RESULT_OK && data != null && vm.validateNodeJson(data.data as Uri)) {
-                    if (vm.importNodeJson(data.data as Uri)) {
-                        vm.setBootstrapNodeSource(BootstrapNodeSource.UserProvided)
-                        return@launch
-                    }
-                }
-
-                withContext(Dispatchers.Main) {
-                    binding.settingBootstrapNodes.setSelection(BootstrapNodeSource.BuiltIn.ordinal)
-
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.warn_node_json_import_failed),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
     }
 }

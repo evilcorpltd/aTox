@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -20,11 +21,20 @@ import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.tox.PublicKey
 
-private val PERMISSIONS = arrayOf(Manifest.permission.RECORD_AUDIO)
-private const val REQUEST_RECORD_AUDIO_PERMISSION = 8888
+private const val PERMISSION = Manifest.permission.RECORD_AUDIO
 
 class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::inflate) {
     private val vm: CallViewModel by viewModels { vmFactory }
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) {
+            startCall()
+        } else {
+            findNavController().popBackStack()
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
@@ -52,28 +62,12 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
             return
         }
 
-        if (ContextCompat.checkSelfPermission(requireContext(), PERMISSIONS[0]) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(requireContext(), PERMISSION) == PackageManager.PERMISSION_GRANTED) {
             startCall()
             return
         }
 
-        requestPermissions(PERMISSIONS, REQUEST_RECORD_AUDIO_PERMISSION)
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        val granted = if (requestCode == REQUEST_RECORD_AUDIO_PERMISSION) {
-            grantResults[0] == PackageManager.PERMISSION_GRANTED
-        } else {
-            false
-        }
-
-        if (!granted) {
-            findNavController().popBackStack()
-        } else {
-            startCall()
-        }
+        requestPermissionLauncher.launch(PERMISSION)
     }
 
     private fun startCall() {

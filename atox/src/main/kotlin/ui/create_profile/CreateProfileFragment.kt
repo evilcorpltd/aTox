@@ -1,12 +1,11 @@
 package ltd.evilcorp.atox.ui.create_profile
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -19,10 +18,27 @@ import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.domain.tox.ToxSaveStatus
 
-private const val IMPORT = 42
-
 class CreateProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
     private val viewModel: CreateProfileViewModel by viewModels { vmFactory }
+
+    private val importLauncher = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        if (uri == null) return@registerForActivityResult
+
+        Log.i("ProfileFragment", "Importing file $uri")
+        viewModel.tryImportToxSave(uri)?.also { save ->
+            val startStatus = viewModel.startTox(save)
+            if (startStatus == ToxSaveStatus.Ok) {
+                viewModel.verifyUserExists(viewModel.publicKey)
+                findNavController().popBackStack()
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    resources.getString(R.string.import_tox_save_failed, startStatus.name),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
@@ -51,35 +67,7 @@ class CreateProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfi
         }
 
         btnImport.setOnClickListener {
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                addCategory(Intent.CATEGORY_OPENABLE)
-                type = "*/*"
-            }
-
-            startActivityForResult(intent, IMPORT)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
-        if (requestCode != IMPORT || resultCode != Activity.RESULT_OK) {
-            return
-        }
-
-        resultData?.data?.let { uri ->
-            Log.e("ProfileFragment", "Importing file $uri")
-            viewModel.tryImportToxSave(uri)?.also { save ->
-                val startStatus = viewModel.startTox(save)
-                if (startStatus == ToxSaveStatus.Ok) {
-                    viewModel.verifyUserExists(viewModel.publicKey)
-                    findNavController().popBackStack()
-                } else {
-                    Toast.makeText(
-                        requireContext(),
-                        resources.getString(R.string.import_tox_save_failed, startStatus.name),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
+            importLauncher.launch(arrayOf("*/*"))
         }
     }
 }

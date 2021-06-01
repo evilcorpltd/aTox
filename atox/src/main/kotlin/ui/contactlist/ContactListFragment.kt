@@ -1,8 +1,5 @@
 package ltd.evilcorp.atox.ui.contactlist
 
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.ContextMenu
 import android.view.LayoutInflater
@@ -14,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.getSystemService
@@ -46,7 +44,6 @@ import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.ToxSaveStatus
 
 const val ARG_SHARE = "share"
-private const val REQUEST_CODE_BACKUP_TOX = 9202
 private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 32
 
 private fun User.online(): Boolean =
@@ -64,6 +61,11 @@ class ContactListFragment :
     private var backupFileNameHint = "something_is_broken.tox"
 
     private var shareDialog: ReceiveShareDialog? = null
+
+    private val exportToxSaveLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument()) { dest ->
+        if (dest == null) return@registerForActivityResult
+        viewModel.saveToxBackupTo(dest)
+    }
 
     private fun colorFromStatus(status: UserStatus) = when (status) {
         UserStatus.None -> ResourcesCompat.getColor(resources, R.color.statusAvailable, null)
@@ -280,15 +282,7 @@ class ContactListFragment :
             }
             R.id.add_contact -> findNavController().navigate(R.id.action_contactListFragment_to_addContactFragment)
             R.id.settings -> findNavController().navigate(R.id.action_contactListFragment_to_settingsFragment)
-            R.id.export_tox_save -> {
-                Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-                    addCategory(Intent.CATEGORY_OPENABLE)
-                    type = "application/octet-stream"
-                    putExtra(Intent.EXTRA_TITLE, backupFileNameHint)
-                }.also {
-                    startActivityForResult(it, REQUEST_CODE_BACKUP_TOX)
-                }
-            }
+            R.id.export_tox_save -> exportToxSaveLauncher.launch(backupFileNameHint)
             R.id.quit_tox -> {
                 AlertDialog.Builder(requireContext())
                     .setTitle(R.string.quit_confirm)
@@ -302,17 +296,6 @@ class ContactListFragment :
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return false
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_CODE_BACKUP_TOX -> {
-                if (resultCode == Activity.RESULT_OK && data != null) {
-                    viewModel.saveToxBackupTo(data.data as Uri)
-                }
-            }
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
