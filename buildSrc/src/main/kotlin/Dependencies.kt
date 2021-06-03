@@ -50,8 +50,10 @@ object AndroidX {
         const val ktx = "androidx.core:core-ktx:1.5.0"
     }
 
+    const val activity = "androidx.activity:activity:1.2.3"
     const val appcompat = "androidx.appcompat:appcompat:1.3.0"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.4"
+    const val fragment = "androidx.fragment:fragment:1.3.4"
 
     object Navigation {
         private const val version = "2.3.5"

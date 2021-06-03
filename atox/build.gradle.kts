@@ -55,8 +55,10 @@ dependencies {
     implementation(project(":domain"))
 
     implementation(AndroidX.Core.ktx)
+    implementation(AndroidX.activity)
     implementation(AndroidX.appcompat)
     implementation(AndroidX.constraintlayout)
+    implementation(AndroidX.fragment)
 
     implementation(Google.Android.material)
 
