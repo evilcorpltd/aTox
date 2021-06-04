@@ -14,11 +14,23 @@ The reasonable Tox client for Android.
 
 ## Building
 
-Clone!
+### Clone!
 
 `git clone https://github.com/evilcorpltd/aTox.git`
 
-Build!
+### Build tox4j!
+
+Until [#730][publish-tox4j] is closed, you'll have to build and publish tox4j to a local repository:
+
+```sh
+./scripts/build-host -j$(nproc)
+./scripts/build-aarch64-linux-android -j$(nproc) release
+./scripts/build-arm-linux-androideabi -j$(nproc) release
+./scripts/build-i686-linux-android -j$(nproc) release
+./scripts/build-x86_64-linux-android -j$(nproc) release
+```
+
+### Build aTox!
 
 `gradlew build`
 
@@ -28,6 +40,7 @@ Want to see aTox in your language? Contribute a translation on [Weblate!][weblat
 
 [![Translation status](https://hosted.weblate.org/widgets/atox/-/app/multi-auto.svg)][weblate]
 
+[publish-tox4j]: https://github.com/evilcorpltd/aTox/issues/730
 [fdroid]: https://f-droid.org/packages/ltd.evilcorp.atox
 [gplay]: https://play.google.com/store/apps/details?id=ltd.evilcorp.atox
 [libera]: https://kiwiirc.com/nextclient/irc.libera.chat/atox
