@@ -152,4 +152,5 @@
     <string name="contact_default_name">Unknown</string>
     <string name="incoming_call">Incoming call</string>
     <string name="incoming_call_from">Incoming call from %1$s</string>
+    <string name="call_mic_permission_needed">Microphone permission required to enable sending audio</string>
 </resources>

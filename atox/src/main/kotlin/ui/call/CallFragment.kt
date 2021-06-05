@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -12,6 +13,7 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
+import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentCallBinding
 import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.ui.BaseFragment
@@ -30,9 +32,9 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
         ActivityResultContracts.RequestPermission()
     ) { granted ->
         if (granted) {
-            startCall()
+            vm.startSendingAudio()
         } else {
-            findNavController().popBackStack()
+            Toast.makeText(requireContext(), getString(R.string.call_mic_permission_needed), Toast.LENGTH_LONG).show()
         }
     }
 
@@ -53,6 +55,30 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
             findNavController().popBackStack()
         }
 
+        vm.sendingAudio.asLiveData().observe(viewLifecycleOwner) { sending ->
+            if (sending) {
+                microphoneControl.setImageResource(R.drawable.ic_mic)
+            } else {
+                microphoneControl.setImageResource(R.drawable.ic_mic_off)
+            }
+        }
+
+        microphoneControl.setOnClickListener {
+            if (vm.sendingAudio.value) {
+                vm.stopSendingAudio()
+            } else {
+                if (ContextCompat.checkSelfPermission(
+                        requireContext(),
+                        PERMISSION
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
+                    vm.startSendingAudio()
+                } else {
+                    requestPermissionLauncher.launch(PERMISSION)
+                }
+            }
+        }
+
         if (vm.inCall.value is CallState.InCall) {
             vm.inCall.asLiveData().observe(viewLifecycleOwner) { inCall ->
                 if (inCall == CallState.NotInCall) {
@@ -62,12 +88,11 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
             return
         }
 
-        if (ContextCompat.checkSelfPermission(requireContext(), PERMISSION) == PackageManager.PERMISSION_GRANTED) {
-            startCall()
-            return
-        }
+        startCall()
 
-        requestPermissionLauncher.launch(PERMISSION)
+        if (ContextCompat.checkSelfPermission(requireContext(), PERMISSION) == PackageManager.PERMISSION_GRANTED) {
+            vm.startSendingAudio()
+        }
     }
 
     private fun startCall() {

@@ -28,28 +28,17 @@ class CallManager @Inject constructor(
     private val _inCall = MutableStateFlow<CallState>(CallState.NotInCall)
     val inCall: StateFlow<CallState> get() = _inCall
 
-    fun startCall(publicKey: PublicKey): Boolean {
-        val recorder = AudioCapture(48_000, 1)
-        if (!recorder.isOk()) {
-            return false
-        }
+    private val _sendingAudio = MutableStateFlow(false)
+    val sendingAudio: StateFlow<Boolean> get() = _sendingAudio
 
+    fun startCall(publicKey: PublicKey) {
         tox.startCall(publicKey)
         _inCall.value = CallState.InCall(publicKey)
-        startAudioSender(recorder, publicKey)
-        return true
     }
 
-    fun answerCall(publicKey: PublicKey): Boolean {
-        val recorder = AudioCapture(48_000, 1)
-        if (!recorder.isOk()) {
-            return false
-        }
-
+    fun answerCall(publicKey: PublicKey) {
         tox.answerCall(publicKey)
         _inCall.value = CallState.InCall(publicKey)
-        startAudioSender(recorder, publicKey)
-        return true
     }
 
     fun endCall(publicKey: PublicKey) {
@@ -63,10 +52,27 @@ class CallManager @Inject constructor(
         }
     }
 
+    fun startSendingAudio(): Boolean {
+        val to = (inCall.value as CallState.InCall?)?.publicKey ?: return false
+
+        val recorder = AudioCapture(48_000, 1)
+        if (!recorder.isOk()) {
+            return false
+        }
+
+        startAudioSender(recorder, to)
+        return true
+    }
+
+    fun stopSendingAudio() {
+        _sendingAudio.value = false
+    }
+
     private fun startAudioSender(recorder: AudioCapture, to: PublicKey) {
         launch {
             recorder.start()
-            while (inCall.value is CallState.InCall) {
+            _sendingAudio.value = true
+            while (inCall.value is CallState.InCall && sendingAudio.value) {
                 val start = System.currentTimeMillis()
                 val audioFrame = recorder.read()
                 try {
@@ -81,6 +87,7 @@ class CallManager @Inject constructor(
             }
             recorder.stop()
             recorder.release()
+            _sendingAudio.value = false
         }
     }
 }

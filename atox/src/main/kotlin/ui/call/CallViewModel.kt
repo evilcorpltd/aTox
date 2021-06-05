@@ -29,13 +29,9 @@ class CallViewModel @Inject constructor(
         publicKey = pk
     }
 
-    fun startCall(): Boolean {
-        if (callManager.startCall(publicKey)) {
-            launch { notificationHelper.showOngoingCallNotification(contactManager.get(publicKey).first()) }
-            return true
-        }
-
-        return false
+    fun startCall() {
+        callManager.startCall(publicKey)
+        launch { notificationHelper.showOngoingCallNotification(contactManager.get(publicKey).first()) }
     }
 
     fun endCall() = launch {
@@ -43,5 +39,9 @@ class CallViewModel @Inject constructor(
         notificationHelper.dismissCallNotification(contactManager.get(publicKey).first())
     }
 
+    fun startSendingAudio() = callManager.startSendingAudio()
+    fun stopSendingAudio() = callManager.stopSendingAudio()
+
     val inCall = callManager.inCall
+    val sendingAudio = callManager.sendingAudio
 }
