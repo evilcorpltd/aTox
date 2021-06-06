@@ -1,12 +1,10 @@
 package ltd.evilcorp.atox.ui.call
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -15,6 +13,7 @@ import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentCallBinding
+import ltd.evilcorp.atox.hasPermission
 import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
@@ -67,11 +66,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
             if (vm.sendingAudio.value) {
                 vm.stopSendingAudio()
             } else {
-                if (ContextCompat.checkSelfPermission(
-                        requireContext(),
-                        PERMISSION
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
+                if (requireContext().hasPermission(PERMISSION)) {
                     vm.startSendingAudio()
                 } else {
                     requestPermissionLauncher.launch(PERMISSION)
@@ -90,7 +85,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
 
         startCall()
 
-        if (ContextCompat.checkSelfPermission(requireContext(), PERMISSION) == PackageManager.PERMISSION_GRANTED) {
+        if (requireContext().hasPermission(PERMISSION)) {
             vm.startSendingAudio()
         }
     }

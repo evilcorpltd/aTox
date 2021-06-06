@@ -4,10 +4,8 @@ import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.core.app.RemoteInput
-import androidx.core.content.ContextCompat
 import javax.inject.Inject
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.vo.Contact
@@ -49,11 +47,7 @@ class ActionReceiver : BroadcastReceiver() {
             if (callChoice == "accept") {
                 callManager.answerCall(PublicKey(pk))
                 notificationHelper.showOngoingCallNotification(Contact(pk, tox.getName()))
-                if (ContextCompat.checkSelfPermission(
-                        context,
-                        Manifest.permission.RECORD_AUDIO
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
+                if (context.hasPermission(Manifest.permission.RECORD_AUDIO)) {
                     callManager.startSendingAudio()
                 } else {
                     Toast.makeText(context, R.string.call_mic_permission_needed, Toast.LENGTH_LONG).show()
