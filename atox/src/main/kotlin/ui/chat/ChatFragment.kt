@@ -125,8 +125,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
 
         toolbar.setNavigationIcon(R.drawable.back)
         toolbar.setNavigationOnClickListener {
-            WindowInsetsControllerCompat(requireActivity().window, view)
-                .hide(WindowInsetsCompat.Type.ime())
+            WindowInsetsControllerCompat(requireActivity().window, view).hide(WindowInsetsCompat.Type.ime())
             activity?.onBackPressed()
         }
 
@@ -145,6 +144,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                     true
                 }
                 R.id.call -> {
+                    WindowInsetsControllerCompat(requireActivity().window, view).hide(WindowInsetsCompat.Type.ime())
                     findNavController().navigate(
                         R.id.action_chatFragment_to_callFragment,
                         bundleOf(CONTACT_PUBLIC_KEY to contactPubKey)
@@ -156,6 +156,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         }
 
         contactHeader.setOnClickListener {
+            WindowInsetsControllerCompat(requireActivity().window, view).hide(WindowInsetsCompat.Type.ime())
             findNavController().navigate(
                 R.id.action_chatFragment_to_contactProfileFragment,
                 bundleOf(CONTACT_PUBLIC_KEY to contactPubKey)
@@ -241,6 +242,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                         flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
                     }
                     try {
+                        WindowInsetsControllerCompat(requireActivity().window, view).hide(WindowInsetsCompat.Type.ime())
                         startActivity(Intent.createChooser(shareIntent, null))
                     } catch (_: ActivityNotFoundException) {
                         Toast.makeText(
@@ -257,6 +259,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         send.setOnClickListener { send(MessageType.Normal) }
 
         attach.setOnClickListener {
+            WindowInsetsControllerCompat(requireActivity().window, view).hide(WindowInsetsCompat.Type.ime())
             attachFilesLauncher.launch(arrayOf("*/*"))
         }
 
