@@ -1,0 +1,37 @@
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master ]
+
+env:
+  DETEKT_RELEASE: 1.17.1
+
+jobs:
+  detekt:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup
+      run: |
+        curl \
+          --request GET \
+          --url https://github.com/detekt/detekt/releases/download/v${DETEKT_RELEASE}/detekt-cli-${DETEKT_RELEASE}-all.jar \
+          --silent \
+          --location \
+          --output detekt
+        chmod a+x detekt
+
+    - name: Run
+      continue-on-error: true
+      run: |
+        java -jar detekt \
+          --input ${{ github.workspace }} \
+          --base-path ${{ github.workspace }} \
+          --report sarif:${{ github.workspace }}/detekt.sarif.json
+
+    - uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: ${{ github.workspace }}/detekt.sarif.json
+        checkout_path: ${{ github.workspace }}
