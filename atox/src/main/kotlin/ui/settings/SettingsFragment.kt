@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
@@ -28,6 +29,15 @@ import ltd.evilcorp.atox.settings.FtAutoAccept
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.domain.tox.ProxyType
+
+private fun Spinner.onItemSelectedListener(callback: (Int) -> Unit) {
+    this.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(parent: AdapterView<*>?) { /* Do nothing. */ }
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            callback(position)
+        }
+    }
+}
 
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
     private val vm: SettingsViewModel by viewModels { vmFactory }
@@ -95,11 +105,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
 
         theme.setSelection(vm.getTheme())
 
-        theme.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                vm.setTheme(position)
-            }
+        theme.onItemSelectedListener {
+            vm.setTheme(it)
         }
 
         settingRunAtStartup.isChecked = vm.getRunAtStartup()
@@ -128,11 +135,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
 
         settingFtAutoAccept.setSelection(vm.getFtAutoAccept().ordinal)
 
-        settingFtAutoAccept.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                vm.setFtAutoAccept(FtAutoAccept.values()[position])
-            }
+        settingFtAutoAccept.onItemSelectedListener {
+            vm.setFtAutoAccept(FtAutoAccept.values()[it])
         }
 
         if (vm.getProxyType() != ProxyType.None) {
@@ -149,17 +153,14 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
 
         proxyType.setSelection(vm.getProxyType().ordinal)
 
-        proxyType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selected = ProxyType.values()[position]
-                vm.setProxyType(selected)
+        proxyType.onItemSelectedListener {
+            val selected = ProxyType.values()[it]
+            vm.setProxyType(selected)
 
-                // Disable UDP if a proxy is selected to ensure all traffic goes through the proxy.
-                settingsUdpEnabled.isEnabled = selected == ProxyType.None
-                settingsUdpEnabled.isChecked = settingsUdpEnabled.isChecked && selected == ProxyType.None
-                vm.setUdpEnabled(settingsUdpEnabled.isChecked)
-            }
+            // Disable UDP if a proxy is selected to ensure all traffic goes through the proxy.
+            settingsUdpEnabled.isEnabled = selected == ProxyType.None
+            settingsUdpEnabled.isChecked = settingsUdpEnabled.isChecked && selected == ProxyType.None
+            vm.setUdpEnabled(settingsUdpEnabled.isChecked)
         }
 
         proxyAddress.setText(vm.getProxyAddress())
@@ -220,19 +221,16 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
 
         settingBootstrapNodes.setSelection(vm.getBootstrapNodeSource().ordinal)
 
-        settingBootstrapNodes.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val source = BootstrapNodeSource.values()[position]
+        settingBootstrapNodes.onItemSelectedListener {
+            val source = BootstrapNodeSource.values()[it]
 
-                // Hack to avoid triggering the document chooser again if the user has set it to UserProvided.
-                if (source == vm.getBootstrapNodeSource()) return
+            // Hack to avoid triggering the document chooser again if the user has set it to UserProvided.
+            if (source == vm.getBootstrapNodeSource()) return@onItemSelectedListener
 
-                if (source == BootstrapNodeSource.BuiltIn) {
-                    vm.setBootstrapNodeSource(source)
-                } else {
-                    importNodesLauncher.launch(arrayOf("application/json"))
-                }
+            if (source == BootstrapNodeSource.BuiltIn) {
+                vm.setBootstrapNodeSource(source)
+            } else {
+                importNodesLauncher.launch(arrayOf("application/json"))
             }
         }
 
