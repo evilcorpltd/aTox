@@ -6,14 +6,11 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
-import android.view.WindowInsets
-import android.view.WindowInsetsAnimation
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -22,6 +19,7 @@ import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsAnimationCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
@@ -85,21 +83,22 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             compat
         }
 
-        if (Build.VERSION.SDK_INT >= 30) {
-            view.setWindowInsetsAnimationCallback(object : WindowInsetsAnimation.Callback(DISPATCH_MODE_STOP) {
+        ViewCompat.setWindowInsetsAnimationCallback(
+            view,
+            object : WindowInsetsAnimationCompat.Callback(DISPATCH_MODE_STOP) {
                 var startBottom = 0
                 var endBottom = 0
 
-                override fun onPrepare(animation: WindowInsetsAnimation) {
+                override fun onPrepare(animation: WindowInsetsAnimationCompat) {
                     val pos = IntArray(2)
                     outgoingMessage.getLocationInWindow(pos)
                     startBottom = pos[1]
                 }
 
                 override fun onStart(
-                    animation: WindowInsetsAnimation,
-                    bounds: WindowInsetsAnimation.Bounds
-                ): WindowInsetsAnimation.Bounds {
+                    animation: WindowInsetsAnimationCompat,
+                    bounds: WindowInsetsAnimationCompat.BoundsCompat
+                ): WindowInsetsAnimationCompat.BoundsCompat {
                     val pos = IntArray(2)
                     outgoingMessage.getLocationInWindow(pos)
                     endBottom = pos[1]
@@ -111,17 +110,17 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                 }
 
                 override fun onProgress(
-                    insets: WindowInsets,
-                    runningAnimations: MutableList<WindowInsetsAnimation>
-                ): WindowInsets {
+                    insets: WindowInsetsCompat,
+                    runningAnimations: MutableList<WindowInsetsAnimationCompat>
+                ): WindowInsetsCompat {
                     val animation = runningAnimations[0]
                     val offset = lerp((startBottom - endBottom).toFloat(), 0f, animation.interpolatedFraction)
                     messages.translationY = offset
                     bottomBar.translationY = offset
                     return insets
                 }
-            })
-        }
+            }
+        )
 
         toolbar.setNavigationIcon(R.drawable.back)
         toolbar.setNavigationOnClickListener {
