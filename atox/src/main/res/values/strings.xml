@@ -58,28 +58,39 @@
     <string name="atox_connected_with_udp">Connected (UDP)</string>
     <string name="read_qr">QR</string>
     <string name="pref_heading_theme">Theme</string>
+    <string name="pref_theme_follow_system">Follow system</string>
+    <string name="pref_theme_light">Light</string>
+    <string name="pref_theme_dark">Dark</string>
     <string-array name="pref_theme_options">
-        <item>Follow system</item>
-        <item>Light</item>
-        <item>Dark</item>
+        <item>@string/pref_theme_follow_system</item>
+        <item>@string/pref_theme_light</item>
+        <item>@string/pref_theme_dark</item>
     </string-array>
     <string name="pref_heading_ft_auto_accept">Auto-accept file transfers</string>
+    <string name="pref_ft_auto_accept_none">None</string>
+    <string name="pref_ft_auto_accept_images">Images</string>
+    <string name="pref_ft_auto_accept_all">All</string>
     <string-array name="pref_ft_auto_accept_options">
-        <item>None</item>
-        <item>Images</item>
-        <item>All</item>
+        <item>@string/pref_ft_auto_accept_none</item>
+        <item>@string/pref_ft_auto_accept_images</item>
+        <item>@string/pref_ft_auto_accept_all</item>
     </string-array>
     <string name="pref_heading_type">Type</string>
+    <string name="pref_proxy_type_none">None</string>
+    <string name="pref_proxy_type_http">HTTP</string>
+    <string name="pref_proxy_type_socks5">SOCKS5</string>
     <string-array name="pref_proxy_type_options">
-        <item>None</item>
-        <item>HTTP</item>
-        <item>SOCKS5</item>
+        <item>@string/pref_proxy_type_none</item>
+        <item>@string/pref_proxy_type_http</item>
+        <item>@string/pref_proxy_type_socks5</item>
     </string-array>
     <string name="pref_heading_advanced">Advanced</string>
     <string name="pref_heading_bootstrap_nodes">Bootstrap node source</string>
+    <string name="pref_bootstrap_node_builtin">Built-in</string>
+    <string name="pref_bootstrap_node_user_provided">User-provided</string>
     <string-array name="pref_bootstrap_node_options">
-        <item>Built-in</item>
-        <item>User-provided</item>
+        <item>@string/pref_bootstrap_node_builtin</item>
+        <item>@string/pref_bootstrap_node_user_provided</item>
     </string-array>
     <string name="pref_bootstrap_nodes_description">User-provided JSON files must have the same format as on https://nodes.tox.chat/json</string>
     <string name="version_display" translatable="false">aTox v%1$s — %2$d</string>
