@@ -75,7 +75,7 @@
     <string name="profile_status">Ändere deinen Status</string>
     <string name="profile">Profil</string>
     <string name="tox_id_error_already_exists">Einen Kontakt mit dieser Tox-ID gibt es bereits</string>
-    <string name="tox_service_running">aTox läuft…</string>
+    <string name="tox_service_running">aTox läuft …</string>
     <string name="pref_heading_network">Netzwerk</string>
     <string name="pref_udp_enabled">UDP aktiviert</string>
     <string name="pref_heading_general">Allgemein</string>
@@ -140,4 +140,5 @@
     <string name="contact_default_name">Unbekannt</string>
     <string name="incoming_call_from">Eingehender Anruf von %1$s</string>
     <string name="incoming_call">Eingehender Anruf</string>
+    <string name="call_mic_permission_needed">Mikrofonberechtigung erforderlich, um das Senden von Audio zu ermöglichen</string>
 </resources>

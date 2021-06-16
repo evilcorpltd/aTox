@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="contact_list_delete_contact_confirm">Sei sicuro/a di voler eliminare «%1$s» dai tuoi contatti\?</string>
+    <string name="contact_list_delete_contact_confirm">Vuoi davvero eliminare «%1$s» dai contatti\?</string>
     <string name="receive_share_share_to">Condividi con…</string>
     <string name="error_no_nodes_loaded">Impossibile caricare i nodi bootstrap, passa ai nodi integrati o importa nuovamente i nodi</string>
     <string name="warn_node_json_import_failed">Errore nell’importazione dei nodi</string>
@@ -8,25 +8,25 @@
     <string name="seconds">Secondi</string>
     <string name="pref_auto_away">Assenza automatica</string>
     <string name="reply">Rispondi</string>
-    <string name="tox_save_export_failure">Esportazione non riuscita: %1$s</string>
+    <string name="tox_save_export_failure">Impossibile esportare il backup Tox: %1$s</string>
     <string name="bad_port">Porta non valida</string>
     <string name="bad_host">Host non valido</string>
     <string name="bad_type">Tipo non valido</string>
     <string name="proxy_not_found">Proxy non trovato</string>
-    <string name="warn_proxy_broken">Cattivo proxy configurato. Correggi o disabilita prima di usare l’applicazione.</string>
+    <string name="warn_proxy_broken">Imposta correttamente il tuo proxy (o spegnilo) prima di usare l’applicazione</string>
     <string name="pref_heading_proxy">Proxy</string>
     <string name="pref_heading_port">Porta</string>
     <string name="pref_heading_address">Indirizzo</string>
     <string name="draft_message">Bozza: %1$s</string>
     <string name="export_file_failure">Qualcosa è andato storto nell’esportazione. I trasferimenti precedenti alla versione 0.5.1 erano esportati impostazione predefinita.</string>
-    <string name="export_file_success">File salvato con successo</string>
+    <string name="export_file_success">File esportato</string>
     <string name="save_as">Salva come…</string>
     <string name="completed">Completato</string>
     <string name="cancelled">Annullato</string>
     <string name="notification_file_transfer">Trasferimento di file in arrivo «%1$s»</string>
     <string name="delete">Elimina</string>
     <string name="attach_file">Allega un file</string>
-    <string name="mimetype_handler_not_found">Impossibile trovare qualcosa che possa gestire quel tipo di media %1$s</string>
+    <string name="mimetype_handler_not_found">Non ci sono applicazioni installate per gestire il tipo di media «%1$s»</string>
     <string name="status_dialog_edit_user_status">Modifica il tuo stato</string>
     <string name="from">Da</string>
     <string name="status_busy">Occupato/a</string>
@@ -37,8 +37,8 @@
     <string name="pref_heading_general">Generale</string>
     <string name="pref_udp_enabled">UDP abilitato</string>
     <string name="pref_heading_network">Rete</string>
-    <string name="tox_service_running">aTox è in esecuzione</string>
-    <string name="tox_id_error_already_exists">Esiste già un contatto con quell’ID</string>
+    <string name="tox_service_running">aTox è in esecuzione…</string>
+    <string name="tox_id_error_already_exists">Esiste già un contatto con quel ID Tox</string>
     <string name="profile">Profilo</string>
     <string name="profile_status">Cambia il tuo stato</string>
     <string name="profile_status_message">Cambia il tuo messaggio di stato</string>
@@ -102,7 +102,7 @@
     <string name="connecting">Connessione…</string>
     <string name="cancel">Annulla</string>
     <string name="confirm">Conferma</string>
-    <string name="add_contact_message_error_empty">Il messaggio non può essere vuoto</string>
+    <string name="add_contact_message_error_empty">Scrivi prima qualcosa da inviare</string>
     <string name="add_contact_message_default">Parlami su aTox come un essere umano ragionevole.</string>
     <string name="add_contact">Aggiungi il contatto</string>
     <string name="add">Aggiungi</string>
@@ -115,9 +115,12 @@
     <string name="call">Chiamata</string>
     <string name="tox_id_error_self_add">Non puoi aggiungere te stesso</string>
     <string name="saved">Salvato</string>
-    <string name="pref_nospam_description">Cambiare il tuo nospam significa che il tuo ID Tox cambia, e che il tuo attuale ID Tox non può più essere usato per inviarti richieste di amicizia</string>
-    <string name="pref_nospam">Nospam</string>
+    <string name="pref_nospam_description">Cambiare il tuo NoSpam altera il tuo ID Tox, il che significa che le richieste di amicizia devono essere inviate a quello aggiornato</string>
+    <string name="pref_nospam">NoSpam</string>
     <string name="save">Salva</string>
     <string name="delete_message">Elimina il messaggio</string>
     <string name="contact_default_name">Sconosciuto</string>
+    <string name="incoming_call_from">Chiamata in arrivo da %1$s</string>
+    <string name="incoming_call">Chiamata in arrivo</string>
+    <string name="call_mic_permission_needed">È necessaria l’autorizzazione del microfono per abilitare l’invio dell’audio</string>
 </resources>
