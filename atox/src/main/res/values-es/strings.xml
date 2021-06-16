@@ -89,7 +89,7 @@
     <string name="profile_status">Cambiar tu estado</string>
     <string name="profile">Perfil</string>
     <string name="tox_id_error_already_exists">Un contacto con este ID ya existe</string>
-    <string name="tox_service_running">aTox se está ejecutando</string>
+    <string name="tox_service_running">aTox se está ejecutando…</string>
     <string name="pref_heading_network">Red</string>
     <string name="pref_udp_enabled">UDP habilitado</string>
     <string name="pref_heading_general">General</string>

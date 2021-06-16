@@ -64,7 +64,7 @@
     <string name="profile_status">Ändra din status</string>
     <string name="profile">Profil</string>
     <string name="tox_id_error_already_exists">En kontakt med samma ID finns redan</string>
-    <string name="tox_service_running">aTox kör</string>
+    <string name="tox_service_running">aTox kör…</string>
     <string name="pref_heading_network">Nätverk</string>
     <string name="pref_udp_enabled">UDP aktiverat</string>
     <string name="pref_heading_general">Generell</string>

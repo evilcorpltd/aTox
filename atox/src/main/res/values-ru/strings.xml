@@ -149,4 +149,5 @@
     <string name="contact_default_name">Неизвестный</string>
     <string name="incoming_call_from">Входящий звонок от %1$s</string>
     <string name="incoming_call">Входящий звонок</string>
+    <string name="call_mic_permission_needed">Необходимо разрешение на доступ к микрофону для включения передачи звука</string>
 </resources>

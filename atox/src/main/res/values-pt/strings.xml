@@ -36,7 +36,7 @@
     <string name="pref_heading_general">Geral</string>
     <string name="pref_udp_enabled">UDP activado</string>
     <string name="pref_heading_network">Rede</string>
-    <string name="tox_service_running">aTox já está a funcionar</string>
+    <string name="tox_service_running">aTox já está a funcionar…</string>
     <string name="tox_id_error_already_exists">Já existe um contacto com essa identificação</string>
     <string name="profile">Perfil</string>
     <string name="profile_status">Alterar o seu estado</string>

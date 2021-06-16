@@ -94,7 +94,7 @@
     <string name="friend_request">Запит у друзі</string>
     <string name="pref_run_at_startup">Запускати під час завантаження Android</string>
     <string name="pref_udp_enabled">UDP увімкнено</string>
-    <string name="tox_service_running">aTox працює</string>
+    <string name="tox_service_running">aTox працює…</string>
     <string name="tox_id_error_already_exists">Контакт із таким ідентифікатором уже існує</string>
     <string name="profile_status">Змінити статус</string>
     <string name="profile_status_message">Змінити повідомлення у статусі</string>

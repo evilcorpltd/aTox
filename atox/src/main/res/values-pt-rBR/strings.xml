@@ -71,7 +71,7 @@
     <string name="profile_status">Alterar seu status</string>
     <string name="profile">Perfil</string>
     <string name="tox_id_error_already_exists">Já existe um contato com essa ID</string>
-    <string name="tox_service_running">aTox está em andamento</string>
+    <string name="tox_service_running">aTox está em andamento…</string>
     <string name="pref_heading_network">Rede</string>
     <string name="pref_udp_enabled">UDP habilitado</string>
     <string name="pref_heading_general">Geral</string>
