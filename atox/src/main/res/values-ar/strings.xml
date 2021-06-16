@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="create">شكّل</string>
+    <string name="copy_atox">إنسخ</string>
+    <string name="copied">تمّ النّسخ</string>
+    <string name="contact_typing">يكتب…</string>
+    <string name="connecting">يتمّ الإتّصال…</string>
+    <string name="cancel">إلغاء</string>
+    <string name="confirm">وافق</string>
+    <string name="add_contact_message_error_empty">اكتب شيء كي تُرسل اولاً</string>
+    <string name="add_contact">أضيف جهة اتصال</string>
+    <string name="add">اضيف</string>
+    <string name="accept">إقبل</string>
+    <string name="name">الإسم</string>
+</resources>
