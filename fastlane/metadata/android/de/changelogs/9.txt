@@ -1,0 +1,12 @@
+Speichern von ungesendete Nachrichten als Entwurf
+Proxy-Support
+Option, automatisch als Abwesend markiert zu werden
+Option, Bootstrap-Knoten zu überschreiben
+Antworten über Benachrichtigungen
+Option für automatisches Annehmen von Dateien
+Schöne Avatar-Platzhalter
+Löschen von Chats löscht zugehörige Dateiübertragungen
+Behebung von Aufteilen von Nachrichten mit Multi-Byte-Zeichen
+Übersetzungen: Portugiesisch, Russisch, Deutsch
+
+Kompletter Changelog: https://github.com/evilcorpltd/aTox/releases
