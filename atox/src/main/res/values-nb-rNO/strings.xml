@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="tox_save_export_failure">Kunne ikke eksportere profil: %1$s</string>
+    <string name="tox_save_export_failure">Kunne ikke eksportere Tox-profil: %1$s</string>
     <string name="pref_auto_away">Automatisk fraværende</string>
     <string name="warn_node_json_import_failed">Klarte ikke å importere noder</string>
     <string name="pref_heading_ft_auto_accept">Godta filoverføringer automatisk</string>
@@ -45,8 +45,8 @@
     <string name="pref_heading_general">Generelt</string>
     <string name="pref_udp_enabled">UDP påskrudd</string>
     <string name="pref_heading_network">Nettverk</string>
-    <string name="tox_service_running">aTox kjører</string>
-    <string name="tox_id_error_already_exists">En kontakt med den ID-en finnes allerede</string>
+    <string name="tox_service_running">aTox kjører …</string>
+    <string name="tox_id_error_already_exists">En kontakt med den Tox-ID-en finnes allerede</string>
     <string name="profile">Profil</string>
     <string name="profile_status">Endre egen status</string>
     <string name="profile_status_message">Endre din statusmelding</string>
@@ -96,17 +96,17 @@
     <string name="connecting">Kobler til …</string>
     <string name="cancel">Avbryt</string>
     <string name="confirm">Bekreft</string>
-    <string name="add_contact_message_error_empty">Meldingen kan ikke være tom</string>
+    <string name="add_contact_message_error_empty">Skriv noe å sende først</string>
     <string name="add_contact_message_default">Snakk med meg på aTox som et ansvarlig menneske.</string>
     <string name="add_contact">Legg til kontakt</string>
     <string name="add">Legg til</string>
     <string name="accept">Godta</string>
     <string name="error_no_nodes_loaded">Kunne ikke laste inn oppstartsnoder, bytt til innebygde noder eller importer noder igjen</string>
     <string name="export_file_failure">Noe gikk galt under eksport. Filoverføringer fra før 0.5.1 ble eksportert som forvalg.</string>
-    <string name="mimetype_handler_not_found">Fant ikke noe som kan håndtere den mediatypen %1$s</string>
+    <string name="mimetype_handler_not_found">Fant ingen programmer som kan håndtere mediatypen «%1$s»</string>
     <string name="pref_heading_bootstrap_nodes">Kilde for oppstartsnoder</string>
-    <string name="warn_proxy_broken">Feilaktig mellomtjener oppsatt. Fiks eller skru den av før du bruker programmet.</string>
-    <string name="contact_list_delete_contact_confirm">Er du sikker på at du vil slette «%1$s» fra kontaktene dine\?</string>
+    <string name="warn_proxy_broken">Sett opp mellomtjeneren din riktig (eller skru den av) før du bruker programmet</string>
+    <string name="contact_list_delete_contact_confirm">Slett «%1$s» fra kontaktlisten\?</string>
     <string name="in_call_with">I samtale med %1$s</string>
     <string name="ongoing_call">Pågående samtale</string>
     <string name="calls">Samtaler</string>
@@ -120,4 +120,6 @@
     <string name="saved">Lagret</string>
     <string name="save">Lagre</string>
     <string name="tox_id_error_self_add">Du kan ikke legge til deg selv</string>
+    <string name="pref_nospam_description">Å endre din NoSpam forandrer din Tox-ID, noe som betyr at venneforespørsler må sendes til den oppdaterte adressen</string>
+    <string name="pref_nospam">NoSpam</string>
 </resources>
