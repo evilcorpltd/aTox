@@ -4,7 +4,7 @@
     <string name="add">Добавить</string>
     <string name="add_contact">Добавить контакт</string>
     <string name="add_contact_message_default">Общайся со мной в aTox, как разумный человек.</string>
-    <string name="add_contact_message_error_empty">Сообщение не может быть пустым</string>
+    <string name="add_contact_message_error_empty">Напишите что-нибудь для отправки</string>
     <string name="confirm">Подтвердить</string>
     <string name="cancel">Отменить</string>
     <string name="connecting">Подключение…</string>
@@ -89,8 +89,8 @@
     <string name="profile_status_message">Сменить ваше сообщение в статусе</string>
     <string name="profile_status">Изменить ваш статус</string>
     <string name="profile">Профиль</string>
-    <string name="tox_id_error_already_exists">Контакт с данным ID уже существует</string>
-    <string name="tox_service_running">aTox запущен</string>
+    <string name="tox_id_error_already_exists">Контакт с данным Tox ID уже существует</string>
+    <string name="tox_service_running">aTox запущен…</string>
     <string name="pref_heading_network">Сеть</string>
     <string name="pref_udp_enabled">UDP включён</string>
     <string name="pref_heading_general">Основные</string>
@@ -107,25 +107,25 @@
     <string name="from">От</string>
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Изменить ваш статус</string>
-    <string name="mimetype_handler_not_found">Инструмент обработки этого медиа типа не найден %1$s</string>
+    <string name="mimetype_handler_not_found">Приложения для обработки медиа типа \"%1$s\" не установлены</string>
     <string name="attach_file">Прикрепить файл</string>
     <string name="delete">Удалить</string>
     <string name="notification_file_transfer">Входящая передача файла \"%1$s\"</string>
     <string name="cancelled">Отменено</string>
     <string name="completed">Завершено</string>
     <string name="save_as">Сохранить как…</string>
-    <string name="export_file_success">Файл успешно сохранён</string>
+    <string name="export_file_success">Файл экспортирован</string>
     <string name="export_file_failure">Что-то пошло не так при экспортировании файла. До aTox 0.5.1 передачи файлов экспортировались по умолчанию.</string>
     <string name="draft_message">Черновик: %1$s</string>
     <string name="pref_heading_address">IP адрес</string>
     <string name="pref_heading_port">Порт</string>
     <string name="pref_heading_proxy">Прокси</string>
-    <string name="warn_proxy_broken">Прокси неверно настроена. Исправьте, или отключите её перед использованием приложения.</string>
+    <string name="warn_proxy_broken">Настройте вашу прокси правильно (или отключите её) перед использованием приложения</string>
     <string name="proxy_not_found">Прокси не найдена</string>
     <string name="bad_type">Неверный тип</string>
     <string name="bad_host">Неверный хост</string>
     <string name="bad_port">Неверный порт</string>
-    <string name="tox_save_export_failure">Экспортирование профиля не удалось: %1$s</string>
+    <string name="tox_save_export_failure">Экспортирование профиля Tox не удалось: %1$s</string>
     <string name="reply">Ответить</string>
     <string name="pref_auto_away">Статус \"Отошёл\" после</string>
     <string name="seconds">Секунд</string>
@@ -133,7 +133,7 @@
     <string name="warn_node_json_import_failed">Ошибка при импортировании узлов</string>
     <string name="error_no_nodes_loaded">Невозможно загрузить начальные узлы, пожалуйста, переключитесь на встроенные узлы или попробуйте импортировать их снова</string>
     <string name="receive_share_share_to">Поделиться с…</string>
-    <string name="contact_list_delete_contact_confirm">Вы уверены, что вы хотите удалить \"%1$s\" из ваших контактов\?</string>
+    <string name="contact_list_delete_contact_confirm">Действительно удалить \"%1$s\" из контактов\?</string>
     <string name="in_call_with">Разговор с %1$s</string>
     <string name="ongoing_call">Активный звонок</string>
     <string name="calls">Звонки</string>
@@ -141,10 +141,12 @@
     <string name="microphone_control">Управление микрофоном</string>
     <string name="call">Позвонить</string>
     <string name="tox_id_error_self_add">Нельзя добавить самого себя</string>
-    <string name="pref_nospam_description">Изменение АнтиСпама означает, что ваш Tox ID изменится, и текущий Tox ID больше не сможет быть использован для отправки вам запросов в друзья</string>
+    <string name="pref_nospam_description">Изменение АнтиСпама поменяет ваш Tox ID, означая то, что запросы в друзья должны будут посылаться на обновлённый Tox ID</string>
     <string name="saved">Сохранено</string>
     <string name="pref_nospam">АнтиСпам</string>
     <string name="save">Сохранить</string>
     <string name="delete_message">Удалить сообщение</string>
     <string name="contact_default_name">Неизвестный</string>
+    <string name="incoming_call_from">Входящий звонок от %1$s</string>
+    <string name="incoming_call">Входящий звонок</string>
 </resources>
