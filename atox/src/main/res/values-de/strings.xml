@@ -3,7 +3,7 @@
     <string name="accept">Akzeptieren</string>
     <string name="add">Hinzufügen</string>
     <string name="add_contact">Kontakt hinzufügen</string>
-    <string name="add_contact_message_error_empty">Nachricht darf nicht leer sein</string>
+    <string name="add_contact_message_error_empty">Schreibe zuerst etwas, bevor du es sendest</string>
     <string name="confirm">Bestätigen</string>
     <string name="cancel">Abbrechen</string>
     <string name="connecting">Verbindet …</string>
@@ -75,7 +75,7 @@
     <string name="profile_status">Ändere deinen Status</string>
     <string name="profile">Profil</string>
     <string name="tox_id_error_already_exists">Einen Kontakt mit dieser Tox-ID gibt es bereits</string>
-    <string name="tox_service_running">aTox läuft</string>
+    <string name="tox_service_running">aTox läuft…</string>
     <string name="pref_heading_network">Netzwerk</string>
     <string name="pref_udp_enabled">UDP aktiviert</string>
     <string name="pref_heading_general">Allgemein</string>
@@ -92,20 +92,20 @@
     <string name="from">Von</string>
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Status ändern</string>
-    <string name="mimetype_handler_not_found">Es konnte keine Anwendung gefunden werden, welche diesen Dateityp öffnen kann %1$s</string>
+    <string name="mimetype_handler_not_found">Es konnte keine Anwendung gefunden werden, welche den Dateityp %1$s öffnen kann</string>
     <string name="attach_file">Datei anhängen</string>
     <string name="delete">Löschen</string>
     <string name="notification_file_transfer">Eingehende Datenübertragung „%1$s“</string>
     <string name="cancelled">Abgebrochen</string>
     <string name="completed">Abgeschlossen</string>
     <string name="save_as">Speichern unter …</string>
-    <string name="export_file_success">Datei erfolgreich gespeichert</string>
+    <string name="export_file_success">Datei exportiert</string>
     <string name="export_file_failure">Etwas ist beim Exportieren schiefgegangen. Pre-0.5.1 Übertragung wurde standardmäßig exportiert.</string>
     <string name="draft_message">Entwurf: %1$s</string>
     <string name="pref_heading_address">Adresse</string>
     <string name="pref_heading_port">Port</string>
     <string name="pref_heading_proxy">Proxy</string>
-    <string name="warn_proxy_broken">Falscher Proxy konfiguriert. Vor Verwendung der App beheben oder deaktivieren.</string>
+    <string name="warn_proxy_broken">Richte deinen Proxy korrekt ein (oder schalte ihn aus), bevor du die App benutzt</string>
     <string name="proxy_not_found">Proxy nicht gefunden</string>
     <string name="bad_type">Ungültiger Typ</string>
     <string name="bad_host">Ungültiger Host</string>
@@ -132,10 +132,12 @@
     <string name="microphone_control">Mikrofonsteuerung</string>
     <string name="call">Anruf</string>
     <string name="tox_id_error_self_add">Du kannst dich nicht selbst hinzufügen</string>
-    <string name="pref_nospam_description">Das Ändern deiner Nospams bedeutet, dass sich deine Tox-ID ändert und dass deine aktuelle Tox-ID nicht mehr verwendet werden kann, um dir Freundschaftsanfragen zu senden</string>
+    <string name="pref_nospam_description">Das Ändern deiner NoSpam ändert deine Tox-ID und deine aktuelle Tox-ID kann nicht mehr verwendet werden, heißt, Freundschaftsanfragen müssen an die neue gesendet werden</string>
     <string name="saved">Gesichert</string>
-    <string name="pref_nospam">Nospam</string>
+    <string name="pref_nospam">NoSpam</string>
     <string name="save">Speichern</string>
     <string name="delete_message">Nachricht löschen</string>
     <string name="contact_default_name">Unbekannt</string>
+    <string name="incoming_call_from">Eingehender Anruf von %1$s</string>
+    <string name="incoming_call">Eingehender Anruf</string>
 </resources>
