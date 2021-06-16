@@ -25,7 +25,7 @@
     <string name="name_default">aTox-användare</string>
     <string name="navigation_drawer_close">Stäng navigationslåda</string>
     <string name="navigation_drawer_open">Öppna navigationslåda</string>
-    <string name="add_contact_message_error_empty">Meddelandefältet kan inte vara tomt</string>
+    <string name="add_contact_message_error_empty">Skriv något att skicka först</string>
     <string name="add_contact_message_default">Prata med mig på aTox som en rimlig människa.</string>
     <string name="profile_photo_description">Profilfoto</string>
     <string name="reject">Neka</string>
@@ -63,7 +63,7 @@
     <string name="profile_status_message">Ändra ditt statusmeddelande</string>
     <string name="profile_status">Ändra din status</string>
     <string name="profile">Profil</string>
-    <string name="tox_id_error_already_exists">En kontakt med samma ID finns redan</string>
+    <string name="tox_id_error_already_exists">En kontakt med samma Tox ID finns redan</string>
     <string name="tox_service_running">aTox kör…</string>
     <string name="pref_heading_network">Nätverk</string>
     <string name="pref_udp_enabled">UDP aktiverat</string>
@@ -93,12 +93,12 @@
     <string name="pref_heading_address">Adress</string>
     <string name="pref_heading_port">Port</string>
     <string name="pref_heading_proxy">Proxy</string>
-    <string name="warn_proxy_broken">Felaktig proxy konfigurerad. Fixa eller stäng av innan du använder appen.</string>
+    <string name="warn_proxy_broken">Konfigurera (eller stäng av) din proxy innan du använder appen</string>
     <string name="proxy_not_found">Proxyn kunde ej hittas</string>
     <string name="bad_type">Felaktig typ</string>
     <string name="bad_host">Felaktig värd</string>
     <string name="bad_port">Felaktig port</string>
-    <string name="tox_save_export_failure">Exportering av sparfilen misslyckades: %1$s</string>
+    <string name="tox_save_export_failure">Kunde inte exportera Tox-sparfilen: %1$s</string>
     <string name="reply">Svara</string>
     <string name="pref_auto_away">Auto-afk</string>
     <string name="seconds">Sekunder</string>
@@ -132,4 +132,14 @@
     <string name="end_call">Avsluta samtal</string>
     <string name="microphone_control">Mikrofonkontroll</string>
     <string name="call">Ring</string>
+    <string name="pref_nospam_description">NoSpam-byte ändrar ditt Tox ID vilket betyder att vänförfrågningar måste skickas till det uppdaterade</string>
+    <string name="call_mic_permission_needed">Tillgång till mikrofon krävs för att kunna skicka ljud</string>
+    <string name="incoming_call_from">Inkommande samtal från %1$s</string>
+    <string name="incoming_call">Inkommande samtal</string>
+    <string name="contact_default_name">Okänd</string>
+    <string name="delete_message">Ta bort meddelande</string>
+    <string name="saved">Sparad</string>
+    <string name="pref_nospam">NoSpam</string>
+    <string name="save">Spara</string>
+    <string name="tox_id_error_self_add">Du kan inte lägga till dig själv</string>
 </resources>
