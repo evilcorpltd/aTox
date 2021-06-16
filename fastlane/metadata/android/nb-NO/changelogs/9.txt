@@ -1,0 +1,12 @@
+Usendte meldinger lagres som kladder
+Mellomtjenerstøtte
+Marker din fraværsstatus automatisk
+Overstyr hvilke oppstartsnoder som brukes
+Du kan nå svare direkte fra merknader
+Auto-godkjenning av filoverføringer
+Fine plassholdere for avatarer
+Å tømme en sludring fjerner nå tilknyttede filoverføringer
+Fikset inndeling av meldinger som inneholder multi-byte-tegn
+Oversettelse til brasiliansk portugisisk, russisk, og tysk
+
+Full endringslogg: https://github.com/evilcorpltd/aTox/releases

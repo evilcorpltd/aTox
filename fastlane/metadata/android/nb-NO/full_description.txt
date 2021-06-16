@@ -1,0 +1,10 @@
+aTox er et fritt sludreprogram for Tox-protokollen.
+
+<b>Hvorfor aTox?</b>
+* Fritt. Del, studer og endre som du vil.
+* Formålstjenlig: Bra forvalg, gjetter seg ikke til hva du liker, ignorerer ikke hva <b>du</b> ønsker.
+* Ende-til-ende -kryptert: De eneste som kan se samtalene dine er dem du snakker med.
+* Distribuert: Ingen sentrale tjenere som kan tas ned, eller overtales til å gi fra seg data.
+* Lett: Ingen telemetri, reklame, eller andre typer overvåkning.
+
+Mer info: <a href="https://github.com/evilcorpltd/aTox/">aTox</a>, <a href="https://tox.chat/">Tox</a>.
