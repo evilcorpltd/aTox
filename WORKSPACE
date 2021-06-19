@@ -25,6 +25,15 @@ http_archive(
     ],
 )
 
+PROTOBUF_TAG = "3.17.3"
+
+http_archive(
+    name = "com_google_protobuf",
+    sha256 = "c6003e1d2e7fefa78a3039f19f383b4f3a61e81be8c19356f85b6461998ad3db",
+    strip_prefix = "protobuf-%s" % PROTOBUF_TAG,
+    url = "https://github.com/protocolbuffers/protobuf/archive/v%s.tar.gz" % PROTOBUF_TAG,
+)
+
 http_archive(
     name = "rules_android",
     sha256 = "cd06d15dd8bb59926e4d65f9003bfc20f9da4b2519985c27e190cddc8b7a7806",
@@ -54,9 +63,16 @@ http_archive(
     url = "https://github.com/bazelbuild/stardoc/archive/%s.zip" % STARDOC_TAG,
 )
 
-RULES_JVM_EXTERNAL_TAG = "3.3"
+http_archive(
+    name = "bazel_skylib",
+    sha256 = "37fbe6e229f28dfda55d9c9a305235b882a1cf6cff746ce448b8b870ecfdf620",
+    strip_prefix = "bazel-skylib-fd75066f159234265efb8f838b056be5a2e00a59",
+    url = "https://github.com/bazelbuild/bazel-skylib/archive/fd75066f159234265efb8f838b056be5a2e00a59.tar.gz",
+)
 
-RULES_JVM_EXTERNAL_SHA = "d85951a92c0908c80bd8551002d66cb23c3434409c814179c0ff026b53544dab"
+RULES_JVM_EXTERNAL_TAG = "4.1"
+
+RULES_JVM_EXTERNAL_SHA = "f36441aa876c4f6427bfb2d1f2d723b48e9d930b62662bf723ddfb8fc80f0140"
 
 http_archive(
     name = "rules_jvm_external",
@@ -95,13 +111,13 @@ maven_install(
     ],
 )
 
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository", "new_git_repository")
+RULES_KOTLIN_TAG = "b637ddf908ca276dcfb28f02f9bd03dcb3d87238"
 
-git_repository(
+http_archive(
     name = "io_bazel_rules_kotlin",
-    commit = "95b642f10fb9c73312edd59bcf6ba6250ef8a2cb",
-    remote = "https://github.com/bazelbuild/rules_kotlin.git",
-    shallow_since = "1605641205 -0500",
+    sha256 = "d4b65edeec277e77b597d326b5b6006a80a4532eac9e3691318eaca7ef3b40a0",
+    strip_prefix = "rules_kotlin-%s" % RULES_KOTLIN_TAG,
+    url = "https://github.com/bazelbuild/rules_kotlin/archive/%s.zip" % RULES_KOTLIN_TAG,
 )
 
 load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kotlin_repositories", "kt_register_toolchains")
@@ -109,6 +125,8 @@ load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kotlin_repositories", "kt_reg
 kt_register_toolchains()
 
 kotlin_repositories()
+
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository", "new_git_repository")
 
 git_repository(
     name = "io_bazel_rules_scala",
