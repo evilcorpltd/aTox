@@ -1,5 +1,11 @@
 workspace(name = "atox")
 
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository", "new_git_repository")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# Android SDK/NDK setup
+# =========================================================
+
 android_sdk_repository(name = "androidsdk")
 
 android_ndk_repository(
@@ -7,7 +13,8 @@ android_ndk_repository(
     api_level = 19,
 )
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+# Bazel
+# =========================================================
 
 http_archive(
     name = "rules_pkg",
@@ -25,32 +32,12 @@ http_archive(
     ],
 )
 
-PROTOBUF_TAG = "3.17.3"
-
-http_archive(
-    name = "com_google_protobuf",
-    sha256 = "c6003e1d2e7fefa78a3039f19f383b4f3a61e81be8c19356f85b6461998ad3db",
-    strip_prefix = "protobuf-%s" % PROTOBUF_TAG,
-    url = "https://github.com/protocolbuffers/protobuf/archive/v%s.tar.gz" % PROTOBUF_TAG,
-)
-
 http_archive(
     name = "rules_android",
     sha256 = "cd06d15dd8bb59926e4d65f9003bfc20f9da4b2519985c27e190cddc8b7a7806",
     strip_prefix = "rules_android-0.1.1",
     urls = ["https://github.com/bazelbuild/rules_android/archive/v0.1.1.zip"],
 )
-
-http_archive(
-    name = "robolectric",
-    sha256 = "d4f2eb078a51f4e534ebf5e18b6cd4646d05eae9b362ac40b93831bdf46112c7",
-    strip_prefix = "robolectric-bazel-4.4",
-    urls = ["https://github.com/robolectric/robolectric-bazel/archive/4.4.tar.gz"],
-)
-
-load("@robolectric//bazel:robolectric.bzl", "robolectric_repositories")
-
-robolectric_repositories()
 
 STARDOC_TAG = "0.4.0"
 
@@ -80,6 +67,68 @@ http_archive(
     strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
     url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
 )
+
+RULES_KOTLIN_TAG = "b637ddf908ca276dcfb28f02f9bd03dcb3d87238"
+
+http_archive(
+    name = "io_bazel_rules_kotlin",
+    sha256 = "d4b65edeec277e77b597d326b5b6006a80a4532eac9e3691318eaca7ef3b40a0",
+    strip_prefix = "rules_kotlin-%s" % RULES_KOTLIN_TAG,
+    url = "https://github.com/bazelbuild/rules_kotlin/archive/%s.zip" % RULES_KOTLIN_TAG,
+)
+
+git_repository(
+    name = "io_bazel_rules_scala",
+    commit = "73c0dbb55d1ab2905c3d97923efc415623f67ac6",
+    remote = "https://github.com/bazelbuild/rules_scala.git",
+    shallow_since = "1588140396 +0300",
+)
+
+# Third-party
+# =========================================================
+
+PROTOBUF_TAG = "3.17.3"
+
+http_archive(
+    name = "com_google_protobuf",
+    sha256 = "c6003e1d2e7fefa78a3039f19f383b4f3a61e81be8c19356f85b6461998ad3db",
+    strip_prefix = "protobuf-%s" % PROTOBUF_TAG,
+    url = "https://github.com/protocolbuffers/protobuf/archive/v%s.tar.gz" % PROTOBUF_TAG,
+)
+
+http_archive(
+    name = "robolectric",
+    sha256 = "d4f2eb078a51f4e534ebf5e18b6cd4646d05eae9b362ac40b93831bdf46112c7",
+    strip_prefix = "robolectric-bazel-4.4",
+    urls = ["https://github.com/robolectric/robolectric-bazel/archive/4.4.tar.gz"],
+)
+
+http_archive(
+    name = "libsodium",
+    build_file = "//bazel:BUILD.libsodium",
+    sha256 = "1b72c0cdbc535ce42e14ac15e8fc7c089a3ee9ffe5183399fd77f0f3746ea794",
+    strip_prefix = "libsodium-1.0.18",
+    url = "https://github.com/jedisct1/libsodium/archive/1.0.18.zip",
+)
+
+http_archive(
+    name = "opus",
+    build_file = "//bazel:BUILD.opus",
+    sha256 = "09366bf588b02b76bda3fd1428a30b55ca995d6d2eac509a39919f337690329e",
+    strip_prefix = "opus-5c94ec3205c30171ffd01056f5b4622b7c0ab54c",
+    url = "https://github.com/xiph/opus/archive/5c94ec3205c30171ffd01056f5b4622b7c0ab54c.zip",
+)
+
+http_archive(
+    name = "libvpx",
+    build_file = "//bazel:BUILD.libvpx",
+    sha256 = "27d082899b60dea79c596affc68341522db1f72c241f6d6096fc46bcf774f217",
+    strip_prefix = "libvpx-3d28ff98039134325cf689d8d08996fc8dabb225",
+    url = "https://github.com/webmproject/libvpx/archive/3d28ff98039134325cf689d8d08996fc8dabb225.zip",
+)
+
+# aTox maven dependencies
+# =========================================================
 
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 
@@ -111,42 +160,8 @@ maven_install(
     ],
 )
 
-RULES_KOTLIN_TAG = "b637ddf908ca276dcfb28f02f9bd03dcb3d87238"
-
-http_archive(
-    name = "io_bazel_rules_kotlin",
-    sha256 = "d4b65edeec277e77b597d326b5b6006a80a4532eac9e3691318eaca7ef3b40a0",
-    strip_prefix = "rules_kotlin-%s" % RULES_KOTLIN_TAG,
-    url = "https://github.com/bazelbuild/rules_kotlin/archive/%s.zip" % RULES_KOTLIN_TAG,
-)
-
-load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kotlin_repositories", "kt_register_toolchains")
-
-kt_register_toolchains()
-
-kotlin_repositories()
-
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository", "new_git_repository")
-
-git_repository(
-    name = "io_bazel_rules_scala",
-    commit = "73c0dbb55d1ab2905c3d97923efc415623f67ac6",
-    remote = "https://github.com/bazelbuild/rules_scala.git",
-    shallow_since = "1588140396 +0300",
-)
-
-load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
-load("@io_bazel_rules_scala//scala:toolchains.bzl", "scala_register_toolchains")
-load("@io_bazel_rules_scala//scala_proto:scala_proto.bzl", "scala_proto_repositories")
-load("@io_bazel_rules_scala//scala_proto:toolchains.bzl", "scala_proto_register_enable_all_options_toolchain")
-
-scala_register_toolchains()
-
-scala_repositories()
-
-scala_proto_repositories()
-
-scala_proto_register_enable_all_options_toolchain()
+# Tox
+# =========================================================
 
 new_git_repository(
     name = "jvm-toxcore-api",
@@ -173,14 +188,6 @@ new_git_repository(
 )
 
 http_archive(
-    name = "libsodium",
-    build_file = "//bazel:BUILD.libsodium",
-    sha256 = "1b72c0cdbc535ce42e14ac15e8fc7c089a3ee9ffe5183399fd77f0f3746ea794",
-    strip_prefix = "libsodium-1.0.18",
-    url = "https://github.com/jedisct1/libsodium/archive/1.0.18.zip",
-)
-
-http_archive(
     name = "c-toxcore",
     build_file = "//bazel:BUILD.c-toxcore",
     patch_cmds = [
@@ -193,18 +200,30 @@ http_archive(
     url = "https://github.com/TokTok/c-toxcore/archive/v0.2.12.zip",
 )
 
-http_archive(
-    name = "opus",
-    build_file = "//bazel:BUILD.opus",
-    sha256 = "09366bf588b02b76bda3fd1428a30b55ca995d6d2eac509a39919f337690329e",
-    strip_prefix = "opus-5c94ec3205c30171ffd01056f5b4622b7c0ab54c",
-    url = "https://github.com/xiph/opus/archive/5c94ec3205c30171ffd01056f5b4622b7c0ab54c.zip",
-)
+# Transitive dependencies and toolchain setup
+# =========================================================
+#
+# These go last since we override a bunch of them.
 
-http_archive(
-    name = "libvpx",
-    build_file = "//bazel:BUILD.libvpx",
-    sha256 = "27d082899b60dea79c596affc68341522db1f72c241f6d6096fc46bcf774f217",
-    strip_prefix = "libvpx-3d28ff98039134325cf689d8d08996fc8dabb225",
-    url = "https://github.com/webmproject/libvpx/archive/3d28ff98039134325cf689d8d08996fc8dabb225.zip",
-)
+load("@robolectric//bazel:robolectric.bzl", "robolectric_repositories")
+
+robolectric_repositories()
+
+load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kotlin_repositories", "kt_register_toolchains")
+
+kt_register_toolchains()
+
+kotlin_repositories()
+
+load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
+load("@io_bazel_rules_scala//scala:toolchains.bzl", "scala_register_toolchains")
+load("@io_bazel_rules_scala//scala_proto:scala_proto.bzl", "scala_proto_repositories")
+load("@io_bazel_rules_scala//scala_proto:toolchains.bzl", "scala_proto_register_enable_all_options_toolchain")
+
+scala_register_toolchains()
+
+scala_repositories()
+
+scala_proto_repositories()
+
+scala_proto_register_enable_all_options_toolchain()
