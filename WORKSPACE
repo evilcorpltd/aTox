@@ -1,6 +1,5 @@
 workspace(name = "atox")
 
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository", "new_git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # Android SDK/NDK setup
@@ -77,11 +76,11 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_kotlin/archive/%s.zip" % RULES_KOTLIN_TAG,
 )
 
-git_repository(
+http_archive(
     name = "io_bazel_rules_scala",
-    commit = "73c0dbb55d1ab2905c3d97923efc415623f67ac6",
-    remote = "https://github.com/bazelbuild/rules_scala.git",
-    shallow_since = "1588140396 +0300",
+    sha256 = "efde3cb0feafca7c3939b855c0812bff88657fe2d8f893d912d6ca5180e5bf39",
+    strip_prefix = "rules_scala-73c0dbb55d1ab2905c3d97923efc415623f67ac6",
+    url = "https://github.com/bazelbuild/rules_scala/archive/73c0dbb55d1ab2905c3d97923efc415623f67ac6.tar.gz",
 )
 
 # Third-party
@@ -163,28 +162,28 @@ maven_install(
 # Tox
 # =========================================================
 
-new_git_repository(
+http_archive(
     name = "jvm-toxcore-api",
     build_file = "//bazel:BUILD.jvm-toxcore-api",
-    commit = "adb835597e1eac8d2ca80b938b4f37d260cfde36",
-    remote = "https://github.com/TokTok/jvm-toxcore-api.git",
-    shallow_since = "1587772287 +0000",
+    sha256 = "31f1ccb76ca267ea49f55b7db3a6a7365a3fdbd9e48d46296d8c87f5de036d88",
+    strip_prefix = "jvm-toxcore-api-adb835597e1eac8d2ca80b938b4f37d260cfde36",
+    url = "https://github.com/TokTok/jvm-toxcore-api/archive/adb835597e1eac8d2ca80b938b4f37d260cfde36.tar.gz",
 )
 
-new_git_repository(
+http_archive(
     name = "jvm-toxcore-c",
     build_file = "//bazel:BUILD.jvm-toxcore-c",
-    commit = "50d9a6b565de348c00daab83575498fdaec853a8",
-    remote = "https://github.com/TokTok/jvm-toxcore-c.git",
-    shallow_since = "1588255275 +0100",
+    sha256 = "3928a2ed2aa35e1129f3313d572f05cd38495cd012f095f9bfc812f452718265",
+    strip_prefix = "jvm-toxcore-c-50d9a6b565de348c00daab83575498fdaec853a8",
+    url = "https://github.com/TokTok/jvm-toxcore-c/archive/50d9a6b565de348c00daab83575498fdaec853a8.tar.gz",
 )
 
-new_git_repository(
+http_archive(
     name = "jvm-macros",
     build_file = "//bazel:BUILD.jvm-macros",
-    commit = "f22e243a3192b5d808fac3b1135bb6b8cefef6b3",
-    remote = "https://github.com/TokTok/jvm-macros.git",
-    shallow_since = "1587772287 +0000",
+    sha256 = "e30d9aa3def22606a411adb7fbca80c52f49199724ffbf23ce2d269bad800230",
+    strip_prefix = "jvm-macros-f22e243a3192b5d808fac3b1135bb6b8cefef6b3",
+    url = "https://github.com/TokTok/jvm-macros/archive/f22e243a3192b5d808fac3b1135bb6b8cefef6b3.tar.gz",
 )
 
 http_archive(
