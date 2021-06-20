@@ -60,15 +60,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-
         if (intent?.action != Intent.ACTION_SEND) return
-        val nav = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.findNavController()
-        if (nav == null) {
-            Log.e(TAG, "Unable to find navController to handle intent $intent")
-            return
-        }
-
-        nav.popBackStack(R.id.contactListFragment, false)
         handleShareIntent(intent)
     }
 
@@ -97,6 +89,6 @@ class MainActivity : AppCompatActivity() {
         Log.i(TAG, "Got text share: $data")
         val navController =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.findNavController() ?: return
-        navController.setGraph(navController.graph, bundleOf(ARG_SHARE to data))
+        navController.navigate(R.id.contactListFragment, bundleOf(ARG_SHARE to data))
     }
 }
