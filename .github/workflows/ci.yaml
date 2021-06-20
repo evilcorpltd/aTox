@@ -59,6 +59,11 @@ jobs:
           echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/$NDK_VERSION" >> $GITHUB_ENV
       env:
         NDK_VERSION: 22.1.7171670
+    - name: Set up Bazel cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/bazel
+        key: bazel
     - name: Install
       run: wget https://github.com/bazelbuild/bazelisk/releases/download/v1.7.4/bazelisk-linux-amd64 --output-document=bazelisk
     - name: Build
