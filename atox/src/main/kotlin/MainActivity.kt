@@ -39,29 +39,12 @@ class MainActivity : AppCompatActivity() {
 
         // Only handle intent the first time it triggers the app.
         if (savedInstanceState != null) return
-        when (intent.action) {
-            // Handle potential tox link
-            Intent.ACTION_VIEW -> {
-                val data = intent.dataString ?: ""
-                Log.i(TAG, "Got uri with data: $data")
-                if (!data.startsWith(SCHEME) || data.length != SCHEME.length + TOX_ID_LENGTH) {
-                    Log.e(TAG, "Got malformed uri: $data")
-                    return
-                }
-
-                supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.findNavController()?.navigate(
-                    R.id.action_contactListFragment_to_addContactFragment,
-                    bundleOf("toxId" to data.drop(SCHEME.length))
-                )
-            }
-            Intent.ACTION_SEND -> handleShareIntent(intent)
-        }
+        handleIntent(intent)
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        if (intent?.action != Intent.ACTION_SEND) return
-        handleShareIntent(intent)
+        handleIntent(intent)
     }
 
     override fun onPause() {
@@ -72,6 +55,27 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         autoAway.onForeground()
+    }
+
+    private fun handleIntent(intent: Intent?) {
+        when (intent?.action) {
+            Intent.ACTION_VIEW -> handleToxLinkIntent(intent)
+            Intent.ACTION_SEND -> handleShareIntent(intent)
+        }
+    }
+
+    private fun handleToxLinkIntent(intent: Intent) {
+        val data = intent.dataString ?: ""
+        Log.i(TAG, "Got uri with data: $data")
+        if (!data.startsWith(SCHEME) || data.length != SCHEME.length + TOX_ID_LENGTH) {
+            Log.e(TAG, "Got malformed uri: $data")
+            return
+        }
+
+        supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.findNavController()?.navigate(
+            R.id.addContactFragment,
+            bundleOf("toxId" to data.drop(SCHEME.length))
+        )
     }
 
     private fun handleShareIntent(intent: Intent) {
