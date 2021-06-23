@@ -53,7 +53,7 @@ object AndroidX {
     const val activity = "androidx.activity:activity:1.2.3"
     const val appcompat = "androidx.appcompat:appcompat:1.3.0"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.4"
-    const val fragment = "androidx.fragment:fragment:1.3.4"
+    const val fragment = "androidx.fragment:fragment:1.3.5"
 
     object Navigation {
         private const val version = "2.3.5"
@@ -102,7 +102,7 @@ object Google {
 
     const val dagger = "com.google.dagger:dagger:${Dagger.version}"
     object Dagger {
-        internal const val version = "2.36"
+        internal const val version = "2.37"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
     }
 }
