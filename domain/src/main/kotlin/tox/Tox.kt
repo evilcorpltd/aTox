@@ -2,9 +2,11 @@ package ltd.evilcorp.domain.tox
 
 import android.util.Log
 import im.tox.tox4j.core.exceptions.ToxBootstrapException
+import im.tox.tox4j.crypto.ToxCryptoConstants
 import im.tox.tox4j.impl.jni.ToxCryptoImpl
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.random.Random
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -41,6 +43,20 @@ class Tox @Inject constructor(
     private var toxAvRunning = false
 
     private var passkey: ByteArray? = null
+    var password: String? = null
+        private set
+
+    fun changePassword(new: String?) {
+        passkey = if (new.isNullOrEmpty()) {
+            null
+        } else {
+            val salt = ByteArray(ToxCryptoConstants.SaltLength())
+            Random.Default.nextBytes(salt)
+            ToxCryptoImpl.passKeyDeriveWithSalt(new.toByteArray(), salt)
+        }
+        password = new
+        save()
+    }
 
     private lateinit var tox: ToxWrapper
 
@@ -58,6 +74,7 @@ class Tox @Inject constructor(
             )
         }
 
+        this.password = password
         started = true
 
         fun loadContacts() = launch {

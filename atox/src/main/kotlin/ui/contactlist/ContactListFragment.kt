@@ -30,7 +30,6 @@ import ltd.evilcorp.atox.databinding.ContactListViewItemBinding
 import ltd.evilcorp.atox.databinding.FragmentContactListBinding
 import ltd.evilcorp.atox.databinding.FriendRequestItemBinding
 import ltd.evilcorp.atox.databinding.NavHeaderContactListBinding
-import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.atox.truncated
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.ReceiveShareDialog
@@ -286,7 +285,6 @@ class ContactListFragment :
                     .setTitle(R.string.quit_confirm)
                     .setPositiveButton(R.string.quit) { _, _ ->
                         viewModel.quitTox()
-                        Settings.password = null
                         activity?.finishAffinity()
                     }
                     .setNegativeButton(R.string.cancel) { _, _ -> }
@@ -299,13 +297,13 @@ class ContactListFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (!viewModel.isToxRunning()) viewModel.tryLoadTox()
+        if (!viewModel.isToxRunning()) viewModel.tryLoadTox(null)
     }
 
     override fun onStart() {
         super.onStart()
         if (!viewModel.isToxRunning()) {
-            when (val status = viewModel.tryLoadTox()) {
+            when (val status = viewModel.tryLoadTox(null)) {
                 ToxSaveStatus.BadProxyHost, ToxSaveStatus.BadProxyPort,
                 ToxSaveStatus.BadProxyType, ToxSaveStatus.ProxyNotFound -> {
                     Toast.makeText(requireContext(), getString(R.string.warn_proxy_broken), Toast.LENGTH_LONG).show()
@@ -325,23 +323,25 @@ class ContactListFragment :
                         .setTitle(getString(R.string.unlock_profile))
                         .setView(passwordEdit)
                         .setPositiveButton(android.R.string.ok) { _, _ ->
-                            Settings.password = passwordEdit.text.toString()
-                            if (viewModel.tryLoadTox() == ToxSaveStatus.Ok) {
+                            val password = passwordEdit.text.toString()
+                            if (viewModel.tryLoadTox(password) == ToxSaveStatus.Ok) {
                                 // Hack to reload fragment.
                                 parentFragmentManager.beginTransaction().detach(this).commitAllowingStateLoss()
                                 parentFragmentManager.beginTransaction().attach(this).commitAllowingStateLoss()
                             } else {
-                                Settings.password = null
                                 Toast.makeText(
                                     requireContext(),
                                     getString(R.string.incorrect_password),
                                     Toast.LENGTH_LONG,
                                 ).show()
+                            }
+                        }
+                        .setNegativeButton(R.string.cancel) { _, _ -> }
+                        .setOnDismissListener {
+                            if (!viewModel.isToxRunning()) {
                                 activity?.finishAffinity()
                             }
                         }
-                        .setNegativeButton(R.string.cancel) { _, _ -> activity?.finishAffinity() }
-                        .setOnDismissListener { activity?.finishAffinity() }
                         .show()
                 }
                 ToxSaveStatus.Ok -> {

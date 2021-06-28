@@ -17,7 +17,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentProfileBinding
-import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.User
@@ -47,12 +46,11 @@ class CreateProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfi
                         .setTitle(R.string.unlock_profile)
                         .setView(passwordEdit)
                         .setPositiveButton(android.R.string.ok) { _, _ ->
-                            Settings.password = passwordEdit.text.toString()
-                            if (viewModel.startTox(save) == ToxSaveStatus.Ok) {
+                            val password = passwordEdit.text.toString()
+                            if (viewModel.startTox(save, password) == ToxSaveStatus.Ok) {
                                 viewModel.verifyUserExists(viewModel.publicKey)
                                 findNavController().popBackStack()
                             } else {
-                                Settings.password = null
                                 Toast.makeText(
                                     requireContext(),
                                     getString(R.string.incorrect_password),

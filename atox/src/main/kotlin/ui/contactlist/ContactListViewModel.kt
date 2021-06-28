@@ -16,7 +16,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
@@ -51,7 +50,7 @@ class ContactListViewModel @Inject constructor(
     val friendRequests: LiveData<List<FriendRequest>> = friendRequestManager.getAll().asLiveData()
 
     fun isToxRunning() = tox.started
-    fun tryLoadTox(): ToxSaveStatus = toxStarter.tryLoadTox()
+    fun tryLoadTox(password: String?): ToxSaveStatus = toxStarter.tryLoadTox(password)
     fun quitTox() = toxStarter.stopTox()
 
     fun acceptFriendRequest(friendRequest: FriendRequest) = friendRequestManager.accept(friendRequest)
@@ -77,7 +76,7 @@ class ContactListViewModel @Inject constructor(
             FileInputStream(fd.fileDescriptor).use { ios ->
                 val saveData = ios.readBytes()
                 val save = SaveOptions(saveData, true, ProxyType.None, "", 0)
-                val toast = when (val status = testToxSave(save, Settings.password)) {
+                val toast = when (val status = testToxSave(save, tox.password)) {
                     ToxSaveStatus.Ok -> context.getText(R.string.tox_save_exported)
                     else -> context.getString(R.string.tox_save_export_failure, status.name)
                 }

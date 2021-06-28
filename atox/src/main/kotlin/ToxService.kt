@@ -76,7 +76,7 @@ class ToxService : LifecycleService() {
         super.onCreate()
 
         if (!tox.started) {
-            if (toxStarter.tryLoadTox() != ToxSaveStatus.Ok) {
+            if (toxStarter.tryLoadTox(null) != ToxSaveStatus.Ok) {
                 Log.e(TAG, "Tox service started without a Tox save")
                 stopSelf()
             }

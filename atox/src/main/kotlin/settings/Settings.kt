@@ -24,10 +24,6 @@ enum class BootstrapNodeSource {
 class Settings @Inject constructor(private val ctx: Context) {
     private val preferences = PreferenceManager.getDefaultSharedPreferences(ctx)
 
-    companion object {
-        var password: String? = null
-    }
-
     var theme: Int
         get() = preferences.getInt("theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         set(theme) {

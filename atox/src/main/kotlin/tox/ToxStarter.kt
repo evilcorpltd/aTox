@@ -33,17 +33,17 @@ class ToxStarter @Inject constructor(
     private val context: Context,
     private val settings: Settings,
 ) {
-    fun startTox(save: ByteArray? = null): ToxSaveStatus {
+    fun startTox(save: ByteArray? = null, password: String? = null): ToxSaveStatus {
         listenerCallbacks.setUp(eventListener)
         listenerCallbacks.setUp(avEventListener)
         val options =
             SaveOptions(save, settings.udpEnabled, settings.proxyType, settings.proxyAddress, settings.proxyPort)
         try {
             tox.isBootstrapNeeded = true
-            tox.start(options, Settings.password, eventListener, avEventListener)
+            tox.start(options, password, eventListener, avEventListener)
         } catch (e: ToxNewException) {
             Log.e(TAG, e.message)
-            return testToxSave(options, Settings.password)
+            return testToxSave(options, password)
         } catch (e: ToxDecryptionException) {
             Log.e(TAG, e.message)
             return ToxSaveStatus.Encrypted
@@ -59,9 +59,9 @@ class ToxStarter @Inject constructor(
         stopService(Intent(this, ToxService::class.java))
     }
 
-    fun tryLoadTox(): ToxSaveStatus {
+    fun tryLoadTox(password: String?): ToxSaveStatus {
         tryLoadSave()?.also { save ->
-            val status = startTox(save)
+            val status = startTox(save, password)
             if (status == ToxSaveStatus.Ok) {
                 userManager.verifyExists(tox.publicKey)
             }

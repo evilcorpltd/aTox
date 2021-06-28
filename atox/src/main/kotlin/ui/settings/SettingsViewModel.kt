@@ -104,13 +104,14 @@ class SettingsViewModel @Inject constructor(
             return
         }
 
+        val password = tox.password
         toxStarter.stopTox()
 
         viewModelScope.launch {
             while (tox.started) {
                 delay(200)
             }
-            toxStarter.tryLoadTox()
+            toxStarter.tryLoadTox(password)
             _committed.value = true
         }
     }

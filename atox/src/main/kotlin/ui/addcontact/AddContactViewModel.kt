@@ -20,7 +20,7 @@ class AddContactViewModel @Inject constructor(
     val contacts: LiveData<List<Contact>> = contactManager.getAll().asLiveData()
 
     fun isToxRunning() = tox.started
-    fun tryLoadTox(): Boolean = toxStarter.tryLoadTox() == ToxSaveStatus.Ok
+    fun tryLoadTox(): Boolean = toxStarter.tryLoadTox(null) == ToxSaveStatus.Ok
 
     fun addContact(toxId: ToxID, message: String) = contactManager.add(toxId, message)
 }
