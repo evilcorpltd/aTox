@@ -167,4 +167,10 @@
     <string name="password">Password</string>
     <string name="incorrect_password">Incorrect password</string>
     <string name="unlock_profile">Unlock profile</string>
+    <string name="pref_heading_change_password">Change password</string>
+    <string name="pref_current_password">Current password</string>
+    <string name="pref_new_password">New password</string>
+    <string name="pref_confirm_password">Confirm new password</string>
+    <string name="password_updated">Password updated</string>
+    <string name="passwords_must_match">The passwords must match</string>
 </resources>

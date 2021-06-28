@@ -167,6 +167,15 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
+    fun isCurrentPassword(maybeCurrentPassword: String) =
+        if (maybeCurrentPassword.isEmpty())
+            tox.password == null
+        else
+            tox.password == maybeCurrentPassword
+
+    fun setPassword(newPassword: String) =
+        tox.changePassword(if (newPassword.isEmpty()) null else newPassword)
+
     fun getBootstrapNodeSource(): BootstrapNodeSource = settings.bootstrapNodeSource
     fun setBootstrapNodeSource(source: BootstrapNodeSource) {
         settings.bootstrapNodeSource = source

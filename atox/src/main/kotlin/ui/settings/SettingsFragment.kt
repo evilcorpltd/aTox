@@ -202,6 +202,32 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
             }
         }
 
+        fun onPasswordEdit() {
+            passwordCurrent.error = if (vm.isCurrentPassword(passwordCurrent.text.toString())) {
+                null
+            } else {
+                getString(R.string.incorrect_password)
+            }
+
+            passwordNewConfirm.error = if (passwordNew.text.toString() == passwordNewConfirm.text.toString()) {
+                null
+            } else {
+                getString(R.string.passwords_must_match)
+            }
+
+            passwordConfirm.isEnabled = passwordCurrent.error == null && passwordNewConfirm.error == null
+        }
+        onPasswordEdit()
+
+        passwordCurrent.doAfterTextChanged { onPasswordEdit() }
+        passwordNew.doAfterTextChanged { onPasswordEdit() }
+        passwordNewConfirm.doAfterTextChanged { onPasswordEdit() }
+        passwordConfirm.setOnClickListener {
+            passwordConfirm.isEnabled = false
+            vm.setPassword(passwordNewConfirm.text.toString())
+            Toast.makeText(requireContext(), getString(R.string.password_updated), Toast.LENGTH_LONG).show()
+        }
+
         nospam.setText("%08X".format(vm.getNospam()))
         nospam.doAfterTextChanged {
             saveNospam.isEnabled =

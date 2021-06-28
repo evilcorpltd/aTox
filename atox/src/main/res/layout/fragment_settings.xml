@@ -310,6 +310,126 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="16dp"
+                            android:text="@string/pref_heading_change_password"
+                            android:textSize="16sp"/>
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/dividerColor"/>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            style="@style/OptionRow"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                style="@style/OptionItemText"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:labelFor="@id/password_current"
+                                android:text="@string/pref_current_password"
+                                app:layout_constraintEnd_toStartOf="@id/password_current"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                        <EditText android:id="@+id/password_current"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:importantForAutofill="no"
+                                android:inputType="textPassword"
+                                android:minWidth="64dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/dividerColor"/>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            style="@style/OptionRow"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                style="@style/OptionItemText"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:labelFor="@id/password_new"
+                                android:text="@string/pref_new_password"
+                                app:layout_constraintEnd_toStartOf="@id/password_new"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                        <EditText android:id="@+id/password_new"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:importantForAutofill="no"
+                                android:inputType="textPassword"
+                                android:minWidth="64dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/dividerColor"/>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            style="@style/OptionRow"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                style="@style/OptionItemText"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:labelFor="@id/password_new_confirm"
+                                android:text="@string/pref_confirm_password"
+                                app:layout_constraintEnd_toStartOf="@id/password_new_confirm"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                        <EditText android:id="@+id/password_new_confirm"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:importantForAutofill="no"
+                                android:inputType="textPassword"
+                                android:minWidth="64dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/dividerColor"/>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            style="@style/OptionRow"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <Button android:id="@+id/password_confirm"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:importantForAutofill="no"
+                                android:text="@string/confirm"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView style="@style/OptionGroup">
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
                             android:text="@string/pref_heading_advanced"
                             android:textSize="16sp"/>
                     <View
