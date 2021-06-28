@@ -25,7 +25,7 @@ class Settings @Inject constructor(private val ctx: Context) {
     private val preferences = PreferenceManager.getDefaultSharedPreferences(ctx)
 
     var theme: Int
-        get() = preferences.getInt("theme", 0)
+        get() = preferences.getInt("theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         set(theme) {
             preferences.edit { putInt("theme", theme) }
             AppCompatDelegate.setDefaultNightMode(theme)

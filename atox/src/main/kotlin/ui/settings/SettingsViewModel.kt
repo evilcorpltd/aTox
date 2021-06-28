@@ -3,12 +3,14 @@ package ltd.evilcorp.atox.ui.settings
 import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import java.io.File
 import javax.inject.Inject
+import kotlin.math.max
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -56,9 +58,17 @@ class SettingsViewModel @Inject constructor(
         tox.nospam = value
     }
 
-    fun getTheme(): Int = settings.theme
+    // The trickery here is because the values in the dropdown are 0, 1, 2 for auto, no, yes;
+    // while in Android, the values are -1, 1, 2 for auto, no, yes; so we map -1 to 0 when getting,
+    // and 0 to -1 when setting.
+    fun getTheme(): Int = max(0, settings.theme)
     fun setTheme(theme: Int) {
-        settings.theme = theme
+        settings.theme = when (theme) {
+            0 -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            1 -> AppCompatDelegate.MODE_NIGHT_NO
+            2 -> AppCompatDelegate.MODE_NIGHT_YES
+            else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        }
     }
 
     fun getFtAutoAccept(): FtAutoAccept = settings.ftAutoAccept
