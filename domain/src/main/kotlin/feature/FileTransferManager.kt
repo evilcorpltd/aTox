@@ -2,6 +2,7 @@ package ltd.evilcorp.domain.feature
 
 import android.content.ContentResolver
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.provider.OpenableColumns
 import android.util.Log
@@ -49,6 +50,10 @@ class FileTransferManager @Inject constructor(
     init {
         File(context.filesDir, "ft").mkdir()
         File(context.filesDir, "avatar").mkdir()
+        resolver.persistedUriPermissions.forEach {
+            Log.w(TAG, "Clearing leftover permission for ${it.uri}")
+            resolver.releasePersistableUriPermission(it.uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
     }
 
     fun reset() {
@@ -64,6 +69,10 @@ class FileTransferManager @Inject constructor(
             setProgress(ft, FtRejected)
             fileTransfers.remove(ft)
             File(ft.destination).delete()
+            if (ft.outgoing) {
+                val uri = Uri.parse(ft.destination)
+                resolver.releasePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
         }
     }
 
@@ -140,7 +149,11 @@ class FileTransferManager @Inject constructor(
         fileTransfers.remove(ft)
         setProgress(ft, FtRejected)
         tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
-        File(Uri.parse(ft.destination).path!!).delete()
+        val uri = Uri.parse(ft.destination)
+        File(uri.path!!).delete()
+        if (ft.outgoing) {
+            resolver.releasePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
     }
 
     private fun setDestination(ft: FileTransfer, destination: Uri) {
@@ -225,13 +238,14 @@ class FileTransferManager @Inject constructor(
             return
         }
 
+        val src = Uri.parse(ft.destination)
         if (length == 0) {
             Log.i(TAG, "Finished outgoing ft ${pk.take(8)} $fileNo ${ft.isComplete()}")
             fileTransfers.remove(ft)
+            resolver.releasePersistableUriPermission(src, Intent.FLAG_GRANT_READ_URI_PERMISSION)
             return
         }
 
-        val src = Uri.parse(ft.destination)
         val bytes = resolver.openInputStream(src)?.use {
             it.skip(pos)
             val bytes = ByteArray(length)

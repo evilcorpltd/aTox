@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -50,6 +51,13 @@ import ltd.evilcorp.domain.tox.PublicKey
 const val CONTACT_PUBLIC_KEY = "publicKey"
 private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 20
 
+class OpenMultiplePersistableDocuments : ActivityResultContracts.OpenMultipleDocuments() {
+    override fun createIntent(context: Context, input: Array<out String>): Intent {
+        return super.createIntent(context, input)
+            .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+    }
+}
+
 class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::inflate) {
     private val viewModel: ChatViewModel by viewModels { vmFactory }
 
@@ -64,9 +72,10 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
     }
 
     private val attachFilesLauncher =
-        registerForActivityResult(ActivityResultContracts.OpenMultipleDocuments()) { files ->
+        registerForActivityResult(OpenMultiplePersistableDocuments()) { files ->
             viewModel.setActiveChat(PublicKey(contactPubKey))
             for (file in files) {
+                activity?.contentResolver?.takePersistableUriPermission(file, Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 viewModel.createFt(file)
             }
         }
