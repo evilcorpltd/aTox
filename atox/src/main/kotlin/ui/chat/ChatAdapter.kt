@@ -1,7 +1,12 @@
 package ltd.evilcorp.atox.ui.chat
 
 import android.content.res.Resources
+import android.graphics.Typeface
+import android.text.Spannable
 import android.text.format.Formatter
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
+import android.text.style.TypefaceSpan
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -15,6 +20,7 @@ import android.widget.ListView
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.text.toSpannable
 import com.squareup.picasso.Picasso
 import java.net.URLConnection
 import java.text.DateFormat
@@ -30,6 +36,27 @@ import ltd.evilcorp.core.vo.isRejected
 import ltd.evilcorp.core.vo.isStarted
 
 private const val TAG = "ChatAdapter"
+
+private fun applyStyle(
+    view: TextView,
+    regex: Regex,
+    typefaceStyle: Int,
+    fontFamily: String = "",
+    size: Float = 1f,
+) {
+    val spannable = view.text.toSpannable()
+    for (match in regex.findAll(spannable)) {
+        val start = match.range.first
+        val end = match.range.last + 1
+        spannable.setSpan(RelativeSizeSpan(size), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannable.setSpan(StyleSpan(typefaceStyle), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        if (fontFamily.isNotEmpty()) {
+            spannable.setSpan(TypefaceSpan(fontFamily), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+    }
+
+    view.text = spannable
+}
 
 private fun FileTransfer.isImage() = try {
     URLConnection.guessContentTypeFromName(fileName).startsWith("image/")
@@ -150,6 +177,11 @@ class ChatAdapter(
                         View.VISIBLE
                     }
                 }
+
+                applyStyle(vh.message, Regex("(?<!`)`[^`\n]+?`(?!`)"), Typeface.BOLD, "monospace", 0.8f)
+                applyStyle(vh.message, Regex("(?<!\\*)\\*\\*\\*[^*\n]+?\\*\\*\\*(?!\\*)"), Typeface.BOLD_ITALIC)
+                applyStyle(vh.message, Regex("(?<!\\*)\\*\\*[^*\n]+?\\*\\*(?!\\*)"), Typeface.BOLD)
+                applyStyle(vh.message, Regex("(?<!\\*)\\*[^*\n]+?\\*(?!\\*)"), Typeface.ITALIC)
 
                 view
             }

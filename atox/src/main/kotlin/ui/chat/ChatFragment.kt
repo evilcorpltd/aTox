@@ -5,19 +5,27 @@ import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
+import android.text.Spannable
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
+import android.text.style.TypefaceSpan
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
+import androidx.core.text.getSpans
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsAnimationCompat
 import androidx.core.view.WindowInsetsCompat
@@ -49,6 +57,39 @@ import ltd.evilcorp.domain.tox.PublicKey
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
 private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 20
+
+private inline fun <reified T : Any> clearStyle(e: Spannable) {
+    for (span in e.getSpans<T>()) {
+        e.removeSpan(span)
+    }
+}
+
+private fun clearStyles(view: EditText) {
+    val spannable = view.text
+    clearStyle<ForegroundColorSpan>(spannable)
+    clearStyle<RelativeSizeSpan>(spannable)
+    clearStyle<StyleSpan>(spannable)
+    clearStyle<TypefaceSpan>(spannable)
+}
+
+private fun applyStyle(
+    view: EditText,
+    regex: Regex,
+    typefaceStyle: Int,
+    fontFamily: String = "",
+    size: Float = 1f,
+) {
+    val spannable = view.text
+    for (match in regex.findAll(spannable)) {
+        val start = match.range.first
+        val end = match.range.last + 1
+        spannable.setSpan(RelativeSizeSpan(size), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannable.setSpan(StyleSpan(typefaceStyle), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        if (fontFamily.isNotEmpty()) {
+            spannable.setSpan(TypefaceSpan(fontFamily), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+    }
+}
 
 class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::inflate) {
     private val viewModel: ChatViewModel by viewModels { vmFactory }
@@ -265,6 +306,11 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         outgoingMessage.doAfterTextChanged {
             viewModel.setTyping(outgoingMessage.text.isNotEmpty())
             updateActions()
+            clearStyles(outgoingMessage)
+            applyStyle(outgoingMessage, Regex("(?<!`)`[^`\n]+?`(?!`)"), Typeface.BOLD, "monospace", 0.8f)
+            applyStyle(outgoingMessage, Regex("(?<!\\*)\\*\\*\\*[^*\n]+?\\*\\*\\*(?!\\*)"), Typeface.BOLD_ITALIC)
+            applyStyle(outgoingMessage, Regex("(?<!\\*)\\*\\*[^*\n]+?\\*\\*(?!\\*)"), Typeface.BOLD)
+            applyStyle(outgoingMessage, Regex("(?<!\\*)\\*[^*\n]+?\\*(?!\\*)"), Typeface.ITALIC)
         }
 
         updateActions()
