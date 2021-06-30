@@ -226,12 +226,7 @@ class FileTransferManager @Inject constructor(
         }
 
         if (length == 0) {
-            if (!ft.isComplete()) {
-                Log.e(TAG, "Got a request for 0-sized chunk before ft was done ${pk.take(8)} $fileNo")
-                return
-            }
-
-            Log.i(TAG, "Finished outgoing ft ${pk.take(8)} $fileNo")
+            Log.i(TAG, "Finished outgoing ft ${pk.take(8)} $fileNo ${ft.isComplete()}")
             fileTransfers.remove(ft)
             return
         }
