@@ -68,10 +68,11 @@ class FileTransferManager @Inject constructor(
         fileTransfers.filter { it.publicKey == pk }.forEach { ft ->
             setProgress(ft, FtRejected)
             fileTransfers.remove(ft)
-            File(ft.destination).delete()
             if (ft.outgoing) {
                 val uri = Uri.parse(ft.destination)
                 resolver.releasePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            } else {
+                File(ft.destination).delete()
             }
         }
     }
@@ -150,9 +151,10 @@ class FileTransferManager @Inject constructor(
         setProgress(ft, FtRejected)
         tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
         val uri = Uri.parse(ft.destination)
-        File(uri.path!!).delete()
         if (ft.outgoing) {
             resolver.releasePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        } else {
+            File(uri.path!!).delete()
         }
     }
 
