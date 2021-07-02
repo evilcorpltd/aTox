@@ -248,14 +248,18 @@ class FileTransferManager @Inject constructor(
             return
         }
 
-        val bytes = resolver.openInputStream(src)?.use {
-            it.skip(pos)
-            val bytes = ByteArray(length)
-            it.read(bytes, 0, length)
-            bytes
-        } ?: return
-        tox.sendFileChunk(PublicKey(pk), fileNo, pos, bytes)
-        setProgress(ft, ft.progress + length)
+        try {
+            val bytes = resolver.openInputStream(src)?.use {
+                it.skip(pos)
+                val bytes = ByteArray(length)
+                it.read(bytes, 0, length)
+                bytes
+            } ?: return
+            tox.sendFileChunk(PublicKey(pk), fileNo, pos, bytes)
+            setProgress(ft, ft.progress + length)
+        } catch (e: SecurityException) {
+            Log.e(TAG, "sendChunk: $e")
+        }
     }
 
     fun setStatus(pk: String, fileNo: Int, fileStatus: ToxFileControl) {
