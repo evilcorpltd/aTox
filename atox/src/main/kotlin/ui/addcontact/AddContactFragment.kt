@@ -103,6 +103,8 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
 
         add.setOnClickListener {
             viewModel.addContact(ToxID(toxId.text.toString()), message.text.toString())
+            WindowInsetsControllerCompat(requireActivity().window, view)
+                .hide(WindowInsetsCompat.Type.ime())
             findNavController().navigateUp()
         }
 
