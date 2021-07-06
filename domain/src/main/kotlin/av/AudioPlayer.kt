@@ -1,5 +1,6 @@
 package ltd.evilcorp.domain.av
 
+import android.media.AudioAttributes
 import android.media.AudioFormat
 import android.media.AudioManager
 import android.media.AudioTrack
@@ -30,6 +31,11 @@ class AudioPlayer(sampleRate: Int, channels: Int) {
                     .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
                     .setSampleRate(sampleRate)
                     .setChannelMask(intToChannel(channels))
+                    .build()
+            )
+            .setAudioAttributes(
+                AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_VOICE_COMMUNICATION)
                     .build()
             )
             .setBufferSizeInBytes(minBufferSize)

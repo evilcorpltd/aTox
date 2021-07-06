@@ -100,6 +100,7 @@ tasks.named("preBuild") { dependsOn("fixPaths") }
 dependencies {
     implementation(project(":core"))
 
+    implementation(AndroidX.Core.ktx)
     implementation(JavaX.inject)
     implementation(KotlinX.Coroutines.core)
     api(Tox4j.api)

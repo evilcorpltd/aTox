@@ -28,6 +28,7 @@ kt_android_library(
     deps = [
         ":tox4j",
         "//core",
+        "@maven//:androidx_core_core_ktx",
     ],
 )
 

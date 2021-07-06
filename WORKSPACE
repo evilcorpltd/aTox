@@ -133,6 +133,7 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 maven_install(
     artifacts = [
+        "androidx.core:core-ktx:1.5.0",
         "androidx.room:room-compiler:2.2.6",
         "androidx.room:room-ktx:2.2.6",
         "androidx.room:room-runtime:2.2.6",

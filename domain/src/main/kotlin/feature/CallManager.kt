@@ -1,6 +1,9 @@
 package ltd.evilcorp.domain.feature
 
+import android.content.Context
+import android.media.AudioManager
 import android.util.Log
+import androidx.core.content.ContextCompat
 import im.tox.tox4j.av.exceptions.ToxavCallControlException
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -24,6 +27,7 @@ private const val TAG = "CallManager"
 @Singleton
 class CallManager @Inject constructor(
     private val tox: Tox,
+    context: Context,
 ) : CoroutineScope by GlobalScope {
     private val _inCall = MutableStateFlow<CallState>(CallState.NotInCall)
     val inCall: StateFlow<CallState> get() = _inCall
@@ -31,17 +35,22 @@ class CallManager @Inject constructor(
     private val _sendingAudio = MutableStateFlow(false)
     val sendingAudio: StateFlow<Boolean> get() = _sendingAudio
 
+    private val audioManager = ContextCompat.getSystemService(context, AudioManager::class.java)
+
     fun startCall(publicKey: PublicKey) {
         tox.startCall(publicKey)
         _inCall.value = CallState.InCall(publicKey)
+        audioManager?.mode = AudioManager.MODE_IN_COMMUNICATION
     }
 
     fun answerCall(publicKey: PublicKey) {
         tox.answerCall(publicKey)
         _inCall.value = CallState.InCall(publicKey)
+        audioManager?.mode = AudioManager.MODE_IN_COMMUNICATION
     }
 
     fun endCall(publicKey: PublicKey) {
+        audioManager?.mode = AudioManager.MODE_NORMAL
         _inCall.value = CallState.NotInCall
         try {
             tox.endCall(publicKey)
