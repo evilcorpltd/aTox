@@ -8,7 +8,7 @@ object Java {
 
 object BuildPlugin {
     private object Version {
-        const val gradle = "4.2.1"
+        const val gradle = "4.2.2"
     }
 
     const val androidApplication = "com.android.application"
