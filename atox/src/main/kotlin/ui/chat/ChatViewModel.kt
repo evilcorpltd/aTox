@@ -83,6 +83,10 @@ class ChatViewModel @Inject constructor(
         fileTransferManager.deleteAll(publicKey)
     }
 
+    fun deleteFile(path: String) {
+        fileTransferManager.deleteLocalFile(path)
+    }
+
     fun setActiveChat(pk: PublicKey) {
         if (pk.string().isEmpty()) {
             Log.i(TAG, "Clearing active chat")
@@ -113,7 +117,11 @@ class ChatViewModel @Inject constructor(
     }
 
     fun createFt(file: Uri) = launch {
-        fileTransferManager.create(publicKey, file)
+        fileTransferManager.create(publicKey, file, null)
+    }
+
+    fun createFt(file: Uri, fileO: File) = launch {
+        fileTransferManager.create(publicKey, file, fileO)
     }
 
     fun delete(msg: Message) = launch {
@@ -143,6 +151,15 @@ class ChatViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun getTimerTime(startTime: Long): String {
+        val diff = System.currentTimeMillis() - startTime
+        var seconds = (diff / 1000).toInt()
+        val minutes = seconds / 60
+        seconds = seconds % 60
+
+        return String.format("%02d:%02d", minutes, seconds)
     }
 
     fun setDraft(draft: String) = contactManager.setDraft(publicKey, draft)

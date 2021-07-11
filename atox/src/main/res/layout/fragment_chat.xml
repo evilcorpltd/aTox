@@ -53,6 +53,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"/>
 
+    <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bubble"
+            android:contentDescription="@string/send"
+            android:paddingLeft="20dp"
+            android:paddingTop="5dp"
+            android:id="@+id/timer"
+            android:paddingRight="20dp"
+            android:paddingBottom="5dp"
+            android:text="00:00"
+            android:textColor="@color/textWhiteColor"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+
     <LinearLayout android:id="@+id/bottomBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,5 +106,13 @@
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/attach_file"
                 android:src="@drawable/attach_file"/>
+
+        <ImageButton android:id="@+id/mic"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/attach_file"
+                android:src="@drawable/ic_bas"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
