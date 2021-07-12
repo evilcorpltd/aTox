@@ -20,7 +20,7 @@ object BuildPlugin {
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
     const val ideaExt = "org.jetbrains.gradle.plugin.idea-ext"
-    const val ideaExtVersion = "1.0"
+    const val ideaExtVersion = "1.0.1"
 
     const val versions = "com.github.ben-manes.versions"
     const val versionsVersion = "0.39.0"
@@ -38,7 +38,7 @@ object JavaX {
 
 object KotlinX {
     object Coroutines {
-        private const val version = "1.5.0"
+        private const val version = "1.5.1"
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
         const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
@@ -47,7 +47,7 @@ object KotlinX {
 
 object AndroidX {
     object Core {
-        const val ktx = "androidx.core:core-ktx:1.5.0"
+        const val ktx = "androidx.core:core-ktx:1.6.0"
     }
 
     const val activity = "androidx.activity:activity:1.2.3"
@@ -81,23 +81,23 @@ object AndroidX {
     const val preference = "androidx.preference:preference:1.1.1"
 
     object Test {
-        private const val version = "1.3.0"
+        private const val version = "1.4.0"
         const val runner = "androidx.test:runner:$version"
         const val rules = "androidx.test:rules:$version"
         object Espresso {
-            private const val version = "3.3.0"
+            private const val version = "3.4.0"
             const val core = "androidx.test.espresso:espresso-core:$version"
             const val contrib = "androidx.test.espresso:espresso-contrib:$version"
         }
         object Ext {
-            const val junit = "androidx.test.ext:junit:1.1.2"
+            const val junit = "androidx.test.ext:junit:1.1.3"
         }
     }
 }
 
 object Google {
     object Android {
-        const val material = "com.google.android.material:material:1.3.0"
+        const val material = "com.google.android.material:material:1.4.0"
     }
 
     const val dagger = "com.google.dagger:dagger:${Dagger.version}"
@@ -127,5 +127,5 @@ object Tox4j {
 
 object Test {
     const val junit = "junit:junit:4.13.2"
-    const val mockk = "io.mockk:mockk-android:1.11.0"
+    const val mockk = "io.mockk:mockk-android:1.12.0"
 }
