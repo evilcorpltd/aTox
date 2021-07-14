@@ -127,5 +127,7 @@ object Tox4j {
 
 object Test {
     const val junit = "junit:junit:4.13.2"
-    const val mockk = "io.mockk:mockk-android:1.12.0"
+
+    // Pinned to 1.11.0 as 1.12.0 bumps the minSdkVersion to 21.
+    const val mockk = "io.mockk:mockk-android:1.11.0"
 }

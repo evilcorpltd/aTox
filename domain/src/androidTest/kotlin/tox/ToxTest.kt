@@ -17,7 +17,7 @@ class ToxTest {
                 mockk(relaxUnitFun = true),
                 mockk(),
             ).apply { isBootstrapNeeded = false }
-            tox.start(SaveOptions(null, false, ProxyType.None, "", 0), ToxEventListener(), ToxAvEventListener())
+            tox.start(SaveOptions(null, false, ProxyType.None, "", 0), null, ToxEventListener(), ToxAvEventListener())
             sleep(25)
             tox.stop()
         }
