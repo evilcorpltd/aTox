@@ -150,4 +150,24 @@
     <string name="incoming_call_from">Входящий звонок от %1$s</string>
     <string name="incoming_call">Входящий звонок</string>
     <string name="call_mic_permission_needed">Необходимо разрешение на доступ к микрофону для включения передачи звука</string>
+    <string name="pref_bootstrap_node_user_provided">Пользовательские</string>
+    <string name="pref_bootstrap_node_builtin">Встроенные</string>
+    <string name="pref_proxy_type_socks5">SOCKS5</string>
+    <string name="pref_proxy_type_http">HTTP</string>
+    <string name="pref_proxy_type_none">Нет</string>
+    <string name="pref_ft_auto_accept_all">Все файлы</string>
+    <string name="pref_ft_auto_accept_images">Изображения</string>
+    <string name="pref_ft_auto_accept_none">Нет</string>
+    <string name="pref_theme_dark">Тёмная</string>
+    <string name="pref_theme_light">Светлая</string>
+    <string name="pref_theme_follow_system">Использовать системную</string>
+    <string name="passwords_must_match">Пароли должны совпадать</string>
+    <string name="password_updated">Пароль обновлён</string>
+    <string name="pref_confirm_password">Подтвердите новый пароль</string>
+    <string name="pref_new_password">Новый пароль</string>
+    <string name="pref_current_password">Текущий пароль</string>
+    <string name="pref_heading_change_password">Сменить пароль</string>
+    <string name="unlock_profile">Разблокировать профиль</string>
+    <string name="incorrect_password">Неверный пароль</string>
+    <string name="password">Пароль</string>
 </resources>

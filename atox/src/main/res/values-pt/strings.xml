@@ -107,4 +107,13 @@
     <string name="add">Adicionar</string>
     <string name="accept">Aceitar</string>
     <string name="contact_list_delete_contact_confirm">Tem certeza de que deseja excluir «%1$s» de seus contatos\?</string>
+    <string name="contact_default_name">Desconhecido</string>
+    <string name="delete_message">Apagar mensagem</string>
+    <string name="saved">Guardado</string>
+    <string name="save">Guardar</string>
+    <string name="pref_ft_auto_accept_all">Todos</string>
+    <string name="pref_ft_auto_accept_images">Imagens</string>
+    <string name="pref_ft_auto_accept_none">Nenhum</string>
+    <string name="pref_theme_dark">Escuro</string>
+    <string name="pref_theme_light">Claro</string>
 </resources>
