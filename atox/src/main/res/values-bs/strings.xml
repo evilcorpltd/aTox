@@ -122,4 +122,25 @@
     <string name="add_contact">Dodaj kontakt</string>
     <string name="add">Dodaj</string>
     <string name="accept">Prihvati</string>
+    <string name="passwords_must_match">Lozinke se moraju podudarati</string>
+    <string name="password_updated">Lozinka promjenjena</string>
+    <string name="pref_confirm_password">Potvrdi novu lozinku</string>
+    <string name="pref_new_password">Nova lozinka</string>
+    <string name="pref_current_password">Trenutna lozinka</string>
+    <string name="pref_heading_change_password">Promjeni lozinku</string>
+    <string name="unlock_profile">Otključaj profil</string>
+    <string name="incorrect_password">Netačna lozinka</string>
+    <string name="password">Lozinka</string>
+    <string name="call_mic_permission_needed">Dozvola za mikrofon je potrebna kako bi se omogućilo slanje zvuka</string>
+    <string name="pref_bootstrap_node_user_provided">Korisnički zadano</string>
+    <string name="pref_bootstrap_node_builtin">Ugrađeno</string>
+    <string name="pref_proxy_type_socks5">SOCKS5</string>
+    <string name="pref_proxy_type_http">HTTP</string>
+    <string name="pref_proxy_type_none">Nijedno</string>
+    <string name="pref_ft_auto_accept_all">Sve</string>
+    <string name="pref_ft_auto_accept_images">Slike</string>
+    <string name="pref_ft_auto_accept_none">Nijedno</string>
+    <string name="pref_theme_dark">Tamna</string>
+    <string name="pref_theme_light">Svijetla</string>
+    <string name="pref_theme_follow_system">Prati sistem</string>
 </resources>
