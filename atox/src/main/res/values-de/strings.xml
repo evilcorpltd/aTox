@@ -152,4 +152,13 @@
     <string name="pref_theme_dark">Dunkel</string>
     <string name="pref_theme_light">Hell</string>
     <string name="pref_theme_follow_system">Systemdefiniert</string>
+    <string name="passwords_must_match">Die Passwörter müssen übereinstimmen</string>
+    <string name="password_updated">Passwort aktualisiert</string>
+    <string name="pref_confirm_password">Neues Passwort bestätigen</string>
+    <string name="pref_new_password">Neues Passwort</string>
+    <string name="password">Passwort</string>
+    <string name="pref_current_password">Aktuelles Passwort</string>
+    <string name="pref_heading_change_password">Passwort ändern</string>
+    <string name="unlock_profile">Profil freischalten</string>
+    <string name="incorrect_password">Falsches Passwort</string>
 </resources>
