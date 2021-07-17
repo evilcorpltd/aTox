@@ -25,7 +25,7 @@
     <string name="cancel">Չեղարկել</string>
     <string name="confirm">Հաստատել</string>
     <string name="add_contact_message_error_empty">Գրիր ինչ-որ բան ուղարկելու համար</string>
-    <string name="add_contact_message_default">Շփվենք aTox-ում, ոնց նորմալ մարդիկ</string>
+    <string name="add_contact_message_default">Շփվենք aTox-ում, ոնց նորմալ մարդիկ:</string>
     <string name="add_contact">Ավելացնել կոնտակտ</string>
     <string name="add">Ավելացնել</string>
     <string name="calls">Զանգեր</string>
