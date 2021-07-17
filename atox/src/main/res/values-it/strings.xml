@@ -123,4 +123,24 @@
     <string name="incoming_call_from">Chiamata in arrivo da %1$s</string>
     <string name="incoming_call">Chiamata in arrivo</string>
     <string name="call_mic_permission_needed">È necessaria l’autorizzazione del microfono per abilitare l’invio dell’audio</string>
+    <string name="pref_bootstrap_node_user_provided">Fornito dall’utente</string>
+    <string name="pref_bootstrap_node_builtin">Incorporato</string>
+    <string name="pref_proxy_type_socks5">SOCKS5</string>
+    <string name="pref_proxy_type_http">HTTP</string>
+    <string name="pref_proxy_type_none">Nessuno</string>
+    <string name="pref_ft_auto_accept_all">Tutto</string>
+    <string name="pref_ft_auto_accept_images">Immagini</string>
+    <string name="pref_ft_auto_accept_none">Nessuno</string>
+    <string name="pref_theme_dark">Scuro</string>
+    <string name="pref_theme_light">Chiaro</string>
+    <string name="pref_theme_follow_system">Secondo il sistema</string>
+    <string name="passwords_must_match">Le password devono corrispondere</string>
+    <string name="password_updated">Password aggiornata</string>
+    <string name="pref_confirm_password">Conferma la nuova password</string>
+    <string name="pref_new_password">Nuova password</string>
+    <string name="pref_current_password">Password attuale</string>
+    <string name="pref_heading_change_password">Cambia la password</string>
+    <string name="unlock_profile">Sblocca il profilo</string>
+    <string name="incorrect_password">Password errata</string>
+    <string name="password">Password</string>
 </resources>

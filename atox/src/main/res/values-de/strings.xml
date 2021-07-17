@@ -141,4 +141,15 @@
     <string name="incoming_call_from">Eingehender Anruf von %1$s</string>
     <string name="incoming_call">Eingehender Anruf</string>
     <string name="call_mic_permission_needed">Mikrofonberechtigung erforderlich, um das Senden von Audio zu ermöglichen</string>
+    <string name="pref_bootstrap_node_user_provided">Von Benutzer bereitgestellt</string>
+    <string name="pref_bootstrap_node_builtin">Integriert</string>
+    <string name="pref_proxy_type_socks5">SOCKS5</string>
+    <string name="pref_proxy_type_http">HTTP</string>
+    <string name="pref_proxy_type_none">Keine</string>
+    <string name="pref_ft_auto_accept_all">Alle</string>
+    <string name="pref_ft_auto_accept_images">Bilder</string>
+    <string name="pref_ft_auto_accept_none">Keine</string>
+    <string name="pref_theme_dark">Dunkel</string>
+    <string name="pref_theme_light">Hell</string>
+    <string name="pref_theme_follow_system">Systemdefiniert</string>
 </resources>

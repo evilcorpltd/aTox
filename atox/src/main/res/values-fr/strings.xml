@@ -123,4 +123,24 @@
     <string name="incoming_call_from">Appel entrant de %1$s</string>
     <string name="incoming_call">Appel entrant</string>
     <string name="call_mic_permission_needed">L’autorisation du microphone est nécessaire pour permettre l’envoi d’audio</string>
+    <string name="pref_bootstrap_node_user_provided">Fourni par l’utilisateur</string>
+    <string name="pref_bootstrap_node_builtin">Intégré</string>
+    <string name="pref_proxy_type_socks5">SOCKS5</string>
+    <string name="pref_proxy_type_http">HTTP</string>
+    <string name="pref_proxy_type_none">Aucun</string>
+    <string name="pref_ft_auto_accept_all">Tout</string>
+    <string name="pref_ft_auto_accept_images">Images</string>
+    <string name="pref_ft_auto_accept_none">Aucun</string>
+    <string name="pref_theme_dark">Sombre</string>
+    <string name="pref_theme_light">Clair</string>
+    <string name="pref_theme_follow_system">Selon le système</string>
+    <string name="passwords_must_match">Les mots de passe doivent correspondre</string>
+    <string name="password_updated">Mot de passe mis à jour</string>
+    <string name="pref_confirm_password">Confirmer le nouveau mot de passe</string>
+    <string name="pref_new_password">Nouveau mot de passe</string>
+    <string name="pref_current_password">Mot de passe actuel</string>
+    <string name="pref_heading_change_password">Modifier le mot de passe</string>
+    <string name="unlock_profile">Déverrouiller le profil</string>
+    <string name="incorrect_password">Mot de passe incorrect</string>
+    <string name="password">Mot de passe</string>
 </resources>
