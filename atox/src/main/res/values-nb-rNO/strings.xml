@@ -122,4 +122,16 @@
     <string name="tox_id_error_self_add">Du kan ikke legge til deg selv</string>
     <string name="pref_nospam_description">Å endre din NoSpam forandrer din Tox-ID, noe som betyr at venneforespørsler må sendes til den oppdaterte adressen</string>
     <string name="pref_nospam">NoSpam</string>
+    <string name="call_mic_permission_needed">Innvilg mikrofontilgang for å sende lyd</string>
+    <string name="pref_bootstrap_node_user_provided">Bruker-angitt</string>
+    <string name="pref_bootstrap_node_builtin">Innebygd</string>
+    <string name="pref_proxy_type_socks5">SOCKS5</string>
+    <string name="pref_proxy_type_http">HTTP</string>
+    <string name="pref_proxy_type_none">Ingen</string>
+    <string name="pref_ft_auto_accept_all">Alle</string>
+    <string name="pref_ft_auto_accept_images">Bilder</string>
+    <string name="pref_ft_auto_accept_none">Ingen</string>
+    <string name="pref_theme_dark">Mørk</string>
+    <string name="pref_theme_light">Lys</string>
+    <string name="pref_theme_follow_system">Følg systeminnstilling</string>
 </resources>
