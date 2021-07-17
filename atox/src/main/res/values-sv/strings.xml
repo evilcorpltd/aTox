@@ -142,4 +142,15 @@
     <string name="pref_nospam">NoSpam</string>
     <string name="save">Spara</string>
     <string name="tox_id_error_self_add">Du kan inte lägga till dig själv</string>
+    <string name="pref_bootstrap_node_user_provided">Användardefinierad</string>
+    <string name="pref_bootstrap_node_builtin">Inbyggd</string>
+    <string name="pref_proxy_type_socks5">SOCKS5</string>
+    <string name="pref_proxy_type_http">HTTP</string>
+    <string name="pref_proxy_type_none">Avstängd</string>
+    <string name="pref_ft_auto_accept_all">Allt</string>
+    <string name="pref_ft_auto_accept_images">Bilder</string>
+    <string name="pref_ft_auto_accept_none">Aldrig</string>
+    <string name="pref_theme_dark">Mörk</string>
+    <string name="pref_theme_light">Ljus</string>
+    <string name="pref_theme_follow_system">Följ systemet</string>
 </resources>
