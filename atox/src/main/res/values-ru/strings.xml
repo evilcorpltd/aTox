@@ -57,29 +57,10 @@
     <string name="atox_connected_with_udp">Подключено (UDP)</string>
     <string name="read_qr">QR-код</string>
     <string name="pref_heading_theme">Тема</string>
-    <string-array name="pref_theme_options">
-        <item>Использовать системную</item>
-        <item>Светлая</item>
-        <item>Тёмная</item>
-    </string-array>
     <string name="pref_heading_ft_auto_accept">Автоматически принимаемые файлы</string>
-    <string-array name="pref_ft_auto_accept_options">
-        <item>Нет</item>
-        <item>Изображения</item>
-        <item>Все файлы</item>
-    </string-array>
     <string name="pref_heading_type">Тип</string>
-    <string-array name="pref_proxy_type_options">
-        <item>Нет</item>
-        <item>HTTP</item>
-        <item>SOCKS5</item>
-    </string-array>
     <string name="pref_heading_advanced">Расширенные</string>
     <string name="pref_heading_bootstrap_nodes">Источник начальных узлов</string>
-    <string-array name="pref_bootstrap_node_options">
-        <item>Встроенные</item>
-        <item>Пользовательские</item>
-    </string-array>
     <string name="pref_bootstrap_nodes_description">Пользовательские JSON файлы должны иметь ту же структуру как и здесь https://nodes.tox.chat/json</string>
     <string name="send_as_action">Отправить как действие</string>
     <string name="or_import_existing_save">или импортировать уже существующий профиль Tox</string>
@@ -99,11 +80,6 @@
     <string name="status_available">Доступен/Доступна</string>
     <string name="status_away">Отошёл/Отошла</string>
     <string name="status_busy">Занят/Занята</string>
-    <string-array name="user_statuses">
-        <item>@string/status_available</item>
-        <item>@string/status_away</item>
-        <item>@string/status_busy</item>
-    </string-array>
     <string name="from">От</string>
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Изменить ваш статус</string>

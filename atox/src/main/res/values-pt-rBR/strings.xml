@@ -57,11 +57,6 @@
     <string name="atox_connected_with_udp">Conectado (UDP)</string>
     <string name="read_qr">QR</string>
     <string name="pref_heading_theme">Tema</string>
-    <string-array name="pref_theme_options">
-        <item>Adaptar do sistema</item>
-        <item>Claro</item>
-        <item>Escuro</item>
-    </string-array>
     <string name="send_as_action">Enviar como ação</string>
     <string name="or_import_existing_save">ou importar um arquivo de Tox existente</string>
     <string name="profile_information">Informações do perfil</string>
@@ -80,11 +75,6 @@
     <string name="status_available">Disponível</string>
     <string name="status_away">Indisponível</string>
     <string name="status_busy">Ocupado</string>
-    <string-array name="user_statuses">
-        <item>@string/status_available</item>
-        <item>@string/status_away</item>
-        <item>@string/status_busy</item>
-    </string-array>
     <string name="from">De</string>
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Editar seu status</string>
@@ -135,4 +125,7 @@
     <string name="bad_host">Host ruim</string>
     <string name="bad_type">Tipo ruim</string>
     <string name="warn_proxy_broken">Configure seu proxy corretamente (ou o desligue) antes de usar o app</string>
+    <string name="pref_theme_follow_system">Adaptar do sistema</string>
+    <string name="pref_theme_light">Claro</string>
+    <string name="pref_theme_dark">Escuro</string>
 </resources>

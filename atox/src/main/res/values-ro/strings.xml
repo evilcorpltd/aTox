@@ -57,29 +57,10 @@
     <string name="atox_connected_with_udp">Conectat (UDP)</string>
     <string name="read_qr">Cod QR</string>
     <string name="pref_heading_theme">Temă</string>
-    <string-array name="pref_theme_options">
-        <item>Urmez sistemul</item>
-        <item>Luminoasă</item>
-        <item>Întunecată</item>
-    </string-array>
     <string name="pref_heading_ft_auto_accept">Acceptă automat transferurile de fișiere</string>
-    <string-array name="pref_ft_auto_accept_options">
-        <item>Nu</item>
-        <item>Imagini</item>
-        <item>Toate fișierele</item>
-    </string-array>
     <string name="pref_heading_type">Tip</string>
-    <string-array name="pref_proxy_type_options">
-        <item>Nu</item>
-        <item>HTTP</item>
-        <item>SOCKS5</item>
-    </string-array>
     <string name="pref_heading_advanced">Avansate</string>
     <string name="pref_heading_bootstrap_nodes">Sursa nodurilor bootstrap</string>
-    <string-array name="pref_bootstrap_node_options">
-        <item>Integrate</item>
-        <item>Personalizate</item>
-    </string-array>
     <string name="pref_bootstrap_nodes_description">Fișierele JSON personalizate vin cu structura https://nodes.tox.chat/json</string>
     <string name="send_as_action">Trimite ca acțiune</string>
     <string name="or_import_existing_save">sau importă profilul Tox existent</string>
@@ -99,11 +80,6 @@
     <string name="status_available">Disponibil(ă)</string>
     <string name="status_away">Plecat(ă)</string>
     <string name="status_busy">Ocupat(ă)</string>
-    <string-array name="user_statuses">
-        <item>@string/status_available</item>
-        <item>@string/status_away</item>
-        <item>@string/status_busy</item>
-    </string-array>
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Modifică stare</string>
     <string name="mimetype_handler_not_found">Nu am găsit aplicația care ar procesa tipul media \"%1$s\"</string>
@@ -146,4 +122,15 @@
     <string name="tox_id_error_self_add">Nu te poți adăuga</string>
     <string name="delete_message">Șterge mesaj</string>
     <string name="contact_default_name">Necunoscut</string>
+    <string name="pref_bootstrap_node_builtin">Integrate</string>
+    <string name="pref_bootstrap_node_user_provided">Personalizate</string>
+    <string name="pref_proxy_type_none">Nu</string>
+    <string name="pref_proxy_type_http">HTTP</string>
+    <string name="pref_proxy_type_socks5">SOCKS5</string>
+    <string name="pref_ft_auto_accept_all">Toate fișierele</string>
+    <string name="pref_ft_auto_accept_images">Imagini</string>
+    <string name="pref_ft_auto_accept_none">Nu</string>
+    <string name="pref_theme_follow_system">Urmez sistemul</string>
+    <string name="pref_theme_light">Luminoasă</string>
+    <string name="pref_theme_dark">Întunecată</string>
 </resources>

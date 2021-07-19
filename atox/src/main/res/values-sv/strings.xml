@@ -105,25 +105,6 @@
     <string name="bad_positive_number">Måste vara en positiv siffra</string>
     <string name="warn_node_json_import_failed">Fel vid nodimportering</string>
     <string name="error_no_nodes_loaded">Det gick inte att ladda bootstrapnoderna. Var god och byt till inbyggt läge eller försök importera igen</string>
-    <string-array name="pref_theme_options">
-        <item>Följ systemet</item>
-        <item>Ljust</item>
-        <item>Mörkt</item>
-    </string-array>
-    <string-array name="pref_ft_auto_accept_options">
-        <item>Aldrig</item>
-        <item>Bilder</item>
-        <item>Alltid</item>
-    </string-array>
-    <string-array name="pref_proxy_type_options">
-        <item>Ingen</item>
-        <item>HTTP</item>
-        <item>SOCKS5</item>
-    </string-array>
-    <string-array name="pref_bootstrap_node_options">
-        <item>Inbyggda</item>
-        <item>Användardefinierade</item>
-    </string-array>
     <string name="receive_share_share_to">Dela till…</string>
     <string name="contact_list_delete_contact_confirm">Är du säker på att du vill ta bort ”%1$s” från dina kontakter\?</string>
     <string name="in_call_with">I samtal med %1$s</string>

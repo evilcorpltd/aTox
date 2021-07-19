@@ -56,29 +56,10 @@
     <string name="atox_connected_with_udp">Conectado (UDP)</string>
     <string name="read_qr">QR</string>
     <string name="pref_heading_theme">Tema</string>
-    <string-array name="pref_theme_options">
-        <item>Seguir al sistema</item>
-        <item>Claro</item>
-        <item>Oscuro</item>
-    </string-array>
     <string name="pref_heading_ft_auto_accept">Auto-aceptar transferencias de archivos</string>
-    <string-array name="pref_ft_auto_accept_options">
-        <item>No</item>
-        <item>Imágenes</item>
-        <item>Todos los archivos</item>
-    </string-array>
     <string name="pref_heading_type">Tipo</string>
-    <string-array name="pref_proxy_type_options">
-        <item>No</item>
-        <item>HTTP</item>
-        <item>SOCKS5</item>
-    </string-array>
     <string name="pref_heading_advanced">Avanzada</string>
     <string name="pref_heading_bootstrap_nodes">Fuente de los nodos bootstrap</string>
-    <string-array name="pref_bootstrap_node_options">
-        <item>Incorporados</item>
-        <item>Personalizados</item>
-    </string-array>
     <string name="pref_bootstrap_nodes_description">Los archivos JSON personalizados deben tener el mismo formato que https://nodes.tox.chat/json</string>
     <string name="send_as_action">Enviar como acción</string>
     <string name="or_import_existing_save">o importar un archivo de Tox existente</string>
@@ -98,11 +79,6 @@
     <string name="status_available">Conectado</string>
     <string name="status_away">Ausente</string>
     <string name="status_busy">Ocupado</string>
-    <string-array name="user_statuses">
-        <item>@string/status_available</item>
-        <item>@string/status_away</item>
-        <item>@string/status_busy</item>
-    </string-array>
     <string name="from">De</string>
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Editar tu estado</string>

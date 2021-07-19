@@ -55,17 +55,7 @@
     <string name="atox_connected_with_udp">Verbunden (UDP)</string>
     <string name="read_qr">QR</string>
     <string name="pref_heading_theme">Design</string>
-    <string-array name="pref_theme_options">
-        <item>Wie System</item>
-        <item>Hell</item>
-        <item>Dunkel</item>
-    </string-array>
     <string name="pref_heading_type">Typ</string>
-    <string-array name="pref_proxy_type_options">
-        <item>Kein</item>
-        <item>HTTP</item>
-        <item>SOCKS5</item>
-    </string-array>
     <string name="send_as_action">Als Aktion senden</string>
     <string name="or_import_existing_save">Oder importiere ein bestehendes Tox-Profil</string>
     <string name="profile_information">Profil-Informationen</string>
@@ -84,11 +74,6 @@
     <string name="status_available">Anwesend</string>
     <string name="status_away">Abwesend</string>
     <string name="status_busy">Beschäftigt</string>
-    <string-array name="user_statuses">
-        <item>@string/status_available</item>
-        <item>@string/status_away</item>
-        <item>@string/status_busy</item>
-    </string-array>
     <string name="from">Von</string>
     <!-- Status dialog -->
     <string name="status_dialog_edit_user_status">Status ändern</string>
