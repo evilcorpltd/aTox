@@ -91,12 +91,21 @@ class ContactAdapter(
                     } else {
                         resources.getText(R.string.never)
                     }
-                    if (draftMessage.isNotEmpty()) {
-                        vh.statusMessage.text = resources.getString(R.string.draft_message, draftMessage)
-                        vh.statusMessage.setTextColor(ResourcesCompat.getColor(resources, R.color.colorAccent, null))
-                    } else {
-                        vh.statusMessage.text = statusMessage
-                        vh.statusMessage.setTextColor(vh.lastMessage.currentTextColor)
+                    when {
+                        typing -> {
+                            vh.statusMessage.text = resources.getString(R.string.contact_typing)
+                            vh.statusMessage.setTextColor(vh.lastMessage.currentTextColor)
+                        }
+                        draftMessage.isNotEmpty() -> {
+                            vh.statusMessage.text = resources.getString(R.string.draft_message, draftMessage)
+                            vh.statusMessage.setTextColor(
+                                ResourcesCompat.getColor(resources, R.color.colorAccent, null)
+                            )
+                        }
+                        else -> {
+                            vh.statusMessage.text = statusMessage
+                            vh.statusMessage.setTextColor(vh.lastMessage.currentTextColor)
+                        }
                     }
                     vh.status.setColorFilter(colorByStatus(resources, this))
                     setAvatarFromContact(vh.image, this)
