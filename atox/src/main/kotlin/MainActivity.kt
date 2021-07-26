@@ -1,6 +1,7 @@
 package ltd.evilcorp.atox
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -34,7 +35,11 @@ class MainActivity : AppCompatActivity() {
 
         AppCompatDelegate.setDefaultNightMode(settings.theme)
 
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        // The view inset/padding adjustments only run for Lollipop and newer.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            WindowCompat.setDecorFitsSystemWindows(window, false)
+        }
+
         setContentView(R.layout.activity_main)
 
         // Only handle intent the first time it triggers the app.
