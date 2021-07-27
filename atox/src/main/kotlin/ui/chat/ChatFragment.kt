@@ -1,20 +1,32 @@
 package ltd.evilcorp.atox.ui.chat
 
+import android.Manifest.permission
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
@@ -29,9 +41,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.math.MathUtils.lerp
 import java.io.File
+import java.io.IOException
 import java.net.URLConnection
 import java.text.DateFormat
 import java.util.Locale
+import java.util.UUID
+import java.util.concurrent.TimeUnit
 import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentChatBinding
@@ -49,6 +64,7 @@ import ltd.evilcorp.core.vo.isComplete
 import ltd.evilcorp.domain.tox.PublicKey
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
+private const val REQUEST_RECORD_PERMISSION = 204
 private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 20
 
 class OpenMultiplePersistableDocuments : ActivityResultContracts.OpenMultipleDocuments() {
@@ -65,6 +81,9 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
     private var contactName = ""
     private var selectedFt: Int = Int.MIN_VALUE
     private var fts: List<FileTransfer> = listOf()
+    private lateinit var mRecorder: MediaRecorder
+    private var mRecordedFilePath = ""
+    private var mRecordedFileName = ""
 
     private val exportFtLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument()) { dest ->
         if (dest == null) return@registerForActivityResult
@@ -80,6 +99,9 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             }
         }
 
+    // TODO(robinlinden): Don't do this, but what should onClick even do when something's being
+    //  done while a button is held down?
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = binding.run {
         contactPubKey = requireStringArg(CONTACT_PUBLIC_KEY)
         viewModel.setActiveChat(PublicKey(contactPubKey))
@@ -266,6 +288,46 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         registerForContextMenu(send)
         send.setOnClickListener { send(MessageType.Normal) }
 
+        mic.setOnTouchListener { _, motionEvent ->
+            if (motionEvent.action == MotionEvent.ACTION_DOWN) {
+                if (checkRecordPermission()) {
+                    startRecording()
+                    startTimer()
+                } else {
+                    ActivityCompat.requestPermissions(
+                        requireActivity(),
+                        arrayOf(permission.RECORD_AUDIO),
+                        REQUEST_RECORD_PERMISSION
+                    )
+                }
+            } else if (motionEvent.action == MotionEvent.ACTION_UP) {
+
+                if (checkRecordPermission()) {
+                    stopRecording()
+                    stopTimer()
+
+                    try {
+                        if (File(mRecordedFilePath).length() > 0)
+                            AlertDialog.Builder(requireContext())
+                                .setTitle(R.string.confirm)
+                                .setPositiveButton(R.string.send) { _, _ ->
+                                    viewModel.createFt(Uri.fromFile(File(mRecordedFilePath)), File(mRecordedFilePath))
+                                }
+                                .setNegativeButton(R.string.delete) { _, _ ->
+                                    if (mRecordedFilePath.isNotEmpty())
+                                        viewModel.deleteFile(mRecordedFilePath)
+                                }.show()
+                        else
+                            viewModel.deleteFile(mRecordedFilePath)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+
+            return@setOnTouchListener true
+        }
+
         attach.setOnClickListener {
             WindowInsetsControllerCompat(requireActivity().window, view).hide(WindowInsetsCompat.Type.ime())
             attachFilesLauncher.launch(arrayOf("*/*"))
@@ -282,6 +344,14 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
     override fun onPause() {
         viewModel.setDraft(binding.outgoingMessage.text.toString())
         viewModel.setActiveChat(PublicKey(""))
+
+        if (binding.timer.visibility == View.VISIBLE) {
+            stopRecording()
+            stopTimer()
+            if (mRecordedFilePath.isNotEmpty())
+                viewModel.deleteFile(mRecordedFilePath)
+        }
+
         super.onPause()
     }
 
@@ -370,14 +440,100 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
 
     private fun updateActions() = binding.run {
         send.visibility = if (outgoingMessage.text.isEmpty()) View.GONE else View.VISIBLE
-        attach.visibility = if (send.visibility == View.VISIBLE) View.GONE else View.VISIBLE
-        attach.isEnabled = viewModel.contactOnline
-        attach.setColorFilter(
+        adjustAttachmentButtons(attach)
+        adjustAttachmentButtons(mic)
+    }
+
+    private fun adjustAttachmentButtons(view: ImageButton) = binding.run {
+        view.visibility = if (send.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+        view.isEnabled = viewModel.contactOnline
+        view.setColorFilter(
             ResourcesCompat.getColor(
                 resources,
-                if (attach.isEnabled) R.color.colorPrimary else android.R.color.darker_gray,
+                if (view.isEnabled) R.color.colorPrimary else android.R.color.darker_gray,
                 null
             )
         )
+    }
+
+    private fun startRecording() {
+        try {
+            mRecorder = MediaRecorder()
+            mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
+            mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+            mRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB)
+            val rootPath = requireContext().filesDir.absolutePath
+            val file = File("$rootPath/ATox")
+            if (!file.exists()) {
+                file.mkdirs()
+            }
+            val fileName = "REC_" + UUID.randomUUID().toString().substring(30, 35) + ".m4a"
+
+            mRecordedFileName = fileName
+            mRecordedFilePath = "$rootPath/ATox/$fileName"
+            mRecorder.setOutputFile(mRecordedFilePath)
+
+            mRecorder.prepare()
+            mRecorder.start()
+        } catch (e: java.lang.IllegalStateException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun stopRecording() {
+        try {
+            try {
+                mRecorder.stop()
+            } catch (e: IllegalStateException) {
+                e.printStackTrace()
+            }
+            mRecorder.reset() // set state to idle
+            mRecorder.release() // release resources back to the system
+        } catch (stopexception: RuntimeException) {
+            Log.d("recview", "rec error")
+            if (mRecordedFilePath.isNotEmpty())
+                viewModel.deleteFile(mRecordedFilePath)
+        }
+    }
+
+    private fun checkRecordPermission(): Boolean =
+        ContextCompat.checkSelfPermission(
+            requireContext(),
+            permission.RECORD_AUDIO
+        ) == PackageManager.PERMISSION_GRANTED
+
+    private val mHandler: Handler = Handler(Looper.getMainLooper())
+
+    private var mStartTime = 0L
+
+    private val mRunnable: Runnable by lazy {
+        Runnable {
+            viewModel.getTimerTime(mStartTime).let {
+                if (it.isNotEmpty())
+                    binding.timer.text = it
+            }
+            mHandler.postDelayed(mRunnable, TimeUnit.SECONDS.toMillis(1))
+        }
+    }
+
+    private fun startTimer() = binding.run {
+        timer.apply {
+            visibility = View.VISIBLE
+            text = context.getString(R.string.default_timer)
+
+            mStartTime = System.currentTimeMillis()
+
+            mHandler.postDelayed(mRunnable, TimeUnit.SECONDS.toMillis(1))
+        }
+    }
+
+    private fun stopTimer() = binding.run {
+        timer.apply {
+            visibility = View.GONE
+            text = context.getString(R.string.default_timer)
+        }
+        mHandler.removeCallbacks(mRunnable)
     }
 }
