@@ -20,12 +20,10 @@ plugins {
 apply<KtlintPlugin>()
 
 android {
-    compileSdkVersion(AndroidSdk.targetVersion)
+    compileSdk = AndroidSdk.targetVersion
     defaultConfig {
-        minSdkVersion(AndroidSdk.minVersion)
-        targetSdkVersion(AndroidSdk.targetVersion)
-        versionCode = 1
-        versionName = "0.1.0"
+        minSdk = AndroidSdk.minVersion
+        targetSdk = AndroidSdk.targetVersion
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
     }
@@ -42,7 +40,7 @@ android {
     kotlinOptions {
         jvmTarget = Java.version.toString()
     }
-    lintOptions {
+    lint {
         disable("InvalidPackage") // tox4j is still not really allowed on Android. :/
         // The macOS domain:lint task fails due to not guarding AudioRecord with permission checks in this module.
         // This doesn't fail locally, and use of the audio code is guarded in the UI in the aTox module.
@@ -54,7 +52,7 @@ android {
     packagingOptions {
         // Work around scala-compiler and scala-library (via tox4j) trying to place files in the
         // same place.
-        exclude("rootdoc.txt")
+        resources.excludes.add("rootdoc.txt")
     }
 }
 

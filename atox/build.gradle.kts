@@ -8,11 +8,11 @@ plugins {
 apply<KtlintPlugin>()
 
 android {
-    compileSdkVersion(AndroidSdk.targetVersion)
+    compileSdk = AndroidSdk.targetVersion
     defaultConfig {
         applicationId = "ltd.evilcorp.atox"
-        minSdkVersion(AndroidSdk.minVersion)
-        targetSdkVersion(AndroidSdk.targetVersion)
+        minSdk = AndroidSdk.minVersion
+        targetSdk = AndroidSdk.targetVersion
         versionCode = 9
         versionName = "0.6.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -37,7 +37,7 @@ android {
     kotlinOptions {
         jvmTarget = Java.version.toString()
     }
-    lintOptions {
+    lint {
         disable("GoogleAppIndexingWarning", "MissingTranslation", "InvalidPackage")
     }
     sourceSets["main"].java.srcDir("src/main/kotlin")
@@ -45,7 +45,7 @@ android {
     packagingOptions {
         // Work around scala-compiler and scala-library (via tox4j) trying to place files in the
         // same place.
-        exclude("rootdoc.txt")
+        resources.excludes.add("rootdoc.txt")
     }
 }
 

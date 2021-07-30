@@ -20,12 +20,10 @@ plugins {
 apply<KtlintPlugin>()
 
 android {
-    compileSdkVersion(AndroidSdk.targetVersion)
+    compileSdk = AndroidSdk.targetVersion
     defaultConfig {
-        minSdkVersion(AndroidSdk.minVersion)
-        targetSdkVersion(AndroidSdk.targetVersion)
-        versionCode = 1
-        versionName = "0.1.0"
+        minSdk = AndroidSdk.minVersion
+        targetSdk = AndroidSdk.targetVersion
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
