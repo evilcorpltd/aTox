@@ -5,14 +5,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     # TODO(robinlinden): Fix tests failing sporadically in CI.
-    # TODO(robinlinden): We're using an ancient emulator build due to the world shifting around us:
-    #                    https://github.com/ReactiveCircus/android-emulator-runner/issues/160
     - name: Test
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: 29
         script: ./gradlew connectedCheck -x :atox:connectedAndroidTest -x :domain:connectedAndroidTest || { adb logcat -d; exit 1; }
-        emulator-build: 6110076
 
   ktlint:
     runs-on: ubuntu-20.04
