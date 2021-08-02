@@ -95,6 +95,15 @@ http_archive(
     url = "https://github.com/protocolbuffers/protobuf/archive/v%s.tar.gz" % PROTOBUF_TAG,
 )
 
+DAGGER_TAG = "2.28.1"
+
+http_archive(
+    name = "dagger",
+    sha256 = "9e69ab2f9a47e0f74e71fe49098bea908c528aa02fa0c5995334447b310d0cdd",
+    strip_prefix = "dagger-dagger-%s" % DAGGER_TAG,
+    url = "https://github.com/google/dagger/archive/dagger-%s.zip" % DAGGER_TAG,
+)
+
 http_archive(
     name = "robolectric",
     sha256 = "d4f2eb078a51f4e534ebf5e18b6cd4646d05eae9b362ac40b93831bdf46112c7",
@@ -129,19 +138,34 @@ http_archive(
 # aTox maven dependencies
 # =========================================================
 
+load("@dagger//:workspace_defs.bzl", "DAGGER_ARTIFACTS", "DAGGER_REPOSITORIES")
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 maven_install(
-    artifacts = [
+    artifacts = DAGGER_ARTIFACTS + [
+        "androidx.activity:activity-ktx:1.2.3",
+        "androidx.activity:activity:1.2.3",
+        "androidx.annotation:annotation:1.1.0",
+        "androidx.appcompat:appcompat:1.3.0",
         "androidx.core:core-ktx:1.5.0",
+        "androidx.databinding:databinding-adapters:3.4.2",
+        "androidx.databinding:databinding-common:3.4.2",
+        "androidx.databinding:databinding-runtime:3.4.2",
+        "androidx.fragment:fragment-ktx:1.3.5",
+        "androidx.fragment:fragment:1.3.5",
+        "androidx.multidex:multidex:2.0.1",
+        "androidx.navigation:navigation-fragment-ktx:2.3.5",
+        "androidx.navigation:navigation-ui-ktx:2.3.5",
+        "androidx.preference:preference:1.1.1",
         "androidx.room:room-compiler:2.2.6",
         "androidx.room:room-ktx:2.2.6",
         "androidx.room:room-runtime:2.2.6",
         "androidx.room:room-testing:2.2.6",
         "androidx.test.ext:junit:1.1.2",
+        "com.google.android.material:material:1.4.0",
         "com.google.code.gson:gson:2.8.6",
-        "com.google.dagger:dagger:2.31.2",
         "com.google.guava:guava:19.0",
+        "com.squareup.picasso:picasso:2.8",
         "com.typesafe.scala-logging:scala-logging_2.11:3.7.2",
         "javax.inject:javax.inject:1",
         "junit:junit:4.13.1",
@@ -153,8 +177,10 @@ maven_install(
         "org.scala-lang:scala-library:2.11.12",
         "androidx.lifecycle:lifecycle-extensions:2.2.0",
         "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0",
+        "androidx.lifecycle:lifecycle-service:2.2.0",
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0",
     ],
-    repositories = [
+    repositories = DAGGER_REPOSITORIES + [
         "https://repo1.maven.org/maven2/",
         "https://dl.google.com/dl/android/maven2/",
     ],

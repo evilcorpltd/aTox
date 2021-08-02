@@ -6,9 +6,9 @@ kt_android_library(
     custom_package = "ltd.evilcorp.core.di",
     visibility = ["//visibility:public"],
     deps = [
+        "//:dagger",
         "//core/src/main/kotlin/db",
         "@maven//:androidx_room_room_runtime",
-        "@maven//:com_google_dagger_dagger",
         "@maven//:javax_inject_javax_inject",
     ],
 )
