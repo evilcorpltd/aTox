@@ -3,6 +3,7 @@ package ltd.evilcorp.atox.ui.settings
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
@@ -257,6 +258,19 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
                 vm.setBootstrapNodeSource(source)
             } else {
                 importNodesLauncher.launch(arrayOf("application/json"))
+            }
+        }
+
+        settingDisableScreenshots.isChecked = vm.getDisableScreenshots()
+        settingDisableScreenshots.setOnClickListener {
+            vm.setDisableScreenshots(settingDisableScreenshots.isChecked)
+            if (settingDisableScreenshots.isChecked) {
+                requireActivity().window.setFlags(
+                    WindowManager.LayoutParams.FLAG_SECURE,
+                    WindowManager.LayoutParams.FLAG_SECURE
+                )
+            } else {
+                requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
             }
         }
 

@@ -203,4 +203,9 @@ class SettingsViewModel @Inject constructor(
         out.outputStream().use { it.write(bytes) }
         return@withContext true
     }
+
+    fun getDisableScreenshots(): Boolean = settings.disableScreenshots
+    fun setDisableScreenshots(disable: Boolean) {
+        settings.disableScreenshots = disable
+    }
 }

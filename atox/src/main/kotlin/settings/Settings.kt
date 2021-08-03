@@ -80,4 +80,8 @@ class Settings @Inject constructor(private val ctx: Context) {
     var bootstrapNodeSource: BootstrapNodeSource
         get() = BootstrapNodeSource.values()[preferences.getInt("bootstrap_node_source", 0)]
         set(source) = preferences.edit { putInt("bootstrap_node_source", source.ordinal) }
+
+    var disableScreenshots: Boolean
+        get() = preferences.getBoolean("disable_screenshots", false)
+        set(disable) = preferences.edit { putBoolean("disable_screenshots", disable) }
 }

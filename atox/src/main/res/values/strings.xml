@@ -173,4 +173,6 @@
     <string name="pref_confirm_password">Confirm new password</string>
     <string name="password_updated">Password updated</string>
     <string name="passwords_must_match">The passwords must match</string>
+    <string name="pref_block_screenshots">Block screenshots</string>
+    <string name="pref_block_screenshots_description">This **only** blocks screenshots on **your** device, and provides no protection against your contacts taking screenshots or otherwise saving your conversations</string>
 </resources>

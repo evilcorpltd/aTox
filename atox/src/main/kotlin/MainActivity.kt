@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
@@ -32,6 +33,12 @@ class MainActivity : AppCompatActivity() {
         (application as App).component.inject(this)
 
         super.onCreate(savedInstanceState)
+
+        if (settings.disableScreenshots) {
+            window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+        } else {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        }
 
         AppCompatDelegate.setDefaultNightMode(settings.theme)
 
