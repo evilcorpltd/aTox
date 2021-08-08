@@ -67,11 +67,13 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
 )
 
-RULES_KOTLIN_TAG = "b637ddf908ca276dcfb28f02f9bd03dcb3d87238"
+RULES_KOTLIN_TAG = "cbc4ced96a6685236c398cc2554fa4abefec1087"
 
 http_archive(
     name = "io_bazel_rules_kotlin",
-    sha256 = "d4b65edeec277e77b597d326b5b6006a80a4532eac9e3691318eaca7ef3b40a0",
+    patch_args = ["-p1"],
+    patches = ["//bazel/io_bazel_rules_kotlin:kotlin-1.5-support.patch"],
+    sha256 = "a8512943dc3f779ca39e887b39fbd4ad4771d7aaf446c69a9d352712b72f2c22",
     strip_prefix = "rules_kotlin-%s" % RULES_KOTLIN_TAG,
     url = "https://github.com/bazelbuild/rules_kotlin/archive/%s.zip" % RULES_KOTLIN_TAG,
 )
@@ -95,11 +97,11 @@ http_archive(
     url = "https://github.com/protocolbuffers/protobuf/archive/v%s.tar.gz" % PROTOBUF_TAG,
 )
 
-DAGGER_TAG = "2.28.1"
+DAGGER_TAG = "2.38.1"
 
 http_archive(
     name = "dagger",
-    sha256 = "9e69ab2f9a47e0f74e71fe49098bea908c528aa02fa0c5995334447b310d0cdd",
+    sha256 = "d20c81fd622f8bbb714239ea3cb7c963e77fc8ec3c88487f912189a9538071e9",
     strip_prefix = "dagger-dagger-%s" % DAGGER_TAG,
     url = "https://github.com/google/dagger/archive/dagger-%s.zip" % DAGGER_TAG,
 )

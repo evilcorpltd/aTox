@@ -1,0 +1,71 @@
+From ad9afcf74a29f36bb9939b8b9f734b95ada3c67e Mon Sep 17 00:00:00 2001
+From: Robin Linden <dev@robinlinden.eu>
+Date: Sun, 8 Aug 2021 23:02:59 +0200
+Subject: [PATCH] Kotlin 1.5 support
+
+---
+ kotlin/internal/repositories/versions.bzl |  4 ++--
+ kotlin/internal/toolchains.bzl            | 10 ++++++----
+ 2 files changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/kotlin/internal/repositories/versions.bzl b/kotlin/internal/repositories/versions.bzl
+index f2954a6..16a3941 100644
+--- a/kotlin/internal/repositories/versions.bzl
++++ b/kotlin/internal/repositories/versions.bzl
+@@ -19,9 +19,9 @@ versions = struct(
+     BAZEL_JAVA_LAUNCHER_VERSION = "3.7.0",
+     KOTLIN_CURRENT_COMPILER_RELEASE = {
+         "urls": [
+-            "https://github.com/JetBrains/kotlin/releases/download/v1.4.20/kotlin-compiler-1.4.20.zip",
++            "https://github.com/JetBrains/kotlin/releases/download/v1.5.21/kotlin-compiler-1.5.21.zip",
+         ],
+-        "sha256": "11db93a4d6789e3406c7f60b9f267eba26d6483dcd771eff9f85bb7e9837011f",
++        "sha256": "f3313afdd6abf1b8c75c6292f4e41f2dbafefc8f6c72762c7ba9b3daeef5da59",
+     },
+     ANDROID = struct(
+         VERSION = "0.1.1",
+diff --git a/kotlin/internal/toolchains.bzl b/kotlin/internal/toolchains.bzl
+index 5ec0c07..29079f9 100644
+--- a/kotlin/internal/toolchains.bzl
++++ b/kotlin/internal/toolchains.bzl
+@@ -42,8 +42,8 @@ load("@io_bazel_rules_kotlin//kotlin:toolchains.bzl", "define_kt_toolchain")
+ 
+ define_kt_toolchain(
+     name= "custom_toolchain",
+-    api_version = "1.4",
+-    language_version = "1.4",
++    api_version = "1.5",
++    language_version = "1.5",
+ )
+ ```
+ and then register it in the `WORKSPACE`:
+@@ -123,22 +123,24 @@ _kt_toolchain = rule(
+         ),
+         "language_version": attr.string(
+             doc = "this is the -language_version flag [see](https://kotlinlang.org/docs/reference/compatibility.html)",
+-            default = "1.4",
++            default = "1.5",
+             values = [
+                 "1.1",
+                 "1.2",
+                 "1.3",
+                 "1.4",
++                "1.5",
+             ],
+         ),
+         "api_version": attr.string(
+             doc = "this is the -api_version flag [see](https://kotlinlang.org/docs/reference/compatibility.html).",
+-            default = "1.4",
++            default = "1.5",
+             values = [
+                 "1.1",
+                 "1.2",
+                 "1.3",
+                 "1.4",
++                "1.5",
+             ],
+         ),
+         "debug": attr.string_list(
+-- 
+2.25.1
+
