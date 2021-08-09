@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021 aTox contributors
+//
+// SPDX-License-Identifier: GPL-3.0-only
+
 package ltd.evilcorp.atox.ui.call
 
 import androidx.lifecycle.LiveData

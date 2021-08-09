@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020 aTox contributors
+//
+// SPDX-License-Identifier: GPL-3.0-only
+
 package ltd.evilcorp.domain.tox
 
 import org.junit.Assert

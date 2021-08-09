@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+//
+// SPDX-License-Identifier: GPL-3.0-only
+
 package ltd.evilcorp.atox.ui.contact_profile
 
 import android.os.Bundle

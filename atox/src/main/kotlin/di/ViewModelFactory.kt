@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2019 aTox contributors
+//
+// SPDX-License-Identifier: GPL-3.0-only
+
 package ltd.evilcorp.atox.di
 
 import androidx.lifecycle.ViewModel

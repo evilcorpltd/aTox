@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+//
+// SPDX-License-Identifier: GPL-3.0-only
+
 package ltd.evilcorp.atox
 
 import androidx.annotation.VisibleForTesting
