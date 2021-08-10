@@ -229,7 +229,7 @@ class ChatAdapter(
                 vh.progress.progress = fileTransfer.progress.toInt()
                 // TODO(robinlinden): paused, but that requires a database update and a release is overdue.
                 val stateId = if (fileTransfer.isRejected()) R.string.cancelled else R.string.completed
-                vh.state.text = resources.getString(stateId).toLowerCase(Locale.getDefault())
+                vh.state.text = resources.getString(stateId).lowercase(Locale.getDefault())
                 vh.timestamp.text = timeFormatter.format(message.timestamp)
 
                 vh.timestamp.visibility = if (position == messages.lastIndex) {

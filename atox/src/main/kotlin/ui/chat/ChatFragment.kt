@@ -187,7 +187,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                 it.typing -> getString(R.string.contact_typing)
                 it.lastMessage == 0L -> getString(R.string.never)
                 else -> DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(it.lastMessage)
-            }.toLowerCase(Locale.getDefault())
+            }.lowercase(Locale.getDefault())
 
             profileLayout.statusIndicator.setColorFilter(colorByStatus(resources, it))
             setAvatarFromContact(profileLayout.profileImage, it)

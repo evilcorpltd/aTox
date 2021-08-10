@@ -4,7 +4,8 @@
 
 package ltd.evilcorp.domain.tox
 
-inline class PublicKey(private val value: String) {
+@JvmInline
+value class PublicKey(private val value: String) {
     fun bytes() = value.hexToBytes()
     fun string() = value
     fun fingerprint(): String {
@@ -17,7 +18,8 @@ inline class PublicKey(private val value: String) {
     }
 }
 
-inline class ToxID(private val value: String) {
+@JvmInline
+value class ToxID(private val value: String) {
     fun bytes() = value.hexToBytes()
     fun string() = value
 

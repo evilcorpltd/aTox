@@ -8,7 +8,6 @@ import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxFileKind
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
-import java.util.Locale
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.MessageType
@@ -78,7 +77,7 @@ class ToxUtilTest {
     fun `public keys can be converted`() {
         val keyString = "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39"
         assert(keyString.hexToBytes().size == 32)
-        assertEquals(keyString, keyString.hexToBytes().bytesToHex().toUpperCase(Locale.ROOT))
+        assertEquals(keyString, keyString.hexToBytes().bytesToHex().uppercase())
 
         val keyBytes = byteArrayOf(
             0x76, 0x51, 0x84, 0x06, 0xF6, 0xA9, 0xF2, 0x21, 0x7E, 0x8D, 0xC4, 0x87, 0xCC, 0x78, 0x3C, 0x25,
@@ -89,7 +88,7 @@ class ToxUtilTest {
         assert(keyBytes.contentEquals(keyString.hexToBytes()))
 
         val anotherKeyString = "7B6704162C6532A5A8F0840A3680672D0E9D3E62B6419FFD88D9880669482169"
-        assertEquals(anotherKeyString, anotherKeyString.hexToBytes().bytesToHex().toUpperCase(Locale.ROOT))
+        assertEquals(anotherKeyString, anotherKeyString.hexToBytes().bytesToHex().uppercase())
         assertNotEquals(anotherKeyString.hexToBytes(), keyString.hexToBytes())
     }
 
@@ -97,8 +96,8 @@ class ToxUtilTest {
     fun `casing of public keys does not matter`() {
         val keyString = "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39"
         assertArrayEquals(
-            keyString.toUpperCase(Locale.ROOT).hexToBytes(),
-            keyString.toLowerCase(Locale.ROOT).hexToBytes()
+            keyString.uppercase().hexToBytes(),
+            keyString.lowercase().hexToBytes()
         )
     }
 }

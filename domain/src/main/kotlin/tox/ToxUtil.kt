@@ -11,13 +11,12 @@ import im.tox.tox4j.core.enums.ToxUserStatus
 import im.tox.tox4j.core.options.ProxyOptions
 import im.tox.tox4j.core.options.SaveDataOptions
 import im.tox.tox4j.core.options.ToxOptions
-import java.util.Locale
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.UserStatus
 
-fun String.hexToBytes(): ByteArray = chunked(2).map { it.toUpperCase(Locale.ROOT).toInt(16).toByte() }.toByteArray()
+fun String.hexToBytes(): ByteArray = chunked(2).map { it.uppercase().toInt(16).toByte() }.toByteArray()
 fun ByteArray.bytesToHex(): String = this.joinToString("") { "%02X".format(it) }
 fun ToxUserStatus.toUserStatus(): UserStatus = UserStatus.values()[this.ordinal]
 fun ToxConnection.toConnectionStatus(): ConnectionStatus = ConnectionStatus.values()[this.ordinal]
