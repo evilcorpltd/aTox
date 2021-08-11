@@ -68,6 +68,7 @@ class ContactListFragment :
     private var backupFileNameHint = "something_is_broken.tox"
 
     private var shareDialog: ReceiveShareDialog? = null
+    private var passwordDialog: AlertDialog? = null
 
     private val exportToxSaveLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument()) { dest ->
         if (dest == null) return@registerForActivityResult
@@ -319,6 +320,7 @@ class ContactListFragment :
                     findNavController().navigate(R.id.action_contactListFragment_to_profileFragment)
                 ToxSaveStatus.Encrypted -> {
                     view?.visibility = View.INVISIBLE
+                    if (passwordDialog != null) return
                     val passwordEdit = EditText(requireContext()).apply {
                         hint = getString(R.string.password)
                         inputType = EditorInfo.TYPE_TEXT_VARIATION_PASSWORD
@@ -339,7 +341,7 @@ class ContactListFragment :
                             addView(passwordEdit)
                         }
                     } else null
-                    AlertDialog.Builder(requireContext())
+                    passwordDialog = AlertDialog.Builder(requireContext())
                         .setTitle(getString(R.string.unlock_profile))
                         .setView(passwordLayout ?: passwordEdit)
                         .setPositiveButton(android.R.string.ok) { _, _ ->
@@ -358,6 +360,7 @@ class ContactListFragment :
                         }
                         .setNegativeButton(R.string.cancel) { _, _ -> }
                         .setOnDismissListener {
+                            passwordDialog = null
                             if (!viewModel.isToxRunning()) {
                                 activity?.finishAffinity()
                             }
