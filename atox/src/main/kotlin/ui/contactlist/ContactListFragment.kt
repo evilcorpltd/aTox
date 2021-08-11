@@ -4,6 +4,7 @@
 
 package ltd.evilcorp.atox.ui.contactlist
 
+import android.os.Build
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.ContextMenu
@@ -15,6 +16,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
@@ -323,9 +325,23 @@ class ContactListFragment :
                         setSingleLine()
                         transformationMethod = PasswordTransformationMethod()
                     }
+                    val passwordLayout = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                        LinearLayout(requireContext()).apply {
+                            val attr = context.obtainStyledAttributes(intArrayOf(android.R.attr.dialogPreferredPadding))
+                            val padding = attr.getDimensionPixelSize(0, 0)
+                            attr.recycle()
+                            setPadding(padding, 0, padding, 0)
+                            orientation = LinearLayout.VERTICAL
+                            layoutParams = LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                            )
+                            addView(passwordEdit)
+                        }
+                    } else null
                     AlertDialog.Builder(requireContext())
                         .setTitle(getString(R.string.unlock_profile))
-                        .setView(passwordEdit)
+                        .setView(passwordLayout ?: passwordEdit)
                         .setPositiveButton(android.R.string.ok) { _, _ ->
                             val password = passwordEdit.text.toString()
                             if (viewModel.tryLoadTox(password) == ToxSaveStatus.Ok) {
