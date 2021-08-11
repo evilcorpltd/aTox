@@ -56,7 +56,7 @@ class FileTransferManager @Inject constructor(
         File(context.filesDir, "avatar").mkdir()
         resolver.persistedUriPermissions.forEach {
             Log.w(TAG, "Clearing leftover permission for ${it.uri}")
-            resolver.releasePersistableUriPermission(it.uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            releaseFilePermission(it.uri)
         }
     }
 
@@ -74,7 +74,7 @@ class FileTransferManager @Inject constructor(
             fileTransfers.remove(ft)
             if (ft.outgoing) {
                 val uri = Uri.parse(ft.destination)
-                resolver.releasePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                releaseFilePermission(uri)
             } else {
                 File(ft.destination).delete()
             }
@@ -156,7 +156,7 @@ class FileTransferManager @Inject constructor(
         tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
         val uri = Uri.parse(ft.destination)
         if (ft.outgoing) {
-            resolver.releasePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            releaseFilePermission(uri)
         } else {
             File(uri.path!!).delete()
         }
@@ -248,7 +248,7 @@ class FileTransferManager @Inject constructor(
         if (length == 0) {
             Log.i(TAG, "Finished outgoing ft ${pk.take(8)} $fileNo ${ft.isComplete()}")
             fileTransfers.remove(ft)
-            resolver.releasePersistableUriPermission(src, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            releaseFilePermission(src)
             return
         }
 
@@ -304,6 +304,15 @@ class FileTransferManager @Inject constructor(
     }
 
     fun get(id: Int) = fileTransferRepository.get(id)
+
+    private fun releaseFilePermission(uri: Uri) {
+        if (fileTransfers.firstOrNull { it.destination == uri.toString() } != null) {
+            return
+        }
+
+        Log.i(TAG, "Releasing read permission for $uri")
+        resolver.releasePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    }
 
     private fun makeDestination(ft: FileTransfer) =
         Uri.fromFile(File(File(File(context.filesDir, "ft"), ft.publicKey.take(8)), Random.nextLong().toString()))
