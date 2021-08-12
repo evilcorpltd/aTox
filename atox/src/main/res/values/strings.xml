@@ -175,4 +175,5 @@
     <string name="passwords_must_match">The passwords must match</string>
     <string name="pref_block_screenshots">Block screenshots of aTox</string>
     <string name="pref_block_screenshots_description">This **only** blocks screenshots on **your** device, and provides no protection against your contacts taking screenshots or otherwise saving your conversations</string>
+    <string name="return_to_chat">Return to chat</string>
 </resources>

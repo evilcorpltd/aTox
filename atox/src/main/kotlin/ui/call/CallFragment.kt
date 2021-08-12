@@ -11,6 +11,7 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -47,13 +48,14 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
+        val pk = requireStringArg(CONTACT_PUBLIC_KEY)
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
             val insets = compat.getInsets(WindowInsetsCompat.Type.systemBars())
             controlContainer.updatePadding(bottom = insets.bottom + dpToPx(16f, resources))
             compat
         }
 
-        vm.setActiveContact(PublicKey(requireStringArg(CONTACT_PUBLIC_KEY)))
+        vm.setActiveContact(PublicKey(pk))
         vm.contact.observe(viewLifecycleOwner) {
             setAvatarFromContact(callBackground, it)
         }
@@ -81,6 +83,10 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
                     requestPermissionLauncher.launch(PERMISSION)
                 }
             }
+        }
+
+        backToChat.setOnClickListener {
+            findNavController().navigate(R.id.chatFragment, bundleOf(CONTACT_PUBLIC_KEY to pk))
         }
 
         if (vm.inCall.value is CallState.InCall) {

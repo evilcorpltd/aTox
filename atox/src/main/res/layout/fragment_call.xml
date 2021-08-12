@@ -38,6 +38,17 @@
                 android:contentDescription="@string/end_call"
                 android:src="@drawable/ic_call_end"
                 app:backgroundTint="@android:color/holo_red_dark" />
+
+        <ImageButton android:id="@+id/back_to_chat"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@null"
+                android:contentDescription="@string/return_to_chat"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_chat"/>
     </RelativeLayout>
 
     <com.google.android.material.imageview.ShapeableImageView android:id="@+id/user_avatar"
