@@ -15,7 +15,7 @@ class KtlintPlugin : Plugin<Project> {
             group = "verification"
             description = "Check Kotlin code style."
             classpath = ktlint
-            main = "com.pinterest.ktlint.Main"
+            mainClass.set("com.pinterest.ktlint.Main")
             args("--android", "src/**/*.kt")
         }
 
@@ -25,7 +25,7 @@ class KtlintPlugin : Plugin<Project> {
             group = "formatting"
             description = "Fix Kotlin code style deviations."
             classpath = ktlint
-            main = "com.pinterest.ktlint.Main"
+            mainClass.set("com.pinterest.ktlint.Main")
             args("--android", "-F", "src/**/*.kt")
         }
     }
