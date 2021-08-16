@@ -134,4 +134,15 @@
     <string name="pref_theme_dark">Mörk</string>
     <string name="pref_theme_light">Ljus</string>
     <string name="pref_theme_follow_system">Följ systemet</string>
+    <string name="pref_block_screenshots_description">Det här blockerar **enbart** skärmbilder på **din** enhet och skyddar inte mot att dina kontakter kan ta skärmbilder eller på andra sätt spara er konversation</string>
+    <string name="pref_block_screenshots">Blockera skärmbilder av aTox</string>
+    <string name="passwords_must_match">Lösenorden måste matcha</string>
+    <string name="password_updated">Lösenord uppdaterat</string>
+    <string name="pref_confirm_password">Bekräfta nytt lösenord</string>
+    <string name="pref_new_password">Nytt lösenord</string>
+    <string name="pref_current_password">Nuvarande lösenord</string>
+    <string name="pref_heading_change_password">Byt lösenord</string>
+    <string name="unlock_profile">Lås upp profil</string>
+    <string name="incorrect_password">Felaktigt lösenord</string>
+    <string name="password">Lösenord</string>
 </resources>
