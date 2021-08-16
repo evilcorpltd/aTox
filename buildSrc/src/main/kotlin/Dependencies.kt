@@ -125,6 +125,10 @@ object Tox4j {
     }
 }
 
+object Nayuki {
+    const val qrcodegen = "io.nayuki:qrcodegen:1.7.0"
+}
+
 object Test {
     const val junit = "junit:junit:4.13.2"
 

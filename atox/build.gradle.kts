@@ -78,6 +78,8 @@ dependencies {
 
     implementation(AndroidX.multidex)
 
+    implementation(Nayuki.qrcodegen)
+
     implementation(Square.picasso)
 
     debugImplementation(Square.leakcanary)

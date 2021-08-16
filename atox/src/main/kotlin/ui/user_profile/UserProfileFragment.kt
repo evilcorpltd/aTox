@@ -7,20 +7,30 @@ package ltd.evilcorp.atox.ui.user_profile
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
+import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import android.text.InputFilter
+import android.util.TypedValue
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.scale
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.setPadding
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
+import io.nayuki.qrcodegen.QrCode
+import kotlin.math.min
+import kotlin.math.roundToInt
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentUserProfileBinding
 import ltd.evilcorp.atox.ui.BaseFragment
@@ -30,6 +40,12 @@ import ltd.evilcorp.core.vo.UserStatus
 
 private const val TOX_MAX_NAME_LENGTH = 128
 private const val TOX_MAX_STATUS_MESSAGE_LENGTH = 1007
+
+private const val QR_CODE_TO_SCREEN_RATIO = 0.5f
+private const val QR_CODE_DIALOG_PADDING = 16f // in dp
+
+private fun dpToPx(dp: Float, res: Resources): Int =
+    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.displayMetrics).toInt()
 
 class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUserProfileBinding::inflate) {
     private val vm: UserProfileViewModel by viewModels { vmFactory }
@@ -65,6 +81,8 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
         }
 
         userToxId.text = vm.toxId.string()
+
+        // TODO(robinlinden): This should open a nice dialog where you show the QR and have both share and copy buttons.
         profileShareId.setOnClickListener {
             val shareIntent = Intent().apply {
                 action = Intent.ACTION_SEND
@@ -138,7 +156,32 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
                 Toast.makeText(requireContext(), getText(R.string.copied), Toast.LENGTH_SHORT).show()
                 true
             }
+            R.id.qr -> {
+                createQrCodeDialog().show()
+                true
+            }
             else -> super.onContextItemSelected(item)
         }
+    }
+
+    private fun createQrCodeDialog(): AlertDialog {
+        val qrData = QrCode.encodeText("tox:%s".format(vm.toxId.string()), QrCode.Ecc.LOW)
+        var bmp: Bitmap = Bitmap.createBitmap(qrData.size, qrData.size, Bitmap.Config.RGB_565)
+        for (x in 0 until qrData.size) {
+            for (y in 0 until qrData.size) {
+                bmp.setPixel(x, y, if (qrData.getModule(x, y)) Color.BLACK else Color.WHITE)
+            }
+        }
+        val metrics = resources.displayMetrics
+        val size = (min(metrics.widthPixels, metrics.heightPixels) * QR_CODE_TO_SCREEN_RATIO).roundToInt()
+        bmp = bmp.scale(size, size, false)
+        val qrCode = ImageView(requireContext()).apply {
+            setPadding(dpToPx(QR_CODE_DIALOG_PADDING, resources))
+            setImageBitmap(bmp)
+        }
+        return AlertDialog.Builder(requireContext())
+            .setTitle(R.string.tox_id)
+            .setView(qrCode)
+            .create()
     }
 }
