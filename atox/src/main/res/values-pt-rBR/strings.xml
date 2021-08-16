@@ -106,7 +106,7 @@
     <string name="delete_message">Deletar mensagem</string>
     <string name="saved">Salvo</string>
     <string name="pref_nospam_description">Mudar seu NoSpam altera seu ID do Tox, o que significa que pedidos de amizade precisam ser enviados para o ID atualizado</string>
-    <string name="pref_nospam">NoSpam</string>
+    <string name="pref_nospam">SemSpam</string>
     <string name="save">Salvar</string>
     <string name="tox_id_error_self_add">Você não pode adicionar a si mesmo</string>
     <string name="in_call_with">Em chamada com %1$s</string>
@@ -128,4 +128,24 @@
     <string name="pref_theme_follow_system">Adaptar do sistema</string>
     <string name="pref_theme_light">Claro</string>
     <string name="pref_theme_dark">Escuro</string>
+    <string name="pref_auto_away">Auto-marcação de ausência</string>
+    <string name="pref_block_screenshots_description">Isso bloqueia apenas as capturas de tela em seu dispositivo, e não oferece proteção caso seus contatos capturem a tela ou salvem suas conversas</string>
+    <string name="pref_block_screenshots">Bloquear capturas de tela</string>
+    <string name="passwords_must_match">As senhas devem coincidir</string>
+    <string name="password_updated">Senha alterada</string>
+    <string name="pref_confirm_password">Confirmar nova senha</string>
+    <string name="pref_new_password">Nova senha</string>
+    <string name="pref_current_password">Senha atual</string>
+    <string name="pref_bootstrap_node_builtin">Embutido</string>
+    <string name="pref_heading_change_password">Alterar senha</string>
+    <string name="unlock_profile">Desbloquear perfil</string>
+    <string name="incorrect_password">Senha incorreta</string>
+    <string name="password">Senha</string>
+    <string name="pref_bootstrap_node_user_provided">Fornecido pelo usuário</string>
+    <string name="pref_proxy_type_socks5">Socks5</string>
+    <string name="pref_proxy_type_http">HTTP</string>
+    <string name="pref_proxy_type_none">Nenhum</string>
+    <string name="pref_ft_auto_accept_all">Todos</string>
+    <string name="pref_ft_auto_accept_images">Imagens</string>
+    <string name="pref_ft_auto_accept_none">Nenhum</string>
 </resources>
