@@ -143,4 +143,6 @@
     <string name="unlock_profile">Déverrouiller le profil</string>
     <string name="incorrect_password">Mot de passe incorrect</string>
     <string name="password">Mot de passe</string>
+    <string name="pref_block_screenshots_description">Ceci bloque les captures d\'écran **seulement** sur **votre** appareil et n’offre aucune protection contre les captures d’écran ou autres enregistrements de vos conversations par vos contacts</string>
+    <string name="pref_block_screenshots">Bloquer les captures d’écran d’aTox</string>
 </resources>

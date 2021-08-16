@@ -143,4 +143,6 @@
     <string name="unlock_profile">Sblocca il profilo</string>
     <string name="incorrect_password">Password errata</string>
     <string name="password">Password</string>
+    <string name="pref_block_screenshots_description">Questo blocca le schermate **solo** sul **tuo** dispositivo e non fornisce alcuna protezione contro i tuoi contatti che fanno schermate o salvano le tue conversazioni</string>
+    <string name="pref_block_screenshots">Blocca le schermate di aTox</string>
 </resources>
