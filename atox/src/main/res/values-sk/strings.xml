@@ -28,7 +28,7 @@
     <string name="pref_nospam">NoSpam</string>
     <string name="save">Uložiť</string>
     <string name="tox_id_error_self_add">Nemôžeš pridať sám seba</string>
-    <string name="in_call_with">v hovore s %1$s</string>
+    <string name="in_call_with">V hovore s %1$s</string>
     <string name="ongoing_call">Prebiehajúci hovor</string>
     <string name="calls">Telefonovanie</string>
     <string name="end_call">Ukonči hovor</string>
