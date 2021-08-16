@@ -132,4 +132,13 @@
     <string name="or_import_existing_save">یا از طریق فایل tox موجود وارد کنید</string>
     <string name="tox_save_exported">فایل tox با موفقت صادر شد</string>
     <string name="export_tox_save">صادر کردن فایل tox</string>
+    <string name="passwords_must_match">گذرواژه‌ها همخوانی ندارند</string>
+    <string name="password_updated">گذرواژه به‌روز شد</string>
+    <string name="pref_confirm_password">تایید گذرواژه‌ی جدید</string>
+    <string name="pref_new_password">گذرواژه‌ی جدید</string>
+    <string name="pref_current_password">گذرواژه‌ی کنونی</string>
+    <string name="pref_heading_change_password">تغییر گذرواژه</string>
+    <string name="unlock_profile">بازکردن قفل پروفایل</string>
+    <string name="incorrect_password">گذرواژه نادرست است</string>
+    <string name="password">گذرواژه</string>
 </resources>
