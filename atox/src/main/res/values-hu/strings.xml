@@ -143,6 +143,6 @@
     <string name="tox_id_error_already_exists">Már létezik egy kapcsolat ezzel a Tox ID-val</string>
     <string name="friend_request_from">%1$s barátnak jelölt</string>
     <string name="friend_requests">Barátnak jelöl</string>
-    <string name="delete_message_confirm">Biztosan törlöd az \"1%1$s\" üzenetet\?</string>
+    <string name="delete_message_confirm">Biztosan törlöd az \"%1$s\" üzenetet\?</string>
     <string name="import_tox_save_failed">Importálás sikertelen: %1$s</string>
 </resources>
