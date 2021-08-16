@@ -3,9 +3,9 @@
     <string name="bad_port">Blogas portas</string>
     <string name="bad_host">Blogas adresas</string>
     <string name="bad_type">Blogas tipas</string>
-    <string name="proxy_not_found">Tarpinis serveris nerastas</string>
-    <string name="warn_proxy_broken">Nustatykite tarpinį serverį teisingai (arba išjunkite) prieš naudodami programą</string>
-    <string name="pref_heading_proxy">Tarpinis serveris</string>
+    <string name="proxy_not_found">Įgaliotasis serveris nerastas</string>
+    <string name="warn_proxy_broken">Nustatykite įgaliotąjį serverį teisingai (arba išjunkite) prieš naudodami programą</string>
+    <string name="pref_heading_proxy">Įgaliotasis serveris</string>
     <string name="pref_heading_port">Portas</string>
     <string name="pref_heading_address">IP Adresas</string>
     <string name="draft_message">juodraštis: %1$s</string>
@@ -143,4 +143,6 @@
     <string name="unlock_profile">Atrakinti profilį</string>
     <string name="incorrect_password">Neteisingas slaptažodis</string>
     <string name="password">Slaptažodis</string>
+    <string name="pref_block_screenshots_description">Tai **tik** blokuoja ekrano nuotraukas **jūsų** įrenginyje ir neapsaugo nuo jūsų kontaktų ekrano nuotraukų darymo ar kitokio pokalbių išsaugojimo</string>
+    <string name="pref_block_screenshots">Blokuoti aTox ekrano nuotraukas</string>
 </resources>
