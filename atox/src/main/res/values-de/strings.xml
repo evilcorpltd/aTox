@@ -146,4 +146,6 @@
     <string name="pref_heading_change_password">Passwort ändern</string>
     <string name="unlock_profile">Profil freischalten</string>
     <string name="incorrect_password">Falsches Passwort</string>
+    <string name="pref_block_screenshots_description">Dies blockiert **nur** Screenshots auf **Ihrem** Gerät und bietet keinen Schutz davor, dass Ihre Kontakte Screenshots machen oder Ihre Unterhaltungen anderweitig speichern</string>
+    <string name="pref_block_screenshots">Screenshots von aTox blockieren</string>
 </resources>

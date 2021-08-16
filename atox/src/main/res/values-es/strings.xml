@@ -146,4 +146,6 @@
     <string name="unlock_profile">Desbloquear perfil</string>
     <string name="incorrect_password">Contraseña incorrecta</string>
     <string name="password">Contraseña</string>
+    <string name="pref_block_screenshots_description">Esto ** solo ** bloquea capturas de pantalla en ** tu ** dispositivo y no brinda protección contra tus contactos que toman capturas de pantalla o guardan tus conversaciones</string>
+    <string name="pref_block_screenshots">Bloquear capturas de pantalla de aTox</string>
 </resources>
