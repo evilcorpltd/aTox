@@ -30,6 +30,8 @@ import ltd.evilcorp.domain.tox.PublicKey
 
 private const val PERMISSION = Manifest.permission.RECORD_AUDIO
 
+private const val CALL_BACKGROUND_SIZE_DP = 500
+
 private fun dpToPx(dp: Float, res: Resources): Int =
     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.displayMetrics).toInt()
 
@@ -55,7 +57,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
 
         vm.setActiveContact(PublicKey(requireStringArg(CONTACT_PUBLIC_KEY)))
         vm.contact.observe(viewLifecycleOwner) {
-            setAvatarFromContact(callBackground, it)
+            setAvatarFromContact(callBackground, it, CALL_BACKGROUND_SIZE_DP)
         }
 
         endCall.setOnClickListener {

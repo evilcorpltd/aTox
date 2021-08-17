@@ -40,20 +40,22 @@ private fun getInitials(contact: Contact): String {
     return segments.first().take(1) + segments[1][0]
 }
 
-internal fun setAvatarFromContact(imageView: ImageView, contact: Contact) =
+private const val DEFAULT_AVATAR_SIZE_DP = 50
+internal fun setAvatarFromContact(imageView: ImageView, contact: Contact, sizeDp: Int = DEFAULT_AVATAR_SIZE_DP) =
     if (contact.avatarUri.isNotEmpty()) {
         imageView.setImageURI(Uri.parse(contact.avatarUri))
     } else {
-        val side = (50 * imageView.resources.displayMetrics.density).toInt()
+        val side = (sizeDp * imageView.resources.displayMetrics.density).toInt()
         val bitmap = Bitmap.createBitmap(side, side, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
         val rect = RectF(0f, 0f, bitmap.width.toFloat(), bitmap.height.toFloat())
         val colors = imageView.resources.getIntArray(R.array.contactBackgrounds)
         val backgroundPaint = Paint().apply { color = colors[abs(contact.publicKey.hashCode()).rem(colors.size)] }
 
+        val textScale = sizeDp.toFloat() / DEFAULT_AVATAR_SIZE_DP
         val textPaint = Paint().apply {
             color = Color.WHITE
-            textSize = imageView.resources.getDimension(R.dimen.contact_avatar_placeholder_text)
+            textSize = imageView.resources.getDimension(R.dimen.contact_avatar_placeholder_text) * textScale
             textAlign = Paint.Align.CENTER
             isAntiAlias = true
             typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
