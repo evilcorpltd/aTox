@@ -64,8 +64,8 @@ dependencies {
     implementation(KotlinX.Coroutines.core)
     implementation(KotlinX.Coroutines.android)
 
-    implementation(AndroidX.Navigation.fragmentKtx)
-    implementation(AndroidX.Navigation.uiKtx)
+    implementation(AndroidX.Navigation.fragment)
+    implementation(AndroidX.Navigation.ui)
 
     implementation(AndroidX.preference)
 

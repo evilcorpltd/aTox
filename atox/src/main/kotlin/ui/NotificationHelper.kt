@@ -198,8 +198,8 @@ class NotificationHelper @Inject constructor(
             .setContentIntent(
                 NavDeepLinkBuilder(context)
                     .setGraph(R.navigation.nav_graph)
-                    .setDestination(R.id.callFragment)
-                    .setArguments(bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey))
+                    .addDestination(R.id.chatFragment, bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey))
+                    .addDestination(R.id.callFragment, bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey))
                     .createPendingIntent()
             )
             .setOngoing(true)

@@ -56,9 +56,9 @@ object AndroidX {
     const val fragment = "androidx.fragment:fragment:1.3.5"
 
     object Navigation {
-        private const val version = "2.3.5"
-        const val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:$version"
-        const val uiKtx = "androidx.navigation:navigation-ui-ktx:$version"
+        private const val version = "2.4.0-alpha06"
+        const val fragment = "androidx.navigation:navigation-fragment:$version"
+        const val ui = "androidx.navigation:navigation-ui:$version"
     }
 
     object Lifecycle {
