@@ -77,7 +77,7 @@ class UserDaoTest {
         try {
             dao.save(first.copy(name = "new name"))
             fail()
-        } catch (e: Exception) {
+        } catch (_: Exception) {
         }
     }
 

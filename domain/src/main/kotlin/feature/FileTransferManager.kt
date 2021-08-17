@@ -40,6 +40,10 @@ import ltd.evilcorp.domain.tox.Tox
 
 private const val TAG = "FileTransferManager"
 
+// TODO(robinlinden): This will go away when PublicKey is used everywhere it should be.
+private const val FINGERPRINT_LEN = 8
+private fun String.fingerprint() = take(FINGERPRINT_LEN)
+
 @Singleton
 class FileTransferManager @Inject constructor(
     private val context: Context,
@@ -68,7 +72,7 @@ class FileTransferManager @Inject constructor(
     }
 
     fun resetForContact(pk: String) {
-        Log.i(TAG, "Clearing fts for contact ${pk.take(8)}")
+        Log.i(TAG, "Clearing fts for contact ${pk.fingerprint()}")
         fileTransfers.filter { it.publicKey == pk }.forEach { ft ->
             setProgress(ft, FtRejected)
             fileTransfers.remove(ft)
@@ -82,7 +86,7 @@ class FileTransferManager @Inject constructor(
     }
 
     fun add(ft: FileTransfer): Int {
-        Log.i(TAG, "Add ${ft.fileNumber} for ${ft.publicKey.take(8)}")
+        Log.i(TAG, "Add ${ft.fileNumber} for ${ft.publicKey.fingerprint()}")
         return when (ft.fileKind) {
             FileKind.Data.ordinal -> {
                 val id = fileTransferRepository.add(ft).toInt()
@@ -122,7 +126,7 @@ class FileTransferManager @Inject constructor(
     }
 
     fun accept(ft: FileTransfer) {
-        Log.i(TAG, "Accept ${ft.fileNumber} for ${ft.publicKey.take(8)}")
+        Log.i(TAG, "Accept ${ft.fileNumber} for ${ft.publicKey.fingerprint()}")
         val file = when (ft.fileKind) {
             FileKind.Data.ordinal -> {
                 val dest = makeDestination(ft)
@@ -150,7 +154,7 @@ class FileTransferManager @Inject constructor(
     }
 
     fun reject(ft: FileTransfer) {
-        Log.i(TAG, "Reject ${ft.fileNumber} for ${ft.publicKey.take(8)}")
+        Log.i(TAG, "Reject ${ft.fileNumber} for ${ft.publicKey.fingerprint()}")
         fileTransfers.remove(ft)
         setProgress(ft, FtRejected)
         tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
@@ -181,7 +185,7 @@ class FileTransferManager @Inject constructor(
         val ft = fileTransfers.find { it.publicKey == publicKey && it.fileNumber == fileNumber }
         if (ft == null) {
             if (data.isNotEmpty()) {
-                Log.e(TAG, "Got data for ft $fileNumber for ${publicKey.take(8)} we don't know about")
+                Log.e(TAG, "Got data for ft $fileNumber for ${publicKey.fingerprint()} we don't know about")
             }
             return
         }
@@ -199,7 +203,7 @@ class FileTransferManager @Inject constructor(
         setProgress(ft, ft.progress + data.size)
 
         if (ft.isComplete()) {
-            Log.i(TAG, "Finished ${ft.fileNumber} for ${ft.publicKey.take(8)}")
+            Log.i(TAG, "Finished ${ft.fileNumber} for ${ft.publicKey.fingerprint()}")
             if (ft.fileKind == FileKind.Avatar.ordinal) {
                 wipAvatar(ft.fileName).copyTo(avatar(ft.fileName), overwrite = true)
                 wipAvatar(ft.fileName).delete()
@@ -239,14 +243,14 @@ class FileTransferManager @Inject constructor(
     fun sendChunk(pk: String, fileNo: Int, pos: Long, length: Int) {
         val ft = fileTransfers.find { it.publicKey == pk && it.fileNumber == fileNo }
         if (ft == null) {
-            Log.e(TAG, "Received request for chunk of unknown ft ${pk.take(8)} $fileNo")
+            Log.e(TAG, "Received request for chunk of unknown ft ${pk.fingerprint()} $fileNo")
             tox.stopFileTransfer(PublicKey(pk), fileNo)
             return
         }
 
         val src = Uri.parse(ft.destination)
         if (length == 0) {
-            Log.i(TAG, "Finished outgoing ft ${pk.take(8)} $fileNo ${ft.isComplete()}")
+            Log.i(TAG, "Finished outgoing ft ${pk.fingerprint()} $fileNo ${ft.isComplete()}")
             fileTransfers.remove(ft)
             releaseFilePermission(src)
             return
@@ -267,17 +271,17 @@ class FileTransferManager @Inject constructor(
     }
 
     fun setStatus(pk: String, fileNo: Int, fileStatus: ToxFileControl) {
-        Log.e(TAG, "Setting ${pk.take(8)} $fileNo to status $fileStatus")
+        Log.e(TAG, "Setting ${pk.fingerprint()} $fileNo to status $fileStatus")
         val ft = fileTransfers.find { it.publicKey == pk && it.fileNumber == fileNo }
         if (ft == null) {
-            Log.e(TAG, "Attempted to set status for unknown ft ${pk.take(8)} $fileNo")
+            Log.e(TAG, "Attempted to set status for unknown ft ${pk.fingerprint()} $fileNo")
             return
         }
 
         if (fileStatus == ToxFileControl.RESUME && ft.progress == FtNotStarted) {
             ft.progress = FtStarted
         } else if (fileStatus == ToxFileControl.CANCEL) {
-            Log.i(TAG, "Friend canceled ft ${pk.take(8)} $fileNo")
+            Log.i(TAG, "Friend canceled ft ${pk.fingerprint()} $fileNo")
             reject(ft)
         }
     }
@@ -315,7 +319,7 @@ class FileTransferManager @Inject constructor(
     }
 
     private fun makeDestination(ft: FileTransfer) =
-        Uri.fromFile(File(File(File(context.filesDir, "ft"), ft.publicKey.take(8)), Random.nextLong().toString()))
+        Uri.fromFile(File(File(File(context.filesDir, "ft"), ft.publicKey.fingerprint()), Random.nextLong().toString()))
 
     private fun wipAvatar(name: String): File = File(File(context.filesDir, "avatar"), "$name.wip")
     private fun avatar(name: String): File = File(File(context.filesDir, "avatar"), name)

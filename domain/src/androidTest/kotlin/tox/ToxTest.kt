@@ -14,7 +14,7 @@ import org.junit.runner.RunWith
 class ToxTest {
     @Test
     fun quitting_does_not_crash() {
-        for (i in 1..10) {
+        repeat(10) {
             val tox = Tox(
                 mockk(relaxUnitFun = true),
                 mockk(relaxUnitFun = true),
