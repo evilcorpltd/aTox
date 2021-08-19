@@ -10,6 +10,7 @@ import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.exceptions.ToxFileControlException
 import im.tox.tox4j.core.exceptions.ToxFileSendChunkException
 import im.tox.tox4j.core.exceptions.ToxFriendAddException
+import im.tox.tox4j.core.exceptions.ToxFriendCustomPacketException
 import im.tox.tox4j.impl.jni.ToxAvImpl
 import im.tox.tox4j.impl.jni.ToxCoreImpl
 import kotlin.random.Random
@@ -18,6 +19,17 @@ import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.UserStatus
 
 private const val TAG = "ToxWrapper"
+
+enum class CustomPacketError {
+    Success,
+    Empty,
+    FriendNotConnected,
+    FriendNotFound,
+    Invalid,
+    Null,
+    Sendq,
+    TooLong,
+}
 
 class ToxWrapper(
     private val eventListener: ToxEventListener,
@@ -142,6 +154,22 @@ class ToxWrapper(
     fun getStatus() = tox.status.toUserStatus()
     fun setStatus(status: UserStatus) {
         tox.status = status.toToxType()
+    }
+
+    fun sendLosslessPacket(pk: PublicKey, packet: ByteArray): CustomPacketError = try {
+        tox.friendSendLosslessPacket(contactByKey(pk), packet)
+        CustomPacketError.Success
+    } catch (e: ToxFriendCustomPacketException) {
+        when (e.code()) {
+            ToxFriendCustomPacketException.Code.EMPTY -> CustomPacketError.Empty
+            ToxFriendCustomPacketException.Code.FRIEND_NOT_CONNECTED -> CustomPacketError.FriendNotConnected
+            ToxFriendCustomPacketException.Code.FRIEND_NOT_FOUND -> CustomPacketError.FriendNotFound
+            ToxFriendCustomPacketException.Code.INVALID -> CustomPacketError.Invalid
+            ToxFriendCustomPacketException.Code.NULL -> CustomPacketError.Null
+            ToxFriendCustomPacketException.Code.SENDQ -> CustomPacketError.Sendq
+            ToxFriendCustomPacketException.Code.TOO_LONG -> CustomPacketError.TooLong
+            null -> TODO()
+        }
     }
 
     private fun contactByKey(pk: PublicKey): Int = tox.friendByPublicKey(pk.bytes())
