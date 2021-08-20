@@ -67,8 +67,6 @@ dependencies {
     api(AndroidX.Room.runtime)
     api(AndroidX.Room.ktx)
     kapt(AndroidX.Room.compiler)
-    implementation(Google.dagger)
-    kapt(Google.Dagger.compiler)
 
     testImplementation(Test.junit)
 

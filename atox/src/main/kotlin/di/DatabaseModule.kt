@@ -1,8 +1,8 @@
-// SPDX-FileCopyrightText: 2019-2020 aTox contributors
+// SPDX-FileCopyrightText: 2019-2021 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
-package ltd.evilcorp.core.di
+package ltd.evilcorp.atox.di
 
 import android.content.Context
 import androidx.room.Room

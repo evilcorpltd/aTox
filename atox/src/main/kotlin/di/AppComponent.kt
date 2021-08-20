@@ -12,8 +12,6 @@ import ltd.evilcorp.atox.ActionReceiver
 import ltd.evilcorp.atox.BootReceiver
 import ltd.evilcorp.atox.MainActivity
 import ltd.evilcorp.atox.ToxService
-import ltd.evilcorp.core.di.DaoModule
-import ltd.evilcorp.core.di.DatabaseModule
 
 @Singleton
 @Component(
