@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019 aTox contributors
+// SPDX-FileCopyrightText: 2019-2021 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -16,9 +16,9 @@ class ViewModelFactory @Inject constructor(
     private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        val creator = creators[modelClass] ?: creators.entries.firstOrNull {
+        val creator = creators[modelClass] ?: creators.entries.first {
             modelClass.isAssignableFrom(it.key)
-        }!!.value
+        }.value
 
         return creator.get() as T
     }
