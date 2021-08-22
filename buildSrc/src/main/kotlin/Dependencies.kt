@@ -50,12 +50,16 @@ object AndroidX {
         const val ktx = "androidx.core:core-ktx:1.6.0"
     }
 
-    const val activity = "androidx.activity:activity:1.2.3"
+    const val activity = "androidx.activity:activity:1.3.1"
     const val appcompat = "androidx.appcompat:appcompat:1.3.0"
-    const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.4"
-    const val fragment = "androidx.fragment:fragment:1.3.5"
+    const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.0"
+    const val fragment = "androidx.fragment:fragment:1.3.6"
 
     object Navigation {
+        // TODO(robinlinden): This can't be updated past alpha06 right now.
+        // The minCompileSdk (31) specified in a
+        // dependency's AAR metadata (META-INF/com/android/build/gradle/aar-metadata.properties)
+        // is greater than this module's compileSdkVersion (android-30).
         private const val version = "2.4.0-alpha06"
         const val fragment = "androidx.navigation:navigation-fragment:$version"
         const val ui = "androidx.navigation:navigation-ui:$version"
@@ -102,7 +106,7 @@ object Google {
 
     const val dagger = "com.google.dagger:dagger:${Dagger.version}"
     object Dagger {
-        internal const val version = "2.37"
+        internal const val version = "2.38.1"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
     }
 }
