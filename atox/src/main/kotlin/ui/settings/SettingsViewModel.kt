@@ -32,6 +32,8 @@ import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxSaveStatus
 import ltd.evilcorp.domain.tox.testToxSave
 
+private const val TOX_SHUTDOWN_POLL_DELAY_MS = 200L
+
 enum class ProxyStatus {
     Good,
     BadPort,
@@ -113,7 +115,7 @@ class SettingsViewModel @Inject constructor(
 
         viewModelScope.launch {
             while (tox.started) {
-                delay(200)
+                delay(TOX_SHUTDOWN_POLL_DELAY_MS)
             }
             toxStarter.tryLoadTox(password)
             _committed.value = true

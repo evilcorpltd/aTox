@@ -20,6 +20,8 @@ import ltd.evilcorp.core.vo.UserStatus
 
 private const val TAG = "ToxWrapper"
 
+private const val AUDIO_BIT_RATE = 128
+
 enum class CustomPacketError {
     Success,
     Empty,
@@ -175,8 +177,8 @@ class ToxWrapper(
     private fun contactByKey(pk: PublicKey): Int = tox.friendByPublicKey(pk.bytes())
 
     // ToxAv, probably move these.
-    fun startCall(pk: PublicKey) = av.call(contactByKey(pk), 128, 0)
-    fun answerCall(pk: PublicKey) = av.answer(contactByKey(pk), 128, 0)
+    fun startCall(pk: PublicKey) = av.call(contactByKey(pk), AUDIO_BIT_RATE, 0)
+    fun answerCall(pk: PublicKey) = av.answer(contactByKey(pk), AUDIO_BIT_RATE, 0)
     fun endCall(pk: PublicKey) = av.callControl(contactByKey(pk), ToxavCallControl.CANCEL)
     fun sendAudio(pk: PublicKey, pcm: ShortArray, channels: Int, samplingRate: Int) =
         av.audioSendFrame(contactByKey(pk), pcm, pcm.size, channels, samplingRate)

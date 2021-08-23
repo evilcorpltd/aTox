@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2020 aTox contributors
+// SPDX-FileCopyrightText: 2019-2021 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -15,8 +15,9 @@ import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.UserStatus
+import ltd.evilcorp.domain.toHex
 
-fun String.hexToBytes(): ByteArray = chunked(2).map { it.uppercase().toInt(16).toByte() }.toByteArray()
+fun String.hexToBytes(): ByteArray = chunked(2).map { it.uppercase().toHex().toByte() }.toByteArray()
 fun ByteArray.bytesToHex(): String = this.joinToString("") { "%02X".format(it) }
 fun ToxUserStatus.toUserStatus(): UserStatus = UserStatus.values()[this.ordinal]
 fun ToxConnection.toConnectionStatus(): ConnectionStatus = ConnectionStatus.values()[this.ordinal]

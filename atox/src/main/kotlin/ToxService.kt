@@ -26,10 +26,11 @@ import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxSaveStatus
 
 private const val TAG = "ToxService"
+private const val NOTIFICATION_ID = 1984
+private const val BOOTSTRAP_INTERVAL_MS = 60_000L
 
 class ToxService : LifecycleService() {
     private val channelId = "ToxService"
-    private val notificationId = 1984
 
     private var connectionStatus: ConnectionStatus? = null
 
@@ -87,16 +88,16 @@ class ToxService : LifecycleService() {
         }
 
         createNotificationChannel()
-        startForeground(notificationId, notificationFor(connectionStatus))
+        startForeground(NOTIFICATION_ID, notificationFor(connectionStatus))
 
         userRepository.get(tox.publicKey.string())
             .filter { user: User? -> user != null }.asLiveData().observe(this) { user ->
                 if (user.connectionStatus == connectionStatus) return@observe
                 connectionStatus = user.connectionStatus
-                notifier.notify(notificationId, notificationFor(connectionStatus))
+                notifier.notify(NOTIFICATION_ID, notificationFor(connectionStatus))
                 if (connectionStatus == ConnectionStatus.None) {
                     Log.i(TAG, "Gone offline, scheduling bootstrap")
-                    bootstrapTimer.schedule(60_000, 60_000) {
+                    bootstrapTimer.schedule(BOOTSTRAP_INTERVAL_MS, BOOTSTRAP_INTERVAL_MS) {
                         Log.i(TAG, "Been offline for too long, bootstrapping")
                         tox.isBootstrapNeeded = true
                     }

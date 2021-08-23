@@ -5,9 +5,7 @@
 package ltd.evilcorp.atox.ui.call
 
 import android.Manifest
-import android.content.res.Resources
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -32,9 +30,6 @@ private const val PERMISSION = Manifest.permission.RECORD_AUDIO
 
 private const val CALL_BACKGROUND_SIZE_DP = 500
 
-private fun dpToPx(dp: Float, res: Resources): Int =
-    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.displayMetrics).toInt()
-
 class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::inflate) {
     private val vm: CallViewModel by viewModels { vmFactory }
 
@@ -51,7 +46,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
             val insets = compat.getInsets(WindowInsetsCompat.Type.systemBars())
-            controlContainer.updatePadding(bottom = insets.bottom + dpToPx(16f, resources))
+            controlContainer.updatePadding(bottom = insets.bottom + controlContainer.paddingTop)
             compat
         }
 

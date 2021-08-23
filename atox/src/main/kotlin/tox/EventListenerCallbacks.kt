@@ -50,6 +50,9 @@ private fun isImage(filename: String) = try {
     false
 }
 
+private const val FINGERPRINT_LEN = 8
+private fun String.fingerprint() = this.take(FINGERPRINT_LEN)
+
 @Singleton
 class EventListenerCallbacks @Inject constructor(
     private val ctx: Context,
@@ -169,12 +172,12 @@ class EventListenerCallbacks @Inject constructor(
 
     fun setUp(listener: ToxAvEventListener) = with(listener) {
         callHandler = { pk, audioEnabled, videoEnabled ->
-            Log.e(TAG, "call ${pk.take(8)} $audioEnabled $videoEnabled")
+            Log.e(TAG, "call ${pk.fingerprint()} $audioEnabled $videoEnabled")
             notificationHelper.showPendingCallNotification(contactByPublicKey(pk))
         }
 
         callStateHandler = { pk, callState ->
-            Log.e(TAG, "callState ${pk.take(8)} $callState")
+            Log.e(TAG, "callState ${pk.fingerprint()} $callState")
             if (callState.contains(ToxavFriendCallState.FINISHED) || callState.contains(ToxavFriendCallState.ERROR)) {
                 audioPlayer?.stop()
                 audioPlayer?.release()
@@ -185,7 +188,7 @@ class EventListenerCallbacks @Inject constructor(
         }
 
         videoBitRateHandler = { pk, bitRate ->
-            Log.e(TAG, "videoBitRate ${pk.take(8)} $bitRate")
+            Log.e(TAG, "videoBitRate ${pk.fingerprint()} $bitRate")
         }
 
         videoReceiveFrameHandler = { pk,
@@ -194,7 +197,7 @@ class EventListenerCallbacks @Inject constructor(
             yStride, uStride, vStride ->
             Log.v(
                 TAG,
-                "videoReceiveFrame ${pk.take(8)}" +
+                "videoReceiveFrame ${pk.fingerprint()}" +
                     "$width $height" +
                     "${y.size} ${u.size} ${v.size}" +
                     "$yStride $uStride $vStride"
@@ -202,7 +205,7 @@ class EventListenerCallbacks @Inject constructor(
         }
 
         audioBitRateHandler = { pk, bitRate ->
-            Log.e(TAG, "audioBitRate ${pk.take(8)} $bitRate")
+            Log.e(TAG, "audioBitRate ${pk.fingerprint()} $bitRate")
         }
 
         audioReceiveFrameHandler = { _, pcm, channels, samplingRate ->

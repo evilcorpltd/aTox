@@ -28,6 +28,10 @@ sealed class CallState {
 
 private const val TAG = "CallManager"
 
+private const val AUDIO_CHANNELS = 1
+private const val AUDIO_SAMPLING_RATE_HZ = 48_000
+private const val AUDIO_SEND_INTERVAL_MS = 20
+
 @Singleton
 class CallManager @Inject constructor(
     private val tox: Tox,
@@ -68,7 +72,7 @@ class CallManager @Inject constructor(
     fun startSendingAudio(): Boolean {
         val to = (inCall.value as CallState.InCall?)?.publicKey ?: return false
 
-        val recorder = AudioCapture(48_000, 1)
+        val recorder = AudioCapture(AUDIO_SAMPLING_RATE_HZ, AUDIO_CHANNELS)
         if (!recorder.isOk()) {
             return false
         }
@@ -89,13 +93,13 @@ class CallManager @Inject constructor(
                 val start = System.currentTimeMillis()
                 val audioFrame = recorder.read()
                 try {
-                    tox.sendAudio(to, audioFrame, 1, 48_000)
+                    tox.sendAudio(to, audioFrame, AUDIO_CHANNELS, AUDIO_SAMPLING_RATE_HZ)
                 } catch (e: Exception) {
                     Log.e(TAG, e.toString())
                 }
                 val elapsed = System.currentTimeMillis() - start
-                if (elapsed < 20) {
-                    delay(20 - elapsed)
+                if (elapsed < AUDIO_SEND_INTERVAL_MS) {
+                    delay(AUDIO_SEND_INTERVAL_MS - elapsed)
                 }
             }
             recorder.stop()
