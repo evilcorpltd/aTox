@@ -179,8 +179,8 @@ class NotificationHelper @Inject constructor(
         notifier.notify(friendRequest.publicKey.hashCode(), notificationBuilder.build())
     }
 
-    fun dismissCallNotification(contact: Contact) =
-        notifier.cancel(contact.publicKey.hashCode() + CALL.hashCode())
+    fun dismissCallNotification(pk: PublicKey) =
+        notifier.cancel(pk.string().hashCode() + CALL.hashCode())
 
     fun showOngoingCallNotification(contact: Contact) {
         val notificationBuilder = NotificationCompat.Builder(context, CALL)

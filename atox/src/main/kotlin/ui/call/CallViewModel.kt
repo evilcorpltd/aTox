@@ -40,7 +40,7 @@ class CallViewModel @Inject constructor(
 
     fun endCall() = launch {
         callManager.endCall(publicKey)
-        notificationHelper.dismissCallNotification(contactManager.get(publicKey).first())
+        notificationHelper.dismissCallNotification(publicKey)
     }
 
     fun startSendingAudio() = callManager.startSendingAudio()

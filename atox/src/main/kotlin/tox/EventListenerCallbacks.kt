@@ -13,8 +13,8 @@ import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.settings.FtAutoAccept
@@ -25,7 +25,6 @@ import ltd.evilcorp.core.repository.FriendRequestRepository
 import ltd.evilcorp.core.repository.MessageRepository
 import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.ConnectionStatus
-import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.FriendRequest
@@ -66,20 +65,15 @@ class EventListenerCallbacks @Inject constructor(
     private val notificationHelper: NotificationHelper,
     private val tox: Tox,
     private val settings: Settings,
-) : CoroutineScope by GlobalScope {
-    private var contacts: List<Contact> = listOf()
+) {
     private var audioPlayer: AudioPlayer? = null
+    private val scope = CoroutineScope(Dispatchers.Default)
 
-    init {
-        launch {
-            contactRepository.getAll().collect {
-                contacts = it
-            }
+    private suspend fun tryGetContact(pk: String, tag: String) =
+        contactRepository.get(pk).firstOrNull().let {
+            if (it == null) Log.e(TAG, "$tag -> unable to get contact for ${pk.fingerprint()}")
+            it
         }
-    }
-
-    private fun contactByPublicKey(publicKey: String) =
-        contacts.find { it.publicKey == publicKey }!!
 
     fun setUp(listener: ToxEventListener) = with(listener) {
         friendStatusMessageHandler = { publicKey, message ->
@@ -97,7 +91,7 @@ class EventListenerCallbacks @Inject constructor(
         friendConnectionStatusHandler = { publicKey, status ->
             contactRepository.setConnectionStatus(publicKey, status)
             if (status != ConnectionStatus.None) {
-                launch {
+                scope.launch {
                     val pending = messageRepository.getPending(publicKey)
                     if (pending.isNotEmpty()) {
                         chatManager.resend(pending)
@@ -121,7 +115,10 @@ class EventListenerCallbacks @Inject constructor(
             )
 
             if (chatManager.activeChat != publicKey) {
-                notificationHelper.showMessageNotification(contactByPublicKey(publicKey), msg)
+                scope.launch {
+                    val contact = tryGetContact(publicKey, "Message") ?: return@launch
+                    notificationHelper.showMessageNotification(contact, msg)
+                }
                 contactRepository.setHasUnreadMessages(publicKey, true)
             }
         }
@@ -141,8 +138,11 @@ class EventListenerCallbacks @Inject constructor(
 
             if (kind == FileKind.Data.ordinal) {
                 if (chatManager.activeChat != publicKey) {
-                    val msg = ctx.getString(R.string.notification_file_transfer, name)
-                    notificationHelper.showMessageNotification(contactByPublicKey(publicKey), msg)
+                    scope.launch {
+                        val contact = tryGetContact(publicKey, "FileRecv") ?: return@launch
+                        val msg = ctx.getString(R.string.notification_file_transfer, name)
+                        notificationHelper.showMessageNotification(contact, msg)
+                    }
                     contactRepository.setHasUnreadMessages(publicKey, true)
                 }
 
@@ -173,7 +173,10 @@ class EventListenerCallbacks @Inject constructor(
     fun setUp(listener: ToxAvEventListener) = with(listener) {
         callHandler = { pk, audioEnabled, videoEnabled ->
             Log.e(TAG, "call ${pk.fingerprint()} $audioEnabled $videoEnabled")
-            notificationHelper.showPendingCallNotification(contactByPublicKey(pk))
+            scope.launch {
+                val contact = tryGetContact(pk, "Call") ?: return@launch
+                notificationHelper.showPendingCallNotification(contact)
+            }
         }
 
         callStateHandler = { pk, callState ->
@@ -182,7 +185,7 @@ class EventListenerCallbacks @Inject constructor(
                 audioPlayer?.stop()
                 audioPlayer?.release()
                 audioPlayer = null
-                notificationHelper.dismissCallNotification(contactByPublicKey(pk))
+                notificationHelper.dismissCallNotification(PublicKey(pk))
                 callManager.endCall(PublicKey(pk))
             }
         }

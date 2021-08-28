@@ -58,7 +58,7 @@ class ActionReceiver : BroadcastReceiver() {
                 }
             } else if (callChoice == "reject") {
                 callManager.endCall(PublicKey(pk))
-                notificationHelper.dismissCallNotification(Contact(pk))
+                notificationHelper.dismissCallNotification(PublicKey(pk))
             }
         }
     }
