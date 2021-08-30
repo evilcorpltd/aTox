@@ -130,7 +130,7 @@
     <string name="pref_theme_dark">Escuro</string>
     <string name="pref_auto_away">Auto-marcação de ausência</string>
     <string name="pref_block_screenshots_description">Isso bloqueia **apenas** as capturas de tela em **seu** dispositivo, e não oferece proteção caso seus contatos capturem a tela ou salvem suas conversas</string>
-    <string name="pref_block_screenshots">Bloquear capturas de tela de aTox</string>
+    <string name="pref_block_screenshots">Bloquear capturas de tela do aTox</string>
     <string name="passwords_must_match">As senhas devem coincidir</string>
     <string name="password_updated">Senha alterada</string>
     <string name="pref_confirm_password">Confirmar nova senha</string>
@@ -148,4 +148,5 @@
     <string name="pref_ft_auto_accept_all">Todos</string>
     <string name="pref_ft_auto_accept_images">Imagens</string>
     <string name="pref_ft_auto_accept_none">Nenhum</string>
+    <string name="return_to_chat">Voltar ao chat</string>
 </resources>
