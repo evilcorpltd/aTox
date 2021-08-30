@@ -132,7 +132,7 @@
     <string name="call_mic_permission_needed">O acesso ao microfone é necessário para enviar áudio</string>
     <string name="incoming_call_from">Recebendo chamada de %1$s</string>
     <string name="incoming_call">Recebendo chamada</string>
-    <string name="pref_nospam_description">Mudar o seu NoSpam altera o seu ID do Tox, o que significa que pedidos de amizade precisam ser enviados ao ID atualizado</string>
+    <string name="pref_nospam_description">Mudar o seu SemSpam altera o seu ID do Tox, o que significa que pedidos de amizade precisam ser enviados ao ID atualizado</string>
     <string name="pref_nospam">SemSpam</string>
     <string name="tox_id_error_self_add">Não pode adicionar a si mesmo</string>
     <string name="in_call_with">Em chamada com %1$s</string>
