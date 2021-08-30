@@ -90,9 +90,9 @@
     <string name="tox_id_share">Podjeli Tox ID</string>
     <string name="tox_id_error_hex">Samo je hex dozvoljen</string>
     <string name="tox_id_error_checksum">Checksum nije validan</string>
-    <string name="tox_id_error_length">Tox ID mora da bude 76 karaktera (%1$d/76)</string>
+    <string name="tox_id_error_length">Tox ID mora sadržati 76 znakova (%1$d/76)</string>
     <string name="tox_id">Tox ID</string>
-    <string name="status_message_default">Koristim aTox Android klijenta</string>
+    <string name="status_message_default">Koristim Android klijent aTox</string>
     <string name="status_message">Statusna poruka</string>
     <string name="status_indicator">Indikator status</string>
     <string name="settings">Podesavanja</string>
