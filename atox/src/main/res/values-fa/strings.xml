@@ -4,7 +4,7 @@
     <string name="pref_udp_enabled">UDP فعال شده</string>
     <string name="pref_heading_network">شبکه</string>
     <string name="tox_service_running">aTox در حال اجراست…</string>
-    <string name="tox_id_error_already_exists">یک مخاطب با همین شناسه‌ی تاکس وجود دارد</string>
+    <string name="tox_id_error_already_exists">یک مخاطب با همین شناسه‌ی تاکس در حال حاضر وجود دارد</string>
     <string name="profile">پروفایل</string>
     <string name="profile_status">عوض کردن وضعیت</string>
     <string name="profile_status_message">عوض کردن متن وضعیت</string>
@@ -141,4 +141,9 @@
     <string name="unlock_profile">بازکردن قفل پروفایل</string>
     <string name="incorrect_password">گذرواژه نادرست است</string>
     <string name="password">گذرواژه</string>
+    <string name="return_to_chat">بازگشت به چت</string>
+    <string name="pref_block_screenshots_description">این ** فقط ** عکس های صفحه ** را در دستگاه ** شما مسدود می کند و هیچ محافظتی در برابر گرفتن عکس از صفحه یا ذخیره مکالمات شما از مخاطبین شما ارائه نمی دهد</string>
+    <string name="pref_block_screenshots">مسدود کردن اسکرین شات های تاکس</string>
+    <string name="ongoing_call">تماس مداوم</string>
+    <string name="export_file_failure">در صدور آن مشکلی پیش آمد. نقل و انتقالات قبل از 0.5.1 به طور پیش فرض صادر شد.</string>
 </resources>
