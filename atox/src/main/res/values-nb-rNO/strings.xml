@@ -134,4 +134,16 @@
     <string name="pref_theme_dark">Mørk</string>
     <string name="pref_theme_light">Lys</string>
     <string name="pref_theme_follow_system">Følg systeminnstilling</string>
+    <string name="pref_block_screenshots_description">Dette blokkerer **kun** skjermavbildninger på **din** enhet, og gir ingen beskyttelse mot at dine kontakter tar skjermavbildninger eller på annet vis lagrer samtalene dine</string>
+    <string name="return_to_chat">Returner til sludring</string>
+    <string name="pref_block_screenshots">Blokker skjermavbildninger av aTox</string>
+    <string name="passwords_must_match">Passordene må stemme overens</string>
+    <string name="password_updated">Passord oppdatert</string>
+    <string name="pref_confirm_password">Bekreft nytt passord</string>
+    <string name="pref_new_password">Nytt passord</string>
+    <string name="pref_current_password">Nåværende passord</string>
+    <string name="pref_heading_change_password">Endre passord</string>
+    <string name="unlock_profile">Lås opp profil</string>
+    <string name="incorrect_password">Feil passord</string>
+    <string name="password">Passord</string>
 </resources>
