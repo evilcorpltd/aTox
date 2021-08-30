@@ -98,7 +98,7 @@
     <string name="create">Créer</string>
     <string name="copy_atox">Copier</string>
     <string name="copied">Copié</string>
-    <string name="contact_typing">écrit…</string>
+    <string name="contact_typing">Écrit…</string>
     <string name="connecting">Connexion…</string>
     <string name="cancel">Annuler</string>
     <string name="confirm">Confirmer</string>
@@ -145,4 +145,5 @@
     <string name="password">Mot de passe</string>
     <string name="pref_block_screenshots_description">Ceci bloque les captures d\'écran **seulement** sur **votre** appareil et n’offre aucune protection contre les captures d’écran ou autres enregistrements de vos conversations par vos contacts</string>
     <string name="pref_block_screenshots">Bloquer les captures d’écran d’aTox</string>
+    <string name="return_to_chat">Retourner à la conversation</string>
 </resources>

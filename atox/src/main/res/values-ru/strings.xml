@@ -103,7 +103,7 @@
     <string name="bad_port">Неверный порт</string>
     <string name="tox_save_export_failure">Экспортирование профиля Tox не удалось: %1$s</string>
     <string name="reply">Ответить</string>
-    <string name="pref_auto_away">Статус \"Отошёл\" после</string>
+    <string name="pref_auto_away">Статус \"Отошёл/Отошла\" после</string>
     <string name="seconds">Секунд</string>
     <string name="bad_positive_number">Должно быть положительным числом</string>
     <string name="warn_node_json_import_failed">Ошибка при импортировании узлов</string>
@@ -148,4 +148,5 @@
     <string name="password">Пароль</string>
     <string name="pref_block_screenshots_description">Эта функция заблокирует создание скриншотов открытого aTox **только** на **вашем** устройстве, но она не защитит от создания скриншотов вашими контактами или какого-либо другого способа сохранения ими ваших бесед</string>
     <string name="pref_block_screenshots">Блокировка скриншотов aTox</string>
+    <string name="return_to_chat">Вернуться в чат</string>
 </resources>
