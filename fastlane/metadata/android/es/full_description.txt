@@ -1,0 +1,10 @@
+aTox es una aplicación de mensajería gratuita de código abierto para el protocolo Tox.
+
+<b> ¿Por qué aTox?</b>
+* Código abierto: libre para compartir, inspeccionar y cambiarlo como quieras.
+* Razonable: valores predeterminados lógicos, sin especular sobre lo que importa, no ignora lo que <b>tú</b> quieres.
+* Encriptación de extremo a extremo: las únicas personas que pueden ver tus conversaciones son las personas con las que estás hablando.
+* Distribuido: no hay servidores centrales que puedan ser eliminados u obligados a entregar datos.
+* Liviano: no hay telemetría, publicidad y otras formas de monitoreo.
+
+Más info: <a href="https://github.com/evilcorpltd/aTox/">aTox</a>, <a href="https://tox.chat/">Tox</a>.

@@ -1,0 +1,11 @@
+Mensajes no enviados se guardan como borradores
+Soporte de proxy
+Opción para marcarse autom. como ausente
+Opción para anular los nodos de arranque
+Se puede responder desde las notificaciones
+Soporte de aceptación automática para transferencias de archivos
+Bonitos marcadores de posición de avatar
+Al eliminar un chat se eliminan las transferencias de archivos asociadas
+Corregido división de mensajes con caracteres de varios bytes
+
+Full changelog: https://github.com/evilcorpltd/aTox/releases
