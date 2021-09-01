@@ -1,0 +1,12 @@
+Neišsiųsti pranešimai išsaugomi juodraščiuose
+Proxy palaikymas
+Galimybė automatiškai pažymėti "laikinai nepasiekiamas"
+Galimybė nepaisyti naudojamų bootstrap mazgų
+Jau galite atsakyti tiesiai iš notifikacijų
+Auto-tvirtinimas perkeliant failus
+Gražūs avataro vietaženkliai
+Išvalius pokalbį, ištrinami ir susiję failų perkėlimai
+Fiksuotas pranešimų su daugiabaičiais simboliais dalijimas
+Išversta į brazilų, rusų, vokiečių kalbas
+
+Visas pakeitimų žurnalas: https://github.com/evilcorpltd/aTox/releases
