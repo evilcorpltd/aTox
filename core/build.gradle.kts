@@ -39,17 +39,7 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
         }
     }
-    compileOptions {
-        sourceCompatibility = Java.version
-        targetCompatibility = Java.version
-    }
-    kotlinOptions {
-        jvmTarget = Java.version.toString()
-    }
-    sourceSets["main"].java.srcDir("src/main/kotlin")
-    sourceSets["test"].java.srcDir("src/test/kotlin")
     sourceSets["androidTest"].assets.srcDir("$projectDir/schemas")
-    sourceSets["androidTest"].java.srcDir("src/androidTest/kotlin")
 }
 
 idea {

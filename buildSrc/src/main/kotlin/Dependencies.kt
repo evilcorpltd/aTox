@@ -1,10 +1,4 @@
-import org.gradle.api.JavaVersion
-
 const val kotlinVersion = "1.5.30"
-
-object Java {
-    val version = JavaVersion.VERSION_1_8
-}
 
 object BuildPlugin {
     private object Version {

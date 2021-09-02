@@ -30,18 +30,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
-    compileOptions {
-        sourceCompatibility = Java.version
-        targetCompatibility = Java.version
-    }
-    kotlinOptions {
-        jvmTarget = Java.version.toString()
-    }
     lint {
         disable("GoogleAppIndexingWarning", "MissingTranslation", "InvalidPackage")
     }
-    sourceSets["main"].java.srcDir("src/main/kotlin")
-    sourceSets["androidTest"].java.srcDir("src/androidTest/kotlin")
     packagingOptions {
         // Work around scala-compiler and scala-library (via tox4j) trying to place files in the
         // same place.
