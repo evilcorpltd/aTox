@@ -96,7 +96,7 @@ jobs:
         path: ~/.cache/bazel
         key: bazel
     - name: Install
-      run: wget https://github.com/bazelbuild/bazelisk/releases/download/v1.9.0/bazelisk-linux-amd64 --output-document=bazelisk
+      run: wget https://github.com/bazelbuild/bazelisk/releases/download/v1.10.1/bazelisk-linux-amd64 --output-document=bazelisk
     - name: Build
       run: bazelisk build //...
     - name: Test
