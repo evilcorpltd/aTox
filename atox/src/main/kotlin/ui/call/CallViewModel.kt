@@ -48,4 +48,6 @@ class CallViewModel @Inject constructor(
 
     val inCall = callManager.inCall
     val sendingAudio = callManager.sendingAudio
+
+    var speakerphoneOn by callManager::speakerphoneOn
 }

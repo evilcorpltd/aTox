@@ -23,12 +23,21 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_margin="16dp"
                 android:background="@null"
                 android:contentDescription="@string/microphone_control"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_mic"/>
+
+        <ImageButton android:id="@+id/speakerphone"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_margin="16dp"
+                android:layout_toEndOf="@id/microphone_control"
+                android:background="@null"
+                android:contentDescription="@string/speakerphone_toggle"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_speakerphone"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton android:id="@+id/end_call"
                 android:layout_width="wrap_content"

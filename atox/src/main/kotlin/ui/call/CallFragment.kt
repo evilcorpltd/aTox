@@ -80,6 +80,12 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
             }
         }
 
+        updateSpeakerphoneIcon()
+        speakerphone.setOnClickListener {
+            vm.speakerphoneOn = !vm.speakerphoneOn
+            updateSpeakerphoneIcon()
+        }
+
         backToChat.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -98,6 +104,11 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
         if (requireContext().hasPermission(PERMISSION)) {
             vm.startSendingAudio()
         }
+    }
+
+    private fun updateSpeakerphoneIcon() {
+        val icon = if (vm.speakerphoneOn) R.drawable.ic_speakerphone else R.drawable.ic_speakerphone_off
+        binding.speakerphone.setImageResource(icon)
     }
 
     private fun startCall() {
