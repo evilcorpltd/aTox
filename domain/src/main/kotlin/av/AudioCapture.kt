@@ -43,15 +43,24 @@ private fun findAudioRecord(sampleRate: Int, channels: Int): AudioRecord? {
     return null
 }
 
-class AudioCapture(private val sampleRate: Int, private val channels: Int) {
-    private val audioRecord = findAudioRecord(sampleRate, channels)
-    fun isOk() = audioRecord != null
-    fun start() = audioRecord?.startRecording()
-    fun stop() = audioRecord?.stop()
-    fun release() = audioRecord?.release()
+class AudioCapture private constructor(
+    private val sampleRate: Int,
+    private val channels: Int,
+    private val audioRecord: AudioRecord,
+) {
+    fun start() = audioRecord.startRecording()
+    fun stop() = audioRecord.stop()
+    fun release() = audioRecord.release()
     fun read(): ShortArray {
         val bytes = ShortArray((sampleRate * channels * 0.1).toInt()) // E.g. 16-bit, 48kHz, 1 channel, 100ms
-        audioRecord?.read(bytes, 0, bytes.size)
+        audioRecord.read(bytes, 0, bytes.size)
         return bytes
+    }
+
+    companion object {
+        fun create(sampleRate: Int, channels: Int): AudioCapture? {
+            val audioRecord = findAudioRecord(sampleRate, channels) ?: return null
+            return AudioCapture(sampleRate, channels, audioRecord)
+        }
     }
 }

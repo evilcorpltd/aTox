@@ -71,12 +71,7 @@ class CallManager @Inject constructor(
 
     fun startSendingAudio(): Boolean {
         val to = (inCall.value as CallState.InCall?)?.publicKey ?: return false
-
-        val recorder = AudioCapture(AUDIO_SAMPLING_RATE_HZ, AUDIO_CHANNELS)
-        if (!recorder.isOk()) {
-            return false
-        }
-
+        val recorder = AudioCapture.create(AUDIO_SAMPLING_RATE_HZ, AUDIO_CHANNELS) ?: return false
         startAudioSender(recorder, to)
         return true
     }
