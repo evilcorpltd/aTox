@@ -7,6 +7,9 @@ package ltd.evilcorp.domain.av
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
+import android.util.Log
+
+private const val TAG = "AudioCapture"
 
 private fun intToChannel(channels: Int) = when (channels) {
     1 -> AudioFormat.CHANNEL_IN_MONO
@@ -30,9 +33,11 @@ private fun findAudioRecord(sampleRate: Int, channels: Int): AudioRecord? {
     )
     for (audioSource in audioSources) {
         val recorder = AudioRecord(audioSource, sampleRate, channelConfig, audioFormat, bufferSize)
-        if (recorder.state == AudioRecord.STATE_INITIALIZED) {
-            return recorder
+        if (recorder.state != AudioRecord.STATE_INITIALIZED) {
+            Log.w(TAG, "Failed to initialize audio record $audioSource")
+            continue
         }
+        return recorder
     }
 
     return null
