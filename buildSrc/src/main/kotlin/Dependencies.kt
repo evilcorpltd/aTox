@@ -32,7 +32,7 @@ object JavaX {
 
 object KotlinX {
     object Coroutines {
-        private const val version = "1.5.1"
+        private const val version = "1.5.2"
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
         const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
@@ -45,7 +45,7 @@ object AndroidX {
     }
 
     const val activity = "androidx.activity:activity:1.3.1"
-    const val appcompat = "androidx.appcompat:appcompat:1.3.0"
+    const val appcompat = "androidx.appcompat:appcompat:1.3.1"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.0"
     const val fragment = "androidx.fragment:fragment:1.3.6"
 
