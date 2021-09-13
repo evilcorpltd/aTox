@@ -1,6 +1,8 @@
 plugins {
     id(BuildPlugin.ideaExt) version BuildPlugin.ideaExtVersion
     id(BuildPlugin.versions) version BuildPlugin.versionsVersion
+
+    id(BuildPlugin.ksp) version BuildPlugin.kspVersion apply false
 }
 
 buildscript {

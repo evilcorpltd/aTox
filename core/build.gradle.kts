@@ -12,7 +12,7 @@ plugins {
     id(BuildPlugin.androidLibrary)
 
     id(BuildPlugin.kotlinAndroid)
-    id(BuildPlugin.kotlinKapt)
+    id(BuildPlugin.ksp)
 
     id(BuildPlugin.ideaExt)
 }
@@ -56,7 +56,7 @@ dependencies {
     implementation(JavaX.inject)
     api(AndroidX.Room.runtime)
     api(AndroidX.Room.ktx)
-    kapt(AndroidX.Room.compiler)
+    ksp(AndroidX.Room.compiler)
 
     testImplementation(Test.junit)
 

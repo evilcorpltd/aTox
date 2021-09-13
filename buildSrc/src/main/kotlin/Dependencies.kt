@@ -9,6 +9,8 @@ object BuildPlugin {
     const val androidLibrary = "com.android.library"
     const val kotlinAndroid = "kotlin-android"
     const val kotlinKapt = "kotlin-kapt"
+    const val ksp = "com.google.devtools.ksp"
+    const val kspVersion = "$kotlinVersion-1.0.0"
 
     const val gradle = "com.android.tools.build:gradle:${Version.gradle}"
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
