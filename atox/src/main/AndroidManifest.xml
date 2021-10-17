@@ -20,7 +20,7 @@
             android:theme="@style/AppTheme">
         <service android:name=".ToxService" android:exported="false"/>
 
-        <receiver android:name=".BootReceiver" android:enabled="false">
+        <receiver android:name=".BootReceiver" android:enabled="false" android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
@@ -38,7 +38,7 @@
                     android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".MainActivity" android:launchMode="singleTask">
+        <activity android:name=".MainActivity" android:exported="true" android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
