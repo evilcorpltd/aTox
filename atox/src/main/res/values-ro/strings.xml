@@ -137,6 +137,7 @@
     <string name="pref_block_screenshots">Blochează capturi de ecran în aTox</string>
     <string name="pref_block_screenshots_description">Aceasta blochează **doar** capturile de ecran de pe dispozitivul **tău**, contactele tale pot și vor face capturi de ecran cu conversația voastră</string>
     <string name="return_to_chat">Înapoi la chat</string>
+    <string name="speakerphone_toggle">Comută difuzorul</string>
     <string name="pref_bootstrap_node_builtin">Integrate</string>
     <string name="pref_bootstrap_node_user_provided">Personalizate</string>
     <string name="pref_proxy_type_none">Nu</string>

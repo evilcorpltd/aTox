@@ -1,0 +1,10 @@
+aTox este o aplicație de mesagerie gratuită și open-source pentru protocolul Tox.
+
+<b>De ce aTox?</b>
+* Open-source: liber de partajat, inspectat și modificat după bunul plac.
+* Rezonabil: setări implicite sănătoase, fără păreri și presupuneri despre ce îți pasă, <b>tu</b> alegi ce vrei.
+* Criptare de la un capăt la altul: doar tu și persoana cu care vorbești puteți vedea conversațiile.
+* Distribuit: fără servere centrale care pot fi demontate sau care pot fi obligate să predea date.
+* Ușor: fără telemetrie, anunțuri sau alte forme de monitorizare.
+
+Află mai mult: <a href="https://github.com/evilcorpltd/aTox/">aTox</a>, <a href="https://tox.chat/">Tox</a>.

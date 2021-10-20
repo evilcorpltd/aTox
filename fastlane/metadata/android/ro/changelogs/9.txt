@@ -1,0 +1,12 @@
+Mesajele neexpediate sunt salvate ca ciorne
+Suport proxy
+Opțiunea de a fi marcat(ă) automat ca fiind plecat(ă)
+Opțiunea de a suprascrie nodurile bootstrap utilizate
+Acum poți răspunde direct din notificări
+Suport pentru acceptarea automată a transferurilor de fișiere
+Caractere de avatar frumoase
+Ștergerea unui chat acum șterge și transferurile de fișiere asociate
+A fost reparată divizarea mesajelor cu caractere multi-byte
+Tradus în portugheză braziliană, rusă și germană.
+
+Changelog complet: https://github.com/evilcorpltd/aTox/releases
