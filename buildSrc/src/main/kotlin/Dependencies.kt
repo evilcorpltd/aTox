@@ -41,9 +41,17 @@ object KotlinX {
 
 object AndroidX {
     object Core {
+        // TODO(robinlinden): This can't be updated past 1.6.0 right now.
+        // The minCompileSdk (31) specified in a
+        // dependency's AAR metadata (META-INF/com/android/build/gradle/aar-metadata.properties)
+        // is greater than this module's compileSdkVersion (android-30).
         const val ktx = "androidx.core:core-ktx:1.6.0"
     }
 
+    // TODO(robinlinden): This can't be updated past 1.3.1 right now.
+    // The minCompileSdk (31) specified in a
+    // dependency's AAR metadata (META-INF/com/android/build/gradle/aar-metadata.properties)
+    // is greater than this module's compileSdkVersion (android-30).
     const val activity = "androidx.activity:activity:1.3.1"
     const val appcompat = "androidx.appcompat:appcompat:1.3.1"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.1"
@@ -60,6 +68,10 @@ object AndroidX {
     }
 
     object Lifecycle {
+        // TODO(robinlinden): This can't be updated past 2.3.1 right now.
+        // The minCompileSdk (31) specified in a
+        // dependency's AAR metadata (META-INF/com/android/build/gradle/aar-metadata.properties)
+        // is greater than this module's compileSdkVersion (android-30).
         private const val version = "2.3.1"
         const val livedataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
         const val service = "androidx.lifecycle:lifecycle-service:$version"
@@ -100,7 +112,7 @@ object Google {
 
     const val dagger = "com.google.dagger:dagger:${Dagger.version}"
     object Dagger {
-        internal const val version = "2.39.1"
+        internal const val version = "2.40"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
     }
 }
