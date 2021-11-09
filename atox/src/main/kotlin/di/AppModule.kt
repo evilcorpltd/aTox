@@ -6,6 +6,8 @@ package ltd.evilcorp.atox.di
 
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import ltd.evilcorp.atox.tox.BootstrapNodeRegistryImpl
 import ltd.evilcorp.domain.tox.BootstrapNodeRegistry
 
@@ -13,4 +15,7 @@ import ltd.evilcorp.domain.tox.BootstrapNodeRegistry
 class AppModule {
     @Provides
     fun provideBootstrapNodeRegistry(nodeRegistry: BootstrapNodeRegistryImpl): BootstrapNodeRegistry = nodeRegistry
+
+    @Provides
+    fun provideCoroutineScope(): CoroutineScope = CoroutineScope(Dispatchers.Default)
 }

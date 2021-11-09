@@ -16,7 +16,6 @@ import java.io.FileOutputStream
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ltd.evilcorp.atox.R
@@ -37,6 +36,7 @@ import ltd.evilcorp.domain.tox.ToxSaveStatus
 import ltd.evilcorp.domain.tox.testToxSave
 
 class ContactListViewModel @Inject constructor(
+    private val scope: CoroutineScope,
     private val context: Context,
     private val resolver: ContentResolver,
     private val chatManager: ChatManager,
@@ -46,7 +46,7 @@ class ContactListViewModel @Inject constructor(
     private val tox: Tox,
     private val toxStarter: ToxStarter,
     userManager: UserManager
-) : ViewModel(), CoroutineScope by GlobalScope {
+) : ViewModel() {
     val publicKey by lazy { tox.publicKey }
 
     val user: LiveData<User> by lazy { userManager.get(publicKey).asLiveData() }
@@ -62,12 +62,12 @@ class ContactListViewModel @Inject constructor(
     fun deleteContact(publicKey: PublicKey) {
         contactManager.delete(publicKey)
         chatManager.clearHistory(publicKey)
-        launch {
+        scope.launch {
             fileTransferManager.deleteAll(publicKey)
         }
     }
 
-    fun saveToxBackupTo(uri: Uri) = launch(Dispatchers.IO) {
+    fun saveToxBackupTo(uri: Uri) = scope.launch(Dispatchers.IO) {
         // Export the save.
         resolver.openFileDescriptor(uri, "w")!!.use { fd ->
             FileOutputStream(fd.fileDescriptor).use { out ->

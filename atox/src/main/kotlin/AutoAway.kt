@@ -9,7 +9,7 @@ import java.util.Timer
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.concurrent.schedule
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.core.vo.UserStatus
@@ -20,6 +20,7 @@ private const val TAG = "AutoAway"
 
 @Singleton
 class AutoAway @Inject constructor(
+    private val scope: CoroutineScope,
     private val settings: Settings,
     private val userManager: UserManager,
     private val tox: Tox
@@ -32,7 +33,7 @@ class AutoAway @Inject constructor(
 
         Log.i(TAG, "In background, scheduling away")
         awayTimer.schedule(settings.autoAwaySeconds * 1_000) {
-            GlobalScope.launch {
+            scope.launch {
                 if (tox.getStatus() != UserStatus.None) return@launch
                 Log.i(TAG, "Setting away")
                 userManager.setStatus(UserStatus.Away)

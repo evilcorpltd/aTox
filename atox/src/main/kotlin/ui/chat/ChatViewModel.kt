@@ -17,7 +17,6 @@ import java.io.FileInputStream
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.take
@@ -53,8 +52,9 @@ class ChatViewModel @Inject constructor(
     private val fileTransferManager: FileTransferManager,
     private val notificationHelper: NotificationHelper,
     private val resolver: ContentResolver,
-    private val context: Context
-) : ViewModel(), CoroutineScope by GlobalScope {
+    private val context: Context,
+    private val scope: CoroutineScope,
+) : ViewModel() {
     private var publicKey = PublicKey("")
     private var sentTyping = false
 
@@ -82,7 +82,7 @@ class ChatViewModel @Inject constructor(
 
     fun send(message: String, type: MessageType) = chatManager.sendMessage(publicKey, message, type)
 
-    fun clearHistory() = launch {
+    fun clearHistory() = scope.launch {
         chatManager.clearHistory(publicKey)
         fileTransferManager.deleteAll(publicKey)
     }
@@ -108,26 +108,26 @@ class ChatViewModel @Inject constructor(
         }
     }
 
-    fun acceptFt(id: Int) = launch {
+    fun acceptFt(id: Int) = scope.launch {
         fileTransferManager.accept(id)
     }
 
-    fun rejectFt(id: Int) = launch {
+    fun rejectFt(id: Int) = scope.launch {
         fileTransferManager.reject(id)
     }
 
-    fun createFt(file: Uri) = launch {
+    fun createFt(file: Uri) = scope.launch {
         fileTransferManager.create(publicKey, file)
     }
 
-    fun delete(msg: Message) = launch {
+    fun delete(msg: Message) = scope.launch {
         if (msg.type == MessageType.FileTransfer) {
             fileTransferManager.delete(msg.correlationId)
         }
         chatManager.deleteMessage(msg.id)
     }
 
-    fun exportFt(id: Int, dest: Uri) = launch {
+    fun exportFt(id: Int, dest: Uri) = scope.launch {
         fileTransferManager.get(id).take(1).collect { ft ->
             launch(Dispatchers.IO) {
                 try {

@@ -22,8 +22,8 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import java.lang.NumberFormatException
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ltd.evilcorp.atox.BuildConfig
@@ -46,6 +46,7 @@ private fun Spinner.onItemSelectedListener(callback: (Int) -> Unit) {
 
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
     private val vm: SettingsViewModel by viewModels { vmFactory }
+    private val scope = CoroutineScope(Dispatchers.Default)
     private val blockBackCallback = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {
             Toast.makeText(requireContext(), getString(R.string.warn_proxy_broken), Toast.LENGTH_LONG).show()
@@ -59,7 +60,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
     }
 
     private val importNodesLauncher = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
-        GlobalScope.launch {
+        scope.launch {
             if (uri != null && vm.validateNodeJson(uri)) {
                 if (vm.importNodeJson(uri)) {
                     vm.setBootstrapNodeSource(BootstrapNodeSource.UserProvided)

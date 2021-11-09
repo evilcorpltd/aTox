@@ -10,8 +10,8 @@ import java.io.File
 import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.settings.BootstrapNodeSource
@@ -22,6 +22,7 @@ import ltd.evilcorp.domain.tox.BootstrapNodeRegistry
 
 @Singleton
 class BootstrapNodeRegistryImpl @Inject constructor(
+    private val scope: CoroutineScope,
     private val context: Context,
     private val parser: BootstrapNodeJsonParser,
     private val settings: Settings,
@@ -33,7 +34,7 @@ class BootstrapNodeRegistryImpl @Inject constructor(
     }
 
     override fun reset() {
-        GlobalScope.launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             val str = if (settings.bootstrapNodeSource == BootstrapNodeSource.BuiltIn) {
                 context.resources.openRawResource(R.raw.nodes).use {
                     val bytes = ByteArray(it.available())
