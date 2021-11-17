@@ -17,7 +17,7 @@ import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.random.Random
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
@@ -46,6 +46,7 @@ private fun String.fingerprint() = take(FINGERPRINT_LEN)
 
 @Singleton
 class FileTransferManager @Inject constructor(
+    private val scope: CoroutineScope,
     private val context: Context,
     private val resolver: ContentResolver,
     private val contactRepository: ContactRepository,
@@ -66,7 +67,7 @@ class FileTransferManager @Inject constructor(
 
     fun reset() {
         fileTransfers.clear()
-        GlobalScope.launch {
+        scope.launch {
             fileTransferRepository.resetTransientData()
         }
     }

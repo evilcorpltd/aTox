@@ -12,7 +12,6 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.random.Random
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -29,11 +28,12 @@ private const val TAG = "Tox"
 
 @Singleton
 class Tox @Inject constructor(
+    private val scope: CoroutineScope,
     private val contactRepository: ContactRepository,
     private val userRepository: UserRepository,
     private val saveManager: SaveManager,
     private val nodeRegistry: BootstrapNodeRegistry,
-) : CoroutineScope by GlobalScope {
+) {
     val toxId: ToxID get() = tox.getToxId()
     val publicKey: PublicKey by lazy { tox.getPublicKey() }
     var nospam: Int
@@ -81,7 +81,7 @@ class Tox @Inject constructor(
         this.password = password
         started = true
 
-        fun loadContacts() = launch {
+        fun loadContacts() = scope.launch {
             contactRepository.resetTransientData()
 
             for ((publicKey, _) in tox.getContacts()) {
@@ -91,7 +91,7 @@ class Tox @Inject constructor(
             }
         }
 
-        fun iterateForeverAv() = launch {
+        fun iterateForeverAv() = scope.launch {
             toxAvRunning = true
             while (running) {
                 tox.iterateAv()
@@ -100,7 +100,7 @@ class Tox @Inject constructor(
             toxAvRunning = false
         }
 
-        fun iterateForever() = launch {
+        fun iterateForever() = scope.launch {
             running = true
             userRepository.updateConnection(publicKey.string(), ConnectionStatus.None)
             while (running || toxAvRunning) {
@@ -124,7 +124,7 @@ class Tox @Inject constructor(
         iterateForeverAv()
     }
 
-    fun stop() = launch {
+    fun stop() = scope.launch {
         running = false
         while (started) delay(10)
         save().join()
@@ -133,7 +133,7 @@ class Tox @Inject constructor(
     }
 
     private val saveMutex = Mutex()
-    private fun save() = launch {
+    private fun save() = scope.launch {
         saveMutex.withLock {
             val passkey = passkey
             saveManager.save(

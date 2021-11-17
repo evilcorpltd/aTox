@@ -10,7 +10,6 @@ import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import ltd.evilcorp.core.repository.ContactRepository
@@ -43,14 +42,15 @@ private fun String.chunked(chunkSizeInBytes: Int): MutableList<String> {
 
 @Singleton
 class ChatManager @Inject constructor(
+    private val scope: CoroutineScope,
     private val contactRepository: ContactRepository,
     private val messageRepository: MessageRepository,
     private val tox: Tox
-) : CoroutineScope by GlobalScope {
+) {
     var activeChat = ""
         set(value) {
             field = value
-            if (value.isNotEmpty()) launch {
+            if (value.isNotEmpty()) scope.launch {
                 contactRepository.setHasUnreadMessages(value, false)
             }
         }
@@ -58,7 +58,7 @@ class ChatManager @Inject constructor(
     fun messagesFor(publicKey: PublicKey) = messageRepository.get(publicKey.string())
 
     fun sendMessage(publicKey: PublicKey, message: String, type: MessageType = MessageType.Normal) =
-        launch {
+        scope.launch {
             if (contactRepository.get(publicKey.string()).first().connectionStatus == ConnectionStatus.None) {
                 queueMessage(publicKey, message, type)
                 return@launch
@@ -83,7 +83,7 @@ class ChatManager @Inject constructor(
     private fun queueMessage(publicKey: PublicKey, message: String, type: MessageType) =
         messageRepository.add(Message(publicKey.string(), message, Sender.Sent, type, Int.MIN_VALUE))
 
-    fun resend(messages: List<Message>) = launch {
+    fun resend(messages: List<Message>) = scope.launch {
         for (message in messages) {
             val msgs = message.message.chunked(MAX_MESSAGE_LENGTH)
 
@@ -98,11 +98,11 @@ class ChatManager @Inject constructor(
         }
     }
 
-    fun deleteMessage(id: Long) = launch {
+    fun deleteMessage(id: Long) = scope.launch {
         messageRepository.deleteMessage(id)
     }
 
-    fun clearHistory(publicKey: PublicKey) = launch {
+    fun clearHistory(publicKey: PublicKey) = scope.launch {
         messageRepository.delete(publicKey.string())
         contactRepository.setLastMessage(publicKey.string(), 0)
     }

@@ -12,7 +12,6 @@ import im.tox.tox4j.av.exceptions.ToxavCallControlException
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -35,8 +34,9 @@ private const val AUDIO_SEND_INTERVAL_MS = 20
 @Singleton
 class CallManager @Inject constructor(
     private val tox: Tox,
+    private val scope: CoroutineScope,
     context: Context,
-) : CoroutineScope by GlobalScope {
+) {
     private val _inCall = MutableStateFlow<CallState>(CallState.NotInCall)
     val inCall: StateFlow<CallState> get() = _inCall
 
@@ -85,7 +85,7 @@ class CallManager @Inject constructor(
         set(value) { audioManager?.isSpeakerphoneOn = value }
 
     private fun startAudioSender(recorder: AudioCapture, to: PublicKey) {
-        launch {
+        scope.launch {
             recorder.start()
             _sendingAudio.value = true
             while (inCall.value is CallState.InCall && sendingAudio.value) {
