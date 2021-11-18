@@ -43,7 +43,7 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
         if (!viewModel.isToxRunning() && !viewModel.tryLoadTox()) findNavController().navigateUp()
     }
 
-    val scanQrLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    private val scanQrLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode != RESULT_OK) return@registerForActivityResult
         val toxId = it.data?.getStringExtra("SCAN_RESULT") ?: return@registerForActivityResult
         binding.toxId.setText(toxId.removePrefix("tox:"))
