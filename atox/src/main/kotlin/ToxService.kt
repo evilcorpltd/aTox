@@ -63,7 +63,7 @@ class ToxService : LifecycleService() {
     private fun notificationFor(status: ConnectionStatus?): Notification {
         val pendingIntent: PendingIntent =
             Intent(this, MainActivity::class.java).let { notificationIntent ->
-                PendingIntent.getActivity(this, 0, notificationIntent, 0)
+                PendingIntentCompat.getActivity(this, 0, notificationIntent, 0)
             }
 
         return NotificationCompat.Builder(this, channelId)

@@ -32,6 +32,7 @@ import ltd.evilcorp.atox.ActionReceiver
 import ltd.evilcorp.atox.KEY_CALL
 import ltd.evilcorp.atox.KEY_CONTACT_PK
 import ltd.evilcorp.atox.KEY_TEXT_REPLY
+import ltd.evilcorp.atox.PendingIntentCompat
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.core.vo.Contact
@@ -112,11 +113,12 @@ class NotificationHelper @Inject constructor(
                     .Builder(
                         IconCompat.createWithResource(context, R.drawable.send),
                         context.getString(R.string.reply),
-                        PendingIntent.getBroadcast(
+                        PendingIntentCompat.getBroadcast(
                             context,
                             contact.publicKey.hashCode(),
                             Intent(context, ActionReceiver::class.java).putExtra(KEY_CONTACT_PK, contact.publicKey),
-                            PendingIntent.FLAG_UPDATE_CURRENT
+                            PendingIntent.FLAG_UPDATE_CURRENT,
+                            mutable = true,
                         )
                     )
                     .addRemoteInput(
@@ -226,7 +228,7 @@ class NotificationHelper @Inject constructor(
                     .Builder(
                         IconCompat.createWithResource(context, R.drawable.ic_call),
                         context.getString(R.string.accept),
-                        PendingIntent.getBroadcast(
+                        PendingIntentCompat.getBroadcast(
                             context,
                             "${c.publicKey}_accept_call".hashCode(),
                             Intent(context, ActionReceiver::class.java)
@@ -243,7 +245,7 @@ class NotificationHelper @Inject constructor(
                     .Builder(
                         IconCompat.createWithResource(context, R.drawable.ic_not_interested),
                         context.getString(R.string.reject),
-                        PendingIntent.getBroadcast(
+                        PendingIntentCompat.getBroadcast(
                             context,
                             "${c.publicKey}_reject_call".hashCode(),
                             Intent(context, ActionReceiver::class.java)
