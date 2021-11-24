@@ -41,42 +41,24 @@ object KotlinX {
 
 object AndroidX {
     object Core {
-        // TODO(robinlinden): This can't be updated past 1.6.0 right now.
-        // The minCompileSdk (31) specified in a
-        // dependency's AAR metadata (META-INF/com/android/build/gradle/aar-metadata.properties)
-        // is greater than this module's compileSdkVersion (android-30).
-        const val ktx = "androidx.core:core-ktx:1.6.0"
+        const val ktx = "androidx.core:core-ktx:1.7.0"
     }
 
-    // TODO(robinlinden): This can't be updated past 1.3.1 right now.
-    // The minCompileSdk (31) specified in a
-    // dependency's AAR metadata (META-INF/com/android/build/gradle/aar-metadata.properties)
-    // is greater than this module's compileSdkVersion (android-30).
-    const val activity = "androidx.activity:activity:1.3.1"
-    // TODO(robinlinden): This can't be updated past 1.3.1 right now.
-    // The minCompileSdk (31) specified in a
-    // dependency's AAR metadata (META-INF/com/android/build/gradle/aar-metadata.properties)
-    // is greater than this module's compileSdkVersion (android-30).
+    const val activity = "androidx.activity:activity:1.4.0"
+    // TODO(robinlinden): Updating appcompat to 1.4.0 causes hundreds of
+    //  `E/AppCompatResources: Failed to inflate ColorStateList, leaving it to the framework`
     const val appcompat = "androidx.appcompat:appcompat:1.3.1"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.2"
     const val fragment = "androidx.fragment:fragment:1.3.6"
 
     object Navigation {
-        // TODO(robinlinden): This can't be updated past alpha06 right now.
-        // The minCompileSdk (31) specified in a
-        // dependency's AAR metadata (META-INF/com/android/build/gradle/aar-metadata.properties)
-        // is greater than this module's compileSdkVersion (android-30).
-        private const val version = "2.4.0-alpha06"
+        private const val version = "2.4.0-beta02"
         const val fragment = "androidx.navigation:navigation-fragment:$version"
         const val ui = "androidx.navigation:navigation-ui:$version"
     }
 
     object Lifecycle {
-        // TODO(robinlinden): This can't be updated past 2.3.1 right now.
-        // The minCompileSdk (31) specified in a
-        // dependency's AAR metadata (META-INF/com/android/build/gradle/aar-metadata.properties)
-        // is greater than this module's compileSdkVersion (android-30).
-        private const val version = "2.3.1"
+        private const val version = "2.4.0"
         const val livedataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
         const val service = "androidx.lifecycle:lifecycle-service:$version"
         const val viewmodelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
@@ -116,8 +98,16 @@ object Google {
 
     const val dagger = "com.google.dagger:dagger:${Dagger.version}"
     object Dagger {
-        internal const val version = "2.40.1"
+        internal const val version = "2.40.2"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
+    }
+
+    // Google's very impressive workaround for the following error:
+    // Duplicate class com.google.common.util.concurrent.ListenableFuture found
+    // in modules jetified-guava-19.0 (com.google.guava:guava:19.0) and
+    // jetified-listenablefuture-1.0 (com.google.guava:listenablefuture:1.0)
+    object Guava {
+        const val workaround = "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava"
     }
 }
 

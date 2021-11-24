@@ -56,7 +56,7 @@ const val CONTACT_PUBLIC_KEY = "publicKey"
 private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 20
 
 class OpenMultiplePersistableDocuments : ActivityResultContracts.OpenMultipleDocuments() {
-    override fun createIntent(context: Context, input: Array<out String>): Intent {
+    override fun createIntent(context: Context, input: Array<String>): Intent {
         return super.createIntent(context, input)
             .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
     }

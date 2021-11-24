@@ -51,6 +51,7 @@ dependencies {
     implementation(AndroidX.fragment)
 
     implementation(Google.Android.material)
+    implementation(Google.Guava.workaround)
 
     implementation(KotlinX.Coroutines.core)
     implementation(KotlinX.Coroutines.android)
