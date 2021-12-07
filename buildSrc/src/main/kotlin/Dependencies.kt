@@ -121,7 +121,7 @@ object Tox4j {
     const val api = "org.toktok:tox4j-api_2.11:$version"
     const val c = "org.toktok:tox4j-c_2.11:$version"
     object Android {
-        private const val version = "0.2.12"
+        private const val version = "0.2.13"
         const val x86_64 = "org.toktok:tox4j-c_x86_64-linux-android:$version"
         const val arm = "org.toktok:tox4j-c_armv7a-linux-androideabi:$version"
         const val aarch64 = "org.toktok:tox4j-c_aarch64-linux-android:$version"
