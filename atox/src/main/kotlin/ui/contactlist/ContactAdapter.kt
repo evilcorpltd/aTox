@@ -17,7 +17,7 @@ import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.ContactListViewItemBinding
 import ltd.evilcorp.atox.databinding.FriendRequestItemBinding
 import ltd.evilcorp.atox.ui.colorByStatus
-import ltd.evilcorp.atox.ui.setAvatarFromContact
+import ltd.evilcorp.atox.ui.AvatarMaker
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 
@@ -112,7 +112,7 @@ class ContactAdapter(
                         }
                     }
                     vh.status.setColorFilter(colorByStatus(resources, this))
-                    setAvatarFromContact(vh.image, this)
+                    AvatarMaker(this).setAvatar(vh.image)
                     vh.unreadIndicator.visibility = if (hasUnreadMessages) {
                         View.VISIBLE
                     } else {
