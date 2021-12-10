@@ -2,7 +2,7 @@ const val kotlinVersion = "1.6.0"
 
 object BuildPlugin {
     private object Version {
-        const val gradle = "7.0.3"
+        const val gradle = "7.0.4"
     }
 
     const val androidApplication = "com.android.application"
