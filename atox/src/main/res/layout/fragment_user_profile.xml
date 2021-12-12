@@ -5,136 +5,169 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="ltd.evilcorp.atox.ui.user_profile.UserProfileFragment">
+
     <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar"
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface"
+        app:liftOnScroll="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/profile_collapsing_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
-            <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_collapseMode="parallax">
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="48dp"
-                        android:layout_marginBottom="48dp"
-                        app:layout_collapseMode="parallax"
-                        tools:ignore="ContentDescription"/>
-                <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/gradient_contacts"/>
-            </FrameLayout>
-            <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/profile_toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="128dp"
-                    app:layout_collapseMode="pin"
-                    app:navigationIcon="@drawable/back"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-            <androidx.appcompat.widget.Toolbar
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:layout_gravity="bottom"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:orientation="vertical">
-                    <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        <ImageView
-                                android:id="@+id/user_status"
-                                android:layout_width="12dp"
-                                android:layout_height="12dp"
-                                android:layout_alignBottom="@+id/user_name"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginBottom="6dp"
-                                android:contentDescription="@string/status_indicator"
-                                android:src="@drawable/circle"/>
-                        <TextView
-                                android:id="@+id/user_name"
-                                style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/user_status"
-                                android:singleLine="true"
-                                tools:text="Name goes here"/>
-                    </RelativeLayout>
-                    <TextView
-                            android:id="@+id/user_status_message"
-                            style="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:singleLine="true"
-                            tools:text="Status message goes here"/>
-                </LinearLayout>
-            </androidx.appcompat.widget.Toolbar>
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+            android:layout_height="wrap_content"
+            android:background="?attr/colorSurface"
+            app:title="@string/profile"
+            app:titleTextAppearance="@style/Theme.aTox.DayNight.Headline6" />
+
     </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.core.widget.NestedScrollView
-            android:id="@+id/main_section"
+        android:id="@+id/main_section"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <LinearLayout android:id="@+id/needsHacks"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/edit_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-            <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayout"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp">
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:elevation="4dp"
-                        android:orientation="vertical"
-                        tools:targetApi="21">
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="24dp">
+
+                    <include
+                        android:id="@+id/profileImageLayout"
+                        layout="@layout/profile_image_layout" />
+
                     <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="16dp"
-                            android:text="@string/profile_information"
-                            android:textSize="16sp"/>
-                    <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/dividerColor"/>
-                    <RelativeLayout
-                            android:id="@+id/profile_share_id"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="16dp">
-                        <TextView
-                                android:id="@+id/profile_share_id_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="8dp"
-                                android:text="@string/tox_id"
-                                android:textSize="16sp"/>
-                        <TextView
-                                android:id="@+id/user_tox_id"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/profile_share_id_title"
-                                android:textSize="14sp"
-                                tools:text="TOX ID GOES HERE"/>
-                    </RelativeLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-            <include android:id="@+id/profile_options" layout="@layout/profile_options"/>
+                        android:id="@+id/user_name"
+                        style="@style/Theme.aTox.DayNight.Headline6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_toEndOf="@id/profileImageLayout"
+                        android:singleLine="true"
+                        tools:text="Name goes here" />
+
+                    <TextView
+                        android:id="@+id/user_status_message"
+                        style="@style/Theme.aTox.DayNight.Subtitle1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/user_name"
+                        android:layout_marginStart="25dp"
+                        android:layout_toStartOf="@id/ic_edit_profile"
+                        android:layout_toEndOf="@id/profileImageLayout"
+                        tools:text="Status message goes here" />
+
+                    <ImageView
+                        android:id="@+id/ic_edit_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="25dp"
+                        android:contentDescription="@string/edit_profile_icon"
+                        android:src="@drawable/ic_edit_black" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                style="@style/Theme.aTox.DayNight.Subtitle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/toxid_sharing_instructions" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_toStartOf="@id/copy_tox_id">
+
+                    <TextView
+                        android:id="@+id/user_tox_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:textSize="14sp"
+                        tools:text="TOX ID GOES HERE" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <ImageButton
+                    android:id="@+id/copy_tox_id"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/copy_tox_id_button"
+                    android:src="@drawable/ic_copy_black"
+                    android:background="@color/transparent" />
+
+            </RelativeLayout>
+
+            <TextView
+                style="@style/Theme.aTox.DayNight.Subtitle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:text="@string/qr_code_sharing_instructions" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="25dp">
+
+                    <ImageView
+                        android:id="@+id/tox_id_qr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:contentDescription="@string/tox_id_qr_code" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </RelativeLayout>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

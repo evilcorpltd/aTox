@@ -15,7 +15,7 @@ import ltd.evilcorp.atox.databinding.FragmentContactProfileBinding
 import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
-import ltd.evilcorp.atox.ui.colorByStatus
+import ltd.evilcorp.atox.ui.colorByContactStatus
 import ltd.evilcorp.atox.ui.AvatarMaker
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.domain.tox.PublicKey
@@ -31,7 +31,7 @@ class ContactProfileFragment : BaseFragment<FragmentContactProfileBinding>(Fragm
             compat
         }
 
-        toolbar.setNavigationIcon(R.drawable.back)
+        toolbar.setNavigationIcon(R.drawable.ic_back_white)
         toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()
         }
@@ -42,7 +42,7 @@ class ContactProfileFragment : BaseFragment<FragmentContactProfileBinding>(Fragm
 
             headerMainText.text = contact.name
             AvatarMaker(contact).setAvatar(profileLayout.profileImage)
-            profileLayout.statusIndicator.setColorFilter(colorByStatus(resources, contact))
+            profileLayout.statusIndicator.setColorFilter(colorByContactStatus(resources, contact))
 
             contactPublicKey.text = contact.publicKey
             contactName.text = contact.name

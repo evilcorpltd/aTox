@@ -33,7 +33,7 @@ class FriendRequestFragment : BaseFragment<FragmentFriendRequestBinding>(Fragmen
             compat
         }
 
-        toolbar.setNavigationIcon(R.drawable.back)
+        toolbar.setNavigationIcon(R.drawable.ic_back_white)
         toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()
         }

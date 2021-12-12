@@ -96,7 +96,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         }
 
         toolbar.apply {
-            setNavigationIcon(R.drawable.back)
+            setNavigationIcon(R.drawable.ic_back_white)
             setNavigationOnClickListener {
                 WindowInsetsControllerCompat(requireActivity().window, view)
                     .hide(WindowInsetsCompat.Type.ime())

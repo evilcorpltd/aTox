@@ -177,4 +177,10 @@
     <string name="pref_block_screenshots_description">This **only** blocks screenshots on **your** device, and provides no protection against your contacts taking screenshots or otherwise saving your conversations</string>
     <string name="return_to_chat">Return to chat</string>
     <string name="speakerphone_toggle">Toggle speakerphone</string>
+    <string name="edit_profile_icon">Edit profile icon</string>
+    <string name="toxid_sharing_instructions">Share this Tox ID with others who you want them to send you a friendship request.
+        Just click on it to share, or click the copy icon.</string>
+    <string name="qr_code_sharing_instructions">Or ask them to scan in the app this QR code.</string>
+    <string name="tox_id_qr_code">QR code of Tox ID</string>
+    <string name="copy_tox_id_button">Copy Tox ID button</string>
 </resources>

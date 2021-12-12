@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimaryLight">#1976D2</color>
-    <color name="colorPrimary">#1565C0</color>
-    <color name="colorPrimaryDark">#0D47A1</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimaryLight">#73a0f4</color>
+    <color name="colorPrimary">#0053e1</color>
+    <color name="colorAccent">@color/colorPrimaryLight</color>
     <color name="colorGray">#555</color>
+
+    <color name="pleasantWhite">#f2f5ed</color>
 
     <color name="statusOffline">@color/colorGray</color>
     <color name="statusBusy">@android:color/holo_red_dark</color>
@@ -12,8 +13,6 @@
     <color name="statusAvailable">@android:color/holo_green_dark</color>
 
     <item name="dividerColor" type="color">#E0E0E0</item>
-
-    <item name="textWhiteColor" type="color">#FFFFFF</item>
 
     <item name="dialogIconButton" type="color">#546E7A</item>
     <item name="dialogTextButton" type="color">#ECEFF1</item>

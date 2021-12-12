@@ -4,88 +4,110 @@
 
 package ltd.evilcorp.atox.ui
 
+import android.content.Context
+import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.content.res.Resources
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
-import android.graphics.RectF
-import android.graphics.Typeface
-import android.net.Uri
-import android.widget.ImageView
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.RippleDrawable
+import android.os.Build
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.core.content.res.ResourcesCompat
-import kotlin.math.abs
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
-import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.core.vo.UserStatus
 
-private const val DEFAULT_AVATAR_SIZE_DP = 50
-internal class AvatarMaker {
 
-    private var name: String = ""
-    private var publicKey: String = ""
-    private var avatarUri: String = ""
-    private var initials: String = ""
+/**
+ * Function will return the color of the status of the input contact
+ * @param resources The resources of the app
+ * @param contact The contact for whom to retrieve the status color.
+ * @return The color int.
+ */
+internal fun colorByContactStatus(resources: Resources, contact: Contact) =
+    if (contact.connectionStatus == ConnectionStatus.None)
+        ResourcesCompat.getColor(
+            resources,
+            R.color.statusOffline,
+            null
+        )
+    else colorFromStatus(resources, contact.status)
 
-    constructor(contact: Contact) {
-        name = contact.name
-        publicKey = contact.publicKey
-        avatarUri = contact.avatarUri
-        initials = getInitials()
-    }
-    constructor(user: User) {
-        name = user.name
-        publicKey = user.publicKey
-        avatarUri = user.avatarUri
-        initials = getInitials()
-    }
 
-    private fun getInitials(): String {
-        val segments = name.split(" ")
-        if (segments.size == 1) return segments.first().take(1)
-        return segments.first().take(1) + segments[1][0]
-    }
-
-    fun setAvatar(imageView: ImageView, sizeDp: Int = DEFAULT_AVATAR_SIZE_DP) =
-        if (avatarUri.isNotEmpty()) {
-            imageView.setImageURI(Uri.parse(avatarUri))
-        } else {
-            val side = (sizeDp * imageView.resources.displayMetrics.density).toInt()
-            val bitmap = Bitmap.createBitmap(side, side, Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(bitmap)
-            val rect = RectF(0f, 0f, bitmap.width.toFloat(), bitmap.height.toFloat())
-            val colors = imageView.resources.getIntArray(R.array.contactBackgrounds)
-            val backgroundPaint = Paint().apply { color = colors[abs(publicKey.hashCode()).rem(colors.size)] }
-
-            val textScale = sizeDp.toFloat() / DEFAULT_AVATAR_SIZE_DP
-            val textPaint = Paint().apply {
-                color = Color.WHITE
-                textSize = imageView.resources.getDimension(R.dimen.contact_avatar_placeholder_text) * textScale
-                textAlign = Paint.Align.CENTER
-                isAntiAlias = true
-                typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-            }
-
-            val textBounds = Rect()
-            textPaint.getTextBounds(initials, 0, initials.length, textBounds)
-            canvas.drawRoundRect(rect, rect.bottom, rect.right, backgroundPaint)
-            canvas.drawText(initials, rect.centerX(), rect.centerY() - textBounds.exactCenterY(), textPaint)
-            imageView.setImageBitmap(bitmap)
-        }
+/**
+ * Function will return the color of the status of the input user status
+ * @param resources The resources of the app
+ * @param status The user status for whom to return the corresponding color.
+ * @return The color int.
+ */
+internal fun colorFromStatus(resources: Resources, status: UserStatus) = when (status) {
+    UserStatus.None -> ResourcesCompat.getColor(resources, R.color.statusAvailable, null)
+    UserStatus.Away -> ResourcesCompat.getColor(resources, R.color.statusAway, null)
+    UserStatus.Busy -> ResourcesCompat.getColor(resources, R.color.statusBusy, null)
 }
 
-internal fun colorByStatus(resources: Resources, contact: Contact): Int {
-    if (contact.connectionStatus == ConnectionStatus.None) return ResourcesCompat.getColor(
-        resources,
-        R.color.statusOffline,
-        null
-    )
-    return when (contact.status) {
-        UserStatus.None -> ResourcesCompat.getColor(resources, R.color.statusAvailable, null)
-        UserStatus.Away -> ResourcesCompat.getColor(resources, R.color.statusAway, null)
-        UserStatus.Busy -> ResourcesCompat.getColor(resources, R.color.statusBusy, null)
+
+/**
+ * Function will return whether or not night mode is set.
+ * @param context The related context.
+ * @return Boolean indicating whether or not night mode is set.
+ */
+internal fun isNightMode(context: Context) = context.resources.configuration.uiMode
+    .and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+
+
+/**
+ * Function will set a transparent background to an image button with a ripple with color according
+ * to whether or not night mode is set.
+ * @param context The related context.
+ * @param imageButton The ImageButton for whom to set the transparent background with ripple.
+ */
+internal fun setImageButtonRippleDayNight(context: Context, imageButton: ImageButton) =
+    if (isNightMode(context))
+        setImageButtonRipple(imageButton, Color.argb(51, 255, 255, 255))
+    else setImageButtonRipple(imageButton, Color.argb(31, 0, 0, 0))
+
+
+/**
+ * Function will set a transparent background to an image button with a ripple with the input color.
+ * @param imageButton The ImageButton for whom to set the transparent background with ripple.
+ * @param colorInt The color of the ripple.
+ */
+internal fun setImageButtonRipple(imageButton: ImageButton, colorInt: Int) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        val background = GradientDrawable()
+        background.shape = GradientDrawable.OVAL
+        background.setColor(0x0FFFFFF)
+
+        background.cornerRadius = 10f
+
+        val mask = GradientDrawable()
+        mask.shape = GradientDrawable.OVAL
+        mask.setColor(-0x1000000)
+        mask.cornerRadius = 5f
+
+        val rippleColorLst = ColorStateList.valueOf(colorInt)
+        val ripple = RippleDrawable(rippleColorLst, background, mask)
+        imageButton.background = ripple
+    }
+}
+
+
+/**
+ * Function will release the resources of a view, hopefully prevent memory leaks.
+ * @param view The view for whom to release the resources.
+ */
+internal fun unbindDrawables(view: View) {
+    if (view.background != null) {
+        view.background.callback = null
+    }
+    if (view is ViewGroup) {
+        for (i in 0 until view.childCount) unbindDrawables(view.getChildAt(i))
+        view.removeAllViews()
+        view.setBackgroundResource(0)
     }
 }
