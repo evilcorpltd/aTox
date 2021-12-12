@@ -49,7 +49,7 @@ object AndroidX {
     //  `E/AppCompatResources: Failed to inflate ColorStateList, leaving it to the framework`
     const val appcompat = "androidx.appcompat:appcompat:1.3.1"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.2"
-    const val fragment = "androidx.fragment:fragment:1.3.6"
+    const val fragment = "androidx.fragment:fragment:1.4.0"
 
     object Navigation {
         private const val version = "2.4.0-beta02"
@@ -98,7 +98,7 @@ object Google {
 
     const val dagger = "com.google.dagger:dagger:${Dagger.version}"
     object Dagger {
-        internal const val version = "2.40.2"
+        internal const val version = "2.40.5"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
     }
 
