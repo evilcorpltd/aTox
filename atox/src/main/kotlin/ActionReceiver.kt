@@ -76,9 +76,10 @@ class ActionReceiver : BroadcastReceiver() {
 
                     callManager.answerCall(pk)
                     notificationHelper.showOngoingCallNotification(contact)
-                    if (context.hasPermission(Manifest.permission.RECORD_AUDIO)) {
-                        callManager.startSendingAudio()
-                    } else {
+
+                    val isSendingAudio =
+                        context.hasPermission(Manifest.permission.RECORD_AUDIO) && callManager.startSendingAudio()
+                    if (!isSendingAudio) {
                         withContext(Dispatchers.Main) {
                             Toast.makeText(context, R.string.call_mic_permission_needed, Toast.LENGTH_LONG).show()
                         }
