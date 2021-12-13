@@ -11,6 +11,7 @@ import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.RemoteInput
+import im.tox.tox4j.av.exceptions.ToxavAnswerException
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -74,8 +75,13 @@ class ActionReceiver : BroadcastReceiver() {
                         }
                     }
 
-                    callManager.answerCall(pk)
-                    notificationHelper.showOngoingCallNotification(contact)
+                    try {
+                        callManager.answerCall(pk)
+                        notificationHelper.showOngoingCallNotification(contact)
+                    } catch (e: ToxavAnswerException) {
+                        Log.e(TAG, e.toString())
+                        return@launch
+                    }
 
                     val isSendingAudio =
                         context.hasPermission(Manifest.permission.RECORD_AUDIO) && callManager.startSendingAudio()
