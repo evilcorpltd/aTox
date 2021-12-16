@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 5,
-    "identityHash": "e4dc8f9f9d5264db6d914cb0deefb517",
+    "identityHash": "e5acbeae0a3d3479e8e4d1e722bfc1c4",
     "entities": [
       {
         "tableName": "contacts",
@@ -80,14 +80,8 @@
       },
       {
         "tableName": "file_transfers",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `public_key` TEXT NOT NULL, `file_number` INTEGER NOT NULL, `file_kind` INTEGER NOT NULL, `file_size` INTEGER NOT NULL, `file_name` TEXT NOT NULL, `outgoing` INTEGER NOT NULL, `progress` INTEGER NOT NULL, `destination` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`public_key` TEXT NOT NULL, `file_number` INTEGER NOT NULL, `file_kind` INTEGER NOT NULL, `file_size` INTEGER NOT NULL, `file_name` TEXT NOT NULL, `outgoing` INTEGER NOT NULL, `progress` INTEGER NOT NULL, `destination` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
         "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
           {
             "fieldPath": "publicKey",
             "columnName": "public_key",
@@ -135,6 +129,12 @@
             "columnName": "destination",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -174,14 +174,8 @@
       },
       {
         "tableName": "messages",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `conversation` TEXT NOT NULL, `message` TEXT NOT NULL, `sender` INTEGER NOT NULL, `type` INTEGER NOT NULL, `correlation_id` INTEGER NOT NULL, `timestamp` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`conversation` TEXT NOT NULL, `message` TEXT NOT NULL, `sender` INTEGER NOT NULL, `type` INTEGER NOT NULL, `correlation_id` INTEGER NOT NULL, `timestamp` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
         "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
           {
             "fieldPath": "publicKey",
             "columnName": "conversation",
@@ -217,6 +211,12 @@
             "columnName": "timestamp",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -230,7 +230,7 @@
       },
       {
         "tableName": "users",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`public_key` TEXT NOT NULL, `name` TEXT NOT NULL, `status_message` TEXT NOT NULL, `status` INTEGER NOT NULL, `connection_status` INTEGER NOT NULL, `password` TEXT NOT NULL, PRIMARY KEY(`public_key`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`public_key` TEXT NOT NULL, `name` TEXT NOT NULL, `status_message` TEXT NOT NULL, `status` INTEGER NOT NULL, `connection_status` INTEGER NOT NULL, `avatar_uri` TEXT NOT NULL, `password` TEXT NOT NULL, PRIMARY KEY(`public_key`))",
         "fields": [
           {
             "fieldPath": "publicKey",
@@ -263,6 +263,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "avatarUri",
+            "columnName": "avatar_uri",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "password",
             "columnName": "password",
             "affinity": "TEXT",
@@ -282,7 +288,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e4dc8f9f9d5264db6d914cb0deefb517')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e5acbeae0a3d3479e8e4d1e722bfc1c4')"
     ]
   }
 }

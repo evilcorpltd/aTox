@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/copy" android:title="@string/copy_atox"/>
-    <!-- Reusing the read_qr ("QR") string here is a bit hacky, but I'll revisit it later if needed. -->
-    <item android:id="@+id/qr" android:title="@string/read_qr"/>
-</menu>

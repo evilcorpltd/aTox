@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Disabled -->
+    <item android:alpha="@dimen/material_emphasis_disabled" android:color="?attr/colorOnSurface" android:state_enabled="false"/>
+
+    <!-- Focused -->
+    <item android:color="?attr/colorSecondary" android:state_focused="true"/>
+
+    <!-- Hovered -->
+    <item android:color="?attr/colorOnSurface" android:state_hovered="true"/>
+
+    <!-- Normal -->
+    <item android:color="?attr/colorOnSurface"/>
+</selector>

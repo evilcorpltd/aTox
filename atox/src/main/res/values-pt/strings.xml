@@ -39,11 +39,6 @@
     <string name="tox_service_running">aTox já está a funcionar…</string>
     <string name="tox_id_error_already_exists">Já existe um contato com essa ID Tox</string>
     <string name="profile">Perfil</string>
-    <string name="profile_status">Alterar o seu estado</string>
-    <string name="profile_status_message">Alterar sua mensagem de estado</string>
-    <string name="profile_nickname">Escolha seu apelido</string>
-    <string name="profile_settings">Configurações de perfil</string>
-    <string name="profile_information">Informação do perfil</string>
     <string name="or_import_existing_save">ou importar um arquivo do Tox existente</string>
     <string name="send_as_action">Enviar como acção</string>
     <string name="pref_bootstrap_nodes_description">Os ficheiros JSON fornecidos pelo utilizador devem ter o mesmo formato que em https://nodes.tox.chat/json</string>

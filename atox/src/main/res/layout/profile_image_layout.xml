@@ -7,16 +7,16 @@
         android:layout_height="wrap_content">
     <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profileImage"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:contentDescription="@string/profile_photo_description"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/CircleImageView" />
     <ImageView android:id="@+id/statusIndicator"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_margin="1dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_margin="1.7dp"
             android:contentDescription="@string/status_indicator"
             android:src="@drawable/circle"
             android:translationZ="10dp"

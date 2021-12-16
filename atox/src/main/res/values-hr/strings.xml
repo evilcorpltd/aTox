@@ -102,11 +102,6 @@
     <string name="tox_service_running">aTox radi …</string>
     <string name="tox_id_error_already_exists">Kontakt s tim Tox ID već postoji</string>
     <string name="profile">Profil</string>
-    <string name="profile_status">Promijeni svoje stanje</string>
-    <string name="profile_status_message">Promijeni svoju poruku stanja</string>
-    <string name="profile_nickname">Promijeni svoj nadimak</string>
-    <string name="profile_settings">Postavke profila</string>
-    <string name="profile_information">Podaci profila</string>
     <string name="or_import_existing_save">ili uvezi postojeći Tox save</string>
     <string name="send_as_action">Pošalji kao radnju</string>
     <string name="pref_bootstrap_nodes_description">Korisničke JSON datoteke moraju imati isti format kao na https://nodes.tox.chat/json</string>

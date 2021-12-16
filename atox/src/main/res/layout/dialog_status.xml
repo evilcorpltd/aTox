@@ -28,7 +28,7 @@
                     android:layout_marginBottom="16dp"
                     android:fontFamily="sans-serif-light"
                     android:text="@string/status_dialog_edit_user_status"
-                    android:textColor="@color/textWhiteColor"
+                    android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
             <LinearLayout android:id="@+id/status_available"
@@ -59,7 +59,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/status_available"
-                        android:textColor="@color/textWhiteColor"
+                        android:textColor="@android:color/white"
                         android:textSize="16sp" />
             </LinearLayout>
 
@@ -91,7 +91,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/status_away"
-                        android:textColor="@color/textWhiteColor"
+                        android:textColor="@android:color/white"
                         android:textSize="16sp" />
             </LinearLayout>
 
@@ -123,7 +123,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/status_busy"
-                        android:textColor="@color/textWhiteColor"
+                        android:textColor="@android:color/white"
                         android:textSize="16sp" />
             </LinearLayout>
 
@@ -151,14 +151,14 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:background="@drawable/circle"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="@color/colorSecondary"
             android:baselineAligned="false"
             android:elevation="4dp"
             android:focusable="false">
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:tint="@color/textWhiteColor"
+                app:tint="@android:color/white"
                 tools:ignore="ContentDescription" />
     </LinearLayout>
 </RelativeLayout>

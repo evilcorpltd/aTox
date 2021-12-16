@@ -64,11 +64,6 @@
     <string name="pref_bootstrap_nodes_description">Пользовательские JSON файлы должны иметь ту же структуру как и здесь https://nodes.tox.chat/json</string>
     <string name="send_as_action">Отправить как действие</string>
     <string name="or_import_existing_save">или импортировать уже существующий профиль Tox</string>
-    <string name="profile_information">Информация профиля</string>
-    <string name="profile_settings">Настройки профиля</string>
-    <string name="profile_nickname">Сменить ваше имя пользователя</string>
-    <string name="profile_status_message">Сменить ваше сообщение в статусе</string>
-    <string name="profile_status">Изменить ваш статус</string>
     <string name="profile">Профиль</string>
     <string name="tox_id_error_already_exists">Контакт с данным Tox ID уже существует</string>
     <string name="tox_service_running">aTox запущен…</string>

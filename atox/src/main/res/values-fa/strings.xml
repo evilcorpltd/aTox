@@ -6,11 +6,6 @@
     <string name="tox_service_running">aTox در حال اجراست…</string>
     <string name="tox_id_error_already_exists">یک مخاطب با همین شناسه‌ی تاکس در حال حاضر وجود دارد</string>
     <string name="profile">پروفایل</string>
-    <string name="profile_status">عوض کردن وضعیت</string>
-    <string name="profile_status_message">عوض کردن متن وضعیت</string>
-    <string name="profile_nickname">عوض کردن نام‌مستعار</string>
-    <string name="profile_settings">تنظیمات پروفایل</string>
-    <string name="profile_information">اطلاعات پروفایل</string>
     <string name="send_as_action">ارسال به عنوان اقدام</string>
     <string name="pref_bootstrap_nodes_description">فایل JSON ارائه‌شده توسط کاربر باید دقیقا همان فرمت ارائه‌شده در https://nodes.tox.chat/json را داشته باشد</string>
     <string name="pref_heading_bootstrap_nodes">منبع بوت‌استرپ‌نود</string>

@@ -57,11 +57,6 @@
     <string name="pref_heading_theme">Tema</string>
     <string name="send_as_action">Skicka som handling</string>
     <string name="or_import_existing_save">eller importera en Tox profil som redan finns</string>
-    <string name="profile_information">Profilinformation</string>
-    <string name="profile_settings">Profilinställningar</string>
-    <string name="profile_nickname">Ändra ditt smeknamn</string>
-    <string name="profile_status_message">Ändra ditt statusmeddelande</string>
-    <string name="profile_status">Ändra din status</string>
     <string name="profile">Profil</string>
     <string name="tox_id_error_already_exists">En kontakt med samma Tox ID finns redan</string>
     <string name="tox_service_running">aTox kör…</string>

@@ -113,5 +113,18 @@
             android:id="@+id/userProfileFragment"
             android:name="ltd.evilcorp.atox.ui.user_profile.UserProfileFragment"
             android:label="fragment_user_profile"
-            tools:layout="@layout/fragment_user_profile"/>
+            tools:layout="@layout/fragment_user_profile">
+        <action
+            android:id="@+id/action_userProfileFragment_to_editUserProfileFragment"
+            app:destination="@id/editUserProfileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/editUserProfileFragment"
+        android:name="ltd.evilcorp.atox.ui.edit_user_profile.EditUserProfileFragment"
+        android:label="fragment_edit_user_profile"
+        tools:layout="@layout/fragment_edit_user_profile" />
 </navigation>

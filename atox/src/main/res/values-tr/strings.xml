@@ -73,11 +73,6 @@
     <string name="tox_service_running">aTox çalışıyor…</string>
     <string name="tox_id_error_already_exists">Bu Tox Kimliğiyle bir kişi zaten var</string>
     <string name="profile">Profil</string>
-    <string name="profile_status">Durumunuzu değiştirin</string>
-    <string name="profile_status_message">Durum iletinizi değiştirin</string>
-    <string name="profile_nickname">Takma adınızı değiştirin</string>
-    <string name="profile_settings">Profil ayarları</string>
-    <string name="profile_information">Profil bilgisi</string>
     <string name="or_import_existing_save">veya zaten var olan Tox kaydı olarak içeri al</string>
     <string name="send_as_action">İşlem olarak gönder</string>
     <string name="pref_bootstrap_nodes_description">Kullanıcı tarafından sağlanan JSON dosyaları https://nodes.tox.chat/json ile aynı şekli sağlamalıdır</string>

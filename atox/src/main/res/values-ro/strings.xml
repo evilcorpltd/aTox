@@ -64,11 +64,6 @@
     <string name="pref_bootstrap_nodes_description">Fișierele JSON personalizate vin cu structura https://nodes.tox.chat/json</string>
     <string name="send_as_action">Trimite ca acțiune</string>
     <string name="or_import_existing_save">sau importă profilul Tox existent</string>
-    <string name="profile_information">Informație profil</string>
-    <string name="profile_settings">Setări profil</string>
-    <string name="profile_nickname">Modifică nume utilizator</string>
-    <string name="profile_status_message">Modifică mesaj stare</string>
-    <string name="profile_status">Modifică stare</string>
     <string name="profile">Profil</string>
     <string name="tox_id_error_already_exists">Contactul cu acest Tox ID deja există</string>
     <string name="tox_service_running">aTox rulează…</string>

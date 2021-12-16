@@ -34,6 +34,9 @@ interface UserDao {
     @Query("UPDATE users SET status = :status WHERE public_key == :publicKey")
     fun updateStatus(publicKey: String, status: UserStatus)
 
+    @Query("UPDATE contacts SET avatar_uri = :uri WHERE public_key = :publicKey")
+    fun updateAvatarUri(publicKey: String, uri: String)
+
     @Query("SELECT COUNT(*) FROM users WHERE public_key = :publicKey")
     fun exists(publicKey: String): Boolean
 
