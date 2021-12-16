@@ -8,11 +8,6 @@
     <string name="pref_heading_network">Hálózat</string>
     <string name="tox_service_running">aTox fut…</string>
     <string name="profile">Profil</string>
-    <string name="profile_status">Állapot változtatás</string>
-    <string name="profile_status_message">Állapotüzenet változtatás</string>
-    <string name="profile_nickname">Becenév változtatás</string>
-    <string name="profile_settings">Profil beállítások</string>
-    <string name="profile_information">Profil információ</string>
     <string name="pref_bootstrap_node_builtin">Beépített</string>
     <string name="pref_heading_bootstrap_nodes">Bootstrap csomópont forrás</string>
     <string name="pref_heading_advanced">Haladó</string>

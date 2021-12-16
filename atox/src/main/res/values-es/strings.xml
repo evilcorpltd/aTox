@@ -63,11 +63,6 @@
     <string name="pref_bootstrap_nodes_description">Los archivos JSON personalizados deben tener el mismo formato que https://nodes.tox.chat/json</string>
     <string name="send_as_action">Enviar como acción</string>
     <string name="or_import_existing_save">o importar un archivo de Tox existente</string>
-    <string name="profile_information">Información del perfil</string>
-    <string name="profile_settings">Configuración del perfil</string>
-    <string name="profile_nickname">Cambiar tu nick</string>
-    <string name="profile_status_message">Cambiar tu mensaje de estado</string>
-    <string name="profile_status">Cambiar tu estado</string>
     <string name="profile">Perfil</string>
     <string name="tox_id_error_already_exists">Un contacto con ese Tox ID ya existe</string>
     <string name="tox_service_running">aTox se está ejecutando…</string>

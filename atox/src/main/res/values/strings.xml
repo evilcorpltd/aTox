@@ -96,12 +96,10 @@
     <string name="version_display" translatable="false">aTox v%1$s — %2$d</string>
     <string name="send_as_action">Send as action</string>
     <string name="or_import_existing_save">or import an existing Tox save</string>
-    <string name="profile_information">Profile information</string>
-    <string name="profile_settings">Profile settings</string>
-    <string name="profile_nickname">Change your nickname</string>
-    <string name="profile_status_message">Change your status message</string>
-    <string name="profile_status">Change your status</string>
+    <string name="edit_name">Edit your name</string>
+    <string name="edit_status_message">Edit your status message</string>
     <string name="profile">Profile</string>
+    <string name="edit_profile">Edit Profile</string>
     <string name="tox_id_error_already_exists">A contact with that Tox ID already exists</string>
     <string name="tox_service_running">aTox is running…</string>
     <string name="pref_heading_network">Network</string>
@@ -183,4 +181,15 @@
     <string name="qr_code_sharing_instructions">Or ask them to scan in the app this QR code.</string>
     <string name="tox_id_qr_code">QR code of Tox ID</string>
     <string name="copy_tox_id_button">Copy Tox ID button</string>
+    <string name="person_icon">Person icon</string>
+    <string name="edit_name_icon">Edit name icon</string>
+    <string name="status">Status</string>
+    <string name="status_icon">Status icon</string>
+    <string name="edit_status_message_icon">Edit status message icon</string>
+    <string name="status_message_icon">Status message icon</string>
+    <string-array name="status_list">
+        <item>@string/status_available</item>
+        <item>@string/status_away</item>
+        <item>@string/status_busy</item>
+    </string-array>
 </resources>

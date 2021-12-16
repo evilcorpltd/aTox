@@ -74,11 +74,6 @@
     <string name="tox_service_running">aTox je spustený…</string>
     <string name="tox_id_error_already_exists">Kontakt s takým Tox-ovým ID už existuje</string>
     <string name="profile">Profil</string>
-    <string name="profile_status">Zmeň svoj status</string>
-    <string name="profile_status_message">Zmeň svoju správu v statuse</string>
-    <string name="profile_nickname">Zmeň svoju prezývku</string>
-    <string name="profile_settings">Nastavenia profilu</string>
-    <string name="profile_information">Informácie o profile</string>
     <string name="or_import_existing_save">alebo importuj existujúci Tox save</string>
     <string name="pref_bootstrap_node_user_provided">Používateľsky určené</string>
     <string name="pref_bootstrap_nodes_description">Používateľsky určený JSON súbor musí mať taký formát ako je na https://nodes.tox.chat/json</string>

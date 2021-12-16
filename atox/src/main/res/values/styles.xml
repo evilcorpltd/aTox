@@ -1,13 +1,40 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/app">
 
     <style name="Theme.aTox.DayNight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
 
+        <item name="textInputStyle">@style/Widget.aTox.TextInputLayout</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.aTox.BottomSheetDialog</item>
+
+        <item name="android:statusBarColor" tools:targetApi="21">@android:color/background_dark</item>
     </style>
     <style name="Theme.aTox.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
     <style name="Theme.aTox.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>
+
+    <!-- Text Input -->
+    <style name="Widget.aTox.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.aTox.TextInputLayout</item>
+    </style>
+    <style name="ThemeOverlay.aTox.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="colorPrimary">@color/colorSecondary</item>
+    </style>
+
+    <!-- Modal Bottom Sheet Dialog -->
+    <style name="ThemeOverlay.aTox.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/ModalBottomSheetDialog</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+    <style name="ModalBottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="shapeAppearance">@style/ShapeAppearance.aTox.LargeComponent</item>
+        <item name="behavior_peekHeight">512dp</item>
+    </style>
+    <style name="ShapeAppearance.aTox.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
 
     <style name="OptionGroup">
         <item name="android:layout_width">match_parent</item>

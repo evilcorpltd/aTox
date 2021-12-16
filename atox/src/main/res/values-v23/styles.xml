@@ -2,19 +2,13 @@
 <resources>
     <style name="Theme.aTox.DayNight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
 
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="textInputStyle">@style/Widget.aTox.TextInputLayout</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.aTox.BottomSheetDialog</item>
+
         <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:windowLightStatusBar">true</item>
-    </style>
-
-    <style name="Theme.aTox.DayNight.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="android:textColor">?android:attr/textColorPrimary</item>
-    </style>
-
-    <style name="Theme.aTox.DayNight.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
 </resources>

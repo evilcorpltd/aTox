@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimaryLight">#73a0f4</color>
     <color name="colorPrimary">#0053e1</color>
-    <color name="colorAccent">@color/colorPrimaryLight</color>
+    <color name="colorSecondary">#73a0f4</color>
     <color name="colorGray">#555</color>
 
     <color name="pleasantWhite">#f2f5ed</color>

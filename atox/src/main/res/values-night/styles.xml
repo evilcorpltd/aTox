@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.aTox.DayNight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorOnSurface">@color/pleasantWhite</item>
+        <item name="android:textColorPrimary">@color/pleasantWhite</item>
+
+        <item name="textInputStyle">@style/Widget.aTox.TextInputLayout</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.aTox.BottomSheetDialog</item>
+
+        <item name="android:navigationBarColor" tools:targetApi="21">?attr/colorSurface</item>
+        <item name="android:statusBarColor" tools:targetApi="21">?attr/colorSurface</item>
+    </style>
+
+</resources>

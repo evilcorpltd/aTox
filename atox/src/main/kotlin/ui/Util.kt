@@ -12,8 +12,7 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
 import android.os.Build
-import android.view.View
-import android.view.ViewGroup
+import android.util.TypedValue
 import android.widget.ImageButton
 import androidx.core.content.res.ResourcesCompat
 import ltd.evilcorp.atox.R
@@ -49,6 +48,15 @@ internal fun colorFromStatus(resources: Resources, status: UserStatus) = when (s
     UserStatus.Away -> ResourcesCompat.getColor(resources, R.color.statusAway, null)
     UserStatus.Busy -> ResourcesCompat.getColor(resources, R.color.statusBusy, null)
 }
+
+
+/**
+ * Function will convert dp (Density Pixels) units to px (Pixels) units
+ * @param dp The dp units.
+ * @return The px units as Int.
+ */
+internal fun dpToPx(dp: Float, res: Resources): Int =
+    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.displayMetrics).toInt()
 
 
 /**
@@ -93,21 +101,5 @@ internal fun setImageButtonRipple(imageButton: ImageButton, colorInt: Int) {
         val rippleColorLst = ColorStateList.valueOf(colorInt)
         val ripple = RippleDrawable(rippleColorLst, background, mask)
         imageButton.background = ripple
-    }
-}
-
-
-/**
- * Function will release the resources of a view, hopefully prevent memory leaks.
- * @param view The view for whom to release the resources.
- */
-internal fun unbindDrawables(view: View) {
-    if (view.background != null) {
-        view.background.callback = null
-    }
-    if (view is ViewGroup) {
-        for (i in 0 until view.childCount) unbindDrawables(view.getChildAt(i))
-        view.removeAllViews()
-        view.setBackgroundResource(0)
     }
 }

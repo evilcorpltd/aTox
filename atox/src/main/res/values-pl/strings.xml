@@ -67,11 +67,6 @@
     <string name="status_available">Dostępny/a</string>
     <string name="status_away">Nieobecny/a</string>
     <string name="friend_request">Zaproszenie do znajomych</string>
-    <string name="profile_status">Zmiana statusu</string>
-    <string name="profile_status_message">Zmiana opisu statusu</string>
-    <string name="profile_nickname">Zmiana pseudonimu</string>
-    <string name="profile_settings">Ustawienia profilu</string>
-    <string name="profile_information">Informacje o profilu</string>
     <string name="tox_save_exported">Pomyślnie wyeksportowano profil Tox</string>
     <string name="export_tox_save">Eksportuj profil Tox</string>
     <string name="or_import_existing_save">lub zaimportuj profil Tox z pliku</string>

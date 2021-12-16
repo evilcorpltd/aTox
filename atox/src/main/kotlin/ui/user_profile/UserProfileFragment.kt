@@ -7,13 +7,11 @@ package ltd.evilcorp.atox.ui.user_profile
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -26,12 +24,13 @@ import kotlin.math.roundToInt
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentUserProfileBinding
 import ltd.evilcorp.atox.vmFactory
-import ltd.evilcorp.core.vo.UserStatus
 import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.*
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -44,19 +43,12 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 
-private const val TOX_MAX_NAME_LENGTH = 128
-private const val TOX_MAX_STATUS_MESSAGE_LENGTH = 1007
-
 private const val QR_CODE_TO_SCREEN_RATIO = 0.5f
 private const val QR_CODE_PADDING = 16f // in dp
 private const val QR_CODE_SHARED_IMAGE_PADDING = 30f // in dp
 
-private fun dpToPx(dp: Float, res: Resources): Int =
-    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.displayMetrics).toInt()
-
 class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUserProfileBinding::inflate) {
     private val vm: UserProfileViewModel by viewModels { vmFactory }
-    private lateinit var currentStatus: UserStatus
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
@@ -68,8 +60,6 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
         }
 
         vm.user.observe(viewLifecycleOwner) { user ->
-            currentStatus = user.status
-
             userName.text = user.name
             userStatusMessage.text = user.statusMessage
             profileImageLayout.statusIndicator.setColorFilter(colorFromStatus(resources, user.status))
@@ -79,17 +69,13 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
         // Inflating views according to Day/Night theme
         if (isNightMode(requireContext())) {
             toolbar.setNavigationIcon(R.drawable.ic_back_white)
-            icEditProfile.setImageResource(R.drawable.ic_edit_white)
-            copyToxId.setImageResource(R.drawable.ic_copy_white)
             createQrCode(
-                ResourcesCompat.getColor(resources, R.color.pleasantWhite, null),
+                ContextCompat.getColor(requireContext(), R.color.pleasantWhite),
                 Color.TRANSPARENT,
                 imageView = toxIdQr
             )
         } else {
             toolbar.setNavigationIcon(R.drawable.ic_back_black)
-            icEditProfile.setImageResource(R.drawable.ic_edit_black)
-            copyToxId.setImageResource(R.drawable.ic_copy_black)
             createQrCode(Color.BLACK, Color.TRANSPARENT, imageView = toxIdQr)
         }
         setImageButtonRippleDayNight(requireContext(), copyToxId)
@@ -98,6 +84,10 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
             WindowInsetsControllerCompat(requireActivity().window, view)
                 .hide(WindowInsetsCompat.Type.ime())
             activity?.onBackPressed()
+        }
+
+        editProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_userProfileFragment_to_editUserProfileFragment)
         }
 
         userToxId.text = vm.toxId.string()
@@ -129,49 +119,6 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
                 startActivity(Intent.createChooser(shareIntent, getString(R.string.tox_id_share)))
             }
         }
-
-        /*profileOptions.profileChangeNickname.setOnClickListener {
-            val nameEdit = EditText(requireContext()).apply {
-                text.append(binding.userName.text)
-                filters = arrayOf(InputFilter.LengthFilter(TOX_MAX_NAME_LENGTH))
-                setSingleLine()
-            }
-            AlertDialog.Builder(requireContext())
-                .setTitle(R.string.name)
-                .setView(nameEdit)
-                .setPositiveButton(R.string.update) { _, _ ->
-                    vm.setName(nameEdit.text.toString())
-                }
-                .setNegativeButton(R.string.cancel) { _, _ -> }
-                .show()
-        }
-
-        profileOptions.profileChangeStatusText.setOnClickListener {
-            val statusMessageEdit =
-                EditText(requireContext()).apply {
-                    text.append(binding.userStatusMessage.text)
-                    filters = arrayOf(InputFilter.LengthFilter(TOX_MAX_STATUS_MESSAGE_LENGTH))
-                }
-            AlertDialog.Builder(requireContext())
-                .setTitle(R.string.status_message)
-                .setView(statusMessageEdit)
-                .setPositiveButton(R.string.update) { _, _ ->
-                    vm.setStatusMessage(statusMessageEdit.text.toString())
-                }
-                .setNegativeButton(R.string.cancel) { _, _ -> }
-                .show()
-        }
-
-        profileOptions.profileChangeStatus.setOnClickListener {
-            StatusDialog(requireContext(), currentStatus) { status -> vm.setStatus(status) }.show()
-        }*/
-    }
-
-
-    override fun onDestroyView() = binding.run {
-        super.onDestroyView()
-        unbindDrawables(icEditProfile)
-        unbindDrawables(copyToxId)
     }
 
 

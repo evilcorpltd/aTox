@@ -209,7 +209,7 @@
                             android:layout_height="match_parent"
                             android:padding="16dp"
                             android:textSize="16sp"
-                            android:textColor="@color/colorAccent"
+                            android:textColor="@color/colorSecondary"
                             tools:text="Warning: Proxy is bork"/>
                     </LinearLayout>
                     <View

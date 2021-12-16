@@ -103,7 +103,7 @@ class ContactAdapter(
                         draftMessage.isNotEmpty() -> {
                             vh.statusMessage.text = resources.getString(R.string.draft_message, draftMessage)
                             vh.statusMessage.setTextColor(
-                                ResourcesCompat.getColor(resources, R.color.colorAccent, null)
+                                ResourcesCompat.getColor(resources, R.color.colorSecondary, null)
                             )
                         }
                         else -> {

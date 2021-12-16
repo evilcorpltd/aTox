@@ -13,6 +13,12 @@ import ltd.evilcorp.core.vo.User
 import kotlin.math.abs
 
 
+internal enum class SizeUnit {
+    DP,
+    PX,
+}
+
+
 /**
  * Class for creating an avatar for user or contact and setting it in the ImageView
  */
@@ -57,20 +63,30 @@ internal class AvatarMaker {
      * otherwise a new avatar image will be created based on the initials of the name
      * and the public key for the background color.
      * @param imageView The image view for whom to set the avatar image.
-     * @param sizeDp The size of the avatar image in dp units.
+     * @param size The size of the avatar image in the units specified in sizeUnit (default: DP units).
+     * @param sizeUnit The size unit of size parameter.
      */
-    fun setAvatar(imageView: ImageView, sizeDp: Int = DEFAULT_AVATAR_SIZE_DP) =
+    fun setAvatar(imageView: ImageView, size: Int = DEFAULT_AVATAR_SIZE_DP, sizeUnit: SizeUnit = SizeUnit.DP) =
         if (avatarUri.isNotEmpty()) {
             imageView.setImageURI(Uri.parse(avatarUri))
         } else {
-            val side = (sizeDp * imageView.resources.displayMetrics.density).toInt()
+            val side: Int
+            val textScale: Float
+
+            if (sizeUnit == SizeUnit.DP) {
+                side = (size * imageView.resources.displayMetrics.density).toInt()
+                textScale = size.toFloat() / DEFAULT_AVATAR_SIZE_DP
+            } else {
+                side = size
+                textScale = size.toFloat() / dpToPx(DEFAULT_AVATAR_SIZE_DP.toFloat(), imageView.resources)
+            }
+
             val bitmap = Bitmap.createBitmap(side, side, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bitmap)
             val rect = RectF(0f, 0f, bitmap.width.toFloat(), bitmap.height.toFloat())
             val colors = imageView.resources.getIntArray(R.array.contactBackgrounds)
             val backgroundPaint = Paint().apply { color = colors[abs(publicKey.hashCode()).rem(colors.size)] }
 
-            val textScale = sizeDp.toFloat() / DEFAULT_AVATAR_SIZE_DP
             val textPaint = Paint().apply {
                 color = Color.WHITE
                 textSize = imageView.resources.getDimension(R.dimen.contact_avatar_placeholder_text) * textScale

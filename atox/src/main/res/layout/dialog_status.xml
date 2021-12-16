@@ -151,7 +151,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:background="@drawable/circle"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="@color/colorSecondary"
             android:baselineAligned="false"
             android:elevation="4dp"
             android:focusable="false">

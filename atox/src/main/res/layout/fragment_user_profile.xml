@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:background="?attr/colorSurface"
             app:title="@string/profile"
-            app:titleTextAppearance="@style/Theme.aTox.DayNight.Headline6" />
+            app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -62,7 +62,7 @@
 
                     <TextView
                         android:id="@+id/user_name"
-                        style="@style/Theme.aTox.DayNight.Headline6"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
@@ -72,13 +72,14 @@
 
                     <TextView
                         android:id="@+id/user_status_message"
-                        style="@style/Theme.aTox.DayNight.Subtitle1"
+                        style="@style/TextAppearance.MaterialComponents.Subtitle1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/user_name"
                         android:layout_marginStart="25dp"
                         android:layout_toStartOf="@id/ic_edit_profile"
                         android:layout_toEndOf="@id/profileImageLayout"
+                        android:singleLine="true"
                         tools:text="Status message goes here" />
 
                     <ImageView
@@ -89,13 +90,14 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="25dp"
                         android:contentDescription="@string/edit_profile_icon"
-                        android:src="@drawable/ic_edit_black" />
+                        android:src="@drawable/ic_edit"
+                        app:tint="?attr/colorOnSurface" />
 
                 </RelativeLayout>
             </LinearLayout>
 
             <TextView
-                style="@style/Theme.aTox.DayNight.Subtitle1"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="25dp"
@@ -133,14 +135,15 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
+                    android:background="@color/transparent"
                     android:contentDescription="@string/copy_tox_id_button"
-                    android:src="@drawable/ic_copy_black"
-                    android:background="@color/transparent" />
+                    android:src="@drawable/ic_copy"
+                    app:tint="?attr/colorOnSurface" />
 
             </RelativeLayout>
 
             <TextView
-                style="@style/Theme.aTox.DayNight.Subtitle1"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="25dp"
