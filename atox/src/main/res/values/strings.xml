@@ -177,4 +177,9 @@
     <string name="pref_block_screenshots_description">This **only** blocks screenshots on **your** device, and provides no protection against your contacts taking screenshots or otherwise saving your conversations</string>
     <string name="return_to_chat">Return to chat</string>
     <string name="speakerphone_toggle">Toggle speakerphone</string>
+
+    <!-- Run at boot w/ encrypted profile notification -->
+    <string name="channel_profile_locked_explanation">Sent when your profile needs to be unlocked for aTox to run</string>
+    <string name="atox_profile_locked">aTox profile locked</string>
+    <string name="tap_to_unlock_and_start_atox">Tap to unlock your profile and start aTox</string>
 </resources>
