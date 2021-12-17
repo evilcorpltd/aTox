@@ -1,10 +1,10 @@
 package ltd.evilcorp.atox.ui.edit_user_profile
 
+import android.os.Build
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -21,6 +21,7 @@ import ltd.evilcorp.atox.ui.isNightMode
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.UserStatus
 import kotlin.math.min
+
 
 private const val TOX_MAX_NAME_LENGTH = 128
 private const val TOX_MAX_STATUS_MESSAGE_LENGTH = 1007
@@ -65,25 +66,45 @@ class EditUserProfileFragment : BaseFragment<FragmentEditUserProfileBinding>(Fra
         editStatusText.setAdapter(adapter)
 
         // Setting the icon and the status according to the chosen status
-        editStatusText.doOnTextChanged { text, _, _, _ ->
-            when (text.toString()) {
-                getString(R.string.status_available) -> {
-                    editStatus.setStartIconTintList(
-                        ResourcesCompat.getColorStateList(resources, R.color.status_available_color_list, null)
-                    )
-                    vm.setStatus(UserStatus.None)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            editStatus.setStartIconTintList(null)
+            editStatusText.doOnTextChanged { text, _, _, _ ->
+                when (text.toString()) {
+                    getString(R.string.status_available) -> {
+                        editStatus.setStartIconDrawable(R.drawable.ic_available)
+                        vm.setStatus(UserStatus.None)
+                    }
+                    getString(R.string.status_away) -> {
+                        editStatus.setStartIconDrawable(R.drawable.ic_away)
+                        vm.setStatus(UserStatus.Away)
+                    }
+                    getString(R.string.status_busy) -> {
+                        editStatus.setStartIconDrawable(R.drawable.ic_busy)
+                        vm.setStatus(UserStatus.Busy)
+                    }
                 }
-                getString(R.string.status_away) -> {
-                    editStatus.setStartIconTintList(
-                        ResourcesCompat.getColorStateList(resources, R.color.status_away_color_list, null)
-                    )
-                    vm.setStatus(UserStatus.Away)
-                }
-                getString(R.string.status_busy) -> {
-                    editStatus.setStartIconTintList(
-                        ResourcesCompat.getColorStateList(resources, R.color.status_busy_color_list, null)
-                    )
-                    vm.setStatus(UserStatus.Busy)
+            }
+        } else {
+            editStatusText.doOnTextChanged { text, _, _, _ ->
+                when (text.toString()) {
+                    getString(R.string.status_available) -> {
+                        editStatus.setStartIconTintList(
+                            ContextCompat.getColorStateList(requireContext(), R.color.status_available_color_list)
+                        )
+                        vm.setStatus(UserStatus.None)
+                    }
+                    getString(R.string.status_away) -> {
+                        editStatus.setStartIconTintList(
+                            ContextCompat.getColorStateList(requireContext(), R.color.status_away_color_list)
+                        )
+                        vm.setStatus(UserStatus.Away)
+                    }
+                    getString(R.string.status_busy) -> {
+                        editStatus.setStartIconTintList(
+                            ContextCompat.getColorStateList(requireContext(), R.color.status_busy_color_list)
+                        )
+                        vm.setStatus(UserStatus.Busy)
+                    }
                 }
             }
         }
