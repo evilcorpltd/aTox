@@ -1,8 +1,8 @@
-const val kotlinVersion = "1.6.0"
+const val kotlinVersion = "1.6.10"
 
 object BuildPlugin {
     private object Version {
-        const val gradle = "7.0.3"
+        const val gradle = "7.0.4"
     }
 
     const val androidApplication = "com.android.application"
@@ -49,7 +49,7 @@ object AndroidX {
     //  `E/AppCompatResources: Failed to inflate ColorStateList, leaving it to the framework`
     const val appcompat = "androidx.appcompat:appcompat:1.3.1"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.2"
-    const val fragment = "androidx.fragment:fragment:1.3.6"
+    const val fragment = "androidx.fragment:fragment:1.4.0"
 
     object Navigation {
         private const val version = "2.4.0-beta02"
@@ -98,7 +98,7 @@ object Google {
 
     const val dagger = "com.google.dagger:dagger:${Dagger.version}"
     object Dagger {
-        internal const val version = "2.40.2"
+        internal const val version = "2.40.5"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
     }
 
@@ -121,7 +121,7 @@ object Tox4j {
     const val api = "org.toktok:tox4j-api_2.11:$version"
     const val c = "org.toktok:tox4j-c_2.11:$version"
     object Android {
-        private const val version = "0.2.12"
+        private const val version = "0.2.13"
         const val x86_64 = "org.toktok:tox4j-c_x86_64-linux-android:$version"
         const val arm = "org.toktok:tox4j-c_armv7a-linux-androideabi:$version"
         const val aarch64 = "org.toktok:tox4j-c_aarch64-linux-android:$version"

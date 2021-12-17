@@ -46,21 +46,22 @@ private fun findAudioRecord(sampleRate: Int, channels: Int): AudioRecord? {
 class AudioCapture private constructor(
     private val sampleRate: Int,
     private val channels: Int,
+    private val frameLengthMs: Int,
     private val audioRecord: AudioRecord,
 ) {
     fun start() = audioRecord.startRecording()
     fun stop() = audioRecord.stop()
     fun release() = audioRecord.release()
     fun read(): ShortArray {
-        val bytes = ShortArray((sampleRate * channels * 0.1).toInt()) // E.g. 16-bit, 48kHz, 1 channel, 100ms
+        val bytes = ShortArray((sampleRate * channels * frameLengthMs / 1000.0).toInt())
         audioRecord.read(bytes, 0, bytes.size)
         return bytes
     }
 
     companion object {
-        fun create(sampleRate: Int, channels: Int): AudioCapture? {
+        fun create(sampleRate: Int, channels: Int, frameLengthMs: Int): AudioCapture? {
             val audioRecord = findAudioRecord(sampleRate, channels) ?: return null
-            return AudioCapture(sampleRate, channels, audioRecord)
+            return AudioCapture(sampleRate, channels, frameLengthMs, audioRecord)
         }
     }
 }
