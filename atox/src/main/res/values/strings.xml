@@ -192,4 +192,9 @@
         <item>@string/status_away</item>
         <item>@string/status_busy</item>
     </string-array>
+
+    <!-- Run at boot w/ encrypted profile notification -->
+    <string name="channel_profile_locked_explanation">Sent when your profile needs to be unlocked for aTox to run</string>
+    <string name="atox_profile_locked">aTox profile locked</string>
+    <string name="tap_to_unlock_and_start_atox">Tap to unlock your profile and start aTox</string>
 </resources>
