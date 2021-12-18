@@ -19,10 +19,10 @@ android {
         multiDexEnabled = true
     }
     buildTypes {
-        debug {
+        getByName("debug") {
             applicationIdSuffix = ".debug"
         }
-        release {
+        getByName("release") {
             isMinifyEnabled = true
             proguardFiles("proguard-tox4j.pro", getDefaultProguardFile("proguard-android-optimize.txt"))
         }
