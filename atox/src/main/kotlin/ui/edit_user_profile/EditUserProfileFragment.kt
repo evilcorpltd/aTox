@@ -36,7 +36,7 @@ class EditUserProfileFragment : BaseFragment<FragmentEditUserProfileBinding>(Fra
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
             val insets = compat.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime())
             toolbar.updatePadding(left = insets.left, top = insets.top)
-            mainSection.updatePadding(left = insets.left, right = insets.right)
+            mainSection.updatePadding(left = insets.left, right = insets.right, bottom = insets.bottom)
             compat
         }
 
