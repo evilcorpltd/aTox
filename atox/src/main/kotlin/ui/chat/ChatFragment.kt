@@ -177,7 +177,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             it.name = it.name.ifEmpty { getString(R.string.contact_default_name) }
 
             contactName = it.name
-            ongoingCallInfo.text = getString(R.string.in_call_with, contactName)
+            ongoingCall.info.text = getString(R.string.in_call_with, contactName)
             viewModel.contactOnline = it.connectionStatus != ConnectionStatus.None
 
             title.text = contactName
@@ -219,25 +219,25 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
 
         viewModel.ongoingCall.observe(viewLifecycleOwner) {
             if (it is CallState.InCall && it.publicKey.string() == contactPubKey) {
-                ongoingCallContainer.visibility = View.VISIBLE
+                ongoingCall.container.visibility = View.VISIBLE
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    ongoingCallDuration.visibility = View.VISIBLE
-                    ongoingCallDuration.base = it.startTime
-                    ongoingCallDuration.isCountDown = false
-                    ongoingCallDuration.start()
+                    ongoingCall.duration.visibility = View.VISIBLE
+                    ongoingCall.duration.base = it.startTime
+                    ongoingCall.duration.isCountDown = false
+                    ongoingCall.duration.start()
                 } else {
-                    ongoingCallDuration.visibility = View.GONE
+                    ongoingCall.duration.visibility = View.GONE
                 }
             } else {
-                ongoingCallContainer.visibility = View.GONE
+                ongoingCall.container.visibility = View.GONE
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    ongoingCallDuration.stop()
+                    ongoingCall.duration.stop()
                 }
             }
         }
 
-        ongoingCallEnd.setOnClickListener { viewModel.onEndCall() }
-        ongoingCallInfo.setOnClickListener { navigateToCallScreen() }
+        ongoingCall.endCall.setOnClickListener { viewModel.onEndCall() }
+        ongoingCall.info.setOnClickListener { navigateToCallScreen() }
 
         val adapter = ChatAdapter(layoutInflater, resources)
         messages.adapter = adapter
