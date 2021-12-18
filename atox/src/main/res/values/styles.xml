@@ -7,11 +7,16 @@
 
         <item name="textInputStyle">@style/Widget.aTox.TextInputLayout</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.aTox.BottomSheetDialog</item>
+        <item name="toolbarNavigationButtonStyle">@style/Widget.aTox.Toolbar.Button.Navigation</item>
 
         <item name="android:statusBarColor" tools:targetApi="21">@android:color/background_dark</item>
     </style>
     <style name="Theme.aTox.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
     <style name="Theme.aTox.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>
+
+    <style name="Widget.aTox.Toolbar.Button.Navigation" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="tint">?attr/colorOnSurface</item>
+    </style>
 
     <!-- Text Input -->
     <style name="Widget.aTox.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">

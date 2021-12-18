@@ -16,7 +16,6 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.getSystemService
 import androidx.core.graphics.alpha
@@ -39,6 +38,7 @@ import kotlinx.coroutines.withContext
 import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentUserProfileBinding
+import ltd.evilcorp.atox.getColor
 import ltd.evilcorp.atox.ui.AvatarMaker
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.colorFromStatus
@@ -76,18 +76,13 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
 
         // Inflating views according to Day/Night theme
         if (isNightMode(requireContext())) {
-            toolbar.setNavigationIcon(R.drawable.ic_back_white)
-            createQrCode(
-                ContextCompat.getColor(requireContext(), R.color.pleasantWhite),
-                Color.TRANSPARENT,
-                imageView = toxIdQr
-            )
+            createQrCode(getColor(R.color.pleasantWhite), Color.TRANSPARENT, imageView = toxIdQr)
         } else {
-            toolbar.setNavigationIcon(R.drawable.ic_back_black)
             createQrCode(Color.BLACK, Color.TRANSPARENT, imageView = toxIdQr)
         }
         setImageButtonRippleDayNight(requireContext(), copyToxId)
 
+        toolbar.setNavigationIcon(R.drawable.ic_back)
         toolbar.setNavigationOnClickListener {
             WindowInsetsControllerCompat(requireActivity().window, view)
                 .hide(WindowInsetsCompat.Type.ime())

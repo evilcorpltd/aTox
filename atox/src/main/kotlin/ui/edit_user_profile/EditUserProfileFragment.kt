@@ -4,7 +4,6 @@ import android.os.Build
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -13,6 +12,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentEditUserProfileBinding
+import ltd.evilcorp.atox.getColorStateList
 import ltd.evilcorp.atox.ui.AvatarMaker
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.SizeUnit
@@ -42,22 +42,14 @@ class EditUserProfileFragment : BaseFragment<FragmentEditUserProfileBinding>(Fra
 
         // Inflating views according to Day/Night theme
         if (isNightMode(requireContext())) {
-            toolbar.setNavigationIcon(R.drawable.ic_back_white)
-
-            ContextCompat.getColorStateList(requireContext(), R.color.box_stroke_color_night)?.run {
+            getColorStateList(R.color.box_stroke_color_night)?.run {
                 editStatus.setBoxStrokeColorStateList(this)
             }
-            editStatus.defaultHintTextColor = ContextCompat.getColorStateList(
-                requireContext(),
-                R.color.hint_text_color_night,
-            )
-            editStatus.setEndIconTintList(
-                ContextCompat.getColorStateList(requireContext(), R.color.trailing_icon_color_night)
-            )
-        } else {
-            toolbar.setNavigationIcon(R.drawable.ic_back_black)
+            editStatus.defaultHintTextColor = getColorStateList(R.color.hint_text_color_night)
+            editStatus.setEndIconTintList(getColorStateList(R.color.trailing_icon_color_night))
         }
 
+        toolbar.setNavigationIcon(R.drawable.ic_back)
         toolbar.setNavigationOnClickListener {
             WindowInsetsControllerCompat(requireActivity().window, view)
                 .hide(WindowInsetsCompat.Type.ime())
@@ -92,21 +84,15 @@ class EditUserProfileFragment : BaseFragment<FragmentEditUserProfileBinding>(Fra
             editStatusText.doOnTextChanged { text, _, _, _ ->
                 when (text.toString()) {
                     getString(R.string.status_available) -> {
-                        editStatus.setStartIconTintList(
-                            ContextCompat.getColorStateList(requireContext(), R.color.status_available_color_list)
-                        )
+                        editStatus.setStartIconTintList(getColorStateList(R.color.status_available_color_list))
                         vm.setStatus(UserStatus.None)
                     }
                     getString(R.string.status_away) -> {
-                        editStatus.setStartIconTintList(
-                            ContextCompat.getColorStateList(requireContext(), R.color.status_away_color_list)
-                        )
+                        editStatus.setStartIconTintList(getColorStateList(R.color.status_away_color_list))
                         vm.setStatus(UserStatus.Away)
                     }
                     getString(R.string.status_busy) -> {
-                        editStatus.setStartIconTintList(
-                            ContextCompat.getColorStateList(requireContext(), R.color.status_busy_color_list)
-                        )
+                        editStatus.setStartIconTintList(getColorStateList(R.color.status_busy_color_list))
                         vm.setStatus(UserStatus.Busy)
                     }
                 }

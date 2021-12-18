@@ -6,6 +6,7 @@ package ltd.evilcorp.atox
 
 import android.content.Context
 import android.content.pm.PackageManager
+import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ltd.evilcorp.atox.di.ViewModelFactory
@@ -20,6 +21,12 @@ class NoSuchArgumentException(arg: String) : Exception("No such argument: $arg")
 
 fun Fragment.requireStringArg(key: String) =
     arguments?.getString(key) ?: throw NoSuchArgumentException(key)
+
+fun Fragment.getColor(@ColorRes id: Int) =
+    ContextCompat.getColor(requireContext(), id)
+
+fun Fragment.getColorStateList(@ColorRes id: Int) =
+    ContextCompat.getColorStateList(requireContext(), id)
 
 fun String.truncated(length: Int): String =
     if (this.length > length) {

@@ -6,6 +6,7 @@
 
         <item name="textInputStyle">@style/Widget.aTox.TextInputLayout</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.aTox.BottomSheetDialog</item>
+        <item name="toolbarNavigationButtonStyle">@style/Widget.aTox.Toolbar.Button.Navigation</item>
 
         <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:windowLightStatusBar">true</item>
