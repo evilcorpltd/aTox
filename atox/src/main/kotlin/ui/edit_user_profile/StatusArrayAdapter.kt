@@ -15,7 +15,7 @@ class StatusArrayAdapter(
     private val strings: Array<String>,
 ) : ArrayAdapter<String>(context, resource, textViewResourceId, strings) {
 
-    private val statusFilter = StatusFilter()  // This filter doesn't filter :)
+    private val statusFilter = StatusFilter() // This filter doesn't filter :)
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = super.getView(position, convertView, parent)
@@ -37,13 +37,12 @@ class StatusArrayAdapter(
     inner class StatusFilter : Filter() {
         override fun performFiltering(prefix: CharSequence): FilterResults {
             val results = FilterResults()
-            results.values = strings;
-            results.count = strings.size;
+            results.values = strings
+            results.count = strings.size
 
-            return results;
+            return results
         }
 
         override fun publishResults(constraint: CharSequence, results: FilterResults) = Unit
     }
-
 }

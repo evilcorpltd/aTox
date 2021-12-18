@@ -4,7 +4,13 @@
 
 package ltd.evilcorp.atox.ui
 
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Rect
+import android.graphics.RectF
+import android.graphics.Typeface
 import android.net.Uri
 import android.widget.ImageView
 import ltd.evilcorp.atox.R
@@ -12,12 +18,10 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.User
 import kotlin.math.abs
 
-
 internal enum class SizeUnit {
     DP,
     PX,
 }
-
 
 /**
  * Class for creating an avatar for user or contact and setting it in the ImageView
@@ -46,7 +50,6 @@ internal class AvatarMaker {
         initials = getInitials()
     }
 
-
     /**
      * Method will get the initial characters of the name
      * @return The initial characters of the name.
@@ -56,7 +59,6 @@ internal class AvatarMaker {
         if (segments.size == 1) return segments.first().take(1)
         return segments.first().take(1) + segments[1][0]
     }
-
 
     /**
      * Method will set an avatar to an image view. If avatar image exists then it will be set to the image view,
@@ -101,5 +103,4 @@ internal class AvatarMaker {
             canvas.drawText(initials, rect.centerX(), rect.centerY() - textBounds.exactCenterY(), textPaint)
             imageView.setImageBitmap(bitmap)
         }
-
 }

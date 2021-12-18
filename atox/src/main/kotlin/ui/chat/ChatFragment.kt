@@ -23,23 +23,23 @@ import androidx.core.content.FileProvider
 import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
-import androidx.core.view.*
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsAnimationCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.math.MathUtils.lerp
-import java.io.File
-import java.net.URLConnection
-import java.text.DateFormat
-import java.util.Locale
 import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentChatBinding
 import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.truncated
+import ltd.evilcorp.atox.ui.AvatarMaker
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.colorByContactStatus
-import ltd.evilcorp.atox.ui.AvatarMaker
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.FileTransfer
@@ -47,6 +47,10 @@ import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.isComplete
 import ltd.evilcorp.domain.tox.PublicKey
+import java.io.File
+import java.net.URLConnection
+import java.text.DateFormat
+import java.util.Locale
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
 private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 20

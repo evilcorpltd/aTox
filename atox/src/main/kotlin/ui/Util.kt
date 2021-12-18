@@ -20,7 +20,6 @@ import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.UserStatus
 
-
 /**
  * Function will return the color of the status of the input contact
  * @param resources The resources of the app
@@ -36,7 +35,6 @@ internal fun colorByContactStatus(resources: Resources, contact: Contact) =
         )
     else colorFromStatus(resources, contact.status)
 
-
 /**
  * Function will return the color of the status of the input user status
  * @param resources The resources of the app
@@ -49,7 +47,6 @@ internal fun colorFromStatus(resources: Resources, status: UserStatus) = when (s
     UserStatus.Busy -> ResourcesCompat.getColor(resources, R.color.statusBusy, null)
 }
 
-
 /**
  * Function will convert dp (Density Pixels) units to px (Pixels) units
  * @param dp The dp units.
@@ -58,7 +55,6 @@ internal fun colorFromStatus(resources: Resources, status: UserStatus) = when (s
 internal fun dpToPx(dp: Float, res: Resources): Int =
     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.displayMetrics).toInt()
 
-
 /**
  * Function will return whether or not night mode is set.
  * @param context The related context.
@@ -66,7 +62,6 @@ internal fun dpToPx(dp: Float, res: Resources): Int =
  */
 internal fun isNightMode(context: Context) = context.resources.configuration.uiMode
     .and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
-
 
 /**
  * Function will set a transparent background to an image button with a ripple with color according
@@ -78,7 +73,6 @@ internal fun setImageButtonRippleDayNight(context: Context, imageButton: ImageBu
     if (isNightMode(context))
         setImageButtonRipple(imageButton, Color.argb(51, 255, 255, 255))
     else setImageButtonRipple(imageButton, Color.argb(31, 0, 0, 0))
-
 
 /**
  * Function will set a transparent background to an image button with a ripple with the input color.

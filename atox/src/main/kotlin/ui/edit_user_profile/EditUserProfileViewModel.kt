@@ -1,13 +1,13 @@
 package ltd.evilcorp.atox.ui.edit_user_profile
 
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
+import javax.inject.Inject
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.feature.UserManager
 import ltd.evilcorp.domain.tox.Tox
-import javax.inject.Inject
 
 class EditUserProfileViewModel @Inject constructor(
     private val userManager: UserManager,

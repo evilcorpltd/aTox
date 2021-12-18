@@ -4,7 +4,8 @@
 
 package ltd.evilcorp.atox.ui.edit_text_value_dialog
 
-import android.os.*
+import android.os.Build
+import android.os.Bundle
 import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,6 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ltd.evilcorp.atox.databinding.EditTextValueDialogBinding
 import ltd.evilcorp.atox.vmFactory
-
 
 class EditTextValueDialog() : BottomSheetDialogFragment() {
 

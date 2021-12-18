@@ -12,36 +12,45 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.content.getSystemService
-import androidx.core.view.*
-import androidx.fragment.app.viewModels
-import io.nayuki.qrcodegen.QrCode
-import kotlin.math.min
-import kotlin.math.roundToInt
-import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.databinding.FragmentUserProfileBinding
-import ltd.evilcorp.atox.vmFactory
-import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.*
+import androidx.core.content.getSystemService
+import androidx.core.graphics.alpha
+import androidx.core.graphics.blue
+import androidx.core.graphics.green
+import androidx.core.graphics.red
+import androidx.core.graphics.scale
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.setPadding
+import androidx.core.view.updatePadding
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import io.nayuki.qrcodegen.QrCode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ltd.evilcorp.atox.BuildConfig
-import ltd.evilcorp.atox.ui.*
+import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.databinding.FragmentUserProfileBinding
 import ltd.evilcorp.atox.ui.AvatarMaker
+import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.colorFromStatus
+import ltd.evilcorp.atox.ui.dpToPx
+import ltd.evilcorp.atox.ui.isNightMode
+import ltd.evilcorp.atox.ui.setImageButtonRippleDayNight
+import ltd.evilcorp.atox.vmFactory
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-
+import kotlin.math.min
+import kotlin.math.roundToInt
 
 private const val QR_CODE_TO_SCREEN_RATIO = 0.5f
 private const val QR_CODE_PADDING = 16f // in dp
@@ -49,7 +58,6 @@ private const val QR_CODE_SHARED_IMAGE_PADDING = 30f // in dp
 
 class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUserProfileBinding::inflate) {
     private val vm: UserProfileViewModel by viewModels { vmFactory }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
@@ -121,7 +129,6 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
         }
     }
 
-
     /**
      * Function will create a QR code for the Tox ID and assign it to the image view if specified.
      * @param qrCodeColor The color of the QR code.
@@ -135,7 +142,7 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
         backgroundColor: Int = Color.WHITE,
         paddingDp: Float = QR_CODE_PADDING,
         imageView: ImageView? = null,
-    ) : Bitmap {
+    ): Bitmap {
         // Creating the QR bitmap
         val qrData = QrCode.encodeText("tox:%s".format(vm.toxId.string()), QrCode.Ecc.LOW)
         var bmpQr: Bitmap = Bitmap.createBitmap(qrData.size, qrData.size, Bitmap.Config.ARGB_8888)
@@ -166,7 +173,6 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
         return bmpQrWithPadding
     }
 
-
     /**
      * Function will save the image with the input bitmap and name to the cache directory as a png format.
      * Then it will return the Uri of the image.
@@ -191,13 +197,12 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
         return uri
     }
 
-
     /**
      * Function will run in a different thread, create a new QR code for sharing and return the Uri.
      * @param name The image name.
      * @return The Uri for the QR code.
      */
-    private suspend fun getQrForSharing(name: String) : Uri? {
+    private suspend fun getQrForSharing(name: String): Uri? {
         return withContext(Dispatchers.IO) {
             val bmp = createQrCode(paddingDp = QR_CODE_SHARED_IMAGE_PADDING)
             saveImageForSharing(bmp, name)

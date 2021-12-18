@@ -16,7 +16,6 @@ import ltd.evilcorp.atox.ui.chat.ChatViewModel
 import ltd.evilcorp.atox.ui.contact_profile.ContactProfileViewModel
 import ltd.evilcorp.atox.ui.contactlist.ContactListViewModel
 import ltd.evilcorp.atox.ui.create_profile.CreateProfileViewModel
-import ltd.evilcorp.atox.ui.edit_text_value_dialog.EditTextValueDialog
 import ltd.evilcorp.atox.ui.edit_text_value_dialog.EditTextValueDialogViewModel
 import ltd.evilcorp.atox.ui.edit_user_profile.EditUserProfileViewModel
 import ltd.evilcorp.atox.ui.friend_request.FriendRequestViewModel

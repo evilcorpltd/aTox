@@ -13,8 +13,8 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentEditUserProfileBinding
-import ltd.evilcorp.atox.ui.*
 import ltd.evilcorp.atox.ui.AvatarMaker
+import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.SizeUnit
 import ltd.evilcorp.atox.ui.edit_text_value_dialog.EditTextValueDialog
 import ltd.evilcorp.atox.ui.isNightMode
@@ -22,11 +22,10 @@ import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.UserStatus
 import kotlin.math.min
 
-
 private const val TOX_MAX_NAME_LENGTH = 128
 private const val TOX_MAX_STATUS_MESSAGE_LENGTH = 1007
 
-private const val AVATAR_IMAGE_TO_SCREEN_RATIO = 1f/3
+private const val AVATAR_IMAGE_TO_SCREEN_RATIO = 1f / 3
 
 class EditUserProfileFragment : BaseFragment<FragmentEditUserProfileBinding>(FragmentEditUserProfileBinding::inflate) {
     private val vm: EditUserProfileViewModel by viewModels { vmFactory }
@@ -48,8 +47,13 @@ class EditUserProfileFragment : BaseFragment<FragmentEditUserProfileBinding>(Fra
             ContextCompat.getColorStateList(requireContext(), R.color.box_stroke_color_night)?.run {
                 editStatus.setBoxStrokeColorStateList(this)
             }
-            editStatus.defaultHintTextColor = ContextCompat.getColorStateList(requireContext(), R.color.hint_text_color_night)
-            editStatus.setEndIconTintList(ContextCompat.getColorStateList(requireContext(), R.color.trailing_icon_color_night))
+            editStatus.defaultHintTextColor = ContextCompat.getColorStateList(
+                requireContext(),
+                R.color.hint_text_color_night,
+            )
+            editStatus.setEndIconTintList(
+                ContextCompat.getColorStateList(requireContext(), R.color.trailing_icon_color_night)
+            )
         } else {
             toolbar.setNavigationIcon(R.drawable.ic_back_black)
         }
@@ -153,6 +157,5 @@ class EditUserProfileFragment : BaseFragment<FragmentEditUserProfileBinding>(Fra
                 vm.setStatusMessage(it)
             }.show(requireActivity().supportFragmentManager, EditTextValueDialog.TAG)
         }
-
     }
 }

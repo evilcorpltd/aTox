@@ -6,17 +6,17 @@ package ltd.evilcorp.atox.ui.contact_profile
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.updatePadding
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
-import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentContactProfileBinding
+import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.requireStringArg
+import ltd.evilcorp.atox.ui.AvatarMaker
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.ui.colorByContactStatus
-import ltd.evilcorp.atox.ui.AvatarMaker
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.domain.tox.PublicKey
 
