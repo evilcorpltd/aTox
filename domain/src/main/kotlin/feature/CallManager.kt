@@ -6,6 +6,7 @@ package ltd.evilcorp.domain.feature
 
 import android.content.Context
 import android.media.AudioManager
+import android.os.SystemClock
 import android.util.Log
 import androidx.core.content.ContextCompat
 import im.tox.tox4j.av.exceptions.ToxavCallControlException
@@ -22,7 +23,7 @@ import ltd.evilcorp.domain.tox.Tox
 
 sealed class CallState {
     object NotInCall : CallState()
-    data class InCall(val publicKey: PublicKey) : CallState()
+    data class InCall(val publicKey: PublicKey, val startTime: Long) : CallState()
 }
 
 private const val TAG = "CallManager"
@@ -47,13 +48,13 @@ class CallManager @Inject constructor(
 
     fun startCall(publicKey: PublicKey) {
         tox.startCall(publicKey)
-        _inCall.value = CallState.InCall(publicKey)
+        _inCall.value = CallState.InCall(publicKey, SystemClock.elapsedRealtime())
         audioManager?.mode = AudioManager.MODE_IN_COMMUNICATION
     }
 
     fun answerCall(publicKey: PublicKey) {
         tox.answerCall(publicKey)
-        _inCall.value = CallState.InCall(publicKey)
+        _inCall.value = CallState.InCall(publicKey, SystemClock.elapsedRealtime())
         audioManager?.mode = AudioManager.MODE_IN_COMMUNICATION
     }
 

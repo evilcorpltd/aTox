@@ -11,6 +11,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.ContextMenu
 import android.view.MenuItem
@@ -50,6 +51,7 @@ import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.isComplete
+import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.tox.PublicKey
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
@@ -156,11 +158,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                     true
                 }
                 R.id.call -> {
-                    WindowInsetsControllerCompat(requireActivity().window, view).hide(WindowInsetsCompat.Type.ime())
-                    findNavController().navigate(
-                        R.id.action_chatFragment_to_callFragment,
-                        bundleOf(CONTACT_PUBLIC_KEY to contactPubKey)
-                    )
+                    navigateToCallScreen()
                     true
                 }
                 else -> super.onOptionsItemSelected(item)
@@ -179,6 +177,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             it.name = it.name.ifEmpty { getString(R.string.contact_default_name) }
 
             contactName = it.name
+            ongoingCallInfo.text = getString(R.string.in_call_with, contactName)
             viewModel.contactOnline = it.connectionStatus != ConnectionStatus.None
 
             title.text = contactName
@@ -217,6 +216,28 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                 null -> {}
             }
         }
+
+        viewModel.ongoingCall.observe(viewLifecycleOwner) {
+            if (it is CallState.InCall && it.publicKey.string() == contactPubKey) {
+                ongoingCallContainer.visibility = View.VISIBLE
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    ongoingCallDuration.visibility = View.VISIBLE
+                    ongoingCallDuration.base = it.startTime
+                    ongoingCallDuration.isCountDown = false
+                    ongoingCallDuration.start()
+                } else {
+                    ongoingCallDuration.visibility = View.GONE
+                }
+            } else {
+                ongoingCallContainer.visibility = View.GONE
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    ongoingCallDuration.stop()
+                }
+            }
+        }
+
+        ongoingCallEnd.setOnClickListener { viewModel.onEndCall() }
+        ongoingCallInfo.setOnClickListener { navigateToCallScreen() }
 
         val adapter = ChatAdapter(layoutInflater, resources)
         messages.adapter = adapter
@@ -382,6 +403,14 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                 if (attach.isEnabled) R.color.colorPrimary else android.R.color.darker_gray,
                 null
             )
+        )
+    }
+
+    private fun navigateToCallScreen() {
+        view?.let { WindowInsetsControllerCompat(requireActivity().window, it).hide(WindowInsetsCompat.Type.ime()) }
+        findNavController().navigate(
+            R.id.action_chatFragment_to_callFragment,
+            bundleOf(CONTACT_PUBLIC_KEY to contactPubKey)
         )
     }
 }

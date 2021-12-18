@@ -62,6 +62,8 @@ class ChatViewModel @Inject constructor(
     val messages: LiveData<List<Message>> by lazy { chatManager.messagesFor(publicKey).asLiveData() }
     val fileTransfers: LiveData<List<FileTransfer>> by lazy { fileTransferManager.transfersFor(publicKey).asLiveData() }
 
+    val ongoingCall = callManager.inCall.asLiveData()
+
     val callState get() = contactManager.get(publicKey)
         .transform { emit(it.connectionStatus != ConnectionStatus.None) }
         .combine(callManager.inCall) { contactOnline, callState ->
@@ -151,4 +153,9 @@ class ChatViewModel @Inject constructor(
 
     fun setDraft(draft: String) = contactManager.setDraft(publicKey, draft)
     fun clearDraft() = setDraft("")
+
+    fun onEndCall() {
+        callManager.endCall(publicKey)
+        notificationHelper.dismissCallNotification(publicKey)
+    }
 }

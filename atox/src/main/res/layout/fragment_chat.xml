@@ -39,6 +39,43 @@
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
+    <androidx.cardview.widget.CardView android:id="@+id/ongoingCallContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <Chronometer android:id="@+id/ongoingCallDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+            <TextView android:id="@+id/ongoingCallInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:padding="8dp"
+                    android:textAlignment="center"
+                    app:layout_constraintLeft_toRightOf="@id/ongoingCallDuration"
+                    app:layout_constraintRight_toLeftOf="@id/ongoingCallEnd"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="In call with subject"/>
+            <Button android:id="@+id/ongoingCallEnd"
+                    style="@style/Widget.AppCompat.ActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:text="@string/end_call"
+                    android:textColor="@android:color/holo_red_light"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/ongoingCallInfo"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
     <ListView android:id="@+id/messages"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -51,7 +88,7 @@
             app:layout_constraintBottom_toTopOf="@+id/bottomBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+            app:layout_constraintTop_toBottomOf="@id/ongoingCallContainer"/>
 
     <LinearLayout android:id="@+id/bottomBar"
             android:layout_width="match_parent"
