@@ -13,9 +13,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import java.text.DateFormat
+import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.ContactListViewItemBinding
 import ltd.evilcorp.atox.databinding.FriendRequestItemBinding
-import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.ui.AvatarMaker
 import ltd.evilcorp.atox.ui.colorByContactStatus
 import ltd.evilcorp.core.vo.Contact

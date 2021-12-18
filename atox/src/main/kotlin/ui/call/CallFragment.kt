@@ -9,15 +9,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.view.updatePadding
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
+import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentCallBinding
 import ltd.evilcorp.atox.hasPermission
-import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.ui.AvatarMaker
 import ltd.evilcorp.atox.ui.BaseFragment

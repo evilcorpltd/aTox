@@ -32,6 +32,10 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.math.MathUtils.lerp
+import java.io.File
+import java.net.URLConnection
+import java.text.DateFormat
+import java.util.Locale
 import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentChatBinding
@@ -47,10 +51,6 @@ import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.isComplete
 import ltd.evilcorp.domain.tox.PublicKey
-import java.io.File
-import java.net.URLConnection
-import java.text.DateFormat
-import java.util.Locale
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
 private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 20

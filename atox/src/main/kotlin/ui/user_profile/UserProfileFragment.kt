@@ -32,6 +32,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import io.nayuki.qrcodegen.QrCode
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import kotlin.math.min
+import kotlin.math.roundToInt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -46,11 +51,6 @@ import ltd.evilcorp.atox.ui.dpToPx
 import ltd.evilcorp.atox.ui.isNightMode
 import ltd.evilcorp.atox.ui.setImageButtonRippleDayNight
 import ltd.evilcorp.atox.vmFactory
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import kotlin.math.min
-import kotlin.math.roundToInt
 
 private const val QR_CODE_TO_SCREEN_RATIO = 0.5f
 private const val QR_CODE_PADDING = 16f // in dp

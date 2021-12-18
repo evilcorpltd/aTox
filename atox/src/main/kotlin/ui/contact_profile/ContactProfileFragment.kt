@@ -6,12 +6,12 @@ package ltd.evilcorp.atox.ui.contact_profile
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.updatePadding
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
-import ltd.evilcorp.atox.databinding.FragmentContactProfileBinding
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.databinding.FragmentContactProfileBinding
 import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.ui.AvatarMaker
 import ltd.evilcorp.atox.ui.BaseFragment

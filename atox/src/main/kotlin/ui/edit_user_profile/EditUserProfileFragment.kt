@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
+import kotlin.math.min
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentEditUserProfileBinding
 import ltd.evilcorp.atox.getColorStateList
@@ -20,7 +21,6 @@ import ltd.evilcorp.atox.ui.edit_text_value_dialog.EditTextValueDialog
 import ltd.evilcorp.atox.ui.isNightMode
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.UserStatus
-import kotlin.math.min
 
 private const val TOX_MAX_NAME_LENGTH = 128
 private const val TOX_MAX_STATUS_MESSAGE_LENGTH = 1007

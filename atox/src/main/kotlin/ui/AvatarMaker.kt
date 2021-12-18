@@ -13,10 +13,10 @@ import android.graphics.RectF
 import android.graphics.Typeface
 import android.net.Uri
 import android.widget.ImageView
+import kotlin.math.abs
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.User
-import kotlin.math.abs
 
 internal enum class SizeUnit {
     DP,

@@ -274,7 +274,7 @@ class DatabaseMigrationTest {
                         '$statusMessage',
                         ${status.ordinal},
                         ${connectionStatus.ordinal},
-                        '${password}')
+                        '$password')
                     """.trimIndent()
                 )
             }
@@ -356,7 +356,7 @@ class DatabaseMigrationTest {
                         '$statusMessage',
                         ${status.ordinal},
                         ${connectionStatus.ordinal},
-                        '${password}')
+                        '$password')
                     """.trimIndent()
                 )
             }
