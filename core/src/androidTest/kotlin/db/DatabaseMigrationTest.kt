@@ -16,6 +16,7 @@ import ltd.evilcorp.core.vo.FtNotStarted
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.Sender
+import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.core.vo.UserStatus
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -64,6 +65,16 @@ class DatabaseMigrationTest {
         ConnectionStatus.TCP,
         true,
         "file:///home/robin/fantastic_bird.png"
+    )
+
+    private val user = User(
+        "096E9EADEDF0DACC7A4ED2CF469EB48D91F0E91DE85200D65651543FC27E8BF4",
+        "Test User",
+        "Testing...",
+        UserStatus.Busy,
+        ConnectionStatus.TCP,
+        "password",
+        "",
     )
 
     @Test
@@ -253,6 +264,49 @@ class DatabaseMigrationTest {
     }
 
     @Test
+    fun migrate_5_to_6() {
+        helper.createDatabase(TEST_DB, 5).use { db ->
+            with(user) {
+                db.execSQL(
+                    """INSERT INTO users VALUES (
+                        '$publicKey',
+                        '$name',
+                        '$statusMessage',
+                        ${status.ordinal},
+                        ${connectionStatus.ordinal},
+                        '${password}')
+                    """.trimIndent()
+                )
+            }
+
+            val cursor = db.query("SELECT * FROM users").apply { moveToFirst() }
+            assertEquals(6, cursor.columnCount)
+            with(user) {
+                assertEquals(publicKey, cursor.getString(0))
+                assertEquals(name, cursor.getString(1))
+                assertEquals(statusMessage, cursor.getString(2))
+                assertEquals(status.ordinal, cursor.getInt(3))
+                assertEquals(connectionStatus.ordinal, cursor.getInt(4))
+                assertEquals(password, cursor.getString(5))
+            }
+        }
+
+        helper.runMigrationsAndValidate(TEST_DB, 6, true, MIGRATION_5_6).use { db ->
+            val cursor = db.query("SELECT * FROM users").apply { moveToFirst() }
+            assertEquals(7, cursor.columnCount)
+            with(user) {
+                assertEquals(publicKey, cursor.getString(0))
+                assertEquals(name, cursor.getString(1))
+                assertEquals(statusMessage, cursor.getString(2))
+                assertEquals(status.ordinal, cursor.getInt(3))
+                assertEquals(connectionStatus.ordinal, cursor.getInt(4))
+                assertEquals(password, cursor.getString(5))
+                assertEquals(avatarUri, cursor.getString(6))
+            }
+        }
+    }
+
+    @Test
     fun run_all_migrations() {
         helper.createDatabase(TEST_DB, 1).use { db ->
             with(contact) {
@@ -291,6 +345,18 @@ class DatabaseMigrationTest {
                         '$fileName',
                         ${outgoing.toInt()},
                         $progress)
+                    """.trimIndent()
+                )
+            }
+            with(user) {
+                db.execSQL(
+                    """INSERT INTO users VALUES (
+                        '$publicKey',
+                        '$name',
+                        '$statusMessage',
+                        ${status.ordinal},
+                        ${connectionStatus.ordinal},
+                        '${password}')
                     """.trimIndent()
                 )
             }
@@ -334,9 +400,21 @@ class DatabaseMigrationTest {
                     assertEquals(progress, cursor.getLong(6))
                 }
             }
+            db.query("SELECT * FROM users").let { cursor ->
+                assertEquals(6, cursor.columnCount)
+                with(user) {
+                    cursor.moveToFirst()
+                    assertEquals(publicKey, cursor.getString(0))
+                    assertEquals(name, cursor.getString(1))
+                    assertEquals(statusMessage, cursor.getString(2))
+                    assertEquals(status.ordinal, cursor.getInt(3))
+                    assertEquals(connectionStatus.ordinal, cursor.getInt(4))
+                    assertEquals(password, cursor.getString(5))
+                }
+            }
         }
 
-        helper.runMigrationsAndValidate(TEST_DB, 5, true, *ALL_MIGRATIONS).use { db ->
+        helper.runMigrationsAndValidate(TEST_DB, 6, true, *ALL_MIGRATIONS).use { db ->
             db.query("SELECT * FROM contacts").let { cursor ->
                 assertEquals(cursor.columnCount, 10)
                 with(contact) {
@@ -364,6 +442,19 @@ class DatabaseMigrationTest {
                     assertEquals(correlationId, cursor.getInt(4))
                     assertEquals(timestamp, cursor.getLong(5))
                     assertEquals(type.ordinal, cursor.getInt(6))
+                }
+            }
+            db.query("SELECT * FROM users").let { cursor ->
+                assertEquals(7, cursor.columnCount)
+                with(user) {
+                    cursor.moveToFirst()
+                    assertEquals(publicKey, cursor.getString(0))
+                    assertEquals(name, cursor.getString(1))
+                    assertEquals(statusMessage, cursor.getString(2))
+                    assertEquals(status.ordinal, cursor.getInt(3))
+                    assertEquals(connectionStatus.ordinal, cursor.getInt(4))
+                    assertEquals(password, cursor.getString(5))
+                    assertEquals(avatarUri, cursor.getString(6))
                 }
             }
         }
