@@ -58,11 +58,6 @@
     <string name="pref_heading_type">Typ</string>
     <string name="send_as_action">Als Aktion senden</string>
     <string name="or_import_existing_save">Oder importiere ein bestehendes Tox-Profil</string>
-    <string name="profile_information">Profil-Informationen</string>
-    <string name="profile_settings">Profil-Einstellungen</string>
-    <string name="profile_nickname">Ändere deinen Namen</string>
-    <string name="profile_status_message">Ändere deine Statusmeldung</string>
-    <string name="profile_status">Ändere deinen Status</string>
     <string name="profile">Profil</string>
     <string name="tox_id_error_already_exists">Einen Kontakt mit dieser Tox-ID gibt es bereits</string>
     <string name="tox_service_running">aTox läuft …</string>

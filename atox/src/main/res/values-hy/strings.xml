@@ -51,11 +51,6 @@
     <string name="tox_service_running">aTox-ը միացված է…</string>
     <string name="tox_id_error_already_exists">Այդ Tox ID կոնտակն արդեն գրանցված է</string>
     <string name="profile">Պրոֆիլ</string>
-    <string name="profile_status">Փոխել ստատուսը</string>
-    <string name="profile_status_message">Փոխել ստատուսը</string>
-    <string name="profile_nickname">Փոխել մականունը</string>
-    <string name="profile_settings">Պրոֆիլի պարամետրեր</string>
-    <string name="profile_information">Պրոֆիլի ինֆորմացիա</string>
     <string name="pref_proxy_type_socks5">SOCKS5</string>
     <string name="pref_proxy_type_http">HTTP</string>
     <string name="pref_heading_type">Տեսալ</string>

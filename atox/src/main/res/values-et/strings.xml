@@ -47,11 +47,6 @@
     <string name="tox_service_running">aTox töötab …</string>
     <string name="tox_id_error_already_exists">Selle ID-ga kontakt on juba olemas</string>
     <string name="profile">Profiil</string>
-    <string name="profile_status">Muuda oma staatust</string>
-    <string name="profile_status_message">Muuda oma staatuse sõnumit</string>
-    <string name="profile_nickname">Hüüdnime muutmine</string>
-    <string name="profile_settings">Profiili seaded</string>
-    <string name="profile_information">Profiili teave</string>
     <string name="or_import_existing_save">või importige olemasolev Toxi salvestus</string>
     <string name="send_as_action">Saada tegevusena</string>
     <string name="pref_bootstrap_nodes_description">Kohandatud JSON-failidel peaks olema sama struktuur nagu siin https://nodes.tox.chat/json</string>

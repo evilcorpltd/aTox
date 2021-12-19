@@ -8,7 +8,7 @@
     <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="?attr/colorSurface"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:title="@string/app_name"/>
     <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/content"

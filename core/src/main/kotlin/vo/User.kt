@@ -27,5 +27,8 @@ data class User(
     var connectionStatus: ConnectionStatus = ConnectionStatus.None,
 
     @ColumnInfo(name = "password")
-    var password: String = ""
+    var password: String = "",
+
+    @ColumnInfo(name = "avatar_uri")
+    var avatarUri: String = "",
 )

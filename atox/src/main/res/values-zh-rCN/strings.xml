@@ -43,9 +43,6 @@
     <string name="delete">删除</string>
     <string name="attach_file">附加文件</string>
     <string name="mimetype_handler_not_found">没有安装用于处理\"%1$s\"媒体类型的应用程序</string>
-    <string name="profile_status">更改您的状态</string>
-    <string name="profile_status_message">更改您的状态消息</string>
-    <string name="profile_nickname">更改您的昵称</string>
     <string name="status_dialog_edit_user_status">编辑您的状态</string>
     <string name="from">来自</string>
     <string name="status_busy">忙碌</string>
@@ -59,8 +56,6 @@
     <string name="tox_service_running">aTox 正在运行……</string>
     <string name="tox_id_error_already_exists">已存在具有该 Tox ID 的联系人</string>
     <string name="profile">用户配置文件</string>
-    <string name="profile_settings">配置文件设置</string>
-    <string name="profile_information">配置文件信息</string>
     <string name="or_import_existing_save">或导入现有的 Tox 存档</string>
     <string name="send_as_action">作为操作发送</string>
     <string name="pref_bootstrap_nodes_description">用户提供的 JSON 文件必须与 https://nodes.tox.chat/json 具有相同的格式</string>

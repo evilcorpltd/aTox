@@ -39,4 +39,7 @@ class UserRepository @Inject internal constructor(
 
     fun updateStatus(publicKey: String, status: UserStatus) =
         userDao.updateStatus(publicKey, status)
+
+    fun updateAvatarUri(publicKey: String, uri: String) =
+        userDao.updateAvatarUri(publicKey, uri)
 }

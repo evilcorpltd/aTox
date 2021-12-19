@@ -29,11 +29,6 @@
     <string name="tox_service_running">aTox paleistas…</string>
     <string name="tox_id_error_already_exists">Kontaktas su tokiu Tox ID jau yra</string>
     <string name="profile">Profilis</string>
-    <string name="profile_status">Pakeisti savo būklę</string>
-    <string name="profile_status_message">Pakeisti savo būsenos žinutę</string>
-    <string name="profile_nickname">Pasikeisti savo slapyvardį</string>
-    <string name="profile_settings">Profilio nustatymai</string>
-    <string name="profile_information">Profilio informacija</string>
     <string name="or_import_existing_save">arba importuoti jau išsaugotą Tox profilį</string>
     <string name="send_as_action">Nusiųsti kaip veiksmą</string>
     <string name="pref_bootstrap_nodes_description">Vartotojų pateikti JSOn failai turi būti tokio paties formato kaip čia https://nodes.tox.chat/json</string>

@@ -27,7 +27,7 @@
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
                     android:text="@string/receive_share_share_to"
-                    android:textColor="@color/textWhiteColor"
+                    android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
             <TextView android:id="@+id/sharing_text"

@@ -84,11 +84,6 @@
     <string name="tox_service_running">aTox يعمل…</string>
     <string name="tox_id_error_already_exists">يوجد جهة اتصال بنفس عنوان Tox</string>
     <string name="profile">الحساب</string>
-    <string name="profile_status">تغيير الحالة</string>
-    <string name="profile_status_message">تغيير رسالة الحالة</string>
-    <string name="profile_nickname">تغيير الاسم المستعار</string>
-    <string name="profile_settings">اعدادات الحساب</string>
-    <string name="profile_information">معلومات الحساب</string>
     <string name="or_import_existing_save">او استورد من ملف Tox</string>
     <string name="pref_bootstrap_nodes_description">ملفات JSON المخصصة لا بد ان تكون بنفس الصيغة علي https://nodes.tox.chat/json</string>
     <string name="pref_bootstrap_node_user_provided">مخصص</string>

@@ -96,11 +96,6 @@
     <string name="pref_udp_enabled">UDP увімкнено</string>
     <string name="tox_service_running">aTox працює…</string>
     <string name="tox_id_error_already_exists">Контакт із таким ідентифікатором уже існує</string>
-    <string name="profile_status">Змінити статус</string>
-    <string name="profile_status_message">Змінити повідомлення у статусі</string>
-    <string name="profile_nickname">Змінити Ваше прізвисько</string>
-    <string name="profile_settings">Налаштування профілю</string>
-    <string name="profile_information">Відомості профілю</string>
     <string name="or_import_existing_save">або імпортувати існуючий профіль Tox</string>
     <string name="send_as_action">Надіслати як дію</string>
     <string name="pref_bootstrap_nodes_description">Власні JSON файли повинні мати ту ж структуру як і тут https://nodes.tox.chat/json</string>

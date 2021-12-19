@@ -48,11 +48,6 @@
     <string name="tox_service_running">aTox kjører …</string>
     <string name="tox_id_error_already_exists">En kontakt med den Tox-ID-en finnes allerede</string>
     <string name="profile">Profil</string>
-    <string name="profile_status">Endre egen status</string>
-    <string name="profile_status_message">Endre din statusmelding</string>
-    <string name="profile_nickname">Endre ditt brukernavn</string>
-    <string name="profile_settings">Profilinnstillinger</string>
-    <string name="profile_information">Profilinfo</string>
     <string name="send_as_action">Send en handling</string>
     <string name="pref_heading_advanced">Avansert</string>
     <string name="pref_heading_type">Type</string>

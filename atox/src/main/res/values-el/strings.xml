@@ -46,12 +46,7 @@
     <string name="tox_service_running">Το aTox εκτελείται…</string>
     <string name="tox_id_error_already_exists">Υπάρχει ήδη επαφή με αυτό το αναγνωριστικό</string>
     <string name="profile">Προφίλ</string>
-    <string name="profile_status">Αλλάξτε την κατάστασή σας</string>
-    <string name="profile_status_message">Αλλάξτε το μήνυμα κατάστασής σας</string>
-    <string name="profile_nickname">Αλλάξτε το ψευδώνυμό σας</string>
-    <string name="profile_settings">Ρυθμίσεις προφίλ</string>
     <string name="pref_heading_advanced">Για προχωρημένους</string>
-    <string name="profile_information">Πληροφορίες προφίλ</string>
     <string name="or_import_existing_save">ή εισαγάγετε ένα υπάρχων Tox save</string>
     <string name="send_as_action">Αποστολή ως ενέργεια</string>
     <string name="pref_bootstrap_nodes_description">Τα αρχεία JSON που παρέχονται από τον χρήστη πρέπει να έχουν την ίδια μορφή όπως στο https://nodes.tox.chat/json</string>
