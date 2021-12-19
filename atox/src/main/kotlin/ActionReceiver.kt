@@ -64,8 +64,8 @@ class ActionReceiver : BroadcastReceiver() {
 
         intent.getStringExtra(KEY_CALL)?.also { callChoice ->
             val pk = intent.getStringExtra(KEY_CONTACT_PK)?.let { PublicKey(it) } ?: return
-            if (callChoice == "accept") {
-                scope.launch {
+            when (callChoice) {
+                "accept" -> scope.launch {
                     val contact = contactManager.get(pk).firstOrNull().let {
                         if (it != null) {
                             it
@@ -91,9 +91,10 @@ class ActionReceiver : BroadcastReceiver() {
                         }
                     }
                 }
-            } else if (callChoice == "reject") {
-                callManager.endCall(pk)
-                notificationHelper.dismissCallNotification(pk)
+                "reject", "end call" -> {
+                    callManager.endCall(pk)
+                    notificationHelper.dismissCallNotification(pk)
+                }
             }
         }
     }

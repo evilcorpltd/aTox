@@ -204,6 +204,22 @@ class NotificationHelper @Inject constructor(
                     .addDestination(R.id.callFragment, bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey))
                     .createPendingIntent()
             )
+            .addAction(
+                NotificationCompat.Action
+                    .Builder(
+                        IconCompat.createWithResource(context, R.drawable.ic_call_end),
+                        context.getString(R.string.end_call),
+                        PendingIntentCompat.getBroadcast(
+                            context,
+                            "${contact.publicKey}_end_call".hashCode(),
+                            Intent(context, ActionReceiver::class.java)
+                                .putExtra(KEY_CONTACT_PK, contact.publicKey)
+                                .putExtra(KEY_CALL, "end call"),
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                        )
+                    )
+                    .build()
+            )
             .setOngoing(true)
             .setSilent(true)
 
