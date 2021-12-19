@@ -19,9 +19,10 @@ import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentCallBinding
 import ltd.evilcorp.atox.hasPermission
 import ltd.evilcorp.atox.requireStringArg
+import ltd.evilcorp.atox.ui.AvatarFactory
 import ltd.evilcorp.atox.ui.BaseFragment
+import ltd.evilcorp.atox.ui.Dp
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
-import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.tox.PublicKey
@@ -52,7 +53,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
 
         vm.setActiveContact(PublicKey(requireStringArg(CONTACT_PUBLIC_KEY)))
         vm.contact.observe(viewLifecycleOwner) {
-            setAvatarFromContact(callBackground, it, CALL_BACKGROUND_SIZE_DP)
+            AvatarFactory(it).assignInto(callBackground, Dp(CALL_BACKGROUND_SIZE_DP))
         }
 
         endCall.setOnClickListener {

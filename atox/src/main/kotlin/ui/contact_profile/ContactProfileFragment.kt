@@ -13,10 +13,10 @@ import androidx.fragment.app.viewModels
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentContactProfileBinding
 import ltd.evilcorp.atox.requireStringArg
+import ltd.evilcorp.atox.ui.AvatarFactory
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.ui.colorByStatus
-import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.domain.tox.PublicKey
 
@@ -41,7 +41,7 @@ class ContactProfileFragment : BaseFragment<FragmentContactProfileBinding>(Fragm
             contact.name = contact.name.ifEmpty { getString(R.string.contact_default_name) }
 
             headerMainText.text = contact.name
-            setAvatarFromContact(profileLayout.profileImage, contact)
+            AvatarFactory(contact).assignInto(profileLayout.profileImage)
             profileLayout.statusIndicator.setColorFilter(colorByStatus(resources, contact))
 
             contactPublicKey.text = contact.publicKey

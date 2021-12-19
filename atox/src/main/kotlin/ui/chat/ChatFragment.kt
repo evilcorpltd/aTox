@@ -42,9 +42,9 @@ import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentChatBinding
 import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.truncated
+import ltd.evilcorp.atox.ui.AvatarFactory
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.colorByStatus
-import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.FileTransfer
@@ -189,7 +189,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             }.lowercase(Locale.getDefault())
 
             profileLayout.statusIndicator.setColorFilter(colorByStatus(resources, it))
-            setAvatarFromContact(profileLayout.profileImage, it)
+            AvatarFactory(it).assignInto(profileLayout.profileImage)
 
             if (it.draftMessage.isNotEmpty() && outgoingMessage.text.isEmpty()) {
                 outgoingMessage.setText(it.draftMessage)

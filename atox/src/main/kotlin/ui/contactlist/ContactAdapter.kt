@@ -16,8 +16,8 @@ import java.text.DateFormat
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.ContactListViewItemBinding
 import ltd.evilcorp.atox.databinding.FriendRequestItemBinding
+import ltd.evilcorp.atox.ui.AvatarFactory
 import ltd.evilcorp.atox.ui.colorByStatus
-import ltd.evilcorp.atox.ui.setAvatarFromContact
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 
@@ -112,7 +112,7 @@ class ContactAdapter(
                         }
                     }
                     vh.status.setColorFilter(colorByStatus(resources, this))
-                    setAvatarFromContact(vh.image, this)
+                    AvatarFactory(this).assignInto(vh.image)
                     vh.unreadIndicator.visibility = if (hasUnreadMessages) {
                         View.VISIBLE
                     } else {
