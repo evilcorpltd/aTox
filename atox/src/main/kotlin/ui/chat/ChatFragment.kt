@@ -137,7 +137,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             }
         )
 
-        toolbar.setNavigationIcon(R.drawable.back)
+        toolbar.setNavigationIcon(R.drawable.ic_back)
         toolbar.setNavigationOnClickListener {
             WindowInsetsControllerCompat(requireActivity().window, view).hide(WindowInsetsCompat.Type.ime())
             activity?.onBackPressed()

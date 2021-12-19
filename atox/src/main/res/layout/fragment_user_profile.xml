@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="128dp"
                     app:layout_collapseMode="pin"
-                    app:navigationIcon="@drawable/back"
+                    app:navigationIcon="@drawable/ic_back"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
             <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"

@@ -79,7 +79,7 @@
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/send"
                 android:paddingHorizontal="4dp"
-                android:src="@drawable/send"
+                android:src="@drawable/ic_send"
                 android:visibility="gone"
                 app:tint="@color/colorPrimary"/>
 
@@ -90,6 +90,6 @@
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/attach_file"
                 android:paddingHorizontal="4dp"
-                android:src="@drawable/attach_file"/>
+                android:src="@drawable/ic_attach_file"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

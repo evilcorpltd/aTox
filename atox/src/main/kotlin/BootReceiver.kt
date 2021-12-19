@@ -39,7 +39,7 @@ class BootReceiver : BroadcastReceiver() {
                             .createPendingIntent()
                     )
                     .setCategory(NotificationCompat.CATEGORY_STATUS)
-                    .setSmallIcon(R.drawable.notification_icon)
+                    .setSmallIcon(R.drawable.ic_notification)
                     .setAutoCancel(true)
                     .build()
                 val notifier = NotificationManagerCompat.from(context)

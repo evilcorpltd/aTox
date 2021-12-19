@@ -111,7 +111,7 @@ class NotificationHelper @Inject constructor(
             .addAction(
                 NotificationCompat.Action
                     .Builder(
-                        IconCompat.createWithResource(context, R.drawable.send),
+                        IconCompat.createWithResource(context, R.drawable.ic_send),
                         context.getString(R.string.reply),
                         PendingIntentCompat.getBroadcast(
                             context,

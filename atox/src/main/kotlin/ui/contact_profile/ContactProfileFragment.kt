@@ -31,7 +31,7 @@ class ContactProfileFragment : BaseFragment<FragmentContactProfileBinding>(Fragm
             compat
         }
 
-        toolbar.setNavigationIcon(R.drawable.back)
+        toolbar.setNavigationIcon(R.drawable.ic_back)
         toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()
         }
