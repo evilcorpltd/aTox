@@ -68,7 +68,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:src="@mipmap/launcher_icon"
+            android:src="@mipmap/ic_launcher"
             android:visibility="invisible"
             app:shapeAppearanceOverlay="@style/CircleImageView" />
 </RelativeLayout>
