@@ -95,6 +95,7 @@ class ActionReceiver : BroadcastReceiver() {
                     callManager.endCall(pk)
                     notificationHelper.dismissCallNotification(pk)
                 }
+                "ignore" -> callManager.removePendingCall(pk)
             }
         }
     }

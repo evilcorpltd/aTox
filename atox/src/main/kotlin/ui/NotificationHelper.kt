@@ -272,6 +272,16 @@ class NotificationHelper @Inject constructor(
                     )
                     .build()
             )
+            .setDeleteIntent(
+                PendingIntentCompat.getBroadcast(
+                    context,
+                    "${c.publicKey}_ignore_call".hashCode(),
+                    Intent(context, ActionReceiver::class.java)
+                        .putExtra(KEY_CONTACT_PK, c.publicKey)
+                        .putExtra(KEY_CALL, "ignore"),
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            )
 
         notifier.notify(c.publicKey.hashCode() + CALL.hashCode(), notificationBuilder.build())
     }
