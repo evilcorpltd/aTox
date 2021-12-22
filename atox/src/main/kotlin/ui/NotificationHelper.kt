@@ -39,6 +39,7 @@ import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
+import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.tox.PublicKey
 
 private const val MESSAGE = "aTox messages"
@@ -239,7 +240,7 @@ class NotificationHelper @Inject constructor(
         notifier.notify(contact.publicKey.hashCode() + CALL.hashCode(), notificationBuilder.build())
     }
 
-    fun showPendingCallNotification(c: Contact) {
+    fun showPendingCallNotification(status: UserStatus, c: Contact) {
         val notification = NotificationCompat.Builder(context, CALL)
             .setCategory(NotificationCompat.CATEGORY_CALL)
             .setSmallIcon(android.R.drawable.ic_menu_call)
@@ -296,6 +297,7 @@ class NotificationHelper @Inject constructor(
                 )
             )
             .setSound(RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE))
+            .setSilent(status == UserStatus.Busy)
             .build()
             .apply {
                 flags = flags.or(NotificationCompat.FLAG_INSISTENT)
