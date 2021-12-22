@@ -150,6 +150,7 @@
 
     <string name="call">Call</string>
     <string name="microphone_control">Microphone control</string>
+    <string name="error_simultaneous_calls">You can\'t be in multiple calls at the same time right now</string>
     <string name="end_call">End call</string>
     <string name="calls">Calls</string>
     <string name="ongoing_call">Ongoing call</string>

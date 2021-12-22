@@ -20,7 +20,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.feature.CallManager
+import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.tox.PublicKey
@@ -73,6 +75,18 @@ class ActionReceiver : BroadcastReceiver() {
                             Log.e(TAG, "Unable to get contact ${pk.fingerprint()} for call notification")
                             Contact(publicKey = pk.string(), name = pk.fingerprint())
                         }
+                    }
+
+                    if (callManager.inCall.value is CallState.InCall) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.error_simultaneous_calls),
+                                Toast.LENGTH_LONG
+                            ).show()
+                            notificationHelper.showPendingCallNotification(UserStatus.Busy, contact)
+                        }
+                        return@launch
                     }
 
                     try {
