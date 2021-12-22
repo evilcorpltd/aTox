@@ -76,7 +76,7 @@ class ActionReceiver : BroadcastReceiver() {
                     }
 
                     try {
-                        callManager.answerCall(pk)
+                        callManager.startCall(pk)
                         notificationHelper.showOngoingCallNotification(contact)
                     } catch (e: ToxavAnswerException) {
                         Log.e(TAG, e.toString())

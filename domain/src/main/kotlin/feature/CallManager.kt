@@ -70,14 +70,11 @@ class CallManager @Inject constructor(
     }
 
     fun startCall(publicKey: PublicKey) {
-        tox.startCall(publicKey)
-        _inCall.value = CallState.InCall(publicKey, SystemClock.elapsedRealtime())
-        audioManager?.mode = AudioManager.MODE_IN_COMMUNICATION
-        removePendingCall(publicKey)
-    }
-
-    fun answerCall(publicKey: PublicKey) {
-        tox.answerCall(publicKey)
+        if (pendingCalls.value.any { it.publicKey == publicKey.string() }) {
+            tox.answerCall(publicKey)
+        } else {
+            tox.startCall(publicKey)
+        }
         _inCall.value = CallState.InCall(publicKey, SystemClock.elapsedRealtime())
         audioManager?.mode = AudioManager.MODE_IN_COMMUNICATION
         removePendingCall(publicKey)
