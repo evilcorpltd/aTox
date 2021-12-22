@@ -14,6 +14,8 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
+import android.media.AudioAttributes
+import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
@@ -41,7 +43,7 @@ import ltd.evilcorp.domain.tox.PublicKey
 
 private const val MESSAGE = "aTox messages"
 private const val FRIEND_REQUEST = "aTox friend requests"
-private const val CALL = "aTox call"
+private const val CALL = "aTox calls"
 
 @Singleton
 class NotificationHelper @Inject constructor(
@@ -64,8 +66,19 @@ class NotificationHelper @Inject constructor(
             .setName(context.getString(R.string.friend_requests))
             .build()
 
+        val audioAttributes = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE)
+                .build()
+        } else {
+            null
+        }
+
+        val ringtone = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE)
         val callChannel = NotificationChannelCompat.Builder(CALL, NotificationManagerCompat.IMPORTANCE_HIGH)
             .setName(context.getString(R.string.calls))
+            .setSound(ringtone, audioAttributes)
+            .setVibrationEnabled(true)
             .build()
 
         notifier.createNotificationChannelsCompat(listOf(messageChannel, friendChannel, callChannel))
@@ -227,7 +240,7 @@ class NotificationHelper @Inject constructor(
     }
 
     fun showPendingCallNotification(c: Contact) {
-        val notificationBuilder = NotificationCompat.Builder(context, CALL)
+        val notification = NotificationCompat.Builder(context, CALL)
             .setCategory(NotificationCompat.CATEGORY_CALL)
             .setSmallIcon(android.R.drawable.ic_menu_call)
             .setContentTitle(context.getString(R.string.incoming_call))
@@ -282,7 +295,12 @@ class NotificationHelper @Inject constructor(
                     PendingIntent.FLAG_UPDATE_CURRENT
                 )
             )
+            .setSound(RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE))
+            .build()
+            .apply {
+                flags = flags.or(NotificationCompat.FLAG_INSISTENT)
+            }
 
-        notifier.notify(c.publicKey.hashCode() + CALL.hashCode(), notificationBuilder.build())
+        notifier.notify(c.publicKey.hashCode() + CALL.hashCode(), notification)
     }
 }
