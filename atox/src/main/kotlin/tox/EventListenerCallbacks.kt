@@ -176,6 +176,7 @@ class EventListenerCallbacks @Inject constructor(
             scope.launch {
                 val contact = tryGetContact(pk, "Call") ?: return@launch
                 notificationHelper.showPendingCallNotification(contact)
+                callManager.addPendingCall(contact)
             }
         }
 

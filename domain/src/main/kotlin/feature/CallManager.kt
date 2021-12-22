@@ -17,6 +17,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.domain.av.AudioCapture
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
@@ -41,26 +42,53 @@ class CallManager @Inject constructor(
     private val _inCall = MutableStateFlow<CallState>(CallState.NotInCall)
     val inCall: StateFlow<CallState> get() = _inCall
 
+    private val _pendingCalls = MutableStateFlow<MutableSet<Contact>>(mutableSetOf())
+    val pendingCalls: StateFlow<Set<Contact>> get() = _pendingCalls
+
     private val _sendingAudio = MutableStateFlow(false)
     val sendingAudio: StateFlow<Boolean> get() = _sendingAudio
 
     private val audioManager = ContextCompat.getSystemService(context, AudioManager::class.java)
 
+    fun addPendingCall(from: Contact) {
+        val calls = mutableSetOf<Contact>().apply { addAll(_pendingCalls.value) }
+        calls.addAll(_pendingCalls.value)
+        if (calls.add(from)) {
+            Log.i(TAG, "Added pending call ${from.publicKey.take(8)}")
+            _pendingCalls.value = calls
+        }
+    }
+
+    fun removePendingCall(pk: PublicKey) {
+        val calls = mutableSetOf<Contact>().apply { addAll(_pendingCalls.value) }
+        val removed = calls.firstOrNull { it.publicKey == pk.string() }
+        if (removed != null) {
+            Log.i(TAG, "Removed pending call ${pk.fingerprint()}")
+            calls.remove(removed)
+            _pendingCalls.value = calls
+        }
+    }
+
     fun startCall(publicKey: PublicKey) {
         tox.startCall(publicKey)
         _inCall.value = CallState.InCall(publicKey, SystemClock.elapsedRealtime())
         audioManager?.mode = AudioManager.MODE_IN_COMMUNICATION
+        removePendingCall(publicKey)
     }
 
     fun answerCall(publicKey: PublicKey) {
         tox.answerCall(publicKey)
         _inCall.value = CallState.InCall(publicKey, SystemClock.elapsedRealtime())
         audioManager?.mode = AudioManager.MODE_IN_COMMUNICATION
+        removePendingCall(publicKey)
     }
 
     fun endCall(publicKey: PublicKey) {
         audioManager?.mode = AudioManager.MODE_NORMAL
         _inCall.value = CallState.NotInCall
+
+        removePendingCall(publicKey)
+
         try {
             tox.endCall(publicKey)
         } catch (e: ToxavCallControlException) {
