@@ -42,6 +42,8 @@ $(TOOLCHAIN_FILE): $(NDK_HOME) scripts/android.mk
 	mkdir -p $(@D)
 	echo 'set(CMAKE_SYSTEM_NAME Linux)' > $@
 	echo >> $@
+	echo 'set(CMAKE_BUILD_TYPE Release CACHE STRING "")' >> $@
+	echo >> $@
 	echo 'set(CMAKE_SYSROOT $(SYSROOT))' >> $@
 	echo >> $@
 	echo 'set(CMAKE_C_COMPILER $(TOOLCHAIN)/bin/$(VPX_TARGET)-gcc)' >> $@
