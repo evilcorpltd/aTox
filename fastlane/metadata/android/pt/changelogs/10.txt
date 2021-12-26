@@ -1,0 +1,10 @@
+Suporte de chamadas de áudio
+Opção de usar com um perfil Toxicológico criptografado
+Opção para mudar o seu nariz
+Possibilidade de receber ações de texto
+Capacidade de exibir o seu ToxID como um código QR
+Suporte para selecionar vários ficheiros a enviar de uma só vez
+Traduzido para muito mais idiomas
+Atualizado para Toxcore 0.2.13
+
+Changelog completo: https://github.com/evilcorpltd/aTox/releases
