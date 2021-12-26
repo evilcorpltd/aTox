@@ -99,7 +99,7 @@
     <string name="attach_file">Fitxategia atxiki</string>
     <string name="mimetype_handler_not_found">Ez dago \"%1$s\" media mota maneiatu dezakeen aplikaziorik</string>
     <string name="status_dialog_edit_user_status">Zure egoera aldatu</string>
-    <string name="from">Jatorria:</string>
+    <string name="from">Jatorria</string>
     <string name="status_busy">Lanpetuta</string>
     <string name="status_away">Kanpoan</string>
     <string name="status_available">Helgarri</string>
@@ -118,7 +118,7 @@
     <string name="profile_information">Profil informazioa</string>
     <string name="or_import_existing_save">edo inportatu aurretiko Tox artxibategi bat</string>
     <string name="send_as_action">Ekintza bezala bidali</string>
-    <string name="pref_bootstrap_nodes_description">JSON artxibategi norberekotuek https://nodes.tox.chat/json-en formatu bera eduki behar dute</string>
+    <string name="pref_bootstrap_nodes_description">JSON artxibategi norberekotuek https://nodes.tox.chat/json -en formatu bera eduki behar dute</string>
     <string name="pref_bootstrap_node_user_provided">Erabiltzaileak emana</string>
     <string name="pref_bootstrap_node_builtin">Barneratua</string>
     <string name="pref_heading_bootstrap_nodes">Bootstrap nodoaren jatorria</string>

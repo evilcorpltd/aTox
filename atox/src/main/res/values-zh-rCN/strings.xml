@@ -146,4 +146,5 @@
     <string name="pref_block_screenshots">阻止对aTox进行截屏</string>
     <string name="pref_block_screenshots_description">这【只能】阻止【你的】设备上的截屏行为，而【不能】防止你的联系人进行截图或以其他方式保存与你的对话</string>
     <string name="return_to_chat">返回聊天</string>
+    <string name="speakerphone_toggle">免提切换</string>
 </resources>
