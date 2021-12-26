@@ -149,4 +149,5 @@
     <string name="pref_ft_auto_accept_images">Imagens</string>
     <string name="pref_ft_auto_accept_none">Nenhum</string>
     <string name="return_to_chat">Voltar ao chat</string>
+    <string name="speakerphone_toggle">Alternar viva-voz</string>
 </resources>
