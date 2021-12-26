@@ -150,4 +150,8 @@
     <string name="pref_block_screenshots">Screenshots von aTox blockieren</string>
     <string name="return_to_chat">Zurück zum Chat</string>
     <string name="speakerphone_toggle">Freisprecheinrichtung umschalten</string>
+    <string name="atox_profile_locked">aTox-Profil gesperrt</string>
+    <string name="tap_to_unlock_and_start_atox">Tippen Sie auf, um Ihr Profil zu entsperren und aTox zu starten</string>
+    <string name="channel_profile_locked_explanation">Wird gesendet, wenn Ihr Profil für die Ausführung von aTox freigeschaltet werden muss</string>
+    <string name="error_simultaneous_calls">Die gleichzeitige Teilnahme an mehreren Anrufen wird nicht unterstützt</string>
 </resources>

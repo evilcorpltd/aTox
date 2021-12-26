@@ -145,4 +145,10 @@
     <string name="password">Password</string>
     <string name="pref_block_screenshots_description">Questo blocca le schermate **solo** sul **tuo** dispositivo e non fornisce alcuna protezione contro i tuoi contatti che fanno schermate o salvano le tue conversazioni</string>
     <string name="pref_block_screenshots">Blocca le schermate di aTox</string>
+    <string name="speakerphone_toggle">Attiva/disattiva vivavoce</string>
+    <string name="return_to_chat">Ritorna alla discussione</string>
+    <string name="channel_profile_locked_explanation">Inviato quando il tuo profilo deve essere sbloccato per l’esecuzione di aTox</string>
+    <string name="atox_profile_locked">Profilo aTox bloccato</string>
+    <string name="tap_to_unlock_and_start_atox">Tocca per sbloccare il tuo profilo e iniziare aTox</string>
+    <string name="error_simultaneous_calls">Non è supportata la partecipazione a più chiamate contemporaneamente</string>
 </resources>
