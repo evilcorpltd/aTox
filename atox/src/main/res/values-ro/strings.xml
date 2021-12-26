@@ -70,7 +70,7 @@
     <string name="profile_status_message">Modifică mesaj stare</string>
     <string name="profile_status">Modifică stare</string>
     <string name="profile">Profil</string>
-    <string name="tox_id_error_already_exists">Contactul cu acest Tox ID deja există</string>
+    <string name="tox_id_error_already_exists">Contactul cu acest ID Tox deja există</string>
     <string name="tox_service_running">aTox rulează…</string>
     <string name="pref_heading_network">Rețea</string>
     <string name="pref_udp_enabled">UDP activat</string>
@@ -89,7 +89,7 @@
     <string name="cancelled">Anulat</string>
     <string name="completed">Finalizat</string>
     <string name="save_as">Salvează ca…</string>
-    <string name="export_file_success">Fișier salvat cu succes</string>
+    <string name="export_file_success">Fișier exportat</string>
     <string name="export_file_failure">Salvarea fișierului a eșuat. Până la aTox 0.5.1 fișierele erau salvate în mod implicit.</string>
     <string name="draft_message">Ciornă: %1$s</string>
     <string name="pref_heading_address">Adresă IP</string>
@@ -100,7 +100,7 @@
     <string name="bad_type">Tip incorect</string>
     <string name="bad_host">Host incorect</string>
     <string name="bad_port">Port incorect</string>
-    <string name="tox_save_export_failure">Nu am putut salva profilul: %1$s</string>
+    <string name="tox_save_export_failure">Nu am putut exporta datele profilului Tox: %1$s</string>
     <string name="reply">Răspunde</string>
     <string name="pref_auto_away">Stare „Plecat(ă)” în</string>
     <string name="seconds">Secunde</string>
@@ -117,7 +117,7 @@
     <string name="in_call_with">În apel cu %1$s</string>
     <string name="save">Salvează</string>
     <string name="pref_nospam">AntiSpam</string>
-    <string name="pref_nospam_description">La schimbarea AntiSpam se alterează Tox ID-ul tău, care după actualizare va fi folosit pentru a primi cereri de prietenie noi</string>
+    <string name="pref_nospam_description">Setarea AntiSpam alterează ID-ul tău Tox, așadar noi cereri de prietenie va trebui să-ți fie trimise la cel nou</string>
     <string name="saved">Salvat</string>
     <string name="tox_id_error_self_add">Nu te poți adăuga</string>
     <string name="delete_message">Șterge mesaj</string>
@@ -149,4 +149,5 @@
     <string name="pref_theme_follow_system">Urmez sistemul</string>
     <string name="pref_theme_light">Luminoasă</string>
     <string name="pref_theme_dark">Întunecată</string>
+    <string name="from">De la</string>
 </resources>
