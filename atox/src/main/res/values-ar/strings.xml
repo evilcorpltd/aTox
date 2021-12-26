@@ -142,7 +142,7 @@
     <string name="messages_incoming">الرسائل الواردة</string>
     <string name="messages">الرسائل</string>
     <string name="delete_contact">احذف جهة الاتصال</string>
-    <string name="create_a_tox_profile">أنشئ حساب aTox</string>
+    <string name="create_a_tox_profile">أنشئ حساب Tox</string>
     <string name="speakerphone_toggle">فعل\\عطل مكبر الصوت</string>
     <string name="return_to_chat">عُد للمحادثة</string>
     <string name="pref_block_screenshots">منع لقطات الشاشة لـ aTox</string>
