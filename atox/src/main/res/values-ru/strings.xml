@@ -149,4 +149,5 @@
     <string name="pref_block_screenshots_description">Эта функция заблокирует создание скриншотов открытого aTox **только** на **вашем** устройстве, но она не защитит от создания скриншотов вашими контактами или какого-либо другого способа сохранения ими ваших бесед</string>
     <string name="pref_block_screenshots">Блокировка скриншотов aTox</string>
     <string name="return_to_chat">Вернуться в чат</string>
+    <string name="speakerphone_toggle">Переключить динамик</string>
 </resources>
