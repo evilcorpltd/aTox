@@ -145,4 +145,10 @@
     <string name="unlock_profile">Lås upp profil</string>
     <string name="incorrect_password">Felaktigt lösenord</string>
     <string name="password">Lösenord</string>
+    <string name="speakerphone_toggle">Växla högtalarläge</string>
+    <string name="return_to_chat">Återvänd till chatt</string>
+    <string name="tap_to_unlock_and_start_atox">Klicka för att låsa upp din profil och starta aTox</string>
+    <string name="channel_profile_locked_explanation">Skickas när din profil behöver låsas upp för att aTox ska starta</string>
+    <string name="atox_profile_locked">aTox-profil låst</string>
+    <string name="error_simultaneous_calls">Det finns inte stöd för att delta i flera samtal samtidigt</string>
 </resources>
