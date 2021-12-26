@@ -153,5 +153,5 @@
     <string name="tap_to_unlock_and_start_atox">Нажмите, чтобы разблокировать ваш профиль и запустить aTox</string>
     <string name="channel_profile_locked_explanation">Отправляется, когда ваш профиль необходимо разблокировать для запуска aTox</string>
     <string name="atox_profile_locked">Профиль aTox заблокирован</string>
-    <string name="error_simultaneous_calls">Сейчас вы не можете одновременно участвовать в нескольких звонках</string>
+    <string name="error_simultaneous_calls">В данный момент, участие в нескольких звонках одновременно не поддерживается</string>
 </resources>
