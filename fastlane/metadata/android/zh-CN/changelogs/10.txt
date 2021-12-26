@@ -1,0 +1,10 @@
+音频通话支持
+和加密的 Tox 配置文件一起使用的选项
+更改 nospam 的选项
+能够接收文本共享
+能够将您的 ToxID 显示为二维码
+支持一次选择多个要发送的文件
+翻译成更多语言
+更新到 Toxcore 0.2.13
+
+完整更新日志：https://github.com/evilcorpltd/aTox/releases
