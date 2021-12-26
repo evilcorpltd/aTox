@@ -146,4 +146,9 @@
     <string name="unlock_profile">Lås opp profil</string>
     <string name="incorrect_password">Feil passord</string>
     <string name="password">Passord</string>
+    <string name="tap_to_unlock_and_start_atox">Trykk for å låse opp profilen din og state aTox</string>
+    <string name="speakerphone_toggle">Veksle høyttaler</string>
+    <string name="atox_profile_locked">aTox-profil låst</string>
+    <string name="error_simultaneous_calls">Du kan ikke være i flere samtaler</string>
+    <string name="channel_profile_locked_explanation">Sendes når din profil må låses opp for at aTox skal kjøre</string>
 </resources>
