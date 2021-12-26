@@ -145,4 +145,6 @@
     <string name="friend_requests">Barátnak jelöl</string>
     <string name="delete_message_confirm">Biztosan törlöd az \"%1$s\" üzenetet\?</string>
     <string name="import_tox_save_failed">Importálás sikertelen: %1$s</string>
+    <string name="speakerphone_toggle">Kihangosító kapcsolása</string>
+    <string name="return_to_chat">Vissza a csevegéshez</string>
 </resources>
