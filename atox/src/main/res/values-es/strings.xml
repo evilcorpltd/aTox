@@ -149,4 +149,9 @@
     <string name="pref_block_screenshots_description">Esto ** solo ** bloquea capturas de pantalla en ** tu ** dispositivo y no brinda protección contra tus contactos que toman capturas de pantalla o guardan tus conversaciones</string>
     <string name="pref_block_screenshots">Bloquear capturas de pantalla de aTox</string>
     <string name="return_to_chat">Regresar al chat</string>
+    <string name="speakerphone_toggle">Alternar altavoz</string>
+    <string name="atox_profile_locked">Perfil de aTox bloqueado</string>
+    <string name="tap_to_unlock_and_start_atox">Toca para desbloquear tu perfil e iniciar aTox</string>
+    <string name="channel_profile_locked_explanation">Se envía cuando tu perfil necesita ser desbloqueado para que se ejecute aTox</string>
+    <string name="error_simultaneous_calls">La participación en varias llamadas simultáneas no está soportado</string>
 </resources>

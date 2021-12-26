@@ -149,4 +149,5 @@
     <string name="pref_block_screenshots_description">Dies blockiert **nur** Screenshots auf **Ihrem** Gerät und bietet keinen Schutz davor, dass Ihre Kontakte Screenshots machen oder Ihre Unterhaltungen anderweitig speichern</string>
     <string name="pref_block_screenshots">Screenshots von aTox blockieren</string>
     <string name="return_to_chat">Zurück zum Chat</string>
+    <string name="speakerphone_toggle">Freisprecheinrichtung umschalten</string>
 </resources>
