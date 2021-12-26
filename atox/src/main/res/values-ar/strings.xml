@@ -17,7 +17,7 @@
     <string name="navigation_drawer_open">فتاح قائمة التصفح</string>
     <string name="navigation_drawer_close">اغلق قائمة التصفح</string>
     <string name="message">الرسالة</string>
-    <string name="pref_nospam">NoSpam</string>
+    <string name="pref_nospam">بدون إزعاج</string>
     <string name="bad_port">مفذ خاطئ</string>
     <string name="bad_host">الاستضافة خاطئة</string>
     <string name="send_as_action">أرسل كإجراء</string>
@@ -145,6 +145,6 @@
     <string name="create_a_tox_profile">أنشئ حساب Tox</string>
     <string name="speakerphone_toggle">فعل\\عطل مكبر الصوت</string>
     <string name="return_to_chat">عُد للمحادثة</string>
-    <string name="pref_block_screenshots">منع لقطات الشاشة لـ aTox</string>
+    <string name="pref_block_screenshots">منع لقطات الشاشة ل aTox</string>
     <string name="pref_block_screenshots_description">هذا يمنع لقطات الشاشة على جهازك، لكنه لا يمنع جهات الاتصال من أخذ لقطات لمحادثتكم على أجهزتهم</string>
 </resources>

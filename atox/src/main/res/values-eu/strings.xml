@@ -72,7 +72,7 @@
     <string name="microphone_control">Mikrofono kontrola</string>
     <string name="call">Deitu</string>
     <string name="contact_list_delete_contact_confirm">Benetan ezabatu nahi duzu \"%1$s\" kontaktuetatik\?</string>
-    <string name="receive_share_share_to">Partekatu ...-rekin</string>
+    <string name="receive_share_share_to">Partekatu …-rekin</string>
     <string name="error_no_nodes_loaded">Ezin izan dira bootstrap nodoak zamatu, mesedez barneratutako nodoetara aldatu edo nodoak berriz inportatu</string>
     <string name="warn_node_json_import_failed">Akatsa nodoak inportatzean</string>
     <string name="bad_positive_number">Zenbakia positiboa izan behar da</string>

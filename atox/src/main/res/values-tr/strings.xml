@@ -35,7 +35,7 @@
     <string name="end_call">Aramayı Bitir</string>
     <string name="microphone_control">Mikrofon denetimi</string>
     <string name="call">Ara</string>
-    <string name="receive_share_share_to">... ile Paylaş</string>
+    <string name="receive_share_share_to">… ile Paylaş</string>
     <string name="error_no_nodes_loaded">Bootstrap düğümleri içeri alınamadı, lütfen varsayılan düğümlere geçiş yapınız veya yeniden içeri almayı deneyiniz</string>
     <string name="warn_node_json_import_failed">Düğümleri içeri alırken hata</string>
     <string name="bad_positive_number">Sıfırdan büyük sayı olmalıdır</string>
