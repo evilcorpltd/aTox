@@ -146,4 +146,5 @@
     <string name="pref_theme_dark">Σκοτεινό</string>
     <string name="pref_theme_light">Ελαφρύ</string>
     <string name="pref_theme_follow_system">Ίδιο με του συστήματος</string>
+    <string name="speakerphone_toggle">Εναλλαγή εξόδου ήχου</string>
 </resources>
