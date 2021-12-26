@@ -147,4 +147,8 @@
     <string name="pref_block_screenshots_description">这【只能】阻止【你的】设备上的截屏行为，而【不能】防止你的联系人进行截图或以其他方式保存与你的对话</string>
     <string name="return_to_chat">返回聊天</string>
     <string name="speakerphone_toggle">免提切换</string>
+    <string name="tap_to_unlock_and_start_atox">轻按解锁您的个人资料并启动 aTox</string>
+    <string name="atox_profile_locked">已锁定 aTox 个人资料</string>
+    <string name="channel_profile_locked_explanation">当你的个人资料需要解锁才能运行 aTox 时发送</string>
+    <string name="error_simultaneous_calls">不支持同时参与多个通话</string>
 </resources>
