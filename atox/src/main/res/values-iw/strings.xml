@@ -64,7 +64,7 @@
     <string name="pref_proxy_type_socks5">SOCKS5</string>
     <string name="pref_heading_advanced">מתקדם</string>
     <string name="pref_heading_bootstrap_nodes">מקור חוליות אתחול</string>
-    <string name="pref_bootstrap_nodes_description">קובצי JSON המסופקים על ידי המשתמש חייבים להיות באותו פורמט כמו ב-https://nodes.tox.chat/json</string>
+    <string name="pref_bootstrap_nodes_description">קובצי JSON המסופקים על ידי המשתמש חייבים להיות באותו פורמט כמו ב - https://nodes.tox.chat/json</string>
     <string name="pref_block_screenshots_description">זה **רק** חוסם צילומי מסך במכשיר **שלך**, ואינו מספק הגנה מפני צילומי מסך על ידי אנשי הקשר שלך או שמירת השיחות שלך בדרך אחרת</string>
     <string name="profile_status">שנה את הסטטוס שלך</string>
     <string name="pref_ft_auto_accept_images">תמונות</string>
@@ -93,7 +93,7 @@
     <string name="pref_confirm_password">אישור סיסמה חדשה</string>
     <string name="pref_block_screenshots">חסום צילומי מסך של aTox</string>
     <string name="status_away">לא נמצא</string>
-    <string name="mimetype_handler_not_found">אין אפליקציות מותקנות כדי לפתוח את סוג המדיה %1$s</string>
+    <string name="mimetype_handler_not_found">אין אפליקציות מותקנות כדי לפתוח את סוג המדיה \"%1$s\"</string>
     <string name="notification_file_transfer">העברת קובץ נכנסת \"%1$s\"</string>
     <string name="delete">מחק</string>
     <string name="export_file_success">הקובץ יוצא</string>
