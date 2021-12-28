@@ -75,6 +75,11 @@ jobs:
         ./scripts/build-x86_64-linux-android -j$(nproc || sysctl -n hw.ncpu) release
     - name: Build aTox
       run: ./gradlew build
+    - name: Upload apk
+      uses: actions/upload-artifact@v2
+      with:
+        name: atox-debug.apk
+        path: ./atox/build/outputs/apk/debug/atox-debug.apk
 
   bazel:
     runs-on: ubuntu-20.04
