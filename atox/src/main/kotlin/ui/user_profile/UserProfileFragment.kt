@@ -18,7 +18,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.core.graphics.scale
 import androidx.core.view.ViewCompat
@@ -33,6 +32,7 @@ import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentUserProfileBinding
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.StatusDialog
+import ltd.evilcorp.atox.ui.colorFromStatus
 import ltd.evilcorp.atox.ui.dpToPx
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.UserStatus
@@ -46,12 +46,6 @@ private const val QR_CODE_DIALOG_PADDING = 16 // in dp
 class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUserProfileBinding::inflate) {
     private val vm: UserProfileViewModel by viewModels { vmFactory }
     private lateinit var currentStatus: UserStatus
-
-    private fun colorFromStatus(status: UserStatus) = when (status) {
-        UserStatus.None -> ContextCompat.getColor(requireContext(), R.color.statusAvailable)
-        UserStatus.Away -> ContextCompat.getColor(requireContext(), R.color.statusAway)
-        UserStatus.Busy -> ContextCompat.getColor(requireContext(), R.color.statusBusy)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
@@ -73,7 +67,7 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
 
             userName.text = user.name
             userStatusMessage.text = user.statusMessage
-            userStatus.setColorFilter(colorFromStatus(user.status))
+            userStatus.setColorFilter(colorFromStatus(requireContext(), user.status))
         }
 
         userToxId.text = vm.toxId.string()

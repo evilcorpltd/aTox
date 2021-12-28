@@ -16,7 +16,7 @@ import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.ui.AvatarFactory
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
-import ltd.evilcorp.atox.ui.colorByStatus
+import ltd.evilcorp.atox.ui.colorByContactStatus
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.domain.tox.PublicKey
 
@@ -42,7 +42,7 @@ class ContactProfileFragment : BaseFragment<FragmentContactProfileBinding>(Fragm
 
             headerMainText.text = contact.name
             AvatarFactory(contact).assignInto(profileLayout.profileImage)
-            profileLayout.statusIndicator.setColorFilter(colorByStatus(requireContext(), contact))
+            profileLayout.statusIndicator.setColorFilter(colorByContactStatus(requireContext(), contact))
 
             contactPublicKey.text = contact.publicKey
             contactName.text = contact.name

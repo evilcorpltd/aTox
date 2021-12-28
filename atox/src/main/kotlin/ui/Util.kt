@@ -13,16 +13,15 @@ import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.UserStatus
 
-internal fun colorByStatus(context: Context, contact: Contact): Int {
-    if (contact.connectionStatus == ConnectionStatus.None) return ContextCompat.getColor(
-        context,
-        R.color.statusOffline,
-    )
-    return when (contact.status) {
-        UserStatus.None -> ContextCompat.getColor(context, R.color.statusAvailable)
-        UserStatus.Away -> ContextCompat.getColor(context, R.color.statusAway)
-        UserStatus.Busy -> ContextCompat.getColor(context, R.color.statusBusy)
-    }
+internal fun colorByContactStatus(context: Context, contact: Contact) =
+    if (contact.connectionStatus == ConnectionStatus.None)
+        ContextCompat.getColor(context, R.color.statusOffline)
+    else colorFromStatus(context, contact.status)
+
+internal fun colorFromStatus(context: Context, status: UserStatus) = when (status) {
+    UserStatus.None -> ContextCompat.getColor(context, R.color.statusAvailable)
+    UserStatus.Away -> ContextCompat.getColor(context, R.color.statusAway)
+    UserStatus.Busy -> ContextCompat.getColor(context, R.color.statusBusy)
 }
 
 internal fun dpToPx(dp: Int, res: Resources): Int =

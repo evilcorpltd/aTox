@@ -22,7 +22,6 @@ import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
@@ -40,13 +39,13 @@ import ltd.evilcorp.atox.truncated
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.ReceiveShareDialog
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
+import ltd.evilcorp.atox.ui.colorFromStatus
 import ltd.evilcorp.atox.ui.friend_request.FRIEND_REQUEST_PUBLIC_KEY
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.User
-import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.ToxSaveStatus
 
@@ -73,12 +72,6 @@ class ContactListFragment :
     private val exportToxSaveLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument()) { dest ->
         if (dest == null) return@registerForActivityResult
         viewModel.saveToxBackupTo(dest)
-    }
-
-    private fun colorFromStatus(status: UserStatus) = when (status) {
-        UserStatus.None -> ContextCompat.getColor(requireContext(), R.color.statusAvailable)
-        UserStatus.Away -> ContextCompat.getColor(requireContext(), R.color.statusAway)
-        UserStatus.Busy -> ContextCompat.getColor(requireContext(), R.color.statusBusy)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -110,7 +103,7 @@ class ContactListFragment :
                 profileStatusMessage.text = user.statusMessage
 
                 if (user.online()) {
-                    statusIndicator.setColorFilter(colorFromStatus(user.status))
+                    statusIndicator.setColorFilter(colorFromStatus(requireContext(), user.status))
                 } else {
                     statusIndicator.setColorFilter(R.color.statusOffline)
                 }
