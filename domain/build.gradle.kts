@@ -96,5 +96,10 @@ dependencies {
     testImplementation(Test.junit)
     androidTestImplementation(AndroidX.Test.runner)
     androidTestImplementation(AndroidX.Test.Ext.junit)
+    androidTestImplementation(Google.Guava.workaround)
+    androidTestImplementation(KotlinX.Coroutines.test) {
+        // Conflicts with a lot of things due to having embedded "byte buddy" instead of depending on it.A
+        exclude("org.jetbrains.kotlinx", "kotlinx-coroutines-debug")
+    }
     androidTestImplementation(Test.mockk)
 }

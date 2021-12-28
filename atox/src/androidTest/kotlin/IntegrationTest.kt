@@ -29,9 +29,9 @@ import javax.inject.Singleton
 import ltd.evilcorp.atox.di.AndroidModule
 import ltd.evilcorp.atox.di.AppComponent
 import ltd.evilcorp.atox.di.AppModule
+import ltd.evilcorp.atox.di.DaoModule
 import ltd.evilcorp.atox.di.ViewModelModule
 import ltd.evilcorp.core.db.Database
-import ltd.evilcorp.core.di.DaoModule
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.SaveManager
 import org.hamcrest.core.AllOf.allOf
