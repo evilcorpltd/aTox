@@ -13,8 +13,8 @@ android {
         applicationId = "ltd.evilcorp.atox"
         minSdk = AndroidSdk.minVersion
         targetSdk = AndroidSdk.targetVersion
-        versionCode = 9
-        versionName = "0.6.0"
+        versionCode = 10
+        versionName = "0.7.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
     }
