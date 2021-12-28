@@ -20,9 +20,9 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.getSystemService
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsAnimationCompat
@@ -188,7 +188,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                 else -> DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(it.lastMessage)
             }.lowercase(Locale.getDefault())
 
-            profileLayout.statusIndicator.setColorFilter(colorByStatus(resources, it))
+            profileLayout.statusIndicator.setColorFilter(colorByStatus(requireContext(), it))
             AvatarFactory(it).assignInto(profileLayout.profileImage)
 
             if (it.draftMessage.isNotEmpty() && outgoingMessage.text.isEmpty()) {
@@ -398,10 +398,9 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         attach.visibility = if (send.visibility == View.VISIBLE) View.GONE else View.VISIBLE
         attach.isEnabled = viewModel.contactOnline
         attach.setColorFilter(
-            ResourcesCompat.getColor(
-                resources,
+            ContextCompat.getColor(
+                requireContext(),
                 if (attach.isEnabled) R.color.colorPrimary else android.R.color.darker_gray,
-                null
             )
         )
     }

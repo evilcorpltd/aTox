@@ -20,8 +20,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.scale
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -52,9 +52,9 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
     private lateinit var currentStatus: UserStatus
 
     private fun colorFromStatus(status: UserStatus) = when (status) {
-        UserStatus.None -> ResourcesCompat.getColor(resources, R.color.statusAvailable, null)
-        UserStatus.Away -> ResourcesCompat.getColor(resources, R.color.statusAway, null)
-        UserStatus.Busy -> ResourcesCompat.getColor(resources, R.color.statusBusy, null)
+        UserStatus.None -> ContextCompat.getColor(requireContext(), R.color.statusAvailable)
+        UserStatus.Away -> ContextCompat.getColor(requireContext(), R.color.statusAway)
+        UserStatus.Busy -> ContextCompat.getColor(requireContext(), R.color.statusBusy)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {

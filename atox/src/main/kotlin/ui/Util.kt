@@ -4,24 +4,24 @@
 
 package ltd.evilcorp.atox.ui
 
+import android.content.Context
 import android.content.res.Resources
 import android.util.TypedValue
-import androidx.core.content.res.ResourcesCompat
+import androidx.core.content.ContextCompat
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.UserStatus
 
-internal fun colorByStatus(resources: Resources, contact: Contact): Int {
-    if (contact.connectionStatus == ConnectionStatus.None) return ResourcesCompat.getColor(
-        resources,
+internal fun colorByStatus(context: Context, contact: Contact): Int {
+    if (contact.connectionStatus == ConnectionStatus.None) return ContextCompat.getColor(
+        context,
         R.color.statusOffline,
-        null
     )
     return when (contact.status) {
-        UserStatus.None -> ResourcesCompat.getColor(resources, R.color.statusAvailable, null)
-        UserStatus.Away -> ResourcesCompat.getColor(resources, R.color.statusAway, null)
-        UserStatus.Busy -> ResourcesCompat.getColor(resources, R.color.statusBusy, null)
+        UserStatus.None -> ContextCompat.getColor(context, R.color.statusAvailable)
+        UserStatus.Away -> ContextCompat.getColor(context, R.color.statusAway)
+        UserStatus.Busy -> ContextCompat.getColor(context, R.color.statusBusy)
     }
 }
 

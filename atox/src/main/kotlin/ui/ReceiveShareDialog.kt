@@ -37,7 +37,7 @@ class ReceiveShareDialog(
         binding.sharingText.text = String.format("%s", sharePreview.truncated(SHARE_TEXT_PREVIEW_LENGTH))
 
         binding.contacts.let {
-            it.adapter = ContactAdapter(layoutInflater, context.resources).apply {
+            it.adapter = ContactAdapter(layoutInflater, context).apply {
                 contacts = this@ReceiveShareDialog.contacts
                 notifyDataSetChanged()
             }

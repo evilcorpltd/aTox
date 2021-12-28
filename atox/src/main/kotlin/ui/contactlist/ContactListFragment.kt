@@ -22,7 +22,7 @@ import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.res.ResourcesCompat
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
@@ -76,9 +76,9 @@ class ContactListFragment :
     }
 
     private fun colorFromStatus(status: UserStatus) = when (status) {
-        UserStatus.None -> ResourcesCompat.getColor(resources, R.color.statusAvailable, null)
-        UserStatus.Away -> ResourcesCompat.getColor(resources, R.color.statusAway, null)
-        UserStatus.Busy -> ResourcesCompat.getColor(resources, R.color.statusBusy, null)
+        UserStatus.None -> ContextCompat.getColor(requireContext(), R.color.statusAvailable)
+        UserStatus.Away -> ContextCompat.getColor(requireContext(), R.color.statusAway)
+        UserStatus.Busy -> ContextCompat.getColor(requireContext(), R.color.statusBusy)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -125,7 +125,7 @@ class ContactListFragment :
 
         navView.setNavigationItemSelectedListener(this@ContactListFragment)
 
-        val contactAdapter = ContactAdapter(layoutInflater, resources)
+        val contactAdapter = ContactAdapter(layoutInflater, requireContext())
         contactList.adapter = contactAdapter
         registerForContextMenu(contactList)
 

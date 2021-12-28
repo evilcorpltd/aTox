@@ -42,7 +42,7 @@ class ContactProfileFragment : BaseFragment<FragmentContactProfileBinding>(Fragm
 
             headerMainText.text = contact.name
             AvatarFactory(contact).assignInto(profileLayout.profileImage)
-            profileLayout.statusIndicator.setColorFilter(colorByStatus(resources, contact))
+            profileLayout.statusIndicator.setColorFilter(colorByStatus(requireContext(), contact))
 
             contactPublicKey.text = contact.publicKey
             contactName.text = contact.name

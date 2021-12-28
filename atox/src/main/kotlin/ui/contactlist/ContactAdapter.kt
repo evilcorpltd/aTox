@@ -4,14 +4,14 @@
 
 package ltd.evilcorp.atox.ui.contactlist
 
-import android.content.res.Resources
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
+import androidx.core.content.ContextCompat
 import java.text.DateFormat
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.ContactListViewItemBinding
@@ -30,7 +30,7 @@ private val types = ContactListItemType.values()
 
 class ContactAdapter(
     private val inflater: LayoutInflater,
-    private val resources: Resources
+    private val context: Context
 ) : BaseAdapter() {
     var friendRequests: List<FriendRequest> = listOf()
     var contacts: List<Contact> = listOf()
@@ -84,7 +84,7 @@ class ContactAdapter(
                 }
 
                 contacts[position - friendRequests.size].run {
-                    name = name.ifEmpty { resources.getString(R.string.contact_default_name) }
+                    name = name.ifEmpty { context.getString(R.string.contact_default_name) }
 
                     val shortId = publicKey.take(8)
                     vh.publicKey.text = String.format("%s %s", shortId.take(4), shortId.takeLast(4))
@@ -93,17 +93,17 @@ class ContactAdapter(
                         DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT)
                             .format(lastMessage)
                     } else {
-                        resources.getText(R.string.never)
+                        context.getText(R.string.never)
                     }
                     when {
                         typing -> {
-                            vh.statusMessage.text = resources.getString(R.string.contact_typing)
+                            vh.statusMessage.text = context.getString(R.string.contact_typing)
                             vh.statusMessage.setTextColor(vh.lastMessage.currentTextColor)
                         }
                         draftMessage.isNotEmpty() -> {
-                            vh.statusMessage.text = resources.getString(R.string.draft_message, draftMessage)
+                            vh.statusMessage.text = context.getString(R.string.draft_message, draftMessage)
                             vh.statusMessage.setTextColor(
-                                ResourcesCompat.getColor(resources, R.color.colorAccent, null)
+                                ContextCompat.getColor(context, R.color.colorAccent)
                             )
                         }
                         else -> {
@@ -111,7 +111,7 @@ class ContactAdapter(
                             vh.statusMessage.setTextColor(vh.lastMessage.currentTextColor)
                         }
                     }
-                    vh.status.setColorFilter(colorByStatus(resources, this))
+                    vh.status.setColorFilter(colorByStatus(context, this))
                     AvatarFactory(this).assignInto(vh.image)
                     vh.unreadIndicator.visibility = if (hasUnreadMessages) {
                         View.VISIBLE
