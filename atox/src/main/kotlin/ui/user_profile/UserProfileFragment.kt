@@ -7,12 +7,10 @@ package ltd.evilcorp.atox.ui.user_profile
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import android.text.InputFilter
-import android.util.TypedValue
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
@@ -35,6 +33,7 @@ import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentUserProfileBinding
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.StatusDialog
+import ltd.evilcorp.atox.ui.dpToPx
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.UserStatus
 
@@ -42,10 +41,7 @@ private const val TOX_MAX_NAME_LENGTH = 128
 private const val TOX_MAX_STATUS_MESSAGE_LENGTH = 1007
 
 private const val QR_CODE_TO_SCREEN_RATIO = 0.5f
-private const val QR_CODE_DIALOG_PADDING = 16f // in dp
-
-private fun dpToPx(dp: Float, res: Resources): Int =
-    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.displayMetrics).toInt()
+private const val QR_CODE_DIALOG_PADDING = 16 // in dp
 
 class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUserProfileBinding::inflate) {
     private val vm: UserProfileViewModel by viewModels { vmFactory }
