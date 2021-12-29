@@ -20,10 +20,6 @@ import ltd.evilcorp.core.vo.Contact
 // Class for creating an avatar for contact and assigning it into an ImageView
 internal class AvatarFactory(contact: Contact) {
 
-    companion object {
-        const val DEFAULT_AVATAR_SIZE_DP = 50f
-    }
-
     private val name: String = contact.name
     private val publicKey: String = contact.publicKey
     private val avatarUri: String = contact.avatarUri
@@ -39,12 +35,16 @@ internal class AvatarFactory(contact: Contact) {
      * then it will be set to the image view, otherwise a new avatar image will be created based
      * on the initials of the name and the public key for the background color.
      */
-    fun assignInto(imageView: ImageView, size: Size = Dp(DEFAULT_AVATAR_SIZE_DP)) =
+    fun assignInto(
+        imageView: ImageView,
+        size: Size = Px(imageView.resources.getDimension(R.dimen.default_avatar_size).toInt())
+    ) =
         if (avatarUri.isNotEmpty()) {
             imageView.setImageURI(Uri.parse(avatarUri))
         } else {
+            val defaultAvatarSize = imageView.resources.getDimension(R.dimen.default_avatar_size).toInt()
             val side = size.asPx(imageView.resources).px
-            val textScale = side.toFloat() / Dp(DEFAULT_AVATAR_SIZE_DP).asPx(imageView.resources).px
+            val textScale = side / defaultAvatarSize
 
             val bitmap = Bitmap.createBitmap(side, side, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bitmap)

@@ -8,4 +8,6 @@
     <dimen name="message_margin">50dp</dimen>
 
     <dimen name="contact_avatar_placeholder_text">32dp</dimen>
+
+    <dimen name="default_avatar_size">50dp</dimen>
 </resources>
