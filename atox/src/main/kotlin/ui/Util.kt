@@ -24,5 +24,5 @@ internal fun colorFromStatus(context: Context, status: UserStatus) = when (statu
     UserStatus.Busy -> ContextCompat.getColor(context, R.color.statusBusy)
 }
 
-internal fun dpToPx(dp: Int, res: Resources): Int =
-    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), res.displayMetrics).toInt()
+internal fun dpToPx(dp: Float, res: Resources): Int =
+    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.displayMetrics).toInt()

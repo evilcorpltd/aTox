@@ -26,7 +26,7 @@ data class Px(val px: Int) : Size {
     override fun asPx(res: Resources) = this
 }
 
-data class Dp(val dp: Int) : Size {
+data class Dp(val dp: Float) : Size {
     override fun asPx(res: Resources): Px = Px(dpToPx(dp, res))
 }
 
@@ -34,7 +34,7 @@ data class Dp(val dp: Int) : Size {
 internal class AvatarFactory(contact: Contact) {
 
     companion object {
-        const val DEFAULT_AVATAR_SIZE_DP = 50
+        const val DEFAULT_AVATAR_SIZE_DP = 50f
     }
 
     private val name: String = contact.name

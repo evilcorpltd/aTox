@@ -41,7 +41,7 @@ private const val TOX_MAX_NAME_LENGTH = 128
 private const val TOX_MAX_STATUS_MESSAGE_LENGTH = 1007
 
 private const val QR_CODE_TO_SCREEN_RATIO = 0.5f
-private const val QR_CODE_DIALOG_PADDING = 16 // in dp
+private const val QR_CODE_DIALOG_PADDING = 16f // in dp
 
 class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUserProfileBinding::inflate) {
     private val vm: UserProfileViewModel by viewModels { vmFactory }

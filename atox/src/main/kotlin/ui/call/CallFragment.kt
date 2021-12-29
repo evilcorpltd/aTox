@@ -29,7 +29,7 @@ import ltd.evilcorp.domain.tox.PublicKey
 
 private const val PERMISSION = Manifest.permission.RECORD_AUDIO
 
-private const val CALL_BACKGROUND_SIZE_DP = 500
+private const val CALL_BACKGROUND_SIZE_DP = 500f
 
 class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::inflate) {
     private val vm: CallViewModel by viewModels { vmFactory }
