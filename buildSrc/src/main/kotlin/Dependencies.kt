@@ -32,7 +32,7 @@ object JavaX {
 
 object KotlinX {
     object Coroutines {
-        private const val version = "1.5.2"
+        private const val version = "1.6.0"
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
         const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
@@ -52,7 +52,7 @@ object AndroidX {
     const val fragment = "androidx.fragment:fragment:1.4.0"
 
     object Navigation {
-        private const val version = "2.4.0-beta02"
+        private const val version = "2.4.0-rc01"
         const val fragment = "androidx.navigation:navigation-fragment:$version"
         const val ui = "androidx.navigation:navigation-ui:$version"
     }
@@ -67,7 +67,7 @@ object AndroidX {
     const val multidex = "androidx.multidex:multidex:2.0.1"
 
     object Room {
-        private const val version = "2.3.0"
+        private const val version = "2.4.0"
         const val runtime = "androidx.room:room-runtime:$version"
         const val ktx = "androidx.room:room-ktx:$version"
         const val compiler = "androidx.room:room-compiler:$version"
