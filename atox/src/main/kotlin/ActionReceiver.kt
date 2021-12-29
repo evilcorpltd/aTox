@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ltd.evilcorp.atox.ui.NotificationHelper
+import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.feature.CallManager
@@ -45,6 +46,9 @@ class ActionReceiver : BroadcastReceiver() {
     lateinit var contactManager: ContactManager
 
     @Inject
+    lateinit var contactRepository: ContactRepository
+
+    @Inject
     lateinit var notificationHelper: NotificationHelper
 
     @Inject
@@ -59,6 +63,9 @@ class ActionReceiver : BroadcastReceiver() {
         RemoteInput.getResultsFromIntent(intent)?.let { results ->
             results.getCharSequence(KEY_TEXT_REPLY)?.toString()?.let { input ->
                 val pk = intent.getStringExtra(KEY_CONTACT_PK) ?: return
+                scope.launch {
+                    contactRepository.setHasUnreadMessages(pk, false)
+                }
                 chatManager.sendMessage(PublicKey(pk), input)
                 notificationHelper.showMessageNotification(Contact(pk, tox.getName()), input, outgoing = true)
             }
