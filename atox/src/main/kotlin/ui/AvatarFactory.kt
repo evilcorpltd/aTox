@@ -4,7 +4,6 @@
 
 package ltd.evilcorp.atox.ui
 
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -17,18 +16,6 @@ import android.widget.ImageView
 import kotlin.math.abs
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.core.vo.Contact
-
-sealed interface Size {
-    fun asPx(res: Resources): Px
-}
-
-data class Px(val px: Int) : Size {
-    override fun asPx(res: Resources) = this
-}
-
-data class Dp(val dp: Float) : Size {
-    override fun asPx(res: Resources): Px = Px(dpToPx(dp, res))
-}
 
 // Class for creating an avatar for contact and assigning it into an ImageView
 internal class AvatarFactory(contact: Contact) {
