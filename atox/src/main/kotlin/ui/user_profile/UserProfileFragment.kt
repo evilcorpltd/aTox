@@ -8,7 +8,10 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.ContextMenu
@@ -18,6 +21,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.FileProvider
 import androidx.core.content.getSystemService
 import androidx.core.graphics.scale
 import androidx.core.view.ViewCompat
@@ -25,23 +29,34 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.setPadding
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import io.nayuki.qrcodegen.QrCode
+import java.io.File
+import java.io.FileOutputStream
 import kotlin.math.min
-import kotlin.math.roundToInt
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentUserProfileBinding
 import ltd.evilcorp.atox.ui.BaseFragment
+import ltd.evilcorp.atox.ui.Dp
+import ltd.evilcorp.atox.ui.Px
+import ltd.evilcorp.atox.ui.Size
 import ltd.evilcorp.atox.ui.StatusDialog
 import ltd.evilcorp.atox.ui.colorFromStatus
-import ltd.evilcorp.atox.ui.dpToPx
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.UserStatus
+import ltd.evilcorp.domain.tox.ToxID
 
 private const val TOX_MAX_NAME_LENGTH = 128
 private const val TOX_MAX_STATUS_MESSAGE_LENGTH = 1007
 
 private const val QR_CODE_TO_SCREEN_RATIO = 0.5f
-private const val QR_CODE_DIALOG_PADDING = 16f // in dp
+private val qrCodePadding = Dp(16f)
+private val qrCodeSharedImageSize = Px(1024)
+private val qrCodeSharedImagePadding = Px(200)
 
 class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUserProfileBinding::inflate) {
     private val vm: UserProfileViewModel by viewModels { vmFactory }
@@ -155,23 +170,78 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
     }
 
     private fun createQrCodeDialog(): AlertDialog {
-        val qrData = QrCode.encodeText("tox:%s".format(vm.toxId.string()), QrCode.Ecc.LOW)
-        var bmp: Bitmap = Bitmap.createBitmap(qrData.size, qrData.size, Bitmap.Config.RGB_565)
-        for (x in 0 until qrData.size) {
-            for (y in 0 until qrData.size) {
-                bmp.setPixel(x, y, if (qrData.getModule(x, y)) Color.BLACK else Color.WHITE)
-            }
-        }
-        val metrics = resources.displayMetrics
-        val size = (min(metrics.widthPixels, metrics.heightPixels) * QR_CODE_TO_SCREEN_RATIO).roundToInt()
-        bmp = bmp.scale(size, size, false)
+        val qrSize =
+            min(resources.displayMetrics.widthPixels, resources.displayMetrics.heightPixels) * QR_CODE_TO_SCREEN_RATIO
+        val bmp = asQr(vm.toxId, Px(qrSize.toInt()), qrCodePadding)
         val qrCode = ImageView(requireContext()).apply {
-            setPadding(dpToPx(QR_CODE_DIALOG_PADDING, resources))
+            setPadding(qrCodePadding.asPx(resources).px)
             setImageBitmap(bmp)
         }
+
         return AlertDialog.Builder(requireContext())
             .setTitle(R.string.tox_id)
             .setView(qrCode)
+            .setPositiveButton(getString(R.string.share)) { _, _ ->
+                vm.viewModelScope.launch {
+                    val qrImageUri = getQrForSharing()
+                    val shareIntent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        clipData = ClipData.newRawUri(null, qrImageUri)
+                        type = "image/png"
+                        putExtra(Intent.EXTRA_STREAM, qrImageUri)
+                        flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    }
+                    startActivity(Intent.createChooser(shareIntent, getString(R.string.tox_id_share)))
+                }
+            }
+            .setNegativeButton(getString(R.string.cancel), null)
             .create()
     }
+
+    private fun saveQrForSharing(qrBmp: Bitmap): Uri {
+        val imagesFolder = File(requireContext().cacheDir, "shared_images").apply { mkdirs() }
+        val file = File(imagesFolder, "tox_id_qr_code.png")
+        FileOutputStream(file).use { stream ->
+            qrBmp.compress(Bitmap.CompressFormat.PNG, 90, stream)
+        }
+
+        return FileProvider.getUriForFile(requireContext(), "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+    }
+
+    private fun asQr(id: ToxID, qrSize: Size, padding: Size): Bitmap {
+        val qrData = QrCode.encodeText("tox:%s".format(id.string()), QrCode.Ecc.LOW)
+        var bmpQr: Bitmap = Bitmap.createBitmap(qrData.size, qrData.size, Bitmap.Config.RGB_565)
+        for (x in 0 until qrData.size) {
+            for (y in 0 until qrData.size) {
+                bmpQr.setPixel(x, y, if (qrData.getModule(x, y)) Color.BLACK else Color.WHITE)
+            }
+        }
+
+        val qrSizePx = qrSize.asPx(resources).px
+        bmpQr = bmpQr.scale(qrSizePx, qrSizePx, false)
+
+        val paddingPx = padding.asPx(resources).px
+        val bmpQrWithPadding =
+            Bitmap.createBitmap(
+                bmpQr.width + 2 * paddingPx,
+                bmpQr.height + 2 * paddingPx,
+                Bitmap.Config.RGB_565
+            )
+        val canvas = Canvas(bmpQrWithPadding)
+        canvas.drawPaint(
+            Paint().apply {
+                color = Color.WHITE
+                style = Paint.Style.FILL
+            }
+        )
+        canvas.drawBitmap(bmpQr, paddingPx.toFloat(), paddingPx.toFloat(), null)
+
+        return bmpQrWithPadding
+    }
+
+    private suspend fun getQrForSharing(): Uri =
+        withContext(Dispatchers.IO) {
+            val bmp = asQr(vm.toxId, qrCodeSharedImageSize, qrCodeSharedImagePadding)
+            saveQrForSharing(bmp)
+        }
 }
