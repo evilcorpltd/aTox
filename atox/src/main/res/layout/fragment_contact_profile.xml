@@ -8,20 +8,20 @@
         tools:context=".ui.contactprofile.ContactProfileFragment">
     <com.google.android.material.appbar.AppBarLayout android:id="@+id/appBar"
             android:layout_width="match_parent"
-            android:layout_height="128dp"
+            android:layout_height="wrap_content"
             android:fitsSystemWindows="true">
         <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-        <LinearLayout android:layout_width="wrap_content"
+        <RelativeLayout android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp">
+                android:layout_margin="16dp">
 
             <ltd.evilcorp.atox.ui.AvatarImageView
                     android:id="@+id/avatarImageView"
-                    android:layout_height="38dp"
-                    android:layout_width="38dp"
+                    android:layout_height="@dimen/default_avatar_size"
+                    android:layout_width="@dimen/default_avatar_size"
                     app:shapeAppearanceOverlay="@style/CircleImageView"
                     app:strokeColor="@null" />
 
@@ -29,10 +29,12 @@
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/avatarImageView"
                     android:textColor="@android:color/white"
                     tools:text="Contact name or something here"/>
-        </LinearLayout>
+        </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout android:id="@+id/content"
