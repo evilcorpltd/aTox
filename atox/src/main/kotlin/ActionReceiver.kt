@@ -68,18 +68,22 @@ class ActionReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         (context.applicationContext as App).component.inject(this)
 
+        val pk = intent.getStringExtra(KEY_CONTACT_PK)?.let { PublicKey(it) }
+        if (pk == null) {
+            Log.e(TAG, "Got intent without required key $KEY_CONTACT_PK $intent")
+            return
+        }
+
         RemoteInput.getResultsFromIntent(intent)?.let { results ->
             results.getCharSequence(KEY_TEXT_REPLY)?.toString()?.let { input ->
-                val pk = intent.getStringExtra(KEY_CONTACT_PK) ?: return
                 scope.launch {
-                    contactRepository.setHasUnreadMessages(pk, false)
+                    contactRepository.setHasUnreadMessages(pk.string(), false)
                 }
-                chatManager.sendMessage(PublicKey(pk), input)
-                notificationHelper.showMessageNotification(Contact(pk, tox.getName()), input, outgoing = true)
+                chatManager.sendMessage(pk, input)
+                notificationHelper.showMessageNotification(Contact(pk.string(), tox.getName()), input, outgoing = true)
             }
         }
 
-        val pk = intent.getStringExtra(KEY_CONTACT_PK)?.let { PublicKey(it) } ?: return
         when (intent.getSerializableExtra(KEY_ACTION) as Action?) {
             Action.CallAccept -> acceptCall(context, pk)
             Action.CallEnd, Action.CallReject -> {
