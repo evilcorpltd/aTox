@@ -123,42 +123,6 @@ class NotificationHelper @Inject constructor(
                     .createPendingIntent()
             )
             .setAutoCancel(true)
-            .addAction(
-                NotificationCompat.Action
-                    .Builder(
-                        IconCompat.createWithResource(context, R.drawable.ic_send),
-                        context.getString(R.string.reply),
-                        PendingIntentCompat.getBroadcast(
-                            context,
-                            contact.publicKey.hashCode(),
-                            Intent(context, ActionReceiver::class.java).putExtra(KEY_CONTACT_PK, contact.publicKey),
-                            PendingIntent.FLAG_UPDATE_CURRENT,
-                            mutable = true,
-                        )
-                    )
-                    .addRemoteInput(
-                        RemoteInput.Builder(KEY_TEXT_REPLY)
-                            .setLabel(context.getString(R.string.message))
-                            .build()
-                    )
-                    .setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_REPLY)
-                    .setAllowGeneratedReplies(true)
-                    .build()
-            )
-            .addAction(
-                NotificationCompat.Action.Builder(
-                    null,
-                    context.getString(R.string.mark_as_read),
-                    PendingIntentCompat.getBroadcast(
-                        context,
-                        "${contact.publicKey}_mark_as_read".hashCode(),
-                        Intent(context, ActionReceiver::class.java)
-                            .putExtra(KEY_CONTACT_PK, contact.publicKey)
-                            .putExtra(KEY_ACTION, Action.MarkAsRead),
-                        PendingIntent.FLAG_UPDATE_CURRENT,
-                    )
-                ).setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_MARK_AS_READ).build()
-            )
 
         if (outgoing) {
             notificationBuilder.setSilent(true)
@@ -189,6 +153,49 @@ class NotificationHelper @Inject constructor(
                 .setStyle(style)
                 .setGroup(contact.publicKey)
         }
+
+        // I can't find it in the documentation for RemoteInput or anything, but per
+        // https://developer.android.com/training/notify-user/build-notification#reply-action
+        // support for this was only introduced in Android N (API 24).
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            notificationBuilder.addAction(
+                NotificationCompat.Action
+                    .Builder(
+                        IconCompat.createWithResource(context, R.drawable.ic_send),
+                        context.getString(R.string.reply),
+                        PendingIntentCompat.getBroadcast(
+                            context,
+                            contact.publicKey.hashCode(),
+                            Intent(context, ActionReceiver::class.java).putExtra(KEY_CONTACT_PK, contact.publicKey),
+                            PendingIntent.FLAG_UPDATE_CURRENT,
+                            mutable = true,
+                        )
+                    )
+                    .addRemoteInput(
+                        RemoteInput.Builder(KEY_TEXT_REPLY)
+                            .setLabel(context.getString(R.string.message))
+                            .build()
+                    )
+                    .setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_REPLY)
+                    .setAllowGeneratedReplies(true)
+                    .build()
+            )
+        }
+
+        notificationBuilder.addAction(
+            NotificationCompat.Action.Builder(
+                null,
+                context.getString(R.string.mark_as_read),
+                PendingIntentCompat.getBroadcast(
+                    context,
+                    "${contact.publicKey}_mark_as_read".hashCode(),
+                    Intent(context, ActionReceiver::class.java)
+                        .putExtra(KEY_CONTACT_PK, contact.publicKey)
+                        .putExtra(KEY_ACTION, Action.MarkAsRead),
+                    PendingIntent.FLAG_UPDATE_CURRENT,
+                )
+            ).setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_MARK_AS_READ).build()
+        )
 
         notifier.notify(contact.publicKey.hashCode(), notificationBuilder.build())
     }
