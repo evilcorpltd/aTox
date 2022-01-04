@@ -33,7 +33,6 @@ import javax.inject.Singleton
 import ltd.evilcorp.atox.Action
 import ltd.evilcorp.atox.ActionReceiver
 import ltd.evilcorp.atox.KEY_ACTION
-import ltd.evilcorp.atox.KEY_CALL
 import ltd.evilcorp.atox.KEY_CONTACT_PK
 import ltd.evilcorp.atox.KEY_TEXT_REPLY
 import ltd.evilcorp.atox.PendingIntentCompat
@@ -244,7 +243,7 @@ class NotificationHelper @Inject constructor(
                             "${contact.publicKey}_end_call".hashCode(),
                             Intent(context, ActionReceiver::class.java)
                                 .putExtra(KEY_CONTACT_PK, contact.publicKey)
-                                .putExtra(KEY_CALL, "end call"),
+                                .putExtra(KEY_ACTION, Action.CallEnd),
                             PendingIntent.FLAG_UPDATE_CURRENT
                         )
                     )
@@ -279,7 +278,7 @@ class NotificationHelper @Inject constructor(
                             "${c.publicKey}_accept_call".hashCode(),
                             Intent(context, ActionReceiver::class.java)
                                 .putExtra(KEY_CONTACT_PK, c.publicKey)
-                                .putExtra(KEY_CALL, "accept"),
+                                .putExtra(KEY_ACTION, Action.CallAccept),
                             PendingIntent.FLAG_UPDATE_CURRENT
                         )
                     )
@@ -296,7 +295,7 @@ class NotificationHelper @Inject constructor(
                             "${c.publicKey}_reject_call".hashCode(),
                             Intent(context, ActionReceiver::class.java)
                                 .putExtra(KEY_CONTACT_PK, c.publicKey)
-                                .putExtra(KEY_CALL, "reject"),
+                                .putExtra(KEY_ACTION, Action.CallReject),
                             PendingIntent.FLAG_UPDATE_CURRENT
                         )
                     )
@@ -308,7 +307,7 @@ class NotificationHelper @Inject constructor(
                     "${c.publicKey}_ignore_call".hashCode(),
                     Intent(context, ActionReceiver::class.java)
                         .putExtra(KEY_CONTACT_PK, c.publicKey)
-                        .putExtra(KEY_CALL, "ignore"),
+                        .putExtra(KEY_ACTION, Action.CallIgnore),
                     PendingIntent.FLAG_UPDATE_CURRENT
                 )
             )

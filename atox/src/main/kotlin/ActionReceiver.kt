@@ -30,11 +30,14 @@ import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
 
 const val KEY_TEXT_REPLY = "text_reply"
-const val KEY_CALL = "accept_or_reject_call"
 const val KEY_CONTACT_PK = "contact_pk"
 const val KEY_ACTION = "action"
 
 enum class Action {
+    CallAccept,
+    CallEnd,
+    CallIgnore,
+    CallReject,
     MarkAsRead,
 }
 
@@ -76,62 +79,53 @@ class ActionReceiver : BroadcastReceiver() {
             }
         }
 
-        intent.getStringExtra(KEY_CALL)?.also { callChoice ->
-            val pk = intent.getStringExtra(KEY_CONTACT_PK)?.let { PublicKey(it) } ?: return
-            when (callChoice) {
-                "accept" -> scope.launch {
-                    val contact = contactManager.get(pk).firstOrNull().let {
-                        if (it != null) {
-                            it
-                        } else {
-                            Log.e(TAG, "Unable to get contact ${pk.fingerprint()} for call notification")
-                            Contact(publicKey = pk.string(), name = pk.fingerprint())
-                        }
-                    }
+        val pk = intent.getStringExtra(KEY_CONTACT_PK)?.let { PublicKey(it) } ?: return
+        when (intent.getSerializableExtra(KEY_ACTION) as Action?) {
+            Action.CallAccept -> acceptCall(context, pk)
+            Action.CallEnd, Action.CallReject -> {
+                callManager.endCall(pk)
+                notificationHelper.dismissCallNotification(pk)
+            }
+            Action.CallIgnore -> callManager.removePendingCall(pk)
+            Action.MarkAsRead -> scope.launch {
+                contactRepository.setHasUnreadMessages(pk.string(), false)
+                notificationHelper.dismissNotifications(pk)
+            }
+            null -> Log.e(TAG, "Missing action in intent $intent")
+        }
+    }
 
-                    if (callManager.inCall.value is CallState.InCall) {
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.error_simultaneous_calls),
-                                Toast.LENGTH_LONG
-                            ).show()
-                            notificationHelper.showPendingCallNotification(UserStatus.Busy, contact)
-                        }
-                        return@launch
-                    }
-
-                    try {
-                        callManager.startCall(pk)
-                        notificationHelper.showOngoingCallNotification(contact)
-                    } catch (e: ToxavAnswerException) {
-                        Log.e(TAG, e.toString())
-                        return@launch
-                    }
-
-                    val isSendingAudio =
-                        context.hasPermission(Manifest.permission.RECORD_AUDIO) && callManager.startSendingAudio()
-                    if (!isSendingAudio) {
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(context, R.string.call_mic_permission_needed, Toast.LENGTH_LONG).show()
-                        }
-                    }
-                }
-                "reject", "end call" -> {
-                    callManager.endCall(pk)
-                    notificationHelper.dismissCallNotification(pk)
-                }
-                "ignore" -> callManager.removePendingCall(pk)
+    private fun acceptCall(context: Context, pk: PublicKey) = scope.launch {
+        val contact = contactManager.get(pk).firstOrNull().let {
+            if (it != null) {
+                it
+            } else {
+                Log.e(TAG, "Unable to get contact ${pk.fingerprint()} for call notification")
+                Contact(publicKey = pk.string(), name = pk.fingerprint())
             }
         }
 
-        when (intent.getSerializableExtra(KEY_ACTION) as Action?) {
-            Action.MarkAsRead -> scope.launch {
-                val pk = intent.getStringExtra(KEY_CONTACT_PK) ?: return@launch
-                contactRepository.setHasUnreadMessages(pk, false)
-                notificationHelper.dismissNotifications(PublicKey(pk))
+        if (callManager.inCall.value is CallState.InCall) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(context, context.getString(R.string.error_simultaneous_calls), Toast.LENGTH_LONG).show()
+                notificationHelper.showPendingCallNotification(UserStatus.Busy, contact)
             }
-            null -> Log.e(TAG, "Missing action in intent $intent")
+            return@launch
+        }
+
+        try {
+            callManager.startCall(pk)
+            notificationHelper.showOngoingCallNotification(contact)
+        } catch (e: ToxavAnswerException) {
+            Log.e(TAG, e.toString())
+            return@launch
+        }
+
+        val isSendingAudio = context.hasPermission(Manifest.permission.RECORD_AUDIO) && callManager.startSendingAudio()
+        if (!isSendingAudio) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(context, R.string.call_mic_permission_needed, Toast.LENGTH_LONG).show()
+            }
         }
     }
 }
