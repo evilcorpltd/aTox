@@ -62,7 +62,7 @@ class CreateProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfi
                                 ).show()
                             }
                         }
-                        .setNegativeButton(R.string.cancel) { _, _ -> }
+                        .setNegativeButton(R.string.cancel, null)
                         .show()
                 }
                 else -> Toast.makeText(

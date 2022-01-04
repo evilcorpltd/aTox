@@ -287,7 +287,7 @@ class ContactListFragment :
                         viewModel.quitTox()
                         activity?.finishAffinity()
                     }
-                    .setNegativeButton(R.string.cancel) { _, _ -> }
+                    .setNegativeButton(R.string.cancel, null)
                     .show()
             }
         }
@@ -351,7 +351,7 @@ class ContactListFragment :
                                 ).show()
                             }
                         }
-                        .setNegativeButton(R.string.cancel) { _, _ -> }
+                        .setNegativeButton(R.string.cancel, null)
                         .setOnDismissListener {
                             passwordDialog = null
                             if (!viewModel.isToxRunning()) {

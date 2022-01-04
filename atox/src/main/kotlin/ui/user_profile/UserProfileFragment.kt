@@ -110,7 +110,7 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
                 .setPositiveButton(R.string.update) { _, _ ->
                     vm.setName(nameEdit.text.toString())
                 }
-                .setNegativeButton(R.string.cancel) { _, _ -> }
+                .setNegativeButton(R.string.cancel, null)
                 .show()
         }
 
@@ -126,7 +126,7 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
                 .setPositiveButton(R.string.update) { _, _ ->
                     vm.setStatusMessage(statusMessageEdit.text.toString())
                 }
-                .setNegativeButton(R.string.cancel) { _, _ -> }
+                .setNegativeButton(R.string.cancel, null)
                 .show()
         }
 
