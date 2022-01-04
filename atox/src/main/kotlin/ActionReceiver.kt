@@ -29,9 +29,9 @@ import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
 
-const val KEY_TEXT_REPLY = "text_reply"
-const val KEY_CONTACT_PK = "contact_pk"
-const val KEY_ACTION = "action"
+const val KEY_TEXT_REPLY = "key_text_reply"
+const val KEY_CONTACT_PK = "key_contact_pk"
+const val KEY_ACTION = "key_action"
 
 enum class Action {
     CallAccept,
