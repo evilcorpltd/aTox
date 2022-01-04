@@ -5,7 +5,6 @@
     <string name="add_contact">Kontakt hinzufügen</string>
     <string name="add_contact_message_error_empty">Schreibe zuerst etwas, bevor du es sendest</string>
     <string name="confirm">Bestätigen</string>
-    <string name="cancel">Abbrechen</string>
     <string name="connecting">Verbindet …</string>
     <string name="contact_typing">tippt …</string>
     <string name="copied">Kopiert</string>

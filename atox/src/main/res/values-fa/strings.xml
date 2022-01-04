@@ -62,7 +62,6 @@
     <string name="copied">کپی شد</string>
     <string name="contact_typing">درحال تایپ…</string>
     <string name="connecting">درحال اتصال…</string>
-    <string name="cancel">انصراف</string>
     <string name="confirm">تایید</string>
     <string name="add_contact_message_error_empty">چیزی بنویسید تا اول فرستاده شود</string>
     <string name="add_contact_message_default">در aTox همچون یک انسان متمدن با من سخن بگو</string>

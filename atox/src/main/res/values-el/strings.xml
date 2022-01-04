@@ -104,7 +104,6 @@
     <string name="copy_atox">Αντιγραφή</string>
     <string name="copied">Αντιγράφηκε</string>
     <string name="connecting">Σύνδεση…</string>
-    <string name="cancel">Ακύρωση</string>
     <string name="confirm">Επιβεβαίωση</string>
     <string name="add_contact_message_error_empty">Το μήνυμα δεν μπορεί να είναι κενό</string>
     <string name="add_contact_message_default">Μίλα μου στο aTox σαν λογικός άνθρωπος.</string>

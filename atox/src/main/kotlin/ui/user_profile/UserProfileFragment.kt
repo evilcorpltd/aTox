@@ -110,7 +110,7 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
                 .setPositiveButton(R.string.update) { _, _ ->
                     vm.setName(nameEdit.text.toString())
                 }
-                .setNegativeButton(R.string.cancel, null)
+                .setNegativeButton(android.R.string.cancel, null)
                 .show()
         }
 
@@ -126,7 +126,7 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
                 .setPositiveButton(R.string.update) { _, _ ->
                     vm.setStatusMessage(statusMessageEdit.text.toString())
                 }
-                .setNegativeButton(R.string.cancel, null)
+                .setNegativeButton(android.R.string.cancel, null)
                 .show()
         }
 
@@ -194,7 +194,7 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
                     startActivity(Intent.createChooser(shareIntent, getString(R.string.tox_id_share)))
                 }
             }
-            .setNegativeButton(getString(R.string.cancel), null)
+            .setNegativeButton(getString(android.R.string.cancel), null)
             .create()
     }
 

@@ -141,7 +141,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/dialogIconButton"
                     android:fontFamily="sans-serif-light"
-                    android:text="@string/cancel"
+                    android:text="@android:string/cancel"
                     android:textColor="@color/dialogTextButton" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

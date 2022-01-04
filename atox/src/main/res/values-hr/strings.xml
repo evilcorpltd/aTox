@@ -32,7 +32,6 @@
     <string name="copied">Kopirano</string>
     <string name="contact_typing">Piše …</string>
     <string name="connecting">Povezivanje …</string>
-    <string name="cancel">Odustani</string>
     <string name="confirm">Potvrdi</string>
     <string name="add_contact_message_error_empty">Najprije nešto napiši</string>
     <string name="add_contact_message_default">Pričaj sa mnom na aTox-u kao razumno ljudsko biće.</string>

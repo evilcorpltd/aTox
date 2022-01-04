@@ -69,7 +69,6 @@
     <string name="copied">Másolva</string>
     <string name="contact_typing">Ír…</string>
     <string name="connecting">Kapcsolódás…</string>
-    <string name="cancel">Mégsem</string>
     <string name="confirm">Megerősítés</string>
     <string name="add_contact_message_error_empty">Írj valamit, mielőtt elküldöd</string>
     <string name="add_contact_message_default">Beszélj velem az aToxon, mint egy ésszerű ember.</string>

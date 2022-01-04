@@ -99,7 +99,6 @@
     <string name="copied">Copiado</string>
     <string name="contact_typing">A escrever…</string>
     <string name="connecting">A ligar…</string>
-    <string name="cancel">Cancelar</string>
     <string name="confirm">Confirmar</string>
     <string name="add_contact_message_error_empty">Escreva algo para enviar primeiro</string>
     <string name="add_contact_message_default">Conversa comigo no aTox como uma pessoa normal.</string>

@@ -37,7 +37,6 @@
     <string name="delete_contact">מחק איש קשר</string>
     <string name="name">שם</string>
     <string name="navigation_drawer_open">פתח תפריט</string>
-    <string name="cancel">ביטול</string>
     <string name="create_a_tox_profile">צור פרופיל Tox</string>
     <string name="message">הודעה</string>
     <string name="messages_incoming">הודעות נכנסות</string>

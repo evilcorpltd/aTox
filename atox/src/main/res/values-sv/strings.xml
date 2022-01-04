@@ -3,7 +3,6 @@
     <string name="accept">Acceptera</string>
     <string name="add">Lägg till</string>
     <string name="add_contact">Lägg till kontakt</string>
-    <string name="cancel">Avbryt</string>
     <string name="clear_history">Rensa historik</string>
     <string name="clear_history_cleared">Historik rensad</string>
     <string name="clear_history_confirm">Är du säker på att du vill rensa din historik med %1$s?</string>

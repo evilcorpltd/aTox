@@ -153,7 +153,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                             Toast.makeText(requireContext(), R.string.clear_history_cleared, Toast.LENGTH_LONG).show()
                             viewModel.clearHistory()
                         }
-                        .setNegativeButton(R.string.cancel, null).show()
+                        .setNegativeButton(android.R.string.cancel, null).show()
                     true
                 }
                 R.id.call -> {
@@ -375,7 +375,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                     .setPositiveButton(R.string.delete) { _, _ ->
                         viewModel.delete(message)
                     }
-                    .setNegativeButton(R.string.cancel, null).show()
+                    .setNegativeButton(android.R.string.cancel, null).show()
                 true
             }
             R.id.send_action -> {

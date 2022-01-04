@@ -115,7 +115,6 @@
     <string name="copied">Kopirano</string>
     <string name="contact_typing">Pise…</string>
     <string name="connecting">Povezivanje…</string>
-    <string name="cancel">Odustani</string>
     <string name="confirm">Potvrdi</string>
     <string name="add_contact_message_error_empty">Napisi poruku za slanje</string>
     <string name="add_contact_message_default">Razgovaraj sa mnom na aTox kao razumno ljudsko biće.</string>

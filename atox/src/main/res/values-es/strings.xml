@@ -6,7 +6,6 @@
     <string name="add_contact_message_default">Háblame en aTox como un ser humano razonable.</string>
     <string name="add_contact_message_error_empty">Escribe algo antes de enviar</string>
     <string name="confirm">Confirmar</string>
-    <string name="cancel">Cancelar</string>
     <string name="connecting">Conectando…</string>
     <string name="contact_typing">Escribiendo…</string>
     <string name="copied">Copiado</string>

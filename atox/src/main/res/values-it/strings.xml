@@ -100,7 +100,6 @@
     <string name="copied">Copiato</string>
     <string name="contact_typing">digitando…</string>
     <string name="connecting">Connessione…</string>
-    <string name="cancel">Annulla</string>
     <string name="confirm">Conferma</string>
     <string name="add_contact_message_error_empty">Scrivi prima qualcosa da inviare</string>
     <string name="add_contact_message_default">Parlami su aTox come un essere umano ragionevole.</string>

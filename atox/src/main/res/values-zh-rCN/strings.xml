@@ -116,7 +116,6 @@
     <string name="copied">已复制</string>
     <string name="contact_typing">正在输入…</string>
     <string name="connecting">正在连接…</string>
-    <string name="cancel">取消</string>
     <string name="confirm">确认</string>
     <string name="add_contact_message_error_empty">先写点要发送的内容</string>
     <string name="add_contact_message_default">像一个理性的人一样在 aTox 上与我交谈。</string>

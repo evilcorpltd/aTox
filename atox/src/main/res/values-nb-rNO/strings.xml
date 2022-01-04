@@ -94,7 +94,6 @@
     <string name="copy_atox">Kopier</string>
     <string name="copied">Kopiert</string>
     <string name="connecting">Kobler til …</string>
-    <string name="cancel">Avbryt</string>
     <string name="confirm">Bekreft</string>
     <string name="add_contact_message_error_empty">Skriv noe å sende først</string>
     <string name="add_contact_message_default">Snakk med meg på aTox som et ansvarlig menneske.</string>

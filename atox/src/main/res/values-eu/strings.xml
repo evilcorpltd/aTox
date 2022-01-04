@@ -35,7 +35,6 @@
     <string name="copied">Kopiatuta</string>
     <string name="contact_typing">Idazten…</string>
     <string name="connecting">Konektatzen…</string>
-    <string name="cancel">Utzi</string>
     <string name="confirm">Baieztatu</string>
     <string name="add_contact_message_error_empty">Idatzi zerbait bidali aurretik</string>
     <string name="add_contact_message_default">Hitz egin nirekin aTox bidez pertsona zentzudun batek gisa.</string>

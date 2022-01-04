@@ -6,7 +6,6 @@
     <string name="add_contact_message_default">Общайся со мной в aTox, как разумный человек.</string>
     <string name="add_contact_message_error_empty">Напишите что-нибудь для отправки</string>
     <string name="confirm">Подтвердить</string>
-    <string name="cancel">Отменить</string>
     <string name="connecting">Подключение…</string>
     <string name="contact_typing">Печатает…</string>
     <string name="copied">Скопировано</string>

@@ -263,7 +263,7 @@ class ContactListFragment :
                             .setPositiveButton(R.string.delete) { _, _ ->
                                 viewModel.deleteContact(PublicKey(contact.publicKey))
                             }
-                            .setNegativeButton(R.string.cancel, null).show()
+                            .setNegativeButton(android.R.string.cancel, null).show()
                     }
                 }
                 true
@@ -287,7 +287,7 @@ class ContactListFragment :
                         viewModel.quitTox()
                         activity?.finishAffinity()
                     }
-                    .setNegativeButton(R.string.cancel, null)
+                    .setNegativeButton(android.R.string.cancel, null)
                     .show()
             }
         }
@@ -351,7 +351,7 @@ class ContactListFragment :
                                 ).show()
                             }
                         }
-                        .setNegativeButton(R.string.cancel, null)
+                        .setNegativeButton(android.R.string.cancel, null)
                         .setOnDismissListener {
                             passwordDialog = null
                             if (!viewModel.isToxRunning()) {

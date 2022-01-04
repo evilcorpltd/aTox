@@ -91,7 +91,6 @@
     <string name="copied">Nukopijuoti</string>
     <string name="contact_typing">Rašo…</string>
     <string name="connecting">Jungiamasi…</string>
-    <string name="cancel">Atšaukti</string>
     <string name="confirm">Patvirtinti</string>
     <string name="add_contact_message_error_empty">Įrašykite ką nors prieš siųsdami</string>
     <string name="add_contact_message_default">Bendraukite aTox sistemoje kaip normalus žmogus.</string>
