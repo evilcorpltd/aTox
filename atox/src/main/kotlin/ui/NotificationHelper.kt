@@ -115,13 +115,7 @@ class NotificationHelper @Inject constructor(
             .setSmallIcon(android.R.drawable.sym_action_chat)
             .setContentTitle(contact.name.ifEmpty { context.getText(R.string.contact_default_name) })
             .setContentText(message)
-            .setContentIntent(
-                NavDeepLinkBuilder(context)
-                    .setGraph(R.navigation.nav_graph)
-                    .setDestination(R.id.chatFragment)
-                    .setArguments(bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey))
-                    .createPendingIntent()
-            )
+            .setContentIntent(deepLinkToChat(PublicKey(contact.publicKey)))
             .setAutoCancel(true)
 
         if (outgoing) {
@@ -268,13 +262,7 @@ class NotificationHelper @Inject constructor(
             .setSmallIcon(android.R.drawable.ic_menu_call)
             .setContentTitle(context.getString(R.string.incoming_call))
             .setContentText(context.getString(R.string.incoming_call_from, c.name))
-            .setContentIntent(
-                NavDeepLinkBuilder(context)
-                    .setGraph(R.navigation.nav_graph)
-                    .setDestination(R.id.chatFragment)
-                    .setArguments(bundleOf(CONTACT_PUBLIC_KEY to c.publicKey))
-                    .createPendingIntent()
-            )
+            .setContentIntent(deepLinkToChat(PublicKey(c.publicKey)))
             .addAction(
                 NotificationCompat.Action
                     .Builder(
@@ -327,4 +315,10 @@ class NotificationHelper @Inject constructor(
 
         notifier.notify(c.publicKey.hashCode() + CALL.hashCode(), notification)
     }
+
+    private fun deepLinkToChat(publicKey: PublicKey) = NavDeepLinkBuilder(context)
+        .setGraph(R.navigation.nav_graph)
+        .setDestination(R.id.chatFragment)
+        .setArguments(bundleOf(CONTACT_PUBLIC_KEY to publicKey.string()))
+        .createPendingIntent()
 }
