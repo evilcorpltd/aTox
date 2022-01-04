@@ -46,7 +46,7 @@ internal class AvatarFactory(contact: Contact) {
             val side = size.asPx(imageView.resources).px
             val textScale = side.toFloat() / Dp(DEFAULT_AVATAR_SIZE_DP).asPx(imageView.resources).px
 
-            val bitmap = Bitmap.createBitmap(side, side, Bitmap.Config.ARGB_8888)
+            val bitmap = Bitmap.createBitmap(side, side, Bitmap.Config.RGB_565)
             val canvas = Canvas(bitmap)
             val rect = RectF(0f, 0f, bitmap.width.toFloat(), bitmap.height.toFloat())
             val colors = imageView.resources.getIntArray(R.array.contactBackgrounds)
