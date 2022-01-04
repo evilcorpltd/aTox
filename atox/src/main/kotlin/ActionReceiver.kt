@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 aTox contributors
+// SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -32,6 +32,11 @@ import ltd.evilcorp.domain.tox.Tox
 const val KEY_TEXT_REPLY = "text_reply"
 const val KEY_CALL = "accept_or_reject_call"
 const val KEY_CONTACT_PK = "contact_pk"
+const val KEY_ACTION = "action"
+
+enum class Action {
+    MarkAsRead,
+}
 
 private const val TAG = "ActionReceiver"
 
@@ -118,6 +123,15 @@ class ActionReceiver : BroadcastReceiver() {
                 }
                 "ignore" -> callManager.removePendingCall(pk)
             }
+        }
+
+        when (intent.getSerializableExtra(KEY_ACTION) as Action?) {
+            Action.MarkAsRead -> scope.launch {
+                val pk = intent.getStringExtra(KEY_CONTACT_PK) ?: return@launch
+                contactRepository.setHasUnreadMessages(pk, false)
+                notificationHelper.dismissNotifications(PublicKey(pk))
+            }
+            null -> Log.e(TAG, "Missing action in intent $intent")
         }
     }
 }

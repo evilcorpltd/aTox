@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -30,7 +30,9 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Transformation
 import javax.inject.Inject
 import javax.inject.Singleton
+import ltd.evilcorp.atox.Action
 import ltd.evilcorp.atox.ActionReceiver
+import ltd.evilcorp.atox.KEY_ACTION
 import ltd.evilcorp.atox.KEY_CALL
 import ltd.evilcorp.atox.KEY_CONTACT_PK
 import ltd.evilcorp.atox.KEY_TEXT_REPLY
@@ -143,6 +145,20 @@ class NotificationHelper @Inject constructor(
                     .setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_REPLY)
                     .setAllowGeneratedReplies(true)
                     .build()
+            )
+            .addAction(
+                NotificationCompat.Action.Builder(
+                    null,
+                    context.getString(R.string.mark_as_read),
+                    PendingIntentCompat.getBroadcast(
+                        context,
+                        "${contact.publicKey}_mark_as_read".hashCode(),
+                        Intent(context, ActionReceiver::class.java)
+                            .putExtra(KEY_CONTACT_PK, contact.publicKey)
+                            .putExtra(KEY_ACTION, Action.MarkAsRead),
+                        PendingIntent.FLAG_UPDATE_CURRENT,
+                    )
+                ).setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_MARK_AS_READ).build()
             )
 
         if (outgoing) {
