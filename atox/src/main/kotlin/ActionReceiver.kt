@@ -81,6 +81,7 @@ class ActionReceiver : BroadcastReceiver() {
                 }
                 chatManager.sendMessage(pk, input)
                 notificationHelper.showMessageNotification(Contact(pk.string(), tox.getName()), input, outgoing = true)
+                return
             }
         }
 
