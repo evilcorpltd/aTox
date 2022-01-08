@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 aTox contributors
+// SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -81,8 +81,10 @@ class CallManager @Inject constructor(
     }
 
     fun endCall(publicKey: PublicKey) {
-        audioManager?.mode = AudioManager.MODE_NORMAL
-        _inCall.value = CallState.NotInCall
+        if ((inCall.value as CallState.InCall?)?.publicKey == publicKey) {
+            audioManager?.mode = AudioManager.MODE_NORMAL
+            _inCall.value = CallState.NotInCall
+        }
 
         removePendingCall(publicKey)
 
