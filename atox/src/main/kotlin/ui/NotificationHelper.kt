@@ -68,20 +68,21 @@ class NotificationHelper @Inject constructor(
             .setName(context.getString(R.string.friend_requests))
             .build()
 
-        val audioAttributes = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            AudioAttributes.Builder()
+        val ringtone = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE)
+        val callChannelBuilder = NotificationChannelCompat.Builder(CALL, NotificationManagerCompat.IMPORTANCE_HIGH)
+            .setName(context.getString(R.string.calls))
+            .setVibrationEnabled(true)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val audioAttributes = AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE)
                 .build()
+            callChannelBuilder.setSound(ringtone, audioAttributes)
         } else {
-            null
+            callChannelBuilder.setSound(ringtone, null)
         }
 
-        val ringtone = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE)
-        val callChannel = NotificationChannelCompat.Builder(CALL, NotificationManagerCompat.IMPORTANCE_HIGH)
-            .setName(context.getString(R.string.calls))
-            .setSound(ringtone, audioAttributes)
-            .setVibrationEnabled(true)
-            .build()
+        val callChannel = callChannelBuilder.build()
 
         notifier.createNotificationChannelsCompat(listOf(messageChannel, friendChannel, callChannel))
     }
