@@ -48,10 +48,10 @@ $(DESTDIR)/jvm-toxcore-api.stamp: $(SRCDIR)/jvm-toxcore-api $(DESTDIR)/jvm-sbt-p
 #############################################################################
 # tox4j
 
-# HEAD as of 2021-01-03
+# HEAD as of 2022-01-09
 $(SRCDIR)/tox4j:
 	git clone https://github.com/toktok/jvm-toxcore-c $@
-	cd $@ && git checkout 50d9a6b
+	cd $@ && git checkout 5401c5ebef4453accba4f8eda97fdd7d1490e6b8
 
 $(BUILDDIR)/tox4j/Makefile: $(SRCDIR)/tox4j $(TOOLCHAIN_FILE) $(foreach i,protobuf toxcore,$(PREFIX)/$i.stamp)
 	@$(PRE_RULE)
