@@ -4,10 +4,10 @@ POST_RULE = ls -ld $@
 #############################################################################
 # jvm-sbt-plugins
 
-# HEAD as of 2021-05-05
+# HEAD as of 2022-01-13
 $(SRCDIR)/jvm-sbt-plugins:
 	git clone https://github.com/toktok/jvm-sbt-plugins $@
-	cd $@ && git checkout b3c7a430e8f27dd8eb6230b2f5bfde5668825971
+	cd $@ && git checkout 4104763df188d237c21a372f0aa2cf6ef92cdf92
 
 $(DESTDIR)/jvm-sbt-plugins.stamp: $(SRCDIR)/jvm-sbt-plugins
 	@$(PRE_RULE)
@@ -18,10 +18,10 @@ $(DESTDIR)/jvm-sbt-plugins.stamp: $(SRCDIR)/jvm-sbt-plugins
 #############################################################################
 # jvm-macros
 
-# HEAD as of 2021-01-03
+# HEAD as of 2022-01-13
 $(SRCDIR)/jvm-macros:
 	git clone https://github.com/toktok/jvm-macros $@
-	cd $@ && git checkout f22e243
+	cd $@ && git checkout 8e8991581bec396861678012cab302ba09ced629
 
 $(DESTDIR)/jvm-macros.stamp: $(SRCDIR)/jvm-macros $(DESTDIR)/jvm-sbt-plugins.stamp
 	@$(PRE_RULE)
@@ -33,10 +33,10 @@ $(DESTDIR)/jvm-macros.stamp: $(SRCDIR)/jvm-macros $(DESTDIR)/jvm-sbt-plugins.sta
 #############################################################################
 # jvm-toxcore-api
 
-# HEAD as of 2021-01-03
+# HEAD as of 2022-01-13
 $(SRCDIR)/jvm-toxcore-api:
 	git clone https://github.com/toktok/jvm-toxcore-api $@
-	cd $@ && git checkout adb8355
+	cd $@ && git checkout c0f37cfd77d79d5826ea566127f60fce838858c2
 
 $(DESTDIR)/jvm-toxcore-api.stamp: $(SRCDIR)/jvm-toxcore-api $(DESTDIR)/jvm-sbt-plugins.stamp
 	@$(PRE_RULE)
@@ -48,10 +48,10 @@ $(DESTDIR)/jvm-toxcore-api.stamp: $(SRCDIR)/jvm-toxcore-api $(DESTDIR)/jvm-sbt-p
 #############################################################################
 # tox4j
 
-# HEAD as of 2022-01-09
+# HEAD as of 2022-01-13
 $(SRCDIR)/tox4j:
 	git clone https://github.com/toktok/jvm-toxcore-c $@
-	cd $@ && git checkout 5401c5ebef4453accba4f8eda97fdd7d1490e6b8
+	cd $@ && git checkout 959e226809e4446c97679f090ef5df905bf627a4
 
 $(BUILDDIR)/tox4j/Makefile: $(SRCDIR)/tox4j $(TOOLCHAIN_FILE) $(foreach i,protobuf toxcore,$(PREFIX)/$i.stamp)
 	@$(PRE_RULE)
