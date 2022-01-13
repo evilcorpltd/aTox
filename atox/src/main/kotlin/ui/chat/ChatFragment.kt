@@ -92,7 +92,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
 
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
             val insets = compat.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime())
-            toolbar.updatePadding(left = insets.left, top = insets.top, right = insets.right)
+            appBarLayout.updatePadding(left = insets.left, top = insets.top, right = insets.right)
             bottomBar.updatePadding(left = insets.left, right = insets.right, bottom = insets.bottom)
             messages.updatePadding(left = insets.left, right = insets.right)
             compat
