@@ -32,17 +32,19 @@
                     android:focusable="true"
                     android:background="?android:attr/selectableItemBackground">
 
-                <include android:id="@+id/profileLayout"
-                        layout="@layout/profile_image_layout"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
+                <ltd.evilcorp.atox.ui.AvatarImageView
+                        android:id="@+id/avatarImageView"
+                        android:layout_height="38dp"
+                        android:layout_width="38dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="10dp" />
+                        android:layout_marginEnd="10dp"
+                        app:shapeAppearanceOverlay="@style/CircleImageView"
+                        app:strokeColor="@null" />
 
                 <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@id/profileLayout"
+                        android:layout_toEndOf="@id/avatarImageView"
                         android:layout_centerVertical="true"
                         android:orientation="vertical">
                     <TextView

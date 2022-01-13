@@ -5,7 +5,6 @@
 package ltd.evilcorp.atox.ui.contactlist
 
 import android.content.Context
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +16,7 @@ import java.text.DateFormat
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.ContactListViewItemBinding
 import ltd.evilcorp.atox.databinding.FriendRequestItemBinding
-import ltd.evilcorp.atox.ui.AvatarFactory
-import ltd.evilcorp.atox.ui.colorByContactStatus
+import ltd.evilcorp.atox.ui.AvatarImageView
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 
@@ -112,12 +110,7 @@ class ContactAdapter(
                             vh.statusMessage.setTextColor(vh.lastMessage.currentTextColor)
                         }
                     }
-                    vh.status.setColorFilter(colorByContactStatus(context, this))
-                    if (avatarUri.isNotEmpty()) {
-                        vh.image.setImageURI(Uri.parse(avatarUri))
-                    } else {
-                        vh.image.setImageBitmap(AvatarFactory.create(vh.image.resources, name, publicKey))
-                    }
+                    vh.avatarImageView.setFrom(this)
                     vh.unreadIndicator.visibility = if (hasUnreadMessages) {
                         View.VISIBLE
                     } else {
@@ -139,8 +132,7 @@ class ContactAdapter(
         val publicKey: TextView = row.publicKey
         val statusMessage: TextView = row.statusMessage
         val lastMessage: TextView = row.lastMessage
-        val status: ImageView = row.profileImageLayout.statusIndicator
-        val image: ImageView = row.profileImageLayout.profileImage
+        val avatarImageView: AvatarImageView = row.avatarImageView
         val unreadIndicator: ImageView = row.unreadIndicator
     }
 }

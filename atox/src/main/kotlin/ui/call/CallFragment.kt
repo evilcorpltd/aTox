@@ -5,7 +5,6 @@
 package ltd.evilcorp.atox.ui.call
 
 import android.Manifest
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -20,17 +19,13 @@ import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentCallBinding
 import ltd.evilcorp.atox.hasPermission
 import ltd.evilcorp.atox.requireStringArg
-import ltd.evilcorp.atox.ui.AvatarFactory
 import ltd.evilcorp.atox.ui.BaseFragment
-import ltd.evilcorp.atox.ui.Dp
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.tox.PublicKey
 
 private const val PERMISSION = Manifest.permission.RECORD_AUDIO
-
-private const val CALL_BACKGROUND_SIZE_DP = 500f
 
 class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::inflate) {
     private val vm: CallViewModel by viewModels { vmFactory }
@@ -54,18 +49,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
 
         vm.setActiveContact(PublicKey(requireStringArg(CONTACT_PUBLIC_KEY)))
         vm.contact.observe(viewLifecycleOwner) {
-            if (it.avatarUri.isNotEmpty()) {
-                callBackground.setImageURI(Uri.parse(it.avatarUri))
-            } else {
-                callBackground.setImageBitmap(
-                    AvatarFactory.create(
-                        resources,
-                        it.name,
-                        it.publicKey,
-                        Dp(CALL_BACKGROUND_SIZE_DP)
-                    )
-                )
-            }
+            avatarImageView.setFrom(it)
         }
 
         endCall.setOnClickListener {

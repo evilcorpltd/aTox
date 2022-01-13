@@ -42,9 +42,7 @@ import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentChatBinding
 import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.truncated
-import ltd.evilcorp.atox.ui.AvatarFactory
 import ltd.evilcorp.atox.ui.BaseFragment
-import ltd.evilcorp.atox.ui.colorByContactStatus
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.FileTransfer
@@ -189,12 +187,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                 else -> DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(it.lastMessage)
             }.lowercase(Locale.getDefault())
 
-            profileLayout.statusIndicator.setColorFilter(colorByContactStatus(requireContext(), it))
-            if (it.avatarUri.isNotEmpty()) {
-                profileLayout.profileImage.setImageURI(Uri.parse(it.avatarUri))
-            } else {
-                profileLayout.profileImage.setImageBitmap(AvatarFactory.create(resources, it.name, it.publicKey))
-            }
+            avatarImageView.setFrom(it)
 
             if (it.draftMessage.isNotEmpty() && outgoingMessage.text.isEmpty()) {
                 outgoingMessage.setText(it.draftMessage)

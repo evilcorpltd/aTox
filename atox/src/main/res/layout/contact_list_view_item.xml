@@ -7,14 +7,23 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
         android:padding="10dp">
-    <include android:id="@+id/profileImageLayout" layout="@layout/profile_image_layout"/>
+
+    <ltd.evilcorp.atox.ui.AvatarImageView
+            android:id="@+id/avatarImageView"
+            android:layout_height="38dp"
+            android:layout_width="38dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:shapeAppearanceOverlay="@style/CircleImageView"
+            app:strokeColor="@null" />
 
     <TextView android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@id/profileImageLayout"
+            app:layout_constraintLeft_toRightOf="@id/avatarImageView"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="name goes here"/>
     <TextView android:id="@+id/lastMessage"
@@ -31,7 +40,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             app:layout_constraintHorizontal_weight="3"
-            app:layout_constraintLeft_toRightOf="@id/profileImageLayout"
+            app:layout_constraintLeft_toRightOf="@id/avatarImageView"
             app:layout_constraintRight_toLeftOf="@id/publicKey"
             app:layout_constraintTop_toBottomOf="@id/name"
             tools:text="Really long and interesting status message"/>
