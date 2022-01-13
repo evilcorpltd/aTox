@@ -4,10 +4,8 @@
 
 package ltd.evilcorp.atox.ui
 
-import android.widget.ImageView
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import ltd.evilcorp.core.vo.Contact
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -15,13 +13,19 @@ import org.junit.runner.RunWith
 class AvatarFactoryTest {
     @Test
     fun emptyName() {
-        val imageView = ImageView(InstrumentationRegistry.getInstrumentation().targetContext)
-        AvatarFactory(Contact(publicKey = "123")).assignInto(imageView)
+        AvatarFactory.create(
+            InstrumentationRegistry.getInstrumentation().targetContext.resources,
+            name = "",
+            publicKey = "123",
+        )
     }
 
     @Test
     fun nameEndingInSpace() {
-        val imageView = ImageView(InstrumentationRegistry.getInstrumentation().targetContext)
-        AvatarFactory(Contact(publicKey = "123", name = "a ")).assignInto(imageView)
+        AvatarFactory.create(
+            InstrumentationRegistry.getInstrumentation().targetContext.resources,
+            name = "a ",
+            publicKey = "123",
+        )
     }
 }

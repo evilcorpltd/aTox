@@ -5,6 +5,7 @@
 package ltd.evilcorp.atox.ui.contactlist
 
 import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -112,7 +113,11 @@ class ContactAdapter(
                         }
                     }
                     vh.status.setColorFilter(colorByContactStatus(context, this))
-                    AvatarFactory(this).assignInto(vh.image)
+                    if (avatarUri.isNotEmpty()) {
+                        vh.image.setImageURI(Uri.parse(avatarUri))
+                    } else {
+                        vh.image.setImageBitmap(AvatarFactory.create(vh.image.resources, name, publicKey))
+                    }
                     vh.unreadIndicator.visibility = if (hasUnreadMessages) {
                         View.VISIBLE
                     } else {

@@ -4,6 +4,7 @@
 
 package ltd.evilcorp.atox.ui.contact_profile
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.ViewCompat
@@ -42,7 +43,17 @@ class ContactProfileFragment : BaseFragment<FragmentContactProfileBinding>(Fragm
             contact.name = contact.name.ifEmpty { getString(R.string.contact_default_name) }
 
             headerMainText.text = contact.name
-            AvatarFactory(contact).assignInto(profileLayout.profileImage)
+            if (contact.avatarUri.isNotEmpty()) {
+                profileLayout.profileImage.setImageURI(Uri.parse(contact.avatarUri))
+            } else {
+                profileLayout.profileImage.setImageBitmap(
+                    AvatarFactory.create(
+                        resources,
+                        contact.name,
+                        contact.publicKey
+                    )
+                )
+            }
             profileLayout.statusIndicator.setColorFilter(colorByContactStatus(requireContext(), contact))
 
             contactPublicKey.text = contact.publicKey

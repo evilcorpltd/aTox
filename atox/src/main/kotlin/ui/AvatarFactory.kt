@@ -4,6 +4,7 @@
 
 package ltd.evilcorp.atox.ui
 
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -11,60 +12,48 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.Typeface
-import android.net.Uri
-import android.widget.ImageView
 import kotlin.math.abs
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.core.vo.Contact
 
-// Class for creating an avatar for contact and assigning it into an ImageView
-internal class AvatarFactory(contact: Contact) {
+internal object AvatarFactory {
 
-    private val name: String = contact.name
-    private val publicKey: String = contact.publicKey
-    private val avatarUri: String = contact.avatarUri
-
-    private fun getInitials(): String {
+    private fun getInitials(name: String): String {
         val segments = name.split(" ")
         if (segments.size == 1) return segments.first().take(1)
         return segments.first().take(1) + segments[1].take(1)
     }
 
-    /*
-     * Method will assign an avatar to an image view. If avatar image has been set to the contact
-     * then it will be set to the image view, otherwise a new avatar image will be created based
-     * on the initials of the name and the public key for the background color.
-     */
-    fun assignInto(
-        imageView: ImageView,
-        size: Size = Px(imageView.resources.getDimension(R.dimen.default_avatar_size).toInt())
-    ) =
-        if (avatarUri.isNotEmpty()) {
-            imageView.setImageURI(Uri.parse(avatarUri))
-        } else {
-            val defaultAvatarSize = imageView.resources.getDimension(R.dimen.default_avatar_size).toInt()
-            val side = size.asPx(imageView.resources).px
-            val textScale = side / defaultAvatarSize
+    // Method will create an avatar based on the initials of a name and a public key for the background color.
+    fun create(
+        resources: Resources,
+        name: String,
+        publicKey: String,
+        size: Size = Px(resources.getDimension(R.dimen.default_avatar_size).toInt())
+    ): Bitmap {
+        val defaultAvatarSize = resources.getDimension(R.dimen.default_avatar_size)
+        val sizePx = size.asPx(resources).px
+        val textScale = sizePx / defaultAvatarSize
 
-            val bitmap = Bitmap.createBitmap(side, side, Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(bitmap)
-            val rect = RectF(0f, 0f, bitmap.width.toFloat(), bitmap.height.toFloat())
-            val colors = imageView.resources.getIntArray(R.array.contactBackgrounds)
-            val backgroundPaint = Paint().apply { color = colors[abs(publicKey.hashCode()).rem(colors.size)] }
+        val bitmap = Bitmap.createBitmap(sizePx, sizePx, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        val rect = RectF(0f, 0f, bitmap.width.toFloat(), bitmap.height.toFloat())
+        val colors = resources.getIntArray(R.array.contactBackgrounds)
+        val backgroundPaint = Paint().apply { color = colors[abs(publicKey.hashCode()).rem(colors.size)] }
 
-            val textPaint = Paint().apply {
-                color = Color.WHITE
-                textSize = imageView.resources.getDimension(R.dimen.contact_avatar_placeholder_text) * textScale
-                textAlign = Paint.Align.CENTER
-                isAntiAlias = true
-                typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-            }
-
-            val textBounds = Rect()
-            val initials = getInitials()
-            textPaint.getTextBounds(initials, 0, initials.length, textBounds)
-            canvas.drawRoundRect(rect, rect.bottom, rect.right, backgroundPaint)
-            canvas.drawText(initials, rect.centerX(), rect.centerY() - textBounds.exactCenterY(), textPaint)
-            imageView.setImageBitmap(bitmap)
+        val textPaint = Paint().apply {
+            color = Color.WHITE
+            textSize = resources.getDimension(R.dimen.contact_avatar_placeholder_text) * textScale
+            textAlign = Paint.Align.CENTER
+            isAntiAlias = true
+            typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
         }
+
+        val textBounds = Rect()
+        val initials = getInitials(name)
+        textPaint.getTextBounds(initials, 0, initials.length, textBounds)
+        canvas.drawRoundRect(rect, rect.bottom, rect.right, backgroundPaint)
+        canvas.drawText(initials, rect.centerX(), rect.centerY() - textBounds.exactCenterY(), textPaint)
+
+        return bitmap
+    }
 }

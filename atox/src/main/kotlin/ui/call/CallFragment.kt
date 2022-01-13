@@ -5,6 +5,7 @@
 package ltd.evilcorp.atox.ui.call
 
 import android.Manifest
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -53,7 +54,18 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
 
         vm.setActiveContact(PublicKey(requireStringArg(CONTACT_PUBLIC_KEY)))
         vm.contact.observe(viewLifecycleOwner) {
-            AvatarFactory(it).assignInto(callBackground, Dp(CALL_BACKGROUND_SIZE_DP))
+            if (it.avatarUri.isNotEmpty()) {
+                callBackground.setImageURI(Uri.parse(it.avatarUri))
+            } else {
+                callBackground.setImageBitmap(
+                    AvatarFactory.create(
+                        resources,
+                        it.name,
+                        it.publicKey,
+                        Dp(CALL_BACKGROUND_SIZE_DP)
+                    )
+                )
+            }
         }
 
         endCall.setOnClickListener {

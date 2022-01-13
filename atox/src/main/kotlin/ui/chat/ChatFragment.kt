@@ -190,7 +190,11 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             }.lowercase(Locale.getDefault())
 
             profileLayout.statusIndicator.setColorFilter(colorByContactStatus(requireContext(), it))
-            AvatarFactory(it).assignInto(profileLayout.profileImage)
+            if (it.avatarUri.isNotEmpty()) {
+                profileLayout.profileImage.setImageURI(Uri.parse(it.avatarUri))
+            } else {
+                profileLayout.profileImage.setImageBitmap(AvatarFactory.create(resources, it.name, it.publicKey))
+            }
 
             if (it.draftMessage.isNotEmpty() && outgoingMessage.text.isEmpty()) {
                 outgoingMessage.setText(it.draftMessage)
