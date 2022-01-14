@@ -9,7 +9,7 @@ export LDFLAGS		:=
 export PATH		:= $(DESTDIR)/host/bin:$(PATH)
 
 # Android NDK
-NDK_DIR		:= android-ndk-r21
+NDK_DIR		:= android-ndk-r21e
 NDK_PACKAGE	:= $(NDK_DIR)-$(shell perl -e 'print $$^O')-x86_64.zip
 NDK_URL		:= http://dl.google.com/android/repository/$(NDK_PACKAGE)
 
