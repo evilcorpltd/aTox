@@ -1,4 +1,5 @@
-NDK_HOME	:= $(SRCDIR)/$(NDK_DIR)
+ANDROID_NDK_HOME ?= $(SRCDIR)/$(NDK_DIR)
+NDK_HOME := $(ANDROID_NDK_HOME)
 
 DLLEXT		:= .so
 TOOLCHAIN	:= $(NDK_HOME)/toolchains/llvm/prebuilt/linux-x86_64
@@ -28,13 +29,14 @@ test: build
 	@echo "No tests for Android builds"
 
 $(NDK_HOME):
+	@echo "Downloading NDK..."
 	@$(PRE_RULE)
 	@mkdir -p $(@D)
 	test -f $(NDK_PACKAGE) || curl -s $(NDK_URL) -o $(NDK_PACKAGE)
 	7z x $(NDK_PACKAGE) -o$(SRCDIR) > /dev/null
 	@$(POST_RULE)
 
-$(TOOLCHAIN_FILE): $(NDK_HOME) scripts/android.mk
+$(TOOLCHAIN_FILE): scripts/android.mk | $(NDK_HOME)
 	@$(PRE_RULE)
 	mkdir -p $(TOOLCHAIN)/bin
 	ln -f $(CC) $(TOOLCHAIN)/bin/$(VPX_ARCH)-gcc
