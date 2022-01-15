@@ -7,6 +7,5 @@ Suport pentru acceptarea automată a transferurilor de fișiere
 Caractere de avatar frumoase
 Ștergerea unui chat acum șterge și transferurile de fișiere asociate
 A fost reparată divizarea mesajelor cu caractere multi-byte
-Tradus în portugheză braziliană, rusă și germană.
 
 Changelog complet: https://github.com/evilcorpltd/aTox/releases
