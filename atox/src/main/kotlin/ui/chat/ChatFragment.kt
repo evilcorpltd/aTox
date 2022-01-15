@@ -55,6 +55,7 @@ import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.tox.PublicKey
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
+const val FOCUS_ON_MESSAGE_BOX = "focusOnMessageBox"
 private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 20
 
 class OpenMultiplePersistableDocuments : ActivityResultContracts.OpenMultipleDocuments() {
@@ -302,6 +303,10 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         }
 
         updateActions()
+
+        if (arguments?.getBoolean(FOCUS_ON_MESSAGE_BOX) == true) {
+            outgoingMessage.requestFocus()
+        }
     }
 
     override fun onPause() {

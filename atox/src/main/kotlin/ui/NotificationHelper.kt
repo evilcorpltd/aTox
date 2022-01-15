@@ -38,6 +38,7 @@ import ltd.evilcorp.atox.KEY_TEXT_REPLY
 import ltd.evilcorp.atox.PendingIntentCompat
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
+import ltd.evilcorp.atox.ui.chat.FOCUS_ON_MESSAGE_BOX
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.UserStatus
@@ -173,6 +174,17 @@ class NotificationHelper @Inject constructor(
                     )
                     .setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_REPLY)
                     .setAllowGeneratedReplies(true)
+                    .build()
+            )
+        } else {
+            notificationBuilder.addAction(
+                NotificationCompat.Action
+                    .Builder(
+                        IconCompat.createWithResource(context, R.drawable.ic_send),
+                        context.getString(R.string.reply),
+                        deepLinkToChat(PublicKey(contact.publicKey), focusMessageBox = true)
+                    )
+                    .setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_REPLY)
                     .build()
             )
         }
@@ -317,9 +329,14 @@ class NotificationHelper @Inject constructor(
         notifier.notify(c.publicKey.hashCode() + CALL.hashCode(), notification)
     }
 
-    private fun deepLinkToChat(publicKey: PublicKey) = NavDeepLinkBuilder(context)
+    private fun deepLinkToChat(publicKey: PublicKey, focusMessageBox: Boolean = false) = NavDeepLinkBuilder(context)
         .setGraph(R.navigation.nav_graph)
         .setDestination(R.id.chatFragment)
-        .setArguments(bundleOf(CONTACT_PUBLIC_KEY to publicKey.string()))
+        .setArguments(
+            bundleOf(
+                CONTACT_PUBLIC_KEY to publicKey.string(),
+                FOCUS_ON_MESSAGE_BOX to focusMessageBox,
+            )
+        )
         .createPendingIntent()
 }
