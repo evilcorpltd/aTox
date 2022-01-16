@@ -10,6 +10,7 @@
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:contentDescription="@string/profile_photo_description"
+            app:strokeColor="@null"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/CircleImageView" />

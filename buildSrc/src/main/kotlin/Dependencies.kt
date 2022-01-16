@@ -45,9 +45,7 @@ object AndroidX {
     }
 
     const val activity = "androidx.activity:activity:1.4.0"
-    // TODO(robinlinden): Updating appcompat to 1.4.0 causes hundreds of
-    //  `E/AppCompatResources: Failed to inflate ColorStateList, leaving it to the framework`
-    const val appcompat = "androidx.appcompat:appcompat:1.3.1"
+    const val appcompat = "androidx.appcompat:appcompat:1.4.1"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.3"
     const val fragment = "androidx.fragment:fragment:1.4.0"
 
