@@ -17,7 +17,7 @@ object BuildPlugin {
     const val ideaExtVersion = "1.1.1"
 
     const val versions = "com.github.ben-manes.versions"
-    const val versionsVersion = "0.39.0"
+    const val versionsVersion = "0.41.0"
     const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:$versionsVersion"
 }
 
@@ -48,7 +48,7 @@ object AndroidX {
     // TODO(robinlinden): Updating appcompat to 1.4.0 causes hundreds of
     //  `E/AppCompatResources: Failed to inflate ColorStateList, leaving it to the framework`
     const val appcompat = "androidx.appcompat:appcompat:1.3.1"
-    const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.2"
+    const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.3"
     const val fragment = "androidx.fragment:fragment:1.4.0"
 
     object Navigation {
@@ -67,7 +67,7 @@ object AndroidX {
     const val multidex = "androidx.multidex:multidex:2.0.1"
 
     object Room {
-        private const val version = "2.4.0"
+        private const val version = "2.4.1"
         const val runtime = "androidx.room:room-runtime:$version"
         const val ktx = "androidx.room:room-ktx:$version"
         const val compiler = "androidx.room:room-compiler:$version"
@@ -93,7 +93,7 @@ object AndroidX {
 
 object Google {
     object Android {
-        const val material = "com.google.android.material:material:1.4.0"
+        const val material = "com.google.android.material:material:1.5.0"
     }
 
     const val dagger = "com.google.dagger:dagger:${Dagger.version}"
@@ -113,7 +113,7 @@ object Google {
 
 object Square {
     const val picasso = "com.squareup.picasso:picasso:2.8"
-    const val leakcanary = "com.squareup.leakcanary:leakcanary-android:2.7"
+    const val leakcanary = "com.squareup.leakcanary:leakcanary-android:2.8.1"
 }
 
 object Tox4j {
