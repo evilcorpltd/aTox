@@ -18,7 +18,7 @@ export TOX4J_PLATFORM	:= $(TARGET)
 protobuf_CONFIGURE	:= --prefix=$(PREFIX) --host=$(TARGET) --with-sysroot=$(SYSROOT) --disable-shared --with-protoc=$(PROTOC)
 libsodium_CONFIGURE	:= --prefix=$(PREFIX) --host=$(TARGET) --with-sysroot=$(SYSROOT) --disable-shared
 opus_CONFIGURE		:= --prefix=$(PREFIX) --host=$(TARGET) --with-sysroot=$(SYSROOT) --disable-shared
-libvpx_CONFIGURE	:= --prefix=$(PREFIX) --sdk-path=$(NDK_HOME) --libc=$(SYSROOT) --target=$(VPX_ARCH) --disable-examples --disable-unit-tests --enable-pic
+libvpx_CONFIGURE	:= --prefix=$(PREFIX) --sdk-path=$(NDK_HOME) --libc=$(SYSROOT) --target=$(VPX_TARGET) --disable-examples --disable-unit-tests --enable-pic
 toxcore_CONFIGURE	:= -DCMAKE_INSTALL_PREFIX:PATH=$(PREFIX) -DCMAKE_TOOLCHAIN_FILE=$(TOOLCHAIN_FILE) -DANDROID_CPU_FEATURES=$(NDK_HOME)/sources/android/cpufeatures/cpu-features.c -DENABLE_STATIC=ON -DENABLE_SHARED=OFF
 tox4j_CONFIGURE		:= -DCMAKE_INSTALL_PREFIX:PATH=$(PREFIX) -DCMAKE_TOOLCHAIN_FILE=$(TOOLCHAIN_FILE) -DANDROID_CPU_FEATURES=$(NDK_HOME)/sources/android/cpufeatures/cpu-features.c
 
@@ -37,8 +37,8 @@ $(NDK_HOME):
 $(TOOLCHAIN_FILE): $(NDK_HOME) scripts/android.mk
 	@$(PRE_RULE)
 	mkdir -p $(TOOLCHAIN)/bin
-	ln -f $(CC) $(TOOLCHAIN)/bin/$(VPX_TARGET)-gcc
-	ln -f $(CXX) $(TOOLCHAIN)/bin/$(VPX_TARGET)-g++
+	ln -f $(CC) $(TOOLCHAIN)/bin/$(VPX_ARCH)-gcc
+	ln -f $(CXX) $(TOOLCHAIN)/bin/$(VPX_ARCH)-g++
 	mkdir -p $(@D)
 	echo 'set(CMAKE_SYSTEM_NAME Linux)' > $@
 	echo >> $@
@@ -46,8 +46,8 @@ $(TOOLCHAIN_FILE): $(NDK_HOME) scripts/android.mk
 	echo >> $@
 	echo 'set(CMAKE_SYSROOT $(SYSROOT))' >> $@
 	echo >> $@
-	echo 'set(CMAKE_C_COMPILER $(TOOLCHAIN)/bin/$(VPX_TARGET)-gcc)' >> $@
-	echo 'set(CMAKE_CXX_COMPILER $(TOOLCHAIN)/bin/$(VPX_TARGET)-g++)' >> $@
+	echo 'set(CMAKE_C_COMPILER $(TOOLCHAIN)/bin/$(VPX_ARCH)-gcc)' >> $@
+	echo 'set(CMAKE_CXX_COMPILER $(TOOLCHAIN)/bin/$(VPX_ARCH)-g++)' >> $@
 	echo >> $@
 	echo 'set(CMAKE_FIND_ROOT_PATH $(PREFIX))' >> $@
 	echo 'set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)' >> $@

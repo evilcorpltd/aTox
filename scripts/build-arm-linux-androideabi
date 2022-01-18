@@ -6,8 +6,8 @@ include scripts/common.mk
 
 NDK_API := 16
 NDK_ARCH := arm
-VPX_ARCH := armv7-android-gcc
-VPX_TARGET := arm-linux-androideabi
+VPX_ARCH := arm-linux-androideabi
+VPX_TARGET := armv7-android-gcc
 
 include scripts/android.mk
 include scripts/dependencies.mk
