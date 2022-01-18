@@ -68,6 +68,7 @@ jobs:
     - name: Build tox4j
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
+        cat $ANDROID_NDK_HOME/source.properties
         ./scripts/build-host -j$(nproc || sysctl -n hw.ncpu)
         ./scripts/build-aarch64-linux-android -j$(nproc || sysctl -n hw.ncpu) release
         ./scripts/build-arm-linux-androideabi -j$(nproc || sysctl -n hw.ncpu) release
