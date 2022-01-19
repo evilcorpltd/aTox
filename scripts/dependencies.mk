@@ -135,7 +135,7 @@ $(PREFIX)/opus.stamp: $(SRCDIR)/opus $(TOOLCHAIN_FILE)
 # libvpx
 
 $(SRCDIR)/libvpx:
-	git clone --depth=1 --branch=v1.6.0 https://github.com/webmproject/libvpx $@
+	git clone --depth=1 --branch=v1.11.0 https://github.com/webmproject/libvpx $@
 	cd $@ && patch -p1 < $(CURDIR)/scripts/patches/libvpx.patch
 
 $(PREFIX)/libvpx.stamp: $(SRCDIR)/libvpx $(TOOLCHAIN_FILE)

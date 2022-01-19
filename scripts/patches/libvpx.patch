@@ -1,274 +1,37 @@
 diff --git a/build/make/configure.sh b/build/make/configure.sh
-index 4f0071b..f8e7b69 100644
+index 81d30a1..ac128f9 100644
 --- a/build/make/configure.sh
 +++ b/build/make/configure.sh
-@@ -918,92 +918,6 @@ process_common_toolchain() {
+@@ -1089,9 +1089,6 @@ EOF
+           ;;
  
-       asm_conversion_cmd="cat"
+         android*)
+-          echo "Assuming standalone build with NDK toolchain."
+-          echo "See build/make/Android.mk for details."
+-          check_add_ldflags -static
+           soft_enable unit_tests
+           ;;
  
--      case ${tgt_cc} in
--        gcc)
--          link_with_cc=gcc
--          setup_gnu_toolchain
--          arch_int=${tgt_isa##armv}
--          arch_int=${arch_int%%te}
--          check_add_asflags --defsym ARCHITECTURE=${arch_int}
--          tune_cflags="-mtune="
--          if [ ${tgt_isa} = "armv7" ] || [ ${tgt_isa} = "armv7s" ]; then
--            if [ -z "${float_abi}" ]; then
--              check_cpp <<EOF && float_abi=hard || float_abi=softfp
--#ifndef __ARM_PCS_VFP
--#error "not hardfp"
--#endif
--EOF
--            fi
--            check_add_cflags  -march=armv7-a -mfloat-abi=${float_abi}
--            check_add_asflags -march=armv7-a -mfloat-abi=${float_abi}
--
--            if enabled neon || enabled neon_asm; then
--              check_add_cflags -mfpu=neon #-ftree-vectorize
--              check_add_asflags -mfpu=neon
--            fi
--          elif [ ${tgt_isa} = "arm64" ] || [ ${tgt_isa} = "armv8" ]; then
--            check_add_cflags -march=armv8-a
--            check_add_asflags -march=armv8-a
--          else
--            check_add_cflags -march=${tgt_isa}
--            check_add_asflags -march=${tgt_isa}
--          fi
--
--          enabled debug && add_asflags -g
--          asm_conversion_cmd="${source_path}/build/make/ads2gas.pl"
--          if enabled thumb; then
--            asm_conversion_cmd="$asm_conversion_cmd -thumb"
--            check_add_cflags -mthumb
--            check_add_asflags -mthumb -mimplicit-it=always
--          fi
--          ;;
--        vs*)
--          asm_conversion_cmd="${source_path}/build/make/ads2armasm_ms.pl"
--          AS_SFX=.s
--          msvs_arch_dir=arm-msvs
--          disable_feature multithread
--          disable_feature unit_tests
--          vs_version=${tgt_cc##vs}
--          if [ $vs_version -ge 12 ]; then
--            # MSVC 2013 doesn't allow doing plain .exe projects for ARM,
--            # only "AppContainerApplication" which requires an AppxManifest.
--            # Therefore disable the examples, just build the library.
--            disable_feature examples
--          fi
--          ;;
--        rvct)
--          CC=armcc
--          AR=armar
--          AS=armasm
--          LD="${source_path}/build/make/armlink_adapter.sh"
--          STRIP=arm-none-linux-gnueabi-strip
--          NM=arm-none-linux-gnueabi-nm
--          tune_cflags="--cpu="
--          tune_asflags="--cpu="
--          if [ -z "${tune_cpu}" ]; then
--            if [ ${tgt_isa} = "armv7" ]; then
--              if enabled neon || enabled neon_asm
--              then
--                check_add_cflags --fpu=softvfp+vfpv3
--                check_add_asflags --fpu=softvfp+vfpv3
--              fi
--              check_add_cflags --cpu=Cortex-A8
--              check_add_asflags --cpu=Cortex-A8
--            else
--              check_add_cflags --cpu=${tgt_isa##armv}
--              check_add_asflags --cpu=${tgt_isa##armv}
--            fi
--          fi
--          arch_int=${tgt_isa##armv}
--          arch_int=${arch_int%%te}
--          check_add_asflags --pd "\"ARCHITECTURE SETA ${arch_int}\""
--          enabled debug && add_asflags -g
--          add_cflags --gnu
--          add_cflags --enum_is_int
--          add_cflags --wchar32
--          ;;
--      esac
--
-       case ${tgt_os} in
-         none*)
-           disable_feature multithread
-@@ -1015,10 +929,16 @@ EOF
-             die "Must specify --sdk-path for Android builds."
-           fi
- 
-+          if [ ${tgt_isa} = "arm64" ]; then
-+            TRIPLE=aarch64-linux-android
-+          else
-+            TRIPLE=arm-linux-androideabi
-+          fi
-+
-           SDK_PATH=${sdk_path}
-           COMPILER_LOCATION=`find "${SDK_PATH}" \
--                             -name "arm-linux-androideabi-gcc*" -print -quit`
--          TOOLCHAIN_PATH=${COMPILER_LOCATION%/*}/arm-linux-androideabi-
-+                             -name "${TRIPLE}-gcc*" -print -quit`
-+          TOOLCHAIN_PATH=${COMPILER_LOCATION%/*}/${TRIPLE}-
-           CC=${TOOLCHAIN_PATH}gcc
-           CXX=${TOOLCHAIN_PATH}g++
-           AR=${TOOLCHAIN_PATH}ar
-@@ -1041,9 +961,11 @@ EOF
-             add_ldflags "--sysroot=${alt_libc}"
-           fi
- 
--          # linker flag that routes around a CPU bug in some
--          # Cortex-A8 implementations (NDK Dev Guide)
--          add_ldflags "-Wl,--fix-cortex-a8"
-+          if [ ${tgt_isa} != "arm64" ]; then
-+            # linker flag that routes around a CPU bug in some
-+            # Cortex-A8 implementations (NDK Dev Guide)
-+            add_ldflags "-Wl,--fix-cortex-a8"
-+          fi
- 
-           enable_feature pic
+@@ -1249,6 +1246,7 @@ EOF
+       case  ${tgt_os} in
+         android)
            soft_enable realtime_only
-@@ -1137,6 +1059,92 @@ EOF
-           fi
++          add_asflags -D__ANDROID__
+           ;;
+         win*)
+           enabled gcc && add_cflags -fno-common
+@@ -1418,6 +1416,14 @@ EOF
+           log "Warning: Unknown os $tgt_os while setting up $AS flags"
            ;;
        esac
-+
-+      case ${tgt_cc} in
-+        gcc)
-+          link_with_cc=gcc
-+          setup_gnu_toolchain
-+          arch_int=${tgt_isa##armv}
-+          arch_int=${arch_int%%te}
-+          check_add_asflags --defsym ARCHITECTURE=${arch_int}
-+          tune_cflags="-mtune="
-+          if [ ${tgt_isa} = "armv7" ] || [ ${tgt_isa} = "armv7s" ]; then
-+            if [ -z "${float_abi}" ]; then
-+              check_cpp <<EOF && float_abi=hard || float_abi=softfp
-+#ifndef __ARM_PCS_VFP
-+#error "not hardfp"
-+#endif
-+EOF
-+            fi
-+            check_add_cflags  -march=armv7-a -mfloat-abi=${float_abi}
-+            check_add_asflags -march=armv7-a -mfloat-abi=${float_abi}
-+
-+            if enabled neon || enabled neon_asm; then
-+              check_add_cflags -mfpu=neon #-ftree-vectorize
-+              check_add_asflags -mfpu=neon
-+            fi
-+          elif [ ${tgt_isa} = "arm64" ] || [ ${tgt_isa} = "armv8" ]; then
-+            check_add_cflags -march=armv8-a
-+            check_add_asflags -march=armv8-a
-+          else
-+            check_add_cflags -march=${tgt_isa}
-+            check_add_asflags -march=${tgt_isa}
-+          fi
-+
-+          enabled debug && add_asflags -g
-+          asm_conversion_cmd="${source_path}/build/make/ads2gas.pl"
-+          if enabled thumb; then
-+            asm_conversion_cmd="$asm_conversion_cmd -thumb"
-+            check_add_cflags -mthumb
-+            check_add_asflags -mthumb -mimplicit-it=always
-+          fi
-+          ;;
-+        vs*)
-+          asm_conversion_cmd="${source_path}/build/make/ads2armasm_ms.pl"
-+          AS_SFX=.s
-+          msvs_arch_dir=arm-msvs
-+          disable_feature multithread
-+          disable_feature unit_tests
-+          vs_version=${tgt_cc##vs}
-+          if [ $vs_version -ge 12 ]; then
-+            # MSVC 2013 doesn't allow doing plain .exe projects for ARM,
-+            # only "AppContainerApplication" which requires an AppxManifest.
-+            # Therefore disable the examples, just build the library.
-+            disable_feature examples
-+          fi
-+          ;;
-+        rvct)
-+          CC=armcc
-+          AR=armar
-+          AS=armasm
-+          LD="${source_path}/build/make/armlink_adapter.sh"
-+          STRIP=arm-none-linux-gnueabi-strip
-+          NM=arm-none-linux-gnueabi-nm
-+          tune_cflags="--cpu="
-+          tune_asflags="--cpu="
-+          if [ -z "${tune_cpu}" ]; then
-+            if [ ${tgt_isa} = "armv7" ]; then
-+              if enabled neon || enabled neon_asm
-+              then
-+                check_add_cflags --fpu=softvfp+vfpv3
-+                check_add_asflags --fpu=softvfp+vfpv3
-+              fi
-+              check_add_cflags --cpu=Cortex-A8
-+              check_add_asflags --cpu=Cortex-A8
-+            else
-+              check_add_cflags --cpu=${tgt_isa##armv}
-+              check_add_asflags --cpu=${tgt_isa##armv}
-+            fi
-+          fi
-+          arch_int=${tgt_isa##armv}
-+          arch_int=${arch_int%%te}
-+          check_add_asflags --pd "\"ARCHITECTURE SETA ${arch_int}\""
-+          enabled debug && add_asflags -g
-+          add_cflags --gnu
-+          add_cflags --enum_is_int
-+          add_cflags --wchar32
++      ;;
++    x86_64*)
++      case  ${tgt_os} in
++        android)
++          soft_enable realtime_only
++          add_asflags -D__ANDROID__
 +          ;;
 +      esac
        ;;
-     mips*)
+     *-gcc|generic-gnu)
        link_with_cc=gcc
-@@ -1188,6 +1196,17 @@ EOF
-           LD=${LD:-${CROSS}gcc}
-           CROSS=${CROSS-g}
-           ;;
-+        android*)
-+          case ${toolchain} in
-+            x86_64*)
-+              CROSS=${CROSS:-x86_64-linux-android-}
-+              ;;
-+            *)
-+              CROSS=${CROSS:-i686-linux-android-}
-+              ;;
-+          esac
-+          add_asflags -D__ANDROID__
-+          ;;
-         os2)
-           disable_feature pic
-           AS=${AS:-nasm}
-diff --git a/configure b/configure
-index f82ee04..5de9866 100755
---- a/configure
-+++ b/configure
-@@ -97,6 +97,7 @@ EOF
- 
- # all_platforms is a list of all supported target platforms. Maintain
- # alphabetically by architecture, generic-gnu last.
-+all_platforms="${all_platforms} arm64-android-gcc"
- all_platforms="${all_platforms} arm64-darwin-gcc"
- all_platforms="${all_platforms} arm64-linux-gcc"
- all_platforms="${all_platforms} armv6-linux-rvct"
-diff --git a/libs.mk b/libs.mk
-index 9a6092a..53d3e38 100644
---- a/libs.mk
-+++ b/libs.mk
-@@ -330,11 +330,11 @@ vpx.pc: config.mk libs.mk
- 	$(qexec)echo 'Requires:' >> $@
- 	$(qexec)echo 'Conflicts:' >> $@
- 	$(qexec)echo 'Libs: -L$${libdir} -lvpx -lm' >> $@
--ifeq ($(HAVE_PTHREAD_H),yes)
--	$(qexec)echo 'Libs.private: -lm -lpthread' >> $@
--else
-+#ifeq ($(HAVE_PTHREAD_H),yes)
-+#	$(qexec)echo 'Libs.private: -lm -lpthread' >> $@
-+#else
- 	$(qexec)echo 'Libs.private: -lm' >> $@
--endif
-+#endif
- 	$(qexec)echo 'Cflags: -I$${includedir}' >> $@
- INSTALL-LIBS-yes += $(LIBSUBDIR)/pkgconfig/vpx.pc
- INSTALL_MAPS += $(LIBSUBDIR)/pkgconfig/%.pc %.pc

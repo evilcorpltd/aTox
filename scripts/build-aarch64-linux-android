@@ -1,12 +1,12 @@
 #!/usr/bin/make -f
 
 TARGET := aarch64-linux-android
+BASE_TARGET := $(TARGET)
 
 include scripts/common.mk
 
 NDK_API := 21
 NDK_ARCH := arm64
-VPX_ARCH := $(TARGET)
 VPX_TARGET := arm64-android-gcc
 
 include scripts/android.mk
