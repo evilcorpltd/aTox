@@ -75,7 +75,7 @@ $(DESTDIR)/tox4j-c.stamp: $(SRCDIR)/tox4j $(foreach i,jvm-toxcore-api jvm-macros
 # protobuf
 
 $(SRCDIR)/protobuf:
-	git clone --depth=1 --branch=v3.11.1 https://github.com/google/protobuf $@
+	git clone --depth=1 --branch=v3.19.3 https://github.com/google/protobuf $@
 
 $(PREFIX)/protobuf.stamp: $(SRCDIR)/protobuf $(TOOLCHAIN_FILE) $(PROTOC)
 	@$(PRE_RULE)
