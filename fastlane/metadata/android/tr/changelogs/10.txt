@@ -1,0 +1,10 @@
+Sesli arama desteği
+Şifreli bir Tox profili ile kullanma seçeneği
+SpamYok'unuzu değiştirme seçeneği
+Metin paylaşımları alabilme
+Tox kimliğinizi QR kodu olarak görüntüleyebilme
+Göndermek için aynı anda birden fazla dosya seçme desteği
+Çok daha fazla dile çevrildi
+Toxcore 0.2.13 sürümüne güncellendi
+
+Tam değişiklik günlüğü: https://github.com/evilcorpltd/aTox/releases
