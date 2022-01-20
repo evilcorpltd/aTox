@@ -150,4 +150,7 @@
     <string name="channel_profile_locked_explanation">נשלח כאשר הפרופיל שלך צריך ביטול נעילה בשביל ש aTox יפעל</string>
     <string name="atox_profile_locked">פרופיל aTox נעול</string>
     <string name="tap_to_unlock_and_start_atox">לחץ כדי לבטל את נעילת הפרופיל שלך ולהפעיל את aTox</string>
+    <string name="error_simultaneous_calls">השתתפות בשיחות מרובות באותו הזמן אינה נתמכת</string>
+    <string name="share">שתף</string>
+    <string name="mark_as_read">סמן כנקרא</string>
 </resources>
