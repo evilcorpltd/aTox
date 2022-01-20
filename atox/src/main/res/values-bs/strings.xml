@@ -143,4 +143,14 @@
     <string name="pref_theme_dark">Tamna</string>
     <string name="pref_theme_light">Svijetla</string>
     <string name="pref_theme_follow_system">Prati sistem</string>
+    <string name="pref_block_screenshots">Blokiraj snimke zaslona za aTox</string>
+    <string name="share">Dijeli</string>
+    <string name="pref_block_screenshots_description">Ovo blokira **samo** snimanje ekrana na **tvom** uređaju. Ne brani tvojim kontaktima snimanje ekrana ili spremanje vaših razgovora na neki drugi način</string>
+    <string name="return_to_chat">Vrati na chat</string>
+    <string name="speakerphone_toggle">Uključi/isključi spikerfon</string>
+    <string name="channel_profile_locked_explanation">Šalje se kad se tvoj profil mora otključati da bi se pokrenuo aTox</string>
+    <string name="atox_profile_locked">aTox profil zaključan</string>
+    <string name="tap_to_unlock_and_start_atox">Dodirni za otključavanje tvog profila i pokretanje aTox-a</string>
+    <string name="error_simultaneous_calls">Sudjelovanje u više poziva u isto vrijeme nije podržano</string>
+    <string name="mark_as_read">Označi kao pročitano</string>
 </resources>
