@@ -154,4 +154,5 @@
     <string name="tap_to_unlock_and_start_atox">Toca para desbloquear tu perfil e iniciar aTox</string>
     <string name="channel_profile_locked_explanation">Se envía cuando tu perfil necesita ser desbloqueado para que se ejecute aTox</string>
     <string name="error_simultaneous_calls">La participación en varias llamadas simultáneas no está soportado</string>
+    <string name="share">Compartir</string>
 </resources>
