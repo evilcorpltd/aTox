@@ -91,4 +91,19 @@
     <string name="status_message">Opis statusu</string>
     <string name="quit_confirm">Czy na pewno chcesz zakończyć\?</string>
     <string name="quit">Zakończ</string>
+    <string name="name_default">Użytkownik aTox</string>
+    <string name="navigation_drawer_close">Zamknij okno nawigacji</string>
+    <string name="navigation_drawer_open">Otwórz okno nawigacji</string>
+    <string name="profile_photo_description">Zdjęcie profilowe</string>
+    <string name="status_indicator">Wskaźnik stanu</string>
+    <string name="tox_id_error_checksum">Błędna suma kontrolna</string>
+    <string name="tox_id_share">Udostępnij identyfikator Tox</string>
+    <string name="update">Aktualizacja</string>
+    <string name="friend_requests">Prośby o przyjaźń</string>
+    <string name="never">Nigdy</string>
+    <string name="info">Informacja</string>
+    <string name="atox_offline">Offline</string>
+    <string name="mimetype_handler_not_found">Nie ma zainstalowanych aplikacji do obsługi mediów typu \"%1$s\"</string>
+    <string name="add_contact_message_error_empty">Najpierw napisz coś do wysłania</string>
+    <string name="tox_service_running">aTox pracuje…</string>
 </resources>

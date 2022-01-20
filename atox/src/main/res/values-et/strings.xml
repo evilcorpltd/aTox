@@ -113,4 +113,6 @@
     <string name="add_contact_message_error_empty">Sõnum ei tohi olla tühi</string>
     <string name="add_contact_message_default">Räägi minuga aToxis nagu mõistlik inimene.</string>
     <string name="add_contact">Lisage kontakt</string>
+    <string name="pref_proxy_type_http">HTTP</string>
+    <string name="pref_proxy_type_socks5">SOCKS5</string>
 </resources>

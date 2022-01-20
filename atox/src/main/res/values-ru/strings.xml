@@ -154,4 +154,6 @@
     <string name="channel_profile_locked_explanation">Отправляется, когда ваш профиль необходимо разблокировать для запуска aTox</string>
     <string name="atox_profile_locked">Профиль aTox заблокирован</string>
     <string name="error_simultaneous_calls">В данный момент, участие в нескольких звонках одновременно не поддерживается</string>
+    <string name="share">Поделиться</string>
+    <string name="mark_as_read">Отметить как прочитанное</string>
 </resources>

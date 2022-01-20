@@ -151,4 +151,6 @@
     <string name="pref_block_screenshots_description">Ця функція заблокує створення скріншотів відкритого aTox **тільки** на **вашому** пристрої, але вона не захистить від створення скріншотів вашими контактами або будь-якого іншого способу збереження ними ваших бесід</string>
     <string name="password_updated">Пароль оновлено</string>
     <string name="error_simultaneous_calls">В даний момент, участь в декількох дзвінках одночасно не підтримується</string>
+    <string name="share">Поділіться</string>
+    <string name="mark_as_read">Відзначити як прочитане</string>
 </resources>
