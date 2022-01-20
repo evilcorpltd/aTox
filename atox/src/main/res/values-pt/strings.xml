@@ -151,4 +151,6 @@
     <string name="channel_profile_locked_explanation">Enviado quando o seu perfil precisa de ser desbloqueado para que o aTox funcione</string>
     <string name="tap_to_unlock_and_start_atox">Toque para desbloquear o seu perfil e iniciar o aTox</string>
     <string name="error_simultaneous_calls">A participação em várias chamadas ao mesmo tempo não é suportada</string>
+    <string name="mark_as_read">Marcar como lido</string>
+    <string name="share">Compartilhar</string>
 </resources>
