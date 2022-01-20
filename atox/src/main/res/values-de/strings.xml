@@ -155,4 +155,5 @@
     <string name="channel_profile_locked_explanation">Wird gesendet, wenn Ihr Profil für die Ausführung von aTox freigeschaltet werden muss</string>
     <string name="error_simultaneous_calls">Die gleichzeitige Teilnahme an mehreren Anrufen wird nicht unterstützt</string>
     <string name="share">Teilen</string>
+    <string name="mark_as_read">Als gelesen markieren</string>
 </resources>
