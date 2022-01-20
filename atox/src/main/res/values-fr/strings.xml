@@ -151,4 +151,6 @@
     <string name="atox_profile_locked">Profil aTox verrouillé</string>
     <string name="tap_to_unlock_and_start_atox">Appuyez pour déverrouiller votre profil et démarrer aTox</string>
     <string name="error_simultaneous_calls">Participer à plusieurs appels en même temps n’est pas possible</string>
+    <string name="share">Partager</string>
+    <string name="mark_as_read">Marquer comme lu</string>
 </resources>
