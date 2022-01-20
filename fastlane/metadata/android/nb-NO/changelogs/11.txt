@@ -1,0 +1,7 @@
+aTox krasjer ikke lenger ved oppstart på Android KitKat
+Mulighet til å avslå innkommende anrop når du i en samtale virker nå
+Støtte for deling av ens Tox-ID som QR-kodebilde
+Meldingsmerknad for «Svar»-knapp er nå vist når det støttes
+Tillagt «Marker som lest»-knapp for meldingsmerknader
+
+Full endringslogg: https://github.com/evilcorpltd/aTox/releases

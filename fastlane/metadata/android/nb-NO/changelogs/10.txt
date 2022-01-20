@@ -1,0 +1,10 @@
+Lydsamtalestøtte
+Alternativ for bruk med kryptert Tox-profil
+Altnertiv for endring av ens NoSpam
+Mulighet tll å motta tekstdelinger
+Mulighet til å vise ens Tox-ID som en QR-kode
+Støtte for valg av flere filer å sende
+Mange flere oversettelser
+Oppgradert Toxcore 0.2.13
+
+Full endringslogg: https://github.com/evilcorpltd/aTox/releases
