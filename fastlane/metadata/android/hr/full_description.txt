@@ -1,0 +1,10 @@
+aTox je slobodan program otvorenog koda za razmjenu poruka pomoću Tox protokola.
+
+<b>Zašto aTox?</b>
+* Otvoreni kod: slobodno dijeli, pregledaj i mijenjaj po volji.
+* Primjerenost: normalne standardne postavke, bez nagađanja o tome do čega ti je stalo, ne zanemaruje ono što <b>ti</b> želiš.
+* Obostrano šifriranje: jedini ljudi koji mogu vidjeti tvoje razgovore su ljudi s kojima razgovaraš.
+* Distribucija: nema središnjih poslužitelja koji se mogu srušiti ili prisiliti da prikazuju podatke.
+* Jednostavnost: bez telemetrije, oglasa ili drugih oblika praćenja.
+
+Više informacija: <a href="https://github.com/evilcorpltd/aTox/">aTox</a>, <a href="https://tox.chat/">Tox</a>.

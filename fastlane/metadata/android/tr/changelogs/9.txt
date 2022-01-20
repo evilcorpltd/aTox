@@ -1,0 +1,11 @@
+Gönderilmeyen mesajlar taslak olarak kaydedilir
+Vekil sunucu desteği
+Otomatik olarak uzakta olarak işaretlenme seçeneği
+Kullanılan önyükleme düğümlerini geçersiz kılma seçeneği
+Artık doğrudan bildirimlerden yanıt verebilirsiniz
+Dosya aktarımları için otomatik kabul desteği
+Güzel avatar yer tutucuları
+Bir sohbeti temizlemek artık ilişkili dosya aktarımlarını siler
+Çok baytlı karakterlerle mesajların bölünmesi düzeltildi
+
+Tam değişiklik günlüğü: https://github.com/evilcorpltd/aTox/releases

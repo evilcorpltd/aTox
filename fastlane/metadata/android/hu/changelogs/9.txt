@@ -1,0 +1,12 @@
+Elküldetlen üzenetek mentése piszkozatként
+Proxy támogatás
+Automatikus távollét lehetősége
+Induló csomópontok felülbírálásának lehetősége
+Mostmár közvetlenül az értesítésekből is válaszolhatsz
+File átvitelek automatikus elfogadása
+Szép avatár helyjelölők
+Egy csevegés törlése a kapcsolódó file átviteleket is törli
+Multi-byte karakterek sortörésének javítása
+Lefordítva brazil portugál, orosz és német nyelvekre
+
+Teljes változáslista: https://github.com/evilcorpltd/aTox/releases

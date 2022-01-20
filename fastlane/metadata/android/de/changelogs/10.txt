@@ -1,0 +1,10 @@
+Unterstützung für Audioanrufe
+Option, um mit verschlüsseltem Tox-Profil zu nutzen
+Option, NoSpam zu ändern
+Möglichkeit zum Empfangen von geteiltem Text
+Tox ID als QR-Code anzeigen
+Unterstützung für Auswählen mehrerer Dateien, die auf ein Mal gesendet werden
+Übersetzungen in mehr Sprachen
+Update auf Toxcore 0.2.13
+
+Changelog: https://github.com/evilcorpltd/aTox/releases

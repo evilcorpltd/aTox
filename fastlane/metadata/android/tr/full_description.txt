@@ -1,0 +1,10 @@
+aTox, Tox protokolü için özgür ve açık kaynaklı bir mesajlaşma uygulamasıdır.
+
+<b>Neden aTox?</b>
+* Açık kaynaklı: istediğiniz gibi paylaşmakta, incelemekte ve değiştirmekte özgürsünüz.
+* Makul: aklı başında öntanımlı değerler, neye önem verdiğiniz hakkında hiçbir tahminde bulunmaz, <b>sizin</b> ne istediğinizi göz ardı etmez.
+* Uçtan uca şifreli: konuşmalarınızı görebilen tek kişi, konuştuğunuz kişilerdir.
+* Dağıtık: kapatılabilecek veya verileri devretmeye zorlanabilecek merkezi sunucular yoktur.
+* Hafif: uzaktan izleme, reklam veya diğer izleme biçimleri yok.
+
+Daha fazla bilgi için: <a href="https://github.com/evilcorpltd/aTox/">aTox</a>, <a href="https://tox.chat/">Tox</a>.

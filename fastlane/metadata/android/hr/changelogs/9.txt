@@ -1,0 +1,12 @@
+Ne poslane poruke spremaju se kao skice
+Podrška za poslužitelje
+Automatsko označivanje odsutnosti
+Zaobilaženje korištenih bootstrap čvorova
+Sada je moguće odgovoriti izravno iz obavijesti
+Automatsko prihvaćanje prijenosa datoteka
+Rezervirana mjesta za avatare
+Brisanjem razgovora sada se brišu pridruženi prijenosi datoteka
+Ispravljanje dijeljenja poruka s višebajtnim znakovima
+Prevedeno na brazilski portugalski, ruski i njemački
+
+Dnevnik promjena: https://github.com/evilcorpltd/aTox/releases

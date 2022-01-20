@@ -1,0 +1,10 @@
+aTox to wolny, otwartoźródłowy komunikator oparty na protokole Tox.
+
+<b>Dlaczego aTox?</b>
+* Otwartoźródłowy: przeglądaj, dziel się i modyfikuj kod do woli.
+* Rozsądne ustawienia: domyślna prostota, nie zgaduje na czym Ci zależy ani nie ignoruje <b>Twoich</b> potrzeb.
+* Szyfrowanie End-to-end: tylko osoby z którymi rozmawiasz widzą konwersację.
+* Rozproszony: brak centralnie zarządzanych serwerów które można zamknąć lub zmusić do przekazania danych.
+* Lekki: brak telemetrii, reklam i innych form nadzoru.
+
+Więcej na: <a href="https://github.com/evilcorpltd/aTox/">aTox</a>, <a href="https://tox.chat/">Tox</a>.
