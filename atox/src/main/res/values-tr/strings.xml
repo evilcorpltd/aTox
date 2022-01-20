@@ -151,4 +151,6 @@
     <string name="atox_profile_locked">aTox profili kilitli</string>
     <string name="tap_to_unlock_and_start_atox">Profilinizin kilidini açmak ve aTox\'u başlatmak için dokunun</string>
     <string name="error_simultaneous_calls">Aynı anda birden fazla aramaya katılmak desteklenmiyor</string>
+    <string name="share">Paylaş</string>
+    <string name="mark_as_read">Okundu olarak işaretle</string>
 </resources>
