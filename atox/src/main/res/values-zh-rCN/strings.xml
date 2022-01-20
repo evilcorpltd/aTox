@@ -151,4 +151,6 @@
     <string name="atox_profile_locked">已锁定 aTox 个人资料</string>
     <string name="channel_profile_locked_explanation">当你的个人资料需要解锁才能运行 aTox 时发送</string>
     <string name="error_simultaneous_calls">不支持同时参与多个通话</string>
+    <string name="share">分享</string>
+    <string name="mark_as_read">标记为已读</string>
 </resources>
