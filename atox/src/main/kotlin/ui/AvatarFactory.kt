@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -31,7 +31,7 @@ internal class AvatarFactory(contact: Contact) {
     private fun getInitials(): String {
         val segments = name.split(" ")
         if (segments.size == 1) return segments.first().take(1)
-        return segments.first().take(1) + segments[1][0]
+        return segments.first().take(1) + segments[1].take(1)
     }
 
     /*
