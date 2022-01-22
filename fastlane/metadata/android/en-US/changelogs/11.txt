@@ -1,7 +1,6 @@
 aTox no longer crashes at startup on Android KitKat
 Rejecting an incoming call while in a call now works as expected
 Added support for sharing your Tox ID as a QR code image
-The message notification "reply" button is now only displayed when supported
 Added a "mark as read" button to message notifications
 
 Full changelog: https://github.com/evilcorpltd/aTox/releases

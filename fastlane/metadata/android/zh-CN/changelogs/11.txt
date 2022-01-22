@@ -1,7 +1,6 @@
 在 Android KitKat 上，aTox 启动不再崩溃
 进行通话时拒绝来电现在可以正常工作了
 新增支持将你的 Tox ID 分享为二维码图片
-消息通知“回复”按钮现在只有在支持时才显示
 在消息通知中增加了“标记为已读”按钮
 
 完整更新日志：https://github.com/evilcorpltd/aTox/releases

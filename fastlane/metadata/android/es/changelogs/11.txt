@@ -1,7 +1,6 @@
 aTox ya no falla al iniciarse en Android KitKat
 Rechazar una llamada entrante mientras está en una llamada ahora funciona como se espera
 Se agregó soporte para compartir el ID de Tox como una imagen de código QR
-El botón de notificación de mensaje "responder" ahora solo se muestra cuando es compatible
 Se agregó una botón "marcar como leído" para enviar notificaciones
 
 Registro de cambios completo: https://github.com/evilcorpltd/aTox/releases

@@ -1,7 +1,6 @@
 aTox artık Android KitKat'ta başlarken çökmüyor
 Arama sırasında gelen aramayı reddetmek artık beklendiği gibi çalışıyor
 Tox kimliğinizi QR kodu görüntüsü olarak paylaşma desteği eklendi
-Mesaj bildirimi "yanıtla" düğmesi artık yalnızca desteklendiğinde görüntüleniyor
 Mesaj bildirimlerine "okundu olarak işaretle" düğmesi eklendi
 
 Tam değişiklik günlüğü: https://github.com/evilcorpltd/aTox/releases
