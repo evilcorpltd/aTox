@@ -4,7 +4,7 @@ TARGET := i686-linux-android
 
 include scripts/common.mk
 
-NDK_API := 16
+NDK_API := 19
 NDK_ARCH := x86
 VPX_ARCH := $(TARGET)
 VPX_TARGET := x86-android-gcc
