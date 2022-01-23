@@ -19,6 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.launch
@@ -65,6 +66,7 @@ class ChatViewModel @Inject constructor(
     val ongoingCall = callManager.inCall.asLiveData()
 
     val callState get() = contactManager.get(publicKey)
+        .filterNotNull()
         .transform { emit(it.connectionStatus != ConnectionStatus.None) }
         .combine(callManager.inCall) { contactOnline, callState ->
             if (!contactOnline) return@combine CallAvailability.Unavailable
