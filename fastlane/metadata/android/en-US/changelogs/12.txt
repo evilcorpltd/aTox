@@ -1,0 +1,4 @@
+Fixed crash in handling of ending incoming calls
+Fixed crash in contact deletion
+
+Full changelog: https://github.com/evilcorpltd/aTox/releases
