@@ -81,7 +81,8 @@ class CallManager @Inject constructor(
     }
 
     fun endCall(publicKey: PublicKey) {
-        if ((inCall.value as CallState.InCall?)?.publicKey == publicKey) {
+        val state = inCall.value
+        if (state is CallState.InCall && state.publicKey == publicKey) {
             audioManager?.mode = AudioManager.MODE_NORMAL
             _inCall.value = CallState.NotInCall
         }
