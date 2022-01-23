@@ -21,7 +21,6 @@ jobs:
     runs-on: ${{ matrix.os }}
     needs: tox4j
     strategy:
-      max-parallel: 6
       matrix:
         os:
         - ubuntu-20.04
@@ -102,12 +101,10 @@ jobs:
         path: ~/.cache/bazel
         key: bazel-${{ hashFiles('WORKSPACE', 'bazel/**') }}
         restore-keys: bazel-
-    - name: Install
-      run: wget https://github.com/bazelbuild/bazelisk/releases/download/v1.10.1/bazelisk-linux-amd64 --output-document=bazelisk
     - name: Build
-      run: bazelisk build //...
+      run: bazel build //...
     - name: Test
-      run: bazelisk test //...
+      run: bazel test //...
 
   buildifier:
     runs-on: ubuntu-20.04
