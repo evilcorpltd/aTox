@@ -71,7 +71,6 @@ jobs:
     - name: Build tox4j
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
-        unset ANDROID_NDK_HOME
         ./scripts/build-host -j$(nproc)
         ./scripts/build-aarch64-linux-android -j$(nproc) release
         ./scripts/build-arm-linux-androideabi -j$(nproc) release
