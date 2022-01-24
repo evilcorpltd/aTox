@@ -42,8 +42,9 @@ jobs:
       if: startsWith(matrix.os, 'macos')
       uses: reactivecircus/android-emulator-runner@v2
       with:
-        api-level: 29
-        script: ./gradlew connectedCheck -x :atox:connectedAndroidTest -x :domain:connectedAndroidTest || { adb logcat -d; exit 1; }
+        api-level: 31
+        arch: x86_64
+        script: ./gradlew connectedCheck || { adb logcat -d; exit 1; }
     - name: Upload apk
       if: startsWith(matrix.os, 'ubuntu')
       uses: actions/upload-artifact@v2
