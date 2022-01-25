@@ -39,7 +39,7 @@ android {
         viewBinding = true
     }
     lint {
-        disable("GoogleAppIndexingWarning", "MissingTranslation", "InvalidPackage")
+        disable += setOf("GoogleAppIndexingWarning", "MissingTranslation", "InvalidPackage")
     }
     packagingOptions {
         // Work around scala-compiler and scala-library (via tox4j) trying to place files in the
