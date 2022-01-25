@@ -4,6 +4,7 @@
 
 package ltd.evilcorp.domain.av
 
+import android.annotation.SuppressLint
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
@@ -16,6 +17,11 @@ private fun intToChannel(channels: Int) = when (channels) {
     else -> AudioFormat.CHANNEL_IN_STEREO
 }
 
+// The permission linting doesn't work very well unless you sprinkle
+// ContextCompat.checkSelfPermission in way too many places. It doesn't even
+// agree with results from ActivityResultContracts.RequestPermission, requiring
+// an extra permission check in there as well.
+@SuppressLint("MissingPermission")
 private fun findAudioRecord(sampleRate: Int, channels: Int): AudioRecord? {
     val audioFormat = AudioFormat.ENCODING_PCM_16BIT
     val channelConfig = intToChannel(channels)

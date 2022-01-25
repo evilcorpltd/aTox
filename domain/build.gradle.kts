@@ -35,9 +35,6 @@ android {
     }
     lint {
         disable += "InvalidPackage" // tox4j is still not really allowed on Android. :/
-        // The macOS domain:lint task fails due to not guarding AudioRecord with permission checks in this module.
-        // This doesn't fail locally, and use of the audio code is guarded in the UI in the aTox module.
-        abortOnError = false
     }
     packagingOptions {
         // Work around scala-compiler and scala-library (via tox4j) trying to place files in the
