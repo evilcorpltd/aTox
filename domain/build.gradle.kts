@@ -33,9 +33,6 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
         }
     }
-    lint {
-        disable += "InvalidPackage" // tox4j is still not really allowed on Android. :/
-    }
     packagingOptions {
         // Work around scala-compiler and scala-library (via tox4j) trying to place files in the
         // same place.
