@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -18,6 +18,7 @@ import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.ui.colorByContactStatus
 import ltd.evilcorp.atox.vmFactory
+import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.domain.tox.PublicKey
 
 class ContactProfileFragment : BaseFragment<FragmentContactProfileBinding>(FragmentContactProfileBinding::inflate) {
@@ -47,6 +48,11 @@ class ContactProfileFragment : BaseFragment<FragmentContactProfileBinding>(Fragm
             contactPublicKey.text = contact.publicKey
             contactName.text = contact.name
             contactStatusMessage.text = contact.statusMessage
+            contactConnectionStatus.text = when (contact.connectionStatus) {
+                ConnectionStatus.None -> getText(R.string.atox_offline)
+                ConnectionStatus.TCP -> getText(R.string.atox_connected_with_tcp)
+                ConnectionStatus.UDP -> getText(R.string.atox_connected_with_udp)
+            }
         }
     }
 }
