@@ -228,6 +228,7 @@ class NotificationHelper @Inject constructor(
         notifier.cancel(pk.string().hashCode() + CALL.hashCode())
 
     fun showOngoingCallNotification(contact: Contact) {
+        dismissCallNotification(PublicKey(contact.publicKey))
         val notificationBuilder = NotificationCompat.Builder(context, CALL)
             .setCategory(NotificationCompat.CATEGORY_CALL)
             .setSmallIcon(android.R.drawable.ic_menu_call)
