@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.net.Uri
 import android.util.AttributeSet
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.use
 import androidx.core.view.doOnPreDraw
 import com.google.android.material.imageview.ShapeableImageView
@@ -12,6 +13,7 @@ import kotlin.math.min
 import kotlin.math.pow
 import kotlin.math.sqrt
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.UserStatus
 
@@ -31,6 +33,11 @@ class AvatarImageView @JvmOverloads constructor(context: Context, attrs: Attribu
         R.styleable.AvatarImageView,
         0, 0
     ).use { it.getBoolean(R.styleable.AvatarImageView_statusIndicatorVisible, true) }
+
+    private fun colorByContactStatus(context: Context, contact: Contact) =
+        if (contact.connectionStatus == ConnectionStatus.None)
+            ContextCompat.getColor(context, R.color.statusOffline)
+        else colorFromStatus(context, contact.status)
 
     private var name = ""
     private var publicKey = ""

@@ -9,14 +9,7 @@ import android.content.res.Resources
 import android.util.TypedValue
 import androidx.core.content.ContextCompat
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.core.vo.ConnectionStatus
-import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.UserStatus
-
-internal fun colorByContactStatus(context: Context, contact: Contact) =
-    if (contact.connectionStatus == ConnectionStatus.None)
-        ContextCompat.getColor(context, R.color.statusOffline)
-    else colorFromStatus(context, contact.status)
 
 internal fun colorFromStatus(context: Context, status: UserStatus) = when (status) {
     UserStatus.None -> ContextCompat.getColor(context, R.color.statusAvailable)
