@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.tox.ToxStarter
+import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.User
@@ -43,6 +44,7 @@ class ContactListViewModel @Inject constructor(
     private val contactManager: ContactManager,
     private val fileTransferManager: FileTransferManager,
     private val friendRequestManager: FriendRequestManager,
+    private val notificationHelper: NotificationHelper,
     private val tox: Tox,
     private val toxStarter: ToxStarter,
     userManager: UserManager
@@ -60,6 +62,7 @@ class ContactListViewModel @Inject constructor(
     fun acceptFriendRequest(friendRequest: FriendRequest) = friendRequestManager.accept(friendRequest)
     fun rejectFriendRequest(friendRequest: FriendRequest) = friendRequestManager.reject(friendRequest)
     fun deleteContact(publicKey: PublicKey) {
+        notificationHelper.dismissNotifications(publicKey)
         contactManager.delete(publicKey)
         chatManager.clearHistory(publicKey)
         scope.launch {

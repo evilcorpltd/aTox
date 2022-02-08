@@ -173,6 +173,10 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         }
 
         viewModel.contact.observe(viewLifecycleOwner) {
+            if (it == null) {
+                findNavController().popBackStack()
+                return@observe
+            }
             it.name = it.name.ifEmpty { getString(R.string.contact_default_name) }
 
             contactName = it.name

@@ -74,6 +74,11 @@ class ActionReceiver : BroadcastReceiver() {
                 Log.e(TAG, "Got intent without required key $KEY_CONTACT_PK $intent")
                 return@launch
             }
+            if (!contactRepository.exists(pk.string())) {
+                notificationHelper.dismissNotifications(pk)
+                notificationHelper.dismissCallNotification(pk)
+                return@launch
+            }
 
             RemoteInput.getResultsFromIntent(intent)?.let { results ->
                 results.getCharSequence(KEY_TEXT_REPLY)?.toString()?.let { input ->
