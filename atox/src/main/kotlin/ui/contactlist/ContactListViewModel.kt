@@ -24,6 +24,7 @@ import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.User
+import ltd.evilcorp.domain.feature.CallManager
 import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.feature.FileTransferManager
@@ -40,6 +41,7 @@ class ContactListViewModel @Inject constructor(
     private val scope: CoroutineScope,
     private val context: Context,
     private val resolver: ContentResolver,
+    private val callManager: CallManager,
     private val chatManager: ChatManager,
     private val contactManager: ContactManager,
     private val fileTransferManager: FileTransferManager,
@@ -62,7 +64,9 @@ class ContactListViewModel @Inject constructor(
     fun acceptFriendRequest(friendRequest: FriendRequest) = friendRequestManager.accept(friendRequest)
     fun rejectFriendRequest(friendRequest: FriendRequest) = friendRequestManager.reject(friendRequest)
     fun deleteContact(publicKey: PublicKey) {
+        callManager.endCall(publicKey)
         notificationHelper.dismissNotifications(publicKey)
+        notificationHelper.dismissCallNotification(publicKey)
         contactManager.delete(publicKey)
         chatManager.clearHistory(publicKey)
         scope.launch {
