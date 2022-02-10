@@ -70,6 +70,7 @@ dependencies {
     implementation(AndroidX.preference)
 
     implementation(AndroidX.Lifecycle.livedataKtx)
+    implementation(AndroidX.Lifecycle.runtimeKtx)
     implementation(AndroidX.Lifecycle.service)
     implementation(AndroidX.Lifecycle.viewmodelKtx)
 

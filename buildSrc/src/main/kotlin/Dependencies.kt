@@ -58,6 +58,7 @@ object AndroidX {
     object Lifecycle {
         private const val version = "2.4.0"
         const val livedataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
+        const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
         const val service = "androidx.lifecycle:lifecycle-service:$version"
         const val viewmodelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
     }

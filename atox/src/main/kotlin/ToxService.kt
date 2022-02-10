@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -13,15 +13,18 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.LifecycleService
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import java.util.Timer
 import javax.inject.Inject
 import kotlin.concurrent.schedule
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.ConnectionStatus
-import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxSaveStatus
 
@@ -90,23 +93,27 @@ class ToxService : LifecycleService() {
         createNotificationChannel()
         startForeground(NOTIFICATION_ID, notificationFor(connectionStatus))
 
-        userRepository.get(tox.publicKey.string())
-            .filter { user: User? -> user != null }.asLiveData().observe(this) { user ->
-                if (user.connectionStatus == connectionStatus) return@observe
-                connectionStatus = user.connectionStatus
-                notifier.notify(NOTIFICATION_ID, notificationFor(connectionStatus))
-                if (connectionStatus == ConnectionStatus.None) {
-                    Log.i(TAG, "Gone offline, scheduling bootstrap")
-                    bootstrapTimer.schedule(BOOTSTRAP_INTERVAL_MS, BOOTSTRAP_INTERVAL_MS) {
-                        Log.i(TAG, "Been offline for too long, bootstrapping")
-                        tox.isBootstrapNeeded = true
+        lifecycleScope.launch(Dispatchers.Default) {
+            userRepository.get(tox.publicKey.string())
+                .filterNotNull()
+                .filter { it.connectionStatus != connectionStatus }
+                .flowWithLifecycle(lifecycle)
+                .collect { user ->
+                    connectionStatus = user.connectionStatus
+                    notifier.notify(NOTIFICATION_ID, notificationFor(connectionStatus))
+                    if (connectionStatus == ConnectionStatus.None) {
+                        Log.i(TAG, "Gone offline, scheduling bootstrap")
+                        bootstrapTimer.schedule(BOOTSTRAP_INTERVAL_MS, BOOTSTRAP_INTERVAL_MS) {
+                            Log.i(TAG, "Been offline for too long, bootstrapping")
+                            tox.isBootstrapNeeded = true
+                        }
+                    } else {
+                        Log.i(TAG, "Online, cancelling bootstrap")
+                        bootstrapTimer.cancel()
+                        bootstrapTimer = Timer()
                     }
-                } else {
-                    Log.i(TAG, "Online, cancelling bootstrap")
-                    bootstrapTimer.cancel()
-                    bootstrapTimer = Timer()
                 }
-            }
+        }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
