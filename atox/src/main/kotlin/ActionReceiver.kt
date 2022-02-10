@@ -68,39 +68,43 @@ class ActionReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         (context.applicationContext as App).component.inject(this)
 
-        val pk = intent.getStringExtra(KEY_CONTACT_PK)?.let { PublicKey(it) }
-        if (pk == null) {
-            Log.e(TAG, "Got intent without required key $KEY_CONTACT_PK $intent")
-            return
-        }
+        scope.launch {
+            val pk = intent.getStringExtra(KEY_CONTACT_PK)?.let { PublicKey(it) }
+            if (pk == null) {
+                Log.e(TAG, "Got intent without required key $KEY_CONTACT_PK $intent")
+                return@launch
+            }
 
-        RemoteInput.getResultsFromIntent(intent)?.let { results ->
-            results.getCharSequence(KEY_TEXT_REPLY)?.toString()?.let { input ->
-                scope.launch {
+            RemoteInput.getResultsFromIntent(intent)?.let { results ->
+                results.getCharSequence(KEY_TEXT_REPLY)?.toString()?.let { input ->
                     contactRepository.setHasUnreadMessages(pk.string(), false)
+                    chatManager.sendMessage(pk, input)
+                    notificationHelper.showMessageNotification(
+                        Contact(pk.string(), tox.getName()),
+                        input,
+                        outgoing = true
+                    )
+                    return@launch
                 }
-                chatManager.sendMessage(pk, input)
-                notificationHelper.showMessageNotification(Contact(pk.string(), tox.getName()), input, outgoing = true)
-                return
             }
-        }
 
-        when (intent.getSerializableExtra(KEY_ACTION) as Action?) {
-            Action.CallAccept -> acceptCall(context, pk)
-            Action.CallEnd, Action.CallReject -> {
-                callManager.endCall(pk)
-                notificationHelper.dismissCallNotification(pk)
+            when (intent.getSerializableExtra(KEY_ACTION) as Action?) {
+                Action.CallAccept -> acceptCall(context, pk)
+                Action.CallEnd, Action.CallReject -> {
+                    callManager.endCall(pk)
+                    notificationHelper.dismissCallNotification(pk)
+                }
+                Action.CallIgnore -> callManager.removePendingCall(pk)
+                Action.MarkAsRead -> {
+                    contactRepository.setHasUnreadMessages(pk.string(), false)
+                    notificationHelper.dismissNotifications(pk)
+                }
+                null -> Log.e(TAG, "Missing action in intent $intent")
             }
-            Action.CallIgnore -> callManager.removePendingCall(pk)
-            Action.MarkAsRead -> scope.launch {
-                contactRepository.setHasUnreadMessages(pk.string(), false)
-                notificationHelper.dismissNotifications(pk)
-            }
-            null -> Log.e(TAG, "Missing action in intent $intent")
         }
     }
 
-    private fun acceptCall(context: Context, pk: PublicKey) = scope.launch {
+    private suspend fun acceptCall(context: Context, pk: PublicKey) {
         val contact = contactManager.get(pk).firstOrNull().let {
             if (it != null) {
                 it
@@ -115,7 +119,7 @@ class ActionReceiver : BroadcastReceiver() {
                 Toast.makeText(context, context.getString(R.string.error_simultaneous_calls), Toast.LENGTH_LONG).show()
                 notificationHelper.showPendingCallNotification(UserStatus.Busy, contact)
             }
-            return@launch
+            return
         }
 
         try {
@@ -123,7 +127,7 @@ class ActionReceiver : BroadcastReceiver() {
             notificationHelper.showOngoingCallNotification(contact)
         } catch (e: ToxavAnswerException) {
             Log.e(TAG, e.toString())
-            return@launch
+            return
         }
 
         val isSendingAudio = context.hasPermission(Manifest.permission.RECORD_AUDIO) && callManager.startSendingAudio()
