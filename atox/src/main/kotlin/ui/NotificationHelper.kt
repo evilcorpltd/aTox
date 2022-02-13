@@ -69,7 +69,9 @@ class NotificationHelper @Inject constructor(
             .setName(context.getString(R.string.friend_requests))
             .build()
 
-        val ringtone = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE)
+        // We can't use getActualDefaultRingtoneUri as Samsung requires the WRITE_SETTINGS permission for that. :D
+        // See: https://github.com/evilcorpltd/aTox/issues/958
+        val ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
         val callChannelBuilder = NotificationChannelCompat.Builder(CALL, NotificationManagerCompat.IMPORTANCE_HIGH)
             .setName(context.getString(R.string.calls))
             .setVibrationEnabled(true)
