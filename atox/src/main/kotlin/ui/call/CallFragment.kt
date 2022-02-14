@@ -79,7 +79,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
 
         updateSpeakerphoneIcon()
         speakerphone.setOnClickListener {
-            vm.speakerphoneOn = !vm.speakerphoneOn
+            vm.toggleSpeakerphone()
             updateSpeakerphoneIcon()
         }
 

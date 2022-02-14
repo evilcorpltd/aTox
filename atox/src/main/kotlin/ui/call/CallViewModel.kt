@@ -4,6 +4,7 @@
 
 package ltd.evilcorp.atox.ui.call
 
+import android.os.Build
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -11,6 +12,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import ltd.evilcorp.atox.ProximityScreenOff
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.domain.feature.CallManager
@@ -22,6 +24,7 @@ class CallViewModel @Inject constructor(
     private val callManager: CallManager,
     private val notificationHelper: NotificationHelper,
     private val contactManager: ContactManager,
+    private val proximityScreenOff: ProximityScreenOff
 ) : ViewModel() {
     private var publicKey = PublicKey("")
 
@@ -45,6 +48,17 @@ class CallViewModel @Inject constructor(
 
     fun startSendingAudio() = callManager.startSendingAudio()
     fun stopSendingAudio() = callManager.stopSendingAudio()
+
+    fun toggleSpeakerphone() {
+        speakerphoneOn = !speakerphoneOn
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (speakerphoneOn) {
+                proximityScreenOff.release()
+            } else {
+                proximityScreenOff.acquire()
+            }
+        }
+    }
 
     val inCall = callManager.inCall
     val sendingAudio = callManager.sendingAudio
