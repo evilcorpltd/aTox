@@ -159,6 +159,7 @@
     <string name="save">Save</string>
     <string name="pref_nospam">NoSpam</string>
     <string name="pref_nospam_description">Changing your NoSpam alters your Tox ID, meaning friend requests must be sent to the updated one</string>
+    <string name="pref_disabled_tox_error">Disabled due to an error starting Tox</string>
     <string name="saved">Saved</string>
     <string name="delete_message">Delete message</string>
     <string name="contact_default_name">Unknown</string>

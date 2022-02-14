@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -234,16 +234,22 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
             Toast.makeText(requireContext(), getString(R.string.password_updated), Toast.LENGTH_LONG).show()
         }
 
-        nospam.setText("%08X".format(vm.getNospam()))
-        nospam.doAfterTextChanged {
-            saveNospam.isEnabled =
-                nospam.text.length == 8 && nospam.text.toString().toUInt(16).toInt() != vm.getNospam()
-        }
-        saveNospam.isEnabled = false
-        saveNospam.setOnClickListener {
-            vm.setNospam(nospam.text.toString().toUInt(16).toInt())
+        if (vm.nospamAvailable()) {
+            nospam.setText("%08X".format(vm.getNospam()))
+            nospam.doAfterTextChanged {
+                saveNospam.isEnabled =
+                    nospam.text.length == 8 && nospam.text.toString().toUInt(16).toInt() != vm.getNospam()
+            }
             saveNospam.isEnabled = false
-            Toast.makeText(requireContext(), R.string.saved, Toast.LENGTH_LONG).show()
+            saveNospam.setOnClickListener {
+                vm.setNospam(nospam.text.toString().toUInt(16).toInt())
+                saveNospam.isEnabled = false
+                Toast.makeText(requireContext(), R.string.saved, Toast.LENGTH_LONG).show()
+            }
+        } else {
+            nospam.isEnabled = false
+            saveNospam.isEnabled = false
+            nospamExtraText.text = getString(R.string.pref_disabled_tox_error)
         }
 
         settingBootstrapNodes.adapter = ArrayAdapter.createFromResource(

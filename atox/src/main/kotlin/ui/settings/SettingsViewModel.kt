@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -59,6 +59,7 @@ class SettingsViewModel @Inject constructor(
     private val _committed = MutableLiveData<Boolean>().apply { value = false }
     val committed: LiveData<Boolean> get() = _committed
 
+    fun nospamAvailable(): Boolean = tox.started
     fun getNospam(): Int = tox.nospam
     fun setNospam(value: Int) {
         tox.nospam = value
