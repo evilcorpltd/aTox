@@ -153,4 +153,5 @@
     <string name="error_simultaneous_calls">Det finns inte stöd för att delta i flera samtal samtidigt</string>
     <string name="share">Dela</string>
     <string name="mark_as_read">Markera som läst</string>
+    <string name="pref_disabled_tox_error">Inaktiverat p.g.a. fel vid Tox-start</string>
 </resources>
