@@ -156,4 +156,5 @@
     <string name="error_simultaneous_calls">La participación en varias llamadas simultáneas no está soportado</string>
     <string name="share">Compartir</string>
     <string name="mark_as_read">Marcar como leído</string>
+    <string name="pref_disabled_tox_error">Desactivado debido a un error iniciando Tox</string>
 </resources>
