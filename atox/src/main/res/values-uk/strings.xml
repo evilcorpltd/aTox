@@ -153,4 +153,5 @@
     <string name="error_simultaneous_calls">В даний момент, участь в декількох дзвінках одночасно не підтримується</string>
     <string name="share">Поділіться</string>
     <string name="mark_as_read">Відзначити як прочитане</string>
+    <string name="pref_disabled_tox_error">Відключено у зв\'язку з помилкою при запуску Tox</string>
 </resources>

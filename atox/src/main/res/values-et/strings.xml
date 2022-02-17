@@ -110,9 +110,17 @@
     <string name="connecting">Ühendamine …</string>
     <string name="cancel">Tühista</string>
     <string name="confirm">Kinnitage</string>
-    <string name="add_contact_message_error_empty">Sõnum ei tohi olla tühi</string>
+    <string name="add_contact_message_error_empty">Kirjuta midagi enne saatmist</string>
     <string name="add_contact_message_default">Räägi minuga aToxis nagu mõistlik inimene.</string>
     <string name="add_contact">Lisage kontakt</string>
     <string name="pref_proxy_type_http">HTTP</string>
     <string name="pref_proxy_type_socks5">SOCKS5</string>
+    <string name="pref_ft_auto_accept_images">Pildid</string>
+    <string name="pref_ft_auto_accept_all">Kõik</string>
+    <string name="pref_bootstrap_node_user_provided">Kasutajapoolne</string>
+    <string name="pref_theme_light">Hele</string>
+    <string name="pref_theme_dark">Tume</string>
+    <string name="pref_ft_auto_accept_none">Puudub</string>
+    <string name="pref_proxy_type_none">Puudub</string>
+    <string name="pref_bootstrap_node_builtin">Sisseehitatud</string>
 </resources>
