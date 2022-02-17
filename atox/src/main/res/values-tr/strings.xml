@@ -153,4 +153,5 @@
     <string name="error_simultaneous_calls">Aynı anda birden fazla aramaya katılmak desteklenmiyor</string>
     <string name="share">Paylaş</string>
     <string name="mark_as_read">Okundu olarak işaretle</string>
+    <string name="pref_disabled_tox_error">Tox başlatma hatası nedeniyle devre dışı bırakıldı</string>
 </resources>
