@@ -151,4 +151,6 @@
     <string name="atox_profile_locked">Προφίλ aTox κλειδωμένο</string>
     <string name="tap_to_unlock_and_start_atox">Πατήστε για να ξεκλειδώσετε το προφίλ σας και να ξεκινήστε το aTox</string>
     <string name="error_simultaneous_calls">Η συμμετοχή σε πολλαπλές κλήσεις ταυτόχρονα δεν υποστηρίζεται</string>
+    <string name="share">Κοινοποίηση</string>
+    <string name="mark_as_read">Σημείωση ως διαβασμένο</string>
 </resources>
