@@ -14,10 +14,10 @@ object BuildPlugin {
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
     const val ideaExt = "org.jetbrains.gradle.plugin.idea-ext"
-    const val ideaExtVersion = "1.1.1"
+    const val ideaExtVersion = "1.1.3"
 
     const val versions = "com.github.ben-manes.versions"
-    const val versionsVersion = "0.41.0"
+    const val versionsVersion = "0.42.0"
     const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:$versionsVersion"
 }
 
@@ -47,16 +47,16 @@ object AndroidX {
     const val activity = "androidx.activity:activity:1.4.0"
     const val appcompat = "androidx.appcompat:appcompat:1.4.1"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.3"
-    const val fragment = "androidx.fragment:fragment:1.4.0"
+    const val fragment = "androidx.fragment:fragment:1.4.1"
 
     object Navigation {
-        private const val version = "2.4.0-rc01"
+        private const val version = "2.4.1"
         const val fragment = "androidx.navigation:navigation-fragment:$version"
         const val ui = "androidx.navigation:navigation-ui:$version"
     }
 
     object Lifecycle {
-        private const val version = "2.4.0"
+        private const val version = "2.4.1"
         const val livedataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
         const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
         const val service = "androidx.lifecycle:lifecycle-service:$version"
@@ -73,7 +73,7 @@ object AndroidX {
         const val testing = "androidx.room:room-testing:$version"
     }
 
-    const val preference = "androidx.preference:preference:1.1.1"
+    const val preference = "androidx.preference:preference:1.2.0"
 
     object Test {
         private const val version = "1.4.0"
@@ -97,7 +97,7 @@ object Google {
 
     const val dagger = "com.google.dagger:dagger:${Dagger.version}"
     object Dagger {
-        internal const val version = "2.40.5"
+        internal const val version = "2.41"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
     }
 
