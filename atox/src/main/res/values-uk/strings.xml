@@ -70,7 +70,7 @@
     <string name="profile_photo_description">Світлина профілю</string>
     <string name="navigation_drawer_open">Відкрити панель навіґації</string>
     <string name="navigation_drawer_close">Закрити панель навіґації</string>
-    <string name="no_contacts_call_to_action">Чого чекаєш\? Додай контак щоб почати спілкування!</string>
+    <string name="no_contacts_call_to_action">Чого чекаєш\? Додай контакт щоб почати спілкування!</string>
     <string name="name_default">Користувач aTox</string>
     <string name="name">Ім\'я користувача</string>
     <string name="messages_incoming">Вхідні повідомлення</string>
