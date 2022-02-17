@@ -153,4 +153,5 @@
     <string name="error_simultaneous_calls">השתתפות בשיחות מרובות באותו הזמן אינה נתמכת</string>
     <string name="share">שתף</string>
     <string name="mark_as_read">סמן כנקרא</string>
+    <string name="pref_disabled_tox_error">מושבת עקב שגיאה בהפעלת Tox</string>
 </resources>
