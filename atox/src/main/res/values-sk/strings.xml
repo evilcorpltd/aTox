@@ -25,7 +25,7 @@
     <string name="delete_message">Vymaž správu</string>
     <string name="saved">Uložené</string>
     <string name="pref_nospam_description">Zmena tvojho NoSpam-u zmení tvoje Tox-ové ID, čo znamená, že ti nové žiadosti o priateľstvo budú musieť chodiť na to nové</string>
-    <string name="pref_nospam">NoSpam</string>
+    <string name="pref_nospam">Proti spamu</string>
     <string name="save">Uložiť</string>
     <string name="tox_id_error_self_add">Nemôžeš pridať sám seba</string>
     <string name="in_call_with">V hovore s %1$s</string>
@@ -145,4 +145,12 @@
     <string name="cancel">Zrušiť</string>
     <string name="confirm">Potvrdiť</string>
     <string name="add_contact_message_error_empty">Najprv niečo napíš na odoslanie</string>
+    <string name="share">Zdieľaj</string>
+    <string name="error_simultaneous_calls">Účastniť sa viacerých hovorov naraz nie je umožnené</string>
+    <string name="return_to_chat">Späť na rozhovor</string>
+    <string name="speakerphone_toggle">Prepni reproduktor</string>
+    <string name="atox_profile_locked">aTox-ový profil je zamknutý</string>
+    <string name="tap_to_unlock_and_start_atox">Ťukni pre odomknutie svojho profilu a zapnutia aTox-u</string>
+    <string name="mark_as_read">Označ ako prečítané</string>
+    <string name="channel_profile_locked_explanation">Zobraz v prípade že tvoj profil je treba najprv odomknúť aby sa aTox mohol spustiť</string>
 </resources>
