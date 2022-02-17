@@ -151,4 +151,6 @@
     <string name="atox_profile_locked">aTox-profil låst</string>
     <string name="error_simultaneous_calls">Du kan ikke være i flere samtaler</string>
     <string name="channel_profile_locked_explanation">Sendes når din profil må låses opp for at aTox skal kjøre</string>
+    <string name="share">Del</string>
+    <string name="mark_as_read">Marker som lest</string>
 </resources>
