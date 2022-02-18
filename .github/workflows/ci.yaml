@@ -36,6 +36,10 @@ jobs:
     - uses: actions/setup-java@v1
       with:
         java-version: 11
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+      with:
+        cache-read-only: ${{ github.ref != 'refs/heads/master' }}
     - name: Build and test
       run: ./gradlew build
     - name: Run Android tests
