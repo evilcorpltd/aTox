@@ -90,13 +90,27 @@ $(PREFIX)/protobuf.stamp: $(SRCDIR)/protobuf $(TOOLCHAIN_FILE) $(PROTOC)
 # toxcore
 
 $(SRCDIR)/toxcore:
-	git clone --depth=1 --branch=v0.2.15 https://github.com/TokTok/c-toxcore $@;
+	git clone --depth=1 --branch=v0.2.16 https://github.com/TokTok/c-toxcore $@;
 
 $(PREFIX)/toxcore.stamp: $(foreach f,$(shell cd $(SRCDIR)/toxcore && git ls-files),$(SRCDIR)/toxcore/$f)
-$(PREFIX)/toxcore.stamp: $(SRCDIR)/toxcore $(TOOLCHAIN_FILE) $(foreach i,libsodium opus libvpx,$(PREFIX)/$i.stamp)
+$(PREFIX)/toxcore.stamp: $(SRCDIR)/toxcore $(TOOLCHAIN_FILE) $(foreach i,libsodium msgpack opus libvpx,$(PREFIX)/$i.stamp)
 	@$(PRE_RULE)
 	mkdir -p $(BUILDDIR)/$(notdir $<)
 	cd $(BUILDDIR)/$(notdir $<) && cmake $(SRCDIR)/$(notdir $<) $($(notdir $<)_CONFIGURE) -DMUST_BUILD_TOXAV=ON -DBOOTSTRAP_DAEMON=OFF
+	$(MAKE) -C $(BUILDDIR)/$(notdir $<) install
+	mkdir -p $(@D) && touch $@
+	@$(POST_RULE)
+
+#############################################################################
+# msgpack
+
+$(SRCDIR)/msgpack:
+	git clone --depth=1 --branch=c-4.0.0 https://github.com/msgpack/msgpack-c $@
+
+$(PREFIX)/msgpack.stamp: $(SRCDIR)/msgpack $(TOOLCHAIN_FILE)
+	@$(PRE_RULE)
+	mkdir -p $(BUILDDIR)/$(notdir $<)
+	cd $(BUILDDIR)/$(notdir $<) && cmake $(SRCDIR)/$(notdir $<) $($(notdir $<)_CONFIGURE)
 	$(MAKE) -C $(BUILDDIR)/$(notdir $<) install
 	mkdir -p $(@D) && touch $@
 	@$(POST_RULE)
