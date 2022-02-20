@@ -1,0 +1,3 @@
+Fikset krasj ved håndtering av innkommende anrop
+Fikset krasj ved sletting av kontakter
+Full endringslogg: https://github.com/evilcorpltd/aTox/releases
