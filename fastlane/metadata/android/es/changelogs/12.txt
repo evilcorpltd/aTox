@@ -1,0 +1,4 @@
+Se corrigió el fallo en el manejo de la terminación de llamadas entrantes
+Se corrigió el fallo en la eliminación de contactos.
+
+Registro de cambios completo: https://github.com/evilcorpltd/aTox/releases
