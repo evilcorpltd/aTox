@@ -1,0 +1,4 @@
+修复了处理结束来电相关的崩溃
+修复了删除联系人发生的崩溃
+
+完整更新日志：https://github.com/evilcorpltd/aTox/releases
