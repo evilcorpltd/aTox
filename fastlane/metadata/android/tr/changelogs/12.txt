@@ -1,0 +1,4 @@
+Gelen aramalar sonlandırılırken oluşan çökme düzeltildi
+Kişi silmede oluşan çökme düzeltildi
+
+Tam değişiklik günlüğü: https://github.com/evilcorpltd/aTox/releases

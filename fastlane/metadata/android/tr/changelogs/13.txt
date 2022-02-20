@@ -1,0 +1,10 @@
+Kişilerin bağlantı durumlarının görüntülenmesi eklendi
+
+Daha yeni Samsung telefonlarda başlangıçta bir çökme düzeltildi
+Arama zil sesinin olması gerektiği halde her zaman susturulmaması düzeltildi
+Kişileri kötü zamanlarda silerken oluşan bir dizi çökme düzeltildi
+Bir vekil ayarı olduğunda ve internet yokken başlamayla ilgili bir çökme düzeltildi
+
+Toxcore 0.2.15 sürümüne güncellendi
+
+Tam değişiklik günlüğü: https://github.com/evilcorpltd/aTox/releases
