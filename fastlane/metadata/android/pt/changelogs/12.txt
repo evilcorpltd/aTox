@@ -1,0 +1,4 @@
+Corrigida a falha no tratamento de chamadas recebidas
+Corrigida a falha na eliminação do contacto
+
+Changelog completo: https://github.com/evilcorpltd/aTox/releases
