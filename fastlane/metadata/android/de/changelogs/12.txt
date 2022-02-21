@@ -1,0 +1,4 @@
+Crash beim Handeln von endenden eingehenden Anrufen behoben
+Crash bei Kontaktlöschung behoben
+
+Voller Changelog: https://github.com/evilcorpltd/aTox/releases
