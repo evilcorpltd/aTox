@@ -5,6 +5,6 @@ Fixed the call ringtone not always being silenced when it should be
 Fixed a bunch of crashes when deleting contacts at bad times
 Fixed a crash related to starting with a proxy set and no internet
 
-Updated to Toxcore 0.2.15
+Updated to Toxcore 0.2.16
 
 Full changelog: https://github.com/evilcorpltd/aTox/releases

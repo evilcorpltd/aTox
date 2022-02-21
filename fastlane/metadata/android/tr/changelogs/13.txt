@@ -5,6 +5,6 @@ Arama zil sesinin olması gerektiği halde her zaman susturulmaması düzeltildi
 Kişileri kötü zamanlarda silerken oluşan bir dizi çökme düzeltildi
 Bir vekil ayarı olduğunda ve internet yokken başlamayla ilgili bir çökme düzeltildi
 
-Toxcore 0.2.15 sürümüne güncellendi
+Toxcore 0.2.16 sürümüne güncellendi
 
 Tam değişiklik günlüğü: https://github.com/evilcorpltd/aTox/releases
