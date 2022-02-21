@@ -68,15 +68,12 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
 )
 
-RULES_KOTLIN_TAG = "cbc4ced96a6685236c398cc2554fa4abefec1087"
+RULES_KOTLIN_TAG = "v1.5.0"
 
 http_archive(
     name = "io_bazel_rules_kotlin",
-    patch_args = ["-p1"],
-    patches = ["//bazel/io_bazel_rules_kotlin:kotlin-1.5-support.patch"],
-    sha256 = "a8512943dc3f779ca39e887b39fbd4ad4771d7aaf446c69a9d352712b72f2c22",
-    strip_prefix = "rules_kotlin-%s" % RULES_KOTLIN_TAG,
-    url = "https://github.com/bazelbuild/rules_kotlin/archive/%s.zip" % RULES_KOTLIN_TAG,
+    sha256 = "12d22a3d9cbcf00f2e2d8f0683ba87d3823cb8c7f6837568dd7e48846e023307",
+    url = "https://github.com/bazelbuild/rules_kotlin/releases/download/%s/rules_kotlin_release.tgz" % RULES_KOTLIN_TAG,
 )
 
 RULES_SCALA_TAG = "73c0dbb55d1ab2905c3d97923efc415623f67ac6"
@@ -256,11 +253,13 @@ load("@robolectric//bazel:robolectric.bzl", "robolectric_repositories")
 
 robolectric_repositories()
 
-load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kotlin_repositories", "kt_register_toolchains")
-
-kt_register_toolchains()
+load("@io_bazel_rules_kotlin//kotlin:repositories.bzl", "kotlin_repositories")
 
 kotlin_repositories()
+
+load("@io_bazel_rules_kotlin//kotlin:core.bzl", "kt_register_toolchains")
+
+kt_register_toolchains()
 
 load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
 load("@io_bazel_rules_scala//scala:toolchains.bzl", "scala_register_toolchains")
