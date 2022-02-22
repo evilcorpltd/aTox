@@ -106,11 +106,11 @@ http_archive(
     url = "https://github.com/google/dagger/archive/dagger-%s.zip" % DAGGER_TAG,
 )
 
-ROBOLECTRIC_TAG = "4.4"
+ROBOLECTRIC_TAG = "4.7.3"
 
 http_archive(
     name = "robolectric",
-    sha256 = "d4f2eb078a51f4e534ebf5e18b6cd4646d05eae9b362ac40b93831bdf46112c7",
+    sha256 = "97f169d39f19412bdd07fd6c274dcda0a7c8f623f7f00aa5a3b94994fc6f0ec4",
     strip_prefix = "robolectric-bazel-%s" % ROBOLECTRIC_TAG,
     url = "https://github.com/robolectric/robolectric-bazel/archive/%s.tar.gz" % ROBOLECTRIC_TAG,
 )
@@ -183,7 +183,7 @@ maven_install(
         "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2",
         "org.jetbrains:annotations:13.0",
         "org.slf4j:slf4j-api:1.7.25",
-        "org.robolectric:robolectric:4.4",
+        "org.robolectric:robolectric:4.7.3",
         "org.scala-lang:scala-library:2.11.12",
         "androidx.lifecycle:lifecycle-extensions:2.2.0",
         "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0",

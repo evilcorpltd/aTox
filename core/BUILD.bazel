@@ -47,14 +47,13 @@ kt_android_library(
     deps = DAO_TEST_LIB_DEPS,
 )
 
-# TODO(robinlinden): targetSdk 30 once robolectric supports it.
 android_local_test(
     name = "contact_dao_test",
     size = "small",
     custom_package = "ltd.evilcorp.core.db",
     manifest_values = {
         "minSdkVersion": "19",
-        "targetSdkVersion": "29",
+        "targetSdkVersion": "31",
     },
     test_class = "ltd.evilcorp.core.db.ContactDaoTest",
     deps = [":contact_dao_test_lib"] + DAO_TEST_DEPS,
@@ -68,14 +67,13 @@ kt_android_library(
     deps = DAO_TEST_LIB_DEPS,
 )
 
-# TODO(robinlinden): targetSdk 30 once robolectric supports it.
 android_local_test(
     name = "user_dao_test",
     size = "small",
     custom_package = "ltd.evilcorp.core.db",
     manifest_values = {
         "minSdkVersion": "19",
-        "targetSdkVersion": "29",
+        "targetSdkVersion": "31",
     },
     test_class = "ltd.evilcorp.core.db.UserDaoTest",
     deps = [":user_dao_test_lib"] + DAO_TEST_DEPS,
