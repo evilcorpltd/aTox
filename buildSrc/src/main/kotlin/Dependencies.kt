@@ -22,8 +22,8 @@ object BuildPlugin {
 }
 
 object AndroidSdk {
-    const val minVersion = 19
-    const val targetVersion = 31
+    const val minVersion = 21
+    const val targetVersion = 32
 }
 
 object JavaX {
