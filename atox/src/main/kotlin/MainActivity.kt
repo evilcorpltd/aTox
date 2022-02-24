@@ -12,6 +12,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.navigation.fragment.findNavController
 import javax.inject.Inject
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         (application as App).component.inject(this)
 
         super.onCreate(savedInstanceState)
+        installSplashScreen()
 
         if (settings.disableScreenshots) {
             window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
