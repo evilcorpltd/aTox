@@ -3,7 +3,7 @@ plugins {
 
     id(BuildPlugin.kotlinAndroid)
     id(BuildPlugin.kotlinKapt)
-    id("com.google.devtools.ksp") version "1.5.31-1.0.1" // Depends on your kotlin version
+    id("com.google.devtools.ksp") version "1.6.10-1.0.3" // Depends on your kotlin version
 }
 
 apply<KtlintPlugin>()
