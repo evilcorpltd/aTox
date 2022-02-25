@@ -23,7 +23,7 @@ object BuildPlugin {
 
 object AndroidSdk {
     const val minVersion = 21
-    const val targetVersion = 32
+    const val targetVersion = 31
 }
 
 object JavaX {
@@ -42,6 +42,7 @@ object KotlinX {
 object AndroidX {
     object Core {
         const val ktx = "androidx.core:core-ktx:1.7.0"
+        const val splashScreen = "androidx.core:core-splashscreen:1.0.0-beta01"
     }
 
     const val activity = "androidx.activity:activity:1.4.0"
