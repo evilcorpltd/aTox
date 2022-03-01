@@ -112,8 +112,12 @@ class Tox @Inject constructor(
                         Log.e(TAG, e.toString())
                     }
                 }
+
+                val before = System.currentTimeMillis()
                 tox.iterate()
-                delay(tox.iterationInterval())
+                val timeTaken = System.currentTimeMillis() - before
+                val iterationInterval = tox.iterationInterval()
+                delay(iterationInterval - timeTaken)
             }
             started = false
         }
