@@ -20,6 +20,7 @@ class AudioPlayer(sampleRate: Int, channels: Int) {
         AudioTrack.getMinBufferSize(sampleRate, intToChannel(channels), AudioFormat.ENCODING_PCM_16BIT)
     private val audioTrack = if (Build.VERSION.SDK_INT < 23) {
         // TODO(robinlinden): Verify that this works on old devices.
+        @Suppress("DEPRECATION") // I can't find a non-deprecated alternative for lower SDK versions.
         AudioTrack(
             AudioManager.STREAM_VOICE_CALL,
             sampleRate,
