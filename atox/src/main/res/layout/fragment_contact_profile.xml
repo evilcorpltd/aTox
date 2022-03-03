@@ -16,8 +16,7 @@
 
         <LinearLayout android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp">
+                android:layout_marginHorizontal="16dp">
 
             <ltd.evilcorp.atox.ui.AvatarImageView
                     android:id="@+id/avatarImageView"
@@ -42,9 +41,8 @@
             android:orientation="vertical">
         <TextView android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/info"
                 android:textStyle="bold"/>
@@ -52,8 +50,7 @@
         <TextView android:id="@+id/contactName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="8dp"
                 android:textIsSelectable="true"
                 tools:text="Contact name"/>
@@ -61,8 +58,7 @@
         <TextView android:id="@+id/contactStatusMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="8dp"
                 android:textIsSelectable="true"
                 tools:text="Contact status message"/>
@@ -83,10 +79,8 @@
         <TextView android:id="@+id/contactPublicKey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="8dp"
                 android:textIsSelectable="true"
                 tools:text="0000000000000000000000000000000000000000000000000000000000000000000000000000"/>
     </LinearLayout>
