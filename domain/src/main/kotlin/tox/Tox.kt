@@ -117,6 +117,7 @@ class Tox @Inject constructor(
                 tox.iterate()
                 val timeTaken = System.currentTimeMillis() - before
                 val iterationInterval = tox.iterationInterval()
+                if (timeTaken > iterationInterval) Log.w(TAG, "Tox thread overran: $timeTaken/$iterationInterval.")
                 delay(iterationInterval - timeTaken)
             }
             started = false
