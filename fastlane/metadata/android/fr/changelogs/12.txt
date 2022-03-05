@@ -1,0 +1,4 @@
+Correction du crash à la fin d'appels entrants
+Correction du crash à la suppression d'un contact
+
+Tous les changements : https://github.com/evilcorpltd/aTox/releases

@@ -1,0 +1,6 @@
+aTox ne crashe plus au lancement sur Android KitKat
+Rejeter un appel, pendant un appel, fonctionne maintenant comme il faut
+Ajout du support pour partager votre Tox ID sous forme de QR code
+Ajout de "Marquer comme lu" sur les notifications de messages
+
+Tous les changements : https://github.com/evilcorpltd/aTox/releases

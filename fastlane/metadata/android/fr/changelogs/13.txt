@@ -1,0 +1,10 @@
+Ajout du statut de connexion des contacts
+
+Correction du crash au lancement sur les Samsung récents
+Correction de la sonnerie d'appel non silencieuse, alors qu'elle devrait l'être
+Correction d'un certain nombre de crash liés à la suppression de contact
+Correction du crash lors de l'utilisation d'un proxy sans Internet
+
+Mis à jour : Toxcore 0.2.16
+
+Tous les changements : https://github.com/evilcorpltd/aTox/releases
