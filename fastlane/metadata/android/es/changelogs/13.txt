@@ -1,0 +1,10 @@
+Se agregó una visualización de los estados de conexión de los contactos.
+
+Se corrigió un bloqueo al inicio en los teléfonos Samsung más nuevos.
+Se corrigió que el tono de llamada no siempre se silenciara cuando debería serlo.
+Se corrigió un montón de fallas al eliminar contactos en malos momentos.
+Se corrigió un bloqueo relacionado con comenzar con un conjunto de proxy y sin Internet.
+
+Actualizado a Toxcore 0.2.16
+
+Registro de cambios completo: https://github.com/evilcorpltd/aTox/releases
