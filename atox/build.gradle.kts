@@ -53,6 +53,7 @@ dependencies {
     implementation(project(":domain"))
 
     implementation(AndroidX.Core.ktx)
+    implementation(AndroidX.Core.splashScreen)
     implementation(AndroidX.activity)
     implementation(AndroidX.appcompat)
     implementation(AndroidX.constraintlayout)
