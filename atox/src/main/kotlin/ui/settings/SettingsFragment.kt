@@ -235,6 +235,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         }
 
         if (vm.nospamAvailable()) {
+            @Suppress("SetTextI18n") // This should be displayed the way Tox likes it.
             nospam.setText("%08X".format(vm.getNospam()))
             nospam.doAfterTextChanged {
                 saveNospam.isEnabled =
