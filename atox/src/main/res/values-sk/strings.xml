@@ -152,4 +152,5 @@
     <string name="tap_to_unlock_and_start_atox">Ťukni pre odomknutie svojho profilu a zapnutia aTox-u</string>
     <string name="mark_as_read">Označ ako prečítané</string>
     <string name="channel_profile_locked_explanation">Zobraz v prípade že tvoj profil je treba najprv odomknúť aby sa aTox mohol spustiť</string>
+    <string name="pref_disabled_tox_error">Vypnuté kvôli chybe pri štarte Tox-u</string>
 </resources>
