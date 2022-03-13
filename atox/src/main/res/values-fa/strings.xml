@@ -145,4 +145,10 @@
     <string name="pref_block_screenshots">مسدود کردن اسکرین شات های تاکس</string>
     <string name="ongoing_call">تماس مداوم</string>
     <string name="export_file_failure">در صدور آن مشکلی پیش آمد. نقل و انتقالات قبل از 0.5.1 به طور پیش فرض صادر شده است.</string>
+    <string name="error_simultaneous_calls">از شرکت هم‌زمان در بیش از یک تماس صوتی پشتیبانی نمی‌شود</string>
+    <string name="speakerphone_toggle">فعال/غیرفعال کردن بلندگو</string>
+    <string name="share">به اشتراک گذاری</string>
+    <string name="mark_as_read">علامت‌زدن به عنوان خوانده‌شده</string>
+    <string name="pref_disabled_tox_error">غیرفعال‌شده به دلیل خطا در بالا آمدن Tox</string>
+    <string name="tap_to_unlock_and_start_atox">برای بازکردن نمایه خود و آغاز aTox ضربه بزنید</string>
 </resources>
