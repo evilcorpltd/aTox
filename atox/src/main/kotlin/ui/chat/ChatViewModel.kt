@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -20,6 +20,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.transform
@@ -61,7 +62,9 @@ class ChatViewModel @Inject constructor(
     private var sentTyping = false
 
     val contact: LiveData<Contact> by lazy { contactManager.get(publicKey).asLiveData() }
-    val messages: LiveData<List<Message>> by lazy { chatManager.messagesFor(publicKey).asLiveData() }
+    val messages: LiveData<List<Message>> by lazy {
+        chatManager.messagesFor(publicKey).distinctUntilChanged().asLiveData()
+    }
     val fileTransfers: LiveData<List<FileTransfer>> by lazy { fileTransferManager.transfersFor(publicKey).asLiveData() }
 
     val ongoingCall = callManager.inCall.asLiveData()
