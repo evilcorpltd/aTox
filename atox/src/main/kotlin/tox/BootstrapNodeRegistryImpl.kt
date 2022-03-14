@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 aTox contributors
+// SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -7,7 +7,6 @@ package ltd.evilcorp.atox.tox
 import android.content.Context
 import android.widget.Toast
 import java.io.File
-import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
@@ -36,11 +35,7 @@ class BootstrapNodeRegistryImpl @Inject constructor(
     override fun reset() {
         scope.launch(Dispatchers.IO) {
             val str = if (settings.bootstrapNodeSource == BootstrapNodeSource.BuiltIn) {
-                context.resources.openRawResource(R.raw.nodes).use {
-                    val bytes = ByteArray(it.available())
-                    it.read(bytes)
-                    String(bytes, StandardCharsets.UTF_8)
-                }
+                context.resources.openRawResource(R.raw.nodes).use { String(it.readBytes()) }
             } else {
                 File(context.filesDir, "user_nodes.json").readBytes().decodeToString()
             }
