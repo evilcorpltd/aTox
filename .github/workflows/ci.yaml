@@ -71,7 +71,7 @@ jobs:
         key: from-src-${{ hashFiles('scripts/**') }}
     - name: Install tox4j dependencies
       if: steps.cache.outputs.cache-hit != 'true'
-      run: sudo apt install yasm
+      run: sudo apt-get update && sudo apt install yasm
     - name: Build tox4j
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
