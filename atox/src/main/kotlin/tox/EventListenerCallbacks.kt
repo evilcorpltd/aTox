@@ -25,11 +25,13 @@ import ltd.evilcorp.core.repository.FriendRequestRepository
 import ltd.evilcorp.core.repository.MessageRepository
 import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.Sender
+import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.av.AudioPlayer
 import ltd.evilcorp.domain.feature.CallManager
 import ltd.evilcorp.domain.feature.ChatManager
@@ -75,6 +77,9 @@ class EventListenerCallbacks @Inject constructor(
             it
         }
 
+    private fun notifyMessage(contact: Contact, message: String) =
+        notificationHelper.showMessageNotification(contact, message, silent = tox.getStatus() == UserStatus.Busy)
+
     fun setUp(listener: ToxEventListener) = with(listener) {
         friendStatusMessageHandler = { publicKey, message ->
             contactRepository.setStatusMessage(publicKey, message)
@@ -105,7 +110,7 @@ class EventListenerCallbacks @Inject constructor(
         friendRequestHandler = { publicKey, _, message ->
             FriendRequest(publicKey, message).also {
                 friendRequestRepository.add(it)
-                notificationHelper.showFriendRequestNotification(it)
+                notificationHelper.showFriendRequestNotification(it, silent = tox.getStatus() == UserStatus.Busy)
             }
         }
 
@@ -117,7 +122,7 @@ class EventListenerCallbacks @Inject constructor(
             if (chatManager.activeChat != publicKey) {
                 scope.launch {
                     val contact = tryGetContact(publicKey, "Message") ?: return@launch
-                    notificationHelper.showMessageNotification(contact, msg)
+                    notifyMessage(contact, msg)
                 }
                 contactRepository.setHasUnreadMessages(publicKey, true)
             }
@@ -141,7 +146,7 @@ class EventListenerCallbacks @Inject constructor(
                     scope.launch {
                         val contact = tryGetContact(publicKey, "FileRecv") ?: return@launch
                         val msg = ctx.getString(R.string.notification_file_transfer, name)
-                        notificationHelper.showMessageNotification(contact, msg)
+                        notifyMessage(contact, msg)
                     }
                     contactRepository.setHasUnreadMessages(publicKey, true)
                 }

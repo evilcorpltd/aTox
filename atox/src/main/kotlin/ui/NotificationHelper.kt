@@ -113,7 +113,12 @@ class NotificationHelper @Inject constructor(
         override fun key() = "circleTransform"
     }
 
-    fun showMessageNotification(contact: Contact, message: String, outgoing: Boolean = false) {
+    fun showMessageNotification(
+        contact: Contact,
+        message: String,
+        outgoing: Boolean = false,
+        silent: Boolean = outgoing,
+    ) {
         val notificationBuilder = NotificationCompat.Builder(context, MESSAGE)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setSmallIcon(android.R.drawable.sym_action_chat)
@@ -121,10 +126,7 @@ class NotificationHelper @Inject constructor(
             .setContentText(message)
             .setContentIntent(deepLinkToChat(PublicKey(contact.publicKey)))
             .setAutoCancel(true)
-
-        if (outgoing) {
-            notificationBuilder.setSilent(true)
-        }
+            .setSilent(silent)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val icon = if (contact.avatarUri.isNotEmpty()) {
@@ -209,7 +211,7 @@ class NotificationHelper @Inject constructor(
         notifier.notify(contact.publicKey.hashCode(), notificationBuilder.build())
     }
 
-    fun showFriendRequestNotification(friendRequest: FriendRequest) {
+    fun showFriendRequestNotification(friendRequest: FriendRequest, silent: Boolean) {
         val notificationBuilder = NotificationCompat.Builder(context, FRIEND_REQUEST)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setSmallIcon(android.R.drawable.btn_star_big_on)
@@ -222,6 +224,7 @@ class NotificationHelper @Inject constructor(
                     .createPendingIntent()
             )
             .setAutoCancel(true)
+            .setSilent(silent)
 
         notifier.notify(friendRequest.publicKey.hashCode(), notificationBuilder.build())
     }
