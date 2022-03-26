@@ -17,9 +17,6 @@ internal fun colorFromStatus(context: Context, status: UserStatus) = when (statu
     UserStatus.Busy -> ContextCompat.getColor(context, R.color.statusBusy)
 }
 
-internal fun dpToPx(dp: Float, res: Resources): Int =
-    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.displayMetrics).toInt()
-
 internal sealed interface Size
 
 @JvmInline
@@ -27,5 +24,6 @@ internal value class Px(val px: Int) : Size
 
 @JvmInline
 internal value class Dp(val dp: Float) : Size {
-    fun asPx(res: Resources): Px = Px(dpToPx(dp, res))
+    fun asPx(res: Resources): Px =
+        Px(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.displayMetrics).toInt())
 }
