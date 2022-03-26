@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 aTox contributors
+// SPDX-FileCopyrightText: 2020-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -43,7 +43,6 @@ import ltd.evilcorp.atox.databinding.FragmentUserProfileBinding
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.Dp
 import ltd.evilcorp.atox.ui.Px
-import ltd.evilcorp.atox.ui.Size
 import ltd.evilcorp.atox.ui.StatusDialog
 import ltd.evilcorp.atox.ui.colorFromStatus
 import ltd.evilcorp.atox.vmFactory
@@ -172,7 +171,7 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
     private fun createQrCodeDialog(): AlertDialog {
         val qrSize =
             min(resources.displayMetrics.widthPixels, resources.displayMetrics.heightPixels) * QR_CODE_TO_SCREEN_RATIO
-        val bmp = asQr(vm.toxId, Px(qrSize.toInt()), qrCodePadding)
+        val bmp = asQr(vm.toxId, Px(qrSize.toInt()), qrCodePadding.asPx(resources))
         val qrCode = ImageView(requireContext()).apply {
             setPadding(qrCodePadding.asPx(resources).px)
             setImageBitmap(bmp)
@@ -208,7 +207,7 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
         return FileProvider.getUriForFile(requireContext(), "${BuildConfig.APPLICATION_ID}.fileprovider", file)
     }
 
-    private fun asQr(id: ToxID, qrSize: Size, padding: Size): Bitmap {
+    private fun asQr(id: ToxID, qrSize: Px, padding: Px): Bitmap {
         val qrData = QrCode.encodeText("tox:%s".format(id.string()), QrCode.Ecc.LOW)
         var bmpQr: Bitmap = Bitmap.createBitmap(qrData.size, qrData.size, Bitmap.Config.RGB_565)
         for (x in 0 until qrData.size) {
@@ -217,19 +216,12 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
             }
         }
 
-        fun getPx(size: Size) = when (size) {
-            is Px -> size.px
-            is Dp -> size.asPx(resources).px
-        }
+        bmpQr = bmpQr.scale(qrSize.px, qrSize.px, false)
 
-        val qrSizePx = getPx(qrSize)
-        bmpQr = bmpQr.scale(qrSizePx, qrSizePx, false)
-
-        val paddingPx = getPx(padding)
         val bmpQrWithPadding =
             Bitmap.createBitmap(
-                bmpQr.width + 2 * paddingPx,
-                bmpQr.height + 2 * paddingPx,
+                bmpQr.width + 2 * padding.px,
+                bmpQr.height + 2 * padding.px,
                 Bitmap.Config.RGB_565
             )
         val canvas = Canvas(bmpQrWithPadding)
@@ -239,7 +231,7 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
                 style = Paint.Style.FILL
             }
         )
-        canvas.drawBitmap(bmpQr, paddingPx.toFloat(), paddingPx.toFloat(), null)
+        canvas.drawBitmap(bmpQr, padding.px.toFloat(), padding.px.toFloat(), null)
 
         return bmpQrWithPadding
     }

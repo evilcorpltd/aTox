@@ -28,16 +28,12 @@ internal object AvatarFactory {
         resources: Resources,
         name: String,
         publicKey: String,
-        size: Size = Px(resources.getDimension(R.dimen.default_avatar_size).toInt())
+        size: Px = Px(resources.getDimension(R.dimen.default_avatar_size).toInt())
     ): Bitmap {
         val defaultAvatarSize = resources.getDimension(R.dimen.default_avatar_size)
-        val sizePx = when (size) {
-            is Px -> size.px
-            is Dp -> size.asPx(resources).px
-        }
-        val textScale = sizePx / defaultAvatarSize
+        val textScale = size.px / defaultAvatarSize
 
-        val bitmap = Bitmap.createBitmap(sizePx, sizePx, Bitmap.Config.ARGB_8888)
+        val bitmap = Bitmap.createBitmap(size.px, size.px, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
         val rect = RectF(0f, 0f, bitmap.width.toFloat(), bitmap.height.toFloat())
         val colors = resources.getIntArray(R.array.contactBackgrounds)
