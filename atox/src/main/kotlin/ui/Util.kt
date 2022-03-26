@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -24,10 +24,12 @@ internal sealed interface Size {
     fun asPx(res: Resources): Px
 }
 
-internal data class Px(val px: Int) : Size {
+@JvmInline
+internal value class Px(val px: Int) : Size {
     override fun asPx(res: Resources) = this
 }
 
-internal data class Dp(val dp: Float) : Size {
+@JvmInline
+internal value class Dp(val dp: Float) : Size {
     override fun asPx(res: Resources): Px = Px(dpToPx(dp, res))
 }
