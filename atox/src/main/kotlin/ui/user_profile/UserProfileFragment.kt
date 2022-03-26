@@ -217,10 +217,15 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
             }
         }
 
-        val qrSizePx = qrSize.asPx(resources).px
+        fun getPx(size: Size) = when (size) {
+            is Px -> size.px
+            is Dp -> size.asPx(resources).px
+        }
+
+        val qrSizePx = getPx(qrSize)
         bmpQr = bmpQr.scale(qrSizePx, qrSizePx, false)
 
-        val paddingPx = padding.asPx(resources).px
+        val paddingPx = getPx(padding)
         val bmpQrWithPadding =
             Bitmap.createBitmap(
                 bmpQr.width + 2 * paddingPx,

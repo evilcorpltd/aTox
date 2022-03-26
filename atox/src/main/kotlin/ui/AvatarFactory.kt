@@ -31,7 +31,10 @@ internal object AvatarFactory {
         size: Size = Px(resources.getDimension(R.dimen.default_avatar_size).toInt())
     ): Bitmap {
         val defaultAvatarSize = resources.getDimension(R.dimen.default_avatar_size)
-        val sizePx = size.asPx(resources).px
+        val sizePx = when (size) {
+            is Px -> size.px
+            is Dp -> size.asPx(resources).px
+        }
         val textScale = sizePx / defaultAvatarSize
 
         val bitmap = Bitmap.createBitmap(sizePx, sizePx, Bitmap.Config.ARGB_8888)

@@ -20,16 +20,12 @@ internal fun colorFromStatus(context: Context, status: UserStatus) = when (statu
 internal fun dpToPx(dp: Float, res: Resources): Int =
     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.displayMetrics).toInt()
 
-internal sealed interface Size {
-    fun asPx(res: Resources): Px
-}
+internal sealed interface Size
 
 @JvmInline
-internal value class Px(val px: Int) : Size {
-    override fun asPx(res: Resources) = this
-}
+internal value class Px(val px: Int) : Size
 
 @JvmInline
 internal value class Dp(val dp: Float) : Size {
-    override fun asPx(res: Resources): Px = Px(dpToPx(dp, res))
+    fun asPx(res: Resources): Px = Px(dpToPx(dp, res))
 }
