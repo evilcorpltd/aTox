@@ -100,6 +100,11 @@ class SettingsViewModel @Inject constructor(
         settings.autoAwayEnabled = enabled
     }
 
+    fun getConfirmQuitting(): Boolean = settings.confirmQuitting
+    fun setConfirmQuitting(enabled: Boolean) {
+        settings.confirmQuitting = enabled
+    }
+
     fun getAutoAwaySeconds() = settings.autoAwaySeconds
     fun setAutoAwaySeconds(seconds: Long) {
         settings.autoAwaySeconds = seconds

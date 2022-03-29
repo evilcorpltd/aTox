@@ -145,6 +145,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
             vm.setFtAutoAccept(FtAutoAccept.values()[it])
         }
 
+        settingConfirmQuitting.isChecked = vm.getConfirmQuitting()
+        settingConfirmQuitting.setOnClickListener { vm.setConfirmQuitting(settingConfirmQuitting.isChecked) }
+
         if (vm.getProxyType() != ProxyType.None) {
             vm.setUdpEnabled(false)
         }

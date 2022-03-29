@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 aTox contributors
+// SPDX-FileCopyrightText: 2020-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -88,4 +88,8 @@ class Settings @Inject constructor(private val ctx: Context) {
     var disableScreenshots: Boolean
         get() = preferences.getBoolean("disable_screenshots", false)
         set(disable) = preferences.edit { putBoolean("disable_screenshots", disable) }
+
+    var confirmQuitting: Boolean
+        get() = preferences.getBoolean("confirm_quitting", true)
+        set(confirm) = preferences.edit { putBoolean("confirm_quitting", confirm) }
 }

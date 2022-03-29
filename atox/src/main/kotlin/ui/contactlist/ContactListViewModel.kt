@@ -19,6 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.vo.Contact
@@ -49,6 +50,7 @@ class ContactListViewModel @Inject constructor(
     private val notificationHelper: NotificationHelper,
     private val tox: Tox,
     private val toxStarter: ToxStarter,
+    private val settings: Settings,
     userManager: UserManager
 ) : ViewModel() {
     val publicKey by lazy { tox.publicKey }
@@ -60,6 +62,8 @@ class ContactListViewModel @Inject constructor(
     fun isToxRunning() = tox.started
     fun tryLoadTox(password: String?): ToxSaveStatus = toxStarter.tryLoadTox(password)
     fun quitTox() = toxStarter.stopTox()
+
+    fun quittingNeedsConfirmation(): Boolean = settings.confirmQuitting
 
     fun acceptFriendRequest(friendRequest: FriendRequest) = friendRequestManager.accept(friendRequest)
     fun rejectFriendRequest(friendRequest: FriendRequest) = friendRequestManager.reject(friendRequest)

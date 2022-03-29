@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -281,6 +281,12 @@ class ContactListFragment :
             R.id.settings -> findNavController().navigate(R.id.action_contactListFragment_to_settingsFragment)
             R.id.export_tox_save -> exportToxSaveLauncher.launch(backupFileNameHint)
             R.id.quit_tox -> {
+                if (!viewModel.quittingNeedsConfirmation()) {
+                    viewModel.quitTox()
+                    activity?.finishAffinity()
+                    return false
+                }
+
                 AlertDialog.Builder(requireContext())
                     .setTitle(R.string.quit_confirm)
                     .setPositiveButton(R.string.quit) { _, _ ->
