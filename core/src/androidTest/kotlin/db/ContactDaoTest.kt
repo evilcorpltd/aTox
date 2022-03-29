@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 aTox contributors
+// SPDX-FileCopyrightText: 2020-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -8,11 +8,8 @@ import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.TestCoroutineScope
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.UserStatus
@@ -27,12 +24,8 @@ import org.junit.runner.RunWith
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class ContactDaoTest {
-    private val dispatcher = TestCoroutineDispatcher()
-    private val scope = TestCoroutineScope(dispatcher)
     private val db =
         Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getInstrumentation().targetContext, Database::class.java)
-            .setTransactionExecutor(dispatcher.asExecutor())
-            .setQueryExecutor(dispatcher.asExecutor())
             .allowMainThreadQueries()
             .build()
     private val dao = db.contactDao()
@@ -58,14 +51,14 @@ class ContactDaoTest {
     }
 
     @Test
-    fun save_and_load() = scope.runBlockingTest {
+    fun save_and_load() = runTest {
         assertEquals(0, dao.loadAll().first().size)
         dao.save(first)
         assertEquals(first, dao.load(first.publicKey).first())
     }
 
     @Test
-    fun delete() = scope.runBlockingTest {
+    fun delete() = runTest {
         dao.save(first)
         dao.save(second)
         dao.delete(first)
@@ -74,7 +67,7 @@ class ContactDaoTest {
     }
 
     @Test
-    fun exists() = scope.runBlockingTest {
+    fun exists() = runTest {
         assertFalse(dao.exists(first.publicKey))
         dao.save(first)
         assertTrue(dao.exists(first.publicKey))
@@ -84,7 +77,7 @@ class ContactDaoTest {
     }
 
     @Test
-    fun overwrite_with_save() = scope.runBlockingTest {
+    fun overwrite_with_save() = runTest {
         dao.save(first)
         assertEquals(1, dao.loadAll().first().size)
         dao.save(first)
@@ -92,7 +85,7 @@ class ContactDaoTest {
     }
 
     @Test
-    fun save_multiple_contacts() = scope.runBlockingTest {
+    fun save_multiple_contacts() = runTest {
         dao.save(first)
         assertEquals(1, dao.loadAll().first().size)
         dao.save(second)
@@ -102,7 +95,7 @@ class ContactDaoTest {
     }
 
     @Test
-    fun reset_transient_data() = scope.runBlockingTest {
+    fun reset_transient_data() = runTest {
         dao.save(first)
         dao.resetTransientData()
         assertNotEquals(first, dao.load(first.publicKey).first())
@@ -113,7 +106,7 @@ class ContactDaoTest {
     }
 
     @Test
-    fun setters() = scope.runBlockingTest {
+    fun setters() = runTest {
         dao.save(second)
         dao.setName(second.publicKey, first.name)
         dao.setStatusMessage(second.publicKey, first.statusMessage)
@@ -128,7 +121,7 @@ class ContactDaoTest {
     }
 
     @Test
-    fun update() = scope.runBlockingTest {
+    fun update() = runTest {
         dao.save(first)
         dao.update(first.copy(name = "new name"))
         assertNotEquals(first, dao.load(first.publicKey).first())
