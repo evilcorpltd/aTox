@@ -72,6 +72,11 @@ RULES_KOTLIN_TAG = "v1.5.0"
 
 http_archive(
     name = "io_bazel_rules_kotlin",
+    patch_cmds = [
+        "sed -i 's/1.5.32/1.6.10/' src/main/starlark/core/repositories/versions.bzl",
+        "sed -i 's/2e728c43ee0bf819eae06630a4cbbc28ba2ed5b19a55ee0af96d2c0ab6b6c2a5/432267996d0d6b4b17ca8de0f878e44d4a099b7e9f1587a98edc4d27e76c215a/' src/main/starlark/core/repositories/versions.bzl",
+        "sed -i 's/default = \"1.5\"/default = \"1.6\"/g' kotlin/internal/toolchains.bzl",
+    ],
     sha256 = "12d22a3d9cbcf00f2e2d8f0683ba87d3823cb8c7f6837568dd7e48846e023307",
     url = "https://github.com/bazelbuild/rules_kotlin/releases/download/%s/rules_kotlin_release.tgz" % RULES_KOTLIN_TAG,
 )
