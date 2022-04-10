@@ -14,7 +14,7 @@ object BuildPlugin {
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
     const val ideaExt = "org.jetbrains.gradle.plugin.idea-ext"
-    const val ideaExtVersion = "1.1.3"
+    const val ideaExtVersion = "1.1.4"
 
     const val versions = "com.github.ben-manes.versions"
     const val versionsVersion = "0.42.0"
@@ -32,7 +32,7 @@ object JavaX {
 
 object KotlinX {
     object Coroutines {
-        private const val version = "1.6.0"
+        private const val version = "1.6.1"
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
         const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
@@ -50,7 +50,7 @@ object AndroidX {
     const val fragment = "androidx.fragment:fragment:1.4.1"
 
     object Navigation {
-        private const val version = "2.4.1"
+        private const val version = "2.4.2"
         const val fragment = "androidx.navigation:navigation-fragment:$version"
         const val ui = "androidx.navigation:navigation-ui:$version"
     }
