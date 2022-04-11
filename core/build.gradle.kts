@@ -51,17 +51,17 @@ idea {
 }
 
 dependencies {
-    implementation(JavaX.inject)
-    api(AndroidX.Room.runtime)
-    api(AndroidX.Room.ktx)
-    kapt(AndroidX.Room.compiler)
+    implementation(libs.javax.inject)
+    api(libs.androidx.room.runtime)
+    api(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
 
-    testImplementation(Test.junit)
+    testImplementation(libs.test.junit.core)
 
-    androidTestImplementation(AndroidX.Test.runner)
-    androidTestImplementation(AndroidX.Test.Ext.junit)
-    androidTestImplementation(AndroidX.Room.testing)
-    androidTestImplementation(KotlinX.Coroutines.test) {
+    androidTestImplementation(libs.test.runner)
+    androidTestImplementation(libs.test.junit.ext)
+    androidTestImplementation(libs.androidx.room.testing)
+    androidTestImplementation(libs.kotlinx.coroutines.test) {
         // Conflicts with a lot of things due to having embedded "byte buddy" instead of depending on it.
         exclude("org.jetbrains.kotlinx", "kotlinx-coroutines-debug")
     }

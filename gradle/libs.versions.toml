@@ -1,0 +1,72 @@
+[versions]
+androidx-test = "1.4.0"
+coroutines = "1.6.1"
+dagger = "2.41"
+espresso = "3.4.0"
+lifecycle = "2.4.1"
+navigation = "2.4.2"
+room = "2.4.2"
+tox4j-android = "0.2.17"
+tox4j-core = "0.2.3"
+
+[libraries]
+androidx-activity = "androidx.activity:activity:1.4.0"
+androidx-appcompat = "androidx.appcompat:appcompat:1.4.1"
+androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.3"
+androidx-core-ktx = "androidx.core:core-ktx:1.7.0"
+androidx-fragment = "androidx.fragment:fragment:1.4.1"
+
+androidx-multidex = "androidx.multidex:multidex:2.0.1"
+androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigation" }
+androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigation" }
+androidx-preference = "androidx.preference:preference:1.2.0"
+
+androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-service = { module = "androidx.lifecycle:lifecycle-service", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
+
+google-android-material = "com.google.android.material:material:1.5.0"
+google-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+google-dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+
+javax-inject = "javax.inject:javax.inject:1"
+
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+
+nayuki-qrcodegen = "io.nayuki:qrcodegen:1.7.0"
+
+square-leakcanary = "com.squareup.leakcanary:leakcanary-android:2.8.1"
+square-picasso = "com.squareup.picasso:picasso:2.8"
+
+tox4j-android-aarch64 = { module = "org.toktok:tox4j-c_aarch64-linux-android", version.ref = "tox4j-android" }
+tox4j-android-arm = { module = "org.toktok:tox4j-c_armv7a-linux-androideabi", version.ref = "tox4j-android" }
+tox4j-android-i686 = { module = "org.toktok:tox4j-c_i686-linux-android", version.ref = "tox4j-android" }
+tox4j-android-amd64 = { module = "org.toktok:tox4j-c_x86_64-linux-android", version.ref = "tox4j-android" }
+tox4j-api = { module = "org.toktok:tox4j-api_2.11", version.ref = "tox4j-core" }
+tox4j-c = { module = "org.toktok:tox4j-c_2.11", version.ref = "tox4j-core" }
+
+test-espresso-contrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "espresso" }
+test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+test-junit-core = "junit:junit:4.13.2"
+test-junit-ext = "androidx.test.ext:junit:1.1.3"
+test-mockk = "io.mockk:mockk-android:1.11.0"
+test-rules = { module = "androidx.test:rules", version.ref = "androidx-test" }
+test-runner = { module = "androidx.test:runner", version.ref = "androidx-test" }
+
+# Google's very impressive workaround for the following error:
+# Duplicate class com.google.common.util.concurrent.ListenableFuture found
+# in modules jetified-guava-19.0 (com.google.guava:guava:19.0) and
+# jetified-listenablefuture-1.0 (com.google.guava:listenablefuture:1.0)
+google-guava-workaround = "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava"
+
+[bundles]
+
+[plugins]
