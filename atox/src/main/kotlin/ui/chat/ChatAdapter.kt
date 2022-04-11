@@ -159,10 +159,9 @@ class ChatAdapter(
             }
             ChatItemType.ReceivedFileTransfer, ChatItemType.SentFileTransfer -> {
                 val message = messages[position]
-                var fileTransfer = fileTransfers.find { it.id == message.correlationId }
-                if (fileTransfer == null) {
+                val fileTransfer = fileTransfers.find { it.id == message.correlationId } ?: run {
                     Log.e(TAG, "Unable to find ft ${message.correlationId} for ${message.publicKey} required for view")
-                    fileTransfer = FileTransfer("", 0, 0, 0, "", message.sender == Sender.Sent)
+                    FileTransfer("", 0, 0, 0, "", message.sender == Sender.Sent)
                 }
 
                 val view: View
