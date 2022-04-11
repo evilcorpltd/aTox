@@ -108,10 +108,9 @@ class EventListenerCallbacks @Inject constructor(
         }
 
         friendRequestHandler = { publicKey, _, message ->
-            FriendRequest(publicKey, message).also {
-                friendRequestRepository.add(it)
-                notificationHelper.showFriendRequestNotification(it, silent = tox.getStatus() == UserStatus.Busy)
-            }
+            val request = FriendRequest(publicKey, message)
+            friendRequestRepository.add(request)
+            notificationHelper.showFriendRequestNotification(request, silent = tox.getStatus() == UserStatus.Busy)
         }
 
         friendMessageHandler = { publicKey, type, _, msg ->
