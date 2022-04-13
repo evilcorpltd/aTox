@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.ideaExt)
     alias(libs.plugins.versions)
+    id(BuildPlugin.kotlinAndroid) version kotlinVersion apply false
+    id(BuildPlugin.kotlinKapt) version kotlinVersion apply false
 }
 
 buildscript {
@@ -11,7 +13,6 @@ buildscript {
     }
     dependencies {
         classpath(BuildPlugin.gradle)
-        classpath(BuildPlugin.kotlinGradle)
     }
 }
 
