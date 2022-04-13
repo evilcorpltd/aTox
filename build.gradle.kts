@@ -3,17 +3,8 @@ plugins {
     alias(libs.plugins.versions)
     id(BuildPlugin.kotlinAndroid) version kotlinVersion apply false
     id(BuildPlugin.kotlinKapt) version kotlinVersion apply false
-}
-
-buildscript {
-    repositories {
-        mavenLocal()
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath(BuildPlugin.gradle)
-    }
+    id(BuildPlugin.androidLibrary) version androidPluginVersion apply false
+    id(BuildPlugin.androidApplication) version androidPluginVersion apply false
 }
 
 tasks.register("clean").configure {

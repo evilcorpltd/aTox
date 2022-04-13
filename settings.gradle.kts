@@ -8,6 +8,15 @@ dependencyResolutionManagement {
     }
 }
 
+pluginManagement {
+    repositories {
+        mavenLocal()
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+
 include(":atox")
 include(":core")
 include(":domain")
