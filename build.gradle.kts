@@ -12,7 +12,6 @@ buildscript {
     dependencies {
         classpath(BuildPlugin.gradle)
         classpath(BuildPlugin.kotlinGradle)
-        classpath(BuildPlugin.gradleVersionsPlugin)
     }
 }
 

@@ -18,7 +18,6 @@ object BuildPlugin {
 
     const val versions = "com.github.ben-manes.versions"
     const val versionsVersion = "0.42.0"
-    const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:$versionsVersion"
 }
 
 object AndroidSdk {
