@@ -1,8 +1,7 @@
 plugins {
-    id(BuildPlugin.androidApplication)
-
-    id(BuildPlugin.kotlinAndroid)
-    id(BuildPlugin.kotlinKapt)
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.kotlinKapt)
 }
 
 android {

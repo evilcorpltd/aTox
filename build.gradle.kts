@@ -1,10 +1,10 @@
 plugins {
     alias(libs.plugins.ideaExt)
     alias(libs.plugins.versions)
-    id(BuildPlugin.kotlinAndroid) version kotlinVersion apply false
-    id(BuildPlugin.kotlinKapt) version kotlinVersion apply false
-    id(BuildPlugin.androidLibrary) version androidPluginVersion apply false
-    id(BuildPlugin.androidApplication) version androidPluginVersion apply false
+    alias(libs.plugins.kotlinAndroid) apply false
+    alias(libs.plugins.kotlinKapt) apply false
+    alias(libs.plugins.androidLibrary) apply false
+    alias(libs.plugins.androidApplication) apply false
 }
 
 tasks.register("clean").configure {

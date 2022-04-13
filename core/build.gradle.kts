@@ -9,12 +9,10 @@ val ModuleSettings.packagePrefix: PackagePrefixContainer
     get() = (this as ExtensionAware).the()
 
 plugins {
-    id(BuildPlugin.androidLibrary)
-
-    id(BuildPlugin.kotlinAndroid)
-    id(BuildPlugin.kotlinKapt)
-
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.ideaExt)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.kotlinKapt)
 }
 
 android {
