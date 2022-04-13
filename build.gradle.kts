@@ -1,6 +1,6 @@
 plugins {
-    id(BuildPlugin.ideaExt) version BuildPlugin.ideaExtVersion
-    id(BuildPlugin.versions) version BuildPlugin.versionsVersion
+    alias(libs.plugins.ideaExt)
+    alias(libs.plugins.versions)
 }
 
 buildscript {

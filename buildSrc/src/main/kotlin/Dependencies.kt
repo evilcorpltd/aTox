@@ -12,12 +12,6 @@ object BuildPlugin {
 
     const val gradle = "com.android.tools.build:gradle:${Version.gradle}"
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-
-    const val ideaExt = "org.jetbrains.gradle.plugin.idea-ext"
-    const val ideaExtVersion = "1.1.4"
-
-    const val versions = "com.github.ben-manes.versions"
-    const val versionsVersion = "0.42.0"
 }
 
 object AndroidSdk {

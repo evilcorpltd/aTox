@@ -14,7 +14,7 @@ plugins {
     id(BuildPlugin.kotlinAndroid)
     id(BuildPlugin.kotlinKapt)
 
-    id(BuildPlugin.ideaExt)
+    alias(libs.plugins.ideaExt)
 }
 
 android {
