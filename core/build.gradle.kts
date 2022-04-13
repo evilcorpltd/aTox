@@ -17,10 +17,10 @@ plugins {
 }
 
 android {
-    compileSdk = AndroidSdk.targetVersion
+    compileSdk = libs.versions.sdk.target.get().toInt()
     defaultConfig {
-        minSdk = AndroidSdk.minVersion
-        targetSdk = AndroidSdk.targetVersion
+        minSdk = libs.versions.sdk.min.get().toInt()
+        targetSdk = libs.versions.sdk.target.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {

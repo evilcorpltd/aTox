@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    compileSdk = AndroidSdk.targetVersion
+    compileSdk = libs.versions.sdk.target.get().toInt()
     defaultConfig {
         applicationId = "ltd.evilcorp.atox"
-        minSdk = AndroidSdk.minVersion
-        targetSdk = AndroidSdk.targetVersion
+        minSdk = libs.versions.sdk.min.get().toInt()
+        targetSdk = libs.versions.sdk.target.get().toInt()
         versionCode = 13
         versionName = "0.7.3"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

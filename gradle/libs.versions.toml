@@ -1,4 +1,7 @@
 [versions]
+sdk-min = "19"
+sdk-target = "31"
+
 kotlin = "1.6.20"
 android-plugin = "7.1.3"
 
