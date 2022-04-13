@@ -8,6 +8,7 @@ fun IdeaModule.settings(configure: ModuleSettings.() -> Unit) =
 val ModuleSettings.packagePrefix: PackagePrefixContainer
     get() = (this as ExtensionAware).the()
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.ideaExt)
