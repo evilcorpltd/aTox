@@ -41,7 +41,6 @@ protobuf_CONFIGURE	:= --prefix=$(PREFIX) --disable-shared
 libsodium_CONFIGURE	:= --prefix=$(PREFIX) --disable-shared
 opus_CONFIGURE		:= --prefix=$(PREFIX) --disable-shared
 libvpx_CONFIGURE	:= --prefix=$(PREFIX) --disable-examples --disable-unit-tests --enable-pic
-msgpack_CONFIGURE	:= -DCMAKE_INSTALL_PREFIX:PATH=$(PREFIX) -DBUILD_SHARED_LIBS=OFF
 toxcore_CONFIGURE	:= -DCMAKE_INSTALL_PREFIX:PATH=$(PREFIX) -DENABLE_STATIC=ON -DENABLE_SHARED=OFF
 tox4j_CONFIGURE		:= -DCMAKE_INSTALL_PREFIX:PATH=$(PREFIX)
 
