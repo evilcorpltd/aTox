@@ -12,7 +12,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import ltd.evilcorp.atox.R
@@ -21,14 +20,14 @@ import ltd.evilcorp.atox.hasPermission
 import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
-import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.tox.PublicKey
+import org.kodein.di.android.x.viewmodel.viewModel
 
 private const val PERMISSION = Manifest.permission.RECORD_AUDIO
 
 class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::inflate) {
-    private val vm: CallViewModel by viewModels { vmFactory }
+    private val vm: CallViewModel by viewModel()
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()

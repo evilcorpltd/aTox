@@ -17,17 +17,16 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentProfileBinding
 import ltd.evilcorp.atox.ui.BaseFragment
-import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.domain.tox.ToxSaveStatus
+import org.kodein.di.android.x.viewmodel.viewModel
 
 class CreateProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
-    private val viewModel: CreateProfileViewModel by viewModels { vmFactory }
+    private val viewModel: CreateProfileViewModel by viewModel()
 
     private val importLauncher = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         if (uri == null) return@registerForActivityResult

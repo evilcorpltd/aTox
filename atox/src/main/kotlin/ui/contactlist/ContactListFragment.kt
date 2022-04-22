@@ -27,7 +27,6 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
 import ltd.evilcorp.atox.R
@@ -41,13 +40,13 @@ import ltd.evilcorp.atox.ui.ReceiveShareDialog
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.ui.colorFromStatus
 import ltd.evilcorp.atox.ui.friend_request.FRIEND_REQUEST_PUBLIC_KEY
-import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.ToxSaveStatus
+import org.kodein.di.android.x.viewmodel.viewModel
 
 const val ARG_SHARE = "share"
 private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 32
@@ -59,7 +58,7 @@ class ContactListFragment :
     BaseFragment<FragmentContactListBinding>(FragmentContactListBinding::inflate),
     NavigationView.OnNavigationItemSelectedListener {
 
-    private val viewModel: ContactListViewModel by viewModels { vmFactory }
+    private val viewModel: ContactListViewModel by viewModel()
 
     private var _navHeader: NavHeaderContactListBinding? = null
     private val navHeader get() = _navHeader!!

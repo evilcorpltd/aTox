@@ -4,14 +4,12 @@
 
 package ltd.evilcorp.atox.tox
 
-import android.content.Context
+import android.content.res.Resources
 import android.util.Log
 import im.tox.tox4j.av.enums.ToxavFriendCallState
 import im.tox.tox4j.core.enums.ToxFileControl
 import java.net.URLConnection
 import java.util.Date
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull
@@ -41,6 +39,10 @@ import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxAvEventListener
 import ltd.evilcorp.domain.tox.ToxEventListener
 import ltd.evilcorp.domain.tox.toMessageType
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.DIContext
+import org.kodein.di.instance
 
 private const val TAG = "EventListenerCallbacks"
 
@@ -54,20 +56,19 @@ private fun isImage(filename: String) = try {
 private const val FINGERPRINT_LEN = 8
 private fun String.fingerprint() = this.take(FINGERPRINT_LEN)
 
-@Singleton
-class EventListenerCallbacks @Inject constructor(
-    private val ctx: Context,
-    private val contactRepository: ContactRepository,
-    private val friendRequestRepository: FriendRequestRepository,
-    private val messageRepository: MessageRepository,
-    private val userRepository: UserRepository,
-    private val callManager: CallManager,
-    private val chatManager: ChatManager,
-    private val fileTransferManager: FileTransferManager,
-    private val notificationHelper: NotificationHelper,
-    private val tox: Tox,
-    private val settings: Settings,
-) {
+class EventListenerCallbacks(override val di: DI, override val diContext: DIContext<*>) : DIAware {
+    private val resources: Resources by instance()
+    private val contactRepository: ContactRepository by instance()
+    private val friendRequestRepository: FriendRequestRepository by instance()
+    private val messageRepository: MessageRepository by instance()
+    private val userRepository: UserRepository by instance()
+    private val callManager: CallManager by instance()
+    private val chatManager: ChatManager by instance()
+    private val fileTransferManager: FileTransferManager by instance()
+    private val notificationHelper: NotificationHelper by instance()
+    private val tox: Tox by instance()
+    private val settings: Settings by instance()
+
     private var audioPlayer: AudioPlayer? = null
     private val scope = CoroutineScope(Dispatchers.Default)
 
@@ -80,7 +81,7 @@ class EventListenerCallbacks @Inject constructor(
     private fun notifyMessage(contact: Contact, message: String) =
         notificationHelper.showMessageNotification(contact, message, silent = tox.getStatus() == UserStatus.Busy)
 
-    fun setUp(listener: ToxEventListener) = with(listener) {
+    fun setUpToxEventListener() = with(ToxEventListener) {
         friendStatusMessageHandler = { publicKey, message ->
             contactRepository.setStatusMessage(publicKey, message)
         }
@@ -144,7 +145,7 @@ class EventListenerCallbacks @Inject constructor(
                 if (chatManager.activeChat != publicKey) {
                     scope.launch {
                         val contact = tryGetContact(publicKey, "FileRecv") ?: return@launch
-                        val msg = ctx.getString(R.string.notification_file_transfer, name)
+                        val msg = resources.getString(R.string.notification_file_transfer, name)
                         notifyMessage(contact, msg)
                     }
                     contactRepository.setHasUnreadMessages(publicKey, true)
@@ -174,7 +175,7 @@ class EventListenerCallbacks @Inject constructor(
         }
     }
 
-    fun setUp(listener: ToxAvEventListener) = with(listener) {
+    fun setUpToxAvEventListener() = with(ToxAvEventListener) {
         callHandler = { pk, audioEnabled, videoEnabled ->
             Log.e(TAG, "call ${pk.fingerprint()} $audioEnabled $videoEnabled")
             scope.launch {

@@ -4,16 +4,16 @@
 
 package ltd.evilcorp.core.repository
 
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.db.FileTransferDao
 import ltd.evilcorp.core.vo.FileTransfer
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.instance
 
-@Singleton
-class FileTransferRepository @Inject internal constructor(
-    private val dao: FileTransferDao
-) {
+class FileTransferRepository(override val di: DI) : DIAware {
+    private val dao: FileTransferDao by instance()
+
     fun add(ft: FileTransfer): Long =
         dao.save(ft)
 

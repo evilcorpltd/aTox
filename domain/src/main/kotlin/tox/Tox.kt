@@ -8,8 +8,6 @@ import android.util.Log
 import im.tox.tox4j.core.exceptions.ToxBootstrapException
 import im.tox.tox4j.crypto.ToxCryptoConstants
 import im.tox.tox4j.impl.jni.ToxCryptoImpl
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlin.random.Random
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -23,17 +21,19 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.UserStatus
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.instance
 
 private const val TAG = "Tox"
 
-@Singleton
-class Tox @Inject constructor(
-    private val scope: CoroutineScope,
-    private val contactRepository: ContactRepository,
-    private val userRepository: UserRepository,
-    private val saveManager: SaveManager,
-    private val nodeRegistry: BootstrapNodeRegistry,
-) {
+class Tox(override val di: DI) : DIAware {
+    private val scope: CoroutineScope by instance()
+    private val contactRepository: ContactRepository by instance()
+    private val userRepository: UserRepository by instance()
+    private val saveManager: SaveManager by instance()
+    private val nodeRegistry: BootstrapNodeRegistry by instance()
+
     val toxId: ToxID get() = tox.getToxId()
     val publicKey: PublicKey by lazy { tox.getPublicKey() }
     var nospam: Int
@@ -64,18 +64,14 @@ class Tox @Inject constructor(
 
     private lateinit var tox: ToxWrapper
 
-    fun start(saveOption: SaveOptions, password: String?, listener: ToxEventListener, avListener: ToxAvEventListener) {
+    fun start(saveOption: SaveOptions, password: String?) {
         tox = if (password == null) {
             passkey = null
-            ToxWrapper(listener, avListener, saveOption)
+            ToxWrapper(saveOption)
         } else {
             val salt = ToxCryptoImpl.getSalt(saveOption.saveData)
             passkey = ToxCryptoImpl.passKeyDeriveWithSalt(password.toByteArray(), salt)
-            ToxWrapper(
-                listener,
-                avListener,
-                saveOption.copy(saveData = ToxCryptoImpl.decrypt(saveOption.saveData, passkey)),
-            )
+            ToxWrapper(saveOption.copy(saveData = ToxCryptoImpl.decrypt(saveOption.saveData, passkey)))
         }
 
         this.password = password

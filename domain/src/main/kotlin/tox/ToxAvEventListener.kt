@@ -7,7 +7,6 @@ package ltd.evilcorp.domain.tox
 import im.tox.tox4j.av.callbacks.ToxAvEventListener
 import im.tox.tox4j.av.enums.ToxavFriendCallState
 import java.util.EnumSet
-import javax.inject.Inject
 import scala.Option
 import scala.Tuple3
 
@@ -29,7 +28,7 @@ typealias VideoReceiveFrameHandler = (
 typealias AudioReceiveFrameHandler = (pk: String, pcm: ShortArray, channels: Int, samplingRate: Int) -> Unit
 typealias AudioBitRateHandler = (pk: String, bitRate: Int) -> Unit
 
-class ToxAvEventListener @Inject constructor() : ToxAvEventListener<Unit> {
+object ToxAvEventListener : ToxAvEventListener<Unit> {
     var contactMapping: List<Pair<PublicKey, Int>> = listOf()
 
     var callHandler: CallHandler = { _, _, _ -> }

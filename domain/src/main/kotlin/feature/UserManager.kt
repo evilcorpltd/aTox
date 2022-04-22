@@ -4,7 +4,6 @@
 
 package ltd.evilcorp.domain.feature
 
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ltd.evilcorp.core.repository.UserRepository
@@ -12,12 +11,15 @@ import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.instance
 
-class UserManager @Inject constructor(
-    private val scope: CoroutineScope,
-    private val userRepository: UserRepository,
-    private val tox: Tox
-) {
+class UserManager(override val di: DI) : DIAware {
+    private val scope: CoroutineScope by instance()
+    private val userRepository: UserRepository by instance()
+    private val tox: Tox by instance()
+
     fun get(publicKey: PublicKey) = userRepository.get(publicKey.string())
 
     fun create(user: User) = scope.launch {

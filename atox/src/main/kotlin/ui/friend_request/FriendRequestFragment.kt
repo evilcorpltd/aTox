@@ -9,20 +9,19 @@ import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentFriendRequestBinding
 import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.ui.BaseFragment
-import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.domain.tox.PublicKey
+import org.kodein.di.android.x.viewmodel.viewModel
 
 const val FRIEND_REQUEST_PUBLIC_KEY = "FRIEND_REQUEST_PUBLIC_KEY"
 
 class FriendRequestFragment : BaseFragment<FragmentFriendRequestBinding>(FragmentFriendRequestBinding::inflate) {
-    private val vm: FriendRequestViewModel by viewModels { vmFactory }
+    private val vm: FriendRequestViewModel by viewModel()
     private lateinit var friendRequest: FriendRequest
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {

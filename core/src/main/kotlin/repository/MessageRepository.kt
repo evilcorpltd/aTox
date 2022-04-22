@@ -5,17 +5,17 @@
 package ltd.evilcorp.core.repository
 
 import java.util.Date
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.db.MessageDao
 import ltd.evilcorp.core.vo.Message
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.instance
 
-@Singleton
-class MessageRepository @Inject internal constructor(
-    private val messageDao: MessageDao,
-    private val contactRepository: ContactRepository,
-) {
+class MessageRepository(override val di: DI) : DIAware {
+    private val messageDao: MessageDao by instance()
+    private val contactRepository: ContactRepository by instance()
+
     fun add(message: Message) {
         messageDao.save(message)
         contactRepository.setLastMessage(message.publicKey, Date().time)

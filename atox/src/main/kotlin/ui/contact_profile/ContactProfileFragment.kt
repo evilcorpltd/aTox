@@ -9,18 +9,17 @@ import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import androidx.fragment.app.viewModels
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentContactProfileBinding
 import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
-import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.domain.tox.PublicKey
+import org.kodein.di.android.x.viewmodel.viewModel
 
 class ContactProfileFragment : BaseFragment<FragmentContactProfileBinding>(FragmentContactProfileBinding::inflate) {
-    private val viewModel: ContactProfileViewModel by viewModels { vmFactory }
+    private val viewModel: ContactProfileViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->

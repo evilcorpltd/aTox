@@ -4,25 +4,30 @@
 
 package ltd.evilcorp.atox.ui.call
 
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.domain.feature.CallManager
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.tox.PublicKey
+import org.kodein.di.DIAware
+import org.kodein.di.android.x.closestDI
+import org.kodein.di.instance
 
-class CallViewModel @Inject constructor(
-    private val scope: CoroutineScope,
-    private val callManager: CallManager,
-    private val notificationHelper: NotificationHelper,
-    private val contactManager: ContactManager,
-) : ViewModel() {
+class CallViewModel(app: App) : AndroidViewModel(app), DIAware {
+    override val di by closestDI()
+
+    private val scope: CoroutineScope by instance()
+    private val callManager: CallManager by instance()
+    private val notificationHelper: NotificationHelper by instance()
+    private val contactManager: ContactManager by instance()
+
     private var publicKey = PublicKey("")
 
     val contact: LiveData<Contact> by lazy {

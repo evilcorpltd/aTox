@@ -9,7 +9,6 @@ import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
-import javax.inject.Inject
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.UserStatus
 
@@ -34,7 +33,7 @@ typealias SelfConnectionStatusHandler = (status: ConnectionStatus) -> Unit
 typealias FriendTypingHandler = (publicKey: String, isTyping: Boolean) -> Unit
 typealias FileChunkRequestHandler = (publicKey: String, fileNo: Int, position: Long, length: Int) -> Unit
 
-class ToxEventListener @Inject constructor() : ToxCoreEventListener<Unit> {
+object ToxEventListener : ToxCoreEventListener<Unit> {
     var contactMapping: List<Pair<PublicKey, Int>> = listOf()
 
     var friendLosslessPacketHandler: FriendLosslessPacketHandler = { _, _ -> }

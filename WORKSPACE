@@ -194,6 +194,9 @@ maven_install(
         "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0",
         "androidx.lifecycle:lifecycle-service:2.2.0",
         "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0",
+        "org.kodein.di:kodein-di:7.11.0",
+        "org.kodein.di:kodein-di-framework-android-x:7.11.0",
+        "org.kodein.di:kodein-di-framework-android-x-viewmodel:7.11.0",
     ],
     repositories = DAGGER_REPOSITORIES + [
         "https://repo1.maven.org/maven2/",

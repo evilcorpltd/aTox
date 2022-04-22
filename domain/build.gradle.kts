@@ -81,6 +81,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.javax.inject)
     implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kodein.di)
     api(libs.tox4j.api)
     implementation(libs.tox4j.c)
 

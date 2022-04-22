@@ -4,16 +4,16 @@
 
 package ltd.evilcorp.core.repository
 
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.db.FriendRequestDao
 import ltd.evilcorp.core.vo.FriendRequest
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.instance
 
-@Singleton
-class FriendRequestRepository @Inject internal constructor(
-    private val friendRequestDao: FriendRequestDao
-) {
+class FriendRequestRepository(override val di: DI) : DIAware {
+    private val friendRequestDao: FriendRequestDao by instance()
+
     fun add(friendRequest: FriendRequest) =
         friendRequestDao.save(friendRequest)
 

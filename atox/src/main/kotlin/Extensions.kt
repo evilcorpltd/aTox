@@ -8,13 +8,9 @@ import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import ltd.evilcorp.atox.di.ViewModelFactory
 
 fun Context.hasPermission(permission: String) =
     ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
-
-val Fragment.vmFactory: ViewModelFactory
-    get() = (requireActivity() as MainActivity).vmFactory
 
 class NoSuchArgumentException(arg: String) : Exception("No such argument: $arg")
 

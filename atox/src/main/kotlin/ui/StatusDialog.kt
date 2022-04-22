@@ -11,11 +11,9 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.TransitionDrawable
 import android.os.Bundle
 import android.view.Window
-import javax.inject.Inject
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.DialogStatusBinding
 import ltd.evilcorp.core.vo.UserStatus
-import ltd.evilcorp.domain.feature.UserManager
 
 private const val TRANSITION_TIME = 250
 
@@ -24,9 +22,6 @@ class StatusDialog(
     private var activeStatus: UserStatus,
     private val setStatusFunc: (UserStatus) -> Unit
 ) : Dialog(ctx, R.style.DialogSlideAnimation) {
-    @Inject
-    lateinit var userManager: UserManager
-
     private var _binding: DialogStatusBinding? = null
     private val binding get() = _binding!!
 
