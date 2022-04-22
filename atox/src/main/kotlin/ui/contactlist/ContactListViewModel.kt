@@ -12,6 +12,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import java.io.FileInputStream
+import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
@@ -80,10 +81,21 @@ class ContactListViewModel @Inject constructor(
 
     fun saveToxBackupTo(uri: Uri) = scope.launch(Dispatchers.IO) {
         // Export the save.
-        resolver.openFileDescriptor(uri, "w")!!.use { fd ->
-            FileOutputStream(fd.fileDescriptor).use { out ->
-                out.write(tox.getSaveData())
+        try {
+            resolver.openFileDescriptor(uri, "w")!!.use { fd ->
+                FileOutputStream(fd.fileDescriptor).use { out ->
+                    out.write(tox.getSaveData())
+                }
             }
+        } catch (_: FileNotFoundException) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.tox_save_export_failure, context.getString(R.string.file_not_found)),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            return@launch
         }
 
         // Verify that the exported save can be imported.
