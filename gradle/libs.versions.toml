@@ -2,7 +2,7 @@
 sdk-min = "19"
 sdk-target = "31"
 
-kotlin = "1.6.20"
+kotlin = "1.6.21"
 android-plugin = "7.1.3"
 
 androidx-test = "1.4.0"
