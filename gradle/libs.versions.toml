@@ -55,9 +55,9 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 
-nayuki-qrcodegen = "io.nayuki:qrcodegen:1.7.0"
+nayuki-qrcodegen = "io.nayuki:qrcodegen:1.8.0"
 
-square-leakcanary = "com.squareup.leakcanary:leakcanary-android:2.8.1"
+square-leakcanary = "com.squareup.leakcanary:leakcanary-android:2.9.1"
 square-picasso = "com.squareup.picasso:picasso:2.8"
 
 tox4j-android-aarch64 = { module = "org.toktok:tox4j-c_aarch64-linux-android", version.ref = "tox4j-android" }
