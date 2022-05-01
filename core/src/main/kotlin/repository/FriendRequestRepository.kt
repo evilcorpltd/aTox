@@ -12,7 +12,7 @@ import ltd.evilcorp.core.vo.FriendRequest
 
 @Singleton
 class FriendRequestRepository @Inject internal constructor(
-    private val friendRequestDao: FriendRequestDao
+    private val friendRequestDao: FriendRequestDao,
 ) {
     fun add(friendRequest: FriendRequest) =
         friendRequestDao.save(friendRequest)

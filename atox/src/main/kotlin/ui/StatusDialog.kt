@@ -22,7 +22,7 @@ private const val TRANSITION_TIME = 250
 class StatusDialog(
     ctx: Context,
     private var activeStatus: UserStatus,
-    private val setStatusFunc: (UserStatus) -> Unit
+    private val setStatusFunc: (UserStatus) -> Unit,
 ) : Dialog(ctx, R.style.DialogSlideAnimation) {
     @Inject
     lateinit var userManager: UserManager

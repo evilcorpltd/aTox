@@ -24,7 +24,7 @@ class CallViewModel @Inject constructor(
     private val callManager: CallManager,
     private val notificationHelper: NotificationHelper,
     private val contactManager: ContactManager,
-    private val proximityScreenOff: ProximityScreenOff
+    private val proximityScreenOff: ProximityScreenOff,
 ) : ViewModel() {
     private var publicKey = PublicKey("")
 

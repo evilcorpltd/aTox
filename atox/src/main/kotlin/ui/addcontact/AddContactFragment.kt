@@ -73,7 +73,7 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
             toxId.error = when (ToxIdValidator.validate(input)) {
                 ToxIdValidator.Result.INCORRECT_LENGTH -> getString(
                     R.string.tox_id_error_length,
-                    s?.toString()?.length ?: 0
+                    s?.toString()?.length ?: 0,
                 )
                 ToxIdValidator.Result.INVALID_CHECKSUM -> getString(R.string.tox_id_error_checksum)
                 ToxIdValidator.Result.NOT_HEX -> getString(R.string.tox_id_error_hex)
@@ -96,10 +96,11 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
 
         message.doAfterTextChanged { s ->
             val content = s?.toString() ?: ""
-            message.error = if (content.isNotEmpty())
+            message.error = if (content.isNotEmpty()) {
                 null
-            else
+            } else {
                 getString(R.string.add_contact_message_error_empty)
+            }
 
             messageValid = message.error == null
             add.isEnabled = isAddAllowed()
@@ -120,7 +121,7 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
                             putExtra("SCAN_FORMATS", "QR_CODE")
                             putExtra("SCAN_ORIENTATION_LOCKED", false)
                             putExtra("BEEP_ENABLED", false)
-                        }
+                        },
                     )
                 } catch (e: ActivityNotFoundException) {
                     val uri = Uri.parse("https://f-droid.org/en/packages/com.google.zxing.client.android/")

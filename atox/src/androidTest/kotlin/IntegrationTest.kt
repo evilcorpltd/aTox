@@ -41,7 +41,7 @@ import org.junit.runner.RunWith
 
 class InjectedActivityTestRule<T : Activity>(
     activityClass: Class<T>,
-    private val listener: () -> Unit
+    private val listener: () -> Unit,
 ) : ActivityTestRule<T>(activityClass, false, true) {
     override fun beforeActivityLaunched() {
         super.beforeActivityLaunched()
@@ -71,8 +71,8 @@ class TestModule {
         AndroidModule::class,
         TestModule::class,
         DaoModule::class,
-        ViewModelModule::class
-    ]
+        ViewModelModule::class,
+    ],
 )
 interface TestComponent : AppComponent {
     @Component.Factory

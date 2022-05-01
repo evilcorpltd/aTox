@@ -27,7 +27,7 @@ class AudioPlayer(sampleRate: Int, channels: Int) {
             intToChannel(channels),
             AudioFormat.ENCODING_PCM_16BIT,
             minBufferSize,
-            AudioTrack.MODE_STREAM
+            AudioTrack.MODE_STREAM,
         )
     } else {
         AudioTrack.Builder()
@@ -36,12 +36,12 @@ class AudioPlayer(sampleRate: Int, channels: Int) {
                     .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
                     .setSampleRate(sampleRate)
                     .setChannelMask(intToChannel(channels))
-                    .build()
+                    .build(),
             )
             .setAudioAttributes(
                 AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_VOICE_COMMUNICATION)
-                    .build()
+                    .build(),
             )
             .setBufferSizeInBytes(minBufferSize)
             .build()

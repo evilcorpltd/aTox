@@ -23,7 +23,7 @@ typealias VideoReceiveFrameHandler = (
     v: ByteArray,
     yStride: Int,
     uStride: Int,
-    vStride: Int
+    vStride: Int,
 ) -> Unit
 
 typealias AudioReceiveFrameHandler = (pk: String, pcm: ShortArray, channels: Int, samplingRate: Int) -> Unit
@@ -52,7 +52,7 @@ class ToxAvEventListener @Inject constructor() : ToxAvEventListener<Unit> {
         height: Int,
         yStride: Int,
         uStride: Int,
-        vStride: Int
+        vStride: Int,
     ): Option<Tuple3<ByteArray, ByteArray, ByteArray>> = Option.empty()
 
     override fun videoReceiveFrame(
@@ -65,12 +65,12 @@ class ToxAvEventListener @Inject constructor() : ToxAvEventListener<Unit> {
         yStride: Int,
         uStride: Int,
         vStride: Int,
-        s: Unit?
+        s: Unit?,
     ) = videoReceiveFrameHandler(
         keyFor(friendNo),
         width, height,
         y, u, v,
-        yStride, uStride, vStride
+        yStride, uStride, vStride,
     )
 
     override fun callState(friendNo: Int, callState: EnumSet<ToxavFriendCallState>, s: Unit?) =
@@ -81,7 +81,7 @@ class ToxAvEventListener @Inject constructor() : ToxAvEventListener<Unit> {
         pcm: ShortArray,
         channels: Int,
         samplingRate: Int,
-        s: Unit?
+        s: Unit?,
     ) = audioReceiveFrameHandler(keyFor(friendNo), pcm, channels, samplingRate)
 
     override fun audioBitRate(friendNo: Int, bitRate: Int, s: Unit?) =

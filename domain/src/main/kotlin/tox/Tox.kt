@@ -147,7 +147,7 @@ class Tox @Inject constructor(
                     tox.getSaveData()
                 } else {
                     ToxCryptoImpl.encrypt(tox.getSaveData(), passkey)
-                }
+                },
             )
         }
     }

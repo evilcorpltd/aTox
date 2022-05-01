@@ -56,7 +56,7 @@ private fun inflateView(type: ChatItemType, inflater: LayoutInflater): View =
             ChatItemType.SentFileTransfer, ChatItemType.ReceivedFileTransfer -> R.layout.chat_filetransfer
         },
         null,
-        true
+        true,
     )
 
 private enum class ChatItemType {
@@ -94,7 +94,7 @@ private class FileTransferViewHolder(row: View) {
 
 class ChatAdapter(
     private val inflater: LayoutInflater,
-    private val resources: Resources
+    private val resources: Resources,
 ) : BaseAdapter() {
     var messages: List<Message> = listOf()
     var fileTransfers: List<FileTransfer> = listOf()
@@ -123,7 +123,8 @@ class ChatAdapter(
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View =
         when (val type = types[getItemViewType(position)]) {
             ChatItemType.ReceivedMessage, ChatItemType.SentMessage,
-            ChatItemType.ReceivedAction, ChatItemType.SentAction -> {
+            ChatItemType.ReceivedAction, ChatItemType.SentAction,
+            -> {
                 val message = messages[position]
                 val view: View
                 val vh: MessageViewHolder
@@ -198,7 +199,7 @@ class ChatAdapter(
                     vh.imagePreview.load(fileTransfer.destination) {
                         // Make sure fts with the same destination have unique caches.
                         memoryCacheKey(
-                            (fileTransfer.destination.hashCode() * SOME_PRIME + fileTransfer.id.hashCode()).toString()
+                            (fileTransfer.destination.hashCode() * SOME_PRIME + fileTransfer.id.hashCode()).toString(),
                         )
                         precision(Precision.INEXACT)
                         size(

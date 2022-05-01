@@ -31,8 +31,8 @@ class BootstrapNodeJsonParser @Inject constructor() {
                 BootstrapNode(
                     address = jsonNode.getString("ipv4"),
                     port = jsonNode.getInt("port"),
-                    publicKey = PublicKey(jsonNode.getString("public_key"))
-                )
+                    publicKey = PublicKey(jsonNode.getString("public_key")),
+                ),
             )
         }
 

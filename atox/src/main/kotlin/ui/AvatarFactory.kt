@@ -28,7 +28,7 @@ internal object AvatarFactory {
         resources: Resources,
         name: String,
         publicKey: String,
-        size: Px = Px(resources.getDimension(R.dimen.default_avatar_size).toInt())
+        size: Px = Px(resources.getDimension(R.dimen.default_avatar_size).toInt()),
     ): Bitmap {
         val defaultAvatarSize = resources.getDimension(R.dimen.default_avatar_size)
         val textScale = size.px / defaultAvatarSize

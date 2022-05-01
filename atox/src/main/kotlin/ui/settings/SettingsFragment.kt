@@ -73,7 +73,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
                     Toast.makeText(
                         requireContext(),
                         getString(R.string.warn_node_json_import_failed),
-                        Toast.LENGTH_LONG
+                        Toast.LENGTH_LONG,
                     ).show()
                 }
             }
@@ -105,8 +105,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         }
 
         theme.adapter = ArrayAdapter.createFromResource(
-            requireContext(), R.array.pref_theme_options,
-            android.R.layout.simple_spinner_item
+            requireContext(),
+            R.array.pref_theme_options,
+            android.R.layout.simple_spinner_item,
         ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
 
         theme.setSelection(vm.getTheme())
@@ -135,8 +136,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         }
 
         settingFtAutoAccept.adapter = ArrayAdapter.createFromResource(
-            requireContext(), R.array.pref_ft_auto_accept_options,
-            android.R.layout.simple_spinner_item
+            requireContext(),
+            R.array.pref_ft_auto_accept_options,
+            android.R.layout.simple_spinner_item,
         ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
 
         settingFtAutoAccept.setSelection(vm.getFtAutoAccept().ordinal)
@@ -157,7 +159,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         settingsUdpEnabled.setOnClickListener { vm.setUdpEnabled(settingsUdpEnabled.isChecked) }
 
         proxyType.adapter = ArrayAdapter.createFromResource(
-            requireContext(), R.array.pref_proxy_type_options, android.R.layout.simple_spinner_item
+            requireContext(),
+            R.array.pref_proxy_type_options,
+            android.R.layout.simple_spinner_item,
         ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
 
         proxyType.setSelection(vm.getProxyType().ordinal)
@@ -257,8 +261,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         }
 
         settingBootstrapNodes.adapter = ArrayAdapter.createFromResource(
-            requireContext(), R.array.pref_bootstrap_node_options,
-            android.R.layout.simple_spinner_item
+            requireContext(),
+            R.array.pref_bootstrap_node_options,
+            android.R.layout.simple_spinner_item,
         ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
 
         settingBootstrapNodes.setSelection(vm.getBootstrapNodeSource().ordinal)
@@ -282,7 +287,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
             if (settingDisableScreenshots.isChecked) {
                 requireActivity().window.setFlags(
                     WindowManager.LayoutParams.FLAG_SECURE,
-                    WindowManager.LayoutParams.FLAG_SECURE
+                    WindowManager.LayoutParams.FLAG_SECURE,
                 )
             } else {
                 requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)

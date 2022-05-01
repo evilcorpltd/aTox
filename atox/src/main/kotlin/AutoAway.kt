@@ -23,7 +23,7 @@ class AutoAway @Inject constructor(
     private val scope: CoroutineScope,
     private val settings: Settings,
     private val userManager: UserManager,
-    private val tox: Tox
+    private val tox: Tox,
 ) {
     private var awayTimer = Timer()
     private var autoAway = false

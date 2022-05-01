@@ -15,7 +15,7 @@ object PendingIntentCompat {
         requestCode: Int,
         intent: Intent,
         flags: Int,
-        mutable: Boolean = false
+        mutable: Boolean = false,
     ): PendingIntent =
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             PendingIntent.getBroadcast(context, requestCode, intent, flags)

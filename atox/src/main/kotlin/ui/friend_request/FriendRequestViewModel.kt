@@ -13,7 +13,7 @@ import ltd.evilcorp.domain.feature.FriendRequestManager
 import ltd.evilcorp.domain.tox.PublicKey
 
 class FriendRequestViewModel @Inject constructor(
-    private val friendRequests: FriendRequestManager
+    private val friendRequests: FriendRequestManager,
 ) : ViewModel() {
     fun byId(pk: PublicKey): LiveData<FriendRequest> = friendRequests.get(pk).asLiveData()
     fun accept(request: FriendRequest) = friendRequests.accept(request)

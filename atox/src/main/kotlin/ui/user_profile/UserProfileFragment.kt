@@ -147,7 +147,7 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
         when (v.id) {
             R.id.profile_share_id -> requireActivity().menuInflater.inflate(
                 R.menu.user_profile_share_id_context_menu,
-                menu
+                menu,
             )
         }
     }
@@ -222,14 +222,14 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
             Bitmap.createBitmap(
                 bmpQr.width + 2 * padding.px,
                 bmpQr.height + 2 * padding.px,
-                Bitmap.Config.RGB_565
+                Bitmap.Config.RGB_565,
             )
         val canvas = Canvas(bmpQrWithPadding)
         canvas.drawPaint(
             Paint().apply {
                 color = Color.WHITE
                 style = Paint.Style.FILL
-            }
+            },
         )
         canvas.drawBitmap(bmpQr, padding.px.toFloat(), padding.px.toFloat(), null)
 

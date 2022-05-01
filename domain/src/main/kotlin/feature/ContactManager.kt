@@ -16,7 +16,7 @@ import ltd.evilcorp.domain.tox.ToxID
 class ContactManager @Inject constructor(
     private val scope: CoroutineScope,
     private val contactRepository: ContactRepository,
-    private val tox: Tox
+    private val tox: Tox,
 ) {
     fun get(publicKey: PublicKey) = contactRepository.get(publicKey.string())
     fun getAll() = contactRepository.getAll()

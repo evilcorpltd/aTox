@@ -37,7 +37,7 @@ data class Message(
     var correlationId: Int,
 
     @ColumnInfo(name = "timestamp")
-    var timestamp: Long = 0
+    var timestamp: Long = 0,
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

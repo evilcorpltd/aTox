@@ -22,7 +22,7 @@ class ReceiveShareDialog(
     ctx: Context,
     private var contacts: List<Contact>,
     private val sharePreview: String,
-    private val contactSelectedFunc: (Contact) -> Unit
+    private val contactSelectedFunc: (Contact) -> Unit,
 ) : Dialog(ctx, R.style.DialogSlideAnimation) {
     private var _binding: DialogReceiveShareBinding? = null
     private val binding get() = _binding!!

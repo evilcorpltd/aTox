@@ -24,7 +24,7 @@ typealias FriendMessageHandler = (
     publicKey: String,
     messageType: ToxMessageType,
     timeDelta: Int,
-    message: String
+    message: String,
 ) -> Unit
 typealias FriendNameHandler = (publicKey: String, newName: String) -> Unit
 typealias FileRecvChunkHandler = (publicKey: String, fileNo: Int, position: Long, data: ByteArray) -> Unit
@@ -82,7 +82,7 @@ class ToxEventListener @Inject constructor() : ToxCoreEventListener<Unit> {
         type: ToxMessageType,
         timeDelta: Int,
         message: ByteArray,
-        s: Unit?
+        s: Unit?,
     ) = friendMessageHandler(keyFor(friendNo), type, timeDelta, String(message))
 
     override fun friendName(friendNo: Int, newName: ByteArray, s: Unit?) =
@@ -93,7 +93,7 @@ class ToxEventListener @Inject constructor() : ToxCoreEventListener<Unit> {
         fileNo: Int,
         position: Long,
         data: ByteArray,
-        s: Unit?
+        s: Unit?,
     ) = fileRecvChunkHandler(keyFor(friendNo), fileNo, position, data)
 
     override fun fileRecv(
@@ -102,7 +102,7 @@ class ToxEventListener @Inject constructor() : ToxCoreEventListener<Unit> {
         kind: Int,
         fileSize: Long,
         filename: ByteArray,
-        s: Unit?
+        s: Unit?,
     ) = fileRecvHandler(keyFor(friendNo), fileNo, kind, fileSize, String(filename))
 
     override fun friendLossyPacket(friendNo: Int, data: ByteArray, s: Unit?) =
@@ -119,6 +119,6 @@ class ToxEventListener @Inject constructor() : ToxCoreEventListener<Unit> {
         fileNo: Int,
         position: Long,
         length: Int,
-        s: Unit?
+        s: Unit?,
     ) = fileChunkRequestHandler(keyFor(friendNo), fileNo, position, length)
 }

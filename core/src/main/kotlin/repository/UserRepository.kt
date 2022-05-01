@@ -14,7 +14,7 @@ import ltd.evilcorp.core.vo.UserStatus
 
 @Singleton
 class UserRepository @Inject internal constructor(
-    private val userDao: UserDao
+    private val userDao: UserDao,
 ) {
     fun exists(publicKey: String): Boolean =
         userDao.exists(publicKey)

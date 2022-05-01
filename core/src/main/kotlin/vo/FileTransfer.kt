@@ -42,7 +42,7 @@ data class FileTransfer(
     var progress: Long = FtNotStarted,
 
     @ColumnInfo(name = "destination")
-    var destination: String = ""
+    var destination: String = "",
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

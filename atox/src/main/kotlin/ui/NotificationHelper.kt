@@ -47,7 +47,7 @@ private const val CALL = "aTox calls"
 
 @Singleton
 class NotificationHelper @Inject constructor(
-    private val context: Context
+    private val context: Context,
 ) {
     private val notifier = NotificationManagerCompat.from(context)
     private val notifierOld = context.getSystemService<NotificationManager>()!!
@@ -111,8 +111,8 @@ class NotificationHelper @Inject constructor(
                         ImageRequest.Builder(context)
                             .data(contact.avatarUri)
                             .transformations(CircleCropTransformation())
-                            .build()
-                    ).drawable?.toBitmap()
+                            .build(),
+                    ).drawable?.toBitmap(),
                 )
             } else null
 
@@ -129,7 +129,7 @@ class NotificationHelper @Inject constructor(
                 } ?: NotificationCompat.MessagingStyle(chatPartner)
 
             style.messages.add(
-                NotificationCompat.MessagingStyle.Message(message, System.currentTimeMillis(), chatPartner)
+                NotificationCompat.MessagingStyle.Message(message, System.currentTimeMillis(), chatPartner),
             )
 
             notificationBuilder
@@ -152,16 +152,16 @@ class NotificationHelper @Inject constructor(
                             Intent(context, ActionReceiver::class.java).putExtra(KEY_CONTACT_PK, contact.publicKey),
                             PendingIntent.FLAG_UPDATE_CURRENT,
                             mutable = true,
-                        )
+                        ),
                     )
                     .addRemoteInput(
                         RemoteInput.Builder(KEY_TEXT_REPLY)
                             .setLabel(context.getString(R.string.message))
-                            .build()
+                            .build(),
                     )
                     .setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_REPLY)
                     .setAllowGeneratedReplies(true)
-                    .build()
+                    .build(),
             )
         } else {
             notificationBuilder.addAction(
@@ -169,10 +169,10 @@ class NotificationHelper @Inject constructor(
                     .Builder(
                         IconCompat.createWithResource(context, R.drawable.ic_send),
                         context.getString(R.string.reply),
-                        deepLinkToChat(PublicKey(contact.publicKey), focusMessageBox = true)
+                        deepLinkToChat(PublicKey(contact.publicKey), focusMessageBox = true),
                     )
                     .setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_REPLY)
-                    .build()
+                    .build(),
             )
         }
 
@@ -187,8 +187,8 @@ class NotificationHelper @Inject constructor(
                         .putExtra(KEY_CONTACT_PK, contact.publicKey)
                         .putExtra(KEY_ACTION, Action.MarkAsRead),
                     PendingIntent.FLAG_UPDATE_CURRENT,
-                )
-            ).setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_MARK_AS_READ).build()
+                ),
+            ).setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_MARK_AS_READ).build(),
         )
 
         notifier.notify(contact.publicKey.hashCode(), notificationBuilder.build())
@@ -204,7 +204,7 @@ class NotificationHelper @Inject constructor(
                 NavDeepLinkBuilder(context)
                     .setGraph(R.navigation.nav_graph)
                     .setDestination(R.id.contactListFragment)
-                    .createPendingIntent()
+                    .createPendingIntent(),
             )
             .setAutoCancel(true)
             .setSilent(silent)
@@ -224,8 +224,8 @@ class NotificationHelper @Inject constructor(
             .setContentText(
                 context.getString(
                     R.string.in_call_with,
-                    contact.name.ifEmpty { context.getString(R.string.contact_default_name) }
-                )
+                    contact.name.ifEmpty { context.getString(R.string.contact_default_name) },
+                ),
             )
             .setUsesChronometer(true)
             .setWhen(System.currentTimeMillis())
@@ -234,7 +234,7 @@ class NotificationHelper @Inject constructor(
                     .setGraph(R.navigation.nav_graph)
                     .addDestination(R.id.chatFragment, bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey))
                     .addDestination(R.id.callFragment, bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey))
-                    .createPendingIntent()
+                    .createPendingIntent(),
             )
             .addAction(
                 NotificationCompat.Action
@@ -247,10 +247,10 @@ class NotificationHelper @Inject constructor(
                             Intent(context, ActionReceiver::class.java)
                                 .putExtra(KEY_CONTACT_PK, contact.publicKey)
                                 .putExtra(KEY_ACTION, Action.CallEnd),
-                            PendingIntent.FLAG_UPDATE_CURRENT
-                        )
+                            PendingIntent.FLAG_UPDATE_CURRENT,
+                        ),
                     )
-                    .build()
+                    .build(),
             )
             .setOngoing(true)
             .setSilent(true)
@@ -276,11 +276,11 @@ class NotificationHelper @Inject constructor(
                             Intent(context, ActionReceiver::class.java)
                                 .putExtra(KEY_CONTACT_PK, c.publicKey)
                                 .putExtra(KEY_ACTION, Action.CallAccept),
-                            PendingIntent.FLAG_UPDATE_CURRENT
-                        )
+                            PendingIntent.FLAG_UPDATE_CURRENT,
+                        ),
                     )
                     .setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_CALL)
-                    .build()
+                    .build(),
             )
             .addAction(
                 NotificationCompat.Action
@@ -293,10 +293,10 @@ class NotificationHelper @Inject constructor(
                             Intent(context, ActionReceiver::class.java)
                                 .putExtra(KEY_CONTACT_PK, c.publicKey)
                                 .putExtra(KEY_ACTION, Action.CallReject),
-                            PendingIntent.FLAG_UPDATE_CURRENT
-                        )
+                            PendingIntent.FLAG_UPDATE_CURRENT,
+                        ),
                     )
-                    .build()
+                    .build(),
             )
             .setDeleteIntent(
                 PendingIntentCompat.getBroadcast(
@@ -305,8 +305,8 @@ class NotificationHelper @Inject constructor(
                     Intent(context, ActionReceiver::class.java)
                         .putExtra(KEY_CONTACT_PK, c.publicKey)
                         .putExtra(KEY_ACTION, Action.CallIgnore),
-                    PendingIntent.FLAG_UPDATE_CURRENT
-                )
+                    PendingIntent.FLAG_UPDATE_CURRENT,
+                ),
             )
             .setSound(RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE))
             .setSilent(status == UserStatus.Busy)
@@ -325,7 +325,7 @@ class NotificationHelper @Inject constructor(
             bundleOf(
                 CONTACT_PUBLIC_KEY to publicKey.string(),
                 FOCUS_ON_MESSAGE_BOX to focusMessageBox,
-            )
+            ),
         )
         .createPendingIntent()
 }

@@ -15,5 +15,5 @@ data class FriendRequest(
     val publicKey: String,
 
     @ColumnInfo(name = "message")
-    val message: String = ""
+    val message: String = "",
 )

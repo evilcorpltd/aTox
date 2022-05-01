@@ -115,7 +115,7 @@ class EventListenerCallbacks @Inject constructor(
 
         friendMessageHandler = { publicKey, type, _, msg ->
             messageRepository.add(
-                Message(publicKey, msg, Sender.Received, type.toMessageType(), Int.MIN_VALUE, Date().time)
+                Message(publicKey, msg, Sender.Received, type.toMessageType(), Int.MIN_VALUE, Date().time),
             )
 
             if (chatManager.activeChat != publicKey) {
@@ -202,13 +202,13 @@ class EventListenerCallbacks @Inject constructor(
         videoReceiveFrameHandler = { pk,
             width, height,
             y, u, v,
-            yStride, uStride, vStride ->
+            yStride, uStride, vStride, ->
             Log.v(
                 TAG,
                 "videoReceiveFrame ${pk.fingerprint()}" +
                     "$width $height" +
                     "${y.size} ${u.size} ${v.size}" +
-                    "$yStride $uStride $vStride"
+                    "$yStride $uStride $vStride",
             )
         }
 

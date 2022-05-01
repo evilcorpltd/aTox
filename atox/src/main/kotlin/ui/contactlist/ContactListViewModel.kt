@@ -52,7 +52,7 @@ class ContactListViewModel @Inject constructor(
     private val tox: Tox,
     private val toxStarter: ToxStarter,
     private val settings: Settings,
-    userManager: UserManager
+    userManager: UserManager,
 ) : ViewModel() {
     val publicKey by lazy { tox.publicKey }
 
@@ -92,7 +92,7 @@ class ContactListViewModel @Inject constructor(
                 Toast.makeText(
                     context,
                     context.getString(R.string.tox_save_export_failure, context.getString(R.string.file_not_found)),
-                    Toast.LENGTH_LONG
+                    Toast.LENGTH_LONG,
                 ).show()
             }
             return@launch

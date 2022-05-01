@@ -111,7 +111,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
 
                 override fun onStart(
                     animation: WindowInsetsAnimationCompat,
-                    bounds: WindowInsetsAnimationCompat.BoundsCompat
+                    bounds: WindowInsetsAnimationCompat.BoundsCompat,
                 ): WindowInsetsAnimationCompat.BoundsCompat {
                     val pos = IntArray(2)
                     outgoingMessage.getLocationInWindow(pos)
@@ -125,7 +125,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
 
                 override fun onProgress(
                     insets: WindowInsetsCompat,
-                    runningAnimations: MutableList<WindowInsetsAnimationCompat>
+                    runningAnimations: MutableList<WindowInsetsAnimationCompat>,
                 ): WindowInsetsCompat {
                     val animation = runningAnimations[0]
                     val offset = lerp((startBottom - endBottom).toFloat(), 0f, animation.interpolatedFraction)
@@ -133,7 +133,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                     bottomBar.translationY = offset
                     return insets
                 }
-            }
+            },
         )
 
         toolbar.setNavigationIcon(R.drawable.ic_back)
@@ -168,7 +168,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             WindowInsetsControllerCompat(requireActivity().window, view).hide(WindowInsetsCompat.Type.ime())
             findNavController().navigate(
                 R.id.action_chatFragment_to_contactProfileFragment,
-                bundleOf(CONTACT_PUBLIC_KEY to contactPubKey)
+                bundleOf(CONTACT_PUBLIC_KEY to contactPubKey),
             )
         }
 
@@ -269,7 +269,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                     val uri = FileProvider.getUriForFile(
                         requireContext(),
                         "${BuildConfig.APPLICATION_ID}.fileprovider",
-                        File(Uri.parse(ft.destination).path!!)
+                        File(Uri.parse(ft.destination).path!!),
                     )
                     val shareIntent = Intent(Intent.ACTION_VIEW).apply {
                         putExtra(Intent.EXTRA_TITLE, ft.fileName)
@@ -283,7 +283,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                         Toast.makeText(
                             requireContext(),
                             getString(R.string.mimetype_handler_not_found, contentType),
-                            Toast.LENGTH_LONG
+                            Toast.LENGTH_LONG,
                         ).show()
                     }
                 }
@@ -325,7 +325,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
     override fun onCreateContextMenu(
         menu: ContextMenu,
         v: View,
-        menuInfo: ContextMenu.ContextMenuInfo?
+        menuInfo: ContextMenu.ContextMenuInfo?,
     ) = binding.run {
         super.onCreateContextMenu(menu, v, menuInfo)
         v.dispatchTouchEvent(MotionEvent.obtain(0, 0, MotionEvent.ACTION_CANCEL, 0f, 0f, 0))
@@ -369,8 +369,8 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                     .setMessage(
                         getString(
                             R.string.delete_message_confirm,
-                            message.message.truncated(MAX_CONFIRM_DELETE_STRING_LENGTH)
-                        )
+                            message.message.truncated(MAX_CONFIRM_DELETE_STRING_LENGTH),
+                        ),
                     )
                     .setPositiveButton(R.string.delete) { _, _ ->
                         viewModel.delete(message)
@@ -407,7 +407,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             ContextCompat.getColor(
                 requireContext(),
                 if (attach.isEnabled) R.color.colorPrimary else android.R.color.darker_gray,
-            )
+            ),
         )
     }
 
@@ -415,7 +415,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         view?.let { WindowInsetsControllerCompat(requireActivity().window, it).hide(WindowInsetsCompat.Type.ime()) }
         findNavController().navigate(
             R.id.action_chatFragment_to_callFragment,
-            bundleOf(CONTACT_PUBLIC_KEY to contactPubKey)
+            bundleOf(CONTACT_PUBLIC_KEY to contactPubKey),
         )
     }
 }

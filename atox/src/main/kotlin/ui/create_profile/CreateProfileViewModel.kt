@@ -19,7 +19,7 @@ class CreateProfileViewModel @Inject constructor(
     private val resolver: ContentResolver,
     private val userManager: UserManager,
     private val tox: Tox,
-    private val toxStarter: ToxStarter
+    private val toxStarter: ToxStarter,
 ) : ViewModel() {
     val publicKey: PublicKey by lazy { tox.publicKey }
 

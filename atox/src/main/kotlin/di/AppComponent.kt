@@ -20,8 +20,8 @@ import ltd.evilcorp.atox.ToxService
         AppModule::class,
         DatabaseModule::class,
         DaoModule::class,
-        ViewModelModule::class
-    ]
+        ViewModelModule::class,
+    ],
 )
 interface AppComponent {
     @Component.Factory

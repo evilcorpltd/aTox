@@ -31,7 +31,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
     private val vm: CallViewModel by viewModels { vmFactory }
 
     private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
+        ActivityResultContracts.RequestPermission(),
     ) { granted ->
         if (granted) {
             vm.startSendingAudio()

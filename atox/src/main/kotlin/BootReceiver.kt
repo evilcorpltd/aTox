@@ -36,7 +36,7 @@ class BootReceiver : BroadcastReceiver() {
                         NavDeepLinkBuilder(context)
                             .setGraph(R.navigation.nav_graph)
                             .setDestination(R.id.contactListFragment)
-                            .createPendingIntent()
+                            .createPendingIntent(),
                     )
                     .setCategory(NotificationCompat.CATEGORY_STATUS)
                     .setSmallIcon(R.drawable.ic_notification)

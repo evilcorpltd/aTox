@@ -168,7 +168,7 @@ class ContactListFragment :
             drawerLayout,
             toolbar,
             R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
+            R.string.navigation_drawer_close,
         )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -206,7 +206,7 @@ class ContactListFragment :
     override fun onCreateContextMenu(
         menu: ContextMenu,
         v: View,
-        menuInfo: ContextMenu.ContextMenuInfo?
+        menuInfo: ContextMenu.ContextMenuInfo?,
     ) {
         super.onCreateContextMenu(menu, v, menuInfo)
 
@@ -257,8 +257,8 @@ class ContactListFragment :
                             .setMessage(
                                 getString(
                                     R.string.contact_list_delete_contact_confirm,
-                                    contact.name.truncated(MAX_CONFIRM_DELETE_STRING_LENGTH)
-                                )
+                                    contact.name.truncated(MAX_CONFIRM_DELETE_STRING_LENGTH),
+                                ),
                             )
                             .setPositiveButton(R.string.delete) { _, _ ->
                                 viewModel.deleteContact(PublicKey(contact.publicKey))
@@ -311,7 +311,8 @@ class ContactListFragment :
         if (!viewModel.isToxRunning()) {
             when (val status = viewModel.tryLoadTox(null)) {
                 ToxSaveStatus.BadProxyHost, ToxSaveStatus.BadProxyPort,
-                ToxSaveStatus.BadProxyType, ToxSaveStatus.ProxyNotFound -> {
+                ToxSaveStatus.BadProxyType, ToxSaveStatus.ProxyNotFound,
+                -> {
                     Toast.makeText(requireContext(), getString(R.string.warn_proxy_broken), Toast.LENGTH_LONG).show()
                     findNavController().navigate(R.id.action_contactListFragment_to_settingsFragment)
                 }
@@ -375,16 +376,16 @@ class ContactListFragment :
 
     private fun openChat(contact: Contact) = findNavController().navigate(
         R.id.action_contactListFragment_to_chatFragment,
-        bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey)
+        bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey),
     )
 
     private fun openFriendRequest(friendRequest: FriendRequest) = findNavController().navigate(
         R.id.action_contactListFragment_to_friendRequestFragment,
-        bundleOf(FRIEND_REQUEST_PUBLIC_KEY to friendRequest.publicKey)
+        bundleOf(FRIEND_REQUEST_PUBLIC_KEY to friendRequest.publicKey),
     )
 
     private fun openProfile(contact: Contact) = findNavController().navigate(
         R.id.action_contactListFragment_to_contactProfileFragment,
-        bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey)
+        bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey),
     )
 }

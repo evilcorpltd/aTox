@@ -35,7 +35,7 @@ fun SaveOptions.toToxOptions(): ToxOptions = ToxOptions(
     0,
     0,
     if (saveData == null) SaveDataOptions.`None$`() else SaveDataOptions.ToxSave(saveData),
-    true
+    true,
 )
 
 fun UserStatus.toToxType(): ToxUserStatus = when (this) {

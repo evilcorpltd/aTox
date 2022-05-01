@@ -40,7 +40,7 @@ class ContactDaoTest {
         typing = true,
         avatarUri = "uri",
         hasUnreadMessages = true,
-        draftMessage = "i made this"
+        draftMessage = "i made this",
     )
 
     private val second = first.copy(publicKey = "5678")
@@ -101,7 +101,7 @@ class ContactDaoTest {
         assertNotEquals(first, dao.load(first.publicKey).first())
         assertEquals(
             first.copy(typing = false, connectionStatus = ConnectionStatus.None),
-            dao.load(first.publicKey).first()
+            dao.load(first.publicKey).first(),
         )
     }
 

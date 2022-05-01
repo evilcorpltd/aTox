@@ -52,7 +52,7 @@ class FileTransferManager @Inject constructor(
     private val contactRepository: ContactRepository,
     private val messageRepository: MessageRepository,
     private val fileTransferRepository: FileTransferRepository,
-    private val tox: Tox
+    private val tox: Tox,
 ) {
     private val fileTransfers: MutableList<FileTransfer> = mutableListOf()
 
@@ -92,7 +92,7 @@ class FileTransferManager @Inject constructor(
             FileKind.Data.ordinal -> {
                 val id = fileTransferRepository.add(ft).toInt()
                 messageRepository.add(
-                    Message(ft.publicKey, ft.fileName, Sender.Received, MessageType.FileTransfer, id, Date().time)
+                    Message(ft.publicKey, ft.fileName, Sender.Received, MessageType.FileTransfer, id, Date().time),
                 )
                 fileTransfers.add(ft.copy().apply { this.id = id })
                 id
@@ -232,11 +232,11 @@ class FileTransferManager @Inject constructor(
             name,
             true,
             FtNotStarted,
-            file.toString()
+            file.toString(),
         )
         val id = fileTransferRepository.add(ft).toInt()
         messageRepository.add(
-            Message(ft.publicKey, ft.fileName, Sender.Sent, MessageType.FileTransfer, id, Date().time)
+            Message(ft.publicKey, ft.fileName, Sender.Sent, MessageType.FileTransfer, id, Date().time),
         )
         fileTransfers.add(ft.copy().apply { this.id = id })
     }

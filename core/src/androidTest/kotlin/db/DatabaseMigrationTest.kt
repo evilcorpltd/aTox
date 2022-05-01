@@ -33,7 +33,7 @@ class DatabaseMigrationTest {
     val helper: MigrationTestHelper = MigrationTestHelper(
         InstrumentationRegistry.getInstrumentation(),
         Database::class.java.canonicalName,
-        FrameworkSQLiteOpenHelperFactory()
+        FrameworkSQLiteOpenHelperFactory(),
     )
 
     private val ft = FileTransfer(
@@ -43,7 +43,7 @@ class DatabaseMigrationTest {
         9876,
         "bird.png2",
         false,
-        FtNotStarted
+        FtNotStarted,
     )
 
     private val msg = Message(
@@ -52,7 +52,7 @@ class DatabaseMigrationTest {
         Sender.Sent,
         MessageType.Normal,
         99,
-        12L
+        12L,
     )
 
     private val contact = Contact(
@@ -63,7 +63,7 @@ class DatabaseMigrationTest {
         UserStatus.Busy,
         ConnectionStatus.TCP,
         true,
-        "file:///home/robin/fantastic_bird.png"
+        "file:///home/robin/fantastic_bird.png",
     )
 
     @Test
@@ -80,7 +80,7 @@ class DatabaseMigrationTest {
                         ${connectionStatus.ordinal},
                         ${typing.toInt()},
                         '$avatarUri')
-                    """.trimIndent()
+                    """.trimIndent(),
                 )
             }
 
@@ -127,7 +127,7 @@ class DatabaseMigrationTest {
                         ${sender.ordinal},
                         $correlationId,
                         $timestamp)
-                    """.trimIndent()
+                    """.trimIndent(),
                 )
             }
 
@@ -175,7 +175,7 @@ class DatabaseMigrationTest {
                         '$fileName',
                         ${outgoing.toInt()},
                         $progress)
-                    """.trimIndent()
+                    """.trimIndent(),
                 )
             }
 
@@ -215,7 +215,7 @@ class DatabaseMigrationTest {
                         ${typing.toInt()},
                         '$avatarUri',
                         ${hasUnreadMessages.toInt()})
-                    """.trimIndent()
+                    """.trimIndent(),
                 )
             }
 
@@ -266,7 +266,7 @@ class DatabaseMigrationTest {
                         ${connectionStatus.ordinal},
                         ${typing.toInt()},
                         '$avatarUri')
-                    """.trimIndent()
+                    """.trimIndent(),
                 )
             }
             with(msg) {
@@ -278,7 +278,7 @@ class DatabaseMigrationTest {
                         ${sender.ordinal},
                         $correlationId,
                         $timestamp)
-                    """.trimIndent()
+                    """.trimIndent(),
                 )
             }
             with(ft) {
@@ -291,7 +291,7 @@ class DatabaseMigrationTest {
                         '$fileName',
                         ${outgoing.toInt()},
                         $progress)
-                    """.trimIndent()
+                    """.trimIndent(),
                 )
             }
 

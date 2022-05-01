@@ -19,7 +19,7 @@ class FriendRequestManager @Inject constructor(
     private val scope: CoroutineScope,
     private val contactRepository: ContactRepository,
     private val friendRequestRepository: FriendRequestRepository,
-    private val tox: Tox
+    private val tox: Tox,
 ) {
     fun getAll(): Flow<List<FriendRequest>> = friendRequestRepository.getAll()
     fun get(id: PublicKey): Flow<FriendRequest> = friendRequestRepository.get(id.string())

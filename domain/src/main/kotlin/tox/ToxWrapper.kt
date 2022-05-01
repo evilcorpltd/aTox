@@ -36,12 +36,12 @@ enum class CustomPacketError {
 class ToxWrapper(
     private val eventListener: ToxEventListener,
     private val avEventListener: ToxAvEventListener,
-    options: SaveOptions
+    options: SaveOptions,
 ) {
     private val tox: ToxCoreImpl =
         ToxCoreImpl(
             options.toToxOptions()
-                .also { Log.i(TAG, "Starting Tox with options $it") }
+                .also { Log.i(TAG, "Starting Tox with options $it") },
         )
     private val av: ToxAvImpl = ToxAvImpl(tox)
 
@@ -99,7 +99,8 @@ class ToxWrapper(
         tox.friendList.find { PublicKey.fromBytes(tox.getFriendPublicKey(it)) == pk }?.let { friend ->
             tox.deleteFriend(friend)
         } ?: Log.e(
-            TAG, "Tried to delete nonexistent contact, this can happen if the database is out of sync with the Tox save"
+            TAG,
+            "Tried to delete nonexistent contact, this can happen if the database is out of sync with the Tox save",
         )
 
         updateContactMapping()
@@ -117,7 +118,7 @@ class ToxWrapper(
         contactByKey(publicKey),
         type.toToxType(),
         0,
-        message.toByteArray()
+        message.toByteArray(),
     )
 
     fun acceptFriendRequest(pk: PublicKey) = try {

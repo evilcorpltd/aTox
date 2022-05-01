@@ -45,7 +45,7 @@ class ChatManager @Inject constructor(
     private val scope: CoroutineScope,
     private val contactRepository: ContactRepository,
     private val messageRepository: MessageRepository,
-    private val tox: Tox
+    private val tox: Tox,
 ) {
     var activeChat = ""
         set(value) {
@@ -76,7 +76,7 @@ class ChatManager @Inject constructor(
                     Sender.Sent,
                     type,
                     tox.sendMessage(publicKey, msgs.first(), type),
-                )
+                ),
             )
         }
 

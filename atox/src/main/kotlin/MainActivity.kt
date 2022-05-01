@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.findNavController()?.navigate(
             R.id.addContactFragment,
-            bundleOf("toxId" to data.drop(SCHEME.length))
+            bundleOf("toxId" to data.drop(SCHEME.length)),
         )
     }
 

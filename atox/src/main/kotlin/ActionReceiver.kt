@@ -87,7 +87,7 @@ class ActionReceiver : BroadcastReceiver() {
                     notificationHelper.showMessageNotification(
                         Contact(pk.string(), tox.getName()),
                         input,
-                        outgoing = true
+                        outgoing = true,
                     )
                     return@launch
                 }

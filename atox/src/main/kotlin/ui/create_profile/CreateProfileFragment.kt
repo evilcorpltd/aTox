@@ -58,7 +58,7 @@ class CreateProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfi
                                 Toast.makeText(
                                     requireContext(),
                                     getString(R.string.incorrect_password),
-                                    Toast.LENGTH_LONG
+                                    Toast.LENGTH_LONG,
                                 ).show()
                             }
                         }
@@ -68,7 +68,7 @@ class CreateProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfi
                 else -> Toast.makeText(
                     requireContext(),
                     resources.getString(R.string.import_tox_save_failed, startStatus.name),
-                    Toast.LENGTH_LONG
+                    Toast.LENGTH_LONG,
                 ).show()
             }
         }
@@ -93,7 +93,7 @@ class CreateProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfi
             val user = User(
                 publicKey = viewModel.publicKey.string(),
                 name = if (username.text.isNotEmpty()) username.text.toString() else getString(R.string.name_default),
-                statusMessage = getString(R.string.status_message_default)
+                statusMessage = getString(R.string.status_message_default),
             )
             viewModel.create(user)
 

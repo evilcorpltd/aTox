@@ -38,7 +38,7 @@ interface ContactDao {
     @Query("UPDATE contacts SET connection_status = :status, typing = :typing")
     fun resetTransientData(
         status: ConnectionStatus = ConnectionStatus.None,
-        typing: Boolean = false
+        typing: Boolean = false,
     )
 
     @Query("UPDATE contacts SET name = :name WHERE public_key = :publicKey")

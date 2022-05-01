@@ -16,7 +16,7 @@ import ltd.evilcorp.domain.tox.Tox
 class UserManager @Inject constructor(
     private val scope: CoroutineScope,
     private val userRepository: UserRepository,
-    private val tox: Tox
+    private val tox: Tox,
 ) {
     fun get(publicKey: PublicKey) = userRepository.get(publicKey.string())
 

@@ -41,7 +41,7 @@ class Settings @Inject constructor(private val ctx: Context) {
 
     var runAtStartup: Boolean
         get() = ctx.packageManager.getComponentEnabledSetting(
-            ComponentName(ctx, BootReceiver::class.java)
+            ComponentName(ctx, BootReceiver::class.java),
         ) == PackageManager.COMPONENT_ENABLED_STATE_ENABLED
         set(runAtStartup) {
             val state = if (runAtStartup) {
@@ -53,7 +53,7 @@ class Settings @Inject constructor(private val ctx: Context) {
             ctx.packageManager.setComponentEnabledSetting(
                 ComponentName(ctx, BootReceiver::class.java),
                 state,
-                PackageManager.DONT_KILL_APP
+                PackageManager.DONT_KILL_APP,
             )
         }
 

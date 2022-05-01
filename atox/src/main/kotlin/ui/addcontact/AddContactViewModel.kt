@@ -18,7 +18,7 @@ import ltd.evilcorp.domain.tox.ToxSaveStatus
 class AddContactViewModel @Inject constructor(
     private val contactManager: ContactManager,
     private val tox: Tox,
-    private val toxStarter: ToxStarter
+    private val toxStarter: ToxStarter,
 ) : ViewModel() {
     val toxId by lazy { tox.toxId }
     val contacts: LiveData<List<Contact>> = contactManager.getAll().asLiveData()
