@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.squareup.picasso.Picasso
 import java.io.File
 import java.io.FileInputStream
 import javax.inject.Inject
@@ -125,9 +124,6 @@ class ChatViewModel @Inject constructor(
     }
 
     fun createFt(file: Uri) = scope.launch {
-        // Make sure there's no stale cached image in Picasso.
-        // This happens if the user sends 2 different files with the same path (e.g. by overwriting one with the other.)
-        Picasso.get().invalidate(file)
         fileTransferManager.create(publicKey, file)
     }
 

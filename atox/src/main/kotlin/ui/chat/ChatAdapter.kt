@@ -19,7 +19,9 @@ import android.widget.ListView
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
+import com.bumptech.glide.signature.ObjectKey
 import java.net.URLConnection
 import java.text.DateFormat
 import java.util.Locale
@@ -191,9 +193,12 @@ class ChatAdapter(
 
                 if (fileTransfer.isImage() && (fileTransfer.isComplete() || fileTransfer.outgoing)) {
                     vh.completedLayout.visibility = View.VISIBLE
-                    Picasso.get().load(fileTransfer.destination)
-                        .resize((Resources.getSystem().displayMetrics.widthPixels * 0.75).roundToInt(), 0)
-                        .onlyScaleDown()
+                    Glide.with(vh.imagePreview)
+                        .load(fileTransfer.destination)
+                        // Make sure fts with the same destination have unique caches.
+                        .signature(ObjectKey(fileTransfer.id))
+                        .downsample(DownsampleStrategy.AT_MOST)
+                        .override((Resources.getSystem().displayMetrics.widthPixels * 0.75).roundToInt(), 1000)
                         .into(vh.imagePreview)
                 } else {
                     vh.completedLayout.visibility = View.GONE

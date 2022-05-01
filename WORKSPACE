@@ -180,7 +180,6 @@ maven_install(
         "com.google.android.material:material:1.4.0",
         "com.google.code.gson:gson:2.8.6",
         "com.google.guava:guava:19.0",
-        "com.squareup.picasso:picasso:2.8",
         "com.typesafe.scala-logging:scala-logging_2.11:3.7.2",
         "javax.inject:javax.inject:1",
         "junit:junit:4.13.1",

@@ -8,12 +8,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffXfermode
-import android.graphics.Rect
 import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.os.Build
@@ -24,10 +18,10 @@ import androidx.core.app.Person
 import androidx.core.app.RemoteInput
 import androidx.core.content.getSystemService
 import androidx.core.graphics.drawable.IconCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.os.bundleOf
 import androidx.navigation.NavDeepLinkBuilder
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.Transformation
+import com.bumptech.glide.Glide
 import javax.inject.Inject
 import javax.inject.Singleton
 import ltd.evilcorp.atox.Action
@@ -92,27 +86,6 @@ class NotificationHelper @Inject constructor(
 
     fun dismissNotifications(publicKey: PublicKey) = notifier.cancel(publicKey.string().hashCode())
 
-    private val circleTransform = object : Transformation {
-        override fun transform(bitmap: Bitmap): Bitmap {
-            val output = Bitmap.createBitmap(bitmap.width, bitmap.height, Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(output)
-            val paint = Paint()
-            val rect = Rect(0, 0, bitmap.width, bitmap.height)
-
-            paint.isAntiAlias = true
-            canvas.drawARGB(0, 0, 0, 0)
-            canvas.drawCircle(bitmap.width / 2.0f, bitmap.height / 2.0f, bitmap.width / 2.0f, paint)
-            paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
-            canvas.drawBitmap(bitmap, rect, rect, paint)
-            if (bitmap != output) {
-                bitmap.recycle()
-            }
-            return output
-        }
-
-        override fun key() = "circleTransform"
-    }
-
     fun showMessageNotification(
         contact: Contact,
         message: String,
@@ -130,7 +103,9 @@ class NotificationHelper @Inject constructor(
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val icon = if (contact.avatarUri.isNotEmpty()) {
-                IconCompat.createWithBitmap(Picasso.get().load(contact.avatarUri).transform(circleTransform).get())
+                IconCompat.createWithBitmap(
+                    Glide.with(context).load(contact.avatarUri).circleCrop().submit().get().toBitmap()
+                )
             } else null
 
             val chatPartner = Person.Builder()
