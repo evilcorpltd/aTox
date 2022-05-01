@@ -37,7 +37,7 @@ import ltd.evilcorp.domain.tox.ProxyType
 
 private fun Spinner.onItemSelectedListener(callback: (Int) -> Unit) {
     this.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-        override fun onNothingSelected(parent: AdapterView<*>?) { /* Do nothing. */ }
+        override fun onNothingSelected(parent: AdapterView<*>?) {}
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             callback(position)
         }

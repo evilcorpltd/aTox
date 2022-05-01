@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
-package ltd.evilcorp.atox.ui.friend_request
+package ltd.evilcorp.atox.ui.friendrequest
 
 import android.os.Bundle
 import android.view.View

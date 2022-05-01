@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
-package ltd.evilcorp.atox.ui.create_profile
+package ltd.evilcorp.atox.ui.createprofile
 
 import android.content.ContentResolver
 import android.net.Uri

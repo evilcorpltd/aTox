@@ -13,12 +13,12 @@ import kotlin.reflect.KClass
 import ltd.evilcorp.atox.ui.addcontact.AddContactViewModel
 import ltd.evilcorp.atox.ui.call.CallViewModel
 import ltd.evilcorp.atox.ui.chat.ChatViewModel
-import ltd.evilcorp.atox.ui.contact_profile.ContactProfileViewModel
 import ltd.evilcorp.atox.ui.contactlist.ContactListViewModel
-import ltd.evilcorp.atox.ui.create_profile.CreateProfileViewModel
-import ltd.evilcorp.atox.ui.friend_request.FriendRequestViewModel
+import ltd.evilcorp.atox.ui.contactprofile.ContactProfileViewModel
+import ltd.evilcorp.atox.ui.createprofile.CreateProfileViewModel
+import ltd.evilcorp.atox.ui.friendrequest.FriendRequestViewModel
 import ltd.evilcorp.atox.ui.settings.SettingsViewModel
-import ltd.evilcorp.atox.ui.user_profile.UserProfileViewModel
+import ltd.evilcorp.atox.ui.userprofile.UserProfileViewModel
 
 @MustBeDocumented
 @Target(

@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.contact_profile.ContactProfileFragment">
+        tools:context=".ui.contactprofile.ContactProfileFragment">
     <com.google.android.material.appbar.AppBarLayout android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="128dp"

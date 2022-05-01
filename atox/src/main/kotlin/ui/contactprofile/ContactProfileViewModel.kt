@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
-package ltd.evilcorp.atox.ui.contact_profile
+package ltd.evilcorp.atox.ui.contactprofile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

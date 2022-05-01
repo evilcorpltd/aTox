@@ -5,7 +5,7 @@
         android:id="@+id/nav_graph"
         app:startDestination="@id/contactListFragment">
     <fragment android:id="@+id/profileFragment"
-            android:name="ltd.evilcorp.atox.ui.create_profile.CreateProfileFragment"
+            android:name="ltd.evilcorp.atox.ui.createprofile.CreateProfileFragment"
             android:label="ProfileFragment"
             tools:layout="@layout/fragment_profile"/>
 
@@ -69,7 +69,7 @@
     </fragment>
 
     <fragment android:id="@+id/friendRequestFragment"
-        android:name="ltd.evilcorp.atox.ui.friend_request.FriendRequestFragment"
+        android:name="ltd.evilcorp.atox.ui.friendrequest.FriendRequestFragment"
         android:label="FriendRequestFragment"
         tools:layout="@layout/fragment_friend_request"/>
 
@@ -101,7 +101,7 @@
     </fragment>
 
     <fragment android:id="@+id/contactProfileFragment"
-            android:name="ltd.evilcorp.atox.ui.contact_profile.ContactProfileFragment"
+            android:name="ltd.evilcorp.atox.ui.contactprofile.ContactProfileFragment"
             android:label="contact_profile_fragment"
             tools:layout="@layout/fragment_contact_profile"/>
 
@@ -111,7 +111,7 @@
             tools:layout="@layout/fragment_settings"/>
     <fragment
             android:id="@+id/userProfileFragment"
-            android:name="ltd.evilcorp.atox.ui.user_profile.UserProfileFragment"
+            android:name="ltd.evilcorp.atox.ui.userprofile.UserProfileFragment"
             android:label="fragment_user_profile"
             tools:layout="@layout/fragment_user_profile"/>
 </navigation>

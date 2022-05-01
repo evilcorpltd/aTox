@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
-package ltd.evilcorp.atox.ui.user_profile
+package ltd.evilcorp.atox.ui.userprofile
 
 import android.content.ClipData
 import android.content.ClipboardManager
