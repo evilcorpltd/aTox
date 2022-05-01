@@ -35,6 +35,9 @@ import ltd.evilcorp.core.vo.isRejected
 import ltd.evilcorp.core.vo.isStarted
 
 private const val TAG = "ChatAdapter"
+private const val IMAGE_TO_SCREEN_RATIO = 0.75
+private const val MAX_IMAGE_HEIGHT_PX = 1000
+private const val SOME_PRIME = 31
 
 private fun FileTransfer.isImage() = try {
     URLConnection.guessContentTypeFromName(fileName).startsWith("image/")
@@ -195,10 +198,13 @@ class ChatAdapter(
                     vh.imagePreview.load(fileTransfer.destination) {
                         // Make sure fts with the same destination have unique caches.
                         memoryCacheKey(
-                            (fileTransfer.destination.hashCode() * 31 + fileTransfer.id.hashCode()).toString()
+                            (fileTransfer.destination.hashCode() * SOME_PRIME + fileTransfer.id.hashCode()).toString()
                         )
                         precision(Precision.INEXACT)
-                        size((Resources.getSystem().displayMetrics.widthPixels * 0.75).roundToInt(), 1000)
+                        size(
+                            (Resources.getSystem().displayMetrics.widthPixels * IMAGE_TO_SCREEN_RATIO).roundToInt(),
+                            MAX_IMAGE_HEIGHT_PX,
+                        )
                     }
                 } else {
                     vh.completedLayout.visibility = View.GONE
