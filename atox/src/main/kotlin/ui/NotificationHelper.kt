@@ -21,7 +21,10 @@ import androidx.core.graphics.drawable.IconCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.os.bundleOf
 import androidx.navigation.NavDeepLinkBuilder
-import com.bumptech.glide.Glide
+import coil.executeBlocking
+import coil.imageLoader
+import coil.request.ImageRequest
+import coil.transform.CircleCropTransformation
 import javax.inject.Inject
 import javax.inject.Singleton
 import ltd.evilcorp.atox.Action
@@ -104,7 +107,12 @@ class NotificationHelper @Inject constructor(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val icon = if (contact.avatarUri.isNotEmpty()) {
                 IconCompat.createWithBitmap(
-                    Glide.with(context).load(contact.avatarUri).circleCrop().submit().get().toBitmap()
+                    context.imageLoader.executeBlocking(
+                        ImageRequest.Builder(context)
+                            .data(contact.avatarUri)
+                            .transformations(CircleCropTransformation())
+                            .build()
+                    ).drawable?.toBitmap()
                 )
             } else null
 
