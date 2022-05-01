@@ -7,8 +7,6 @@ package ltd.evilcorp.atox.tox
 import android.content.Context
 import android.widget.Toast
 import java.io.File
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,15 +16,16 @@ import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.domain.tox.BootstrapNode
 import ltd.evilcorp.domain.tox.BootstrapNodeJsonParser
 import ltd.evilcorp.domain.tox.BootstrapNodeRegistry
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.instance
 
-@Singleton
-class BootstrapNodeRegistryImpl @Inject constructor(
-    private val scope: CoroutineScope,
-    private val context: Context,
-    private val parser: BootstrapNodeJsonParser,
-    private val settings: Settings,
-) : BootstrapNodeRegistry {
-    private lateinit var nodes: List<BootstrapNode>
+class BootstrapNodeRegistryImpl(override val di: DI) : BootstrapNodeRegistry, DIAware {
+    private val scope: CoroutineScope by instance()
+    private val context: Context by instance()
+    private val settings: Settings by instance()
+
+    private var nodes: List<BootstrapNode> = listOf()
 
     init {
         reset()
@@ -40,7 +39,7 @@ class BootstrapNodeRegistryImpl @Inject constructor(
                 File(context.filesDir, "user_nodes.json").readBytes().decodeToString()
             }
 
-            nodes = parser.parse(str)
+            nodes = BootstrapNodeJsonParser.parse(str)
             if (nodes.isEmpty()) {
                 Toast.makeText(context, context.getString(R.string.error_no_nodes_loaded), Toast.LENGTH_LONG).show()
             }

@@ -6,8 +6,6 @@ package ltd.evilcorp.atox
 
 import android.util.Log
 import java.util.Timer
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlin.concurrent.schedule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -15,16 +13,18 @@ import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.feature.UserManager
 import ltd.evilcorp.domain.tox.Tox
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.instance
 
 private const val TAG = "AutoAway"
 
-@Singleton
-class AutoAway @Inject constructor(
-    private val scope: CoroutineScope,
-    private val settings: Settings,
-    private val userManager: UserManager,
-    private val tox: Tox
-) {
+class AutoAway(override val di: DI) : DIAware {
+    private val scope: CoroutineScope by instance()
+    private val settings: Settings by instance()
+    private val userManager: UserManager by instance()
+    private val tox: Tox by instance()
+
     private var awayTimer = Timer()
     private var autoAway = false
 

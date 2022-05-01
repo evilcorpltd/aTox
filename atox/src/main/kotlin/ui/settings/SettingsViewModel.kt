@@ -5,21 +5,20 @@
 package ltd.evilcorp.atox.ui.settings
 
 import android.content.ContentResolver
-import android.content.Context
 import android.net.Uri
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import java.io.File
-import javax.inject.Inject
 import kotlin.math.max
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.settings.BootstrapNodeSource
 import ltd.evilcorp.atox.settings.FtAutoAccept
 import ltd.evilcorp.atox.settings.Settings
@@ -31,6 +30,9 @@ import ltd.evilcorp.domain.tox.SaveOptions
 import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxSaveStatus
 import ltd.evilcorp.domain.tox.testToxSave
+import org.kodein.di.DIAware
+import org.kodein.di.android.x.closestDI
+import org.kodein.di.instance
 
 private const val TOX_SHUTDOWN_POLL_DELAY_MS = 200L
 
@@ -42,15 +44,16 @@ enum class ProxyStatus {
     NotFound,
 }
 
-class SettingsViewModel @Inject constructor(
-    private val context: Context,
-    private val resolver: ContentResolver,
-    private val settings: Settings,
-    private val toxStarter: ToxStarter,
-    private val tox: Tox,
-    private val nodeParser: BootstrapNodeJsonParser,
-    private val nodeRegistry: BootstrapNodeRegistry,
-) : ViewModel() {
+class SettingsViewModel(app: App) : AndroidViewModel(app), DIAware {
+    override val di by closestDI()
+
+    private val filesDir: File by instance(tag = "files")
+    private val resolver: ContentResolver by instance()
+    private val settings: Settings by instance()
+    private val toxStarter: ToxStarter by instance()
+    private val tox: Tox by instance()
+    private val nodeRegistry: BootstrapNodeRegistry by instance()
+
     private var restartNeeded = false
 
     private val _proxyStatus = MutableLiveData<ProxyStatus>()
@@ -197,7 +200,7 @@ class SettingsViewModel @Inject constructor(
             it.readBytes()
         } ?: return@withContext false
 
-        return@withContext nodeParser.parse(bytes.decodeToString()).isNotEmpty()
+        return@withContext BootstrapNodeJsonParser.parse(bytes.decodeToString()).isNotEmpty()
     }
 
     suspend fun importNodeJson(uri: Uri): Boolean = withContext(Dispatchers.IO) {
@@ -205,7 +208,7 @@ class SettingsViewModel @Inject constructor(
             it.readBytes()
         } ?: return@withContext false
 
-        val out = File(context.filesDir, "user_nodes.json")
+        val out = File(filesDir, "user_nodes.json")
         out.delete()
         if (!out.createNewFile()) return@withContext false
 

@@ -4,14 +4,10 @@
 
 package ltd.evilcorp.domain.feature
 
-import android.content.Context
 import android.media.AudioManager
 import android.os.SystemClock
 import android.util.Log
-import androidx.core.content.ContextCompat
 import im.tox.tox4j.av.exceptions.ToxavCallControlException
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,6 +17,10 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.domain.av.AudioCapture
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.DIContext
+import org.kodein.di.instance
 
 sealed class CallState {
     object NotInCall : CallState()
@@ -33,12 +33,11 @@ private const val AUDIO_CHANNELS = 1
 private const val AUDIO_SAMPLING_RATE_HZ = 48_000
 private const val AUDIO_SEND_INTERVAL_MS = 20
 
-@Singleton
-class CallManager @Inject constructor(
-    private val tox: Tox,
-    private val scope: CoroutineScope,
-    context: Context,
-) {
+class CallManager(override val di: DI, override val diContext: DIContext<*>) : DIAware {
+    private val tox: Tox by instance()
+    private val scope: CoroutineScope by instance()
+    private val audioManager: AudioManager by instance()
+
     private val _inCall = MutableStateFlow<CallState>(CallState.NotInCall)
     val inCall: StateFlow<CallState> get() = _inCall
 
@@ -47,8 +46,6 @@ class CallManager @Inject constructor(
 
     private val _sendingAudio = MutableStateFlow(false)
     val sendingAudio: StateFlow<Boolean> get() = _sendingAudio
-
-    private val audioManager = ContextCompat.getSystemService(context, AudioManager::class.java)
 
     fun addPendingCall(from: Contact) {
         val calls = mutableSetOf<Contact>().apply { addAll(_pendingCalls.value) }

@@ -5,13 +5,12 @@
 package ltd.evilcorp.domain.tox
 
 import android.util.Log
-import javax.inject.Inject
 import org.json.JSONObject
 
 private const val TAG = "BootstrapNodeJsonParser"
 
 // Parses a json string containing json formatted the way it is on https://nodes.tox.chat/json
-class BootstrapNodeJsonParser @Inject constructor() {
+object BootstrapNodeJsonParser {
     fun parse(jsonString: String): List<BootstrapNode> = try {
         val nodes = mutableListOf<BootstrapNode>()
 

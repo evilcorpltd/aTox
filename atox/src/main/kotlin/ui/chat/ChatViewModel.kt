@@ -9,16 +9,14 @@ import android.content.Context
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.squareup.picasso.Picasso
 import java.io.File
 import java.io.FileInputStream
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
@@ -26,6 +24,7 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.vo.ConnectionStatus
@@ -39,6 +38,9 @@ import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.feature.FileTransferManager
 import ltd.evilcorp.domain.tox.PublicKey
+import org.kodein.di.DIAware
+import org.kodein.di.android.x.closestDI
+import org.kodein.di.instance
 
 private const val TAG = "ChatViewModel"
 
@@ -48,16 +50,18 @@ enum class CallAvailability {
     Active,
 }
 
-class ChatViewModel @Inject constructor(
-    private val callManager: CallManager,
-    private val chatManager: ChatManager,
-    private val contactManager: ContactManager,
-    private val fileTransferManager: FileTransferManager,
-    private val notificationHelper: NotificationHelper,
-    private val resolver: ContentResolver,
-    private val context: Context,
-    private val scope: CoroutineScope,
-) : ViewModel() {
+class ChatViewModel(app: App) : AndroidViewModel(app), DIAware {
+    override val di by closestDI()
+
+    private val callManager: CallManager by instance()
+    private val chatManager: ChatManager by instance()
+    private val contactManager: ContactManager by instance()
+    private val fileTransferManager: FileTransferManager by instance()
+    private val notificationHelper: NotificationHelper by instance()
+    private val resolver: ContentResolver by instance()
+    private val context: Context by instance()
+    private val scope: CoroutineScope by instance()
+
     private var publicKey = PublicKey("")
     private var sentTyping = false
 

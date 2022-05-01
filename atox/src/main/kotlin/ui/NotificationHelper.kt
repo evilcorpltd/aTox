@@ -28,8 +28,6 @@ import androidx.core.os.bundleOf
 import androidx.navigation.NavDeepLinkBuilder
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Transformation
-import javax.inject.Inject
-import javax.inject.Singleton
 import ltd.evilcorp.atox.Action
 import ltd.evilcorp.atox.ActionReceiver
 import ltd.evilcorp.atox.KEY_ACTION
@@ -43,15 +41,17 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.tox.PublicKey
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.instance
 
 private const val MESSAGE = "aTox messages"
 private const val FRIEND_REQUEST = "aTox friend requests"
 private const val CALL = "aTox calls"
 
-@Singleton
-class NotificationHelper @Inject constructor(
-    private val context: Context
-) {
+class NotificationHelper(override val di: DI) : DIAware {
+    private val context: Context by instance()
+
     private val notifier = NotificationManagerCompat.from(context)
     private val notifierOld = context.getSystemService<NotificationManager>()!!
 

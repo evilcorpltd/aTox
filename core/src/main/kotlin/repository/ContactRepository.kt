@@ -4,18 +4,18 @@
 
 package ltd.evilcorp.core.repository
 
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.db.ContactDao
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.UserStatus
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.instance
 
-@Singleton
-class ContactRepository @Inject internal constructor(
-    private val dao: ContactDao
-) {
+class ContactRepository(override val di: DI) : DIAware {
+    private val dao: ContactDao by instance()
+
     fun exists(publicKey: String): Boolean = dao.exists(publicKey)
     fun add(contact: Contact) = dao.save(contact)
     fun update(contact: Contact) = dao.update(contact)

@@ -12,7 +12,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.app.RemoteInput
 import im.tox.tox4j.av.exceptions.ToxavAnswerException
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull
@@ -28,6 +27,9 @@ import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.instance
 
 const val KEY_TEXT_REPLY = "key_text_reply"
 const val KEY_CONTACT_PK = "key_contact_pk"
@@ -43,30 +45,19 @@ enum class Action {
 
 private const val TAG = "ActionReceiver"
 
-class ActionReceiver : BroadcastReceiver() {
-    @Inject
-    lateinit var callManager: CallManager
+class ActionReceiver : BroadcastReceiver(), DIAware {
+    override lateinit var di: DI
 
-    @Inject
-    lateinit var chatManager: ChatManager
-
-    @Inject
-    lateinit var contactManager: ContactManager
-
-    @Inject
-    lateinit var contactRepository: ContactRepository
-
-    @Inject
-    lateinit var notificationHelper: NotificationHelper
-
-    @Inject
-    lateinit var tox: Tox
-
-    @Inject
-    lateinit var scope: CoroutineScope
+    private val callManager: CallManager by instance()
+    private val chatManager: ChatManager by instance()
+    private val contactManager: ContactManager by instance()
+    private val contactRepository: ContactRepository by instance()
+    private val notificationHelper: NotificationHelper by instance()
+    private val tox: Tox by instance()
+    private val scope: CoroutineScope by instance()
 
     override fun onReceive(context: Context, intent: Intent) {
-        (context.applicationContext as App).component.inject(this)
+        di = (context.applicationContext as DIAware).di
 
         scope.launch {
             val pk = intent.getStringExtra(KEY_CONTACT_PK)?.let { PublicKey(it) }

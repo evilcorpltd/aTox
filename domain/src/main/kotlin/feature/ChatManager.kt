@@ -7,8 +7,6 @@ package ltd.evilcorp.domain.feature
 import java.nio.ByteBuffer
 import java.nio.CharBuffer
 import java.nio.charset.StandardCharsets
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -21,6 +19,9 @@ import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.domain.tox.MAX_MESSAGE_LENGTH
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.instance
 
 private fun String.chunked(chunkSizeInBytes: Int): MutableList<String> {
     val encoder = StandardCharsets.UTF_8.newEncoder()
@@ -40,13 +41,12 @@ private fun String.chunked(chunkSizeInBytes: Int): MutableList<String> {
     return chunks
 }
 
-@Singleton
-class ChatManager @Inject constructor(
-    private val scope: CoroutineScope,
-    private val contactRepository: ContactRepository,
-    private val messageRepository: MessageRepository,
-    private val tox: Tox
-) {
+class ChatManager(override val di: DI) : DIAware {
+    private val scope: CoroutineScope by instance()
+    private val contactRepository: ContactRepository by instance()
+    private val messageRepository: MessageRepository by instance()
+    private val tox: Tox by instance()
+
     var activeChat = ""
         set(value) {
             field = value

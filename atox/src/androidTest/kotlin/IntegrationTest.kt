@@ -5,7 +5,6 @@
 package ltd.evilcorp.atox
 
 import android.app.Activity
-import android.content.Context
 import androidx.room.Room
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -19,18 +18,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
-import dagger.BindsInstance
-import dagger.Component
-import dagger.Module
-import dagger.Provides
-import io.mockk.every
-import io.mockk.mockk
-import javax.inject.Singleton
-import ltd.evilcorp.atox.di.AndroidModule
-import ltd.evilcorp.atox.di.AppComponent
-import ltd.evilcorp.atox.di.AppModule
-import ltd.evilcorp.atox.di.DaoModule
-import ltd.evilcorp.atox.di.ViewModelModule
 import ltd.evilcorp.core.db.Database
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.SaveManager
@@ -38,6 +25,10 @@ import org.hamcrest.core.AllOf.allOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.kodein.di.DI
+import org.kodein.di.bind
+import org.kodein.di.instance
+import org.kodein.di.singleton
 
 class InjectedActivityTestRule<T : Activity>(
     activityClass: Class<T>,
@@ -49,36 +40,15 @@ class InjectedActivityTestRule<T : Activity>(
     }
 }
 
-@Module
-class TestModule {
-    @Singleton
-    @Provides
-    fun provideDatabase(appContext: Context): Database =
-        Room.inMemoryDatabaseBuilder(appContext, Database::class.java).build()
-
-    @Provides
-    fun provideSaveManager(): SaveManager = mockk(relaxUnitFun = true) {
-        every { list() } returns listOf("workaround") // mockk crashes w/ `listOf()`.
-        every { load(PublicKey("workaround")) } returns null
-        // Am I using mockk wrong or something? `every { save(any(), any() }` crashes.
-    }
+class SaveManagerImplMock : SaveManager {
+    override fun list(): List<String> = listOf("workaround")
+    override fun save(publicKey: PublicKey, saveData: ByteArray) {}
+    override fun load(publicKey: PublicKey): ByteArray? = null
 }
 
-@Singleton
-@Component(
-    modules = [
-        AppModule::class,
-        AndroidModule::class,
-        TestModule::class,
-        DaoModule::class,
-        ViewModelModule::class
-    ]
-)
-interface TestComponent : AppComponent {
-    @Component.Factory
-    interface Factory {
-        fun create(@BindsInstance appContext: Context): AppComponent
-    }
+fun testModule() = DI.Module("TestModule") {
+    bind(overrides = true) { singleton { Room.inMemoryDatabaseBuilder(instance(), Database::class.java).build() } }
+    bind<SaveManager>(overrides = true) { singleton { SaveManagerImplMock() } }
 }
 
 @RunWith(AndroidJUnit4::class)
@@ -87,7 +57,7 @@ class IntegrationTest {
     val activityRule = InjectedActivityTestRule(MainActivity::class.java) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val app = instrumentation.targetContext.applicationContext as App
-        app.componentOverride = DaggerTestComponent.factory().create(app)
+        app.testModule = testModule()
     }
 
     @Test

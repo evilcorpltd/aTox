@@ -5,7 +5,6 @@
 package ltd.evilcorp.domain.feature
 
 import android.content.ContentResolver
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.OpenableColumns
@@ -14,11 +13,8 @@ import im.tox.tox4j.core.enums.ToxFileControl
 import java.io.File
 import java.io.RandomAccessFile
 import java.util.Date
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlin.random.Random
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import ltd.evilcorp.core.repository.ContactRepository
@@ -37,6 +33,10 @@ import ltd.evilcorp.core.vo.isStarted
 import ltd.evilcorp.domain.tox.MAX_AVATAR_SIZE
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.DIContext
+import org.kodein.di.instance
 
 private const val TAG = "FileTransferManager"
 
@@ -44,21 +44,21 @@ private const val TAG = "FileTransferManager"
 private const val FINGERPRINT_LEN = 8
 private fun String.fingerprint() = take(FINGERPRINT_LEN)
 
-@Singleton
-class FileTransferManager @Inject constructor(
-    private val scope: CoroutineScope,
-    private val context: Context,
-    private val resolver: ContentResolver,
-    private val contactRepository: ContactRepository,
-    private val messageRepository: MessageRepository,
-    private val fileTransferRepository: FileTransferRepository,
-    private val tox: Tox
-) {
+class FileTransferManager(override val di: DI, override val diContext: DIContext<*>) : DIAware {
+    private val scope: CoroutineScope by instance()
+    private val contentResolver: ContentResolver by instance()
+    private val filesDir: File by instance(tag = "files")
+    private val resolver: ContentResolver by instance()
+    private val contactRepository: ContactRepository by instance()
+    private val messageRepository: MessageRepository by instance()
+    private val fileTransferRepository: FileTransferRepository by instance()
+    private val tox: Tox by instance()
+
     private val fileTransfers: MutableList<FileTransfer> = mutableListOf()
 
     init {
-        File(context.filesDir, "ft").mkdir()
-        File(context.filesDir, "avatar").mkdir()
+        File(filesDir, "ft").mkdir()
+        File(filesDir, "avatar").mkdir()
         resolver.persistedUriPermissions.forEach {
             Log.w(TAG, "Clearing leftover permission for ${it.uri}")
             releaseFilePermission(it.uri)
@@ -217,7 +217,7 @@ class FileTransferManager @Inject constructor(
     fun transfersFor(publicKey: PublicKey) = fileTransferRepository.get(publicKey.string())
 
     fun create(pk: PublicKey, file: Uri) {
-        val (name, size) = context.contentResolver.query(file, null, null, null, null, null)?.use { cursor ->
+        val (name, size) = contentResolver.query(file, null, null, null, null, null)?.use { cursor ->
             cursor.moveToFirst()
             val fileSize = cursor.getLong(cursor.getColumnIndexOrThrow(OpenableColumns.SIZE))
             val name = cursor.getString(cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
@@ -320,8 +320,8 @@ class FileTransferManager @Inject constructor(
     }
 
     private fun makeDestination(ft: FileTransfer) =
-        Uri.fromFile(File(File(File(context.filesDir, "ft"), ft.publicKey.fingerprint()), Random.nextLong().toString()))
+        Uri.fromFile(File(File(File(filesDir, "ft"), ft.publicKey.fingerprint()), Random.nextLong().toString()))
 
-    private fun wipAvatar(name: String): File = File(File(context.filesDir, "avatar"), "$name.wip")
-    private fun avatar(name: String): File = File(File(context.filesDir, "avatar"), name)
+    private fun wipAvatar(name: String): File = File(File(filesDir, "avatar"), "$name.wip")
+    private fun avatar(name: String): File = File(File(filesDir, "avatar"), name)
 }

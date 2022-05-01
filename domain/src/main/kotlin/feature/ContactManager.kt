@@ -4,7 +4,6 @@
 
 package ltd.evilcorp.domain.feature
 
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ltd.evilcorp.core.repository.ContactRepository
@@ -12,12 +11,15 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxID
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.instance
 
-class ContactManager @Inject constructor(
-    private val scope: CoroutineScope,
-    private val contactRepository: ContactRepository,
-    private val tox: Tox
-) {
+class ContactManager(override val di: DI) : DIAware {
+    private val scope: CoroutineScope by instance()
+    private val contactRepository: ContactRepository by instance()
+    private val tox: Tox by instance()
+
     fun get(publicKey: PublicKey) = contactRepository.get(publicKey.string())
     fun getAll() = contactRepository.getAll()
 

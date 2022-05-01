@@ -28,7 +28,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.setPadding
 import androidx.core.view.updatePadding
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import io.nayuki.qrcodegen.QrCode
 import java.io.File
@@ -45,9 +44,9 @@ import ltd.evilcorp.atox.ui.Dp
 import ltd.evilcorp.atox.ui.Px
 import ltd.evilcorp.atox.ui.StatusDialog
 import ltd.evilcorp.atox.ui.colorFromStatus
-import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.tox.ToxID
+import org.kodein.di.android.x.viewmodel.viewModel
 
 private const val TOX_MAX_NAME_LENGTH = 128
 private const val TOX_MAX_STATUS_MESSAGE_LENGTH = 1007
@@ -58,7 +57,7 @@ private val qrCodeSharedImageSize = Px(1024)
 private val qrCodeSharedImagePadding = Px(200)
 
 class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUserProfileBinding::inflate) {
-    private val vm: UserProfileViewModel by viewModels { vmFactory }
+    private val vm: UserProfileViewModel by viewModel()
     private lateinit var currentStatus: UserStatus
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {

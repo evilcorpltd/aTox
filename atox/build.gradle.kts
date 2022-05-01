@@ -22,7 +22,11 @@ android {
         }
         getByName("release") {
             isMinifyEnabled = true
-            proguardFiles("proguard-tox4j.pro", getDefaultProguardFile("proguard-android-optimize.txt"))
+            proguardFiles(
+                "proguard-tox4j.pro",
+                "proguard-kodein.pro",
+                getDefaultProguardFile("proguard-android-optimize.txt")
+            )
         }
     }
     signingConfigs {
@@ -71,6 +75,10 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.service)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    implementation(libs.kodein.di)
+    implementation(libs.kodein.di.framework.android.x)
+    implementation(libs.kodein.di.framework.android.x.viewmodel)
 
     implementation(libs.google.dagger.core)
     kapt(libs.google.dagger.compiler)

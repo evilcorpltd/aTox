@@ -4,12 +4,7 @@
 
 package ltd.evilcorp.atox.di
 
-import androidx.lifecycle.ViewModel
-import dagger.Binds
-import dagger.MapKey
-import dagger.Module
-import dagger.multibindings.IntoMap
-import kotlin.reflect.KClass
+import ltd.evilcorp.atox.App
 import ltd.evilcorp.atox.ui.addcontact.AddContactViewModel
 import ltd.evilcorp.atox.ui.call.CallViewModel
 import ltd.evilcorp.atox.ui.chat.ChatViewModel
@@ -19,62 +14,23 @@ import ltd.evilcorp.atox.ui.create_profile.CreateProfileViewModel
 import ltd.evilcorp.atox.ui.friend_request.FriendRequestViewModel
 import ltd.evilcorp.atox.ui.settings.SettingsViewModel
 import ltd.evilcorp.atox.ui.user_profile.UserProfileViewModel
+import org.kodein.di.DI
+import org.kodein.di.bind
+import org.kodein.di.diContext
+import org.kodein.di.provider
 
-@MustBeDocumented
-@Target(
-    AnnotationTarget.FUNCTION,
-    AnnotationTarget.PROPERTY_GETTER,
-    AnnotationTarget.PROPERTY_SETTER
-)
-@Retention(AnnotationRetention.RUNTIME)
-@MapKey
-annotation class ViewModelKey(val value: KClass<out ViewModel>)
+fun viewModelModule(app: App) = DI.Module(name = "ViewModelModule") {
+    importOnce(appModule(diContext(app)))
+    importOnce(domainModule(diContext(app)))
+    importOnce(coreModule())
 
-@Suppress("unused")
-@Module
-abstract class ViewModelModule {
-    @Binds
-    @IntoMap
-    @ViewModelKey(AddContactViewModel::class)
-    abstract fun bindAddContactViewModel(vm: AddContactViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(CallViewModel::class)
-    abstract fun bindCallViewModel(vm: CallViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(ChatViewModel::class)
-    abstract fun bindChatViewModel(vm: ChatViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(ContactListViewModel::class)
-    abstract fun bindContactListViewModel(vm: ContactListViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(ContactProfileViewModel::class)
-    abstract fun bindContactProfileViewModel(vm: ContactProfileViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(FriendRequestViewModel::class)
-    abstract fun bindFriendRequestViewModel(vm: FriendRequestViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(CreateProfileViewModel::class)
-    abstract fun bindProfileViewModel(vm: CreateProfileViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(SettingsViewModel::class)
-    abstract fun bindSettingsViewModel(vm: SettingsViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(UserProfileViewModel::class)
-    abstract fun bindUserProfileViewModel(vm: UserProfileViewModel): ViewModel
+    bind { provider { AddContactViewModel(app) } }
+    bind { provider { CallViewModel(app) } }
+    bind { provider { ChatViewModel(app) } }
+    bind { provider { ContactListViewModel(app) } }
+    bind { provider { ContactProfileViewModel(app) } }
+    bind { provider { CreateProfileViewModel(app) } }
+    bind { provider { FriendRequestViewModel(app) } }
+    bind { provider { SettingsViewModel(app) } }
+    bind { provider { UserProfileViewModel(app) } }
 }

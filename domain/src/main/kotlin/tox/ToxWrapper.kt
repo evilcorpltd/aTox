@@ -33,11 +33,7 @@ enum class CustomPacketError {
     TooLong,
 }
 
-class ToxWrapper(
-    private val eventListener: ToxEventListener,
-    private val avEventListener: ToxAvEventListener,
-    options: SaveOptions
-) {
+class ToxWrapper(options: SaveOptions) {
     private val tox: ToxCoreImpl =
         ToxCoreImpl(
             options.toToxOptions()
@@ -51,8 +47,8 @@ class ToxWrapper(
 
     private fun updateContactMapping() {
         val contacts = getContacts()
-        eventListener.contactMapping = contacts
-        avEventListener.contactMapping = contacts
+        ToxEventListener.contactMapping = contacts
+        ToxAvEventListener.contactMapping = contacts
     }
 
     fun bootstrap(address: String, port: Int, publicKey: ByteArray) {
@@ -65,8 +61,8 @@ class ToxWrapper(
         tox.close()
     }
 
-    fun iterate(): Unit = tox.iterate(eventListener, Unit)
-    fun iterateAv(): Unit = av.iterate(avEventListener, Unit)
+    fun iterate(): Unit = tox.iterate(ToxEventListener, Unit)
+    fun iterateAv(): Unit = av.iterate(ToxAvEventListener, Unit)
     fun iterationInterval(): Long = tox.iterationInterval().toLong()
     fun iterationIntervalAv(): Long = av.iterationInterval().toLong()
 

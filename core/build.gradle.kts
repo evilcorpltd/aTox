@@ -55,6 +55,8 @@ dependencies {
     api(libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler)
 
+    implementation(libs.kodein.di)
+
     testImplementation(libs.test.junit.core)
 
     androidTestImplementation(libs.test.runner)

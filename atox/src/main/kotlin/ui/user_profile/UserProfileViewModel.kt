@@ -4,19 +4,24 @@
 
 package ltd.evilcorp.atox.ui.user_profile
 
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import javax.inject.Inject
+import ltd.evilcorp.atox.App
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.feature.UserManager
 import ltd.evilcorp.domain.tox.Tox
+import org.kodein.di.DIAware
+import org.kodein.di.android.x.closestDI
+import org.kodein.di.instance
 
-class UserProfileViewModel @Inject constructor(
-    private val userManager: UserManager,
-    private val tox: Tox
-) : ViewModel() {
+class UserProfileViewModel(app: App) : AndroidViewModel(app), DIAware {
+    override val di by closestDI()
+
+    private val userManager: UserManager by instance()
+    private val tox: Tox by instance()
+
     val publicKey by lazy { tox.publicKey }
     val toxId by lazy { tox.toxId }
     val user: LiveData<User> = userManager.get(publicKey).asLiveData()

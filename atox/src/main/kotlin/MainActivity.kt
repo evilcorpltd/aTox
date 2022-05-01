@@ -14,28 +14,23 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
 import androidx.navigation.fragment.findNavController
-import javax.inject.Inject
-import ltd.evilcorp.atox.di.ViewModelFactory
 import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.atox.ui.contactlist.ARG_SHARE
+import org.kodein.di.DIAware
+import org.kodein.di.android.closestDI
+import org.kodein.di.instance
 
 private const val TAG = "MainActivity"
 private const val SCHEME = "tox:"
 private const val TOX_ID_LENGTH = 76
 
-class MainActivity : AppCompatActivity() {
-    @Inject
-    lateinit var vmFactory: ViewModelFactory
+class MainActivity : AppCompatActivity(), DIAware {
+    override val di by closestDI()
 
-    @Inject
-    lateinit var autoAway: AutoAway
-
-    @Inject
-    lateinit var settings: Settings
+    private val autoAway: AutoAway by instance()
+    private val settings: Settings by instance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as App).component.inject(this)
-
         super.onCreate(savedInstanceState)
 
         if (settings.disableScreenshots) {

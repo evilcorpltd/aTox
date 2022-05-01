@@ -4,50 +4,28 @@
 
 package ltd.evilcorp.atox.di
 
-import android.content.Context
 import androidx.room.Room
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
 import ltd.evilcorp.core.db.ALL_MIGRATIONS
-import ltd.evilcorp.core.db.ContactDao
 import ltd.evilcorp.core.db.Database
-import ltd.evilcorp.core.db.FileTransferDao
-import ltd.evilcorp.core.db.FriendRequestDao
-import ltd.evilcorp.core.db.MessageDao
-import ltd.evilcorp.core.db.UserDao
+import org.kodein.di.DI
+import org.kodein.di.bind
+import org.kodein.di.instance
+import org.kodein.di.singleton
 
-@Suppress("unused")
-@Module
-class DatabaseModule {
-    @Singleton
-    @Provides
-    fun provideDatabase(appContext: Context): Database =
-        Room.databaseBuilder(appContext, Database::class.java, "core_db")
-            .addMigrations(*ALL_MIGRATIONS)
-            .build()
+fun databaseModule() = DI.Module(name = "DatabaseModule") {
+    bind {
+        singleton {
+            Room.databaseBuilder(instance(), Database::class.java, "core_db")
+                .addMigrations(*ALL_MIGRATIONS)
+                .build()
+        }
+    }
 }
 
-@Suppress("unused")
-@Module
-class DaoModule {
-    @Singleton
-    @Provides
-    internal fun provideContactDao(db: Database): ContactDao = db.contactDao()
-
-    @Singleton
-    @Provides
-    internal fun provideFileTransferDao(db: Database): FileTransferDao = db.fileTransferDao()
-
-    @Singleton
-    @Provides
-    internal fun provideFriendRequestDao(db: Database): FriendRequestDao = db.friendRequestDao()
-
-    @Singleton
-    @Provides
-    internal fun provideMessageDao(db: Database): MessageDao = db.messageDao()
-
-    @Singleton
-    @Provides
-    internal fun provideUserDao(db: Database): UserDao = db.userDao()
+fun daoModule() = DI.Module(name = "DaoModule") {
+    bind { singleton { instance<Database>().contactDao() } }
+    bind { singleton { instance<Database>().fileTransferDao() } }
+    bind { singleton { instance<Database>().friendRequestDao() } }
+    bind { singleton { instance<Database>().messageDao() } }
+    bind { singleton { instance<Database>().userDao() } }
 }

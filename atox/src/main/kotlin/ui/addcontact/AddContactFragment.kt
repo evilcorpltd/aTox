@@ -18,18 +18,17 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentAddContactBinding
 import ltd.evilcorp.atox.ui.BaseFragment
-import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.domain.tox.ToxID
 import ltd.evilcorp.domain.tox.ToxIdValidator
+import org.kodein.di.android.x.viewmodel.viewModel
 
 class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddContactBinding::inflate) {
-    private val viewModel: AddContactViewModel by viewModels { vmFactory }
+    private val viewModel: AddContactViewModel by viewModel()
 
     private var toxIdValid: Boolean = false
     private var messageValid: Boolean = true

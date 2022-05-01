@@ -16,7 +16,6 @@ import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import java.util.Timer
-import javax.inject.Inject
 import kotlin.concurrent.schedule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.filter
@@ -27,27 +26,27 @@ import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxSaveStatus
+import org.kodein.di.DIAware
+import org.kodein.di.android.closestDI
+import org.kodein.di.instance
 
 private const val TAG = "ToxService"
 private const val NOTIFICATION_ID = 1984
 private const val BOOTSTRAP_INTERVAL_MS = 60_000L
 
-class ToxService : LifecycleService() {
+class ToxService : LifecycleService(), DIAware {
+    override val di by closestDI()
+
+    private val tox: Tox by instance()
+    private val toxStarter: ToxStarter by instance()
+    private val userRepository: UserRepository by instance()
+
     private val channelId = "ToxService"
 
     private var connectionStatus: ConnectionStatus? = null
 
     private val notifier by lazy { NotificationManagerCompat.from(this) }
     private var bootstrapTimer = Timer()
-
-    @Inject
-    lateinit var tox: Tox
-
-    @Inject
-    lateinit var toxStarter: ToxStarter
-
-    @Inject
-    lateinit var userRepository: UserRepository
 
     private fun createNotificationChannel() {
         val channel = NotificationChannelCompat.Builder(channelId, NotificationManagerCompat.IMPORTANCE_LOW)
@@ -79,8 +78,6 @@ class ToxService : LifecycleService() {
     }
 
     override fun onCreate() {
-        (application as App).component.inject(this)
-
         super.onCreate()
 
         if (!tox.started) {

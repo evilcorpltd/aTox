@@ -11,19 +11,22 @@ import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.navigation.NavDeepLinkBuilder
-import javax.inject.Inject
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.domain.tox.ToxSaveStatus
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.instance
 
 private const val ENCRYPTED = "aTox profile encrypted"
 
-class BootReceiver : BroadcastReceiver() {
-    @Inject
-    lateinit var toxStarter: ToxStarter
+class BootReceiver : BroadcastReceiver(), DIAware {
+    override lateinit var di: DI
+
+    private val toxStarter: ToxStarter by instance()
 
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
-            (context.applicationContext as App).component.inject(this)
+            di = (context.applicationContext as DIAware).di
             if (toxStarter.tryLoadTox(null) == ToxSaveStatus.Encrypted) {
                 val channel = NotificationChannelCompat.Builder(ENCRYPTED, NotificationManagerCompat.IMPORTANCE_HIGH)
                     .setName(context.getString(R.string.atox_profile_locked))

@@ -30,7 +30,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.math.MathUtils.lerp
 import java.io.File
@@ -43,7 +42,6 @@ import ltd.evilcorp.atox.databinding.FragmentChatBinding
 import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.truncated
 import ltd.evilcorp.atox.ui.BaseFragment
-import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.Message
@@ -51,6 +49,7 @@ import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.isComplete
 import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.tox.PublicKey
+import org.kodein.di.android.x.viewmodel.viewModel
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
 const val FOCUS_ON_MESSAGE_BOX = "focusOnMessageBox"
@@ -64,7 +63,7 @@ class OpenMultiplePersistableDocuments : ActivityResultContracts.OpenMultipleDoc
 }
 
 class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::inflate) {
-    private val viewModel: ChatViewModel by viewModels { vmFactory }
+    private val viewModel: ChatViewModel by viewModel()
 
     private lateinit var contactPubKey: String
     private var contactName = ""

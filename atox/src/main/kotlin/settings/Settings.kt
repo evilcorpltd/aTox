@@ -6,13 +6,16 @@ package ltd.evilcorp.atox.settings
 
 import android.content.ComponentName
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
-import androidx.preference.PreferenceManager
-import javax.inject.Inject
 import ltd.evilcorp.atox.BootReceiver
 import ltd.evilcorp.domain.tox.ProxyType
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.DIContext
+import org.kodein.di.instance
 
 enum class FtAutoAccept {
     None,
@@ -25,8 +28,10 @@ enum class BootstrapNodeSource {
     UserProvided,
 }
 
-class Settings @Inject constructor(private val ctx: Context) {
-    private val preferences = PreferenceManager.getDefaultSharedPreferences(ctx)
+class Settings(override val di: DI, override val diContext: DIContext<*>) : DIAware {
+    private val ctx: Context by instance()
+    private val packageManager: PackageManager by instance()
+    private val preferences: SharedPreferences by instance()
 
     var theme: Int
         get() = preferences.getInt("theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
@@ -40,7 +45,7 @@ class Settings @Inject constructor(private val ctx: Context) {
         set(enabled) = preferences.edit().putBoolean("udp_enabled", enabled).apply()
 
     var runAtStartup: Boolean
-        get() = ctx.packageManager.getComponentEnabledSetting(
+        get() = packageManager.getComponentEnabledSetting(
             ComponentName(ctx, BootReceiver::class.java)
         ) == PackageManager.COMPONENT_ENABLED_STATE_ENABLED
         set(runAtStartup) {
@@ -50,7 +55,7 @@ class Settings @Inject constructor(private val ctx: Context) {
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED
             }
 
-            ctx.packageManager.setComponentEnabledSetting(
+            packageManager.setComponentEnabledSetting(
                 ComponentName(ctx, BootReceiver::class.java),
                 state,
                 PackageManager.DONT_KILL_APP
