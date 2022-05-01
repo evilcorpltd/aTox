@@ -77,7 +77,8 @@ dependencies {
 
     implementation(libs.androidx.multidex)
 
-    implementation(libs.coil)
+    implementation(libs.coil.core)
+    implementation(libs.coil.gif)
 
     implementation(libs.nayuki.qrcodegen)
 

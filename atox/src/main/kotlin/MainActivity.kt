@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -14,6 +14,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
 import androidx.navigation.fragment.findNavController
+import coil.Coil
+import coil.ImageLoader
+import coil.decode.GifDecoder
+import coil.decode.ImageDecoderDecoder
 import javax.inject.Inject
 import ltd.evilcorp.atox.di.ViewModelFactory
 import ltd.evilcorp.atox.settings.Settings
@@ -49,6 +53,18 @@ class MainActivity : AppCompatActivity() {
         // The view inset/padding adjustments only run for Lollipop and newer.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             WindowCompat.setDecorFitsSystemWindows(window, false)
+        }
+
+        Coil.setImageLoader {
+            ImageLoader.Builder(this)
+                .componentRegistry {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        add(ImageDecoderDecoder(this@MainActivity))
+                    } else {
+                        add(GifDecoder())
+                    }
+                }
+                .build()
         }
 
         setContentView(R.layout.activity_main)
