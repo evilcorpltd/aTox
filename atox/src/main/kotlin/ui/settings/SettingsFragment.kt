@@ -117,10 +117,10 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         }
 
         settingRunAtStartup.isChecked = vm.getRunAtStartup()
-        settingRunAtStartup.setOnClickListener { vm.setRunAtStartup(settingRunAtStartup.isChecked) }
+        settingRunAtStartup.setOnCheckedChangeListener { _, isChecked -> vm.setRunAtStartup(isChecked) }
 
         settingAutoAwayEnabled.isChecked = vm.getAutoAwayEnabled()
-        settingAutoAwayEnabled.setOnClickListener { vm.setAutoAwayEnabled(settingAutoAwayEnabled.isChecked) }
+        settingAutoAwayEnabled.setOnCheckedChangeListener { _, isChecked -> vm.setAutoAwayEnabled(isChecked) }
 
         settingAutoAwaySeconds.setText(vm.getAutoAwaySeconds().toString())
         settingAutoAwaySeconds.doAfterTextChanged {
@@ -148,7 +148,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         }
 
         settingConfirmQuitting.isChecked = vm.getConfirmQuitting()
-        settingConfirmQuitting.setOnClickListener { vm.setConfirmQuitting(settingConfirmQuitting.isChecked) }
+        settingConfirmQuitting.setOnCheckedChangeListener { _, isChecked -> vm.setConfirmQuitting(isChecked) }
 
         if (vm.getProxyType() != ProxyType.None) {
             vm.setUdpEnabled(false)
@@ -156,7 +156,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
 
         settingsUdpEnabled.isChecked = vm.getUdpEnabled()
         settingsUdpEnabled.isEnabled = vm.getProxyType() == ProxyType.None
-        settingsUdpEnabled.setOnClickListener { vm.setUdpEnabled(settingsUdpEnabled.isChecked) }
+        settingsUdpEnabled.setOnCheckedChangeListener { _, isChecked -> vm.setUdpEnabled(isChecked) }
 
         proxyType.adapter = ArrayAdapter.createFromResource(
             requireContext(),
@@ -282,9 +282,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         }
 
         settingDisableScreenshots.isChecked = vm.getDisableScreenshots()
-        settingDisableScreenshots.setOnClickListener {
-            vm.setDisableScreenshots(settingDisableScreenshots.isChecked)
-            if (settingDisableScreenshots.isChecked) {
+        settingDisableScreenshots.setOnCheckedChangeListener { _, isChecked ->
+            vm.setDisableScreenshots(isChecked)
+            if (isChecked) {
                 requireActivity().window.setFlags(
                     WindowManager.LayoutParams.FLAG_SECURE,
                     WindowManager.LayoutParams.FLAG_SECURE,
