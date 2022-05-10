@@ -39,11 +39,17 @@ DAO_TEST_DEPS = [
     "@robolectric//bazel:android-all",
 ]
 
+genrule(
+    name = "manifest",
+    outs = ["AndroidManifest.xml"],
+    cmd = """echo '<manifest package="ltd.evilcorp.core"/>' >$@""",
+)
+
 kt_android_library(
     name = "contact_dao_test_lib",
     srcs = ["src/androidTest/kotlin/db/ContactDaoTest.kt"],
     custom_package = "ltd.evilcorp.core.db",
-    manifest = "src/main/AndroidManifest.xml",
+    manifest = ":manifest",
     deps = DAO_TEST_LIB_DEPS,
 )
 
@@ -63,7 +69,7 @@ kt_android_library(
     name = "user_dao_test_lib",
     srcs = ["src/androidTest/kotlin/db/UserDaoTest.kt"],
     custom_package = "ltd.evilcorp.core.db",
-    manifest = "src/main/AndroidManifest.xml",
+    manifest = ":manifest",
     deps = DAO_TEST_LIB_DEPS,
 )
 

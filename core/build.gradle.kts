@@ -17,6 +17,7 @@ plugins {
 }
 
 android {
+    namespace = "ltd.evilcorp.core"
     compileSdk = libs.versions.sdk.target.get().toInt()
     defaultConfig {
         minSdk = libs.versions.sdk.min.get().toInt()

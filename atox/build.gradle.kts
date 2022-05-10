@@ -6,6 +6,7 @@ plugins {
 }
 
 android {
+    namespace = "ltd.evilcorp.atox"
     compileSdk = libs.versions.sdk.target.get().toInt()
     defaultConfig {
         applicationId = "ltd.evilcorp.atox"
