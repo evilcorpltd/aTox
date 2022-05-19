@@ -14,7 +14,7 @@ fun Context.hasPermission(permission: String) =
     ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
 
 val Fragment.vmFactory: ViewModelFactory
-    get() = (requireActivity() as MainActivity).vmFactory
+    get() = (requireActivity() as? MainActivity)?.vmFactory ?: (requireActivity() as NewMainActivity).vmFactory
 
 class NoSuchArgumentException(arg: String) : Exception("No such argument: $arg")
 
