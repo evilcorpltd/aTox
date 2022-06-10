@@ -11,6 +11,7 @@ import android.content.Intent
 import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -44,6 +45,8 @@ import ltd.evilcorp.domain.tox.PublicKey
 private const val MESSAGE = "aTox messages"
 private const val FRIEND_REQUEST = "aTox friend requests"
 private const val CALL = "aTox calls"
+
+private const val TAG = "NotificationHelper"
 
 @Singleton
 class NotificationHelper @Inject constructor(
@@ -106,14 +109,19 @@ class NotificationHelper @Inject constructor(
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val icon = if (contact.avatarUri.isNotEmpty()) {
-                IconCompat.createWithBitmap(
-                    context.imageLoader.executeBlocking(
-                        ImageRequest.Builder(context)
-                            .data(contact.avatarUri)
-                            .transformations(CircleCropTransformation())
-                            .build(),
-                    ).drawable?.toBitmap(),
-                )
+                val bmp = context.imageLoader.executeBlocking(
+                    ImageRequest.Builder(context)
+                        .data(contact.avatarUri)
+                        .transformations(CircleCropTransformation())
+                        .build(),
+                ).drawable?.toBitmap()
+
+                if (bmp != null) {
+                    IconCompat.createWithBitmap(bmp)
+                } else {
+                    Log.e(TAG, "Unable to load bmp for ${contact.name} from ${contact.avatarUri}")
+                    null
+                }
             } else null
 
             val chatPartner = Person.Builder()
