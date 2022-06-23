@@ -2,13 +2,13 @@
 sdk-min = "19"
 sdk-target = "31"
 
-kotlin = "1.6.21"
+kotlin = "1.7.0"
 android-plugin = "7.2.1"
 
 androidx-test = "1.4.0"
 coil = "1.4.0"
 coroutines = "1.6.1"
-dagger = "2.41"
+dagger = "2.42"
 espresso = "3.4.0"
 lifecycle = "2.4.1"
 navigation = "2.4.2"
