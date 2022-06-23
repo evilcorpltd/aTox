@@ -7,11 +7,11 @@ package ltd.evilcorp.atox.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import javax.inject.Singleton
 import ltd.evilcorp.atox.ActionReceiver
 import ltd.evilcorp.atox.BootReceiver
 import ltd.evilcorp.atox.MainActivity
 import ltd.evilcorp.atox.ToxService
+import javax.inject.Singleton
 
 @Singleton
 @Component(

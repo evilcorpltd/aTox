@@ -4,11 +4,6 @@
 
 package ltd.evilcorp.domain.feature
 
-import java.nio.ByteBuffer
-import java.nio.CharBuffer
-import java.nio.charset.StandardCharsets
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -21,6 +16,11 @@ import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.domain.tox.MAX_MESSAGE_LENGTH
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
+import java.nio.ByteBuffer
+import java.nio.CharBuffer
+import java.nio.charset.StandardCharsets
+import javax.inject.Inject
+import javax.inject.Singleton
 
 private fun String.chunked(chunkSizeInBytes: Int): MutableList<String> {
     val encoder = StandardCharsets.UTF_8.newEncoder()

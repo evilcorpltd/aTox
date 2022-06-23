@@ -33,10 +33,6 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.math.MathUtils.lerp
-import java.io.File
-import java.net.URLConnection
-import java.text.DateFormat
-import java.util.Locale
 import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentChatBinding
@@ -51,6 +47,10 @@ import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.isComplete
 import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.tox.PublicKey
+import java.io.File
+import java.net.URLConnection
+import java.text.DateFormat
+import java.util.Locale
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
 const val FOCUS_ON_MESSAGE_BOX = "focusOnMessageBox"

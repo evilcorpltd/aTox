@@ -8,10 +8,6 @@ import android.content.Context
 import android.util.Log
 import im.tox.tox4j.av.enums.ToxavFriendCallState
 import im.tox.tox4j.core.enums.ToxFileControl
-import java.net.URLConnection
-import java.util.Date
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull
@@ -41,6 +37,10 @@ import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxAvEventListener
 import ltd.evilcorp.domain.tox.ToxEventListener
 import ltd.evilcorp.domain.tox.toMessageType
+import java.net.URLConnection
+import java.util.Date
+import javax.inject.Inject
+import javax.inject.Singleton
 
 private const val TAG = "EventListenerCallbacks"
 

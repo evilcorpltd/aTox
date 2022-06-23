@@ -26,8 +26,6 @@ import coil.executeBlocking
 import coil.imageLoader
 import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
-import javax.inject.Inject
-import javax.inject.Singleton
 import ltd.evilcorp.atox.Action
 import ltd.evilcorp.atox.ActionReceiver
 import ltd.evilcorp.atox.KEY_ACTION
@@ -41,6 +39,8 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.tox.PublicKey
+import javax.inject.Inject
+import javax.inject.Singleton
 
 private const val MESSAGE = "aTox messages"
 private const val FRIEND_REQUEST = "aTox friend requests"

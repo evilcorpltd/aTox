@@ -9,7 +9,6 @@ import dagger.Binds
 import dagger.MapKey
 import dagger.Module
 import dagger.multibindings.IntoMap
-import kotlin.reflect.KClass
 import ltd.evilcorp.atox.ui.addcontact.AddContactViewModel
 import ltd.evilcorp.atox.ui.call.CallViewModel
 import ltd.evilcorp.atox.ui.chat.ChatViewModel
@@ -19,6 +18,7 @@ import ltd.evilcorp.atox.ui.createprofile.CreateProfileViewModel
 import ltd.evilcorp.atox.ui.friendrequest.FriendRequestViewModel
 import ltd.evilcorp.atox.ui.settings.SettingsViewModel
 import ltd.evilcorp.atox.ui.userprofile.UserProfileViewModel
+import kotlin.reflect.KClass
 
 @MustBeDocumented
 @Target(

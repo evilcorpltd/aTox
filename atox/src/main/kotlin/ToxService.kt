@@ -16,9 +16,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import java.util.Timer
-import javax.inject.Inject
-import kotlin.concurrent.schedule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
@@ -30,6 +27,9 @@ import ltd.evilcorp.domain.feature.CallManager
 import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxSaveStatus
+import java.util.Timer
+import javax.inject.Inject
+import kotlin.concurrent.schedule
 
 private const val TAG = "ToxService"
 private const val NOTIFICATION_ID = 1984

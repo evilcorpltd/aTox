@@ -4,13 +4,13 @@
 
 package ltd.evilcorp.core.repository
 
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.db.ContactDao
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.UserStatus
+import javax.inject.Inject
+import javax.inject.Singleton
 
 @Singleton
 class ContactRepository @Inject internal constructor(

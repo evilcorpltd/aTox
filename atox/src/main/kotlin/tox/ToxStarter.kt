@@ -10,7 +10,6 @@ import android.os.Build
 import android.util.Log
 import im.tox.tox4j.core.exceptions.ToxNewException
 import im.tox.tox4j.crypto.exceptions.ToxDecryptionException
-import javax.inject.Inject
 import ltd.evilcorp.atox.ToxService
 import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.domain.feature.FileTransferManager
@@ -23,6 +22,7 @@ import ltd.evilcorp.domain.tox.ToxAvEventListener
 import ltd.evilcorp.domain.tox.ToxEventListener
 import ltd.evilcorp.domain.tox.ToxSaveStatus
 import ltd.evilcorp.domain.tox.testToxSave
+import javax.inject.Inject
 
 private const val TAG = "ToxStarter"
 

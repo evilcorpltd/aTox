@@ -9,9 +9,9 @@ import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxFileControl
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
-import javax.inject.Inject
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.UserStatus
+import javax.inject.Inject
 
 typealias FriendLosslessPacketHandler = (publicKey: String, data: ByteArray) -> Unit
 typealias FileRecvControlHandler = (publicKey: String, fileNo: Int, control: ToxFileControl) -> Unit

@@ -13,10 +13,10 @@ import im.tox.tox4j.core.exceptions.ToxFriendAddException
 import im.tox.tox4j.core.exceptions.ToxFriendCustomPacketException
 import im.tox.tox4j.impl.jni.ToxAvImpl
 import im.tox.tox4j.impl.jni.ToxCoreImpl
-import kotlin.random.Random
 import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.UserStatus
+import kotlin.random.Random
 
 private const val TAG = "ToxWrapper"
 

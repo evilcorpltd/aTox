@@ -12,8 +12,8 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.Typeface
-import kotlin.math.abs
 import ltd.evilcorp.atox.R
+import kotlin.math.abs
 
 internal object AvatarFactory {
 

@@ -8,7 +8,6 @@ import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 import ltd.evilcorp.core.db.ALL_MIGRATIONS
 import ltd.evilcorp.core.db.ContactDao
 import ltd.evilcorp.core.db.Database
@@ -16,6 +15,7 @@ import ltd.evilcorp.core.db.FileTransferDao
 import ltd.evilcorp.core.db.FriendRequestDao
 import ltd.evilcorp.core.db.MessageDao
 import ltd.evilcorp.core.db.UserDao
+import javax.inject.Singleton
 
 @Suppress("unused")
 @Module

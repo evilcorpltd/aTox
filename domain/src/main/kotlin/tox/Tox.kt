@@ -8,9 +8,6 @@ import android.util.Log
 import im.tox.tox4j.core.exceptions.ToxBootstrapException
 import im.tox.tox4j.crypto.ToxCryptoConstants
 import im.tox.tox4j.impl.jni.ToxCryptoImpl
-import javax.inject.Inject
-import javax.inject.Singleton
-import kotlin.random.Random
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -23,6 +20,9 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.UserStatus
+import javax.inject.Inject
+import javax.inject.Singleton
+import kotlin.random.Random
 
 private const val TAG = "Tox"
 
