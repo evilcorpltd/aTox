@@ -6,7 +6,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.46.1/ktlint && chmod a+x ktlint
-    - run: ./ktlint --android --experimental
+    - run: ./ktlint --android
 
   gradle-wrapper-validation:
     runs-on: ubuntu-20.04
