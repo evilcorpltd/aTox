@@ -73,18 +73,15 @@ jobs:
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
         # https://github.com/actions/virtual-environments/issues/5595
-        ANDROID_ROOT="/usr/local/lib/android"
-        ANDROID_SDK_ROOT="${ANDROID_ROOT}/sdk"
         SDKMANAGER="${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager"
         echo "y" | $SDKMANAGER "ndk;21.4.7075529"
-        export ANDROID_NDK="${ANDROID_SDK_ROOT}/ndk-bundle"
-        ln -sfn $ANDROID_SDK_ROOT/ndk/21.4.7075529 $ANDROID_NDK
     - name: Install tox4j dependencies
       if: steps.cache.outputs.cache-hit != 'true'
       run: sudo apt-get update && sudo apt install yasm
     - name: Build tox4j
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
+        export ANDROID_NDK_HOME="${ANDROID_SDK_ROOT}/ndk/21.4.7075529"
         ./scripts/build-host -j$(nproc)
         ./scripts/build-aarch64-linux-android -j$(nproc) release
         ./scripts/build-arm-linux-androideabi -j$(nproc) release
