@@ -1,11 +1,13 @@
-// SPDX-FileCopyrightText: 2019 aTox contributors
+// SPDX-FileCopyrightText: 2019-2022 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
 package ltd.evilcorp.domain.tox
 
 import android.content.Context
+import android.util.AtomicFile
 import android.util.Log
+import androidx.core.util.writeBytes
 import java.io.File
 import javax.inject.Inject
 
@@ -24,12 +26,8 @@ class SaveManager @Inject constructor(val context: Context) {
         saves.filter { it.extension == "tox" }.map { it.nameWithoutExtension }
     } ?: listOf()
 
-    fun save(publicKey: PublicKey, saveData: ByteArray) = File("$saveDir/${publicKey.string()}.tox").run {
-        if (!exists()) {
-            createNewFile()
-        }
-
-        Log.i(TAG, "Saving profile to $this")
+    fun save(publicKey: PublicKey, saveData: ByteArray) = AtomicFile(File("$saveDir/${publicKey.string()}.tox")).run {
+        Log.i(TAG, "Saving profile to $baseFile")
         writeBytes(saveData)
     }
 
