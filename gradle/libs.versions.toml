@@ -8,11 +8,11 @@ android-plugin = "7.3.0"
 androidx-test = "1.4.0"
 coil = "1.4.0"
 coroutines = "1.6.1"
-dagger = "2.42"
+dagger = "2.44"
 espresso = "3.4.0"
-lifecycle = "2.4.1"
-navigation = "2.4.2"
-room = "2.4.2"
+lifecycle = "2.5.1"
+navigation = "2.5.2"
+room = "2.4.3"
 tox4j-android = "0.2.18"
 tox4j-core = "0.2.3"
 
@@ -25,11 +25,11 @@ androidApplication = { id = "com.android.application", version.ref = "android-pl
 androidLibrary = { id = "com.android.library", version.ref = "android-plugin" }
 
 [libraries]
-androidx-activity = "androidx.activity:activity:1.4.0"
-androidx-appcompat = "androidx.appcompat:appcompat:1.4.2"
+androidx-activity = "androidx.activity:activity:1.5.1" # 1.6.0
+androidx-appcompat = "androidx.appcompat:appcompat:1.4.2" # 1.5.0
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
-androidx-core-ktx = "androidx.core:core-ktx:1.8.0"
-androidx-fragment = "androidx.fragment:fragment:1.4.1"
+androidx-core-ktx = "androidx.core:core-ktx:1.8.0" # 1.9.0
+androidx-fragment = "androidx.fragment:fragment:1.5.3"
 
 androidx-multidex = "androidx.multidex:multidex:2.0.1"
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigation" }
