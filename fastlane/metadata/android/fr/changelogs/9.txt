@@ -1,0 +1,12 @@
+Les messages non envoyés sont enregistrés comme brouillons
+Prise en charge des proxys
+Option pour être automatiquement marqué comme absent
+Option pour remplacer les nœuds d'amorçage utilisés
+Tu peux désormais répondre directement depuis les notifications
+Prise en charge de l'acceptation automatique des transferts de fichiers
+Jolis espaces réservés aux avatars
+Effacer un chat supprime désormais les transferts de fichiers associés
+Correction du fractionnement des messages avec des caractères multi-octets
+Traduit en portugais brésilien, russe et allemand
+
+Journal des modifications complet : https://github.com/evilcorpltd/aTox/releases

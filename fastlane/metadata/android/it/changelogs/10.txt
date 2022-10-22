@@ -1,0 +1,10 @@
+Supporto per chiamate audio
+Opzione per l'utilizzo di un profilo Tox criptato
+Possibilità di cambiare il proprio nospam
+Possibilità di ricevere condivisioni di testo
+Possibilità di visualizzare il ToxID come codice QR
+Supporto per la selezione di più file da inviare contemporaneamente
+Tradotto in molte altre lingue
+Aggiornato a Toxcore 0.2.13
+
+Il changelog completo: https://github.com/evilcorpltd/aTox/releases

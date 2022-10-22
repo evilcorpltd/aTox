@@ -1,0 +1,4 @@
+Corrigido o travamento que ocorria ao encerrar chamadas recebidas
+Corrigido o travamento quando da exclusão de contatos
+
+Registro de alterações completo: https://github.com/evilcorpltd/aTox/releases

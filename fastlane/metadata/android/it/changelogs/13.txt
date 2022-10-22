@@ -1,0 +1,10 @@
+Aggiunta visualizzazione degli stati di connessione dei contatti
+
+Risolto un arresto anomalo all'avvio sui telefoni Samsung più recenti
+Risolto il problema con la suoneria della chiamata che non veniva sempre silenziata quando dovrebbe
+Risolti alcuni arresti anomali durante l'eliminazione dei contatti in momenti difficili
+Risolto un arresto anomalo relativo all'avvio con un set di proxy e senza Internet
+
+Aggiornato a Toxcore 0.2.16
+
+Registro completo delle modifiche: https://github.com/evilcorpltd/aTox/releases

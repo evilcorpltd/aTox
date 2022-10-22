@@ -1,0 +1,12 @@
+I messaggi non inviati vengono salvati come bozze
+Supporto proxy
+Opzione per essere automaticamente contrassegnato come assente
+Opzione per sovrascrivere i nodi bootstrap utilizzati
+Ora puoi rispondere direttamente dalle notifiche
+Accetta automaticamente il supporto per i trasferimenti di file
+Graziosi segnaposto per avatar
+La cancellazione di una chat ora elimina i trasferimenti di file associati
+Corretta la suddivisione dei messaggi con caratteri multibyte
+Tradotto in portoghese brasiliano, russo e tedesco
+
+Registro completo delle modifiche: https://github.com/evilcorpltd/aTox/releases

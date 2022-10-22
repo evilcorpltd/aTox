@@ -1,0 +1,4 @@
+Risolto l'arresto anomalo nella gestione della fine delle chiamate in arrivo
+Risolto l'arresto anomalo nella cancellazione dei contatti
+
+Changelog completo: https://github.com/evilcorpltd/aTox/releases
