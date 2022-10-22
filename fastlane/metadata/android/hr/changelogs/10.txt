@@ -1,8 +1,8 @@
 Podrška za audio pozive
 Mogućnost korištenja sa šifriranim Tox profilom
-Mogućnost mijenjanja tvog nospama
+Mogućnost mijenjanja tvog NoSpama
 Mogućnost primanja dijeljenjog teksta
-Mogućnost prikaza tvog ToxID-a kao QR koda
+Mogućnost prikaza tvog Tox ID-a kao QR koda
 Podrška za biranje više datoteka za istovremeno slanje
 Prevedeno na mnoge jezike
 Aktualizirano na Toxcore 0.2.13
