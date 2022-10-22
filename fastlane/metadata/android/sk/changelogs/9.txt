@@ -1,0 +1,12 @@
+Neposlané správy sú uložené ako drafts
+Podpora proxy
+Možnosť byť automaticky označený ako vzdialený
+Možnosť zrušiť bootstrap nodes
+Teraz môžete odpovedať priamo z notifikácií
+Podpora automatického prijatia pri prenose súborov
+Pekné náhrady avatarov
+Vyčistenie chat-u teraz zmaže asociované prenesené súbory
+Opravené rozdelenie správ, ktoré obsahujú multi-byte znaky
+Preložené do Brazílskej Portugalčiny, Ruštiny, a Nemčiny
+
+Úplný zoznam zmien: https://github.com/evilcorpltd/aTox/releases

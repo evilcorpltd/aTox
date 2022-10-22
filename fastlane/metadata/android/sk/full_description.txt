@@ -1,0 +1,10 @@
+aTox je bezplatná aplikácia pre zasielanie a prijímanie správ cez Tox protokol.
+
+<b>Prečo použiť aTox?</b>
+* Je open-source: má otvorený zdrojový kód, čo umožňuje zdieľať, prezrieť si a prispieť k jeho vylepšeniam.
+* Je rozumný: má rozumné základné nastavenie, nemusíte hádať či spĺňa <b>vaše</b> požiadavky.
+* Je "end-to-end" šifrovaný: vašu konverzáciu vidia iba ľudia s ktorými komunikujete.
+* Je distribuovaný: bez použitia centrálnych serverov, ktoré by mohli odovzdať vaše dáta alebo skolabovať.
+* Je odľahčený: bez telemetrie a iných foriem monitorovania.
+
+Viac informácií: <a href="https://github.com/evilcorpltd/aTox/">aTox</a>, <a href="https://tox.chat/">Tox</a>.

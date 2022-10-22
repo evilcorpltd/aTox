@@ -1,0 +1,10 @@
+Podpora audio hovorov
+Možnosť použiť s šifrovaným profilom Tox
+Možnosť zmeniť váš NoSpam
+Schopnosť to prijímať zdieľaný text
+Schopnosť zobraziť Tox ID ako QR code
+Podpora pre hromadný výber súborov, pre okamžité odoslanie
+Preložený do mnohých jazykov
+Aktualizovaný na Toxcore 0.2.13
+
+Úplný zoznam zmien: https://github.com/evilcorpltd/aTox/releases

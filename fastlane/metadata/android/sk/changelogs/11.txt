@@ -1,0 +1,6 @@
+aTox už nespadne pri otváraní na Android KitKat
+Odmietnutie prichádzajúceho volania počas hovoru, teraz funguje podľa očakávania
+Pridaná podpora pre zdieľanie vášho Tox ID ako obrázku QR code
+Pridané tlačidlo "označiť ako prečítané" k upozorneniam na správy
+
+Úplný zoznam zmien: https://github.com/evilcorpltd/aTox/releases

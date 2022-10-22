@@ -1,0 +1,10 @@
+Pridané zobrazenie stavov pripojenia pre kontakty
+
+Opravené spadnutie pri spustení na novších telefónoch Samsung
+Opravené zvonenia, ktoré nebolo vždy stíšené aj keď malo byť
+Opravená hromada spadnutí pri vymazaní kontaktov
+Opravené spadnutie pri spustení, ktoré súvisí s nastavením proxy bez internetu
+
+Aktualizované na Toxcore 0.2.16
+
+Úplný zoznam zmien: https://github.com/evilcorpltd/aTox/releases

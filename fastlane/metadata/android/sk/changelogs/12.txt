@@ -1,0 +1,4 @@
+Opravené spadnutie pri zvládaní ukončenia prichádzajúcich volaní
+Opravené spadnutie pri vymazaní kontaktu
+
+Úplný zoznam zmien: https://github.com/evilcorpltd/aTox/releases
