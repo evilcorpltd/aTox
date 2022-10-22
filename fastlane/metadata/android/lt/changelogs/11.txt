@@ -1,0 +1,6 @@
+„aTox“ nebestringa paleidžiant „Android KitKat“.
+Įeinančio skambučio atmetimas pokalbio metu veikia taip, kaip tikėtasi
+Pridėtas jūsų Tox ID bendrinimo kaip QR kodo vaizdas
+Pridėtas mygtukas „žymėti kaip skaitytą“ prie žinučių pranešimų
+
+Visas pakeitimų žurnalas: https://github.com/evilcorpltd/aTox/releases

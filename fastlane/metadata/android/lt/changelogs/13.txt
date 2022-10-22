@@ -1,0 +1,10 @@
+Pridėtas kontaktų ryšio būsenų rodymas
+
+Ištaisyta gedimas paleidžiant naujesnius „Samsung“ telefonus
+Ištaisyta skambučio tonas, kuris ne visada nutildomas, kai turėtų būti
+Ištaisyta daugybė strigčių, kai ištrinami kontaktai netinkamu metu
+Ištaisyta gedimas, susijęs su tarpinio serverio rinkiniu ir be interneto
+
+Atnaujinta į Toxcore 0.2.16
+
+Visas pakeitimų žurnalas: https://github.com/evilcorpltd/aTox/releases

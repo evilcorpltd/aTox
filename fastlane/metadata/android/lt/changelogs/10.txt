@@ -1,0 +1,10 @@
+Garso skambučių palaikymas
+Galimybė naudoti su šifruotu Tox profiliu
+Galimybė pakeisti savo nospam
+Galimybė gauti teksto dalis
+Galimybė rodyti savo ToxID kaip QR kodą
+Palaikymas pasirenkant kelis failus siųsti vienu metu
+Išversta į daug daugiau kalbų
+Atnaujinta į Toxcore 0.2.13
+
+Visas pakeitimų žurnalas: https://github.com/evilcorpltd/aTox/releases

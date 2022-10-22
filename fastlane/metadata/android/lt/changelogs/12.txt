@@ -1,0 +1,4 @@
+Ištaisyta gedimas tvarkant baigiamuosius skambučius
+Ištaisyta kontakto ištrynimo gedimas
+
+Visas pakeitimų žurnalas: https://github.com/evilcorpltd/aTox/releases
