@@ -1,8 +1,8 @@
 Soporte de llamadas de audio
 Opción para usar con un perfil Tox encriptado
-Opción de cambiar tu nospam
+Opción de cambiar tu NoSpam
 Posibilidad de recibir mensajes de texto compartidos
-Posibilidad de mostrar tu ToxID como un código QR
+Posibilidad de mostrar tu Tox ID como un código QR
 Soporte para seleccionar varios archivos para enviar a la vez
 Traducido a muchos más idiomas
 Actualizado a Toxcore 0.2.13
