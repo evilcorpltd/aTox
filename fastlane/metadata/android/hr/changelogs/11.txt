@@ -1,0 +1,6 @@
+aTox više ne prekida rad prilikom pokretanja na Android KitKat-u
+Odbijanje dolaznog poziva dok je jedan drugi poziv u tijeku sada radi ispravno
+Dodana je podrška za dijeljenje tvog Tox ID-a kao slike QR koda
+Dodan je gumb "označi kao pročitano" u obavijestima poruka
+
+Potpuni popis promjena: https://github.com/evilcorpltd/aTox/releases

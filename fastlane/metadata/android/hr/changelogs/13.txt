@@ -1,0 +1,10 @@
+Dodan je prikaz stanja veze kontakta
+
+Ispravljen je prekid programa pri pokretanju na novijim Samsung telefonima
+Ispravljeno je stišavanje zvona poziva kad bi trebali biti stišani
+Ispravljena je hrpa prekida programa prilikom brisanja kontakata u lošim trenucima
+Ispravljen je prekid programa u vezi s pokretanjem postavljenog proxy-ja i bez internetske veze
+
+Aktualizirano na Toxcore 0.2.16
+
+Potpuni popis promjena: https://github.com/evilcorpltd/aTox/releases

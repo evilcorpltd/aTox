@@ -1,0 +1,4 @@
+Ispravljen je prekid programa u rukovanju završavanjem dolaznih poziva
+Ispravljen je prekid programa u brisanju kontakata
+
+Potpuni popis promjena: https://github.com/evilcorpltd/aTox/releases
