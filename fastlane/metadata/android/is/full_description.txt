@@ -1,0 +1,10 @@
+aTox er skilaboðaforrit fyrir Tox og opinn hugbúnaður.
+
+<b>Af hverju aTox?</b>
+* Opinn hugbúnaður: frjálst að deila, skoða og breyta eins og þú vilt.
+* Skynsamlegt: skynsamlegar sjálfgefnar stillingar, engar getgátur um hvað þér þykir vænt um, hunsar ekki það sem <b>þú</b> vilt.
+* Dulkóðað frá enda til enda: eina fólkið sem getur séð samtölin þín er fólkið sem þú ert að tala við.
+* Dreift: Engir aðal netþjónar sem hægt er að taka niður eða neyða til að afhenda gögnum.
+* Létt: engin fjarmæling, auglýsingar eða annars konar eftirlit.
+
+Frekari upplýsingar: <a href="https://github.com/evilcorpltd/aTox/">aTox</a>, <a href="https://tox.chat/">Tox</a>.
