@@ -1,0 +1,10 @@
+Dodano wyświetlanie statusu połączenia kontaktów
+
+Naprawiono błąd podczas uruchamiania na nowszych telefonach Samsung
+Naprawiono dzwonek połączenia, który nie zawsze był wyciszany, gdy powinien
+Naprawiono kilka błędów przy usuwaniu kontaktów w nieodpowiednim momencie
+Naprawiono błąd związany z uruchamianiem z ustawionym proxy i brakiem internetu
+
+Zaktualizowano do Toxcore 0.2.16
+
+Pełny changelog: https://github.com/evilcorpltd/aTox/releases

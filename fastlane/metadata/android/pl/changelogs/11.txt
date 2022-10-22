@@ -1,0 +1,6 @@
+aTox już się nie zawiesza przy uruchamianiu na Android KitKat
+Odrzucanie połączenia przychodzącego w trakcie połączenia działa jak należy
+Dodano obsługę udostępniania swojego Tox ID jako obraz kodu QR
+Dodano przycisk "oznacz jako przeczytane" do powiadomienia wiadomości
+
+Pełny changelog: https://github.com/evilcorpltd/aTox/releases

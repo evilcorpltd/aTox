@@ -1,0 +1,12 @@
+Niewysłane wiadomości są zapisywane jako szkice
+Obsługa proxy
+Automatyczne oznaczanie jako zajęty/a
+Możliwość zastąpnienia używanych węzłów startowych
+Odpowiadanie bezpośrednio z powiadomienia
+Automatycznego akceptowania plików
+Ładne placeholdery awatarów
+Czyszczenie czatu usuwa też transefy plików
+Poprawiono dzielenie wiadomości zawierających znaki wielobajtowe
+Przetłumaczono na brazylijski portugalski, rosyjski oraz niemiecki
+
+Pełny changelog: https://github.com/evilcorpltd/aTox/releases

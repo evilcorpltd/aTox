@@ -1,0 +1,4 @@
+Naprawiono błąd w obsłudze kończenia połączeń przychodzących
+Naprawiono błąd przy usuwaniu kontaktu
+
+Pełny changelog: https://github.com/evilcorpltd/aTox/releases
