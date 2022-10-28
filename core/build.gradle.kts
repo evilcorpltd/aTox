@@ -52,6 +52,7 @@ idea {
 
 dependencies {
     implementation(libs.javax.inject)
+    api(libs.kotlinx.coroutines.core)
     api(libs.androidx.room.runtime)
     api(libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler)
