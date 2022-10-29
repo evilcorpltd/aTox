@@ -1,12 +1,5 @@
-import org.gradle.plugins.ide.idea.model.IdeaModule
-import org.jetbrains.gradle.ext.ModuleSettings
-import org.jetbrains.gradle.ext.PackagePrefixContainer
-
-fun IdeaModule.settings(configure: ModuleSettings.() -> Unit) =
-    (this as ExtensionAware).configure(configure)
-
-val ModuleSettings.packagePrefix: PackagePrefixContainer
-    get() = (this as ExtensionAware).the()
+import org.jetbrains.gradle.ext.packagePrefix
+import org.jetbrains.gradle.ext.settings
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
