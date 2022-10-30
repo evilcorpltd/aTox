@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
@@ -33,6 +32,7 @@ import ltd.evilcorp.domain.feature.CallManager
 import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.ContactManager
+import ltd.evilcorp.domain.feature.ExportManager
 import ltd.evilcorp.domain.feature.FileTransferManager
 import ltd.evilcorp.domain.tox.PublicKey
 import java.io.File
@@ -50,6 +50,7 @@ enum class CallAvailability {
 class ChatViewModel @Inject constructor(
     private val callManager: CallManager,
     private val chatManager: ChatManager,
+    private val exportManager: ExportManager,
     private val contactManager: ContactManager,
     private val fileTransferManager: FileTransferManager,
     private val notificationHelper: NotificationHelper,
@@ -151,6 +152,33 @@ class ChatViewModel @Inject constructor(
                     withContext(Dispatchers.Main) {
                         Toast.makeText(context, R.string.export_file_failure, Toast.LENGTH_LONG).show()
                     }
+                }
+            }
+        }
+    }
+
+    fun backupHistory(publicKey: String, locationSave: Uri) = scope.launch {
+        val backupContent = exportManager.generateExportMessagesJString(publicKey)
+        launch(Dispatchers.IO) {
+            try {
+                resolver.openOutputStream(locationSave).use { os ->
+                    backupContent.byteInputStream().copyTo(os!!)
+                }
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        context,
+                        R.string.backup_history_success,
+                        Toast.LENGTH_LONG,
+                    ).show()
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, e.toString())
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        context,
+                        "${R.string.backup_history_failure} : " + e.message,
+                        Toast.LENGTH_LONG,
+                    ).show()
                 }
             }
         }

@@ -78,6 +78,12 @@ dependencies {
     api(libs.tox4j.api)
     implementation(libs.tox4j.c)
 
+    // JSON
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.4")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.13.4")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.13.4")
+
     testImplementation(libs.test.junit.core)
     androidTestImplementation(libs.test.runner)
     androidTestImplementation(libs.test.junit.ext)

@@ -10,6 +10,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -23,6 +24,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.getSystemService
+import androidx.core.os.ConfigurationCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsAnimationCompat
@@ -50,7 +52,8 @@ import ltd.evilcorp.domain.tox.PublicKey
 import java.io.File
 import java.net.URLConnection
 import java.text.DateFormat
-import java.util.Locale
+import java.text.SimpleDateFormat
+import java.util.*
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
 const val FOCUS_ON_MESSAGE_BOX = "focusOnMessageBox"
@@ -70,6 +73,12 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
     private var contactName = ""
     private var selectedFt: Int = Int.MIN_VALUE
     private var fts: List<FileTransfer> = listOf()
+
+    private val exportBackupLauncher =
+        registerForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { dest ->
+            if (dest == null) return@registerForActivityResult
+            viewModel.backupHistory(contactPubKey, dest)
+        }
 
     private val exportFtLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument()) { dest ->
         if (dest == null) return@registerForActivityResult
@@ -145,6 +154,18 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         toolbar.inflateMenu(R.menu.chat_options_menu)
         toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
+                R.id.backup_history -> {
+                    exportBackupLauncher.launch(
+                        "backup-atox-${"messages" /* TODO @Akito: Put in Helper object. */}_${contactPubKey}_${
+                        SimpleDateFormat(
+                            """yyyy-MM-dd'T'HH-mm-ss""",
+                            ConfigurationCompat
+                                .getLocales(Resources.getSystem().configuration).get(0),
+                        ).format(Date())
+                        }.json",
+                    )
+                    true
+                }
                 R.id.clear_history -> {
                     AlertDialog.Builder(requireContext())
                         .setTitle(R.string.clear_history)

@@ -30,6 +30,10 @@ kt_android_library(
         ":tox4j",
         "//core",
         "@maven//:androidx_core_core_ktx",
+        "@maven//:com_fasterxml_jackson_core_jackson_annotations",
+        "@maven//:com_fasterxml_jackson_core_jackson_core",
+        "@maven//:com_fasterxml_jackson_core_jackson_databind",
+        "@maven//:com_fasterxml_jackson_module_jackson_module_kotlin",
     ],
 )
 
