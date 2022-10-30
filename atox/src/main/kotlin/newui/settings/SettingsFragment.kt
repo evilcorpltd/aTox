@@ -2,20 +2,16 @@
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
-package ltd.evilcorp.atox.ui.settings
+package ltd.evilcorp.atox.newui.settings
 
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.method.LinkMovementMethod
-import android.text.util.Linkify
 import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
@@ -32,13 +28,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
-import ltd.evilcorp.atox.databinding.FragmentSettingsBinding
+import ltd.evilcorp.atox.databinding.NewFragmentSettingsBinding
 import ltd.evilcorp.atox.settings.BootstrapNodeSource
 import ltd.evilcorp.atox.settings.FtAutoAccept
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.domain.tox.ProxyType
-import java.lang.NumberFormatException
 
 private fun Spinner.onItemSelectedListener(callback: (Int) -> Unit) {
     this.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -49,7 +44,7 @@ private fun Spinner.onItemSelectedListener(callback: (Int) -> Unit) {
     }
 }
 
-class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
+class SettingsFragment : BaseFragment<NewFragmentSettingsBinding>(NewFragmentSettingsBinding::inflate) {
     private val vm: SettingsViewModel by viewModels { vmFactory }
     private val scope = CoroutineScope(Dispatchers.Default)
     private val blockBackCallback = object : OnBackPressedCallback(false) {
@@ -248,20 +243,12 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
 
         settingWipUi.isChecked = vm.getWipUI()
         settingWipUi.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                val message = SpannableString(
-                    getString(
-                        R.string.wip_ui_enable_warning,
-                        "https://github.com/evilcorpltd/aTox/issues/1042",
-                    ),
-                )
-                Linkify.addLinks(message, Linkify.WEB_URLS)
-
-                val dialog = AlertDialog.Builder(requireContext())
+            if (!isChecked) {
+                AlertDialog.Builder(requireContext())
                     .setTitle(getString(R.string.warning))
-                    .setMessage(message)
+                    .setMessage(getString(R.string.wip_ui_disable_notice))
                     .setPositiveButton(android.R.string.ok) { _, _ ->
-                        vm.setWipUI(true)
+                        vm.setWipUI(false)
                         vm.quitTox()
                         activity?.finishAffinity()
                     }
@@ -269,12 +256,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
                         dialog.cancel()
                     }
                     .setOnCancelListener {
-                        settingWipUi.isChecked = false
+                        settingWipUi.isChecked = true
                     }
-                    .create()
-
-                dialog.show()
-                dialog.findViewById<TextView>(android.R.id.message).movementMethod = LinkMovementMethod.getInstance()
+                    .show()
             }
         }
 

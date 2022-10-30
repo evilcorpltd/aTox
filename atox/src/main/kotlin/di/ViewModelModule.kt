@@ -19,6 +19,7 @@ import ltd.evilcorp.atox.ui.friendrequest.FriendRequestViewModel
 import ltd.evilcorp.atox.ui.settings.SettingsViewModel
 import ltd.evilcorp.atox.ui.userprofile.UserProfileViewModel
 import kotlin.reflect.KClass
+import ltd.evilcorp.atox.newui.settings.SettingsViewModel as NewSettingsViewModel
 
 @MustBeDocumented
 @Target(
@@ -72,6 +73,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SettingsViewModel::class)
     abstract fun bindSettingsViewModel(vm: SettingsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NewSettingsViewModel::class)
+    abstract fun bindNewSettingsViewModel(vm: NewSettingsViewModel): ViewModel
 
     @Binds
     @IntoMap

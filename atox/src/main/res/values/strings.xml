@@ -187,4 +187,9 @@
     <string name="share">Share</string>
     <string name="mark_as_read">Mark as read</string>
     <string name="file_not_found">File not found</string>
+    <string name="pref_heading_work_in_progress">Work-in-progress</string>
+    <string name="pref_enable_new_ui">Enable new UI</string>
+    <string name="warning">Warning</string>
+    <string name="wip_ui_enable_warning">You\'re about to switch to the new work-in-progress UI. You may experience inconsistencies with design and bugs. Upon confirmation, the app will close and changes will take affect at next launch. Status of UI revamp can be checked here: %1$s</string>
+    <string name="wip_ui_disable_notice">Thanks for trying the new work-in-progress UI. Upon confirmation, the app will close and changes will take affect at next launch.</string>
 </resources>

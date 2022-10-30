@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/old_nav_graph"
+        app:startDestination="@id/contactListFragment">
+    <fragment android:id="@+id/profileFragment"
+            android:name="ltd.evilcorp.atox.ui.createprofile.CreateProfileFragment"
+            android:label="ProfileFragment"
+            tools:layout="@layout/fragment_profile"/>
+
+    <fragment android:id="@+id/callFragment"
+            android:name="ltd.evilcorp.atox.ui.call.CallFragment"
+            android:label="CallFragment"
+            tools:layout="@layout/fragment_call"/>
+
+    <fragment android:id="@+id/contactListFragment"
+            android:name="ltd.evilcorp.atox.ui.contactlist.ContactListFragment"
+            android:label="ContactListFragment"
+            tools:layout="@layout/fragment_contact_list">
+        <action android:id="@+id/action_contactListFragment_to_chatFragment"
+                app:destination="@id/chatFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/slide_out_right"/>
+
+        <action android:id="@+id/action_contactListFragment_to_contactProfileFragment"
+                app:destination="@id/contactProfileFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/slide_out_right"/>
+
+        <action android:id="@+id/action_contactListFragment_to_friendRequestFragment"
+                app:destination="@id/friendRequestFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/slide_out_right"/>
+
+        <action android:id="@+id/action_contactListFragment_to_addContactFragment"
+                app:destination="@id/addContactFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/slide_out_right"/>
+
+        <action android:id="@+id/action_contactListFragment_to_profileFragment"
+                app:destination="@id/profileFragment"
+                app:enterAnim="@anim/fade_in"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_out"
+                app:popExitAnim="@anim/fade_in"/>
+
+        <action android:id="@+id/action_contactListFragment_to_settingsFragment"
+                app:destination="@id/settingsFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/slide_out_right"/>
+        <action
+                android:id="@+id/action_contactListFragment_to_userProfileFragment"
+                app:destination="@id/userProfileFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment android:id="@+id/friendRequestFragment"
+        android:name="ltd.evilcorp.atox.ui.friendrequest.FriendRequestFragment"
+        android:label="FriendRequestFragment"
+        tools:layout="@layout/fragment_friend_request"/>
+
+    <fragment android:id="@+id/chatFragment"
+            android:name="ltd.evilcorp.atox.ui.chat.ChatFragment"
+            android:label="ChatFragment"
+            tools:layout="@layout/fragment_chat">
+        <argument android:name="contactPublicKey" app:argType="string"/>
+
+        <action android:id="@+id/action_chatFragment_to_contactProfileFragment"
+                app:destination="@id/contactProfileFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/slide_out_right"/>
+
+        <action android:id="@+id/action_chatFragment_to_callFragment"
+                app:destination="@id/callFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment android:id="@+id/addContactFragment"
+            android:name="ltd.evilcorp.atox.ui.addcontact.AddContactFragment"
+            android:label="add_contact_fragment"
+            tools:layout="@layout/fragment_add_contact">
+    </fragment>
+
+    <fragment android:id="@+id/contactProfileFragment"
+            android:name="ltd.evilcorp.atox.ui.contactprofile.ContactProfileFragment"
+            android:label="contact_profile_fragment"
+            tools:layout="@layout/fragment_contact_profile"/>
+
+    <fragment android:id="@+id/settingsFragment"
+            android:name="ltd.evilcorp.atox.newui.settings.SettingsFragment"
+            android:label="SettingsFragment"
+            tools:layout="@layout/new_fragment_settings"/>
+    <fragment
+            android:id="@+id/userProfileFragment"
+            android:name="ltd.evilcorp.atox.ui.userprofile.UserProfileFragment"
+            android:label="fragment_user_profile"
+            tools:layout="@layout/fragment_user_profile"/>
+</navigation>

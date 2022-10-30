@@ -92,4 +92,8 @@ class Settings @Inject constructor(private val ctx: Context) {
     var confirmQuitting: Boolean
         get() = preferences.getBoolean("confirm_quitting", true)
         set(confirm) = preferences.edit { putBoolean("confirm_quitting", confirm) }
+
+    var wipUI: Boolean
+        get() = preferences.getBoolean("wip_ui", false)
+        set(isEnabled) = preferences.edit { putBoolean("wip_ui", isEnabled) }
 }

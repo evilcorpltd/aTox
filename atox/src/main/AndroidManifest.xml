@@ -38,7 +38,9 @@
                     android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".MainActivity" android:exported="true" android:launchMode="singleTask">
+        <activity
+                android:name=".ActivityLauncher"
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -57,5 +59,8 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".MainActivity" android:launchMode="singleTask" />
+        <activity android:name=".NewMainActivity" android:launchMode="singleTask" />
     </application>
 </manifest>

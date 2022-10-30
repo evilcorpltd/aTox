@@ -8,8 +8,10 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import ltd.evilcorp.atox.ActionReceiver
+import ltd.evilcorp.atox.ActivityLauncher
 import ltd.evilcorp.atox.BootReceiver
 import ltd.evilcorp.atox.MainActivity
+import ltd.evilcorp.atox.NewMainActivity
 import ltd.evilcorp.atox.ToxService
 import javax.inject.Singleton
 
@@ -29,7 +31,9 @@ interface AppComponent {
         fun create(@BindsInstance appContext: Context): AppComponent
     }
 
+    fun inject(activity: ActivityLauncher)
     fun inject(activity: MainActivity)
+    fun inject(activity: NewMainActivity)
     fun inject(service: ToxService)
     fun inject(receiver: BootReceiver)
     fun inject(receiver: ActionReceiver)

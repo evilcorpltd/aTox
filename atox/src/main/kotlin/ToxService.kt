@@ -20,6 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
+import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.ConnectionStatus
@@ -58,6 +59,9 @@ class ToxService : LifecycleService() {
     @Inject
     lateinit var proximityScreenOff: ProximityScreenOff
 
+    @Inject
+    lateinit var settings: Settings
+
     private fun createNotificationChannel() {
         val channel = NotificationChannelCompat.Builder(channelId, NotificationManagerCompat.IMPORTANCE_LOW)
             .setName("Tox Service")
@@ -74,7 +78,10 @@ class ToxService : LifecycleService() {
 
     private fun notificationFor(status: ConnectionStatus?): Notification {
         val pendingIntent: PendingIntent =
-            Intent(this, MainActivity::class.java).let { notificationIntent ->
+            Intent(
+                this,
+                if (settings.wipUI) NewMainActivity::class.java else MainActivity::class.java,
+            ).let { notificationIntent ->
                 PendingIntentCompat.getActivity(this, 0, notificationIntent, 0)
             }
 

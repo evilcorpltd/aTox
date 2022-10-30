@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
-package ltd.evilcorp.atox.ui.settings
+package ltd.evilcorp.atox.newui.settings
 
 import android.content.ContentResolver
 import android.content.Context
