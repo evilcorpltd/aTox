@@ -11,6 +11,7 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxID
+import java.util.Date
 import javax.inject.Inject
 
 class ContactManager @Inject constructor(
@@ -22,8 +23,10 @@ class ContactManager @Inject constructor(
     fun getAll() = contactRepository.getAll()
 
     fun add(toxID: ToxID, message: String) = scope.launch {
+        val publicKeyTxt = toxID.toPublicKey().string()
         tox.addContact(toxID, message)
-        contactRepository.add(Contact(toxID.toPublicKey().string()))
+        contactRepository.add(Contact(publicKeyTxt))
+        contactRepository.setLastMessage(publicKeyTxt, Date().time)
     }
 
     fun delete(publicKey: PublicKey) = scope.launch {
