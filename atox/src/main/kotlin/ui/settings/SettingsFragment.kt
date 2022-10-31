@@ -150,6 +150,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         settingConfirmQuitting.isChecked = vm.getConfirmQuitting()
         settingConfirmQuitting.setOnCheckedChangeListener { _, isChecked -> vm.setConfirmQuitting(isChecked) }
 
+        settingConfirmCalling.isChecked = vm.getConfirmCalling()
+        settingConfirmCalling.setOnCheckedChangeListener { _, isChecked -> vm.setConfirmCalling(isChecked) }
+
         if (vm.getProxyType() != ProxyType.None) {
             vm.setUdpEnabled(false)
         }

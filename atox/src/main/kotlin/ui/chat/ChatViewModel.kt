@@ -22,6 +22,7 @@ import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
@@ -57,6 +58,7 @@ class ChatViewModel @Inject constructor(
     private val resolver: ContentResolver,
     private val context: Context,
     private val scope: CoroutineScope,
+    private val settings: Settings,
 ) : ViewModel() {
     private var publicKey = PublicKey("")
     private var sentTyping = false
@@ -67,6 +69,7 @@ class ChatViewModel @Inject constructor(
     }
     val fileTransfers: LiveData<List<FileTransfer>> by lazy { fileTransferManager.transfersFor(publicKey).asLiveData() }
 
+    fun callingNeedsConfirmation(): Boolean = settings.confirmCalling
     val ongoingCall = callManager.inCall.asLiveData()
 
     val callState get() = contactManager.get(publicKey)

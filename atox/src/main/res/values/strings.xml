@@ -38,6 +38,7 @@
     <string name="update">Update</string>
     <string name="quit">Quit</string>
     <string name="quit_confirm">Are you sure you wish to quit?</string>
+    <string name="call_confirm">Are you sure you wish to call?</string>
     <!-- Friend request notification -->
     <string name="friend_requests">Friend requests</string>
     <string name="friend_request_from">Friend request from %1$s</string>
@@ -108,6 +109,7 @@
     <string name="pref_heading_general">General</string>
     <string name="pref_run_at_startup">Run at boot</string>
     <string name="pref_confirm_quitting">Confirm app quit</string>
+    <string name="pref_confirm_calling">Confirm call</string>
     <string name="friend_request">Friend request</string>
     <string name="status_available">Available</string>
     <string name="status_away">Away</string>

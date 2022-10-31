@@ -176,7 +176,17 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                     true
                 }
                 R.id.call -> {
-                    navigateToCallScreen()
+                    if (!viewModel.callingNeedsConfirmation()) {
+                        navigateToCallScreen()
+                        return@setOnMenuItemClickListener true
+                    }
+                    AlertDialog.Builder(requireContext())
+                        .setTitle(R.string.call_confirm)
+                        .setPositiveButton(R.string.call) { _, _ ->
+                            navigateToCallScreen()
+                        }
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .show()
                     true
                 }
                 else -> super.onOptionsItemSelected(item)
