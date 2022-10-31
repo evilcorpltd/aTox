@@ -167,7 +167,7 @@ class ChatViewModel @Inject constructor(
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
                         context,
-                        R.string.backup_history_success,
+                        R.string.export_history_success,
                         Toast.LENGTH_LONG,
                     ).show()
                 }
@@ -176,7 +176,7 @@ class ChatViewModel @Inject constructor(
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
                         context,
-                        "${R.string.backup_history_failure} : " + e.message,
+                        context.getString(R.string.export_history_failure, e.message),
                         Toast.LENGTH_LONG,
                     ).show()
                 }

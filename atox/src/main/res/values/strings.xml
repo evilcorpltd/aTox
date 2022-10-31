@@ -187,7 +187,7 @@
     <string name="share">Share</string>
     <string name="mark_as_read">Mark as read</string>
     <string name="file_not_found">File not found</string>
-    <string name="backup_history">Backup history</string>
-    <string name="backup_history_success">Message history exported</string>
-    <string name="backup_history_failure">Message history export failed</string>
+    <string name="export_history">Export history</string>
+    <string name="export_history_success">Message history exported</string>
+    <string name="export_history_failure">Message history export failed: %1$s</string>
 </resources>
