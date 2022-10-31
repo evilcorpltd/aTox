@@ -13,6 +13,7 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
+import java.util.Date
 import javax.inject.Inject
 
 class FriendRequestManager @Inject constructor(
@@ -27,6 +28,7 @@ class FriendRequestManager @Inject constructor(
     fun accept(friendRequest: FriendRequest) = scope.launch {
         tox.acceptFriendRequest(PublicKey(friendRequest.publicKey))
         contactRepository.add(Contact(friendRequest.publicKey))
+        contactRepository.setLastMessage(friendRequest.publicKey, Date().time)
         friendRequestRepository.delete(friendRequest)
     }
 

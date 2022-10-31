@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 aTox contributors
+// SPDX-FileCopyrightText: 2020-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -48,6 +48,7 @@ class FriendRequestFragment : BaseFragment<FragmentFriendRequestBinding>(Fragmen
 
         accept.setOnClickListener {
             vm.accept(friendRequest)
+            vm.addToChatLog(friendRequest)
             findNavController().popBackStack()
         }
 
