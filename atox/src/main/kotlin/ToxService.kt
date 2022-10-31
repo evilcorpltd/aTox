@@ -23,8 +23,10 @@ import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.domain.feature.CallManager
 import ltd.evilcorp.domain.feature.CallState
+import ltd.evilcorp.domain.feature.FriendRequestManager
 import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxSaveStatus
 import java.util.Timer
@@ -43,6 +45,8 @@ class ToxService : LifecycleService() {
     private val notifier by lazy { NotificationManagerCompat.from(this) }
     private var bootstrapTimer = Timer()
 
+    private val knownFriendRequests = mutableSetOf<FriendRequest>()
+
     @Inject
     lateinit var tox: Tox
 
@@ -54,6 +58,9 @@ class ToxService : LifecycleService() {
 
     @Inject
     lateinit var callManager: CallManager
+
+    @Inject
+    lateinit var friendRequestManager: FriendRequestManager
 
     @Inject
     lateinit var proximityScreenOff: ProximityScreenOff
@@ -121,6 +128,20 @@ class ToxService : LifecycleService() {
                         bootstrapTimer.cancel()
                         bootstrapTimer = Timer()
                     }
+                }
+        }
+
+        lifecycleScope.launch(Dispatchers.Default) {
+            friendRequestManager.getAll()
+                .filterNotNull()
+                .flowWithLifecycle(lifecycle)
+                .collect { friendRequests ->
+                    val finishedFriendRequests = knownFriendRequests.minus(friendRequests.toSet())
+                    finishedFriendRequests.forEach {
+                        knownFriendRequests.remove(it)
+                        notifier.cancel(it.publicKey.hashCode())
+                    }
+                    knownFriendRequests.addAll(friendRequests)
                 }
         }
 
