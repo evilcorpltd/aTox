@@ -340,7 +340,9 @@ class ContactListFragment :
                             )
                             addView(passwordEdit)
                         }
-                    } else null
+                    } else {
+                        null
+                    }
                     passwordDialog = AlertDialog.Builder(requireContext())
                         .setTitle(getString(R.string.unlock_profile))
                         .setView(passwordLayout ?: passwordEdit)

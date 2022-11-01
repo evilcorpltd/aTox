@@ -38,7 +38,9 @@ class AvatarImageView @JvmOverloads constructor(context: Context, attrs: Attribu
     private fun colorByContactStatus(context: Context, contact: Contact) =
         if (contact.connectionStatus == ConnectionStatus.None) {
             ContextCompat.getColor(context, R.color.statusOffline)
-        } else colorFromStatus(context, contact.status)
+        } else {
+            colorFromStatus(context, contact.status)
+        }
 
     private var name = ""
     private var publicKey = ""

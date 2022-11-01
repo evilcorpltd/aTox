@@ -122,7 +122,9 @@ class NotificationHelper @Inject constructor(
                     Log.e(TAG, "Unable to load bmp for ${contact.name} from ${contact.avatarUri}")
                     null
                 }
-            } else null
+            } else {
+                null
+            }
 
             val chatPartner = Person.Builder()
                 .setName(contact.name.ifEmpty { context.getText(R.string.contact_default_name) })

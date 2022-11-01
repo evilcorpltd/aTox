@@ -22,7 +22,7 @@ import java.text.DateFormat
 
 enum class ContactListItemType {
     FriendRequest,
-    Contact
+    Contact,
 }
 
 private val types = ContactListItemType.values()

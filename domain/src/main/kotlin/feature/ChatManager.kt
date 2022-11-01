@@ -50,8 +50,10 @@ class ChatManager @Inject constructor(
     var activeChat = ""
         set(value) {
             field = value
-            if (value.isNotEmpty()) scope.launch {
-                contactRepository.setHasUnreadMessages(value, false)
+            if (value.isNotEmpty()) {
+                scope.launch {
+                    contactRepository.setHasUnreadMessages(value, false)
+                }
             }
         }
 
