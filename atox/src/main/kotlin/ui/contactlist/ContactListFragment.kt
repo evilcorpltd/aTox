@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2019-2022 aTox contributors
+// SPDX-FileCopyrightText: 2019-2022 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -37,7 +38,7 @@ import ltd.evilcorp.atox.databinding.FriendRequestItemBinding
 import ltd.evilcorp.atox.databinding.NavHeaderContactListBinding
 import ltd.evilcorp.atox.truncated
 import ltd.evilcorp.atox.ui.BaseFragment
-import ltd.evilcorp.atox.ui.ReceiveShareDialog
+import ltd.evilcorp.atox.ui.ReceiveShareDialogFragment
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.ui.colorFromStatus
 import ltd.evilcorp.atox.ui.contactListSorter
@@ -67,7 +68,6 @@ class ContactListFragment :
 
     private var backupFileNameHint = "something_is_broken.tox"
 
-    private var shareDialog: ReceiveShareDialog? = null
     private var passwordDialog: AlertDialog? = null
 
     private val exportToxSaveLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument()) { dest ->
@@ -143,8 +143,6 @@ class ContactListFragment :
             } else {
                 View.GONE
             }
-
-            shareDialog?.setContacts(contactAdapter.contacts)
         }
 
         contactList.setOnItemClickListener { _, _, position, _ ->
@@ -177,19 +175,17 @@ class ContactListFragment :
         }
 
         arguments?.getString(ARG_SHARE)?.let { share ->
-            shareDialog = ReceiveShareDialog(
-                requireContext(),
-                (binding.contactList.adapter as ContactAdapter).contacts,
+            ReceiveShareDialogFragment(
+                viewModel.contacts,
                 share,
-            ) {
-                viewModel.onShareText(share, it)
-                openChat(it)
-            }
-            shareDialog?.setOnDismissListener {
-                shareDialog = null
-                arguments?.remove(ARG_SHARE)
-            }
-            shareDialog?.show()
+                onContactSelected = {
+                    viewModel.onShareText(share, it)
+                    openChat(it)
+                },
+                onDialogDismissed = {
+                    arguments?.remove(ARG_SHARE)
+                },
+            ).show(childFragmentManager, null)
         }
     }
 
