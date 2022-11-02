@@ -40,6 +40,7 @@ import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.ReceiveShareDialog
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.ui.colorFromStatus
+import ltd.evilcorp.atox.ui.contactListSorter
 import ltd.evilcorp.atox.ui.friendrequest.FRIEND_REQUEST_PUBLIC_KEY
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
@@ -134,13 +135,7 @@ class ContactListFragment :
         }
 
         viewModel.contacts.observe(viewLifecycleOwner) { contacts ->
-            contactAdapter.contacts = contacts.sortedByDescending { contact ->
-                when {
-                    contact.lastMessage != 0L -> contact.lastMessage
-                    contact.connectionStatus == ConnectionStatus.None -> -1000L
-                    else -> -contact.status.ordinal.toLong()
-                }
-            }
+            contactAdapter.contacts = contacts.sortedByDescending(::contactListSorter)
             contactAdapter.notifyDataSetChanged()
 
             noContactsCallToAction.visibility = if (contactAdapter.isEmpty) {
