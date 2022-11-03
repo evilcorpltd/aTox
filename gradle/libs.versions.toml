@@ -10,6 +10,7 @@ coil = "1.4.0"
 coroutines = "1.6.4"
 dagger = "2.44"
 espresso = "3.4.0"
+jackson = "2.13.4"
 lifecycle = "2.5.1"
 navigation = "2.5.3"
 room = "2.4.3"
@@ -49,6 +50,11 @@ androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "
 google-android-material = "com.google.android.material:material:1.5.0"
 google-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 google-dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+
+jackson-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson" }
+jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
 
 javax-inject = "javax.inject:javax.inject:1"
 
