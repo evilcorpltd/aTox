@@ -11,9 +11,15 @@ import androidx.core.util.writeBytes
 import java.io.File
 import javax.inject.Inject
 
-private const val TAG = "SaveManager"
+private const val TAG = "AndroidSaveManager"
 
-class SaveManager @Inject constructor(val context: Context) {
+interface SaveManager {
+    fun list(): List<String>
+    fun save(pk: PublicKey, saveData: ByteArray)
+    fun load(pk: PublicKey): ByteArray?
+}
+
+class AndroidSaveManager @Inject constructor(val context: Context) : SaveManager {
     private val saveDir = context.filesDir
 
     init {
@@ -22,16 +28,16 @@ class SaveManager @Inject constructor(val context: Context) {
         }
     }
 
-    fun list(): List<String> = saveDir.listFiles()?.let { saves ->
+    override fun list(): List<String> = saveDir.listFiles()?.let { saves ->
         saves.filter { it.extension == "tox" }.map { it.nameWithoutExtension }
     } ?: listOf()
 
-    fun save(publicKey: PublicKey, saveData: ByteArray) = AtomicFile(File("$saveDir/${publicKey.string()}.tox")).run {
+    override fun save(pk: PublicKey, saveData: ByteArray) = AtomicFile(File("$saveDir/${pk.string()}.tox")).run {
         Log.i(TAG, "Saving profile to $baseFile")
         writeBytes(saveData)
     }
 
-    fun load(publicKey: PublicKey): ByteArray? = tryReadBytes(File(pathTo(publicKey)))
+    override fun load(pk: PublicKey): ByteArray? = tryReadBytes(File(pathTo(pk)))
 
     private fun tryReadBytes(saveFile: File): ByteArray? =
         if (saveFile.exists()) {

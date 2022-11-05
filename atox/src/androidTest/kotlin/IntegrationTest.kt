@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 aTox contributors
+// SPDX-FileCopyrightText: 2020-2022 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -25,12 +25,15 @@ import dagger.Module
 import dagger.Provides
 import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import ltd.evilcorp.atox.di.AndroidModule
 import ltd.evilcorp.atox.di.AppComponent
-import ltd.evilcorp.atox.di.AppModule
 import ltd.evilcorp.atox.di.DaoModule
 import ltd.evilcorp.atox.di.ViewModelModule
+import ltd.evilcorp.atox.tox.BootstrapNodeRegistryImpl
 import ltd.evilcorp.core.db.Database
+import ltd.evilcorp.domain.tox.BootstrapNodeRegistry
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.SaveManager
 import org.hamcrest.core.AllOf.allOf
@@ -62,12 +65,17 @@ class TestModule {
         every { load(PublicKey("workaround")) } returns null
         // Am I using mockk wrong or something? `every { save(any(), any() }` crashes.
     }
+
+    @Provides
+    fun provideBootstrapNodeRegistry(nodeRegistry: BootstrapNodeRegistryImpl): BootstrapNodeRegistry = nodeRegistry
+
+    @Provides
+    fun provideCoroutineScope(): CoroutineScope = CoroutineScope(Dispatchers.Default)
 }
 
 @Singleton
 @Component(
     modules = [
-        AppModule::class,
         AndroidModule::class,
         TestModule::class,
         DaoModule::class,
