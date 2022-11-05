@@ -92,5 +92,4 @@ dependencies {
         // Conflicts with a lot of things due to having embedded "byte buddy" instead of depending on it.A
         exclude("org.jetbrains.kotlinx", "kotlinx-coroutines-debug")
     }
-    androidTestImplementation(libs.test.mockk)
 }

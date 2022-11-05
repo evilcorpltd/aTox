@@ -80,7 +80,6 @@ test-espresso-contrib = { module = "androidx.test.espresso:espresso-contrib", ve
 test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 test-junit-core = "junit:junit:4.13.2"
 test-junit-ext = "androidx.test.ext:junit:1.1.3"
-test-mockk = "io.mockk:mockk-android:1.11.0"
 test-rules = { module = "androidx.test:rules", version.ref = "androidx-test" }
 test-runner = { module = "androidx.test:runner", version.ref = "androidx-test" }
 

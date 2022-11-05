@@ -13,7 +13,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class UserRepository @Inject internal constructor(
+class UserRepository @Inject constructor(
     private val userDao: UserDao,
 ) {
     fun exists(publicKey: String): Boolean =
