@@ -23,8 +23,6 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import io.mockk.every
-import io.mockk.mockk
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import ltd.evilcorp.atox.di.AndroidModule
@@ -52,6 +50,14 @@ class InjectedActivityTestRule<T : Activity>(
     }
 }
 
+class FakeSaveManager : SaveManager {
+    override fun list(): List<String> = listOf()
+    override fun load(pk: PublicKey): ByteArray? = null
+    override fun save(pk: PublicKey, saveData: ByteArray) {
+        // Do nothing.
+    }
+}
+
 @Module
 class TestModule {
     @Singleton
@@ -60,17 +66,13 @@ class TestModule {
         Room.inMemoryDatabaseBuilder(appContext, Database::class.java).build()
 
     @Provides
-    fun provideSaveManager(): SaveManager = mockk(relaxUnitFun = true) {
-        every { list() } returns listOf("workaround") // mockk crashes w/ `listOf()`.
-        every { load(PublicKey("workaround")) } returns null
-        // Am I using mockk wrong or something? `every { save(any(), any() }` crashes.
-    }
-
-    @Provides
     fun provideBootstrapNodeRegistry(nodeRegistry: BootstrapNodeRegistryImpl): BootstrapNodeRegistry = nodeRegistry
 
     @Provides
     fun provideCoroutineScope(): CoroutineScope = CoroutineScope(Dispatchers.Default)
+
+    @Provides
+    fun provideSaveManager(): SaveManager = FakeSaveManager()
 }
 
 @Singleton

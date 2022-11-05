@@ -92,6 +92,5 @@ dependencies {
     androidTestImplementation(libs.test.espresso.core)
     androidTestImplementation(libs.test.espresso.contrib)
     androidTestImplementation(libs.test.junit.ext)
-    androidTestImplementation(libs.test.mockk)
     kaptAndroidTest(libs.google.dagger.compiler)
 }
