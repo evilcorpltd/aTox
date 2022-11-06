@@ -24,7 +24,7 @@ class CreateProfileViewModel @Inject constructor(
     val publicKey: PublicKey by lazy { tox.publicKey }
 
     fun startTox(save: ByteArray? = null, password: String? = null): ToxSaveStatus = toxStarter.startTox(save, password)
-    fun tryImportToxSave(uri: Uri): ByteArray? = resolver.openInputStream(uri)?.readBytes()
+    fun tryImportToxSave(uri: Uri): ByteArray? = resolver.openInputStream(uri)?.use { it.readBytes() }
     fun create(user: User) = userManager.create(user)
     fun verifyUserExists(publicKey: PublicKey) = userManager.verifyExists(publicKey)
 }
