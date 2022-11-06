@@ -70,10 +70,11 @@ class ContactListFragment :
 
     private var passwordDialog: AlertDialog? = null
 
-    private val exportToxSaveLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument()) { dest ->
-        if (dest == null) return@registerForActivityResult
-        viewModel.saveToxBackupTo(dest)
-    }
+    private val exportToxSaveLauncher =
+        registerForActivityResult(ActivityResultContracts.CreateDocument("*/*")) { dest ->
+            if (dest == null) return@registerForActivityResult
+            viewModel.saveToxBackupTo(dest)
+        }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val v = super.onCreateView(inflater, container, savedInstanceState)

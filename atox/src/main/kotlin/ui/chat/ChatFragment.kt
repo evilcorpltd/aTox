@@ -79,7 +79,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             viewModel.backupHistory(contactPubKey, dest)
         }
 
-    private val exportFtLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument()) { dest ->
+    private val exportFtLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument("*/*")) { dest ->
         if (dest == null) return@registerForActivityResult
         viewModel.exportFt(selectedFt, dest)
     }
