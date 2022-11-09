@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 env:
-  DETEKT_RELEASE: 1.20.0
+  DETEKT_RELEASE: 1.21.0
 
 jobs:
   detekt:
