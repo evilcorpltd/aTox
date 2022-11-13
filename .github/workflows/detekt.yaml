@@ -29,6 +29,8 @@ jobs:
       continue-on-error: true
       run: |
         java -jar detekt \
+          --build-upon-default-config \
+          --config detekt.yml \
           --input ${{ github.workspace }} \
           --base-path ${{ github.workspace }} \
           --report sarif:${{ github.workspace }}/detekt.sarif.json
