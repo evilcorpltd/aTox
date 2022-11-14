@@ -1,9 +1,9 @@
 {
-  "last_scan": 1640710392,
-  "last_refresh": 1640710394,
+  "last_scan": 1668460738,
+  "last_refresh": 1668460501,
   "nodes": [
     {
-      "ipv4": "95.79.50.56",
+      "ipv4": "91.219.59.156",
       "ipv6": "-",
       "port": 33445,
       "tcp_ports": [
@@ -14,43 +14,9 @@
       "location": "RU",
       "status_udp": true,
       "status_tcp": true,
-      "version": "1000002012",
+      "version": "1000002013",
       "motd": "Ray's Tox Node. TOX ID:3C3D6DB24D24754393679E59F198EF45EE26835AEF7EA3E3ECEA40E204F2B828BE86DF012ABF",
-      "last_ping": 1640710392
-    },
-    {
-      "ipv4": "85.143.221.42",
-      "ipv6": "2a04:ac00:1:9f00:5054:ff:fe01:becd",
-      "port": 33445,
-      "tcp_ports": [
-        3389,
-        33445
-      ],
-      "public_key": "DA4E4ED4B697F2E9B000EEFE3A34B554ACD3F45F5C96EAEA2516DD7FF9AF7B43",
-      "maintainer": "MAH69K",
-      "location": "RU",
-      "status_udp": true,
-      "status_tcp": true,
-      "version": "1000002012",
-      "motd": "Saluton! Mia Tox ID: B229B7BD68FC66C2716EAB8671A461906321C764782D7B3EDBB650A315F6C458EF744CE89F07. Scribu! ;)",
-      "last_ping": 1640710393
-    },
-    {
-      "ipv4": "tox.verdict.gg",
-      "ipv6": "-",
-      "port": 33445,
-      "tcp_ports": [
-        3389,
-        33445
-      ],
-      "public_key": "1C5293AEF2114717547B39DA8EA6F1E331E5E358B35F9B6B5F19317911C5F976",
-      "maintainer": "Deliran",
-      "location": "DE",
-      "status_udp": true,
-      "status_tcp": true,
-      "version": "1000002008",
-      "motd": "Praise The Sun!",
-      "last_ping": 1640710393
+      "last_ping": 1668460740
     },
     {
       "ipv4": "tox.initramfs.io",
@@ -65,25 +31,9 @@
       "location": "TW",
       "status_udp": true,
       "status_tcp": true,
-      "version": "1000002012",
+      "version": "1000002018",
       "motd": "initramfs' Tox DHT Node",
-      "last_ping": 1640710392
-    },
-    {
-      "ipv4": "46.229.50.168",
-      "ipv6": "-",
-      "port": 33445,
-      "tcp_ports": [
-        33445
-      ],
-      "public_key": "813C8F4187833EF0655B10F7752141A352248462A567529A38B6BBF73E979307",
-      "maintainer": "Stranger",
-      "location": "UA",
-      "status_udp": true,
-      "status_tcp": true,
-      "version": "3000001001",
-      "motd": "Hi, I'm back from maintenance! I'm up 00 days 00 hours 53 minutes. TCP: incoming 22.4K, outgoing 19.7K, UDP: incoming 208.9K, outgoing 219.3K",
-      "last_ping": 1640710392
+      "last_ping": 1668460739
     },
     {
       "ipv4": "144.217.167.73",
@@ -100,7 +50,7 @@
       "status_tcp": true,
       "version": "1000002013",
       "motd": "Jera",
-      "last_ping": 1640710392
+      "last_ping": 1668460738
     },
     {
       "ipv4": "tox.abilinski.com",
@@ -116,24 +66,7 @@
       "status_tcp": true,
       "version": "1000002013",
       "motd": "Running https://github.com/toktok/c-toxcore v0.2.13. qTox best Tox! Contact: AC18841E56CCDEE16E93E10E6AB2765BE54277D67F1372921B5B418A6B330D3D3FAFA60B0931",
-      "last_ping": 1640710392
-    },
-    {
-      "ipv4": "mk.tox.dcntrlzd.network",
-      "ipv6": "-",
-      "port": 33445,
-      "tcp_ports": [
-        33445,
-        3389
-      ],
-      "public_key": "5E815C25A4E58910A7350EC64ECB32BC9E1919F86844DC97125735C2C30FBE6E",
-      "maintainer": "cryptogospod",
-      "location": "MK",
-      "status_udp": true,
-      "status_tcp": true,
-      "version": "1000002012",
-      "motd": "MK tox-bootstrapd node, courtesy of DCNTRLZD NETWORK. Get in touch @ 03279E64D53B1B71DFB35F4F5568B448B015F467C0C6F73FB52C9CCF86C78A45DB83C24E7DF2",
-      "last_ping": 1640710392
+      "last_ping": 1668460738
     },
     {
       "ipv4": "tox.novg.net",
@@ -149,7 +82,7 @@
       "status_tcp": true,
       "version": "1000002012",
       "motd": "tox-bootstrapd",
-      "last_ping": 1640710392
+      "last_ping": 1668460740
     },
     {
       "ipv4": "198.199.98.108",
@@ -164,9 +97,9 @@
       "location": "US",
       "status_udp": true,
       "status_tcp": true,
-      "version": "1000002013",
+      "version": "1000002015",
       "motd": "Cody's Tox node!",
-      "last_ping": 1640710392
+      "last_ping": 1668460738
     },
     {
       "ipv4": "tox.kurnevsky.net",
@@ -179,8 +112,8 @@
       "status_udp": true,
       "status_tcp": false,
       "version": "3000001001",
-      "motd": "Hi from tox-rs! I'm up 12 days 07 hours 32 minutes.",
-      "last_ping": 1640710392
+      "motd": "Hi from tox-rs!",
+      "last_ping": 1668460738
     },
     {
       "ipv4": "81.169.136.229",
@@ -197,7 +130,7 @@
       "status_tcp": true,
       "version": "1000002009",
       "motd": "🂩 wishes happy toxing. 📡",
-      "last_ping": 1640710393
+      "last_ping": 1668460739
     },
     {
       "ipv4": "205.185.115.131",
@@ -206,8 +139,8 @@
       "tcp_ports": [
         53,
         33445,
-        443,
-        3389
+        3389,
+        443
       ],
       "public_key": "3091C6BEB2A993F1C6300C16549FABA67098FF3D62C6D253828B531470B53D68",
       "maintainer": "GDR!",
@@ -216,24 +149,23 @@
       "status_tcp": true,
       "version": "1000002013",
       "motd": "https://gdr.name/tuntox/",
-      "last_ping": 1640710393
+      "last_ping": 1668460738
     },
     {
-      "ipv4": "bg.tox.dcntrlzd.network",
-      "ipv6": "bg.tox.dcntrlzd.network",
+      "ipv4": "tox2.abilinski.com",
+      "ipv6": "tox2.abilinski.com",
       "port": 33445,
       "tcp_ports": [
-        33445,
-        3389
+        33445
       ],
-      "public_key": "20AD2A54D70E827302CDF5F11D7C43FA0EC987042C36628E64B2B721A1426E36",
-      "maintainer": "cryptogospod",
-      "location": "BG",
+      "public_key": "7A6098B590BDC73F9723FC59F82B3F9085A64D1B213AAF8E610FD351930D052D",
+      "maintainer": "AnthonyBilinski",
+      "location": "US",
       "status_udp": true,
       "status_tcp": true,
-      "version": "1000002012",
-      "motd": "BG tox-bootstrapd node, courtesy of DCNTRLZD NETWORK. Get in touch at 03279E64D53B1B71DFB35F4F5568B448B015F467C0C6F73FB52C9CCF86C78A45DB83C24E7DF2",
-      "last_ping": 1640710392
+      "version": "1000002013",
+      "motd": "Running https://github.com/toktok/c-toxcore v0.2.13. qTox best Tox! Contact: AC18841E56CCDEE16E93E10E6AB2765BE54277D67F1372921B5B418A6B330D3D3FAFA60B0931",
+      "last_ping": 1668460738
     },
     {
       "ipv4": "46.101.197.175",
@@ -248,9 +180,9 @@
       "location": "DE",
       "status_udp": true,
       "status_tcp": true,
-      "version": "1000002012",
-      "motd": "Batcave lockdown lifted",
-      "last_ping": 1640710393
+      "version": "1000002018",
+      "motd": "Power to Ukraine!",
+      "last_ping": 1668460739
     },
     {
       "ipv4": "tox1.mf-net.eu",
@@ -265,9 +197,9 @@
       "location": "DE",
       "status_udp": true,
       "status_tcp": true,
-      "version": "1000002012",
+      "version": "1000002018",
       "motd": "tox-bootstrapd",
-      "last_ping": 1640710392
+      "last_ping": 1668460740
     },
     {
       "ipv4": "tox2.mf-net.eu",
@@ -282,17 +214,17 @@
       "location": "DE",
       "status_udp": true,
       "status_tcp": true,
-      "version": "1000002012",
+      "version": "1000002018",
       "motd": "tox-bootstrapd",
-      "last_ping": 1640710393
+      "last_ping": 1668460739
     },
     {
       "ipv4": "195.201.7.101",
       "ipv6": "-",
       "port": 33445,
       "tcp_ports": [
-        3389,
-        33445
+        33445,
+        3389
       ],
       "public_key": "B84E865125B4EC4C368CD047C72BCE447644A2DC31EF75BD2CDA345BFD310107",
       "maintainer": "tux1973",
@@ -301,7 +233,25 @@
       "status_tcp": true,
       "version": "1000002012",
       "motd": "tox-bootstrapd",
-      "last_ping": 1640710392
+      "last_ping": 1668460740
+    },
+    {
+      "ipv4": "tox4.plastiras.org",
+      "ipv6": "-",
+      "port": 33445,
+      "tcp_ports": [
+        33445,
+        443,
+        3389
+      ],
+      "public_key": "836D1DA2BE12FE0E669334E437BE3FB02806F1528C2B2782113E0910C7711409",
+      "maintainer": "Tha_14",
+      "location": "MD",
+      "status_udp": true,
+      "status_tcp": true,
+      "version": "1000002018",
+      "motd": "Add me on Tox: F0AA7C8C55552E8593B2B77AC6FCA598A40D1F5F52A26C2322690A4BF1DFCB0DD8AEDD2822FF",
+      "last_ping": 1668460739
     },
     {
       "ipv4": "gt.sot-te.ch",
@@ -315,33 +265,17 @@
       "location": "JP",
       "status_udp": true,
       "status_tcp": true,
-      "version": "1000002013",
+      "version": "1000002018",
       "motd": "SOT-TECH NPO",
-      "last_ping": 1640710392
-    },
-    {
-      "ipv4": "209.59.144.175",
-      "ipv6": "-",
-      "port": 33445,
-      "tcp_ports": [
-        33445
-      ],
-      "public_key": "214B7FEA63227CAEC5BCBA87F7ABEEDB1A2FF6D18377DD86BF551B8E094D5F1E",
-      "maintainer": "LasersAreGreat",
-      "location": "US",
-      "status_udp": true,
-      "status_tcp": true,
-      "version": "",
-      "motd": "",
-      "last_ping": 1640710392
+      "last_ping": 1668460740
     },
     {
       "ipv4": "188.225.9.167",
       "ipv6": "209:dead:ded:4991:49f3:b6c0:9869:3019",
       "port": 33445,
       "tcp_ports": [
-        3389,
-        33445
+        33445,
+        3389
       ],
       "public_key": "1911341A83E02503AB1FD6561BD64AF3A9D6C3F12B5FBB656976B2E678644A67",
       "maintainer": "Nikat",
@@ -350,41 +284,24 @@
       "status_tcp": true,
       "version": "1000002013",
       "motd": "First yggdrasil tox bootstrapd!!!\nYou can read about it here: https://yggdrasil-network.github.io/",
-      "last_ping": 1640710393
-    },
-    {
-      "ipv4": "rs.tox.dcntrlzd.network",
-      "ipv6": "-",
-      "port": 33445,
-      "tcp_ports": [
-        33445,
-        3389
-      ],
-      "public_key": "FC4BADF62DCAF17168A4E3ACAD5D656CF424EDB5E0C0C2B9D77E509E74BD8F0D",
-      "maintainer": "cryptogospod",
-      "location": "RS",
-      "status_udp": true,
-      "status_tcp": true,
-      "version": "1000002012",
-      "motd": "RS tox-bootstrapd node, courtesy of DCNTRLZD NETWORK. Get in touch @ 03279E64D53B1B71DFB35F4F5568B448B015F467C0C6F73FB52C9CCF86C78A45DB83C24E7DF2",
-      "last_ping": 1640710392
+      "last_ping": 1668460739
     },
     {
       "ipv4": "122.116.39.151",
       "ipv6": "2001:b011:8:2f22:1957:7f9d:e31f:96dd",
       "port": 33445,
       "tcp_ports": [
-        3389,
-        33445
+        33445,
+        3389
       ],
       "public_key": "5716530A10D362867C8E87EE1CD5362A233BAFBBA4CF47FA73B7CAD368BD5E6E",
       "maintainer": "miaoski",
       "location": "TW",
       "status_udp": true,
       "status_tcp": true,
-      "version": "1000002010",
+      "version": "1000002018",
       "motd": "tox-bootstrapd",
-      "last_ping": 1640710392
+      "last_ping": 1668460739
     },
     {
       "ipv4": "195.123.208.139",
@@ -399,25 +316,26 @@
       "location": "LV",
       "status_udp": true,
       "status_tcp": true,
-      "version": "1000002009",
+      "version": "1000002013",
       "motd": "😺 meow moew",
-      "last_ping": 1640710392
+      "last_ping": 1668460740
     },
     {
-      "ipv4": "208.38.228.104",
-      "ipv6": "-",
+      "ipv4": "tox3.plastiras.org",
+      "ipv6": "tox3.plastiras.org",
       "port": 33445,
       "tcp_ports": [
-        33445
+        33445,
+        3389
       ],
-      "public_key": "3634666A51CA5BE1579C031BD31B20059280EB7C05406ED466BD9DFA53373271",
-      "maintainer": "LasersAreGreat",
-      "location": "US",
+      "public_key": "4B031C96673B6FF123269FF18F2847E1909A8A04642BBECD0189AC8AEEADAF64",
+      "maintainer": "Tha_14",
+      "location": "DE",
       "status_udp": true,
       "status_tcp": true,
-      "version": "",
-      "motd": "",
-      "last_ping": 1640710392
+      "version": "1000002018",
+      "motd": "Add me on Tox: F0AA7C8C55552E8593B2B77AC6FCA598A40D1F5F52A26C2322690A4BF1DFCB0DD8AEDD2822FF",
+      "last_ping": 1668460739
     },
     {
       "ipv4": "104.225.141.59",
@@ -429,9 +347,27 @@
       "location": "US",
       "status_udp": true,
       "status_tcp": false,
-      "version": "1000002009",
+      "version": "1000002018",
       "motd": "True peace is in Jesus Matt 11:28-30 Tox ID: 07D7B9018C5C724A2E9EB34C60782F78B7BDF64D5316946EF49F8E6A20F26B4631FEC281D6A4",
-      "last_ping": 1640710392
+      "last_ping": 1668460738
+    },
+    {
+      "ipv4": "139.162.110.188",
+      "ipv6": "2400:8902::f03c:93ff:fe69:bf77",
+      "port": 33445,
+      "tcp_ports": [
+        33445,
+        3389,
+        443
+      ],
+      "public_key": "F76A11284547163889DDC89A7738CF271797BF5E5E220643E97AD3C7E7903D55",
+      "maintainer": "ToxTom",
+      "location": "CA",
+      "status_udp": true,
+      "status_tcp": true,
+      "version": "1000002013",
+      "motd": "ToxTom",
+      "last_ping": 1668460739
     },
     {
       "ipv4": "198.98.49.206",
@@ -445,9 +381,9 @@
       "location": "US",
       "status_udp": true,
       "status_tcp": true,
-      "version": "1000002009",
+      "version": "1000002013",
       "motd": "Tox",
-      "last_ping": 1640710392
+      "last_ping": 1668460740
     },
     {
       "ipv4": "172.105.109.31",
@@ -461,26 +397,9 @@
       "location": "CA",
       "status_udp": true,
       "status_tcp": true,
-      "version": "1000002012",
-      "motd": "FrozenDev Node: tox-bootstrapd",
-      "last_ping": 1640710392
-    },
-    {
-      "ipv4": "ru.tox.dcntrlzd.network",
-      "ipv6": "-",
-      "port": 33445,
-      "tcp_ports": [
-        33445,
-        3389
-      ],
-      "public_key": "DBB2E896990ECC383DA2E68A01CA148105E34F9B3B9356F2FE2B5096FDB62762",
-      "maintainer": "cryptogospod",
-      "location": "RU",
-      "status_udp": true,
-      "status_tcp": true,
-      "version": "1000002012",
-      "motd": "RU tox-bootstrapd node, courtesy of DCNTRLZD NETWORK. Get in touch @ 03279E64D53B1B71DFB35F4F5568B448B015F467C0C6F73FB52C9CCF86C78A45DB83C24E7DF2",
-      "last_ping": 1640710392
+      "version": "1000002018",
+      "motd": "FrozenDev Node: tox-bootstrapd Add me on tox: A625D9E9EAAA7B40C399F50BA8B255836EE5A09B6DD0C54CF0E190E24544DC39237D6389FAED",
+      "last_ping": 1668460740
     },
     {
       "ipv4": "91.146.66.26",
@@ -494,7 +413,7 @@
       "status_tcp": false,
       "version": "1000002013",
       "motd": "tox-bootstrapd 91.146.66.26",
-      "last_ping": 1640710392
+      "last_ping": 1668460738
     },
     {
       "ipv4": "tox01.ky0uraku.xyz",
@@ -510,7 +429,7 @@
       "status_tcp": true,
       "version": "1000002013",
       "motd": "ky0uraku tox01 node",
-      "last_ping": 1640710392
+      "last_ping": 1668460740
     },
     {
       "ipv4": "tox02.ky0uraku.xyz",
@@ -524,68 +443,85 @@
       "location": "FR",
       "status_udp": true,
       "status_tcp": true,
-      "version": "1000002013",
+      "version": "1000002016",
       "motd": "ky0uraku tox02 node",
-      "last_ping": 1640710392
-    },
-    {
-      "ipv4": "43.231.185.239",
-      "ipv6": "-",
-      "port": 33445,
-      "tcp_ports": [
-        3389,
-        33445
-      ],
-      "public_key": "27D4029A96C9674C15B958011C62F63D4D35A23142EF2BA5CD9AF164162B3448",
-      "maintainer": "Jskmm",
-      "location": "US",
-      "status_udp": true,
-      "status_tcp": true,
-      "version": "1000002013",
-      "motd": "My ID is: 7F6D60270605FD96C32667BC4C9735DF3CBD87C69BBE7AA240AA975DE22A7F19E07AA6E26F30",
-      "last_ping": 1640710392
+      "last_ping": 1668460740
     },
     {
       "ipv4": "tox.plastiras.org",
-      "ipv6": "-",
+      "ipv6": "tox.plastiras.org",
       "port": 33445,
       "tcp_ports": [
-        443,
-        33445
+        33445,
+        443
       ],
       "public_key": "8E8B63299B3D520FB377FE5100E65E3322F7AE5B20A0ACED2981769FC5B43725",
       "maintainer": "Tha_14",
       "location": "LU",
       "status_udp": true,
       "status_tcp": true,
-      "version": "1000002013",
-      "motd": "Tox me: F0AA7C8C55552E8593B2B77AC6FCA598A40D1F5F52A26C2322690A4BF1DFCB0DD8AEDD2822FF",
-      "last_ping": 1640710393
+      "version": "1000002018",
+      "motd": "Add me on Tox: F0AA7C8C55552E8593B2B77AC6FCA598A40D1F5F52A26C2322690A4BF1DFCB0DD8AEDD2822FF",
+      "last_ping": 1668460739
     },
     {
-      "ipv4": "5.19.249.240",
-      "ipv6": "-",
-      "port": 38296,
+      "ipv4": "kusoneko.moe",
+      "ipv6": "kusoneko.moe",
+      "port": 33445,
       "tcp_ports": [
-        3389,
-        38296
+        33445
       ],
-      "public_key": "DA98A4C0CD7473A133E115FEA2EBDAEEA2EF4F79FD69325FC070DA4DE4BA3238",
-      "maintainer": "Toxdaemon",
-      "location": "RU",
-      "status_udp": false,
+      "public_key": "BE7ED53CD924813507BA711FD40386062E6DC6F790EFA122C78F7CDEEE4B6D1B",
+      "maintainer": "Kusoneko",
+      "location": "CA",
+      "status_udp": true,
       "status_tcp": true,
-      "version": "",
-      "motd": "",
-      "last_ping": 1640710393
+      "version": "1000002013",
+      "motd": "Managed by kusoneko (ID:D8E4A5E926A4E7A85FA40F8CA55D47554F043D3C5CDB457187726F19CE20E52C0D7C3FCE9466)",
+      "last_ping": 1668460738
+    },
+    {
+      "ipv4": "tox2.plastiras.org",
+      "ipv6": "tox2.plastiras.org",
+      "port": 33445,
+      "tcp_ports": [
+        33445,
+        3389
+      ],
+      "public_key": "B6626D386BE7E3ACA107B46F48A5C4D522D29281750D44A0CBA6A2721E79C951",
+      "maintainer": "Tha_14",
+      "location": "DE",
+      "status_udp": true,
+      "status_tcp": true,
+      "version": "1000002018",
+      "motd": "Add me on Tox: F0AA7C8C55552E8593B2B77AC6FCA598A40D1F5F52A26C2322690A4BF1DFCB0DD8AEDD2822FF",
+      "last_ping": 1668460739
+    },
+    {
+      "ipv4": "172.104.215.182",
+      "ipv6": "2600:3c03::f03c:93ff:fe7f:6096",
+      "port": 33445,
+      "tcp_ports": [
+        33445,
+        3389,
+        443
+      ],
+      "public_key": "DA2BD927E01CD05EBCC2574EBE5BEBB10FF59AE0B2105A7D1E2B40E49BB20239",
+      "maintainer": "zero-one",
+      "location": "US",
+      "status_udp": true,
+      "status_tcp": true,
+      "version": "1000002018",
+      "motd": "tox-bootstrapd",
+      "last_ping": 1668460738
     },
     {
       "ipv4": "NONE",
       "ipv6": "2607:f130:0:f8::4c85:a645",
       "port": 33445,
       "tcp_ports": [
-        33445,
-        3389
+        3389,
+        33445
       ],
       "public_key": "8AFE1FC6426E5B77AB80318ED64F5F76341695B9FB47AB8AC9537BF5EE9E9D29",
       "maintainer": "Busindre",
@@ -594,7 +530,24 @@
       "status_tcp": true,
       "version": "",
       "motd": "",
-      "last_ping": 1640710392
+      "last_ping": 1668460738
+    },
+    {
+      "ipv4": "5.19.249.240",
+      "ipv6": "-",
+      "port": 38296,
+      "tcp_ports": [
+        38296,
+        3389
+      ],
+      "public_key": "DA98A4C0CD7473A133E115FEA2EBDAEEA2EF4F79FD69325FC070DA4DE4BA3238",
+      "maintainer": "Toxdaemon",
+      "location": "RU",
+      "status_udp": false,
+      "status_tcp": true,
+      "version": "",
+      "motd": "",
+      "last_ping": 1668460739
     }
   ]
 }
