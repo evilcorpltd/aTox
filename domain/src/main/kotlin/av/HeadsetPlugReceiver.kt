@@ -21,9 +21,8 @@ class HeadsetPlugReceiver : BroadcastReceiver() {
     private val _isPlugged = MutableStateFlow(false)
     val isPlugged: StateFlow<Boolean> = _isPlugged.asStateFlow()
 
-
     private fun checkStateOff(intent: Intent) {
-        Log.d(logTag, "[HeadsetPlugReceiver.checkStateOff]")
+        Log.d(logTag, "[HeadsetPlugReceiver.checkStateOff] intent: $intent")
     }
 
     private fun sendEvent(intent: Intent) {
