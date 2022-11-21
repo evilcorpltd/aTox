@@ -155,4 +155,9 @@
     <string name="pref_disabled_tox_error">Disabilitato a causa di un errore all\'avvio di Tox</string>
     <string name="pref_confirm_quitting">Conferma l\'uscita dall\'app</string>
     <string name="file_not_found">File non trovato</string>
+    <string name="export_history_success">Cronologia dei messaggi esportata</string>
+    <string name="call_confirm">Sei sicuro/a di voler chiamare\?</string>
+    <string name="export_history">Esporta la cronologia</string>
+    <string name="pref_confirm_calling">Conferma la chiamata</string>
+    <string name="export_history_failure">L\'esportazione della cronologia dei messaggi non è riuscita: %1$s</string>
 </resources>

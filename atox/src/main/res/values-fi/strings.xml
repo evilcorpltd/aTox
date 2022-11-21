@@ -101,4 +101,12 @@
     <string name="pref_confirm_password">Vahvista uusi salasana</string>
     <string name="pref_block_screenshots">Estä kuvakaappaukset aToxista</string>
     <string name="password_updated">Salasana päivitetty</string>
+    <string name="microphone_control">Mikrofonin ohjaus</string>
+    <string name="contact_list_delete_contact_confirm">Haluatko todella poistaa ”%1$s” yhteystiedoista\?</string>
+    <string name="tox_id_error_self_add">Et voi lisätä itseäsi</string>
+    <string name="file_not_found">Tiedostoa ei löytynyt</string>
+    <string name="export_history">Vie historiaa</string>
+    <string name="export_history_success">Viestihistoria viety</string>
+    <string name="export_history_failure">Viestihistorian vienti epäonnistui: %1$s</string>
+    <string name="seconds">Sekuntia</string>
 </resources>

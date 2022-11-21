@@ -34,7 +34,7 @@
     <string name="tox_id_share">Tox-ID teilen</string>
     <string name="update">Aktualisieren</string>
     <string name="quit">Beenden</string>
-    <string name="quit_confirm">Bist du sicher, dass du dich ausloggen willst?</string>
+    <string name="quit_confirm">Bist du sicher, dass du dich abmelden willst\?</string>
     <!-- Friend request notification -->
     <string name="friend_requests">Freundschaftsanfragen</string>
     <string name="friend_request_from">Freundschaftsanfrage von %1$s</string>
@@ -158,4 +158,9 @@
     <string name="pref_disabled_tox_error">Deaktiviert wegen eines Fehlers beim Starten von Tox</string>
     <string name="pref_confirm_quitting">Das Beenden der Anwendung bestätigen</string>
     <string name="file_not_found">Datei nicht gefunden</string>
+    <string name="export_history">Verlauf exportieren</string>
+    <string name="export_history_failure">Der Export des Nachrichtenverlaufs ist fehlgeschlagen: %1$s</string>
+    <string name="export_history_success">Nachrichtenverlauf exportiert</string>
+    <string name="call_confirm">Bist du sicher, dass du anrufen willst\?</string>
+    <string name="pref_confirm_calling">Anruf bestätigen</string>
 </resources>
