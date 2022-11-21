@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="pref_block_screenshots_description">Bu **sadece** **sizin** cihazınızdaki ekran görüntüsü almayı engeller ve kayıtlı kişilerinizin kendi cihazlarından alacağı ekran görüntüsü almalarına veya konuşmalarınızı kaydetmelerine yönelik herhangi bir engel/koruma sağlamaz</string>
+    <string name="pref_block_screenshots_description">Bu **yalnızca** **sizin** aygıtınızda ekran görüntüsü almayı engeller ve kayıtlı kişilerinizin kendi aygıtlarından ekran görüntüsü almalarına veya konuşmalarınızı kaydetmelerine yönelik herhangi bir engel/koruma sağlamaz</string>
     <string name="pref_nospam_description">SpamYok\'unuzu değiştirmek Tox Kimliğinizi günceller, bunun anlamı arkadaşlık istekleriniz artık bu güncellenmiş kimliğe gönderilmek zorundadır</string>
     <string name="in_call_with">%1$s ile konuşuyor</string>
     <string name="contact_list_delete_contact_confirm">Gerçekten \"%1$s\" kişisini listenizden silmek istiyor musunuz\?</string>
@@ -114,7 +114,7 @@
     <string name="quit">Çık</string>
     <string name="update">Güncelle</string>
     <string name="tox_id_share">Tox Kimliğini Paylaş</string>
-    <string name="tox_id_error_hex">Sadece hex sağlanmalıdır</string>
+    <string name="tox_id_error_hex">Yalnızca onaltılık sağlanmalıdır</string>
     <string name="tox_id_error_checksum">Geçersiz sağlama toplamı</string>
     <string name="tox_id_error_length">Tox Kimliği 76 karakter olmak zorunda (%1$d/76)</string>
     <string name="tox_id">Tox Kimliği</string>
@@ -153,4 +153,11 @@
     <string name="share">Paylaş</string>
     <string name="mark_as_read">Okundu olarak işaretle</string>
     <string name="pref_disabled_tox_error">Tox başlatma hatası nedeniyle devre dışı bırakıldı</string>
+    <string name="pref_confirm_quitting">Uygulamadan çıkmayı onayla</string>
+    <string name="file_not_found">Dosya bulunamadı</string>
+    <string name="export_history">Geçmişi dışa aktar</string>
+    <string name="export_history_success">İleti geçmişi dışa aktarıldı</string>
+    <string name="export_history_failure">İleti geçmişi dışa aktarılamadı: %1$s</string>
+    <string name="call_confirm">Aramak istediğinizden emin misiniz\?</string>
+    <string name="pref_confirm_calling">Aramayı onayla</string>
 </resources>
