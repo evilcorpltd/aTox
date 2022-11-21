@@ -153,4 +153,6 @@
     <string name="share">Condividi</string>
     <string name="mark_as_read">Segna come letto</string>
     <string name="pref_disabled_tox_error">Disabilitato a causa di un errore all\'avvio di Tox</string>
+    <string name="pref_confirm_quitting">Conferma l\'uscita dall\'app</string>
+    <string name="file_not_found">File non trovato</string>
 </resources>

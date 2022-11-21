@@ -153,4 +153,6 @@
     <string name="share">Partager</string>
     <string name="mark_as_read">Marquer comme lu</string>
     <string name="pref_disabled_tox_error">Désactivé en raison d\'une erreur de démarrage de Tox</string>
+    <string name="pref_confirm_quitting">Confirmer la sortie de l\'appli</string>
+    <string name="file_not_found">Fichier introuvable</string>
 </resources>
