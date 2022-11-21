@@ -153,4 +153,11 @@
     <string name="mark_as_read">Označ ako prečítané</string>
     <string name="channel_profile_locked_explanation">Zobraz v prípade že tvoj profil je treba najprv odomknúť aby sa aTox mohol spustiť</string>
     <string name="pref_disabled_tox_error">Vypnuté kvôli chybe pri štarte Tox-u</string>
+    <string name="pref_confirm_quitting">Potvrdzovať ukončenie aplikácie</string>
+    <string name="file_not_found">Súbor nebol nájdený</string>
+    <string name="export_history">Exportovať históriu</string>
+    <string name="pref_confirm_calling">Potvrdiť hovor</string>
+    <string name="export_history_failure">Export histórie správ zlyhal lebo: %1$s</string>
+    <string name="call_confirm">Ste si istý, že chcete zavolať\?</string>
+    <string name="export_history_success">História správ bola exportovaná</string>
 </resources>
