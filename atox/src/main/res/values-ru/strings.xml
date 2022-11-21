@@ -76,7 +76,7 @@
     <string name="pref_heading_general">Основные</string>
     <string name="pref_run_at_startup">Запускать при загрузке Android</string>
     <string name="friend_request">Запрос в друзья</string>
-    <string name="status_available">На связи</string>
+    <string name="status_available">Доступен/Доступна</string>
     <string name="status_away">Отошёл/Отошла</string>
     <string name="status_busy">Занят/Занята</string>
     <string name="from">От</string>
