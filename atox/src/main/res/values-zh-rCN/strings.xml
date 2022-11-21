@@ -155,4 +155,12 @@
     <string name="pref_disabled_tox_error">由于启动 Tox 错误而被禁用</string>
     <string name="pref_confirm_quitting">确认应用退出</string>
     <string name="file_not_found">未找到文件</string>
+    <string name="backup_history">备份历史</string>
+    <string name="backup_history_success">已导出消息历史</string>
+    <string name="backup_history_failure">消息历史导出失败</string>
+    <string name="export_history">导出历史</string>
+    <string name="export_history_success">消息历史已导出</string>
+    <string name="export_history_failure">消息历史导出失败：%1$s</string>
+    <string name="call_confirm">你确定要打电话吗？</string>
+    <string name="pref_confirm_calling">确认打电话</string>
 </resources>
