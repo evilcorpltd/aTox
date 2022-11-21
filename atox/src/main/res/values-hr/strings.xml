@@ -152,4 +152,12 @@
     <string name="error_simultaneous_calls">Sudjelovanje u više poziva istovremeno nije podržano</string>
     <string name="share">Dijeli</string>
     <string name="mark_as_read">Označi kao pročitano</string>
+    <string name="pref_disabled_tox_error">Deaktivirano zbog greške prilikom pokretanja Toxa</string>
+    <string name="pref_confirm_quitting">Potvrdi zatvaranje programa</string>
+    <string name="file_not_found">Datoteka nije pronađena</string>
+    <string name="export_history_success">Povijest poruka je izvezena</string>
+    <string name="call_confirm">Stvarno želiš nazvati\?</string>
+    <string name="pref_confirm_calling">Potvrdi poziv</string>
+    <string name="export_history">Izvezi povijest</string>
+    <string name="export_history_failure">Neuspio izvoz povijesti poruka: %1$s</string>
 </resources>
