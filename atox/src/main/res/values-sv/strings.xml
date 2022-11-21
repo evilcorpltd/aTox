@@ -155,4 +155,9 @@
     <string name="pref_disabled_tox_error">Inaktiverat p.g.a. fel vid Tox-start</string>
     <string name="pref_confirm_quitting">Bekräfta avslut av appen</string>
     <string name="file_not_found">Filen hittades inte</string>
+    <string name="export_history">Exportera historik</string>
+    <string name="export_history_success">Meddelandehistorik exporterad</string>
+    <string name="call_confirm">Är du säker på att du vill ringa\?</string>
+    <string name="pref_confirm_calling">Samtalsbekräftelse</string>
+    <string name="export_history_failure">Meddelandehistoriken kunde inte exporteras: %1$s</string>
 </resources>
