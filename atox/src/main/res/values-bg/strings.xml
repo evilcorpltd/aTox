@@ -60,7 +60,7 @@
     <string name="pref_proxy_type_http">HTTP</string>
     <string name="pref_proxy_type_socks5">SOCKS5</string>
     <string name="pref_heading_advanced">Разширени</string>
-    <string name="pref_heading_bootstrap_nodes">Източник за стартиране</string>
+    <string name="pref_heading_bootstrap_nodes">Източник bootstrap node</string>
     <string name="pref_bootstrap_node_builtin">Вграден</string>
     <string name="pref_bootstrap_node_user_provided">Предоставен от потребителя</string>
     <string name="pref_bootstrap_nodes_description">Предоставените от потребителя JSON файлове трябва да имат същия формат като този https://nodes.tox.chat/json</string>
@@ -90,8 +90,8 @@
     <string name="export_file_failure">Нещо се обърка при експортирането. Преводите преди 0.5.1 бяха експортирани по подразбиране.</string>
     <string name="draft_message">Чернова: %1$s</string>
     <string name="pref_heading_address">Адрес</string>
-    <string name="pref_heading_proxy">Proxy</string>
-    <string name="proxy_not_found">Proxy не е намерен</string>
+    <string name="pref_heading_proxy">Прокси</string>
+    <string name="proxy_not_found">Прокси не е намерен</string>
     <string name="bad_type">Неправилен тип</string>
     <string name="bad_host">Неправилен host</string>
     <string name="bad_port">Неправилен port</string>
@@ -107,7 +107,7 @@
     <string name="calls">Обаждания</string>
     <string name="ongoing_call">Текущо обаждане</string>
     <string name="in_call_with">В разговор с %1$s</string>
-    <string name="pref_nospam_description">Промяната на вашия NoSpam променя вашия Tox ID, което означава, че заявките за приятелство трябва да се изпращат за актуализирания</string>
+    <string name="pref_nospam_description">Промяната на вашия Без Spam променя вашия Tox ID, което означава, че заявките за приятелство трябва да се изпращат за актуализирания</string>
     <string name="pref_disabled_tox_error">Деактивирано поради грешка при стартиране на Tox</string>
     <string name="saved">Запазено</string>
     <string name="delete_message">Изтриване на съобщение</string>
@@ -139,7 +139,7 @@
     <string name="tox_service_running">aTox работи…</string>
     <string name="pref_heading_network">Мрежа</string>
     <string name="pref_udp_enabled">UDP е активиран</string>
-    <string name="warn_proxy_broken">Настройте правилно proxy (или го изключете), преди да използвате приложението</string>
+    <string name="warn_proxy_broken">Настройте правилно прокси (или го изключете), преди да използвате приложението</string>
     <string name="pref_heading_port">Порт</string>
     <string name="error_no_nodes_loaded">Не може да се заредят bootstrap nodes, моля, превключете към вградени bootstrap nodes или импортирайте отново</string>
     <string name="error_simultaneous_calls">Участието в множество разговори по едно и също време не се поддържа</string>
