@@ -153,4 +153,11 @@
     <string name="mark_as_read">Marcar como lido</string>
     <string name="share">Compartilhar</string>
     <string name="pref_disabled_tox_error">Desativado devido a um erro ao iniciar o Tox</string>
+    <string name="pref_confirm_quitting">Conformar saída da aplicação</string>
+    <string name="file_not_found">Ficheiro não encontrado</string>
+    <string name="export_history_failure">Falha na exportação do histórico de mensagens: %1$s</string>
+    <string name="pref_confirm_calling">Confirmar chamada</string>
+    <string name="call_confirm">Quer mesmo fazer a chamada\?</string>
+    <string name="export_history">Exportar histórico</string>
+    <string name="export_history_success">Histórico de mensagens exportado</string>
 </resources>
