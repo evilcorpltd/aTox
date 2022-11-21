@@ -146,4 +146,13 @@
     <string name="pref_block_screenshots">Blokuoti aTox ekrano nuotraukas</string>
     <string name="return_to_chat">Grįžti į pokalbį</string>
     <string name="speakerphone_toggle">Perjungti garsiakalbį</string>
+    <string name="pref_confirm_quitting">Patvirtinti išėjimą iš programos</string>
+    <string name="share">Bendrinti</string>
+    <string name="mark_as_read">Pažymėti kaip perskaitytą</string>
+    <string name="error_simultaneous_calls">Dalyvavimas keliuose skambučiuose vienu metu nepalaikomas</string>
+    <string name="channel_profile_locked_explanation">Siunčiama, kai reikia atrakinti profilį, kad būtų galima paleisti aTox</string>
+    <string name="atox_profile_locked">aTox profilis užrakintas</string>
+    <string name="pref_disabled_tox_error">Išjungta dėl klaidos paleidžiant Tox</string>
+    <string name="tap_to_unlock_and_start_atox">Bakstelėkite, kad atrakinti savo profilį ir paleisti aTox</string>
+    <string name="file_not_found">Failas nerastas</string>
 </resources>
