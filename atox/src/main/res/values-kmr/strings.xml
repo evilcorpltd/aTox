@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accept">qabul bike</string>
+    <string name="add_contact_message_error_empty">Destpêkê tiștekê binivîze</string>
+    <string name="confirm">tesdîq bike</string>
+    <string name="connecting">Girê didin…</string>
+    <string name="contact_typing">Ew dinivîze…</string>
+    <string name="copied">Hat kopîkirin</string>
+    <string name="copy_atox">Kopî bike</string>
+    <string name="create_a_tox_profile">Toxê xwe çêke</string>
+    <string name="delete_contact">Têkeliyekê sil bike</string>
+    <string name="message">Mesaj</string>
+    <string name="messages">Mesajan</string>
+    <string name="messages_incoming">Mesajan hatinî</string>
+    <string name="name">Nav</string>
+    <string name="name_default">Bikaranîvana aTox</string>
+    <string name="no_contacts_call_to_action">Tu li benda çi yî\? Ji bo destpêkirinê pêwendiyekê lê zêde bike!</string>
+    <string name="navigation_drawer_close">Berkêşka navîgasyonê bigire</string>
+    <string name="navigation_drawer_open">Berkêşka navîgasyonê veke</string>
+    <string name="profile_photo_description">Wênêya profîlê</string>
+    <string name="reject">Qabul neke</string>
+    <string name="send">Bişîne</string>
+    <string name="sending">Dişîne…</string>
+    <string name="settings">Mîheng</string>
+    <string name="status_message">Mesaja rewșê</string>
+    <string name="status_message_default">Ji te re zindî anî, ji aToxê</string>
+    <string name="add_contact_message_default">Bi min re biaxive weke ez insan im.</string>
+    <string name="create">Çêke</string>
+    <string name="add_contact">Têkelî lêzêde bike</string>
+    <string name="status_indicator">Nîşandera rewşê</string>
+</resources>
