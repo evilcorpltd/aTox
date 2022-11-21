@@ -134,7 +134,6 @@
     <string name="pref_new_password">Kata sandi baru</string>
     <string name="receive_share_share_to">Bagikan ke…</string>
     <string name="contact_list_delete_contact_confirm">Hapus \"%1$s\" dari kontak\?</string>
-    <string name="error_simultaneous_calls"></string>
     <string name="in_call_with">Dalam panggilan dengan %1$s</string>
     <string name="incoming_call_from">Panggilan masuk dari %1$s</string>
     <string name="unlock_profile">Buka kunci profil</string>
