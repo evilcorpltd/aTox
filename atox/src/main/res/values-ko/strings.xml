@@ -55,7 +55,7 @@
     <string name="pref_proxy_type_http">HTTP</string>
     <string name="pref_proxy_type_socks5">SOCKS5</string>
     <string name="pref_bootstrap_node_user_provided">사용자 제공</string>
-    <string name="pref_bootstrap_nodes_description">사용자 제공 JSON 파일은 https://nodes.tox.chat/json과 동일한 형식이어야 함</string>
+    <string name="pref_bootstrap_nodes_description">사용자 제공 JSON 파일은 https://nodes.tox.chat/json 과 동일한 형식이어야 함</string>
     <string name="send_as_action">액션 보내기</string>
     <string name="or_import_existing_save">또는 기존 Tox 저장 가져오기</string>
     <string name="profile_information">프로필 정보</string>
@@ -124,7 +124,7 @@
     <string name="pref_block_screenshots_description">이렇게 하면 장치의 스크린샷만 차단되며 연락처가 스크린샷을 찍거나 대화를 저장하는 것을 방지할 수 없음</string>
     <string name="return_to_chat">채팅으로 돌아가기</string>
     <string name="speakerphone_toggle">스피커폰 전환</string>
-    <string name="channel_profile_locked_explanation">Tox를 실행하기 위해 프로필을 잠금 해제해야 할 때 전송됨</string>
+    <string name="channel_profile_locked_explanation">aTox를 실행하기 위해 프로필을 잠금 해제해야 할 때 전송됨</string>
     <string name="atox_profile_locked">aTox 프로필 잠김</string>
     <string name="tap_to_unlock_and_start_atox">프로필을 잠금 해제하고 aTox를 시작하려면 탭</string>
     <string name="share">공유</string>

@@ -155,4 +155,9 @@
     <string name="pref_disabled_tox_error">Відключено у зв\'язку з помилкою при запуску Tox</string>
     <string name="pref_confirm_quitting">Підтвердження виходу із програми</string>
     <string name="file_not_found">Файл не знайдено</string>
+    <string name="export_history_failure">Експортування історії повідомлень не вдалося: %1$s</string>
+    <string name="export_history_success">Історія повідомлень експортована</string>
+    <string name="export_history">Експортувати історію</string>
+    <string name="pref_confirm_calling">Підтвердити дзвінок</string>
+    <string name="call_confirm">Ви впевнені, що хочете здійснити дзвінок\?</string>
 </resources>
