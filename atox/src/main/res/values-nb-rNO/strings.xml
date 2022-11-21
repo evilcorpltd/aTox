@@ -152,4 +152,7 @@
     <string name="channel_profile_locked_explanation">Sendes når din profil må låses opp for at aTox skal kjøre</string>
     <string name="share">Del</string>
     <string name="mark_as_read">Marker som lest</string>
+    <string name="pref_disabled_tox_error">Avskrudd som følge av problem med oppstart av Tox</string>
+    <string name="pref_confirm_quitting">Bekreft avslutning av programmet</string>
+    <string name="file_not_found">Fant ikke filen</string>
 </resources>
