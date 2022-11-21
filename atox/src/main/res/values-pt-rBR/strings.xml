@@ -149,4 +149,11 @@
     <string name="pref_ft_auto_accept_none">Nenhum</string>
     <string name="return_to_chat">Voltar ao chat</string>
     <string name="speakerphone_toggle">Alternar viva-voz</string>
+    <string name="pref_disabled_tox_error">Desativado devido a um erro ao iniciar o Tox</string>
+    <string name="channel_profile_locked_explanation">Enviado quando o seu perfil precisa ser desbloqueado para que o aTox funcione</string>
+    <string name="atox_profile_locked">Perfil de aTox bloqueado</string>
+    <string name="error_simultaneous_calls">A participação em várias chamadas ao mesmo tempo não é suportada</string>
+    <string name="tap_to_unlock_and_start_atox">Toque para desbloquear o seu perfil e iniciar o aTox</string>
+    <string name="share">Compartilhar</string>
+    <string name="mark_as_read">Marcar como lido</string>
 </resources>
