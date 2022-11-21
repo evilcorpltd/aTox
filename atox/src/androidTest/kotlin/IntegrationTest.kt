@@ -53,9 +53,7 @@ class InjectedActivityTestRule<T : Activity>(
 class FakeSaveManager : SaveManager {
     override fun list(): List<String> = listOf()
     override fun load(pk: PublicKey): ByteArray? = null
-    override fun save(pk: PublicKey, saveData: ByteArray) {
-        // Do nothing.
-    }
+    override fun save(pk: PublicKey, saveData: ByteArray) {}
 }
 
 @Module
