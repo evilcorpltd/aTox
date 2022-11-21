@@ -158,9 +158,6 @@
     <string name="pref_disabled_tox_error">Desactivado debido a un error iniciando Tox</string>
     <string name="pref_confirm_quitting">Confirmar cierre de app</string>
     <string name="file_not_found">Archivo no encontrado</string>
-    <string name="backup_history">Historial de copias de seguridad</string>
-    <string name="backup_history_success">Historial de mensajes exportado</string>
-    <string name="backup_history_failure">Error al exportar el historial de mensajes</string>
     <string name="call_confirm">¿Está seguro de que desea llamar\?</string>
     <string name="pref_confirm_calling">Confirmar llamada</string>
     <string name="export_history">Exportar historial</string>
