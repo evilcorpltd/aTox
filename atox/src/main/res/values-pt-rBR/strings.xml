@@ -6,7 +6,7 @@
     <string name="add_contact_message_default">Fale comigo no aTox como um ser humano razoável.</string>
     <string name="add_contact_message_error_empty">Escreva algo para enviar primeiro</string>
     <string name="confirm">Confirmar</string>
-    <string name="connecting">Conectado…</string>
+    <string name="connecting">Conectando…</string>
     <string name="contact_typing">Escrevendo…</string>
     <string name="copied">Copiado</string>
     <string name="copy_atox">Copiar</string>
