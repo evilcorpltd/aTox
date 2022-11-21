@@ -153,4 +153,6 @@
     <string name="share">分享</string>
     <string name="mark_as_read">标记为已读</string>
     <string name="pref_disabled_tox_error">由于启动 Tox 错误而被禁用</string>
+    <string name="pref_confirm_quitting">确认应用退出</string>
+    <string name="file_not_found">未找到文件</string>
 </resources>
