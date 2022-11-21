@@ -6,9 +6,9 @@
     <string name="contact_typing">يكتب…</string>
     <string name="connecting">يتصل…</string>
     <string name="confirm">تأكيد</string>
-    <string name="add_contact_message_error_empty">اكتب شيء كي تُرسل اولاً</string>
-    <string name="add_contact">أضف جهة اتصال</string>
-    <string name="add">أضف</string>
+    <string name="add_contact_message_error_empty">اكتب شيئًا للإرسال</string>
+    <string name="add_contact">إضافة جهة اتصال</string>
+    <string name="add">إضافة</string>
     <string name="accept">إقبل</string>
     <string name="name">الاسم</string>
     <string name="friend_request_from">طلب صداقة من %1$s</string>
@@ -20,7 +20,7 @@
     <string name="bad_port">مفذ خاطئ</string>
     <string name="bad_host">الاستضافة خاطئة</string>
     <string name="send_as_action">أرسل كإجراء</string>
-    <string name="add_contact_message_default">تكلم معي علي aTox</string>
+    <string name="add_contact_message_default">تكلم معي علي aTox.</string>
     <string name="passwords_must_match">كلمة السر لا بد ان تتطابق</string>
     <string name="password_updated">تم تغيير كلمة السر</string>
     <string name="pref_confirm_password">تأكيد كلمة السر</string>

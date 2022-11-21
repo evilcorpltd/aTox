@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="accept">qabul bike</string>
+    <string name="accept">Qabul bike</string>
     <string name="add_contact_message_error_empty">Destpêkê tiștekê binivîze</string>
-    <string name="confirm">tesdîq bike</string>
+    <string name="confirm">Tesdîq bike</string>
     <string name="connecting">Girê didin…</string>
     <string name="contact_typing">Ew dinivîze…</string>
     <string name="copied">Hat kopîkirin</string>
