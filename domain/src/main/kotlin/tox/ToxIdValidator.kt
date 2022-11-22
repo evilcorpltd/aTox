@@ -4,8 +4,6 @@
 
 package ltd.evilcorp.domain.tox
 
-import ltd.evilcorp.domain.toHex
-
 private const val CHECKSUM_BLOCK_SIZE = 4
 
 class ToxIdValidator {
@@ -21,7 +19,7 @@ class ToxIdValidator {
             !toxID.string().matches(Regex("[0-9A-Fa-f]*")) -> Result.NOT_HEX
             toxID.string().length != TOX_ID_LENGTH -> Result.INCORRECT_LENGTH
             toxID.string().chunked(CHECKSUM_BLOCK_SIZE).map {
-                it.toHex()
+                it.toInt(radix = 16)
             }.fold(0) { b1, b2 -> b1 xor b2 } != 0 -> Result.INVALID_CHECKSUM
             else -> Result.NO_ERROR
         }
