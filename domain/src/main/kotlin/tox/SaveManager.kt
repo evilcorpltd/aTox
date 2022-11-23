@@ -22,12 +22,6 @@ interface SaveManager {
 class AndroidSaveManager @Inject constructor(val context: Context) : SaveManager {
     private val saveDir = context.filesDir
 
-    init {
-        if (!saveDir.exists()) {
-            saveDir.mkdir()
-        }
-    }
-
     override fun list(): List<String> = saveDir.listFiles()?.let { saves ->
         saves.filter { it.extension == "tox" }.map { it.nameWithoutExtension }
     } ?: listOf()
