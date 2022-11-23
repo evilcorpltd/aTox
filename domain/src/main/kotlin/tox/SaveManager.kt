@@ -20,7 +20,7 @@ interface SaveManager {
 }
 
 class AndroidSaveManager @Inject constructor(val context: Context) : SaveManager {
-    private val saveDir = context.filesDir
+    private val saveDir get() = context.filesDir
 
     override fun list(): List<String> = saveDir.listFiles()?.let { saves ->
         saves.filter { it.extension == "tox" }.map { it.nameWithoutExtension }
