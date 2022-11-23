@@ -22,23 +22,21 @@ interface SaveManager {
 class AndroidSaveManager @Inject constructor(val context: Context) : SaveManager {
     private val saveDir get() = context.filesDir
 
-    override fun list(): List<String> = saveDir.listFiles()?.let { saves ->
-        saves.filter { it.extension == "tox" }.map { it.nameWithoutExtension }
-    } ?: listOf()
+    override fun list(): List<String> =
+        saveDir.listFiles()?.filter { it.extension == "tox" }?.map(File::nameWithoutExtension) ?: listOf()
 
-    override fun save(pk: PublicKey, saveData: ByteArray) = AtomicFile(File("$saveDir/${pk.string()}.tox")).run {
+    override fun save(pk: PublicKey, saveData: ByteArray) = AtomicFile(fileFor(pk)).run {
         Log.i(TAG, "Saving profile to $baseFile")
         writeBytes(saveData)
     }
 
-    override fun load(pk: PublicKey): ByteArray? = tryReadBytes(File(pathTo(pk)))
-
-    private fun tryReadBytes(saveFile: File): ByteArray? =
+    override fun load(pk: PublicKey): ByteArray? = fileFor(pk).let { saveFile ->
         if (saveFile.exists()) {
             saveFile.readBytes()
         } else {
             null
         }
+    }
 
-    private fun pathTo(publicKey: PublicKey) = "$saveDir/${publicKey.string()}.tox"
+    private fun fileFor(pk: PublicKey) = File("$saveDir/${pk.string()}.tox")
 }
