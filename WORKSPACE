@@ -187,6 +187,7 @@ maven_install(
         "com.typesafe.scala-logging:scala-logging_2.11:3.7.2",
         "javax.inject:javax.inject:1",
         "junit:junit:4.13.1",
+        "org.jetbrains.kotlin:kotlin-test-junit:1.7.20",
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0",
         "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0",
         "org.jetbrains:annotations:13.0",

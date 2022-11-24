@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 aTox contributors
+// SPDX-FileCopyrightText: 2020-2022 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -12,10 +12,10 @@ import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.UserStatus
-import org.junit.Assert.assertArrayEquals
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertContentEquals
+import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 
 private fun byteArrayOf(vararg bytes: Int) = ByteArray(bytes.size) { bytes[it].toByte() }
 
@@ -95,9 +95,6 @@ class ToxUtilTest {
     @Test
     fun `casing of public keys does not matter`() {
         val keyString = "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39"
-        assertArrayEquals(
-            keyString.uppercase().hexToBytes(),
-            keyString.lowercase().hexToBytes(),
-        )
+        assertContentEquals(keyString.uppercase().hexToBytes(), keyString.lowercase().hexToBytes())
     }
 }

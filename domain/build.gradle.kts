@@ -84,7 +84,7 @@ dependencies {
     implementation(libs.jackson.core)
     implementation(libs.jackson.annotations)
 
-    testImplementation(libs.test.junit.core)
+    testImplementation(kotlin("test"))
     androidTestImplementation(libs.test.runner)
     androidTestImplementation(libs.test.junit.ext)
     androidTestImplementation(libs.google.guava.workaround)

@@ -20,7 +20,7 @@ kt_jvm_test(
     test_class = "ltd.evilcorp.core.db.ConvertersTest",
     deps = [
         "//core/src/main/kotlin/db",
-        "@maven//:junit_junit",
+        "@maven//:org_jetbrains_kotlin_kotlin_test_junit",
     ],
 )
 

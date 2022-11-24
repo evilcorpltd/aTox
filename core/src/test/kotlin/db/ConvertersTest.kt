@@ -8,8 +8,8 @@ import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.core.vo.UserStatus
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ConvertersTest {
     @Test

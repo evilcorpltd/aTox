@@ -50,7 +50,7 @@ dependencies {
     api(libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler)
 
-    testImplementation(libs.test.junit.core)
+    testImplementation(kotlin("test"))
 
     androidTestImplementation(libs.test.runner)
     androidTestImplementation(libs.test.junit.ext)
