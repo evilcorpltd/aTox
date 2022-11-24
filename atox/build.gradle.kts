@@ -85,8 +85,6 @@ dependencies {
 
     debugImplementation(libs.square.leakcanary)
 
-    testImplementation(libs.test.junit.core)
-
     androidTestImplementation(libs.test.rules)
     androidTestImplementation(libs.test.runner)
     androidTestImplementation(libs.test.espresso.core)
