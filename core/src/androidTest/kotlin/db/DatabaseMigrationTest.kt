@@ -17,10 +17,10 @@ import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.core.vo.UserStatus
-import org.junit.Assert.assertEquals
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 fun Boolean.toInt() = if (this) 1 else 0
 

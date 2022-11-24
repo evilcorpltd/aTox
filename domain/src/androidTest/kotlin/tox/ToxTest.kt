@@ -14,8 +14,8 @@ import kotlinx.coroutines.test.runTest
 import ltd.evilcorp.core.db.Database
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.UserRepository
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.test.Test
 
 class FakeBootstrapNodeRegistry : BootstrapNodeRegistry {
     override fun get(n: Int): List<BootstrapNode> = listOf()

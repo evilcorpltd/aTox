@@ -36,9 +36,9 @@ import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.SaveManager
 import org.hamcrest.core.AllOf.allOf
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
 import javax.inject.Singleton
+import kotlin.test.Test
 
 class InjectedActivityTestRule<T : Activity>(
     activityClass: Class<T>,

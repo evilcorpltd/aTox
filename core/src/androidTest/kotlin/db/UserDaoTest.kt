@@ -13,14 +13,14 @@ import kotlinx.coroutines.test.runTest
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.core.vo.UserStatus
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotEquals
-import org.junit.Assert.assertTrue
-import org.junit.Assert.fail
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.test.BeforeTest
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
+import kotlin.test.fail
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
@@ -40,7 +40,7 @@ class UserDaoTest {
         password = "password",
     )
 
-    @Before
+    @BeforeTest
     fun clearDb() = db.clearAllTables()
 
     @Test

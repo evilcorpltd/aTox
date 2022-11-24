@@ -85,6 +85,7 @@ dependencies {
 
     debugImplementation(libs.square.leakcanary)
 
+    androidTestImplementation(kotlin("test"))
     androidTestImplementation(libs.test.rules)
     androidTestImplementation(libs.test.runner)
     androidTestImplementation(libs.test.espresso.core)
