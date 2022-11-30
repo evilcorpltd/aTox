@@ -5,3 +5,7 @@ naming:
 empty-blocks:
   EmptyFunctionBlock:
     ignoreOverridden: true
+
+style:
+  ReturnCount:
+    active: false
