@@ -18,7 +18,7 @@ tox4j-android = "0.2.18"
 tox4j-core = "0.2.3"
 
 [plugins]
-ideaExt = "org.jetbrains.gradle.plugin.idea-ext:1.1.6"
+ideaExt = "org.jetbrains.gradle.plugin.idea-ext:1.1.7"
 versions = "com.github.ben-manes.versions:0.44.0"
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
@@ -30,7 +30,7 @@ androidx-activity = "androidx.activity:activity:1.5.1" # 1.6.1
 androidx-appcompat = "androidx.appcompat:appcompat:1.4.2" # 1.5.0
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
 androidx-core-ktx = "androidx.core:core-ktx:1.8.0" # 1.9.0
-androidx-fragment = "androidx.fragment:fragment:1.5.4"
+androidx-fragment = "androidx.fragment:fragment:1.5.5"
 
 androidx-multidex = "androidx.multidex:multidex:2.0.1"
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigation" }
@@ -47,7 +47,7 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
 
-google-android-material = "com.google.android.material:material:1.5.0"
+google-android-material = "com.google.android.material:material:1.5.0" # 1.7.0
 google-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 google-dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 
