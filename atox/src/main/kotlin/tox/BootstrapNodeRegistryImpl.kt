@@ -6,6 +6,9 @@ package ltd.evilcorp.atox.tox
 
 import android.content.Context
 import android.widget.Toast
+import java.io.File
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,9 +18,6 @@ import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.domain.tox.BootstrapNode
 import ltd.evilcorp.domain.tox.BootstrapNodeJsonParser
 import ltd.evilcorp.domain.tox.BootstrapNodeRegistry
-import java.io.File
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Singleton
 class BootstrapNodeRegistryImpl @Inject constructor(

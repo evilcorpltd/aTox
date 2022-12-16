@@ -8,6 +8,8 @@ import androidx.room.testing.MigrationTestHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import kotlin.test.Test
+import kotlin.test.assertEquals
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FileKind
@@ -19,8 +21,6 @@ import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.core.vo.UserStatus
 import org.junit.Rule
 import org.junit.runner.RunWith
-import kotlin.test.Test
-import kotlin.test.assertEquals
 
 fun Boolean.toInt() = if (this) 1 else 0
 

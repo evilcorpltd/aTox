@@ -23,6 +23,8 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
+import kotlin.test.Test
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import ltd.evilcorp.atox.di.AndroidModule
@@ -37,8 +39,6 @@ import ltd.evilcorp.domain.tox.SaveManager
 import org.hamcrest.core.AllOf.allOf
 import org.junit.Rule
 import org.junit.runner.RunWith
-import javax.inject.Singleton
-import kotlin.test.Test
 
 class InjectedActivityTestRule<T : Activity>(
     activityClass: Class<T>,

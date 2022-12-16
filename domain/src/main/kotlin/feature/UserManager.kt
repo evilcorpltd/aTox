@@ -4,6 +4,7 @@
 
 package ltd.evilcorp.domain.feature
 
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ltd.evilcorp.core.repository.UserRepository
@@ -11,7 +12,6 @@ import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
-import javax.inject.Inject
 
 class UserManager @Inject constructor(
     private val scope: CoroutineScope,

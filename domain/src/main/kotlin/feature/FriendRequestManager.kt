@@ -4,6 +4,8 @@
 
 package ltd.evilcorp.domain.feature
 
+import java.util.Date
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -13,8 +15,6 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
-import java.util.Date
-import javax.inject.Inject
 
 class FriendRequestManager @Inject constructor(
     private val scope: CoroutineScope,

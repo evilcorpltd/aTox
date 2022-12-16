@@ -4,12 +4,12 @@
 
 package ltd.evilcorp.core.repository
 
-import kotlinx.coroutines.flow.Flow
-import ltd.evilcorp.core.db.MessageDao
-import ltd.evilcorp.core.vo.Message
 import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.flow.Flow
+import ltd.evilcorp.core.db.MessageDao
+import ltd.evilcorp.core.vo.Message
 
 @Singleton
 class MessageRepository @Inject internal constructor(

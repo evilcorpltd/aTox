@@ -10,9 +10,9 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import javax.inject.Inject
 import ltd.evilcorp.atox.BootReceiver
 import ltd.evilcorp.domain.tox.ProxyType
-import javax.inject.Inject
 
 enum class FtAutoAccept {
     None,

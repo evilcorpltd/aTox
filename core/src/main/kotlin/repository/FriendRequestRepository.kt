@@ -4,11 +4,11 @@
 
 package ltd.evilcorp.core.repository
 
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.db.FriendRequestDao
 import ltd.evilcorp.core.vo.FriendRequest
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Singleton
 class FriendRequestRepository @Inject internal constructor(

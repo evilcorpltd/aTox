@@ -8,6 +8,7 @@ import android.os.Build
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -17,7 +18,6 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.domain.feature.CallManager
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.tox.PublicKey
-import javax.inject.Inject
 
 class CallViewModel @Inject constructor(
     private val scope: CoroutineScope,

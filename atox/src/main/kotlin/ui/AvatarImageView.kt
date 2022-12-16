@@ -9,13 +9,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.use
 import androidx.core.view.doOnPreDraw
 import com.google.android.material.imageview.ShapeableImageView
+import kotlin.math.min
+import kotlin.math.pow
+import kotlin.math.sqrt
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.UserStatus
-import kotlin.math.min
-import kotlin.math.pow
-import kotlin.math.sqrt
 
 private const val STATUS_INDICATOR_SIZE_RATIO_WITH_AVATAR = 12f / 50
 

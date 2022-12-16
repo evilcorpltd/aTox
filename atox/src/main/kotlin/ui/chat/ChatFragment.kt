@@ -33,6 +33,12 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.math.MathUtils.lerp
+import java.io.File
+import java.net.URLConnection
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentChatBinding
@@ -47,12 +53,6 @@ import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.isComplete
 import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.tox.PublicKey
-import java.io.File
-import java.net.URLConnection
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
 const val FOCUS_ON_MESSAGE_BOX = "focusOnMessageBox"
@@ -156,10 +156,10 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                 R.id.backup_history -> {
                     exportBackupLauncher.launch(
                         "backup-atox-${"messages" /* TODO @Akito: Put in Helper object. */}_${contactPubKey}_${
-                        SimpleDateFormat(
-                            """yyyy-MM-dd'T'HH-mm-ss""",
-                            Locale.getDefault(),
-                        ).format(Date())
+                            SimpleDateFormat(
+                                """yyyy-MM-dd'T'HH-mm-ss""",
+                                Locale.getDefault(),
+                            ).format(Date())
                         }.json",
                     )
                     true

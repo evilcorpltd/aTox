@@ -21,6 +21,7 @@ import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import java.lang.NumberFormatException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,7 +34,6 @@ import ltd.evilcorp.atox.settings.FtAutoAccept
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.domain.tox.ProxyType
-import java.lang.NumberFormatException
 
 private fun Spinner.onItemSelectedListener(callback: (Int) -> Unit) {
     this.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

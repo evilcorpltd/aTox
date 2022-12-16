@@ -11,9 +11,9 @@ import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.navigation.NavDeepLinkBuilder
+import javax.inject.Inject
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.domain.tox.ToxSaveStatus
-import javax.inject.Inject
 
 private const val ENCRYPTED = "aTox profile encrypted"
 

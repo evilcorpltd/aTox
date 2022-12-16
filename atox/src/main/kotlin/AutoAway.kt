@@ -5,16 +5,16 @@
 package ltd.evilcorp.atox
 
 import android.util.Log
+import java.util.Timer
+import javax.inject.Inject
+import javax.inject.Singleton
+import kotlin.concurrent.schedule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.feature.UserManager
 import ltd.evilcorp.domain.tox.Tox
-import java.util.Timer
-import javax.inject.Inject
-import javax.inject.Singleton
-import kotlin.concurrent.schedule
 
 private const val TAG = "AutoAway"
 

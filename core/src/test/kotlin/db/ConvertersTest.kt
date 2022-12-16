@@ -4,12 +4,12 @@
 
 package ltd.evilcorp.core.db
 
+import kotlin.test.Test
+import kotlin.test.assertEquals
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.core.vo.UserStatus
-import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class ConvertersTest {
     @Test

@@ -11,11 +11,11 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.TransitionDrawable
 import android.os.Bundle
 import android.view.Window
+import javax.inject.Inject
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.DialogStatusBinding
 import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.feature.UserManager
-import javax.inject.Inject
 
 private const val TRANSITION_TIME = 250
 

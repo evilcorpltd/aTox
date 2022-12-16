@@ -10,6 +10,8 @@ import android.os.SystemClock
 import android.util.Log
 import androidx.core.content.ContextCompat
 import im.tox.tox4j.av.exceptions.ToxavCallControlException
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,8 +21,6 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.domain.av.AudioCapture
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
-import javax.inject.Inject
-import javax.inject.Singleton
 
 sealed class CallState {
     object NotInCall : CallState()

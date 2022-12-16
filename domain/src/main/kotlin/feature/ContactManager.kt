@@ -4,6 +4,8 @@
 
 package ltd.evilcorp.domain.feature
 
+import java.util.Date
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ltd.evilcorp.core.repository.ContactRepository
@@ -11,8 +13,6 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxID
-import java.util.Date
-import javax.inject.Inject
 
 class ContactManager @Inject constructor(
     private val scope: CoroutineScope,

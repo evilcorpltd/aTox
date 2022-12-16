@@ -31,6 +31,9 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import io.nayuki.qrcodegen.QrCode
+import java.io.File
+import java.io.FileOutputStream
+import kotlin.math.min
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -45,9 +48,6 @@ import ltd.evilcorp.atox.ui.colorFromStatus
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.tox.ToxID
-import java.io.File
-import java.io.FileOutputStream
-import kotlin.math.min
 
 private const val TOX_MAX_NAME_LENGTH = 128
 private const val TOX_MAX_STATUS_MESSAGE_LENGTH = 1007

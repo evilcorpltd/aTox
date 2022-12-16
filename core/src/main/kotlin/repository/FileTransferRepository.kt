@@ -4,11 +4,11 @@
 
 package ltd.evilcorp.core.repository
 
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.db.FileTransferDao
 import ltd.evilcorp.core.vo.FileTransfer
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Singleton
 class FileTransferRepository @Inject internal constructor(

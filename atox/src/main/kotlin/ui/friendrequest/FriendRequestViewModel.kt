@@ -7,6 +7,8 @@ package ltd.evilcorp.atox.ui.friendrequest
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import java.util.Date
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ltd.evilcorp.core.repository.MessageRepository
@@ -16,8 +18,6 @@ import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.domain.feature.FriendRequestManager
 import ltd.evilcorp.domain.tox.PublicKey
-import java.util.Date
-import javax.inject.Inject
 
 class FriendRequestViewModel @Inject constructor(
     private val scope: CoroutineScope,

@@ -7,13 +7,13 @@ package ltd.evilcorp.atox.ui.createprofile
 import android.content.ContentResolver
 import android.net.Uri
 import androidx.lifecycle.ViewModel
+import javax.inject.Inject
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.domain.feature.UserManager
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxSaveStatus
-import javax.inject.Inject
 
 class CreateProfileViewModel @Inject constructor(
     private val resolver: ContentResolver,

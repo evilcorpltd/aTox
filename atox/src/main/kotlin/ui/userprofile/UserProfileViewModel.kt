@@ -7,11 +7,11 @@ package ltd.evilcorp.atox.ui.userprofile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import javax.inject.Inject
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.feature.UserManager
 import ltd.evilcorp.domain.tox.Tox
-import javax.inject.Inject
 
 class UserProfileViewModel @Inject constructor(
     private val userManager: UserManager,

@@ -12,6 +12,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.app.RemoteInput
 import im.tox.tox4j.av.exceptions.ToxavAnswerException
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull
@@ -27,7 +28,6 @@ import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
-import javax.inject.Inject
 
 const val KEY_TEXT_REPLY = "key_text_reply"
 const val KEY_CONTACT_PK = "key_contact_pk"

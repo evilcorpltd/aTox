@@ -7,10 +7,10 @@ package ltd.evilcorp.atox.ui.contactprofile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import javax.inject.Inject
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.tox.PublicKey
-import javax.inject.Inject
 
 class ContactProfileViewModel @Inject constructor(contactManager: ContactManager) : ViewModel() {
     var publicKey: PublicKey = PublicKey("")

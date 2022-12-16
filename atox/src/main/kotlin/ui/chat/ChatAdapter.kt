@@ -21,6 +21,10 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import coil.load
 import coil.size.Precision
+import java.net.URLConnection
+import java.text.DateFormat
+import java.util.Locale
+import kotlin.math.roundToInt
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.Message
@@ -29,10 +33,6 @@ import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.core.vo.isComplete
 import ltd.evilcorp.core.vo.isRejected
 import ltd.evilcorp.core.vo.isStarted
-import java.net.URLConnection
-import java.text.DateFormat
-import java.util.Locale
-import kotlin.math.roundToInt
 
 private const val TAG = "ChatAdapter"
 private const val IMAGE_TO_SCREEN_RATIO = 0.75

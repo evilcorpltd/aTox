@@ -6,10 +6,10 @@ package ltd.evilcorp.domain.tox
 
 import im.tox.tox4j.av.callbacks.ToxAvEventListener
 import im.tox.tox4j.av.enums.ToxavFriendCallState
-import scala.Option
-import scala.Tuple3
 import java.util.EnumSet
 import javax.inject.Inject
+import scala.Option
+import scala.Tuple3
 
 typealias CallHandler = (pk: String, audioEnabled: Boolean, videoEnabled: Boolean) -> Unit
 typealias CallStateHandler = (pk: String, callState: EnumSet<ToxavFriendCallState>) -> Unit

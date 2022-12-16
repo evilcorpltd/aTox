@@ -5,8 +5,8 @@
 package ltd.evilcorp.domain.tox
 
 import android.util.Log
-import org.json.JSONObject
 import javax.inject.Inject
+import org.json.JSONObject
 
 private const val TAG = "BootstrapNodeJsonParser"
 

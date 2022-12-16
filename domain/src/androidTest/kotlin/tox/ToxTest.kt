@@ -7,6 +7,7 @@ package ltd.evilcorp.domain.tox
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import kotlin.test.Test
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.TestScope
@@ -15,7 +16,6 @@ import ltd.evilcorp.core.db.Database
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.UserRepository
 import org.junit.runner.RunWith
-import kotlin.test.Test
 
 class FakeBootstrapNodeRegistry : BootstrapNodeRegistry {
     override fun get(n: Int): List<BootstrapNode> = listOf()

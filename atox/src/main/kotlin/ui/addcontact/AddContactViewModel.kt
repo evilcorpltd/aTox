@@ -7,6 +7,8 @@ package ltd.evilcorp.atox.ui.addcontact
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import java.util.Date
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.tox.ToxStarter
@@ -19,8 +21,6 @@ import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxID
 import ltd.evilcorp.domain.tox.ToxSaveStatus
-import java.util.Date
-import javax.inject.Inject
 
 class AddContactViewModel @Inject constructor(
     private val scope: CoroutineScope,

@@ -8,14 +8,14 @@ import im.tox.tox4j.core.enums.ToxConnection
 import im.tox.tox4j.core.enums.ToxFileKind
 import im.tox.tox4j.core.enums.ToxMessageType
 import im.tox.tox4j.core.enums.ToxUserStatus
-import ltd.evilcorp.core.vo.ConnectionStatus
-import ltd.evilcorp.core.vo.FileKind
-import ltd.evilcorp.core.vo.MessageType
-import ltd.evilcorp.core.vo.UserStatus
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
+import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.FileKind
+import ltd.evilcorp.core.vo.MessageType
+import ltd.evilcorp.core.vo.UserStatus
 
 private fun byteArrayOf(vararg bytes: Int) = ByteArray(bytes.size) { bytes[it].toByte() }
 

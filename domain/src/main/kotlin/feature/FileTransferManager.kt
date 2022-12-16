@@ -11,6 +11,12 @@ import android.net.Uri
 import android.provider.OpenableColumns
 import android.util.Log
 import im.tox.tox4j.core.enums.ToxFileControl
+import java.io.File
+import java.io.RandomAccessFile
+import java.util.Date
+import javax.inject.Inject
+import javax.inject.Singleton
+import kotlin.random.Random
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
@@ -31,12 +37,6 @@ import ltd.evilcorp.core.vo.isStarted
 import ltd.evilcorp.domain.tox.MAX_AVATAR_SIZE
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
-import java.io.File
-import java.io.RandomAccessFile
-import java.util.Date
-import javax.inject.Inject
-import javax.inject.Singleton
-import kotlin.random.Random
 
 private const val TAG = "FileTransferManager"
 

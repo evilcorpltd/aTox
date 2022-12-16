@@ -7,6 +7,12 @@ package ltd.evilcorp.core.db
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import kotlin.test.BeforeTest
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
+import kotlin.test.fail
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -15,12 +21,6 @@ import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.core.vo.UserStatus
 import org.junit.Test
 import org.junit.runner.RunWith
-import kotlin.test.BeforeTest
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertNotEquals
-import kotlin.test.assertTrue
-import kotlin.test.fail
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
