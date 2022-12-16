@@ -24,4 +24,4 @@ insert_final_newline = false
 # Extensions.kt: We don't want 1 file per extension, or to rename the file when we have 1 extension.
 # ToxSaveTester.kt: Named after the testToxSave-function it contains. ktlint wants it to be named after the enum it returns.
 [{domain/src/main/kotlin/Extensions.kt,domain/src/main/kotlin/tox/ToxSaveTester.kt}]
-ktlint_disabled_rules=filename
+ktlint_standard_filename = disabled
