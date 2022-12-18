@@ -128,3 +128,7 @@ jobs:
           sudo chmod +x buildifier
     - name: Check
       run: ./buildifier --lint=warn --warnings=all -mode diff WORKSPACE $(find . -type f -iname BUILD.*)
+
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
