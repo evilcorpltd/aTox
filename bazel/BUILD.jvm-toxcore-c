@@ -7,7 +7,6 @@ load("@rules_proto//proto:defs.bzl", "proto_library")
 genrule(
     name = "copy_link_jni_md_header",
     srcs = select({
-        "@atox//bazel/tools/config:freebsd": ["@bazel_tools//tools/jdk:jni_md_header-freebsd"],
         "@atox//bazel/tools/config:linux": ["@bazel_tools//tools/jdk:jni_md_header-linux"],
         "@atox//bazel/tools/config:osx": ["@bazel_tools//tools/jdk:jni_md_header-darwin"],
         "@atox//bazel/tools/config:windows": ["@bazel_tools//tools/jdk:jni_md_header-windows"],
@@ -61,7 +60,6 @@ cc_binary(
         "src/main/protobuf",
     ],
     linkopts = select({
-        "@atox//bazel/tools/config:freebsd": ["-Wl,--version-script,$(location cpp/src/libtox4j-c.ld)"],
         "@atox//bazel/tools/config:linux": ["-Wl,--version-script,$(location cpp/src/libtox4j-c.ld)"],
         "@atox//bazel/tools/config:osx": [],
         "@atox//bazel/tools/config:windows": [],

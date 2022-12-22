@@ -5,12 +5,6 @@ config_setting(
 )
 
 config_setting(
-    name = "freebsd",
-    constraint_values = ["@bazel_tools//platforms:freebsd"],
-    visibility = ["//visibility:public"],
-)
-
-config_setting(
     name = "osx",
     constraint_values = ["@bazel_tools//platforms:osx"],
     visibility = ["//visibility:public"],
