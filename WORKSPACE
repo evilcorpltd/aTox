@@ -110,11 +110,11 @@ http_archive(
     url = "https://github.com/protocolbuffers/protobuf/archive/v%s.tar.gz" % PROTOBUF_TAG,
 )
 
-DAGGER_TAG = "2.38.1"
+DAGGER_TAG = "2.44.2"
 
 http_archive(
     name = "dagger",
-    sha256 = "d20c81fd622f8bbb714239ea3cb7c963e77fc8ec3c88487f912189a9538071e9",
+    sha256 = "cbff42063bfce78a08871d5a329476eb38c96af9cf20d21f8b412fee76296181",
     strip_prefix = "dagger-dagger-%s" % DAGGER_TAG,
     url = "https://github.com/google/dagger/archive/dagger-%s.zip" % DAGGER_TAG,
 )
