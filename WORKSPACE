@@ -89,11 +89,11 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_kotlin/releases/download/%s/rules_kotlin_release.tgz" % RULES_KOTLIN_TAG,
 )
 
-RULES_SCALA_TAG = "73c0dbb55d1ab2905c3d97923efc415623f67ac6"
+RULES_SCALA_TAG = "72adeb585081c4cf53d033d554dbdddbb1e59fbc"
 
 http_archive(
     name = "io_bazel_rules_scala",
-    sha256 = "efde3cb0feafca7c3939b855c0812bff88657fe2d8f893d912d6ca5180e5bf39",
+    sha256 = "b3e9b2e77babd71f0666ff1ccf169eb402f6e6068070f2f331ec1a8306cba5f6",
     strip_prefix = "rules_scala-%s" % RULES_SCALA_TAG,
     url = "https://github.com/bazelbuild/rules_scala/archive/%s.tar.gz" % RULES_SCALA_TAG,
 )
@@ -266,6 +266,10 @@ http_archive(
 #
 # These go last since we override a bunch of them.
 
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+
+protobuf_deps()
+
 load("@robolectric//bazel:robolectric.bzl", "robolectric_repositories")
 
 robolectric_repositories()
@@ -277,6 +281,10 @@ kotlin_repositories()
 load("@io_bazel_rules_kotlin//kotlin:core.bzl", "kt_register_toolchains")
 
 kt_register_toolchains()
+
+load("@io_bazel_rules_scala//:scala_config.bzl", "scala_config")
+
+scala_config(scala_version = "2.11.12")
 
 load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
 load("@io_bazel_rules_scala//scala:toolchains.bzl", "scala_register_toolchains")
