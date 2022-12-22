@@ -15,6 +15,14 @@ android_ndk_repository(
 # Bazel
 # =========================================================
 
+PLATFORMS_TAG = "0.0.6"
+
+http_archive(
+    name = "platforms",
+    sha256 = "5308fc1d8865406a49427ba24a9ab53087f17f5266a7aabbfc28823f3916e1ca",
+    url = "https://github.com/bazelbuild/platforms/releases/download/%s/platforms-%s.tar.gz" % (PLATFORMS_TAG, PLATFORMS_TAG),
+)
+
 RULES_PKG_TAG = "0.2.5"
 
 http_archive(
