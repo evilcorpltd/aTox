@@ -64,14 +64,12 @@ class ToxStarter @Inject constructor(
     }
 
     fun tryLoadTox(password: String?): ToxSaveStatus {
-        tryLoadSave()?.also { save ->
-            val status = startTox(save, password)
-            if (status == ToxSaveStatus.Ok) {
-                userManager.verifyExists(tox.publicKey)
-            }
-            return status
+        val save = tryLoadSave() ?: return ToxSaveStatus.SaveNotFound
+        val status = startTox(save, password)
+        if (status == ToxSaveStatus.Ok) {
+            userManager.verifyExists(tox.publicKey)
         }
-        return ToxSaveStatus.SaveNotFound
+        return status
     }
 
     private fun startService() = context.run {
