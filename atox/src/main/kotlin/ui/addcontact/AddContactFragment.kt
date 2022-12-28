@@ -70,11 +70,9 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
 
         toxId.doAfterTextChanged { s ->
             val input = ToxID(s?.toString() ?: "")
+            val inputLength = s?.toString()?.length ?: 0
             toxId.error = when (ToxIdValidator.validate(input)) {
-                ToxIdValidator.Result.INCORRECT_LENGTH -> getString(
-                    R.string.tox_id_error_length,
-                    s?.toString()?.length ?: 0,
-                )
+                ToxIdValidator.Result.INCORRECT_LENGTH -> getString(R.string.tox_id_error_length, inputLength)
                 ToxIdValidator.Result.INVALID_CHECKSUM -> getString(R.string.tox_id_error_checksum)
                 ToxIdValidator.Result.NOT_HEX -> getString(R.string.tox_id_error_hex)
                 ToxIdValidator.Result.NO_ERROR -> null
