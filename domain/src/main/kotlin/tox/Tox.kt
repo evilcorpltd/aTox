@@ -10,6 +10,7 @@ import im.tox.tox4j.crypto.ToxCryptoConstants
 import im.tox.tox4j.impl.jni.ToxCryptoImpl
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.collections.forEach as kForEach
 import kotlin.random.Random
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -208,7 +209,7 @@ class Tox @Inject constructor(
     }
 
     private fun bootstrap() {
-        nodeRegistry.get(4).forEach { node ->
+        nodeRegistry.get(4).kForEach { node ->
             Log.i(TAG, "Bootstrapping from $node")
             tox.bootstrap(node.address, node.port, node.publicKey.bytes())
         }

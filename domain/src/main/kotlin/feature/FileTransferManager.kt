@@ -16,6 +16,7 @@ import java.io.RandomAccessFile
 import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.collections.forEach as kForEach
 import kotlin.random.Random
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.take
@@ -58,7 +59,7 @@ class FileTransferManager @Inject constructor(
     init {
         File(context.filesDir, "ft").mkdir()
         File(context.filesDir, "avatar").mkdir()
-        resolver.persistedUriPermissions.forEach {
+        resolver.persistedUriPermissions.kForEach {
             Log.w(TAG, "Clearing leftover permission for ${it.uri}")
             releaseFilePermission(it.uri)
         }
@@ -73,7 +74,7 @@ class FileTransferManager @Inject constructor(
 
     fun resetForContact(pk: String) {
         Log.i(TAG, "Clearing fts for contact ${pk.fingerprint()}")
-        fileTransfers.filter { it.publicKey == pk }.forEach { ft ->
+        fileTransfers.filter { it.publicKey == pk }.kForEach { ft ->
             setProgress(ft, FtRejected)
             fileTransfers.remove(ft)
             if (ft.outgoing) {
@@ -288,7 +289,7 @@ class FileTransferManager @Inject constructor(
 
     suspend fun deleteAll(publicKey: PublicKey) {
         fileTransferRepository.get(publicKey.string()).take(1).collect { fts ->
-            fts.forEach { delete(it.id) }
+            fts.kForEach { delete(it.id) }
         }
     }
 
