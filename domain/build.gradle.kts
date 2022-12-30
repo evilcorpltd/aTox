@@ -1,6 +1,3 @@
-import org.jetbrains.gradle.ext.packagePrefix
-import org.jetbrains.gradle.ext.settings
-
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.androidLibrary)
@@ -28,16 +25,6 @@ android {
         // Work around scala-compiler and scala-library (via tox4j) trying to place files in the
         // same place.
         resources.excludes.add("rootdoc.txt")
-    }
-}
-
-idea {
-    module {
-        settings {
-            packagePrefix["src/main/kotlin"] = "ltd.evilcorp.domain"
-            packagePrefix["src/test/kotlin"] = "ltd.evilcorp.domain"
-            packagePrefix["src/androidTest/kotlin"] = "ltd.evilcorp.domain"
-        }
     }
 }
 

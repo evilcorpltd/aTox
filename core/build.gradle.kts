@@ -1,6 +1,3 @@
-import org.jetbrains.gradle.ext.packagePrefix
-import org.jetbrains.gradle.ext.settings
-
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.androidLibrary)
@@ -31,16 +28,6 @@ android {
         }
     }
     sourceSets["androidTest"].assets.srcDir("$projectDir/schemas")
-}
-
-idea {
-    module {
-        settings {
-            packagePrefix["src/main/kotlin"] = "ltd.evilcorp.core"
-            packagePrefix["src/test/kotlin"] = "ltd.evilcorp.core"
-            packagePrefix["src/androidTest/kotlin"] = "ltd.evilcorp.core"
-        }
-    }
 }
 
 dependencies {
