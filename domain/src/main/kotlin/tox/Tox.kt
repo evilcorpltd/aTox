@@ -26,6 +26,7 @@ import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.UserStatus
 
 private const val TAG = "Tox"
+private const val SLOW_ITERATION_LIMIT_MS = 10
 
 @Singleton
 class Tox @Inject constructor(
@@ -118,7 +119,9 @@ class Tox @Inject constructor(
                 tox.iterate()
                 val timeTaken = System.currentTimeMillis() - before
                 val iterationInterval = tox.iterationInterval()
-                if (timeTaken > iterationInterval) Log.w(TAG, "Tox thread overran: $timeTaken/$iterationInterval.")
+                if (timeTaken > SLOW_ITERATION_LIMIT_MS && timeTaken > iterationInterval) {
+                    Log.w(TAG, "Tox thread overran: $timeTaken/$iterationInterval.")
+                }
                 delay(iterationInterval - timeTaken)
             }
             started = false
