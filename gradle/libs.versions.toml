@@ -18,7 +18,6 @@ tox4j-android = "0.2.18"
 tox4j-core = "0.2.3"
 
 [plugins]
-ideaExt = "org.jetbrains.gradle.plugin.idea-ext:1.1.7"
 versions = "com.github.ben-manes.versions:0.44.0"
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }

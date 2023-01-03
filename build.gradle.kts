@@ -1,6 +1,5 @@
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    alias(libs.plugins.ideaExt)
     alias(libs.plugins.versions)
     alias(libs.plugins.kotlinAndroid) apply false
     alias(libs.plugins.kotlinKapt) apply false
