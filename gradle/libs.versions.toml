@@ -8,11 +8,11 @@ android-plugin = "7.3.1"
 coil = "1.4.0"
 coroutines = "1.6.4"
 dagger = "2.44.2"
-espresso = "3.5.0"
+espresso = "3.5.1"
 jackson = "2.14.1"
 lifecycle = "2.5.1"
 navigation = "2.5.3"
-room = "2.4.3"
+room = "2.4.3" # 2.5.0
 tox4j-android = "0.2.18"
 tox4j-core = "0.2.3"
 
@@ -25,7 +25,7 @@ androidLibrary = { id = "com.android.library", version.ref = "android-plugin" }
 
 [libraries]
 androidx-activity = "androidx.activity:activity:1.5.1" # 1.6.1
-androidx-appcompat = "androidx.appcompat:appcompat:1.4.2" # 1.5.0
+androidx-appcompat = "androidx.appcompat:appcompat:1.4.2" # 1.6.0
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
 androidx-core-ktx = "androidx.core:core-ktx:1.8.0" # 1.9.0
 androidx-fragment = "androidx.fragment:fragment:1.5.5"
@@ -76,9 +76,9 @@ tox4j-c = { module = "org.toktok:tox4j-c_2.11", version.ref = "tox4j-core" }
 
 test-espresso-contrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "espresso" }
 test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
-test-junit-ext = "androidx.test.ext:junit:1.1.4"
+test-junit-ext = "androidx.test.ext:junit:1.1.5"
 test-rules = "androidx.test:rules:1.5.0"
-test-runner = "androidx.test:runner:1.5.0"
+test-runner = "androidx.test:runner:1.5.2"
 
 # Google's very impressive workaround for the following error:
 # Duplicate class com.google.common.util.concurrent.ListenableFuture found
