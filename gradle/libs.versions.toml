@@ -2,7 +2,7 @@
 sdk-min = "19"
 sdk-target = "31"
 
-kotlin = "1.8.20"
+kotlin = "1.8.21"
 android-plugin = "7.4.2"
 
 coil = "1.4.0"
