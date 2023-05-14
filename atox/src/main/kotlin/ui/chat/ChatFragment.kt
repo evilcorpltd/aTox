@@ -155,7 +155,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             when (item.itemId) {
                 R.id.backup_history -> {
                     exportBackupLauncher.launch(
-                        "backup-atox-${"messages" /* TODO @Akito: Put in Helper object. */}_${contactPubKey}_${
+                        "backup-atox-messages_${contactPubKey}_${
                             SimpleDateFormat(
                                 """yyyy-MM-dd'T'HH-mm-ss""",
                                 Locale.getDefault(),

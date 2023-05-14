@@ -200,9 +200,9 @@ class EventListenerCallbacks @Inject constructor(
         }
 
         videoReceiveFrameHandler = { pk,
-                width, height,
-                y, u, v,
-                yStride, uStride, vStride, ->
+                                     width, height,
+                                     y, u, v,
+                                     yStride, uStride, vStride, ->
             Log.v(
                 TAG,
                 "videoReceiveFrame ${pk.fingerprint()}" +
