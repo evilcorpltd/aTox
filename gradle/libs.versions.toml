@@ -9,7 +9,7 @@ coil = "1.4.0"
 coroutines = "1.7.1"
 dagger = "2.46.1"
 espresso = "3.5.1"
-jackson = "2.15.1"
+jackson = "2.15.2"
 lifecycle = "2.5.1" # 2.6.1
 navigation = "2.5.3"
 room = "2.4.3" # 2.5.1
@@ -17,18 +17,18 @@ tox4j-android = "0.2.18"
 tox4j-core = "0.2.3"
 
 [plugins]
-versions = "com.github.ben-manes.versions:0.46.0"
+versions = "com.github.ben-manes.versions:0.47.0"
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 androidApplication = { id = "com.android.application", version.ref = "android-plugin" }
 androidLibrary = { id = "com.android.library", version.ref = "android-plugin" }
 
 [libraries]
-androidx-activity = "androidx.activity:activity:1.5.1" # 1.7.0
+androidx-activity = "androidx.activity:activity:1.5.1" # 1.7.2
 androidx-appcompat = "androidx.appcompat:appcompat:1.4.2" # 1.6.1
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
-androidx-core-ktx = "androidx.core:core-ktx:1.8.0" # 1.10.0
-androidx-fragment = "androidx.fragment:fragment:1.5.6"
+androidx-core-ktx = "androidx.core:core-ktx:1.8.0" # 1.10.1
+androidx-fragment = "androidx.fragment:fragment:1.5.7"
 
 androidx-multidex = "androidx.multidex:multidex:2.0.1"
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigation" }
