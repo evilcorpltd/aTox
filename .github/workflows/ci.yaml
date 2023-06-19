@@ -106,7 +106,7 @@ jobs:
           echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install "ndk;$NDK_VERSION" | grep -v = || true
           echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/$NDK_VERSION" >> $GITHUB_ENV
       env:
-        NDK_VERSION: 22.1.7171670
+        NDK_VERSION: "25.2.9519653"
     - name: Set up Bazel cache
       uses: actions/cache@v3
       with:
