@@ -28,7 +28,10 @@ interface MessageDao {
     @Query("DELETE FROM messages WHERE conversation == :conversation")
     fun delete(conversation: String)
 
-    @Query("UPDATE messages SET timestamp = :timestamp WHERE conversation == :conversation AND correlation_id == :correlationId AND timestamp == 0") // ktlint-disable
+    @Suppress("ktlint:standard:max-line-length")
+    @Query(
+        "UPDATE messages SET timestamp = :timestamp WHERE conversation == :conversation AND correlation_id == :correlationId AND timestamp == 0",
+    )
     fun setReceipt(conversation: String, correlationId: Int, timestamp: Long)
 
     @Query("DELETE FROM messages WHERE id = :id")
