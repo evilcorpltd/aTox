@@ -79,9 +79,9 @@ dependencies {
 
     implementation(libs.androidx.multidex)
 
-    implementation(libs.bumptech.glide)
-
     implementation(libs.nayuki.qrcodegen)
+
+    implementation(libs.square.picasso)
 
     debugImplementation(libs.square.leakcanary)
 
