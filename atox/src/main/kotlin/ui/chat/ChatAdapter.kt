@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2022 aTox contributors
+// SPDX-FileCopyrightText: 2020-2021 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -19,8 +19,9 @@ import android.widget.ListView
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
-import coil.load
-import coil.size.Precision
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
+import com.bumptech.glide.signature.ObjectKey
 import java.net.URLConnection
 import java.text.DateFormat
 import java.util.Locale
@@ -37,7 +38,6 @@ import ltd.evilcorp.core.vo.isStarted
 private const val TAG = "ChatAdapter"
 private const val IMAGE_TO_SCREEN_RATIO = 0.75
 private const val MAX_IMAGE_HEIGHT_PX = 1000
-private const val SOME_PRIME = 31
 
 private fun FileTransfer.isImage() = try {
     URLConnection.guessContentTypeFromName(fileName).startsWith("image/")
@@ -196,17 +196,13 @@ class ChatAdapter(
 
                 if (fileTransfer.isImage() && (fileTransfer.isComplete() || fileTransfer.outgoing)) {
                     vh.completedLayout.visibility = View.VISIBLE
-                    vh.imagePreview.load(fileTransfer.destination) {
+                    Glide.with(vh.imagePreview)
+                        .load(fileTransfer.destination)
                         // Make sure fts with the same destination have unique caches.
-                        memoryCacheKey(
-                            (fileTransfer.destination.hashCode() * SOME_PRIME + fileTransfer.id.hashCode()).toString(),
-                        )
-                        precision(Precision.INEXACT)
-                        size(
-                            (Resources.getSystem().displayMetrics.widthPixels * IMAGE_TO_SCREEN_RATIO).roundToInt(),
-                            MAX_IMAGE_HEIGHT_PX,
-                        )
-                    }
+                        .signature(ObjectKey(fileTransfer.id))
+                        .downsample(DownsampleStrategy.AT_MOST)
+                        .override((Resources.getSystem().displayMetrics.widthPixels * IMAGE_TO_SCREEN_RATIO).roundToInt(), MAX_IMAGE_HEIGHT_PX)
+                        .into(vh.imagePreview)
                 } else {
                     vh.completedLayout.visibility = View.GONE
                 }

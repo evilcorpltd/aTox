@@ -11,7 +11,6 @@ import android.content.Intent
 import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -22,10 +21,7 @@ import androidx.core.graphics.drawable.IconCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.os.bundleOf
 import androidx.navigation.NavDeepLinkBuilder
-import coil.executeBlocking
-import coil.imageLoader
-import coil.request.ImageRequest
-import coil.transform.CircleCropTransformation
+import com.bumptech.glide.Glide
 import javax.inject.Inject
 import javax.inject.Singleton
 import ltd.evilcorp.atox.Action
@@ -45,8 +41,6 @@ import ltd.evilcorp.domain.tox.PublicKey
 private const val MESSAGE = "aTox messages"
 private const val FRIEND_REQUEST = "aTox friend requests"
 private const val CALL = "aTox calls"
-
-private const val TAG = "NotificationHelper"
 
 @Singleton
 class NotificationHelper @Inject constructor(
@@ -109,19 +103,9 @@ class NotificationHelper @Inject constructor(
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val icon = if (contact.avatarUri.isNotEmpty()) {
-                val bmp = context.imageLoader.executeBlocking(
-                    ImageRequest.Builder(context)
-                        .data(contact.avatarUri)
-                        .transformations(CircleCropTransformation())
-                        .build(),
-                ).drawable?.toBitmap()
-
-                if (bmp != null) {
-                    IconCompat.createWithBitmap(bmp)
-                } else {
-                    Log.e(TAG, "Unable to load bmp for ${contact.name} from ${contact.avatarUri}")
-                    null
-                }
+                IconCompat.createWithBitmap(
+                    Glide.with(context).load(contact.avatarUri).circleCrop().submit().get().toBitmap()
+                )
             } else {
                 null
             }

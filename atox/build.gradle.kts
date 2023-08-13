@@ -79,7 +79,7 @@ dependencies {
 
     implementation(libs.androidx.multidex)
 
-    implementation(libs.coil)
+    implementation(libs.bumptech.glide)
 
     implementation(libs.nayuki.qrcodegen)
 
