@@ -10,8 +10,8 @@ dagger = "2.47"
 espresso = "3.5.1"
 jackson = "2.15.2"
 lifecycle = "2.5.1" # 2.6.1
-navigation = "2.5.3"
-room = "2.4.3" # 2.5.1
+navigation = "2.5.3" # 2.7.0
+room = "2.4.3" # 2.5.2
 tox4j-android = "0.2.18"
 tox4j-core = "0.2.3"
 
@@ -27,12 +27,12 @@ androidx-activity = "androidx.activity:activity:1.5.1" # 1.7.2
 androidx-appcompat = "androidx.appcompat:appcompat:1.4.2" # 1.6.1
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
 androidx-core-ktx = "androidx.core:core-ktx:1.8.0" # 1.10.1
-androidx-fragment = "androidx.fragment:fragment:1.5.7"
+androidx-fragment = "androidx.fragment:fragment:1.5.7" # 1.6.1
 
 androidx-multidex = "androidx.multidex:multidex:2.0.1"
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigation" }
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigation" }
-androidx-preference = "androidx.preference:preference:1.2.0"
+androidx-preference = "androidx.preference:preference:1.2.1"
 
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
@@ -44,7 +44,7 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
 
-google-android-material = "com.google.android.material:material:1.5.0" # 1.7.0
+google-android-material = "com.google.android.material:material:1.5.0" # 1.9.0
 google-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 google-dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 
