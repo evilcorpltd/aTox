@@ -5,6 +5,10 @@ plugins {
     alias(libs.plugins.kotlinKapt)
 }
 
+kotlin {
+    jvmToolchain(17)
+}
+
 android {
     namespace = "ltd.evilcorp.core"
     compileSdk = libs.versions.sdk.target.get().toInt()
@@ -26,6 +30,12 @@ android {
         }
     }
     sourceSets["androidTest"].assets.srcDir("$projectDir/schemas")
+    // TODO(robinlinden): Not needed w/ AGP 8.1.0-alpha09.
+    //  https://issuetracker.google.com/issues/260059413?pli=1
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
 }
 
 dependencies {
