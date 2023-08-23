@@ -33,7 +33,7 @@ jobs:
     - uses: actions/setup-java@v3
       with:
         distribution: adopt
-        java-version: 11
+        java-version: 17
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
       with:
@@ -61,7 +61,7 @@ jobs:
     - uses: actions/setup-java@v3
       with:
         distribution: adopt
-        java-version: 11
+        java-version: 17
     - name: Set up cache
       id: cache
       uses: actions/cache@v3
@@ -100,7 +100,7 @@ jobs:
     - uses: actions/setup-java@v3
       with:
         distribution: adopt
-        java-version: 11
+        java-version: 17
     - name: Set up Android
       run: |
           echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install "ndk;$NDK_VERSION" | grep -v = || true
