@@ -2,7 +2,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
-    alias(libs.plugins.kotlinKapt)
+    alias(libs.plugins.kotlinKsp)
 }
 
 kotlin {
@@ -85,7 +85,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     implementation(libs.google.dagger.core)
-    kapt(libs.google.dagger.compiler)
+    ksp(libs.google.dagger.compiler)
 
     implementation(libs.androidx.multidex)
 
@@ -101,5 +101,5 @@ dependencies {
     androidTestImplementation(libs.test.espresso.core)
     androidTestImplementation(libs.test.espresso.contrib)
     androidTestImplementation(libs.test.junit.ext)
-    kaptAndroidTest(libs.google.dagger.compiler)
+    kspAndroidTest(libs.google.dagger.compiler)
 }

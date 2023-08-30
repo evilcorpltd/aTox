@@ -3,6 +3,7 @@ sdk-min = "19"
 sdk-target = "31"
 
 kotlin = "1.9.10"
+ksp = "1.9.10-1.0.13"
 android-plugin = "7.4.2"
 
 coroutines = "1.7.3"
@@ -18,7 +19,7 @@ tox4j-core = "0.2.3"
 [plugins]
 versions = "com.github.ben-manes.versions:0.47.0"
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlinKsp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 androidApplication = { id = "com.android.application", version.ref = "android-plugin" }
 androidLibrary = { id = "com.android.library", version.ref = "android-plugin" }
 
