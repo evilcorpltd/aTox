@@ -6,7 +6,7 @@ kotlin = "1.9.10"
 android-plugin = "7.4.2"
 
 coroutines = "1.7.3"
-dagger = "2.47"
+dagger = "2.48"
 espresso = "3.5.1"
 jackson = "2.15.2"
 lifecycle = "2.5.1" # 2.6.1
