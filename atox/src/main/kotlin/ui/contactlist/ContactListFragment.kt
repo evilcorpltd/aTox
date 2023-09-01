@@ -5,6 +5,7 @@
 
 package ltd.evilcorp.atox.ui.contactlist
 
+import android.Manifest
 import android.os.Build
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
@@ -36,6 +37,7 @@ import ltd.evilcorp.atox.databinding.ContactListViewItemBinding
 import ltd.evilcorp.atox.databinding.FragmentContactListBinding
 import ltd.evilcorp.atox.databinding.FriendRequestItemBinding
 import ltd.evilcorp.atox.databinding.NavHeaderContactListBinding
+import ltd.evilcorp.atox.hasPermission
 import ltd.evilcorp.atox.truncated
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.ReceiveShareDialogFragment
@@ -66,6 +68,10 @@ class ContactListFragment :
     private var _navHeader: NavHeaderContactListBinding? = null
     private val navHeader get() = _navHeader!!
 
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission(),
+    ) { _ -> }
+
     private var backupFileNameHint = "something_is_broken.tox"
 
     private var passwordDialog: AlertDialog? = null
@@ -84,6 +90,11 @@ class ContactListFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = binding.run {
         if (!viewModel.isToxRunning()) return@run
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (!requireContext().hasPermission(Manifest.permission.POST_NOTIFICATIONS)) {
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
             val insets = compat.getInsets(WindowInsetsCompat.Type.systemBars())
