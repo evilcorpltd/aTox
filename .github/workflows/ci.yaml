@@ -87,6 +87,10 @@ jobs:
         ./scripts/build-arm-linux-androideabi -j$(nproc) release
         ./scripts/build-i686-linux-android -j$(nproc) release
         ./scripts/build-x86_64-linux-android -j$(nproc) release
+        ./scripts/build-aarch64-apple-darwin -j$(nproc) release
+        ./scripts/build-arm-apple-darwin -j$(nproc) release
+        ./scripts/build-i686-apple-darwin -j$(nproc) release
+        ./scripts/build-x86_64-apple-darwin -j$(nproc) release
     - name: Upload tox4j
       uses: actions/upload-artifact@v3
       with:

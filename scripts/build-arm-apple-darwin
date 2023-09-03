@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+
+TARGET := armv7a-apple-darwin
+BASE_TARGET := arm-apple-darwin
+
+include scripts/common.mk
+
+NDK_API := 19
+NDK_ARCH := arm
+VPX_TARGET := armv7-darwin-gcc
+
+include scripts/darwin.mk
+include scripts/dependencies.mk

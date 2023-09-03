@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+
+TARGET := aarch64-apple-darwin
+BASE_TARGET := $(TARGET)
+
+include scripts/common.mk
+
+NDK_API := 21
+NDK_ARCH := arm64
+VPX_TARGET := arm64-darwin-gcc
+
+include scripts/darwin.mk
+include scripts/dependencies.mk
