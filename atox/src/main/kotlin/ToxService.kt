@@ -1,14 +1,18 @@
-// SPDX-FileCopyrightText: 2019-2022 aTox contributors
+// SPDX-FileCopyrightText: 2019-2023 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
 package ltd.evilcorp.atox
 
+import android.Manifest
 import android.app.Notification
 import android.app.PendingIntent
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -73,8 +77,8 @@ class ToxService : LifecycleService() {
         notifier.createNotificationChannel(channel)
     }
 
-    private fun subTextFor(status: ConnectionStatus?) = when (status) {
-        null, ConnectionStatus.None -> getText(R.string.atox_offline)
+    private fun subTextFor(status: ConnectionStatus) = when (status) {
+        ConnectionStatus.None -> getText(R.string.atox_offline)
         ConnectionStatus.TCP -> getText(R.string.atox_connected_with_tcp)
         ConnectionStatus.UDP -> getText(R.string.atox_connected_with_udp)
     }
@@ -85,13 +89,20 @@ class ToxService : LifecycleService() {
                 PendingIntentCompat.getActivity(this, 0, notificationIntent, 0)
             }
 
-        return NotificationCompat.Builder(this, channelId)
+        val builder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.ic_notification)
             .setColor(ResourcesCompat.getColor(resources, R.color.colorPrimary, null))
             .setContentIntent(pendingIntent)
             .setContentTitle(getString(R.string.tox_service_running))
-            .setContentText(subTextFor(status))
-            .build()
+
+        if (status != null) {
+            // Either we haven't received a status from Tox yet, or we don't
+            // have notification permissions meaning we wouldn't be able to
+            // update a status if we showed one.
+            builder.setContentText(subTextFor(status))
+        }
+
+        return builder.build()
     }
 
     override fun onCreate() {
@@ -106,6 +117,14 @@ class ToxService : LifecycleService() {
             }
         }
 
+        val canPostNotifications = ActivityCompat.checkSelfPermission(
+            applicationContext,
+            Manifest.permission.POST_NOTIFICATIONS,
+        ) == PackageManager.PERMISSION_GRANTED
+        if (!canPostNotifications) {
+            Log.w(TAG, "Notifications disallowed")
+        }
+
         createNotificationChannel()
         startForeground(NOTIFICATION_ID, notificationFor(connectionStatus))
 
@@ -116,7 +135,10 @@ class ToxService : LifecycleService() {
                 .flowWithLifecycle(lifecycle)
                 .collect { user ->
                     connectionStatus = user.connectionStatus
-                    notifier.notify(NOTIFICATION_ID, notificationFor(connectionStatus))
+                    if (canPostNotifications) {
+                        notifier.notify(NOTIFICATION_ID, notificationFor(connectionStatus))
+                    }
+
                     if (connectionStatus == ConnectionStatus.None) {
                         Log.i(TAG, "Gone offline, scheduling bootstrap")
                         bootstrapTimer.schedule(BOOTSTRAP_INTERVAL_MS, BOOTSTRAP_INTERVAL_MS) {
