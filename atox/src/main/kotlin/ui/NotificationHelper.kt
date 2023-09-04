@@ -1,13 +1,16 @@
-// SPDX-FileCopyrightText: 2019-2022 aTox contributors
+// SPDX-FileCopyrightText: 2019-2023 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
 package ltd.evilcorp.atox.ui
 
+import android.Manifest
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -17,6 +20,8 @@ import android.graphics.Rect
 import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.os.Build
+import android.util.Log
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -43,6 +48,8 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.tox.PublicKey
+
+private const val TAG = "NotificationHelper"
 
 private const val MESSAGE = "aTox messages"
 private const val FRIEND_REQUEST = "aTox friend requests"
@@ -119,6 +126,15 @@ class NotificationHelper @Inject constructor(
         outgoing: Boolean = false,
         silent: Boolean = outgoing,
     ) {
+        if (ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS,
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            Log.w(TAG, "Received message, notifications disallowed")
+            return
+        }
+
         val notificationBuilder = NotificationCompat.Builder(context, MESSAGE)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setSmallIcon(android.R.drawable.sym_action_chat)
@@ -214,6 +230,15 @@ class NotificationHelper @Inject constructor(
     }
 
     fun showFriendRequestNotification(friendRequest: FriendRequest, silent: Boolean) {
+        if (ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS,
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            Log.w(TAG, "Received friend request, notifications disallowed")
+            return
+        }
+
         val notificationBuilder = NotificationCompat.Builder(context, FRIEND_REQUEST)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setSmallIcon(android.R.drawable.btn_star_big_on)
@@ -235,6 +260,15 @@ class NotificationHelper @Inject constructor(
         notifier.cancel(pk.string().hashCode() + CALL.hashCode())
 
     fun showOngoingCallNotification(contact: Contact) {
+        if (ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS,
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            Log.w(TAG, "Call ongoing, notifications disallowed")
+            return
+        }
+
         dismissCallNotification(PublicKey(contact.publicKey))
         val notificationBuilder = NotificationCompat.Builder(context, CALL)
             .setCategory(NotificationCompat.CATEGORY_CALL)
@@ -278,6 +312,15 @@ class NotificationHelper @Inject constructor(
     }
 
     fun showPendingCallNotification(status: UserStatus, c: Contact) {
+        if (ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS,
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            Log.w(TAG, "Call pending, notifications disallowed")
+            return
+        }
+
         val notification = NotificationCompat.Builder(context, CALL)
             .setCategory(NotificationCompat.CATEGORY_CALL)
             .setSmallIcon(android.R.drawable.ic_menu_call)
