@@ -1,12 +1,16 @@
-// SPDX-FileCopyrightText: 2020-2021 aTox contributors
+// SPDX-FileCopyrightText: 2020-2023 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
 package ltd.evilcorp.atox
 
+import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.util.Log
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -16,6 +20,7 @@ import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.domain.tox.ToxSaveStatus
 
 private const val ENCRYPTED = "aTox profile encrypted"
+private const val TAG = "BootReceiver"
 
 class BootReceiver : BroadcastReceiver() {
     @Inject
@@ -25,6 +30,16 @@ class BootReceiver : BroadcastReceiver() {
         if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
             (context.applicationContext as App).component.inject(this)
             if (toxStarter.tryLoadTox(null) == ToxSaveStatus.Encrypted) {
+                Log.i(TAG, "Telling the user to unlock their profile")
+                if (ActivityCompat.checkSelfPermission(
+                        context,
+                        Manifest.permission.POST_NOTIFICATIONS,
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    Log.w(TAG, "Missing notify-permission")
+                    return
+                }
+
                 val channel = NotificationChannelCompat.Builder(ENCRYPTED, NotificationManagerCompat.IMPORTANCE_HIGH)
                     .setName(context.getString(R.string.atox_profile_locked))
                     .setDescription(context.getString(R.string.channel_profile_locked_explanation))
