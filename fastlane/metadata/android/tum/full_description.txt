@@ -1,0 +1,10 @@
+aTox ni lusko laulele ilo waliyose wangasintha lakutumizgilana ma uthenga gha Tox protocol.
+
+<b>Chifukwa kusankha aTox?</b>
+* Open-source: free to share, inspect, and change as you like.
+* Reasonable: sane defaults, no guesses about what you care about, doesn't ignore what <b>you</b> want.
+* End-to-end encrypted: the only people who can see your conversations are the people you're talking to.
+* Distributed: no central servers that can be taken down or compelled to turn over data.
+* Lightweight: no telemetry, ads, or other forms of monitoring.
+
+More info: <a href="https://github.com/evilcorpltd/aTox/">aTox</a>, <a href="https://tox.chat/">Tox</a>.
