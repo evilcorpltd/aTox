@@ -7,6 +7,5 @@ Suporte a auto aceitação de transferência de ficheiros
 Lindos avatares marcadores de posição
 Limpar a conversa agora apaga as transferências de ficheiros associadas
 Corrigido a divisão de mensagens com caracteres multi-byte
-Traduzido para português brasileiro, russo e alemão
 
 Changelog completo: https://github.com/evilcorpltd/aTox/releases

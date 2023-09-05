@@ -2,7 +2,7 @@ Obsuga połączeń głosowych
 Możliwość używania zaszyfrowanego profilu Tox
 Możliwość zmiany swojego NoSpamu
 Możliwość ostrzymywania udostępnionego tekstu
-Możliwość wyświetlenia swojego ToxID jako kod QR
+Możliwość wyświetlenia swojego Tox ID jako kod QR
 Wsparcie dla wyboru wielu plików w celu jednoczesnego wysłania
 Przetłumaczony na wiele języków
 Zaktualizowany do Toxcore 0.2.13
