@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="message">پیغام</string>
+    <string name="add_contact_message_default">مجھ سے aTox پر ایک مہذب انسان کی طرح بات کریں۔</string>
+    <string name="create">بنائیں</string>
+    <string name="contact_typing">ٹائپ کیا جا رہا ہے…</string>
+    <string name="create_a_tox_profile">ایک ٹوکس پروفائل بنائیں</string>
+    <string name="messages_incoming">آنے والے پیغامات</string>
+    <string name="connecting">منسلک ہو رہا ہے…</string>
+    <string name="navigation_drawer_close">نیویگیشن خانہ بند کریں</string>
+    <string name="navigation_drawer_open">نیویگیشن خانہ کھولیں</string>
+    <string name="status_message">اسٹیٹس کا پیغام</string>
+    <string name="name">نام</string>
+    <string name="delete_contact">رابطہ ڈیلیٹ کریں</string>
+    <string name="copied">نقل کیا گیا</string>
+    <string name="send">بھیجیں</string>
+    <string name="profile_photo_description">پروفائل تصویر</string>
+    <string name="add_contact">رابطہ شامل کریں</string>
+    <string name="add_contact_message_error_empty">بھیجنے سے قبل کچھ لکھیں</string>
+    <string name="no_contacts_call_to_action">آپ کس چیز کا انتظار کر رہے ہیں؟ شروع کرنے کے لیے ایک رابطہ شامل کریں!</string>
+    <string name="confirm">تصدیق کریں</string>
+    <string name="sending">بھیج رہے ہیں…</string>
+    <string name="messages">پیغامات</string>
+    <string name="copy_atox">نقل کریں</string>
+    <string name="settings">ترتیبات</string>
+    <string name="status_indicator">اسٹیٹس کا اشارہ</string>
+    <string name="reject">نا منظور</string>
+    <string name="accept">منظور</string>
+    <string name="name_default">aTox صارف</string>
+    <string name="add">شامل کریں</string>
+</resources>
