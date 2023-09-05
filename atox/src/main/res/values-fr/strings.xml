@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="bad_port">Hôte invalide</string>
+    <string name="bad_port">Port invalide</string>
     <string name="bad_host">Hôte invalide</string>
     <string name="bad_type">Type invalide</string>
     <string name="contact_list_delete_contact_confirm">Vraiment supprimer « %1$s » des contacts \?</string>
