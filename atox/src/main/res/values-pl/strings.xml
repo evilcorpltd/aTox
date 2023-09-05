@@ -155,4 +155,9 @@
     <string name="file_not_found">Nie znaleziono pliku</string>
     <string name="pref_nospam_description">Zmiana Twojego NoSpamu zmienia Twój Tox ID, co oznacza, że zaproszenia do znajomych muszą być wysłane do tego zaktualizowanego</string>
     <string name="pref_heading_change_password">Zmień hasło</string>
+    <string name="call_confirm">Czy na pewno chcesz zadzwonić\?</string>
+    <string name="pref_confirm_calling">Potwierdź połączenie</string>
+    <string name="export_history">Wyeksportuj historię</string>
+    <string name="export_history_success">Historia wiadomości wyeksportowana</string>
+    <string name="export_history_failure">Nie udało się wyeksportować historii wiadomości: %1$s</string>
 </resources>
