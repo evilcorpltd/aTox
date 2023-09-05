@@ -37,7 +37,7 @@
     <string name="contact_typing">kirjoittaa…</string>
     <string name="copied">Kopioitu</string>
     <string name="name_default">aTox-käyttäjä</string>
-    <string name="no_contacts_call_to_action">Mitä sinä odotat\? Lisää yhteyshenkilö päästäksesi alkuun!</string>
+    <string name="no_contacts_call_to_action">Mitä sinä odotat\? Lisää yhteyshenkilö aloittaaksesi!</string>
     <string name="navigation_drawer_close">Sulje navigointilaatikko</string>
     <string name="profile_photo_description">Profiilikuva</string>
     <string name="reject">Hylkää</string>
@@ -109,4 +109,6 @@
     <string name="export_history_success">Viestihistoria viety</string>
     <string name="export_history_failure">Viestihistorian vienti epäonnistui: %1$s</string>
     <string name="seconds">Sekuntia</string>
+    <string name="pref_bootstrap_node_builtin">Sisäänrakennettu</string>
+    <string name="call_confirm">Oletko varma että haluat soittaa\?</string>
 </resources>
