@@ -7,7 +7,7 @@
     <string name="attach_file">Прикріпити файл</string>
     <string name="mimetype_handler_not_found">Програми для обробки медіа типу \"%1$s\" не встановлені</string>
     <string name="status_dialog_edit_user_status">Змінити ваш статус</string>
-    <string name="status_away">Відійшов</string>
+    <string name="status_away">Відійшов/відійшла</string>
     <string name="pref_heading_ft_auto_accept">Автоматично приймати файли</string>
     <string name="in_call_with">У розмові %1$s</string>
     <string name="ongoing_call">Поточний дзвінок</string>
@@ -28,7 +28,7 @@
     <string name="cancelled">Скасовано</string>
     <string name="delete">Видалити</string>
     <string name="from">Від</string>
-    <string name="status_busy">Зайнятий</string>
+    <string name="status_busy">Зайнятий/зайнята</string>
     <string name="pref_heading_general">Загальні</string>
     <string name="pref_heading_network">Мережа</string>
     <string name="profile">Профіль</string>
@@ -89,7 +89,7 @@
     <string name="add_contact">Додати контакт</string>
     <string name="add">Додати</string>
     <string name="accept">Прийняти</string>
-    <string name="status_available">Доступний</string>
+    <string name="status_available">Доступний/доступна</string>
     <string name="friend_request">Запит у друзі</string>
     <string name="pref_run_at_startup">Запускати під час завантаження Android</string>
     <string name="pref_udp_enabled">UDP увімкнено</string>
@@ -108,7 +108,7 @@
     <string name="error_no_nodes_loaded">Неможливо завантажити початкові вузли, будь ласка, перейдіть на вбудовані вузли або спробуйте імпортувати їх знову</string>
     <string name="warn_node_json_import_failed">Помилка імпорту вузлів</string>
     <string name="bad_positive_number">Має бути додатнім числом</string>
-    <string name="pref_auto_away">Статуй \"Відійшов\" після</string>
+    <string name="pref_auto_away">Статуй \"Відійшов/відійшла\" після</string>
     <string name="tox_save_export_failure">Експортування профілю Tox не вдалося: %1$s</string>
     <string name="proxy_not_found">Проксі не знайдено</string>
     <string name="warn_proxy_broken">Налаштуйте вашу проксі правильно (або вимкніть її) перед використанням програми</string>
