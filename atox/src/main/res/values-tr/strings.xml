@@ -140,7 +140,7 @@
     <string name="contact_typing">Yazıyor…</string>
     <string name="connecting">Bağlanıyor…</string>
     <string name="confirm">Onayla</string>
-    <string name="add_contact_message_error_empty">Göndermek için öncelikle birşeyler yazılmalı</string>
+    <string name="add_contact_message_error_empty">Göndermek için öncelikle bir şeyler yazılmalı</string>
     <string name="add_contact_message_default">Benimle aTox\'ta mantıklı bir insan gibi konuş.</string>
     <string name="add_contact">Kişi Ekle</string>
     <string name="add">Ekle</string>
