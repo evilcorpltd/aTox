@@ -1,0 +1,6 @@
+aTox stürzt beim Start unter Android KitKat nicht mehr ab.
+Das Ablehnen eines eingehenden Anrufs während eines Gesprächs funktioniert nun wie erwartet
+Unterstützung für das Teilen der Tox-ID als QR-Code-Bild hinzugefügt.
+Ein "Als gelesen markieren"-Button wurde zu den Nachrichten-Benachrichtigungen hinzugefügt.
+
+Vollständiges Changelog: https://github.com/evilcorpltd/aTox/releases

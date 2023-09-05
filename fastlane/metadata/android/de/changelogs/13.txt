@@ -1,0 +1,10 @@
+Anzeige des Verbindungsstatus von Kontakten hinzugefügt
+
+Absturz beim Start auf neueren Samsung-Handys behoben
+Der Klingelton für Anrufe wurde nicht immer stumm geschaltet, wenn er es sollte
+Eine Reihe von Abstürzen beim Löschen von Kontakten zu ungünstigen Zeitpunkten behoben
+Absturz behoben, der auftrat, wenn man mit einem Proxy startete und kein Internet hatte
+
+Aktualisiert auf Toxcore 0.2.16
+
+Vollständiges Changelog: https://github.com/evilcorpltd/aTox/releases
