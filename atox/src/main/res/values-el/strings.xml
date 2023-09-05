@@ -153,4 +153,11 @@
     <string name="share">Κοινοποίηση</string>
     <string name="mark_as_read">Σημείωση ως διαβασμένο</string>
     <string name="pref_disabled_tox_error">Απενεργοποιημένο λόγω σφάλματος έναρξης του Tox</string>
+    <string name="call_confirm">Είστε σίγουροι πως θέλετε να πραγματοποιήσετε κλήση;</string>
+    <string name="export_history_success">Το ιστορικό μηνυμάτων εξήχθη</string>
+    <string name="pref_confirm_quitting">Επιβεβαίωση εξόδου από την εφαρμογή</string>
+    <string name="pref_confirm_calling">Επιβεβαίωση κλήσης</string>
+    <string name="file_not_found">Το αρχείο δεν βρέθηκε</string>
+    <string name="export_history">Εξαγωγή ιστορικού</string>
+    <string name="export_history_failure">Η εξαγωγή ιστορικού μηνυμάτων απέτυχε: %1$s</string>
 </resources>

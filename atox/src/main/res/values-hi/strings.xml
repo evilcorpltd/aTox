@@ -19,7 +19,7 @@
     <string name="delete_message_confirm">क्या आप वाकई \"%1$s\" का संदेश हटाना चाहते हैं\?</string>
     <string name="tox_save_exported">टॉक्स सेव एक्सपोर्ट किया गया</string>
     <string name="export_tox_save">बाहर ले टॉक्स से</string>
-    <string name="import_tox_save_failed">आयात विफल:%1$s</string>
+    <string name="import_tox_save_failed">आयात विफल: %1$s</string>
     <string name="atox_offline">अनुपस्थित</string>
     <string name="atox_connected_with_udp">संपर्क (UDP)</string>
     <string name="pref_theme_follow_system">व्यवस्था का पालन करें</string>
@@ -81,7 +81,7 @@
     <string name="mark_as_read">पढ़ा गया चिह्नित करें</string>
     <string name="add">जोड़ें</string>
     <string name="accept">स्वीकार करें</string>
-    <string name="add_contact_message_default">"एक समझदार इंसान की तरह मुझसे एटॉक्स  पर बात करें।"</string>
+    <string name="add_contact_message_default">एक समझदार इंसान की तरह मुझसे एटॉक्स पर बात करें।</string>
     <string name="add_contact_message_error_empty">भेजने के लिए पहले कुछ लिखें</string>
     <string name="confirm">सुनिश्चित करें</string>
     <string name="connecting">संपर्क अभी जुड़ रहा है …</string>
