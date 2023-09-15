@@ -71,11 +71,10 @@ class EventListenerCallbacks @Inject constructor(
     private var audioPlayer: AudioPlayer? = null
     private val scope = CoroutineScope(Dispatchers.Default)
 
-    private suspend fun tryGetContact(pk: String, tag: String) =
-        contactRepository.get(pk).firstOrNull().let {
-            if (it == null) Log.e(TAG, "$tag -> unable to get contact for ${pk.fingerprint()}")
-            it
-        }
+    private suspend fun tryGetContact(pk: String, tag: String) = contactRepository.get(pk).firstOrNull().let {
+        if (it == null) Log.e(TAG, "$tag -> unable to get contact for ${pk.fingerprint()}")
+        it
+    }
 
     private fun notifyMessage(contact: Contact, message: String) =
         notificationHelper.showMessageNotification(contact, message, silent = tox.getStatus() == UserStatus.Busy)

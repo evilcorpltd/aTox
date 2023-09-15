@@ -9,8 +9,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
+import ltd.evilcorp.core.vo.FT_REJECTED
 import ltd.evilcorp.core.vo.FileTransfer
-import ltd.evilcorp.core.vo.FtRejected
 
 @Dao
 interface FileTransferDao {
@@ -27,11 +27,11 @@ interface FileTransferDao {
     fun load(id: Int): Flow<FileTransfer>
 
     @Query("UPDATE file_transfers SET progress = :progress WHERE id == :id AND progress != :rejected")
-    fun updateProgress(id: Int, progress: Long, rejected: Long = FtRejected)
+    fun updateProgress(id: Int, progress: Long, rejected: Long = FT_REJECTED)
 
     @Query("UPDATE file_transfers SET destination = :destination WHERE id == :id")
     fun setDestination(id: Int, destination: String)
 
     @Query("UPDATE file_transfers SET progress = :progress WHERE progress < file_size")
-    fun resetTransientData(progress: Long = FtRejected)
+    fun resetTransientData(progress: Long = FT_REJECTED)
 }

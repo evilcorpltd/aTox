@@ -43,18 +43,17 @@ private fun FileTransfer.isImage() = try {
     false
 }
 
-private fun inflateView(type: ChatItemType, inflater: LayoutInflater): View =
-    inflater.inflate(
-        when (type) {
-            ChatItemType.SentMessage -> R.layout.chat_message_sent
-            ChatItemType.ReceivedMessage -> R.layout.chat_message_received
-            ChatItemType.SentAction -> R.layout.chat_action_sent
-            ChatItemType.ReceivedAction -> R.layout.chat_action_received
-            ChatItemType.SentFileTransfer, ChatItemType.ReceivedFileTransfer -> R.layout.chat_filetransfer
-        },
-        null,
-        true,
-    )
+private fun inflateView(type: ChatItemType, inflater: LayoutInflater): View = inflater.inflate(
+    when (type) {
+        ChatItemType.SentMessage -> R.layout.chat_message_sent
+        ChatItemType.ReceivedMessage -> R.layout.chat_message_received
+        ChatItemType.SentAction -> R.layout.chat_action_sent
+        ChatItemType.ReceivedAction -> R.layout.chat_action_received
+        ChatItemType.SentFileTransfer, ChatItemType.ReceivedFileTransfer -> R.layout.chat_filetransfer
+    },
+    null,
+    true,
+)
 
 private enum class ChatItemType {
     ReceivedMessage,

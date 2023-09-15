@@ -174,8 +174,7 @@ class Tox @Inject constructor(
     fun sendFile(pk: PublicKey, fileKind: FileKind, fileSize: Long, fileName: String) =
         tox.sendFile(pk, fileKind, fileSize, fileName)
 
-    fun sendFileChunk(pk: PublicKey, fileNo: Int, pos: Long, data: ByteArray) =
-        tox.sendFileChunk(pk, fileNo, pos, data)
+    fun sendFileChunk(pk: PublicKey, fileNo: Int, pos: Long, data: ByteArray) = tox.sendFileChunk(pk, fileNo, pos, data)
 
     fun getName() = tox.getName()
     fun setName(name: String) {

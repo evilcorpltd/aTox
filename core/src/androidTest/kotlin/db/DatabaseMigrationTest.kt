@@ -12,9 +12,9 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.FT_NOT_STARTED
 import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.FileTransfer
-import ltd.evilcorp.core.vo.FtNotStarted
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.Sender
@@ -43,7 +43,7 @@ class DatabaseMigrationTest {
         9876,
         "bird.png2",
         false,
-        FtNotStarted,
+        FT_NOT_STARTED,
     )
 
     private val msg = Message(

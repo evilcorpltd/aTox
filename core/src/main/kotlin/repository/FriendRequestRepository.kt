@@ -14,15 +14,11 @@ import ltd.evilcorp.core.vo.FriendRequest
 class FriendRequestRepository @Inject internal constructor(
     private val friendRequestDao: FriendRequestDao,
 ) {
-    fun add(friendRequest: FriendRequest) =
-        friendRequestDao.save(friendRequest)
+    fun add(friendRequest: FriendRequest) = friendRequestDao.save(friendRequest)
 
-    fun delete(friendRequest: FriendRequest) =
-        friendRequestDao.delete(friendRequest)
+    fun delete(friendRequest: FriendRequest) = friendRequestDao.delete(friendRequest)
 
-    fun getAll(): Flow<List<FriendRequest>> =
-        friendRequestDao.loadAll()
+    fun getAll(): Flow<List<FriendRequest>> = friendRequestDao.loadAll()
 
-    fun get(publicKey: String): Flow<FriendRequest> =
-        friendRequestDao.load(publicKey)
+    fun get(publicKey: String): Flow<FriendRequest> = friendRequestDao.load(publicKey)
 }

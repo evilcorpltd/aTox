@@ -53,8 +53,7 @@ class ToxEventListener @Inject constructor() : ToxCoreEventListener<Unit> {
     var friendTypingHandler: FriendTypingHandler = { _, _ -> }
     var fileChunkRequestHandler: FileChunkRequestHandler = { _, _, _, _ -> }
 
-    private fun keyFor(friendNo: Int) =
-        contactMapping.find { it.second == friendNo }!!.first.string()
+    private fun keyFor(friendNo: Int) = contactMapping.find { it.second == friendNo }!!.first.string()
 
     override fun friendLosslessPacket(friendNo: Int, data: ByteArray, s: Unit?) =
         friendLosslessPacketHandler(keyFor(friendNo), data)
@@ -77,33 +76,17 @@ class ToxEventListener @Inject constructor() : ToxCoreEventListener<Unit> {
     override fun friendRequest(publicKey: ByteArray, timeDelta: Int, message: ByteArray, s: Unit?) =
         friendRequestHandler(publicKey.bytesToHex(), timeDelta, String(message))
 
-    override fun friendMessage(
-        friendNo: Int,
-        type: ToxMessageType,
-        timeDelta: Int,
-        message: ByteArray,
-        s: Unit?,
-    ) = friendMessageHandler(keyFor(friendNo), type, timeDelta, String(message))
+    override fun friendMessage(friendNo: Int, type: ToxMessageType, timeDelta: Int, message: ByteArray, s: Unit?) =
+        friendMessageHandler(keyFor(friendNo), type, timeDelta, String(message))
 
     override fun friendName(friendNo: Int, newName: ByteArray, s: Unit?) =
         friendNameHandler(keyFor(friendNo), String(newName))
 
-    override fun fileRecvChunk(
-        friendNo: Int,
-        fileNo: Int,
-        position: Long,
-        data: ByteArray,
-        s: Unit?,
-    ) = fileRecvChunkHandler(keyFor(friendNo), fileNo, position, data)
+    override fun fileRecvChunk(friendNo: Int, fileNo: Int, position: Long, data: ByteArray, s: Unit?) =
+        fileRecvChunkHandler(keyFor(friendNo), fileNo, position, data)
 
-    override fun fileRecv(
-        friendNo: Int,
-        fileNo: Int,
-        kind: Int,
-        fileSize: Long,
-        filename: ByteArray,
-        s: Unit?,
-    ) = fileRecvHandler(keyFor(friendNo), fileNo, kind, fileSize, String(filename))
+    override fun fileRecv(friendNo: Int, fileNo: Int, kind: Int, fileSize: Long, filename: ByteArray, s: Unit?) =
+        fileRecvHandler(keyFor(friendNo), fileNo, kind, fileSize, String(filename))
 
     override fun friendLossyPacket(friendNo: Int, data: ByteArray, s: Unit?) =
         friendLossyPacketHandler(keyFor(friendNo), data)
@@ -114,11 +97,6 @@ class ToxEventListener @Inject constructor() : ToxCoreEventListener<Unit> {
     override fun friendTyping(friendNo: Int, isTyping: Boolean, s: Unit?) =
         friendTypingHandler(keyFor(friendNo), isTyping)
 
-    override fun fileChunkRequest(
-        friendNo: Int,
-        fileNo: Int,
-        position: Long,
-        length: Int,
-        s: Unit?,
-    ) = fileChunkRequestHandler(keyFor(friendNo), fileNo, position, length)
+    override fun fileChunkRequest(friendNo: Int, fileNo: Int, position: Long, length: Int, s: Unit?) =
+        fileChunkRequestHandler(keyFor(friendNo), fileNo, position, length)
 }

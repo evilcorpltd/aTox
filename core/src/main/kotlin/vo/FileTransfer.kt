@@ -14,9 +14,9 @@ enum class FileKind {
 }
 
 // Since the progress can't be negative, I'm reusing that part for some markers.
-const val FtStarted = 0L
-const val FtNotStarted = -1L
-const val FtRejected = -2L
+const val FT_STARTED = 0L
+const val FT_NOT_STARTED = -1L
+const val FT_REJECTED = -2L
 
 @Entity(tableName = "file_transfers")
 data class FileTransfer(
@@ -39,7 +39,7 @@ data class FileTransfer(
     val outgoing: Boolean,
 
     @ColumnInfo(name = "progress")
-    var progress: Long = FtNotStarted,
+    var progress: Long = FT_NOT_STARTED,
 
     @ColumnInfo(name = "destination")
     var destination: String = "",
@@ -50,5 +50,5 @@ data class FileTransfer(
 }
 
 fun FileTransfer.isComplete() = progress >= fileSize
-fun FileTransfer.isStarted() = progress >= FtStarted
-fun FileTransfer.isRejected() = progress == FtRejected
+fun FileTransfer.isStarted() = progress >= FT_STARTED
+fun FileTransfer.isRejected() = progress == FT_REJECTED

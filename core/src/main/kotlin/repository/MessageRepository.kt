@@ -21,20 +21,15 @@ class MessageRepository @Inject internal constructor(
         contactRepository.setLastMessage(message.publicKey, Date().time)
     }
 
-    fun get(conversation: String): Flow<List<Message>> =
-        messageDao.load(conversation)
+    fun get(conversation: String): Flow<List<Message>> = messageDao.load(conversation)
 
-    fun getPending(conversation: String): List<Message> =
-        messageDao.loadPending(conversation)
+    fun getPending(conversation: String): List<Message> = messageDao.loadPending(conversation)
 
-    fun setCorrelationId(id: Long, correlationId: Int) =
-        messageDao.setCorrelationId(id, correlationId)
+    fun setCorrelationId(id: Long, correlationId: Int) = messageDao.setCorrelationId(id, correlationId)
 
-    fun delete(conversation: String) =
-        messageDao.delete(conversation)
+    fun delete(conversation: String) = messageDao.delete(conversation)
 
-    fun deleteMessage(id: Long) =
-        messageDao.deleteMessage(id)
+    fun deleteMessage(id: Long) = messageDao.deleteMessage(id)
 
     fun setReceipt(conversation: String, correlationId: Int, timestamp: Long) =
         messageDao.setReceipt(conversation, correlationId, timestamp)

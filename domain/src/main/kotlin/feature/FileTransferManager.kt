@@ -24,11 +24,11 @@ import kotlinx.coroutines.launch
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.FileTransferRepository
 import ltd.evilcorp.core.repository.MessageRepository
+import ltd.evilcorp.core.vo.FT_NOT_STARTED
+import ltd.evilcorp.core.vo.FT_REJECTED
+import ltd.evilcorp.core.vo.FT_STARTED
 import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.FileTransfer
-import ltd.evilcorp.core.vo.FtNotStarted
-import ltd.evilcorp.core.vo.FtRejected
-import ltd.evilcorp.core.vo.FtStarted
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.Sender
@@ -75,7 +75,7 @@ class FileTransferManager @Inject constructor(
     fun resetForContact(pk: String) {
         Log.i(TAG, "Clearing fts for contact ${pk.fingerprint()}")
         fileTransfers.filter { it.publicKey == pk }.kForEach { ft ->
-            setProgress(ft, FtRejected)
+            setProgress(ft, FT_REJECTED)
             fileTransfers.remove(ft)
             if (ft.outgoing) {
                 val uri = Uri.parse(ft.destination)
@@ -144,7 +144,7 @@ class FileTransferManager @Inject constructor(
 
         RandomAccessFile(file, "rwd").use { it.setLength(ft.fileSize) }
         setDestination(ft, Uri.fromFile(file))
-        setProgress(ft, FtStarted)
+        setProgress(ft, FT_STARTED)
         tox.startFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
     }
 
@@ -157,7 +157,7 @@ class FileTransferManager @Inject constructor(
     fun reject(ft: FileTransfer) {
         Log.i(TAG, "Reject ${ft.fileNumber} for ${ft.publicKey.fingerprint()}")
         fileTransfers.remove(ft)
-        setProgress(ft, FtRejected)
+        setProgress(ft, FT_REJECTED)
         tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
         val uri = Uri.parse(ft.destination)
         if (ft.outgoing) {
@@ -231,7 +231,7 @@ class FileTransferManager @Inject constructor(
             size,
             name,
             true,
-            FtNotStarted,
+            FT_NOT_STARTED,
             file.toString(),
         )
         val id = fileTransferRepository.add(ft).toInt()
@@ -279,8 +279,8 @@ class FileTransferManager @Inject constructor(
             return
         }
 
-        if (fileStatus == ToxFileControl.RESUME && ft.progress == FtNotStarted) {
-            ft.progress = FtStarted
+        if (fileStatus == ToxFileControl.RESUME && ft.progress == FT_NOT_STARTED) {
+            ft.progress = FT_STARTED
         } else if (fileStatus == ToxFileControl.CANCEL) {
             Log.i(TAG, "Friend canceled ft ${pk.fingerprint()} $fileNo")
             reject(ft)

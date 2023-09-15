@@ -16,20 +16,15 @@ import ltd.evilcorp.core.vo.UserStatus
 class UserRepository @Inject constructor(
     private val userDao: UserDao,
 ) {
-    fun exists(publicKey: String): Boolean =
-        userDao.exists(publicKey)
+    fun exists(publicKey: String): Boolean = userDao.exists(publicKey)
 
-    fun add(user: User) =
-        userDao.save(user)
+    fun add(user: User) = userDao.save(user)
 
-    fun update(user: User) =
-        userDao.update(user)
+    fun update(user: User) = userDao.update(user)
 
-    fun get(publicKey: String): Flow<User> =
-        userDao.load(publicKey)
+    fun get(publicKey: String): Flow<User> = userDao.load(publicKey)
 
-    fun updateName(publicKey: String, name: String) =
-        userDao.updateName(publicKey, name)
+    fun updateName(publicKey: String, name: String) = userDao.updateName(publicKey, name)
 
     fun updateStatusMessage(publicKey: String, statusMessage: String) =
         userDao.updateStatusMessage(publicKey, statusMessage)
@@ -37,6 +32,5 @@ class UserRepository @Inject constructor(
     fun updateConnection(publicKey: String, connectionStatus: ConnectionStatus) =
         userDao.updateConnection(publicKey, connectionStatus)
 
-    fun updateStatus(publicKey: String, status: UserStatus) =
-        userDao.updateStatus(publicKey, status)
+    fun updateStatus(publicKey: String, status: UserStatus) = userDao.updateStatus(publicKey, status)
 }

@@ -236,9 +236,8 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
         return bmpQrWithPadding
     }
 
-    private suspend fun getQrForSharing(): Uri =
-        withContext(Dispatchers.IO) {
-            val bmp = asQr(vm.toxId, qrCodeSharedImageSize, qrCodeSharedImagePadding)
-            saveQrForSharing(bmp)
-        }
+    private suspend fun getQrForSharing(): Uri = withContext(Dispatchers.IO) {
+        val bmp = asQr(vm.toxId, qrCodeSharedImageSize, qrCodeSharedImagePadding)
+        saveQrForSharing(bmp)
+    }
 }

@@ -80,6 +80,5 @@ class ToxStarter @Inject constructor(
         }
     }
 
-    private fun tryLoadSave(): ByteArray? =
-        saveManager.run { list().firstOrNull()?.let { load(PublicKey(it)) } }
+    private fun tryLoadSave(): ByteArray? = saveManager.run { list().firstOrNull()?.let { load(PublicKey(it)) } }
 }

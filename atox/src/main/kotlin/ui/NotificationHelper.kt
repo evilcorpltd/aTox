@@ -256,8 +256,7 @@ class NotificationHelper @Inject constructor(
         notifier.notify(friendRequest.publicKey.hashCode(), notificationBuilder.build())
     }
 
-    fun dismissCallNotification(pk: PublicKey) =
-        notifier.cancel(pk.string().hashCode() + CALL.hashCode())
+    fun dismissCallNotification(pk: PublicKey) = notifier.cancel(pk.string().hashCode() + CALL.hashCode())
 
     fun showOngoingCallNotification(contact: Contact) {
         if (ActivityCompat.checkSelfPermission(

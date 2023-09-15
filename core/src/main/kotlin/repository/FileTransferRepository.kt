@@ -14,23 +14,17 @@ import ltd.evilcorp.core.vo.FileTransfer
 class FileTransferRepository @Inject internal constructor(
     private val dao: FileTransferDao,
 ) {
-    fun add(ft: FileTransfer): Long =
-        dao.save(ft)
+    fun add(ft: FileTransfer): Long = dao.save(ft)
 
-    fun delete(id: Int) =
-        dao.delete(id)
+    fun delete(id: Int) = dao.delete(id)
 
-    fun get(publicKey: String): Flow<List<FileTransfer>> =
-        dao.load(publicKey)
+    fun get(publicKey: String): Flow<List<FileTransfer>> = dao.load(publicKey)
 
-    fun get(id: Int): Flow<FileTransfer> =
-        dao.load(id)
+    fun get(id: Int): Flow<FileTransfer> = dao.load(id)
 
-    fun setDestination(id: Int, destination: String) =
-        dao.setDestination(id, destination)
+    fun setDestination(id: Int, destination: String) = dao.setDestination(id, destination)
 
-    fun updateProgress(id: Int, progress: Long) =
-        dao.updateProgress(id, progress)
+    fun updateProgress(id: Int, progress: Long) = dao.updateProgress(id, progress)
 
     fun resetTransientData() = dao.resetTransientData()
 }

@@ -56,8 +56,7 @@ import ltd.evilcorp.domain.tox.ToxSaveStatus
 const val ARG_SHARE = "share"
 private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 32
 
-private fun User.online(): Boolean =
-    connectionStatus != ConnectionStatus.None
+private fun User.online(): Boolean = connectionStatus != ConnectionStatus.None
 
 class ContactListFragment :
     BaseFragment<FragmentContactListBinding>(FragmentContactListBinding::inflate),
@@ -206,11 +205,7 @@ class ContactListFragment :
         super.onDestroyView()
     }
 
-    override fun onCreateContextMenu(
-        menu: ContextMenu,
-        v: View,
-        menuInfo: ContextMenu.ContextMenuInfo?,
-    ) {
+    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
 
         val inflater: MenuInflater = requireActivity().menuInflater

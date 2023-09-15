@@ -59,28 +59,27 @@ class ChatManager @Inject constructor(
 
     fun messagesFor(publicKey: PublicKey) = messageRepository.get(publicKey.string())
 
-    fun sendMessage(publicKey: PublicKey, message: String, type: MessageType = MessageType.Normal) =
-        scope.launch {
-            if (contactRepository.get(publicKey.string()).first().connectionStatus == ConnectionStatus.None) {
-                queueMessage(publicKey, message, type)
-                return@launch
-            }
-
-            val msgs = message.chunked(MAX_MESSAGE_LENGTH)
-            while (msgs.size > 1) {
-                tox.sendMessage(publicKey, msgs.removeFirst(), type)
-            }
-
-            messageRepository.add(
-                Message(
-                    publicKey.string(),
-                    message,
-                    Sender.Sent,
-                    type,
-                    tox.sendMessage(publicKey, msgs.first(), type),
-                ),
-            )
+    fun sendMessage(publicKey: PublicKey, message: String, type: MessageType = MessageType.Normal) = scope.launch {
+        if (contactRepository.get(publicKey.string()).first().connectionStatus == ConnectionStatus.None) {
+            queueMessage(publicKey, message, type)
+            return@launch
         }
+
+        val msgs = message.chunked(MAX_MESSAGE_LENGTH)
+        while (msgs.size > 1) {
+            tox.sendMessage(publicKey, msgs.removeFirst(), type)
+        }
+
+        messageRepository.add(
+            Message(
+                publicKey.string(),
+                message,
+                Sender.Sent,
+                type,
+                tox.sendMessage(publicKey, msgs.first(), type),
+            ),
+        )
+    }
 
     private fun queueMessage(publicKey: PublicKey, message: String, type: MessageType) =
         messageRepository.add(Message(publicKey.string(), message, Sender.Sent, type, Int.MIN_VALUE))

@@ -47,6 +47,5 @@ class BootstrapNodeRegistryImpl @Inject constructor(
         }
     }
 
-    override fun get(n: Int): List<BootstrapNode> =
-        nodes.asSequence().shuffled().take(n).toList()
+    override fun get(n: Int): List<BootstrapNode> = nodes.asSequence().shuffled().take(n).toList()
 }

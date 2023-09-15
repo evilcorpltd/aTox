@@ -351,11 +351,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         super.onResume()
     }
 
-    override fun onCreateContextMenu(
-        menu: ContextMenu,
-        v: View,
-        menuInfo: ContextMenu.ContextMenuInfo?,
-    ) = binding.run {
+    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) = binding.run {
         super.onCreateContextMenu(menu, v, menuInfo)
         v.dispatchTouchEvent(MotionEvent.obtain(0, 0, MotionEvent.ACTION_CANCEL, 0f, 0f, 0))
         val inflater = requireActivity().menuInflater
@@ -364,7 +360,10 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                 val info = menuInfo as AdapterView.AdapterContextMenuInfo
                 val message = messages.adapter.getItem(info.position) as Message
                 when (message.type) {
-                    MessageType.Action, MessageType.Normal -> inflater.inflate(R.menu.chat_message_context_menu, menu)
+                    MessageType.Action, MessageType.Normal -> inflater.inflate(
+                        R.menu.chat_message_context_menu,
+                        menu,
+                    )
                     MessageType.FileTransfer -> {
                         inflater.inflate(R.menu.ft_message_context_menu, menu)
                         val ft = fts.find { it.id == message.correlationId } ?: return

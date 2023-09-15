@@ -17,10 +17,10 @@ import ltd.evilcorp.core.vo.Message
 class ExportManager @Inject constructor(
     private val messageRepository: MessageRepository,
 ) {
-
+    // TODO @Akito: Increment version programmatically on major changes.
     private fun List<Message>.generateExportMessages(): ExportMessages {
         return ExportMessages(
-            version = 1, // TODO @Akito: Increment version programmatically on major changes.
+            version = 1,
             timestamp = SimpleDateFormat(
                 """yyyy-MM-dd'T'HH-mm-ss""",
                 Locale.getDefault(),
@@ -36,10 +36,9 @@ class ExportManager @Inject constructor(
         messageRepository.get(publicKey).first()
     }
 
-    fun generateExportMessagesJString(publicKey: String): String =
-        generateExportMessagesJString(
-            getMessages(publicKey),
-        )
+    fun generateExportMessagesJString(publicKey: String): String = generateExportMessagesJString(
+        getMessages(publicKey),
+    )
 }
 
 data class ExportMessages(

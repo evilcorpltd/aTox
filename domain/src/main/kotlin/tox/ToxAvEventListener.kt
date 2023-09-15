@@ -39,14 +39,12 @@ class ToxAvEventListener @Inject constructor() : ToxAvEventListener<Unit> {
     var audioReceiveFrameHandler: AudioReceiveFrameHandler = { _, _, _, _ -> }
     var audioBitRateHandler: AudioBitRateHandler = { _, _ -> }
 
-    private fun keyFor(friendNo: Int) =
-        contactMapping.find { it.second == friendNo }!!.first.string()
+    private fun keyFor(friendNo: Int) = contactMapping.find { it.second == friendNo }!!.first.string()
 
     override fun call(friendNo: Int, audioEnabled: Boolean, videoEnabled: Boolean, s: Unit?) =
         callHandler(keyFor(friendNo), audioEnabled, videoEnabled)
 
-    override fun videoBitRate(friendNo: Int, bitRate: Int, s: Unit?) =
-        videoBitRateHandler(keyFor(friendNo), bitRate)
+    override fun videoBitRate(friendNo: Int, bitRate: Int, s: Unit?) = videoBitRateHandler(keyFor(friendNo), bitRate)
 
     override fun videoFrameCachedYUV(
         height: Int,
@@ -76,14 +74,8 @@ class ToxAvEventListener @Inject constructor() : ToxAvEventListener<Unit> {
     override fun callState(friendNo: Int, callState: EnumSet<ToxavFriendCallState>, s: Unit?) =
         callStateHandler(keyFor(friendNo), callState)
 
-    override fun audioReceiveFrame(
-        friendNo: Int,
-        pcm: ShortArray,
-        channels: Int,
-        samplingRate: Int,
-        s: Unit?,
-    ) = audioReceiveFrameHandler(keyFor(friendNo), pcm, channels, samplingRate)
+    override fun audioReceiveFrame(friendNo: Int, pcm: ShortArray, channels: Int, samplingRate: Int, s: Unit?) =
+        audioReceiveFrameHandler(keyFor(friendNo), pcm, channels, samplingRate)
 
-    override fun audioBitRate(friendNo: Int, bitRate: Int, s: Unit?) =
-        audioBitRateHandler(keyFor(friendNo), bitRate)
+    override fun audioBitRate(friendNo: Int, bitRate: Int, s: Unit?) = audioBitRateHandler(keyFor(friendNo), bitRate)
 }

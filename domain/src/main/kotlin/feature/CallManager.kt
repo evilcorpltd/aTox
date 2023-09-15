@@ -112,7 +112,9 @@ class CallManager @Inject constructor(
 
     var speakerphoneOn: Boolean
         get() = audioManager?.isSpeakerphoneOn ?: false
-        set(value) { audioManager?.isSpeakerphoneOn = value }
+        set(value) {
+            audioManager?.isSpeakerphoneOn = value
+        }
 
     private fun startAudioSender(recorder: AudioCapture, to: PublicKey) {
         scope.launch {
