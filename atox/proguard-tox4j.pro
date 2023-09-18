@@ -9,3 +9,8 @@
 -keep public class scala.collection.mutable.Builder* {
     *;
 }
+
+-dontwarn javax.script.ScriptEngineFactory
+-dontwarn org.conscrypt.Conscrypt
+-dontwarn org.conscrypt.OpenSSLProvider
+-dontwarn org.slf4j.impl.StaticLoggerBinder
