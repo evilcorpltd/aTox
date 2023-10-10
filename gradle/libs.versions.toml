@@ -17,7 +17,6 @@ tox4j-android = "0.2.18"
 tox4j-core = "0.2.3"
 
 [plugins]
-versions = "com.github.ben-manes.versions:0.47.0"
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinKsp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 androidApplication = { id = "com.android.application", version.ref = "android-plugin" }
