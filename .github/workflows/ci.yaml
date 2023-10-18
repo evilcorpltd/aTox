@@ -5,8 +5,8 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
-    - run: curl -sSLO https://github.com/pinterest/ktlint/releases/download/1.0.0/ktlint && chmod a+x ktlint
-    - run: ./ktlint --code-style=android_studio
+    - run: curl -sSLO https://github.com/pinterest/ktlint/releases/download/1.0.1/ktlint && chmod a+x ktlint
+    - run: ./ktlint
 
   gradle-wrapper-validation:
     runs-on: ubuntu-22.04
