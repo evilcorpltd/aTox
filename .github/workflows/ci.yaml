@@ -4,14 +4,14 @@ jobs:
   ktlint:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - run: curl -sSLO https://github.com/pinterest/ktlint/releases/download/1.0.1/ktlint && chmod a+x ktlint
     - run: ./ktlint
 
   gradle-wrapper-validation:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: gradle/wrapper-validation-action@v1
 
   gradle:
@@ -29,7 +29,7 @@ jobs:
       with:
         name: tox4j
         path: ~/.m2
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: actions/setup-java@v3
       with:
         distribution: adopt
@@ -57,7 +57,7 @@ jobs:
   tox4j:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: actions/setup-java@v3
       with:
         distribution: adopt
@@ -96,7 +96,7 @@ jobs:
   bazel:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: actions/setup-java@v3
       with:
         distribution: adopt
@@ -121,7 +121,7 @@ jobs:
   buildifier:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install
       run: |
           wget --output-document=buildifier https://github.com/bazelbuild/buildtools/releases/download/v6.1.2/buildifier-linux-amd64
