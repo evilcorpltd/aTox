@@ -3,7 +3,7 @@ sdk-min = "19"
 sdk-target = "33"
 
 kotlin = "1.9.20"
-ksp = "1.9.20-1.0.13"
+ksp = "1.9.20-1.0.14"
 android-plugin = "8.1.2"
 
 coroutines = "1.7.3"
@@ -11,8 +11,8 @@ dagger = "2.48"
 espresso = "3.5.1"
 jackson = "2.15.2"
 lifecycle = "2.6.2"
-navigation = "2.6.0" # 2.7.4 requires API 34.
-room = "2.5.2"
+navigation = "2.6.0" # 2.7.5 requires API 34.
+room = "2.5.2" # 2.6.0 requires API 34.
 tox4j-android = "0.2.18"
 tox4j-core = "0.2.3"
 
@@ -27,7 +27,7 @@ androidx-activity = "androidx.activity:activity:1.7.2" # 1.8.0 requires API 34.
 androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
 androidx-core-ktx = "androidx.core:core-ktx:1.10.1" # 1.12.0 requires API 34.
-androidx-fragment = "androidx.fragment:fragment:1.6.1"
+androidx-fragment = "androidx.fragment:fragment:1.6.2"
 
 androidx-multidex = "androidx.multidex:multidex:2.0.1"
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigation" }
