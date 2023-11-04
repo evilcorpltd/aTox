@@ -5,10 +5,19 @@
 package ltd.evilcorp.atox.ui.call
 
 import android.Manifest
+import android.media.AudioDeviceInfo.TYPE_BLE_HEADSET
+import android.media.AudioDeviceInfo.TYPE_BLE_SPEAKER
+import android.media.AudioDeviceInfo.TYPE_BLUETOOTH_SCO
+import android.media.AudioDeviceInfo.TYPE_WIRED_HEADPHONES
+import android.media.AudioDeviceInfo.TYPE_WIRED_HEADSET
+import android.media.AudioManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -28,6 +37,20 @@ import ltd.evilcorp.domain.tox.PublicKey
 private const val PERMISSION = Manifest.permission.RECORD_AUDIO
 
 class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::inflate) {
+
+    companion object {
+        private var hasCalled = false
+
+        @RequiresApi(Build.VERSION_CODES.S)
+        private val audioOutputDevices = arrayOf(
+            TYPE_WIRED_HEADPHONES,
+            TYPE_WIRED_HEADSET,
+            TYPE_BLE_HEADSET,
+            TYPE_BLE_SPEAKER,
+            TYPE_BLUETOOTH_SCO,
+        )
+    }
+
     private val vm: CallViewModel by viewModels { vmFactory }
 
     private val requestPermissionLauncher = registerForActivityResult(
@@ -40,6 +63,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
             val insets = compat.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -77,6 +101,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
             }
         }
 
+        updateSpeakerphoneOnDetectHeadphones()
         updateSpeakerphoneIcon()
         speakerphone.setOnClickListener {
             vm.toggleSpeakerphone()
@@ -108,12 +133,28 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
         binding.speakerphone.setImageResource(icon)
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun updateSpeakerphoneOnDetectHeadphones() {
+        if (headphonesArePlugged()) {
+            vm.disableSpeakerphone()
+        }
+    }
+
     private fun startCall() {
         vm.startCall()
         vm.inCall.asLiveData().observe(viewLifecycleOwner) { inCall ->
             if (inCall == CallState.NotInCall) {
                 findNavController().popBackStack()
+                hasCalled = false
             }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun headphonesArePlugged(): Boolean {
+        val audioManager = context?.let { getSystemService(it, AudioManager::class.java) } ?: return false
+        return audioManager.getDevices(AudioManager.GET_DEVICES_INPUTS).any { info ->
+            audioOutputDevices.contains(info.type)
         }
     }
 }
