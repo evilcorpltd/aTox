@@ -66,12 +66,6 @@ dependencies {
     api(libs.tox4j.api)
     implementation(libs.tox4j.c)
 
-    // JSON
-    implementation(libs.jackson.kotlin)
-    implementation(libs.jackson.databind)
-    implementation(libs.jackson.core)
-    implementation(libs.jackson.annotations)
-
     testImplementation(kotlin("test"))
     androidTestImplementation(kotlin("test"))
     androidTestImplementation(libs.test.runner)

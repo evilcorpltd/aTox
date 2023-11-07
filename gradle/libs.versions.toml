@@ -9,7 +9,6 @@ android-plugin = "8.1.2"
 coroutines = "1.7.3"
 dagger = "2.48"
 espresso = "3.5.1"
-jackson = "2.15.2"
 lifecycle = "2.6.2"
 navigation = "2.6.0" # 2.7.5 requires API 34.
 room = "2.5.2" # 2.6.0 requires API 34.
@@ -47,11 +46,6 @@ androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "
 google-android-material = "com.google.android.material:material:1.9.0" # 1.10.0 requires API 34
 google-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 google-dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger" }
-
-jackson-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
-jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
-jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson" }
-jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
 
 javax-inject = "javax.inject:javax.inject:1"
 
