@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2023 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -146,10 +146,12 @@ class ToxWrapper(
         Log.e(TAG, "Error sending ft $fileName ${pk.fingerprint()}\n$e")
     }
 
-    fun sendFileChunk(pk: PublicKey, fileNo: Int, pos: Long, data: ByteArray) = try {
+    fun sendFileChunk(pk: PublicKey, fileNo: Int, pos: Long, data: ByteArray): Result<Unit> = try {
         tox.fileSendChunk(contactByKey(pk), fileNo, pos, data)
+        Result.success(Unit)
     } catch (e: ToxFileSendChunkException) {
         Log.e(TAG, "Error sending chunk $pos:${data.size} to ${pk.fingerprint()} $fileNo\n$e")
+        Result.failure(e)
     }
 
     fun setTyping(publicKey: PublicKey, typing: Boolean) = tox.setTyping(contactByKey(publicKey), typing)

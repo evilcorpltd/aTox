@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2023 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2020 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -174,7 +175,8 @@ class Tox @Inject constructor(
     fun sendFile(pk: PublicKey, fileKind: FileKind, fileSize: Long, fileName: String) =
         tox.sendFile(pk, fileKind, fileSize, fileName)
 
-    fun sendFileChunk(pk: PublicKey, fileNo: Int, pos: Long, data: ByteArray) = tox.sendFileChunk(pk, fileNo, pos, data)
+    fun sendFileChunk(pk: PublicKey, fileNo: Int, pos: Long, data: ByteArray): Result<Unit> =
+        tox.sendFileChunk(pk, fileNo, pos, data)
 
     fun getName() = tox.getName()
     fun setName(name: String) {
