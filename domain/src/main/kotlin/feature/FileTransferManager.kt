@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2023 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -12,6 +12,7 @@ import android.provider.OpenableColumns
 import android.util.Log
 import im.tox.tox4j.core.enums.ToxFileControl
 import java.io.File
+import java.io.InputStream
 import java.io.RandomAccessFile
 import java.util.Date
 import javax.inject.Inject
@@ -44,6 +45,17 @@ private const val TAG = "FileTransferManager"
 private const val FINGERPRINT_LEN = 8
 private fun String.fingerprint() = take(FINGERPRINT_LEN)
 
+@Suppress("ArrayInDataClass")
+private data class Chunk(
+    val pos: Long,
+    val data: ByteArray,
+)
+
+private data class OutgoingFile(
+    val inputStream: InputStream,
+    val unsentChunks: MutableList<Chunk>,
+)
+
 @Singleton
 class FileTransferManager @Inject constructor(
     private val scope: CoroutineScope,
@@ -55,6 +67,7 @@ class FileTransferManager @Inject constructor(
     private val tox: Tox,
 ) {
     private val fileTransfers: MutableList<FileTransfer> = mutableListOf()
+    private val outgoingFiles = mutableMapOf<Pair<String, Int>, OutgoingFile>()
 
     init {
         File(context.filesDir, "ft").mkdir()
@@ -79,6 +92,7 @@ class FileTransferManager @Inject constructor(
             fileTransfers.remove(ft)
             if (ft.outgoing) {
                 val uri = Uri.parse(ft.destination)
+                outgoingFiles.remove(Pair(pk, ft.fileNumber))?.inputStream?.close()
                 releaseFilePermission(uri)
             } else {
                 File(ft.destination).delete()
@@ -161,6 +175,7 @@ class FileTransferManager @Inject constructor(
         tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
         val uri = Uri.parse(ft.destination)
         if (ft.outgoing) {
+            outgoingFiles.remove(Pair(ft.publicKey, ft.fileNumber))?.inputStream?.close()
             releaseFilePermission(uri)
         } else {
             File(uri.path!!).delete()
@@ -239,8 +254,17 @@ class FileTransferManager @Inject constructor(
             Message(ft.publicKey, ft.fileName, Sender.Sent, MessageType.FileTransfer, id, Date().time),
         )
         fileTransfers.add(ft.copy().apply { this.id = id })
+
+        val inputStream = resolver.openInputStream(file)
+        if (inputStream == null) {
+            reject(ft)
+            return
+        }
+        outgoingFiles[Pair(ft.publicKey, ft.fileNumber)] = OutgoingFile(inputStream, mutableListOf())
     }
 
+    // TODO(robinlinden): Handle seek-backs: https://github.com/TokTok/c-toxcore/blob/eeaa039222e7a123c2585c8486ee965017767209/toxcore/tox.h#L2405-L2406
+    // TODO(robinlinden): An error when sending the last chunk in a transfer will stall it.
     fun sendChunk(pk: String, fileNo: Int, pos: Long, length: Int) {
         val ft = fileTransfers.find { it.publicKey == pk && it.fileNumber == fileNo }
         if (ft == null) {
@@ -249,26 +273,34 @@ class FileTransferManager @Inject constructor(
             return
         }
 
-        val src = Uri.parse(ft.destination)
         if (length == 0) {
             Log.i(TAG, "Finished outgoing ft ${pk.fingerprint()} $fileNo ${ft.isComplete()}")
             fileTransfers.remove(ft)
-            releaseFilePermission(src)
+            outgoingFiles.remove(Pair(pk, fileNo))?.inputStream?.close()
+            releaseFilePermission(Uri.parse(ft.destination))
             return
         }
 
-        try {
-            val bytes = resolver.openInputStream(src)?.use {
-                it.skip(pos)
-                val bytes = ByteArray(length)
-                it.read(bytes, 0, length)
-                bytes
-            } ?: return
-            tox.sendFileChunk(PublicKey(pk), fileNo, pos, bytes)
-            setProgress(ft, ft.progress + length)
-        } catch (e: SecurityException) {
-            Log.e(TAG, "sendChunk: $e")
+        val file = outgoingFiles[Pair(pk, fileNo)] ?: return
+
+        while (file.unsentChunks.isNotEmpty()) {
+            val chunk = file.unsentChunks.first()
+            Log.i(TAG, "Resending chunk @ ${chunk.pos} to ${pk.fingerprint()} ($fileNo)}")
+            if (tox.sendFileChunk(PublicKey(pk), fileNo, chunk.pos, chunk.data).isFailure) {
+                return
+            }
+            setProgress(ft, ft.progress + chunk.data.size)
+            file.unsentChunks.removeFirst()
         }
+
+        val bytes = ByteArray(length)
+        file.inputStream.read(bytes, 0, length)
+        if (tox.sendFileChunk(PublicKey(pk), fileNo, pos, bytes).isFailure) {
+            file.unsentChunks.add(Chunk(pos, bytes))
+            return
+        }
+
+        setProgress(ft, ft.progress + length)
     }
 
     fun setStatus(pk: String, fileNo: Int, fileStatus: ToxFileControl) {
