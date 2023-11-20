@@ -14,10 +14,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
 import androidx.navigation.fragment.findNavController
-import javax.inject.Inject
 import ltd.evilcorp.atox.di.ViewModelFactory
 import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.atox.ui.contactlist.ARG_SHARE
+import javax.inject.Inject
 
 private const val TAG = "MainActivity"
 private const val SCHEME = "tox:"

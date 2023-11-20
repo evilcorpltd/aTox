@@ -192,4 +192,12 @@
     <string name="export_history">Export history</string>
     <string name="export_history_success">Message history exported</string>
     <string name="export_history_failure">Message history export failed: %1$s</string>
+    <string name="notification_error_message_network_config_invalid_format">Invalid network configuration in network.conf: %1$s</string>
+    <string name="notification_error_message_could_not_bind_iface">Could not bind network interface. Is another VPN running?</string>
+    <string name="notification_error_message_could_not_configure_iface">Could not apply network interface configuration: %1$s</string>
+    <string name="launching">Launching...</string>
+    <string name="connected">Connected!</string>
+    <string name="disconnected">Disconnected!</string>
+    <string name="ending">Ending</string>
+    <string name="start_vpn">Start ToxVpn</string>
 </resources>

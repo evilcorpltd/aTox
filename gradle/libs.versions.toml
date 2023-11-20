@@ -58,6 +58,9 @@ nayuki-qrcodegen = "io.nayuki:qrcodegen:1.8.0"
 square-leakcanary = "com.squareup.leakcanary:leakcanary-android:2.12"
 square-picasso = "com.squareup.picasso:picasso:2.8"
 
+pcap-core = "org.pcap4j:pcap4j-core:1.8.2"
+pcap-factory = "org.pcap4j:pcap4j-packetfactory-static:1.8.2"
+
 tox4j-android-aarch64 = { module = "org.toktok:tox4j-c_aarch64-linux-android", version.ref = "tox4j-android" }
 tox4j-android-arm = { module = "org.toktok:tox4j-c_armv7a-linux-androideabi", version.ref = "tox4j-android" }
 tox4j-android-i686 = { module = "org.toktok:tox4j-c_i686-linux-android", version.ref = "tox4j-android" }

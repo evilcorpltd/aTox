@@ -225,6 +225,8 @@ class Tox @Inject constructor(
         save()
     }
 
+    fun sendLossyPacket(pk: PublicKey, packet: ByteArray) = tox.sendLossyPacket(pk, packet)
+
     fun sendLosslessPacket(pk: PublicKey, packet: ByteArray) = tox.sendLosslessPacket(pk, packet)
 
     // ToxAv, probably move these.

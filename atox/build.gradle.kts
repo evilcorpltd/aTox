@@ -87,6 +87,9 @@ dependencies {
 
     implementation(libs.square.picasso)
 
+    implementation(libs.pcap.core)
+    implementation(libs.pcap.factory)
+
     debugImplementation(libs.square.leakcanary)
 
     androidTestImplementation(kotlin("test"))

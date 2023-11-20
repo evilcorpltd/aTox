@@ -159,6 +159,22 @@ class ToxWrapper(
         tox.status = status.toToxType()
     }
 
+    fun sendLossyPacket(pk: PublicKey, packet: ByteArray): CustomPacketError = try {
+        tox.friendSendLossyPacket(contactByKey(pk), packet)
+        CustomPacketError.Success
+    } catch (e: ToxFriendCustomPacketException) {
+        when (e.code()) {
+            ToxFriendCustomPacketException.Code.EMPTY -> CustomPacketError.Empty
+            ToxFriendCustomPacketException.Code.FRIEND_NOT_CONNECTED -> CustomPacketError.FriendNotConnected
+            ToxFriendCustomPacketException.Code.FRIEND_NOT_FOUND -> CustomPacketError.FriendNotFound
+            ToxFriendCustomPacketException.Code.INVALID -> CustomPacketError.Invalid
+            ToxFriendCustomPacketException.Code.NULL -> CustomPacketError.Null
+            ToxFriendCustomPacketException.Code.SENDQ -> CustomPacketError.Sendq
+            ToxFriendCustomPacketException.Code.TOO_LONG -> CustomPacketError.TooLong
+            null -> TODO()
+        }
+    }
+
     fun sendLosslessPacket(pk: PublicKey, packet: ByteArray): CustomPacketError = try {
         tox.friendSendLosslessPacket(contactByKey(pk), packet)
         CustomPacketError.Success

@@ -6,6 +6,8 @@
 package ltd.evilcorp.atox.ui.contactlist
 
 import android.Manifest
+import android.content.Intent
+import android.net.VpnService
 import android.os.Build
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
@@ -32,7 +34,10 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
+import ltd.evilcorp.atox.Actions
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.ToxService
+import ltd.evilcorp.atox.ToxVpnService
 import ltd.evilcorp.atox.databinding.ContactListViewItemBinding
 import ltd.evilcorp.atox.databinding.FragmentContactListBinding
 import ltd.evilcorp.atox.databinding.FriendRequestItemBinding
@@ -61,6 +66,8 @@ private fun User.online(): Boolean = connectionStatus != ConnectionStatus.None
 class ContactListFragment :
     BaseFragment<FragmentContactListBinding>(FragmentContactListBinding::inflate),
     NavigationView.OnNavigationItemSelectedListener {
+
+    val permissionRequestCode = 0
 
     private val viewModel: ContactListViewModel by viewModels { vmFactory }
 
@@ -276,6 +283,18 @@ class ContactListFragment :
                 findNavController().navigate(R.id.action_contactListFragment_to_userProfileFragment)
             }
             R.id.add_contact -> findNavController().navigate(R.id.action_contactListFragment_to_addContactFragment)
+            R.id.start_vpn -> {
+                val vpnserviceintent = VpnService.prepare(requireContext())
+                if (vpnserviceintent != null) {
+                    startActivityForResult(vpnserviceintent, permissionRequestCode)
+                } else {
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                        requireContext().startService(Intent(requireContext(), ToxVpnService::class.java).setAction(Actions.ACTION_CONNECT))
+                    } else {
+                        requireContext().startForegroundService(Intent(requireContext(), ToxVpnService::class.java).setAction(Actions.ACTION_CONNECT))
+                    }
+                }
+            }
             R.id.settings -> findNavController().navigate(R.id.action_contactListFragment_to_settingsFragment)
             R.id.export_tox_save -> exportToxSaveLauncher.launch(backupFileNameHint)
             R.id.quit_tox -> {
@@ -388,4 +407,20 @@ class ContactListFragment :
         R.id.action_contactListFragment_to_contactProfileFragment,
         bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey),
     )
+
+    override fun onActivityResult(request: Int, result: Int, data: Intent?) {
+        when (request) {
+            permissionRequestCode -> {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                    requireContext().startService(Intent(requireContext(), ToxVpnService::class.java).setAction(Actions.ACTION_CONNECT))
+                } else {
+                    requireContext().startForegroundService(Intent(requireContext(), ToxVpnService::class.java).setAction(Actions.ACTION_CONNECT))
+                }
+            }
+            else -> throw IllegalArgumentException("Result for unknown request received.")
+        }
+
+        super.onActivityResult(request, result, data)
+    }
+
 }

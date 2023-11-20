@@ -12,6 +12,7 @@ import ltd.evilcorp.atox.ActionReceiver
 import ltd.evilcorp.atox.BootReceiver
 import ltd.evilcorp.atox.MainActivity
 import ltd.evilcorp.atox.ToxService
+import ltd.evilcorp.atox.ToxVpnService
 
 @Singleton
 @Component(
@@ -31,6 +32,7 @@ interface AppComponent {
 
     fun inject(activity: MainActivity)
     fun inject(service: ToxService)
+    fun inject(service: ToxVpnService)
     fun inject(receiver: BootReceiver)
     fun inject(receiver: ActionReceiver)
 }

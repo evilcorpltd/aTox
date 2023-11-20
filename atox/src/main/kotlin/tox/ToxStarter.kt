@@ -10,8 +10,10 @@ import android.os.Build
 import android.util.Log
 import im.tox.tox4j.core.exceptions.ToxNewException
 import im.tox.tox4j.crypto.exceptions.ToxDecryptionException
+import ltd.evilcorp.atox.Actions
 import javax.inject.Inject
 import ltd.evilcorp.atox.ToxService
+import ltd.evilcorp.atox.ToxVpnService
 import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.domain.feature.FileTransferManager
 import ltd.evilcorp.domain.feature.UserManager
@@ -40,6 +42,7 @@ class ToxStarter @Inject constructor(
     fun startTox(save: ByteArray? = null, password: String? = null): ToxSaveStatus {
         listenerCallbacks.setUp(eventListener)
         listenerCallbacks.setUp(avEventListener)
+//        listenerVpnCallbacks.setUp(eventListener)
         val options =
             SaveOptions(save, settings.udpEnabled, settings.proxyType, settings.proxyAddress, settings.proxyPort)
         try {
@@ -60,6 +63,7 @@ class ToxStarter @Inject constructor(
     }
 
     fun stopTox() = context.run {
+        startService(Intent(this, ToxVpnService::class.java).setAction(Actions.ACTION_DISCONNECT))
         stopService(Intent(this, ToxService::class.java))
     }
 

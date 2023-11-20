@@ -68,6 +68,7 @@ $(PREFIX)/tox4j.stamp: $(BUILDDIR)/tox4j/Makefile
 $(DESTDIR)/tox4j-c.stamp: $(SRCDIR)/tox4j $(foreach i,jvm-toxcore-api jvm-macros jvm-sbt-plugins,$(DESTDIR)/$i.stamp)
 	@$(PRE_RULE)
 	cd $< && sbt publishM2
+	cd $< && sbt publishLocal
 	mkdir -p $(@D) && touch $@
 	@$(POST_RULE)
 

@@ -3,6 +3,7 @@
     <group android:id="@+id/main_section" android:checkableBehavior="single">
         <item android:id="@+id/drawer_profile" android:title="@string/profile"/>
         <item android:id="@+id/add_contact" android:title="@string/add_contact"/>
+        <item android:id="@+id/start_vpn" android:title="@string/start_vpn"/>
     </group>
     <group android:id="@+id/settings_section" android:checkableBehavior="single">
         <item android:id="@+id/settings" android:title="@string/settings"/>

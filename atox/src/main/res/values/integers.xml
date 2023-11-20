@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="toxMaxNameLength">128</integer>
+    <integer name="mtu">1500</integer>
+    <integer name="offset">5</integer>
 </resources>

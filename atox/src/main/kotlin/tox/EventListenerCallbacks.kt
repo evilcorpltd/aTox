@@ -71,6 +71,11 @@ class EventListenerCallbacks @Inject constructor(
     private var audioPlayer: AudioPlayer? = null
     private val scope = CoroutineScope(Dispatchers.Default)
 
+    private lateinit var lossyPacketHandler: (publicKey: String, data: ByteArray ) -> Unit
+    fun setLossyPacketHandler(fu: (publicKey: String, data: ByteArray) -> Unit) {
+        lossyPacketHandler = fu
+    }
+
     private suspend fun tryGetContact(pk: String, tag: String) = contactRepository.get(pk).firstOrNull().let {
         if (it == null) Log.e(TAG, "$tag -> unable to get contact for ${pk.fingerprint()}")
         it
@@ -80,6 +85,11 @@ class EventListenerCallbacks @Inject constructor(
         notificationHelper.showMessageNotification(contact, message, silent = tox.getStatus() == UserStatus.Busy)
 
     fun setUp(listener: ToxEventListener) = with(listener) {
+        friendLossyPacketHandler = {publicKey: String, data: ByteArray ->
+            if (lossyPacketHandler != null)
+                lossyPacketHandler(publicKey, data)
+        }
+
         friendStatusMessageHandler = { publicKey, message ->
             contactRepository.setStatusMessage(publicKey, message)
         }
