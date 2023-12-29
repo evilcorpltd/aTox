@@ -78,11 +78,6 @@ jobs:
     - name: Install tox4j dependencies
       if: steps.cache.outputs.cache-hit != 'true'
       run: sudo apt-get update && sudo apt install yasm
-    - name: Work around jvm-toxcore-c not building w/ libstdc++-13
-      run: |
-        sudo rm -f /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-jammy.list
-        sudo apt-get update
-        sudo apt-get install --allow-downgrades libstdc++6=12.3.0-1ubuntu1~22.04 libgcc-s1=12.3.0-1ubuntu1~22.04
     - name: Build tox4j
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
