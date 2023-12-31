@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 aTox contributors
+// SPDX-FileCopyrightText: 2020-2023 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -27,8 +27,7 @@ class StatusDialog(
     @Inject
     lateinit var userManager: UserManager
 
-    private var _binding: DialogStatusBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: DialogStatusBinding
 
     private fun viewByStatus(status: UserStatus): TransitionDrawable = when (status) {
         UserStatus.None -> binding.statusAvailable.background as TransitionDrawable
@@ -39,7 +38,7 @@ class StatusDialog(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        _binding = DialogStatusBinding.inflate(layoutInflater)
+        binding = DialogStatusBinding.inflate(layoutInflater)
         setContentView(binding.root)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 

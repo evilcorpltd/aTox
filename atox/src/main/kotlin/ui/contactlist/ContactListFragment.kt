@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2022 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2023 Robin Lindén <dev@robinlinden.eu>
 // SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
@@ -64,8 +64,7 @@ class ContactListFragment :
 
     private val viewModel: ContactListViewModel by viewModels { vmFactory }
 
-    private var _navHeader: NavHeaderContactListBinding? = null
-    private val navHeader get() = _navHeader!!
+    private var navHeader: NavHeaderContactListBinding? = null
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
@@ -83,7 +82,7 @@ class ContactListFragment :
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val v = super.onCreateView(inflater, container, savedInstanceState)
-        _navHeader = NavHeaderContactListBinding.bind(binding.navView.getHeaderView(0))
+        navHeader = NavHeaderContactListBinding.bind(binding.navView.getHeaderView(0))
         return v
     }
 
@@ -110,7 +109,7 @@ class ContactListFragment :
 
             backupFileNameHint = user.name + ".tox"
 
-            navHeader.apply {
+            navHeader!!.apply {
                 profileName.text = user.name
                 profileStatusMessage.text = user.statusMessage
 
@@ -201,7 +200,7 @@ class ContactListFragment :
     }
 
     override fun onDestroyView() {
-        _navHeader = null
+        navHeader = null
         super.onDestroyView()
     }
 

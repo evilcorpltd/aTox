@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2021-2023 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -49,13 +49,12 @@ private class ReceiveShareDialog(
     private val sharePreview: String,
     private val contactSelectedFunc: (Contact) -> Unit,
 ) : Dialog(ctx, R.style.DialogSlideAnimation) {
-    private var _binding: DialogReceiveShareBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: DialogReceiveShareBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        _binding = DialogReceiveShareBinding.inflate(layoutInflater)
+        binding = DialogReceiveShareBinding.inflate(layoutInflater)
         setContentView(binding.root)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
