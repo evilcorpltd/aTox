@@ -9,7 +9,7 @@ android-plugin = "8.2.1"
 coroutines = "1.7.3"
 dagger = "2.48"
 espresso = "3.5.1"
-lifecycle = "2.6.2"
+lifecycle = "2.6.2" # 2.7.0 requires API 34.
 navigation = "2.6.0" # 2.7.5 requires API 34.
 room = "2.5.2" # 2.6.0 requires API 34.
 tox4j-android = "0.2.18"
@@ -55,7 +55,7 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 
 nayuki-qrcodegen = "io.nayuki:qrcodegen:1.8.0"
 
-square-leakcanary = "com.squareup.leakcanary:leakcanary-android:2.12"
+square-leakcanary = "com.squareup.leakcanary:leakcanary-android:2.13"
 square-picasso = "com.squareup.picasso:picasso:2.8"
 
 tox4j-android-aarch64 = { module = "org.toktok:tox4j-c_aarch64-linux-android", version.ref = "tox4j-android" }
