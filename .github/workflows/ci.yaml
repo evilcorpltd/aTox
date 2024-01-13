@@ -113,10 +113,7 @@ jobs:
         path: ~/.cache/bazel
         key: bazel-${{ hashFiles('WORKSPACE', 'bazel/**') }}
         restore-keys: bazel-
-    - name: Build
-      run: bazel build //...
-    - name: Test
-      run: bazel test //...
+    - run: bazel test //...
 
   buildifier:
     runs-on: ubuntu-22.04
