@@ -1,0 +1,8 @@
+Added chat history export
+Friend request messages are now added to the chat history
+Improved file transfer speed and stability
+The display is now automatically turned off/on during calls using the proximity sensor
+
+Updated to Toxcore 0.2.19
+
+Full changelog: https://github.com/evilcorpltd/aTox/releases
