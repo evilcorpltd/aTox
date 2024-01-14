@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -64,7 +64,6 @@ private enum class ChatItemType {
     SentFileTransfer,
 }
 
-private val types = ChatItemType.values()
 private val timeFormatter = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT)
 
 private class MessageViewHolder(row: View) {
@@ -98,7 +97,7 @@ class ChatAdapter(
     override fun getCount(): Int = messages.size
     override fun getItem(position: Int): Any = messages[position]
     override fun getItemId(position: Int): Long = position.toLong()
-    override fun getViewTypeCount(): Int = types.size
+    override fun getViewTypeCount(): Int = ChatItemType.entries.size
     override fun getItemViewType(position: Int): Int = with(messages[position]) {
         when (type) {
             MessageType.Normal -> when (sender) {
@@ -117,7 +116,7 @@ class ChatAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View =
-        when (val type = types[getItemViewType(position)]) {
+        when (val type = ChatItemType.entries[getItemViewType(position)]) {
             ChatItemType.ReceivedMessage, ChatItemType.SentMessage,
             ChatItemType.ReceivedAction, ChatItemType.SentAction,
             -> {

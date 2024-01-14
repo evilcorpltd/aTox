@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2020-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -25,8 +26,6 @@ enum class ContactListItemType {
     Contact,
 }
 
-private val types = ContactListItemType.values()
-
 class ContactAdapter(
     private val inflater: LayoutInflater,
     private val context: Context,
@@ -48,7 +47,7 @@ class ContactAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View =
-        when (types[getItemViewType(position)]) {
+        when (ContactListItemType.entries[getItemViewType(position)]) {
             ContactListItemType.FriendRequest -> {
                 val view: View
                 val vh: FriendRequestViewHolder

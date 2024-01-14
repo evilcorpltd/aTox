@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2019-2022 aTox contributors
+// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -144,7 +145,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         settingFtAutoAccept.setSelection(vm.getFtAutoAccept().ordinal)
 
         settingFtAutoAccept.onItemSelectedListener {
-            vm.setFtAutoAccept(FtAutoAccept.values()[it])
+            vm.setFtAutoAccept(FtAutoAccept.entries[it])
         }
 
         settingConfirmQuitting.isChecked = vm.getConfirmQuitting()
@@ -170,7 +171,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         proxyType.setSelection(vm.getProxyType().ordinal)
 
         proxyType.onItemSelectedListener {
-            val selected = ProxyType.values()[it]
+            val selected = ProxyType.entries[it]
             vm.setProxyType(selected)
 
             // Disable UDP if a proxy is selected to ensure all traffic goes through the proxy.
@@ -272,7 +273,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         settingBootstrapNodes.setSelection(vm.getBootstrapNodeSource().ordinal)
 
         settingBootstrapNodes.onItemSelectedListener {
-            val source = BootstrapNodeSource.values()[it]
+            val source = BootstrapNodeSource.entries[it]
 
             // Hack to avoid triggering the document chooser again if the user has set it to UserProvided.
             if (source == vm.getBootstrapNodeSource()) return@onItemSelectedListener

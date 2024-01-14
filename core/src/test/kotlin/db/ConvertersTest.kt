@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 aTox contributors
+// SPDX-FileCopyrightText: 2020-2024 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -14,7 +14,7 @@ import ltd.evilcorp.core.vo.UserStatus
 class ConvertersTest {
     @Test
     fun `user status can be converted`() {
-        UserStatus.values().forEach {
+        UserStatus.entries.forEach {
             assertEquals(it.ordinal, Converters.fromStatus(it))
             assertEquals(it, Converters.toStatus(it.ordinal))
         }
@@ -22,7 +22,7 @@ class ConvertersTest {
 
     @Test
     fun `connection status can be converted`() {
-        ConnectionStatus.values().forEach {
+        ConnectionStatus.entries.forEach {
             assertEquals(it.ordinal, Converters.fromConnection(it))
             assertEquals(it, Converters.toConnection(it.ordinal))
         }
@@ -30,7 +30,7 @@ class ConvertersTest {
 
     @Test
     fun `sender can be converted`() {
-        Sender.values().forEach {
+        Sender.entries.forEach {
             assertEquals(it.ordinal, Converters.fromSender(it))
             assertEquals(it, Converters.toSender(it.ordinal))
         }
@@ -38,7 +38,7 @@ class ConvertersTest {
 
     @Test
     fun `message type can be converted`() {
-        MessageType.values().forEach {
+        MessageType.entries.forEach {
             assertEquals(it.ordinal, Converters.fromMessageType(it))
             assertEquals(it, Converters.toMessageType(it.ordinal))
         }

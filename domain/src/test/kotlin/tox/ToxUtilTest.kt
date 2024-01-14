@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2022 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2020-2024 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -22,10 +22,10 @@ private fun byteArrayOf(vararg bytes: Int) = ByteArray(bytes.size) { bytes[it].t
 class ToxUtilTest {
     @Test
     fun `connection enums can be converted`() {
-        assert(ToxConnection.values().size == ConnectionStatus.values().size)
-        assert(ConnectionStatus.values().size == 3)
+        assert(ToxConnection.entries.size == ConnectionStatus.entries.size)
+        assert(ConnectionStatus.entries.size == 3)
 
-        ToxConnection.values().forEach {
+        ToxConnection.entries.forEach {
             assertEquals(it.ordinal, it.toConnectionStatus().ordinal)
         }
 
@@ -36,9 +36,9 @@ class ToxUtilTest {
 
     @Test
     fun `message type enums can be converted`() {
-        assertEquals(2, ToxMessageType.values().size)
+        assertEquals(2, ToxMessageType.entries.size)
 
-        ToxMessageType.values().forEach { type ->
+        ToxMessageType.entries.forEach { type ->
             assertEquals(type.ordinal, type.toMessageType().ordinal)
             assertEquals(type, type.toMessageType().toToxType())
         }
@@ -49,14 +49,14 @@ class ToxUtilTest {
 
     @Test
     fun `status enums can be converted`() {
-        assert(ToxUserStatus.values().size == UserStatus.values().size)
-        assert(UserStatus.values().size == 3)
+        assert(ToxUserStatus.entries.size == UserStatus.entries.size)
+        assert(UserStatus.entries.size == 3)
 
-        ToxUserStatus.values().forEach {
+        ToxUserStatus.entries.forEach {
             assertEquals(it.ordinal, it.toUserStatus().ordinal)
         }
 
-        UserStatus.values().forEach { type ->
+        UserStatus.entries.forEach { type ->
             assertEquals(type, type.toToxType().toUserStatus())
         }
 

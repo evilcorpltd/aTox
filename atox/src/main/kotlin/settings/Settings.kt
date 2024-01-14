@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2020-2022 aTox contributors
+// SPDX-FileCopyrightText: 2020-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -66,7 +67,7 @@ class Settings @Inject constructor(private val ctx: Context) {
         set(seconds) = preferences.edit().putLong("auto_away_seconds", seconds).apply()
 
     var proxyType: ProxyType
-        get() = ProxyType.values()[preferences.getInt("proxy_type", 0)]
+        get() = ProxyType.entries[preferences.getInt("proxy_type", 0)]
         set(type) = preferences.edit { putInt("proxy_type", type.ordinal) }
 
     var proxyAddress: String
@@ -78,11 +79,11 @@ class Settings @Inject constructor(private val ctx: Context) {
         set(port) = preferences.edit { putInt("proxy_port", port) }
 
     var ftAutoAccept: FtAutoAccept
-        get() = FtAutoAccept.values()[preferences.getInt("ft_auto_accept", 0)]
+        get() = FtAutoAccept.entries[preferences.getInt("ft_auto_accept", 0)]
         set(autoAccept) = preferences.edit { putInt("ft_auto_accept", autoAccept.ordinal) }
 
     var bootstrapNodeSource: BootstrapNodeSource
-        get() = BootstrapNodeSource.values()[preferences.getInt("bootstrap_node_source", 0)]
+        get() = BootstrapNodeSource.entries[preferences.getInt("bootstrap_node_source", 0)]
         set(source) = preferences.edit { putInt("bootstrap_node_source", source.ordinal) }
 
     var disableScreenshots: Boolean

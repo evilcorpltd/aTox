@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -18,9 +18,9 @@ import ltd.evilcorp.core.vo.UserStatus
 
 fun String.hexToBytes(): ByteArray = chunked(2).map { it.uppercase().toInt(radix = 16).toByte() }.toByteArray()
 fun ByteArray.bytesToHex(): String = this.joinToString("") { "%02X".format(it) }
-fun ToxUserStatus.toUserStatus(): UserStatus = UserStatus.values()[this.ordinal]
-fun ToxConnection.toConnectionStatus(): ConnectionStatus = ConnectionStatus.values()[this.ordinal]
-fun ToxMessageType.toMessageType(): MessageType = MessageType.values()[this.ordinal]
+fun ToxUserStatus.toUserStatus(): UserStatus = UserStatus.entries[this.ordinal]
+fun ToxConnection.toConnectionStatus(): ConnectionStatus = ConnectionStatus.entries[this.ordinal]
+fun ToxMessageType.toMessageType(): MessageType = MessageType.entries[this.ordinal]
 fun SaveOptions.toToxOptions(): ToxOptions = ToxOptions(
     true,
     udpEnabled,

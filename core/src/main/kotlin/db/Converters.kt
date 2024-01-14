@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2020 aTox contributors
+// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -14,7 +14,7 @@ class Converters private constructor() {
     companion object {
         @TypeConverter
         @JvmStatic
-        fun toStatus(status: Int): UserStatus = UserStatus.values()[status]
+        fun toStatus(status: Int): UserStatus = UserStatus.entries[status]
 
         @TypeConverter
         @JvmStatic
@@ -22,7 +22,7 @@ class Converters private constructor() {
 
         @TypeConverter
         @JvmStatic
-        fun toConnection(connection: Int): ConnectionStatus = ConnectionStatus.values()[connection]
+        fun toConnection(connection: Int): ConnectionStatus = ConnectionStatus.entries[connection]
 
         @TypeConverter
         @JvmStatic
@@ -30,7 +30,7 @@ class Converters private constructor() {
 
         @TypeConverter
         @JvmStatic
-        fun toSender(sender: Int): Sender = Sender.values()[sender]
+        fun toSender(sender: Int): Sender = Sender.entries[sender]
 
         @TypeConverter
         @JvmStatic
@@ -38,7 +38,7 @@ class Converters private constructor() {
 
         @TypeConverter
         @JvmStatic
-        fun toMessageType(type: Int): MessageType = MessageType.values()[type]
+        fun toMessageType(type: Int): MessageType = MessageType.entries[type]
 
         @TypeConverter
         @JvmStatic
