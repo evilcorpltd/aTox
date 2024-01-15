@@ -115,7 +115,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/.cache/bazel
-        key: bazel-${{ hashFiles('WORKSPACE', 'bazel/**') }}
+        key: bazel-${{ hashFiles('.bazelversion', 'WORKSPACE', 'bazel/**') }}
     - run: bazel test //...
 
   buildifier:
