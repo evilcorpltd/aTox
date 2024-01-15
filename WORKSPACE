@@ -213,32 +213,32 @@ maven_install(
 # Tox
 # =========================================================
 
-JVM_TOXCORE_API_TAG = "adb835597e1eac8d2ca80b938b4f37d260cfde36"
+JVM_TOXCORE_API_TAG = "c0f37cfd77d79d5826ea566127f60fce838858c2"
 
 http_archive(
     name = "jvm-toxcore-api",
     build_file = "//bazel:BUILD.jvm-toxcore-api",
-    sha256 = "31f1ccb76ca267ea49f55b7db3a6a7365a3fdbd9e48d46296d8c87f5de036d88",
+    sha256 = "ab129f7d845d87e1b6ee0a2b4bc34acede45480dd32a15f85a08e9dfca7cedf6",
     strip_prefix = "jvm-toxcore-api-%s" % JVM_TOXCORE_API_TAG,
     url = "https://github.com/TokTok/jvm-toxcore-api/archive/%s.tar.gz" % JVM_TOXCORE_API_TAG,
 )
 
-JVM_TOXCORE_C_TAG = "50d9a6b565de348c00daab83575498fdaec853a8"
+JVM_TOXCORE_C_TAG = "f697eef5d0a16a025b187c3369288986e89bde2b"
 
 http_archive(
     name = "jvm-toxcore-c",
     build_file = "//bazel:BUILD.jvm-toxcore-c",
-    sha256 = "3928a2ed2aa35e1129f3313d572f05cd38495cd012f095f9bfc812f452718265",
+    sha256 = "93fb5cd0a1f45561e52cb585287cec98415d80b655d847278aa51c8d26f80124",
     strip_prefix = "jvm-toxcore-c-%s" % JVM_TOXCORE_C_TAG,
     url = "https://github.com/TokTok/jvm-toxcore-c/archive/%s.tar.gz" % JVM_TOXCORE_C_TAG,
 )
 
-JVM_MACROS_TAG = "f22e243a3192b5d808fac3b1135bb6b8cefef6b3"
+JVM_MACROS_TAG = "8e8991581bec396861678012cab302ba09ced629"
 
 http_archive(
     name = "jvm-macros",
     build_file = "//bazel:BUILD.jvm-macros",
-    sha256 = "e30d9aa3def22606a411adb7fbca80c52f49199724ffbf23ce2d269bad800230",
+    sha256 = "3f2e7c024347085596ad3c90d236e0e6fddf5c7c18c03a66a058c4d334f24888",
     strip_prefix = "jvm-macros-%s" % JVM_MACROS_TAG,
     url = "https://github.com/TokTok/jvm-macros/archive/%s.tar.gz" % JVM_MACROS_TAG,
 )
