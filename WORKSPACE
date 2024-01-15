@@ -76,17 +76,10 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
 )
 
-RULES_KOTLIN_TAG = "v1.5.0"
-
 http_archive(
     name = "io_bazel_rules_kotlin",
-    patch_cmds = [
-        "sed -i 's/1.5.32/1.6.10/' src/main/starlark/core/repositories/versions.bzl",
-        "sed -i 's/2e728c43ee0bf819eae06630a4cbbc28ba2ed5b19a55ee0af96d2c0ab6b6c2a5/432267996d0d6b4b17ca8de0f878e44d4a099b7e9f1587a98edc4d27e76c215a/' src/main/starlark/core/repositories/versions.bzl",
-        "sed -i 's/default = \"1.5\"/default = \"1.6\"/g' kotlin/internal/toolchains.bzl",
-    ],
-    sha256 = "12d22a3d9cbcf00f2e2d8f0683ba87d3823cb8c7f6837568dd7e48846e023307",
-    url = "https://github.com/bazelbuild/rules_kotlin/releases/download/%s/rules_kotlin_release.tgz" % RULES_KOTLIN_TAG,
+    sha256 = "5766f1e599acf551aa56f49dab9ab9108269b03c557496c54acaf41f98e2b8d6",
+    url = "https://github.com/bazelbuild/rules_kotlin/releases/download/v1.9.0/rules_kotlin-v1.9.0.tar.gz",
 )
 
 RULES_SCALA_TAG = "72adeb585081c4cf53d033d554dbdddbb1e59fbc"
@@ -263,14 +256,6 @@ http_archive(
 #
 # These go last since we override a bunch of them.
 
-load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
-
-protobuf_deps()
-
-load("@robolectric//bazel:robolectric.bzl", "robolectric_repositories")
-
-robolectric_repositories()
-
 load("@io_bazel_rules_kotlin//kotlin:repositories.bzl", "kotlin_repositories")
 
 kotlin_repositories()
@@ -278,6 +263,14 @@ kotlin_repositories()
 load("@io_bazel_rules_kotlin//kotlin:core.bzl", "kt_register_toolchains")
 
 kt_register_toolchains()
+
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+
+protobuf_deps()
+
+load("@robolectric//bazel:robolectric.bzl", "robolectric_repositories")
+
+robolectric_repositories()
 
 load("@io_bazel_rules_scala//:scala_config.bzl", "scala_config")
 
