@@ -116,7 +116,6 @@ jobs:
       with:
         path: ~/.cache/bazel
         key: bazel-${{ hashFiles('WORKSPACE', 'bazel/**') }}
-        restore-keys: bazel-
     - run: bazel test //...
 
   buildifier:
