@@ -256,9 +256,14 @@ http_archive(
 #
 # These go last since we override a bunch of them.
 
-load("@io_bazel_rules_kotlin//kotlin:repositories.bzl", "kotlin_repositories")
+load("@io_bazel_rules_kotlin//kotlin:repositories.bzl", "kotlin_repositories", "kotlinc_version")
 
-kotlin_repositories()
+kotlin_repositories(
+    compiler_release = kotlinc_version(
+        release = "1.9.22",
+        sha256 = "88b39213506532c816ff56348c07bbeefe0c8d18943bffbad11063cf97cac3e6",
+    ),
+)
 
 load("@io_bazel_rules_kotlin//kotlin:core.bzl", "kt_register_toolchains")
 
