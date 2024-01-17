@@ -129,6 +129,14 @@ jobs:
       - name: Check
         run: ./buildifier --lint=warn --warnings=all -mode diff WORKSPACE $(find . -type f -name "BUILD.*")
 
+  prettier:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm install --global prettier@3.2.4
+      - run: npx prettier --ignore-path .gitignore --write .
+      - run: git diff --exit-code
+
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
