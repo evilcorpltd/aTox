@@ -2,9 +2,9 @@ name: detekt
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [master]
   push:
-    branches: [ master ]
+    branches: [master]
 
 env:
   DETEKT_RELEASE: 1.23.4
@@ -13,29 +13,29 @@ jobs:
   detekt:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup
-      run: |
-        curl \
-          --request GET \
-          --url https://github.com/detekt/detekt/releases/download/v${DETEKT_RELEASE}/detekt-cli-${DETEKT_RELEASE}-all.jar \
-          --silent \
-          --location \
-          --output detekt
-        chmod a+x detekt
+      - name: Setup
+        run: |
+          curl \
+            --request GET \
+            --url https://github.com/detekt/detekt/releases/download/v${DETEKT_RELEASE}/detekt-cli-${DETEKT_RELEASE}-all.jar \
+            --silent \
+            --location \
+            --output detekt
+          chmod a+x detekt
 
-    - name: Run
-      continue-on-error: true
-      run: |
-        java -jar detekt \
-          --build-upon-default-config \
-          --config detekt.yml \
-          --input ${{ github.workspace }} \
-          --base-path ${{ github.workspace }} \
-          --report sarif:${{ github.workspace }}/detekt.sarif.json
+      - name: Run
+        continue-on-error: true
+        run: |
+          java -jar detekt \
+            --build-upon-default-config \
+            --config detekt.yml \
+            --input ${{ github.workspace }} \
+            --base-path ${{ github.workspace }} \
+            --report sarif:${{ github.workspace }}/detekt.sarif.json
 
-    - uses: github/codeql-action/upload-sarif@v2
-      with:
-        sarif_file: ${{ github.workspace }}/detekt.sarif.json
-        checkout_path: ${{ github.workspace }}
+      - uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: ${{ github.workspace }}/detekt.sarif.json
+          checkout_path: ${{ github.workspace }}
