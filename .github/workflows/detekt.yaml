@@ -35,7 +35,7 @@ jobs:
             --base-path ${{ github.workspace }} \
             --report sarif:${{ github.workspace }}/detekt.sarif.json
 
-      - uses: github/codeql-action/upload-sarif@v2
+      - uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: ${{ github.workspace }}/detekt.sarif.json
           checkout_path: ${{ github.workspace }}

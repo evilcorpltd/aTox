@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - uses: gradle/wrapper-validation-action@v1
+      - uses: gradle/wrapper-validation-action@v2
 
   gradle:
     runs-on: ${{ matrix.os }}
@@ -39,7 +39,7 @@ jobs:
           distribution: adopt
           java-version: 17
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/actions/setup-gradle@v3
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/master' }}
       - name: Build and test
@@ -68,7 +68,7 @@ jobs:
           java-version: 17
       - name: Set up cache
         id: cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository/org/toktok
           key: from-src-${{ hashFiles('scripts/**') }}
@@ -112,7 +112,7 @@ jobs:
         env:
           NDK_VERSION: "25.2.9519653"
       - name: Set up Bazel cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.cache/bazel
           key: bazel-${{ hashFiles('.bazelversion', 'WORKSPACE', 'bazel/**') }}
