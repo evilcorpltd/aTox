@@ -107,7 +107,7 @@ jobs:
           java-version: 17
       - name: Set up Android
         run: |
-          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install "ndk;$NDK_VERSION" | grep -v = || true
+          echo "y" | ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --install "ndk;$NDK_VERSION" | grep -v = || true
           echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/$NDK_VERSION" >> $GITHUB_ENV
         env:
           NDK_VERSION: "25.2.9519653"
