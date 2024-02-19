@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -108,5 +108,7 @@ class ChatManager @Inject constructor(
         contactRepository.setLastMessage(publicKey.string(), 0)
     }
 
-    fun setTyping(publicKey: PublicKey, typing: Boolean) = tox.setTyping(publicKey, typing)
+    fun setTyping(publicKey: PublicKey, typing: Boolean) = scope.launch {
+        tox.setTyping(publicKey, typing)
+    }
 }
