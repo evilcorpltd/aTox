@@ -97,6 +97,10 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
         }
         registerForContextMenu(profileShareId)
 
+        showQr.setOnClickListener {
+            createQrCodeDialog().show()
+        }
+
         profileOptions.profileChangeNickname.setOnClickListener {
             val nameEdit = EditText(requireContext()).apply {
                 text.append(binding.userName.text)

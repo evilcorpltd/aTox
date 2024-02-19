@@ -123,7 +123,20 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="8dp"
                                 android:text="@string/tox_id"
-                                android:textSize="16sp"/>
+                                android:textSize="16sp"
+                                tools:ignore="RelativeOverlap" />
+
+                        <!-- Reusing the read_qr ("QR") string here is a bit hacky, but I'll revisit it later if needed. -->
+                        <ImageView
+                                android:id="@+id/show_qr"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:background="@color/textWhiteColor"
+                                android:contentDescription="@string/read_qr"
+                                android:elevation="8dp"
+                                android:src="@drawable/ic_qr_code"/>
+
                         <TextView
                                 android:id="@+id/user_tox_id"
                                 android:layout_width="wrap_content"
