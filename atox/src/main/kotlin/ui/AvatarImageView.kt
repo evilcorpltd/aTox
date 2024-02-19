@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2022 aTox contributors
-// SPDX-FileCopyrightText: 2022 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2022-2024 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -10,6 +10,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.net.Uri
 import android.util.AttributeSet
+import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.use
 import androidx.core.view.doOnPreDraw
@@ -23,6 +24,7 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.UserStatus
 
 private const val STATUS_INDICATOR_SIZE_RATIO_WITH_AVATAR = 12f / 50
+private const val TAG = "AvatarImageView"
 
 class AvatarImageView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     ShapeableImageView(context, attrs, defStyleAttr) {
@@ -62,8 +64,11 @@ class AvatarImageView @JvmOverloads constructor(context: Context, attrs: Attribu
         doOnPreDraw {
             if (avatarUri.isNotEmpty()) {
                 setImageURI(Uri.parse(avatarUri))
-            } else {
+            } else if (width > 0 && height > 0) {
                 setImageBitmap(AvatarFactory.create(resources, name, publicKey, Px(min(width, height))))
+            } else {
+                // TODO(robinlinden): When does this even happen?
+                Log.w(TAG, "Got 0-size drawing area: $width $height")
             }
         }
         invalidate()
