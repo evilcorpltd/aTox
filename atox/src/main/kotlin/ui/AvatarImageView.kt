@@ -1,3 +1,8 @@
+// SPDX-FileCopyrightText: 2022 aTox contributors
+// SPDX-FileCopyrightText: 2022 Robin Lindén <dev@robinlinden.eu>
+//
+// SPDX-License-Identifier: GPL-3.0-only
+
 package ltd.evilcorp.atox.ui
 
 import android.content.Context
