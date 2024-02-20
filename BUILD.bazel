@@ -1,3 +1,15 @@
 load("@dagger//:workspace_defs.bzl", "dagger_rules")
+load("@io_bazel_rules_kotlin//kotlin:core.bzl", "define_kt_toolchain")
 
 dagger_rules()
+
+KOTLIN_LANGUAGE_LEVEL = "1.9"
+
+JAVA_LANGUAGE_LEVEL = "1.8"
+
+define_kt_toolchain(
+    name = "kotlin_toolchain",
+    api_version = KOTLIN_LANGUAGE_LEVEL,
+    jvm_target = JAVA_LANGUAGE_LEVEL,
+    language_version = KOTLIN_LANGUAGE_LEVEL,
+)
