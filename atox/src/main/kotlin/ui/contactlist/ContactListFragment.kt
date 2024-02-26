@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2023 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
 // SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
@@ -54,7 +54,7 @@ import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.ToxSaveStatus
 
 const val ARG_SHARE = "share"
-private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 32
+private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 16
 
 private fun User.online(): Boolean = connectionStatus != ConnectionStatus.None
 

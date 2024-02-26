@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2020 aTox contributors
+// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -25,4 +25,7 @@ interface FriendRequestDao {
 
     @Query("SELECT * FROM friend_requests WHERE public_key == :publicKey")
     fun load(publicKey: String): Flow<FriendRequest>
+
+    @Query("SELECT COUNT(public_key) FROM friend_requests")
+    fun count(): Int
 }

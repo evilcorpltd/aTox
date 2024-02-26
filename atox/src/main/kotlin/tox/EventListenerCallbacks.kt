@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -42,6 +42,7 @@ import ltd.evilcorp.domain.tox.ToxAvEventListener
 import ltd.evilcorp.domain.tox.ToxEventListener
 import ltd.evilcorp.domain.tox.toMessageType
 
+private const val MAX_ACTIVE_FRIEND_REQUESTS = 32
 private const val TAG = "EventListenerCallbacks"
 
 private fun isImage(filename: String) = try {
@@ -68,6 +69,7 @@ class EventListenerCallbacks @Inject constructor(
     private val tox: Tox,
     private val settings: Settings,
 ) {
+    private var maxFriendRequestsWarningActive = false
     private var audioPlayer: AudioPlayer? = null
     private val scope = CoroutineScope(Dispatchers.Default)
 
@@ -106,7 +108,17 @@ class EventListenerCallbacks @Inject constructor(
             }
         }
 
-        friendRequestHandler = { publicKey, _, message ->
+        friendRequestHandler = handler@{ publicKey, _, message ->
+            if (friendRequestRepository.count() > MAX_ACTIVE_FRIEND_REQUESTS) {
+                if (!maxFriendRequestsWarningActive) {
+                    Log.w(TAG, "Ignoring friend requests w/ $MAX_ACTIVE_FRIEND_REQUESTS already active")
+                    maxFriendRequestsWarningActive = true
+                }
+
+                return@handler
+            }
+
+            maxFriendRequestsWarningActive = false
             val request = FriendRequest(publicKey, message)
             friendRequestRepository.add(request)
             notificationHelper.showFriendRequestNotification(request, silent = tox.getStatus() == UserStatus.Busy)

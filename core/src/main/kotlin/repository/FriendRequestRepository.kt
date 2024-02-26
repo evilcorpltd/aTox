@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2020 aTox contributors
+// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -21,4 +21,6 @@ class FriendRequestRepository @Inject internal constructor(
     fun getAll(): Flow<List<FriendRequest>> = friendRequestDao.loadAll()
 
     fun get(publicKey: String): Flow<FriendRequest> = friendRequestDao.load(publicKey)
+
+    fun count(): Int = friendRequestDao.count()
 }
