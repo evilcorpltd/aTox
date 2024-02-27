@@ -54,7 +54,7 @@ import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.ToxSaveStatus
 
 const val ARG_SHARE = "share"
-private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 16
+private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 32
 
 private fun User.online(): Boolean = connectionStatus != ConnectionStatus.None
 
