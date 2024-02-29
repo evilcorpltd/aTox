@@ -6,7 +6,7 @@ kotlin = "1.9.22"
 ksp = "1.9.22-1.0.17"
 android-plugin = "8.2.2"
 
-coroutines = "1.7.3"
+coroutines = "1.8.0"
 dagger = "2.48"
 espresso = "3.5.1"
 lifecycle = "2.6.2" # 2.7.0 requires API 34.
