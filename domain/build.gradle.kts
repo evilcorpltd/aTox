@@ -69,9 +69,14 @@ dependencies {
     androidTestImplementation(kotlin("test"))
     androidTestImplementation(libs.test.runner)
     androidTestImplementation(libs.test.junit.ext)
-    androidTestImplementation(libs.google.guava.workaround)
     androidTestImplementation(libs.kotlinx.coroutines.test) {
         // Conflicts with a lot of things due to having embedded "byte buddy" instead of depending on it.A
         exclude("org.jetbrains.kotlinx", "kotlinx-coroutines-debug")
+    }
+
+    modules {
+        module("com.google.guava:listenablefuture") {
+            replacedBy("com.google.guava:guava", "listenablefuture is part of guava")
+        }
     }
 }

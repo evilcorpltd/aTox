@@ -62,7 +62,6 @@ dependencies {
     implementation(libs.androidx.fragment)
 
     implementation(libs.google.android.material)
-    implementation(libs.google.guava.workaround)
 
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
@@ -95,4 +94,10 @@ dependencies {
     androidTestImplementation(libs.test.espresso.contrib)
     androidTestImplementation(libs.test.junit.ext)
     kspAndroidTest(libs.google.dagger.compiler)
+
+    modules {
+        module("com.google.guava:listenablefuture") {
+            replacedBy("com.google.guava:guava", "listenablefuture is part of guava")
+        }
+    }
 }

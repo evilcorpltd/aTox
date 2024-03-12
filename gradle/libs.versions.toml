@@ -71,10 +71,4 @@ test-junit-ext = "androidx.test.ext:junit:1.1.5"
 test-rules = "androidx.test:rules:1.5.0"
 test-runner = "androidx.test:runner:1.5.2"
 
-# Google's very impressive workaround for the following error:
-# Duplicate class com.google.common.util.concurrent.ListenableFuture found
-# in modules jetified-guava-19.0 (com.google.guava:guava:19.0) and
-# jetified-listenablefuture-1.0 (com.google.guava:listenablefuture:1.0)
-google-guava-workaround = "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava"
-
 [bundles]
