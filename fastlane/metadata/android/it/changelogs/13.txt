@@ -1,7 +1,7 @@
-Aggiunta visualizzazione degli stati di connessione dei contatti
+Aggiunta visualizzazione degli stati dei contatti
 
-Risolto un arresto anomalo all'avvio sui telefoni Samsung più recenti
-Risolto il problema con la suoneria della chiamata che non veniva sempre silenziata quando dovrebbe
+Risolto un arresto anomalo all'avvio sui recenti dispositivi Samsung
+Risolta la suoneria delle chiamate che non veniva sempre silenziata quando avrebbe dovuto
 Risolti alcuni arresti anomali durante l'eliminazione dei contatti in momenti difficili
 Risolto un arresto anomalo relativo all'avvio con un set di proxy e senza Internet
 
