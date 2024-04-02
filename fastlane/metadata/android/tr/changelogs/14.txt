@@ -1,0 +1,8 @@
+Sohbet geçmişi dışa aktarımı eklendi
+Arkadaşlık isteği mesajları artık sohbet geçmişine ekleniyor
+Dosya aktarım hızı ve kararlılığı iyileştirildi
+Ekran artık aramalar sırasında yakınlık sensörü kullanılarak otomatik olarak kapatılıp açılıyor
+
+Toxcore 0.2.19 sürümüne güncellendi
+
+Tam değişiklik günlüğü: https://github.com/evilcorpltd/aTox/releases
