@@ -1,0 +1,4 @@
+修復了在處理掛斷來電時的程式崩潰問題
+修復了在刪除聯絡人時的程式崩潰問題
+
+完整更新日誌： https://github.com/evilcorpltd/aTox/releases

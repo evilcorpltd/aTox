@@ -1,0 +1,6 @@
+aTox 不會再於 Android KitKat 開啟時發生程式崩潰
+當正在通話中時，拒絕來電的功能現在能正常運作
+新增將 Tox ID 分享為 QR Code 圖片的功能
+於訊息通知中加入「標記為已讀」的按鈕
+
+完整更新日誌： https://github.com/evilcorpltd/aTox/releases
