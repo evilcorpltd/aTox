@@ -1,0 +1,8 @@
+Adicionado a exportação de histórico do chat
+Mensagens de solicitação de amizade são agora adicionadas no histórico do chat
+Aprimorada a velocidade e estabilidade da transferência de arquivos
+A tela é agora automaticamente ligada/desligada durante chamadas usando o sensor de proximidade
+
+Atualizado o Toxcore 0.2.19
+
+Registro de Mudanças completo: https://github.com/evilcorpltd/aTox/releases
