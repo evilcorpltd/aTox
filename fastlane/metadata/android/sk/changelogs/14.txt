@@ -1,0 +1,8 @@
+Pridaný export histórie chatu.
+Správy žiadostí o priateľstvo sa teraz pridávajú do histórie chatu.
+Vylepšená rýchlosť a stabilita prenosu súborov.
+Displej sa teraz automaticky vypína/zapína počas hovorov pomocou senzora priblíženia.
+
+Aktualizované na Toxcore 0.2.19
+
+Celý zoznam zmien: https://github.com/evilcorpltd/aTox/releases
