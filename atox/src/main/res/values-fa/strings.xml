@@ -155,4 +155,9 @@
     <string name="file_not_found">فایلی پیدا نشد</string>
     <string name="pref_confirm_calling">تایید تماس</string>
     <string name="pref_confirm_quitting">تایید خروج از برنامه</string>
+    <string name="call_confirm">آیا مطمئن هستید که می خواهید تماس بگیرید؟</string>
+    <string name="channel_profile_locked_explanation">زمانی ارسال می شود که نمایه شما باید قفل شود تا aTox اجرا شود</string>
+    <string name="export_history">سابقه خروجی</string>
+    <string name="export_history_failure">تاریخچه پیام صادر نشد: %1$s</string>
+    <string name="export_history_success">تاریخچه پیام صادر شد</string>
 </resources>
