@@ -90,7 +90,7 @@ $(PREFIX)/protobuf.stamp: $(SRCDIR)/protobuf $(TOOLCHAIN_FILE) $(PROTOC)
 # toxcore
 
 $(SRCDIR)/toxcore:
-	git clone --depth=1 --branch=v0.2.18 --recursive https://github.com/TokTok/c-toxcore $@
+	git clone --depth=1 --branch=v0.2.19 --recursive https://github.com/TokTok/c-toxcore $@
 
 $(PREFIX)/toxcore.stamp: $(foreach f,$(shell cd $(SRCDIR)/toxcore && git ls-files),$(SRCDIR)/toxcore/$f)
 $(PREFIX)/toxcore.stamp: $(SRCDIR)/toxcore $(TOOLCHAIN_FILE) $(foreach i,libsodium opus libvpx,$(PREFIX)/$i.stamp)

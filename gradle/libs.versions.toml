@@ -12,7 +12,7 @@ espresso = "3.5.1"
 lifecycle = "2.6.2" # 2.7.0 requires API 34.
 navigation = "2.6.0" # 2.7.5 requires API 34.
 room = "2.5.2" # 2.6.0 requires API 34.
-tox4j-android = "0.2.18"
+tox4j-android = "0.2.19"
 tox4j-core = "0.2.3"
 
 [plugins]
