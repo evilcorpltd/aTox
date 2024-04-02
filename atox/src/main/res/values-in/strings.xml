@@ -137,4 +137,10 @@
     <string name="in_call_with">Dalam panggilan dengan %1$s</string>
     <string name="incoming_call_from">Panggilan masuk dari %1$s</string>
     <string name="unlock_profile">Buka kunci profil</string>
+    <string name="pref_heading_bootstrap_nodes">Sumber node Bootstrap</string>
+    <string name="tox_id_error_hex">Hanya hex yang diperbolehkan</string>
+    <string name="call_confirm">Apakah Anda yakin Anda ingin memanggil\?</string>
+    <string name="pref_ft_auto_accept_none">Kosong</string>
+    <string name="pref_proxy_type_none">Kosong</string>
+    <string name="pref_bootstrap_node_builtin">Bawaan</string>
 </resources>
