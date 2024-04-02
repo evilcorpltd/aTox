@@ -1,8 +1,8 @@
 支援語音通話
 使用加密的 Tox 配置檔案
-可更改反垃圾郵件編號 (nospam)
+可更改反垃圾郵件編號 (NoSpam)
 可接收文字分享
-可將 ToxID 顯示為 QR Code
+可將 Tox ID 顯示為 QR Code
 支援一次選擇多個文件發送
 翻譯成更多語言
 更新至 Toxcore 0.2.13
