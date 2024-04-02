@@ -115,4 +115,11 @@
     <string name="bad_positive_number">Yikhale nambala ya positivi</string>
     <string name="warn_node_json_import_failed">Palibvuto yabwelesa ma nodi</string>
     <string name="proxy_not_found">Pulokuse siyanapezeke</string>
+    <string name="call_confirm">Mukutsimikizira kuti mukufuna kuitana?</string>
+    <string name="contact_list_delete_contact_confirm">Kodi mukufuna kuchotsa “%1$s” mu ma contact?</string>
+    <string name="pref_confirm_calling">kutsimikizira kuitana</string>
+    <string name="error_no_nodes_loaded">Sangathe kuletsa ma node a bootstrap, chonde sintonani ma node otsatira kapena lembani ma node patsogolo</string>
+    <string name="call">kuitana</string>
+    <string name="receive_share_share_to">gawo…</string>
+    <string name="microphone_control">ulamuliro maikolofoni</string>
 </resources>
