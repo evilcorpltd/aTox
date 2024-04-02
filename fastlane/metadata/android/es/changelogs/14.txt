@@ -1,0 +1,8 @@
+Añadida exportación del historial de chat
+Los mensajes de solicitud de amigo ahora se agregan al historial de chat
+Mejora de la velocidad y estabilidad de transferencia de archivos
+La pantalla se enciende/apaga automáticamente durante las llamadas con el sensor de proximidad
+
+Actualizado a Toxcore 0.2.19
+
+Registro completo de cambios: https://github.com/evilcorpltd/aTox/releases
