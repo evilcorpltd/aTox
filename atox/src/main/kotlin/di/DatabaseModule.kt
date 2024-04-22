@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -17,7 +17,6 @@ import ltd.evilcorp.core.db.FriendRequestDao
 import ltd.evilcorp.core.db.MessageDao
 import ltd.evilcorp.core.db.UserDao
 
-@Suppress("unused")
 @Module
 class DatabaseModule {
     @Singleton
@@ -28,7 +27,6 @@ class DatabaseModule {
             .build()
 }
 
-@Suppress("unused")
 @Module
 class DaoModule {
     @Singleton

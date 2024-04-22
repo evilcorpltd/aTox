@@ -67,24 +67,24 @@ private enum class ChatItemType {
 private val timeFormatter = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT)
 
 private class MessageViewHolder(row: View) {
-    val message = row.findViewById(R.id.message) as TextView
-    val timestamp = row.findViewById(R.id.timestamp) as TextView
+    val message: TextView = row.findViewById(R.id.message)
+    val timestamp: TextView = row.findViewById(R.id.timestamp)
 }
 
 private class FileTransferViewHolder(row: View) {
-    val container = row.findViewById(R.id.fileTransfer) as RelativeLayout
-    val fileName = row.findViewById(R.id.fileName) as TextView
-    val fileSize = row.findViewById(R.id.fileSize) as TextView
-    val progress = row.findViewById(R.id.progress) as ProgressBar
-    val state = row.findViewById(R.id.state) as TextView
-    val timestamp = row.findViewById(R.id.timestamp) as TextView
-    val acceptLayout = row.findViewById(R.id.acceptLayout) as View
-    val accept = row.findViewById(R.id.accept) as Button
-    val reject = row.findViewById(R.id.reject) as Button
-    val cancelLayout = row.findViewById(R.id.cancelLayout) as View
-    val cancel = row.findViewById(R.id.cancel) as Button
-    val completedLayout = row.findViewById(R.id.completedLayout) as View
-    val imagePreview = row.findViewById(R.id.imagePreview) as ImageView
+    val container: RelativeLayout = row.findViewById(R.id.fileTransfer)
+    val fileName: TextView = row.findViewById(R.id.fileName)
+    val fileSize: TextView = row.findViewById(R.id.fileSize)
+    val progress: ProgressBar = row.findViewById(R.id.progress)
+    val state: TextView = row.findViewById(R.id.state)
+    val timestamp: TextView = row.findViewById(R.id.timestamp)
+    val acceptLayout: View = row.findViewById(R.id.acceptLayout)
+    val accept: Button = row.findViewById(R.id.accept)
+    val reject: Button = row.findViewById(R.id.reject)
+    val cancelLayout: View = row.findViewById(R.id.cancelLayout)
+    val cancel: Button = row.findViewById(R.id.cancel)
+    val completedLayout: View = row.findViewById(R.id.completedLayout)
+    val imagePreview: ImageView = row.findViewById(R.id.imagePreview)
 }
 
 class ChatAdapter(
