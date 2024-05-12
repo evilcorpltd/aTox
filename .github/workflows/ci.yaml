@@ -42,8 +42,13 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/master' }}
-      - name: Build and test
-        run: ./gradlew build
+      # First build the .apks, then run things like check and lint tasks attached to the build task.
+      # We do this in multiple steps to try to reduce the peak memory usage as a plain
+      # `./gradlew build` often uses up all memory and dies in CI.
+      # See: https://issuetracker.google.com/issues/297088701
+      - run: ./gradlew assembleDebug
+      - run: ./gradlew assembleRelease
+      - run: ./gradlew build
       - name: Run Android tests
         if: startsWith(matrix.os, 'macos')
         uses: reactivecircus/android-emulator-runner@v2
