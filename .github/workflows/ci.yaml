@@ -62,6 +62,7 @@ jobs:
         with:
           name: atox-debug.apk
           path: ./atox/build/outputs/apk/debug/atox-debug.apk
+          if-no-files-found: error
 
   tox4j:
     runs-on: ubuntu-22.04
