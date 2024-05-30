@@ -12,14 +12,15 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import ltd.evilcorp.core.repository.MessageRepository
-import ltd.evilcorp.core.vo.Message
 import org.json.JSONArray
 import org.json.JSONObject
 
 class ExportManager @Inject constructor(
     private val messageRepository: MessageRepository,
 ) {
-    private fun generateExportMessagesJString(messages: List<Message>): String {
+    fun generateExportMessagesJString(publicKey: String): String {
+        val messages = runBlocking { messageRepository.get(publicKey).first() }
+
         val root = JSONObject()
         root.put("version", 1)
         root.put(
@@ -41,12 +42,4 @@ class ExportManager @Inject constructor(
         root.put("entries", entries)
         return root.toString(2)
     }
-
-    private fun getMessages(publicKey: String): List<Message> = runBlocking {
-        messageRepository.get(publicKey).first()
-    }
-
-    fun generateExportMessagesJString(publicKey: String): String = generateExportMessagesJString(
-        getMessages(publicKey),
-    )
 }
