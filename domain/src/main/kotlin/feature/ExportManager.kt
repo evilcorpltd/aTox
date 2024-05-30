@@ -27,11 +27,11 @@ class ExportManager @Inject constructor(
             "timestamp",
             SimpleDateFormat("""yyyy-MM-dd'T'HH-mm-ss""", Locale.getDefault()).format(Date()),
         )
+        root.put("contact_public_key", publicKey)
 
         val entries = JSONArray()
         for (message in messages) {
             val jsonMessage = JSONObject().apply {
-                put("publicKey", message.publicKey)
                 put("message", message.message)
                 put("sender", message.sender.toString())
                 put("type", message.type.toString())
