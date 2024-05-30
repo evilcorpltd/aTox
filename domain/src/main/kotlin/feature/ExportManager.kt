@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2022 Akito <the@akito.ooo>
-// SPDX-FileCopyrightText: 2023 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2023-2024 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -34,9 +34,7 @@ class ExportManager @Inject constructor(
                 put("message", message.message)
                 put("sender", message.sender.toString())
                 put("type", message.type.toString())
-                put("correlationId", message.correlationId)
                 put("timestamp", message.timestamp)
-                put("id", message.id)
             }
             entries.put(jsonMessage)
         }
