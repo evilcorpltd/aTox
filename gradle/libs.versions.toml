@@ -6,8 +6,8 @@ kotlin = "1.9.24"
 ksp = "1.9.24-1.0.20"
 android-plugin = "8.4.1"
 
-coroutines = "1.8.0"
-dagger = "2.48"
+coroutines = "1.8.1"
+dagger = "2.51.1"
 espresso = "3.5.1"
 lifecycle = "2.6.2" # 2.7.0 requires API 34.
 navigation = "2.6.0" # 2.7.5 requires API 34.
@@ -23,10 +23,10 @@ androidLibrary = { id = "com.android.library", version.ref = "android-plugin" }
 
 [libraries]
 androidx-activity = "androidx.activity:activity:1.7.2" # 1.8.0 requires API 34.
-androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
+androidx-appcompat = "androidx.appcompat:appcompat:1.6.1" # 1.7.0 requires API 34.
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
 androidx-core-ktx = "androidx.core:core-ktx:1.10.1" # 1.12.0 requires API 34.
-androidx-fragment = "androidx.fragment:fragment:1.6.2"
+androidx-fragment = "androidx.fragment:fragment:1.6.2" # 1.7.1 requires API 34.
 
 androidx-multidex = "androidx.multidex:multidex:2.0.1"
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigation" }
@@ -55,7 +55,7 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 
 nayuki-qrcodegen = "io.nayuki:qrcodegen:1.8.0"
 
-square-leakcanary = "com.squareup.leakcanary:leakcanary-android:2.13"
+square-leakcanary = "com.squareup.leakcanary:leakcanary-android:2.14"
 square-picasso = "com.squareup.picasso:picasso:2.8"
 
 tox4j-android-aarch64 = { module = "org.toktok:tox4j-c_aarch64-linux-android", version.ref = "tox4j-android" }
