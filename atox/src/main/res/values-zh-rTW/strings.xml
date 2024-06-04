@@ -46,7 +46,7 @@
     <string name="status_message_default">由 aTox 為你即時傳送</string>
     <string name="tox_id">Tox ID</string>
     <string name="tox_id_error_length">Tox ID 必須為 76 個字元 (%1$d/76)</string>
-    <string name="tox_id_error_checksum">校驗和錯誤</string>
+    <string name="tox_id_error_checksum">無效的校驗和</string>
     <string name="tox_id_error_hex">僅允許十六進制</string>
     <string name="tox_id_share">分享 Tox ID</string>
     <string name="update">更新</string>
