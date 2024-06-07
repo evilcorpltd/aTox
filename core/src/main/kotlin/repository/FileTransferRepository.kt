@@ -11,9 +11,7 @@ import ltd.evilcorp.core.db.FileTransferDao
 import ltd.evilcorp.core.vo.FileTransfer
 
 @Singleton
-class FileTransferRepository @Inject internal constructor(
-    private val dao: FileTransferDao,
-) {
+class FileTransferRepository @Inject internal constructor(private val dao: FileTransferDao) {
     fun add(ft: FileTransfer): Long = dao.save(ft)
 
     fun delete(id: Int) = dao.delete(id)

@@ -13,10 +13,8 @@ import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.feature.UserManager
 import ltd.evilcorp.domain.tox.Tox
 
-class UserProfileViewModel @Inject constructor(
-    private val userManager: UserManager,
-    private val tox: Tox,
-) : ViewModel() {
+class UserProfileViewModel @Inject constructor(private val userManager: UserManager, private val tox: Tox) :
+    ViewModel() {
     val publicKey by lazy { tox.publicKey }
     val toxId by lazy { tox.toxId }
     val user: LiveData<User> = userManager.get(publicKey).asLiveData()

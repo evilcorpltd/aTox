@@ -11,9 +11,7 @@ import ltd.evilcorp.core.db.FriendRequestDao
 import ltd.evilcorp.core.vo.FriendRequest
 
 @Singleton
-class FriendRequestRepository @Inject internal constructor(
-    private val friendRequestDao: FriendRequestDao,
-) {
+class FriendRequestRepository @Inject internal constructor(private val friendRequestDao: FriendRequestDao) {
     fun add(friendRequest: FriendRequest) = friendRequestDao.save(friendRequest)
 
     fun delete(friendRequest: FriendRequest) = friendRequestDao.delete(friendRequest)

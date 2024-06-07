@@ -34,11 +34,7 @@ private const val AUDIO_SAMPLING_RATE_HZ = 48_000
 private const val AUDIO_SEND_INTERVAL_MS = 20
 
 @Singleton
-class CallManager @Inject constructor(
-    private val tox: Tox,
-    private val scope: CoroutineScope,
-    context: Context,
-) {
+class CallManager @Inject constructor(private val tox: Tox, private val scope: CoroutineScope, context: Context) {
     private val _inCall = MutableStateFlow<CallState>(CallState.NotInCall)
     val inCall: StateFlow<CallState> get() = _inCall
 

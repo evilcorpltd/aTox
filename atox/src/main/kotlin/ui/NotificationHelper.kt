@@ -56,9 +56,7 @@ private const val FRIEND_REQUEST = "aTox friend requests"
 private const val CALL = "aTox calls"
 
 @Singleton
-class NotificationHelper @Inject constructor(
-    private val context: Context,
-) {
+class NotificationHelper @Inject constructor(private val context: Context) {
     private val notifier = NotificationManagerCompat.from(context)
     private val notifierOld = context.getSystemService<NotificationManager>()!!
 

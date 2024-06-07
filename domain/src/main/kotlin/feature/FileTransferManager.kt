@@ -46,15 +46,9 @@ private const val FINGERPRINT_LEN = 8
 private fun String.fingerprint() = take(FINGERPRINT_LEN)
 
 @Suppress("ArrayInDataClass")
-private data class Chunk(
-    val pos: Long,
-    val data: ByteArray,
-)
+private data class Chunk(val pos: Long, val data: ByteArray)
 
-private data class OutgoingFile(
-    val inputStream: InputStream,
-    val unsentChunks: MutableList<Chunk>,
-)
+private data class OutgoingFile(val inputStream: InputStream, val unsentChunks: MutableList<Chunk>)
 
 @Singleton
 class FileTransferManager @Inject constructor(

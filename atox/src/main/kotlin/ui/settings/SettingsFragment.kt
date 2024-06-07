@@ -250,7 +250,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
             nospam.setText("%08X".format(vm.getNospam()))
             nospam.doAfterTextChanged {
                 saveNospam.isEnabled =
-                    nospam.text.length == 8 && nospam.text.toString().toUInt(16).toInt() != vm.getNospam()
+                    nospam.text.length == 8 &&
+                    nospam.text.toString().toUInt(16).toInt() != vm.getNospam()
             }
             saveNospam.isEnabled = false
             saveNospam.setOnClickListener {

@@ -15,9 +15,7 @@ import ltd.evilcorp.core.repository.MessageRepository
 import org.json.JSONArray
 import org.json.JSONObject
 
-class ExportManager @Inject constructor(
-    private val messageRepository: MessageRepository,
-) {
+class ExportManager @Inject constructor(private val messageRepository: MessageRepository) {
     fun generateExportMessagesJString(publicKey: String): String {
         val messages = runBlocking { messageRepository.get(publicKey).first() }
 

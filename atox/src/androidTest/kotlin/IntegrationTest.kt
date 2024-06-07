@@ -40,10 +40,8 @@ import org.hamcrest.core.AllOf.allOf
 import org.junit.Rule
 import org.junit.runner.RunWith
 
-class InjectedActivityTestRule<T : Activity>(
-    activityClass: Class<T>,
-    private val listener: () -> Unit,
-) : ActivityTestRule<T>(activityClass, false, true) {
+class InjectedActivityTestRule<T : Activity>(activityClass: Class<T>, private val listener: () -> Unit) :
+    ActivityTestRule<T>(activityClass, false, true) {
     override fun beforeActivityLaunched() {
         super.beforeActivityLaunched()
         listener()

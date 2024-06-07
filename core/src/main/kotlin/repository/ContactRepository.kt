@@ -13,9 +13,7 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.UserStatus
 
 @Singleton
-class ContactRepository @Inject constructor(
-    private val dao: ContactDao,
-) {
+class ContactRepository @Inject constructor(private val dao: ContactDao) {
     fun exists(publicKey: String): Boolean = dao.exists(publicKey)
     fun add(contact: Contact) = dao.save(contact)
     fun update(contact: Contact) = dao.update(contact)

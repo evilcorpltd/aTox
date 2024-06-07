@@ -210,10 +210,17 @@ class EventListenerCallbacks @Inject constructor(
             Log.e(TAG, "videoBitRate ${pk.fingerprint()} $bitRate")
         }
 
-        videoReceiveFrameHandler = { pk,
-                                     width, height,
-                                     y, u, v,
-                                     yStride, uStride, vStride, ->
+        videoReceiveFrameHandler = {
+                pk,
+                width,
+                height,
+                y,
+                u,
+                v,
+                yStride,
+                uStride,
+                vStride,
+            ->
             Log.v(
                 TAG,
                 "videoReceiveFrame ${pk.fingerprint()}" +

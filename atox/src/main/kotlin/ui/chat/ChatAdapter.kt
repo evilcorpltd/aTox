@@ -87,10 +87,7 @@ private class FileTransferViewHolder(row: View) {
     val imagePreview: ImageView = row.findViewById(R.id.imagePreview)
 }
 
-class ChatAdapter(
-    private val inflater: LayoutInflater,
-    private val resources: Resources,
-) : BaseAdapter() {
+class ChatAdapter(private val inflater: LayoutInflater, private val resources: Resources) : BaseAdapter() {
     var messages: List<Message> = listOf()
     var fileTransfers: List<FileTransfer> = listOf()
 
