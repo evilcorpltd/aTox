@@ -49,8 +49,7 @@ class CallViewModel @Inject constructor(
     fun startSendingAudio() = callManager.startSendingAudio()
     fun stopSendingAudio() = callManager.stopSendingAudio()
 
-    fun toggleSpeakerphone() {
-        speakerphoneOn = !speakerphoneOn
+    fun applyProximityScreenSetting() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (speakerphoneOn) {
                 proximityScreenOff.release()
@@ -58,6 +57,16 @@ class CallViewModel @Inject constructor(
                 proximityScreenOff.acquire()
             }
         }
+    }
+
+    fun disableSpeakerphone() {
+        speakerphoneOn = false
+        applyProximityScreenSetting()
+    }
+
+    fun toggleSpeakerphone() {
+        speakerphoneOn = !speakerphoneOn
+        applyProximityScreenSetting()
     }
 
     val inCall = callManager.inCall
