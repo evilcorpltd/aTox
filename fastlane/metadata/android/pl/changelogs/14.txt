@@ -1,0 +1,8 @@
+Dodano eksport historii czatów
+Wiadomości z prośbą o dodanie do znajomych są teraz dodawane do historii czatów
+Poprawiono prędkość i stabilność przesyłania plików
+Wyświetlacz jest teraz automatycznie wyłączany/włączany podczas połączeń za pomocą czujnika zbliżeniowego
+
+Zaktualizowano Toxcore do 0.2.19
+
+Pełna lista zmian: https://github.com/evilcorpltd/aTox/releases
