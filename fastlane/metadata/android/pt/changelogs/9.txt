@@ -1,11 +1,12 @@
-Mensagens não enviadas são gradavadas como rascunhos
-Suporte a proxy
-Opção de ser autom. marcado como ausente
-Opção de alterar os nós de bootstrap usados
-Agora pode responder mensagens direto das notificações
-Suporte a auto aceitação de transferência de ficheiros
-Lindos avatares marcadores de posição
-Limpar a conversa agora apaga as transferências de ficheiros associadas
-Corrigido a divisão de mensagens com caracteres multi-byte
+As mensagens não enviadas são guardadas como rascunhos
+Suporte de proxy
+Opção para ser automaticamente marcado como ausente
+Opção para substituir os nós de arranque utilizados
+Agora é possível responder diretamente a partir das notificações
+Suporte de aceitação automática para transferências de ficheiros
+Marcadores de lugar de avatar bonitos
+A limpeza de uma conversa elimina agora as transferências de ficheiros associadas
+Corrigida a divisão de mensagens com caracteres multi-byte
+Traduzido para português do Brasil, russo e alemão
 
-Changelog completo: https://github.com/evilcorpltd/aTox/releases
+Registo de alterações completo: https://github.com/evilcorpltd/aTox/releases
