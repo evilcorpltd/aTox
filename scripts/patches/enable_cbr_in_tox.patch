@@ -1,0 +1,64 @@
+From 4bdf8645db4df32916824e68eb2a5a08bdbf3e8f Mon Sep 17 00:00:00 2001
+From: Maxim Biro <nurupo.contributions@gmail.com>
+Date: Fri, 10 May 2024 01:07:43 -0400
+Subject: [PATCH] fix: Use Opus in the CBR mode
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+VBR is susceptible to a transcription attack, where words can be
+deducted from bandwidth fluctuations, even despite the audio being
+encrypted. Toxcore does add padding, but it's just 0-7 bytes, to pad to
+a 8 byte boundary, which might not be enough. CBR is safe from this
+attack, it is the industry recommendation to use CBR: "Applications
+conveying highly sensitive unstructured information SHOULD NOT use
+codecs in VBR mode."[1], and is what other secure messengers use too,
+e.g. Signal.
+
+Here are some papers on this topic:
+- A. M. White, A. R. Matthews, K. Z. Snow and F. Monrose, "Phonotactic
+  Reconstruction of Encrypted VoIP Conversations: Hookt on Fon-iks,"
+  2011 IEEE Symposium on Security and Privacy, Oakland, CA, USA, 2011,
+  pp. 3-18, doi: 10.1109/SP.2011.34.
+- L. A. Khan, M. S. Baig, and Amr M. Youssef. Speaker recognition
+  from encrypted VoIP communications. Digit. Investig. 7, 1–2 (October,
+  2010), 65–73. https://doi.org/10.1016/j.diin.2009.10.001
+- C. V. Wright, L. Ballard, S. E. Coull, F. Monrose and G. M. Masson,
+  "Spot Me if You Can: Uncovering Spoken Phrases in Encrypted VoIP
+  Conversations," 2008 IEEE Symposium on Security and Privacy (sp 2008),
+  Oakland, CA, USA, 2008, pp. 35-49, doi: 10.1109/SP.2008.21.
+
+Thanks to an IRC user who asked to remain anonymous for sending the
+diff.
+
+[1] https://datatracker.ietf.org/doc/html/rfc6562#section-3
+---
+ toxav/audio.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/toxav/audio.c b/toxav/audio.c
+index 2cbc02d20a..92df2b8b47 100644
+--- a/toxav/audio.c
++++ b/toxav/audio.c
+@@ -377,6 +377,21 @@ static OpusEncoder *create_audio_encoder(const Logger *log, uint32_t bit_rate, u
+         goto FAILURE;
+     }
+ 
++    /*
++     * The libopus library defaults to VBR, which is unsafe in any VoIP environment
++     * (see for example doi:10.1109/SP.2011.34). Switching to CBR very slightly
++     * decreases audio quality at lower bitrates.
++     *
++     * Parameters:
++     *  `[in]`    `x`   `opus_int32`: Whether to use VBR mode, 1 (VBR) is default
++     */
++    status = opus_encoder_ctl(rc, OPUS_SET_VBR(0));
++
++    if (status != OPUS_OK) {
++        LOGGER_ERROR(log, "Error while setting encoder ctl: %s", opus_strerror(status));
++        goto FAILURE;
++    }
++
+     /*
+      * Configures the encoder's use of inband forward error correction.
+      * Note:

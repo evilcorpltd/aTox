@@ -91,6 +91,7 @@ $(PREFIX)/protobuf.stamp: $(SRCDIR)/protobuf $(TOOLCHAIN_FILE) $(PROTOC)
 
 $(SRCDIR)/toxcore:
 	git clone --depth=1 --branch=v0.2.19 --recursive https://github.com/TokTok/c-toxcore $@
+	cd $@ && patch -p1 < $(CURDIR)/scripts/patches/enable_cbr_in_tox.patch
 
 $(PREFIX)/toxcore.stamp: $(foreach f,$(shell cd $(SRCDIR)/toxcore && git ls-files),$(SRCDIR)/toxcore/$f)
 $(PREFIX)/toxcore.stamp: $(SRCDIR)/toxcore $(TOOLCHAIN_FILE) $(foreach i,libsodium opus libvpx,$(PREFIX)/$i.stamp)
