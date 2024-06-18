@@ -19,7 +19,13 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <service android:name=".ToxService" android:exported="false"/>
+        <service android:name=".ToxService"
+                android:exported="false"
+                android:foregroundServiceType="specialUse">
+            <property
+                    android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                    android:value="serverless peer-to-peer messaging" />
+        </service>
 
         <receiver android:name=".BootReceiver" android:enabled="false" android:exported="false">
             <intent-filter>
