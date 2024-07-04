@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2023 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -20,7 +20,10 @@ import ltd.evilcorp.core.vo.UserStatus
 
 private const val TAG = "ToxWrapper"
 
-private const val AUDIO_BIT_RATE = 128
+// TODO(robinlinden) Make configurable.
+// https://wiki.xiph.org/Opus_Recommended_Settings
+// 32 should be good enough for fullband stereo.
+private const val AUDIO_BIT_RATE = 32
 
 enum class CustomPacketError {
     Success,
