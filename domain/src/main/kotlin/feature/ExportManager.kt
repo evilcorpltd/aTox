@@ -18,7 +18,7 @@ import org.json.JSONObject
 class ExportManager @Inject constructor(private val messageRepository: MessageRepository) {
     fun generateExportMessagesJString(publicKey: String): String {
         val messages = runBlocking { messageRepository.get(publicKey).first() }
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
 
         val root = JSONObject()
         root.put("version", 1)
