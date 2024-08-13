@@ -18,13 +18,11 @@ import org.json.JSONObject
 class ExportManager @Inject constructor(private val messageRepository: MessageRepository) {
     fun generateExportMessagesJString(publicKey: String): String {
         val messages = runBlocking { messageRepository.get(publicKey).first() }
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.getDefault())
 
         val root = JSONObject()
         root.put("version", 1)
-        root.put(
-            "timestamp",
-            SimpleDateFormat("""yyyy-MM-dd'T'HH-mm-ss""", Locale.getDefault()).format(Date()),
-        )
+        root.put("timestamp", dateFormat.format(Date()))
         root.put("contact_public_key", publicKey)
 
         val entries = JSONArray()
@@ -33,7 +31,7 @@ class ExportManager @Inject constructor(private val messageRepository: MessageRe
                 put("message", message.message)
                 put("sender", message.sender.toString())
                 put("type", message.type.toString())
-                put("timestamp", message.timestamp)
+                put("timestamp", dateFormat.format(Date(message.timestamp)))
             }
             entries.put(jsonMessage)
         }
