@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2022 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2020-2024 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -6,6 +6,7 @@ package ltd.evilcorp.atox
 
 import android.app.Activity
 import android.content.Context
+import android.os.Build
 import androidx.room.Room
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -101,6 +102,13 @@ class IntegrationTest {
         // ProfileFragment
         onView(withId(R.id.username)).perform(typeText("mr robotto"), closeSoftKeyboard())
         onView(withId(R.id.btnCreate)).perform(click())
+
+        if (Build.VERSION.SDK_INT >= 33) {
+            InstrumentationRegistry.getInstrumentation().uiAutomation.grantRuntimePermission(
+                BuildConfig.APPLICATION_ID,
+                android.Manifest.permission.POST_NOTIFICATIONS,
+            )
+        }
 
         // ContactListFragment
         onView(withId(R.id.drawerLayout)).perform(DrawerActions.open())
