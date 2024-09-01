@@ -12,12 +12,6 @@ jobs:
       - run: curl -sSLO https://github.com/pinterest/ktlint/releases/download/1.3.1/ktlint && chmod a+x ktlint
       - run: ./ktlint
 
-  gradle-wrapper-validation:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: gradle/actions/wrapper-validation@v3
-
   gradle:
     runs-on: ${{ matrix.os }}
     needs: tox4j
@@ -39,7 +33,7 @@ jobs:
           distribution: adopt
           java-version: 17
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+        uses: gradle/actions/setup-gradle@v4
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/master' }}
       # First build the .apks, then run things like check and lint tasks attached to the build task.
