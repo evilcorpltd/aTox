@@ -74,9 +74,9 @@ class AvatarImageView @JvmOverloads constructor(context: Context, attrs: Attribu
         invalidate()
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        if (canvas == null || !statusIndicatorVisible) return
+        if (!statusIndicatorVisible) return
 
         val size = min(width, height).toFloat()
 

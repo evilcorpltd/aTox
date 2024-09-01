@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2023 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
 // SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
@@ -10,6 +10,7 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.pm.ServiceInfo
 import android.os.Build
 import android.util.Log
 import androidx.core.app.ActivityCompat
@@ -126,7 +127,16 @@ class ToxService : LifecycleService() {
         }
 
         createNotificationChannel()
-        startForeground(NOTIFICATION_ID, notificationFor(connectionStatus))
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            startForeground(
+                NOTIFICATION_ID,
+                notificationFor(connectionStatus),
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE,
+            )
+        } else {
+            startForeground(NOTIFICATION_ID, notificationFor(connectionStatus))
+        }
 
         lifecycleScope.launch(Dispatchers.Default) {
             userRepository.get(tox.publicKey.string())
