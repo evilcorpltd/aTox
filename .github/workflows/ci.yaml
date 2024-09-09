@@ -103,6 +103,7 @@ jobs:
         with:
           name: tox4j
           path: ~/.m2
+          include-hidden-files: true
 
   bazel:
     runs-on: ubuntu-22.04
