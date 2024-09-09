@@ -103,6 +103,7 @@ jobs:
         with:
           name: tox4j
           path: ~/.m2
+          if-no-files-found: error
           include-hidden-files: true
 
   bazel:
