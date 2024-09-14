@@ -133,7 +133,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install
         run: |
-          wget --output-document=buildifier https://github.com/bazelbuild/buildtools/releases/download/v7.1.2/buildifier-linux-amd64
+          wget --output-document=buildifier https://github.com/bazelbuild/buildtools/releases/download/v7.3.1/buildifier-linux-amd64
           sudo chmod +x buildifier
       - name: Check
         run: ./buildifier --lint=warn --warnings=all -mode diff WORKSPACE $(find . -type f -name "BUILD.*")
@@ -142,7 +142,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - run: npm install --global prettier@3.3.1
+      - run: npm install --global prettier@3.3.3
       - run: npx prettier --ignore-path .gitignore --write .
       - run: git diff --exit-code
 
