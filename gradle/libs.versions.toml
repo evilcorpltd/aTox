@@ -9,9 +9,9 @@ android-plugin = "8.5.2"
 coroutines = "1.8.1"
 dagger = "2.51.1"
 espresso = "3.5.1"
-lifecycle = "2.6.2" # 2.7.0 requires API 34.
-navigation = "2.6.0" # 2.7.5 requires API 34.
-room = "2.5.2" # 2.6.0 requires API 34.
+lifecycle = "2.8.6"
+navigation = "2.7.7" # 2.8.2 requires minSdk 21.
+room = "2.6.1"
 tox4j-android = "0.2.19"
 tox4j-core = "0.2.3"
 
@@ -22,11 +22,11 @@ androidApplication = { id = "com.android.application", version.ref = "android-pl
 androidLibrary = { id = "com.android.library", version.ref = "android-plugin" }
 
 [libraries]
-androidx-activity = "androidx.activity:activity:1.7.2" # 1.8.0 requires API 34.
-androidx-appcompat = "androidx.appcompat:appcompat:1.6.1" # 1.7.0 requires API 34.
+androidx-activity = "androidx.activity:activity:1.9.2"
+androidx-appcompat = "androidx.appcompat:appcompat:1.6.1" # 1.7.0 requires minSdk 21.
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
-androidx-core-ktx = "androidx.core:core-ktx:1.10.1" # 1.12.0 requires API 34.
-androidx-fragment = "androidx.fragment:fragment:1.6.2" # 1.7.1 requires API 34.
+androidx-core-ktx = "androidx.core:core-ktx:1.13.1"
+androidx-fragment = "androidx.fragment:fragment:1.7.1" # 1.8.4 requires minSdk 21.
 
 androidx-multidex = "androidx.multidex:multidex:2.0.1"
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigation" }
@@ -43,7 +43,7 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
 
-google-android-material = "com.google.android.material:material:1.9.0" # 1.10.0 requires API 34
+google-android-material = "com.google.android.material:material:1.12.0"
 google-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 google-dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 

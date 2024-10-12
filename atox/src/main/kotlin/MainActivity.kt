@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         handleIntent(intent)
     }
 
-    override fun onNewIntent(intent: Intent?) {
+    override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         handleIntent(intent)
     }
@@ -73,8 +73,8 @@ class MainActivity : AppCompatActivity() {
         autoAway.onForeground()
     }
 
-    private fun handleIntent(intent: Intent?) {
-        when (intent?.action) {
+    private fun handleIntent(intent: Intent) {
+        when (intent.action) {
             Intent.ACTION_VIEW -> handleToxLinkIntent(intent)
             Intent.ACTION_SEND -> handleShareIntent(intent)
         }
