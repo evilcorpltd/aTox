@@ -4,7 +4,7 @@ sdk-target = "34"
 
 kotlin = "2.0.21"
 ksp = "2.0.21-1.0.25"
-android-plugin = "8.5.2"
+android-plugin = "8.7.1"
 
 coroutines = "1.8.1"
 dagger = "2.51.1"
