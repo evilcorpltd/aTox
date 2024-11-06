@@ -3,13 +3,13 @@ sdk-min = "19"
 sdk-target = "34"
 
 kotlin = "2.0.21"
-ksp = "2.0.21-1.0.25"
+ksp = "2.0.21-1.0.26"
 android-plugin = "8.7.1"
 
-coroutines = "1.8.1"
-dagger = "2.51.1"
+coroutines = "1.9.0"
+dagger = "2.52"
 espresso = "3.5.1"
-lifecycle = "2.8.6"
+lifecycle = "2.8.7"
 navigation = "2.7.7" # 2.8.2 requires minSdk 21.
 room = "2.6.1"
 tox4j-android = "0.2.19"
@@ -22,10 +22,10 @@ androidApplication = { id = "com.android.application", version.ref = "android-pl
 androidLibrary = { id = "com.android.library", version.ref = "android-plugin" }
 
 [libraries]
-androidx-activity = "androidx.activity:activity:1.9.2"
+androidx-activity = "androidx.activity:activity:1.9.3"
 androidx-appcompat = "androidx.appcompat:appcompat:1.6.1" # 1.7.0 requires minSdk 21.
-androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
-androidx-core-ktx = "androidx.core:core-ktx:1.13.1"
+androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4" # 2.2.0 requires minSdk 21.
+androidx-core-ktx = "androidx.core:core-ktx:1.13.1" # 1.15.0 requires minSdk 21.
 androidx-fragment = "androidx.fragment:fragment:1.7.1" # 1.8.4 requires minSdk 21.
 
 androidx-multidex = "androidx.multidex:multidex:2.0.1"
