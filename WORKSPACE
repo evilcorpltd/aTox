@@ -23,11 +23,11 @@ http_archive(
     url = "https://github.com/bazelbuild/platforms/releases/download/%s/platforms-%s.tar.gz" % (PLATFORMS_TAG, PLATFORMS_TAG),
 )
 
-RULES_PKG_TAG = "0.2.5"
+RULES_PKG_TAG = "1.0.1"
 
 http_archive(
     name = "rules_pkg",
-    sha256 = "352c090cc3d3f9a6b4e676cf42a6047c16824959b438895a76c2989c6d7c246a",
+    integrity = "sha256-0gyVGWDtd8t7NBwqWUiFNOSU1a0dMMSBjHNtV3cqn+8=",
     url = "https://github.com/bazelbuild/rules_pkg/releases/download/%s/rules_pkg-%s.tar.gz" % (RULES_PKG_TAG, RULES_PKG_TAG),
 )
 
@@ -38,6 +38,15 @@ http_archive(
     sha256 = "602e7161d9195e50246177e7c55b2f39950a9cf7366f74ed5f22fd45750cd208",
     strip_prefix = "rules_proto-%s" % RULES_PROTO_TAG,
     url = "https://github.com/bazelbuild/rules_proto/archive/%s.tar.gz" % RULES_PROTO_TAG,
+)
+
+RULES_PYTHON_TAG = "0.40.0"
+
+http_archive(
+    name = "rules_python",
+    sha256 = "690e0141724abb568267e003c7b6d9a54925df40c275a870a4d934161dc9dd53",
+    strip_prefix = "rules_python-%s" % RULES_PYTHON_TAG,
+    url = "https://github.com/bazelbuild/rules_python/releases/download/%s/rules_python-%s.tar.gz" % (RULES_PYTHON_TAG, RULES_PYTHON_TAG),
 )
 
 RULES_ANDROID_TAG = "0.1.1"
@@ -82,25 +91,29 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_kotlin/releases/download/v1.9.0/rules_kotlin-v1.9.0.tar.gz",
 )
 
-RULES_SCALA_TAG = "72adeb585081c4cf53d033d554dbdddbb1e59fbc"
+RULES_SCALA_TAG = "6.6.0"
 
 http_archive(
     name = "io_bazel_rules_scala",
-    sha256 = "b3e9b2e77babd71f0666ff1ccf169eb402f6e6068070f2f331ec1a8306cba5f6",
+    sha256 = "e734eef95cf26c0171566bdc24d83bd82bdaf8ca7873bec6ce9b0d524bdaf05d",
     strip_prefix = "rules_scala-%s" % RULES_SCALA_TAG,
-    url = "https://github.com/bazelbuild/rules_scala/archive/%s.tar.gz" % RULES_SCALA_TAG,
+    url = "https://github.com/bazelbuild/rules_scala/releases/download/v%s/rules_scala-v%s.tar.gz" % (RULES_SCALA_TAG, RULES_SCALA_TAG),
 )
 
 # Third-party
 # =========================================================
 
-PROTOBUF_TAG = "3.17.3"
+# Using protobuf 28.3 causes ProtoScalaPBRule to hang. Looking at issues in
+# rules_scala, it seems like 25.5 is the newest version of protobuf that
+# rules_scala can handle.
+# See: https://github.com/bazelbuild/rules_scala/issues/1647
+PROTOBUF_TAG = "25.5"
 
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "c6003e1d2e7fefa78a3039f19f383b4f3a61e81be8c19356f85b6461998ad3db",
+    integrity = "sha256-PPfVsXxP8E/p8DgQTp0Mrm2gm4ziccE+RPisafUeTg8=",
     strip_prefix = "protobuf-%s" % PROTOBUF_TAG,
-    url = "https://github.com/protocolbuffers/protobuf/archive/v%s.tar.gz" % PROTOBUF_TAG,
+    url = "https://github.com/protocolbuffers/protobuf/releases/download/v%s/protobuf-%s.tar.gz" % (PROTOBUF_TAG, PROTOBUF_TAG),
 )
 
 DAGGER_TAG = "2.44.2"
@@ -177,7 +190,7 @@ maven_install(
         "androidx.room:room-ktx:2.2.6",
         "androidx.room:room-runtime:2.2.6",
         "androidx.room:room-testing:2.2.6",
-        "androidx.test.ext:junit:1.1.2",
+        "androidx.test.ext:junit:1.2.1",
         "com.google.android.material:material:1.4.0",
         "com.google.code.gson:gson:2.8.6",
         "com.google.guava:guava:19.0",
@@ -255,6 +268,14 @@ http_archive(
 # =========================================================
 #
 # These go last since we override a bunch of them.
+
+load("@rules_python//python:repositories.bzl", "py_repositories")
+
+py_repositories()
+
+load("@rules_pkg//:deps.bzl", "rules_pkg_dependencies")
+
+rules_pkg_dependencies()
 
 load("@io_bazel_rules_kotlin//kotlin:repositories.bzl", "kotlin_repositories", "kotlinc_version")
 
