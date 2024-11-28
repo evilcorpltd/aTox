@@ -128,7 +128,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
             val str = it?.toString() ?: ""
             val seconds = try {
                 str.toLong()
-            } catch (e: NumberFormatException) {
+            } catch (_: NumberFormatException) {
                 settingAutoAwaySeconds.error = getString(R.string.bad_positive_number)
                 return@doAfterTextChanged
             }
@@ -188,7 +188,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
             val str = it?.toString() ?: ""
             val port = try {
                 Integer.parseInt(str)
-            } catch (e: NumberFormatException) {
+            } catch (_: NumberFormatException) {
                 proxyPort.error = getString(R.string.bad_port)
                 return@doAfterTextChanged
             }

@@ -122,7 +122,7 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
                             putExtra("BEEP_ENABLED", false)
                         },
                     )
-                } catch (e: ActivityNotFoundException) {
+                } catch (_: ActivityNotFoundException) {
                     val uri = Uri.parse("https://f-droid.org/en/packages/com.google.zxing.client.android/")
                     startActivity(Intent(Intent.ACTION_VIEW, uri))
                 }
