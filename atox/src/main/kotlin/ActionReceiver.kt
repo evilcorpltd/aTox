@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2021-2024 Robin Lindén <dev@robinlinden.eu>
 // SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
@@ -11,6 +12,7 @@ import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.RemoteInput
+import androidx.core.content.IntentCompat
 import im.tox.tox4j.av.exceptions.ToxavAnswerException
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
@@ -93,7 +95,7 @@ class ActionReceiver : BroadcastReceiver() {
                 }
             }
 
-            when (intent.getSerializableExtra(KEY_ACTION) as Action?) {
+            when (IntentCompat.getSerializableExtra(intent, KEY_ACTION, Action::class.java)) {
                 Action.CallAccept -> acceptCall(context, pk)
                 Action.CallEnd, Action.CallReject -> {
                     callManager.endCall(pk)
