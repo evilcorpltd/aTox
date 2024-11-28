@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2023 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -284,7 +284,7 @@ class FileTransferManager @Inject constructor(
                 return
             }
             setProgress(ft, ft.progress + chunk.data.size)
-            file.unsentChunks.removeFirst()
+            file.unsentChunks.removeAt(0)
         }
 
         val bytes = ByteArray(length)
