@@ -101,7 +101,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
             setNavigationOnClickListener {
                 WindowInsetsControllerCompat(requireActivity().window, view)
                     .hide(WindowInsetsCompat.Type.ime())
-                requireActivity().onBackPressed()
+                requireActivity().onBackPressedDispatcher.onBackPressed()
             }
         }
 

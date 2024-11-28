@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2020 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -65,7 +66,7 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
         toolbar.setNavigationOnClickListener {
             WindowInsetsControllerCompat(requireActivity().window, view)
                 .hide(WindowInsetsCompat.Type.ime())
-            activity?.onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         toxId.doAfterTextChanged { s ->
