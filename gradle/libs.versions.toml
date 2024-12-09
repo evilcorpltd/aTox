@@ -8,7 +8,7 @@ android-plugin = "8.7.3"
 
 coroutines = "1.9.0"
 dagger = "2.52"
-espresso = "3.5.1"
+espresso = "3.6.1"
 lifecycle = "2.8.7"
 navigation = "2.7.7" # 2.8.2 requires minSdk 21.
 room = "2.6.1"
@@ -67,8 +67,8 @@ tox4j-c = { module = "org.toktok:tox4j-c_2.11", version.ref = "tox4j-core" }
 
 test-espresso-contrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "espresso" }
 test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
-test-junit-ext = "androidx.test.ext:junit:1.1.5"
-test-rules = "androidx.test:rules:1.5.0"
-test-runner = "androidx.test:runner:1.5.2"
+test-junit-ext = "androidx.test.ext:junit:1.2.1"
+test-rules = "androidx.test:rules:1.6.1"
+test-runner = "androidx.test:runner:1.6.2"
 
 [bundles]
