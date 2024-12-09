@@ -49,7 +49,6 @@ class FriendRequestFragment : BaseFragment<FragmentFriendRequestBinding>(Fragmen
 
         accept.setOnClickListener {
             vm.accept(friendRequest)
-            vm.addToChatLog(friendRequest)
             findNavController().popBackStack()
         }
 
