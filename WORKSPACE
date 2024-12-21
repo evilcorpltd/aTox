@@ -219,6 +219,16 @@ maven_install(
 # Tox
 # =========================================================
 
+local_repository(
+    name = "pthread",
+    path = "bazel/pthread",
+)
+
+local_repository(
+    name = "psocket",
+    path = "bazel/psocket",
+)
+
 JVM_TOXCORE_API_TAG = "c0f37cfd77d79d5826ea566127f60fce838858c2"
 
 http_archive(
@@ -253,11 +263,36 @@ C_TOXCORE_TAG = "0.2.12"
 
 http_archive(
     name = "c-toxcore",
-    build_file = "//bazel:BUILD.c-toxcore",
     patch_cmds = [
-        "echo toxcore/ > .bazelignore",
-        "echo toxencryptsave/ >> .bazelignore",
-        "echo toxav/ >> .bazelignore",
+        # Delete references to the "project" stuff that lives in toktok-stack.
+        "sed -i /project/d BUILD.bazel",
+
+        # Ignore the "other", "testing", and "auto_tests" bonus content.
+        "echo other >.bazelignore",
+        "echo testing >>.bazelignore",
+        "echo auto_tests >>.bazelignore",
+
+        # Delete references to the "no_undefined" cc_library that lives in toktok-stack.
+        "sed -i /no_undefined/d toxencryptsave/BUILD.bazel",
+        "sed -i /no_undefined/d toxav/BUILD.bazel",
+        "sed -i /no_undefined/d toxcore/BUILD.bazel",
+
+        # Replace toktok-stack selects w/ more standard versions.
+        "sed -i 's|//tools/config:linux|@platforms//os:linux|g' toxcore/BUILD.bazel",
+
+        # Replace "//c-toxcore/" w/ "@c-toxcore//" to get internal dependencies between libraries working.
+        "sed -i 's|//c-toxcore/|@c-toxcore//|g' BUILD.bazel",
+        "sed -i 's|//c-toxcore/|@c-toxcore//|g' toxcore/BUILD.bazel",
+        "sed -i 's|//c-toxcore/|@c-toxcore//|g' toxav/BUILD.bazel",
+        "sed -i 's|//c-toxcore/|@c-toxcore//|g' toxencryptsave/BUILD.bazel",
+
+        # Fix some "//c-toxcore:" -> "@c-toxcore:" references.
+        "sed -i 's|//c-toxcore:|@c-toxcore//:|g' toxcore/BUILD.bazel",
+        "sed -i 's|//c-toxcore:|@c-toxcore//:|g' toxav/BUILD.bazel",
+        "sed -i 's|//c-toxcore:|@c-toxcore//:|g' toxencryptsave/BUILD.bazel",
+
+        # Flatten the gendir structure to deal with c-toxcore having its own workspace.
+        "sed -i 's|$(GENDIR)/c-toxcore/|$(RULEDIR)/|g' BUILD.bazel",
     ],
     sha256 = "6d21fcd8d505e03dcb302f4c94b4b4ef146a2e6b79d4e649f99ce4d9a4c0281f",
     strip_prefix = "c-toxcore-%s" % C_TOXCORE_TAG,

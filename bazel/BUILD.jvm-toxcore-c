@@ -67,9 +67,7 @@ cc_binary(
     deps = [
         "cpp/src/libtox4j-c.ld",
         ":jni_cc_proto",
-        "@c-toxcore//:toxav",
-        "@c-toxcore//:toxcore",
-        "@c-toxcore//:toxencryptsave",
+        "@c-toxcore",
     ],
 )
 
