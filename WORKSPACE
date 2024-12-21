@@ -100,6 +100,15 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_scala/releases/download/v%s/rules_scala-v%s.tar.gz" % (RULES_SCALA_TAG, RULES_SCALA_TAG),
 )
 
+RULES_FUZZING_TAG = "0.5.2"
+
+http_archive(
+    name = "rules_fuzzing",
+    integrity = "sha256-5rwhm/rJ4fg7Mn3QkPcoqflz7pm5tdjloYSicy7whiM=",
+    strip_prefix = "rules_fuzzing-%s" % RULES_FUZZING_TAG,
+    urls = ["https://github.com/bazelbuild/rules_fuzzing/releases/download/v%s/rules_fuzzing-%s.zip" % (RULES_FUZZING_TAG, RULES_FUZZING_TAG)],
+)
+
 # Third-party
 # =========================================================
 
@@ -259,10 +268,11 @@ http_archive(
     url = "https://github.com/TokTok/jvm-macros/archive/%s.tar.gz" % JVM_MACROS_TAG,
 )
 
-C_TOXCORE_TAG = "0.2.12"
+C_TOXCORE_TAG = "0.2.20"
 
 http_archive(
     name = "c-toxcore",
+    integrity = "sha256-qciaja6nRdU+XXjnqsuZx7R5LEQApaaccSOPRdYWT0w=",
     patch_cmds = [
         # Delete references to the "project" stuff that lives in toktok-stack.
         "sed -i /project/d BUILD.bazel",
@@ -276,6 +286,7 @@ http_archive(
         "sed -i /no_undefined/d toxencryptsave/BUILD.bazel",
         "sed -i /no_undefined/d toxav/BUILD.bazel",
         "sed -i /no_undefined/d toxcore/BUILD.bazel",
+        "sed -i /no_undefined/d third_party/BUILD.bazel",
 
         # Replace toktok-stack selects w/ more standard versions.
         "sed -i 's|//tools/config:linux|@platforms//os:linux|g' toxcore/BUILD.bazel",
@@ -290,13 +301,13 @@ http_archive(
         "sed -i 's|//c-toxcore:|@c-toxcore//:|g' toxcore/BUILD.bazel",
         "sed -i 's|//c-toxcore:|@c-toxcore//:|g' toxav/BUILD.bazel",
         "sed -i 's|//c-toxcore:|@c-toxcore//:|g' toxencryptsave/BUILD.bazel",
+        "sed -i 's|//c-toxcore:|@c-toxcore//:|g' third_party/BUILD.bazel",
 
         # Flatten the gendir structure to deal with c-toxcore having its own workspace.
         "sed -i 's|$(GENDIR)/c-toxcore/|$(RULEDIR)/|g' BUILD.bazel",
     ],
-    sha256 = "6d21fcd8d505e03dcb302f4c94b4b4ef146a2e6b79d4e649f99ce4d9a4c0281f",
     strip_prefix = "c-toxcore-%s" % C_TOXCORE_TAG,
-    url = "https://github.com/TokTok/c-toxcore/archive/v%s.zip" % C_TOXCORE_TAG,
+    url = "https://github.com/TokTok/c-toxcore/releases/download/v%s/c-toxcore-%s.tar.gz" % (C_TOXCORE_TAG, C_TOXCORE_TAG),
 )
 
 # Transitive dependencies and toolchain setup
@@ -347,3 +358,11 @@ scala_repositories()
 scala_proto_repositories()
 
 scala_proto_register_enable_all_options_toolchain()
+
+load("@rules_fuzzing//fuzzing:repositories.bzl", "rules_fuzzing_dependencies")
+
+rules_fuzzing_dependencies()
+
+load("@rules_fuzzing//fuzzing:init.bzl", "rules_fuzzing_init")
+
+rules_fuzzing_init()
