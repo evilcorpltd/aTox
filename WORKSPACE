@@ -15,33 +15,48 @@ android_ndk_repository(
 # Bazel
 # =========================================================
 
-PLATFORMS_TAG = "0.0.6"
+PLATFORMS_TAG = "0.0.10"
 
+# https://github.com/bazelbuild/platforms
 http_archive(
     name = "platforms",
-    sha256 = "5308fc1d8865406a49427ba24a9ab53087f17f5266a7aabbfc28823f3916e1ca",
+    integrity = "sha256-IY7+juc20mo1cmY7N0olPAErcW2K8MB+hC6C8jigp+4=",
     url = "https://github.com/bazelbuild/platforms/releases/download/%s/platforms-%s.tar.gz" % (PLATFORMS_TAG, PLATFORMS_TAG),
 )
 
 RULES_PKG_TAG = "1.0.1"
 
+# https://github.com/bazelbuild/rules_pkg
 http_archive(
     name = "rules_pkg",
     integrity = "sha256-0gyVGWDtd8t7NBwqWUiFNOSU1a0dMMSBjHNtV3cqn+8=",
     url = "https://github.com/bazelbuild/rules_pkg/releases/download/%s/rules_pkg-%s.tar.gz" % (RULES_PKG_TAG, RULES_PKG_TAG),
 )
 
-RULES_PROTO_TAG = "97d8af4dc474595af3900dd85cb3a29ad28cc313"
+# >=8.6.0 requires a newer version of com_google_protobuf which breaks rules_scala.
+RULES_JAVA_TAG = "7.12.3"
 
+# https://github.com/bazelbuild/rules_java
+http_archive(
+    name = "rules_java",
+    integrity = "sha256-wO5g+HV/FAwVf8LHr3A9gZUU3m4CXr9wOG04vdhfzoM=",
+    url = "https://github.com/bazelbuild/rules_java/releases/download/%s/rules_java-%s.tar.gz" % (RULES_JAVA_TAG, RULES_JAVA_TAG),
+)
+
+# >=7.0.0 requires a newer version of com_google_protobuf which breaks rules_scala.
+RULES_PROTO_TAG = "6.0.2"
+
+# https://github.com/bazelbuild/rules_proto
 http_archive(
     name = "rules_proto",
-    sha256 = "602e7161d9195e50246177e7c55b2f39950a9cf7366f74ed5f22fd45750cd208",
+    integrity = "sha256-b7Z2fRvvU1MQVH4DJH91GLA0h3QMEbbGrbeVIDP+EpU=",
     strip_prefix = "rules_proto-%s" % RULES_PROTO_TAG,
     url = "https://github.com/bazelbuild/rules_proto/archive/%s.tar.gz" % RULES_PROTO_TAG,
 )
 
 RULES_PYTHON_TAG = "0.40.0"
 
+# https://github.com/bazelbuild/rules_python
 http_archive(
     name = "rules_python",
     sha256 = "690e0141724abb568267e003c7b6d9a54925df40c275a870a4d934161dc9dd53",
@@ -51,6 +66,7 @@ http_archive(
 
 RULES_ANDROID_TAG = "0.1.1"
 
+# https://github.com/bazelbuild/rules_android
 http_archive(
     name = "rules_android",
     sha256 = "cd06d15dd8bb59926e4d65f9003bfc20f9da4b2519985c27e190cddc8b7a7806",
@@ -58,41 +74,36 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_android/archive/v%s.zip" % RULES_ANDROID_TAG,
 )
 
-STARDOC_TAG = "0.4.0"
+STARDOC_TAG = "0.7.2"
 
+# https://github.com/bazelbuild/stardoc
 http_archive(
     name = "io_bazel_stardoc",
-    sha256 = "36b8d6c2260068b9ff82faea2f7add164bf3436eac9ba3ec14809f335346d66a",
-    strip_prefix = "stardoc-%s" % STARDOC_TAG,
-    url = "https://github.com/bazelbuild/stardoc/archive/%s.zip" % STARDOC_TAG,
+    integrity = "sha256-Dh7UqY8m5xh3a9ZNBT0CuzTZhXLM0D1ro1URKhIFcGs=",
+    url = "https://github.com/bazelbuild/stardoc/releases/download/%s/stardoc-%s.tar.gz" % (STARDOC_TAG, STARDOC_TAG),
 )
 
-BAZEL_SKYLIB_TAG = "fd75066f159234265efb8f838b056be5a2e00a59"
+BAZEL_SKYLIB_TAG = "1.7.1"
 
+# https://github.com/bazelbuild/bazel-skylib
 http_archive(
     name = "bazel_skylib",
-    sha256 = "37fbe6e229f28dfda55d9c9a305235b882a1cf6cff746ce448b8b870ecfdf620",
-    strip_prefix = "bazel-skylib-%s" % BAZEL_SKYLIB_TAG,
-    url = "https://github.com/bazelbuild/bazel-skylib/archive/%s.tar.gz" % BAZEL_SKYLIB_TAG,
+    integrity = "sha256-vCg8381SalLDIBJ5zaS8KYZS76iYsQtNsIN9xRZSdW8=",
+    url = "https://github.com/bazelbuild/bazel-skylib/releases/download/%s/bazel-skylib-%s.tar.gz" % (BAZEL_SKYLIB_TAG, BAZEL_SKYLIB_TAG),
 )
 
-RULES_JVM_EXTERNAL_TAG = "4.1"
+RULES_KOTLIN_TAG = "v1.9.6"
 
-http_archive(
-    name = "rules_jvm_external",
-    sha256 = "f36441aa876c4f6427bfb2d1f2d723b48e9d930b62662bf723ddfb8fc80f0140",
-    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
-    url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
-)
-
+# https://github.com/bazelbuild/rules_kotlin
 http_archive(
     name = "io_bazel_rules_kotlin",
-    sha256 = "5766f1e599acf551aa56f49dab9ab9108269b03c557496c54acaf41f98e2b8d6",
-    url = "https://github.com/bazelbuild/rules_kotlin/releases/download/v1.9.0/rules_kotlin-v1.9.0.tar.gz",
+    integrity = "sha256-O3cpdv7Hvc2h2EudObF2WJQkwEfrIXW+0JqsYw5Qr0M=",
+    url = "https://github.com/bazelbuild/rules_kotlin/releases/download/%s/rules_kotlin-%s.tar.gz" % (RULES_KOTLIN_TAG, RULES_KOTLIN_TAG),
 )
 
 RULES_SCALA_TAG = "6.6.0"
 
+# https://github.com/bazelbuild/rules_scala
 http_archive(
     name = "io_bazel_rules_scala",
     sha256 = "e734eef95cf26c0171566bdc24d83bd82bdaf8ca7873bec6ce9b0d524bdaf05d",
@@ -102,11 +113,33 @@ http_archive(
 
 RULES_FUZZING_TAG = "0.5.2"
 
+# https://github.com/bazelbuild/rules_fuzzing
 http_archive(
     name = "rules_fuzzing",
     integrity = "sha256-5rwhm/rJ4fg7Mn3QkPcoqflz7pm5tdjloYSicy7whiM=",
     strip_prefix = "rules_fuzzing-%s" % RULES_FUZZING_TAG,
     urls = ["https://github.com/bazelbuild/rules_fuzzing/releases/download/v%s/rules_fuzzing-%s.zip" % (RULES_FUZZING_TAG, RULES_FUZZING_TAG)],
+)
+
+# Bazel contrib
+# =========================================================
+
+RULES_JVM_EXTERNAL_TAG = "5.3"
+
+# https://github.com/bazel-contrib/rules_jvm_external
+http_archive(
+    name = "rules_jvm_external",
+    integrity = "sha256-0x42m4VDIspQmOoSxp1xdd7ZcUNeVcGN2d1fKcxSSaw=",
+    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
+    url = "https://github.com/bazel-contrib/rules_jvm_external/releases/download/%s/rules_jvm_external-%s.tar.gz" % (RULES_JVM_EXTERNAL_TAG, RULES_JVM_EXTERNAL_TAG),
+)
+
+# https://github.com/bazel-contrib/bazel_features
+http_archive(
+    name = "bazel_features",
+    integrity = "sha256-ixybdVhJgAD1reu8WEt78VtrK/GBRIpm9rL8W0yEIxw=",
+    strip_prefix = "bazel_features-1.23.0",
+    url = "https://github.com/bazel-contrib/bazel_features/releases/download/v1.23.0/bazel_features-v1.23.0.tar.gz",
 )
 
 # Third-party
@@ -118,6 +151,7 @@ http_archive(
 # See: https://github.com/bazelbuild/rules_scala/issues/1647
 PROTOBUF_TAG = "25.5"
 
+# https://github.com/protocolbuffers/protobuf
 http_archive(
     name = "com_google_protobuf",
     integrity = "sha256-PPfVsXxP8E/p8DgQTp0Mrm2gm4ziccE+RPisafUeTg8=",
@@ -125,17 +159,19 @@ http_archive(
     url = "https://github.com/protocolbuffers/protobuf/releases/download/v%s/protobuf-%s.tar.gz" % (PROTOBUF_TAG, PROTOBUF_TAG),
 )
 
-DAGGER_TAG = "2.44.2"
+DAGGER_TAG = "2.54"
 
+# https://github.com/google/dagger
 http_archive(
     name = "dagger",
-    sha256 = "cbff42063bfce78a08871d5a329476eb38c96af9cf20d21f8b412fee76296181",
+    integrity = "sha256-9/0XTvm7D+eyO1DFAPeOGbZM52IWn6epfHFxZY2Cg0w=",
     strip_prefix = "dagger-dagger-%s" % DAGGER_TAG,
     url = "https://github.com/google/dagger/archive/dagger-%s.zip" % DAGGER_TAG,
 )
 
 ROBOLECTRIC_TAG = "4.7.3"
 
+# https://github.com/robolectric/robolectric-bazel
 http_archive(
     name = "robolectric",
     sha256 = "97f169d39f19412bdd07fd6c274dcda0a7c8f623f7f00aa5a3b94994fc6f0ec4",
@@ -145,6 +181,7 @@ http_archive(
 
 LIBSODIUM_TAG = "1.0.18"
 
+# https://github.com/jedisct1/libsodium
 http_archive(
     name = "libsodium",
     build_file = "//bazel:libsodium.BUILD",
@@ -155,6 +192,7 @@ http_archive(
 
 OPUS_TAG = "5c94ec3205c30171ffd01056f5b4622b7c0ab54c"
 
+# https://github.com/xiph/opus
 http_archive(
     name = "opus",
     build_file = "//bazel:opus.BUILD",
@@ -165,6 +203,7 @@ http_archive(
 
 LIBVPX_TAG = "3d28ff98039134325cf689d8d08996fc8dabb225"
 
+# https://github.com/webmproject/libvpx
 http_archive(
     name = "libvpx",
     build_file = "//bazel:libvpx.BUILD",
@@ -240,6 +279,7 @@ local_repository(
 
 JVM_TOXCORE_API_TAG = "c0f37cfd77d79d5826ea566127f60fce838858c2"
 
+# https://github.com/TokTok/jvm-toxcore-api
 http_archive(
     name = "jvm-toxcore-api",
     build_file = "//bazel:jvm-toxcore-api.BUILD",
@@ -250,6 +290,7 @@ http_archive(
 
 JVM_TOXCORE_C_TAG = "f697eef5d0a16a025b187c3369288986e89bde2b"
 
+# https://github.com/TokTok/jvm-toxcore-c
 http_archive(
     name = "jvm-toxcore-c",
     build_file = "//bazel:jvm-toxcore-c.BUILD",
@@ -260,6 +301,7 @@ http_archive(
 
 JVM_MACROS_TAG = "8e8991581bec396861678012cab302ba09ced629"
 
+# https://github.com/TokTok/jvm-macros
 http_archive(
     name = "jvm-macros",
     build_file = "//bazel:jvm-macros.BUILD",
@@ -270,6 +312,7 @@ http_archive(
 
 C_TOXCORE_TAG = "0.2.20"
 
+# https://github.com/TokTok/c-toxcore
 http_archive(
     name = "c-toxcore",
     integrity = "sha256-qciaja6nRdU+XXjnqsuZx7R5LEQApaaccSOPRdYWT0w=",
@@ -314,6 +357,10 @@ http_archive(
 # =========================================================
 #
 # These go last since we override a bunch of them.
+
+load("@bazel_features//:deps.bzl", "bazel_features_deps")
+
+bazel_features_deps()
 
 load("@rules_python//python:repositories.bzl", "py_repositories")
 
