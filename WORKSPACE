@@ -147,7 +147,7 @@ LIBSODIUM_TAG = "1.0.18"
 
 http_archive(
     name = "libsodium",
-    build_file = "//bazel:BUILD.libsodium",
+    build_file = "//bazel:libsodium.BUILD",
     sha256 = "1b72c0cdbc535ce42e14ac15e8fc7c089a3ee9ffe5183399fd77f0f3746ea794",
     strip_prefix = "libsodium-%s" % LIBSODIUM_TAG,
     url = "https://github.com/jedisct1/libsodium/archive/%s.zip" % LIBSODIUM_TAG,
@@ -157,7 +157,7 @@ OPUS_TAG = "5c94ec3205c30171ffd01056f5b4622b7c0ab54c"
 
 http_archive(
     name = "opus",
-    build_file = "//bazel:BUILD.opus",
+    build_file = "//bazel:opus.BUILD",
     sha256 = "09366bf588b02b76bda3fd1428a30b55ca995d6d2eac509a39919f337690329e",
     strip_prefix = "opus-%s" % OPUS_TAG,
     url = "https://github.com/xiph/opus/archive/%s.zip" % OPUS_TAG,
@@ -167,7 +167,7 @@ LIBVPX_TAG = "3d28ff98039134325cf689d8d08996fc8dabb225"
 
 http_archive(
     name = "libvpx",
-    build_file = "//bazel:BUILD.libvpx",
+    build_file = "//bazel:libvpx.BUILD",
     sha256 = "27d082899b60dea79c596affc68341522db1f72c241f6d6096fc46bcf774f217",
     strip_prefix = "libvpx-%s" % LIBVPX_TAG,
     url = "https://github.com/webmproject/libvpx/archive/%s.zip" % LIBVPX_TAG,
@@ -242,7 +242,7 @@ JVM_TOXCORE_API_TAG = "c0f37cfd77d79d5826ea566127f60fce838858c2"
 
 http_archive(
     name = "jvm-toxcore-api",
-    build_file = "//bazel:BUILD.jvm-toxcore-api",
+    build_file = "//bazel:jvm-toxcore-api.BUILD",
     sha256 = "ab129f7d845d87e1b6ee0a2b4bc34acede45480dd32a15f85a08e9dfca7cedf6",
     strip_prefix = "jvm-toxcore-api-%s" % JVM_TOXCORE_API_TAG,
     url = "https://github.com/TokTok/jvm-toxcore-api/archive/%s.tar.gz" % JVM_TOXCORE_API_TAG,
@@ -252,7 +252,7 @@ JVM_TOXCORE_C_TAG = "f697eef5d0a16a025b187c3369288986e89bde2b"
 
 http_archive(
     name = "jvm-toxcore-c",
-    build_file = "//bazel:BUILD.jvm-toxcore-c",
+    build_file = "//bazel:jvm-toxcore-c.BUILD",
     sha256 = "93fb5cd0a1f45561e52cb585287cec98415d80b655d847278aa51c8d26f80124",
     strip_prefix = "jvm-toxcore-c-%s" % JVM_TOXCORE_C_TAG,
     url = "https://github.com/TokTok/jvm-toxcore-c/archive/%s.tar.gz" % JVM_TOXCORE_C_TAG,
@@ -262,7 +262,7 @@ JVM_MACROS_TAG = "8e8991581bec396861678012cab302ba09ced629"
 
 http_archive(
     name = "jvm-macros",
-    build_file = "//bazel:BUILD.jvm-macros",
+    build_file = "//bazel:jvm-macros.BUILD",
     sha256 = "3f2e7c024347085596ad3c90d236e0e6fddf5c7c18c03a66a058c4d334f24888",
     strip_prefix = "jvm-macros-%s" % JVM_MACROS_TAG,
     url = "https://github.com/TokTok/jvm-macros/archive/%s.tar.gz" % JVM_MACROS_TAG,
