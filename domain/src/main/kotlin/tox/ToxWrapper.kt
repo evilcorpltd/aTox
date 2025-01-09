@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -66,6 +66,7 @@ class ToxWrapper(
     fun stop() {
         av.close()
         tox.close()
+        Log.i(TAG, "Killed Tox")
     }
 
     fun iterate(): Unit = tox.iterate(eventListener, Unit)
