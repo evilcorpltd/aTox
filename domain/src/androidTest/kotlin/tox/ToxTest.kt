@@ -10,8 +10,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import kotlin.test.Test
 import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -44,15 +42,16 @@ class ToxTest {
 
         repeat(10) {
             val tox = Tox(
-                TestScope(),
+                this,
                 contactRepository,
                 userRepository,
                 FakeSaveManager(),
                 FakeBootstrapNodeRegistry(),
             ).apply { isBootstrapNeeded = false }
             tox.start(SaveOptions(null, false, ProxyType.None, "", 0), null, ToxEventListener(), ToxAvEventListener())
-            delay(25)
+            advanceTimeBy(25.milliseconds)
             tox.stop()
+            advanceUntilIdle()
         }
     }
 
