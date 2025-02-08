@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2022 aTox contributors
-// SPDX-FileCopyrightText: 2022-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2022-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -21,6 +21,7 @@ import kotlin.math.sqrt
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.UserStatus
 
 private const val STATUS_INDICATOR_SIZE_RATIO_WITH_AVATAR = 12f / 50
@@ -50,7 +51,7 @@ class AvatarImageView @JvmOverloads constructor(context: Context, attrs: Attribu
         }
 
     private var name = ""
-    private var publicKey = ""
+    private var publicKey = PublicKey("")
     private var avatarUri = ""
 
     fun setFrom(contact: Contact) {

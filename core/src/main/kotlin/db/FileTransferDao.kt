@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2020 aTox contributors
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -11,6 +11,7 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.vo.FT_REJECTED
 import ltd.evilcorp.core.vo.FileTransfer
+import ltd.evilcorp.core.vo.PublicKey
 
 @Dao
 interface FileTransferDao {
@@ -20,8 +21,8 @@ interface FileTransferDao {
     @Query("DELETE FROM file_transfers WHERE id == :id")
     fun delete(id: Int)
 
-    @Query("SELECT * FROM file_transfers WHERE public_key == :publicKey")
-    fun load(publicKey: String): Flow<List<FileTransfer>>
+    @Query("SELECT * FROM file_transfers WHERE public_key == :pk")
+    fun load(pk: PublicKey): Flow<List<FileTransfer>>
 
     @Query("SELECT * FROM file_transfers WHERE id == :id")
     fun load(id: Int): Flow<FileTransfer>

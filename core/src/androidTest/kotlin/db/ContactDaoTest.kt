@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2022 aTox contributors
+// SPDX-FileCopyrightText: 2020-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.UserStatus
 import org.junit.runner.RunWith
 
@@ -31,7 +32,7 @@ class ContactDaoTest {
     private val dao = db.contactDao()
 
     private val first = Contact(
-        publicKey = "1234",
+        publicKey = PublicKey("1234"),
         name = "name",
         statusMessage = "status",
         lastMessage = 5,
@@ -43,7 +44,7 @@ class ContactDaoTest {
         draftMessage = "i made this",
     )
 
-    private val second = first.copy(publicKey = "5678")
+    private val second = first.copy(publicKey = PublicKey("5678"))
 
     @BeforeTest
     fun clearDb() {

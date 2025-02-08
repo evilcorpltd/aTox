@@ -19,22 +19,22 @@ class ContactManager @Inject constructor(
     private val contactRepository: ContactRepository,
     private val tox: Tox,
 ) {
-    fun get(publicKey: PublicKey) = contactRepository.get(publicKey.string())
+    fun get(publicKey: PublicKey) = contactRepository.get(publicKey)
     fun getAll() = contactRepository.getAll()
 
     fun add(toxID: ToxID, message: String) = scope.launch {
-        val publicKeyTxt = toxID.toPublicKey().string()
         tox.addContact(toxID, message)
-        contactRepository.add(Contact(publicKeyTxt))
-        contactRepository.setLastMessage(publicKeyTxt, Date().time)
+        val pk = toxID.toPublicKey()
+        contactRepository.add(Contact(pk))
+        contactRepository.setLastMessage(pk, Date().time)
     }
 
     fun delete(publicKey: PublicKey) = scope.launch {
         tox.deleteContact(publicKey)
-        contactRepository.delete(Contact(publicKey.string()))
+        contactRepository.delete(Contact(publicKey))
     }
 
     fun setDraft(pk: PublicKey, draft: String) = scope.launch {
-        contactRepository.setDraftMessage(pk.string(), draft)
+        contactRepository.setDraftMessage(pk, draft)
     }
 }

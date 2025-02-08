@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 aTox contributors
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -17,6 +17,7 @@ import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.core.vo.UserStatus
 import org.junit.Rule
@@ -37,7 +38,7 @@ class DatabaseMigrationTest {
     )
 
     private val ft = FileTransfer(
-        "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39",
+        PublicKey("76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39"),
         123,
         FileKind.Avatar.ordinal,
         9876,
@@ -47,7 +48,7 @@ class DatabaseMigrationTest {
     )
 
     private val msg = Message(
-        "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39",
+        PublicKey("76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39"),
         "hello i am robot beep beep boop",
         Sender.Sent,
         MessageType.Normal,
@@ -56,7 +57,7 @@ class DatabaseMigrationTest {
     )
 
     private val contact = Contact(
-        "76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39",
+        PublicKey("76518406F6A9F2217E8DC487CC783C25CC16A15EB36FF32E335A235342C48A39"),
         "robinli",
         "Hello I am robot beep beep boop",
         100,
@@ -87,7 +88,7 @@ class DatabaseMigrationTest {
             val cursor = db.query("SELECT * FROM contacts").apply { moveToFirst() }
             assertEquals(cursor.columnCount, 8)
             with(contact) {
-                assertEquals(publicKey, cursor.getString(0))
+                assertEquals(publicKey.string(), cursor.getString(0))
                 assertEquals(name, cursor.getString(1))
                 assertEquals(statusMessage, cursor.getString(2))
                 assertEquals(lastMessage, cursor.getLong(3))
@@ -102,7 +103,7 @@ class DatabaseMigrationTest {
             val cursor = db.query("SELECT * FROM contacts").apply { moveToFirst() }
             assertEquals(cursor.columnCount, 9)
             with(contact) {
-                assertEquals(publicKey, cursor.getString(0))
+                assertEquals(publicKey.string(), cursor.getString(0))
                 assertEquals(name, cursor.getString(1))
                 assertEquals(statusMessage, cursor.getString(2))
                 assertEquals(lastMessage, cursor.getLong(3))
@@ -136,7 +137,7 @@ class DatabaseMigrationTest {
                 with(msg) {
                     cursor.moveToFirst()
                     assertEquals(id, cursor.getLong(0))
-                    assertEquals(publicKey, cursor.getString(1))
+                    assertEquals(publicKey.string(), cursor.getString(1))
                     assertEquals(message, cursor.getString(2))
                     assertEquals(sender.ordinal, cursor.getInt(3))
                     assertEquals(correlationId, cursor.getInt(4))
@@ -151,7 +152,7 @@ class DatabaseMigrationTest {
                 with(msg) {
                     cursor.moveToFirst()
                     assertEquals(id, cursor.getLong(0))
-                    assertEquals(publicKey, cursor.getString(1))
+                    assertEquals(publicKey.string(), cursor.getString(1))
                     assertEquals(message, cursor.getString(2))
                     assertEquals(sender.ordinal, cursor.getInt(3))
                     assertEquals(correlationId, cursor.getInt(4))
@@ -183,7 +184,7 @@ class DatabaseMigrationTest {
                 assertEquals(7, cursor.columnCount)
                 with(ft) {
                     cursor.moveToFirst()
-                    assertEquals(publicKey, cursor.getString(0))
+                    assertEquals(publicKey.string(), cursor.getString(0))
                     assertEquals(fileNumber, cursor.getInt(1))
                     assertEquals(fileKind, cursor.getInt(2))
                     assertEquals(fileSize, cursor.getLong(3))
@@ -222,7 +223,7 @@ class DatabaseMigrationTest {
             val cursor = db.query("SELECT * FROM contacts").apply { moveToFirst() }
             assertEquals(9, cursor.columnCount)
             with(contact) {
-                assertEquals(publicKey, cursor.getString(0))
+                assertEquals(publicKey.string(), cursor.getString(0))
                 assertEquals(name, cursor.getString(1))
                 assertEquals(statusMessage, cursor.getString(2))
                 assertEquals(lastMessage, cursor.getLong(3))
@@ -238,7 +239,7 @@ class DatabaseMigrationTest {
             val cursor = db.query("SELECT * FROM contacts").apply { moveToFirst() }
             assertEquals(10, cursor.columnCount)
             with(contact) {
-                assertEquals(publicKey, cursor.getString(0))
+                assertEquals(publicKey.string(), cursor.getString(0))
                 assertEquals(name, cursor.getString(1))
                 assertEquals(statusMessage, cursor.getString(2))
                 assertEquals(lastMessage, cursor.getLong(3))
@@ -299,7 +300,7 @@ class DatabaseMigrationTest {
                 assertEquals(cursor.columnCount, 8)
                 with(contact) {
                     cursor.moveToFirst()
-                    assertEquals(publicKey, cursor.getString(0))
+                    assertEquals(publicKey.string(), cursor.getString(0))
                     assertEquals(name, cursor.getString(1))
                     assertEquals(statusMessage, cursor.getString(2))
                     assertEquals(lastMessage, cursor.getLong(3))
@@ -314,7 +315,7 @@ class DatabaseMigrationTest {
                 with(msg) {
                     cursor.moveToFirst()
                     assertEquals(id, cursor.getLong(0))
-                    assertEquals(publicKey, cursor.getString(1))
+                    assertEquals(publicKey.string(), cursor.getString(1))
                     assertEquals(message, cursor.getString(2))
                     assertEquals(sender.ordinal, cursor.getInt(3))
                     assertEquals(correlationId, cursor.getInt(4))
@@ -325,7 +326,7 @@ class DatabaseMigrationTest {
                 assertEquals(7, cursor.columnCount)
                 with(ft) {
                     cursor.moveToFirst()
-                    assertEquals(publicKey, cursor.getString(0))
+                    assertEquals(publicKey.string(), cursor.getString(0))
                     assertEquals(fileNumber, cursor.getInt(1))
                     assertEquals(fileKind, cursor.getInt(2))
                     assertEquals(fileSize, cursor.getLong(3))
@@ -341,7 +342,7 @@ class DatabaseMigrationTest {
                 assertEquals(cursor.columnCount, 10)
                 with(contact) {
                     cursor.moveToFirst()
-                    assertEquals(publicKey, cursor.getString(0))
+                    assertEquals(publicKey.string(), cursor.getString(0))
                     assertEquals(name, cursor.getString(1))
                     assertEquals(statusMessage, cursor.getString(2))
                     assertEquals(lastMessage, cursor.getLong(3))
@@ -358,7 +359,7 @@ class DatabaseMigrationTest {
                 with(msg) {
                     cursor.moveToFirst()
                     assertEquals(id, cursor.getLong(0))
-                    assertEquals(publicKey, cursor.getString(1))
+                    assertEquals(publicKey.string(), cursor.getString(1))
                     assertEquals(message, cursor.getString(2))
                     assertEquals(sender.ordinal, cursor.getInt(3))
                     assertEquals(correlationId, cursor.getInt(4))

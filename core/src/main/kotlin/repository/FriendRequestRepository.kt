@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -9,6 +9,7 @@ import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.db.FriendRequestDao
 import ltd.evilcorp.core.vo.FriendRequest
+import ltd.evilcorp.core.vo.PublicKey
 
 @Singleton
 class FriendRequestRepository @Inject internal constructor(private val friendRequestDao: FriendRequestDao) {
@@ -18,7 +19,7 @@ class FriendRequestRepository @Inject internal constructor(private val friendReq
 
     fun getAll(): Flow<List<FriendRequest>> = friendRequestDao.loadAll()
 
-    fun get(publicKey: String): Flow<FriendRequest> = friendRequestDao.load(publicKey)
+    fun get(pk: PublicKey): Flow<FriendRequest> = friendRequestDao.load(pk)
 
     fun count(): Int = friendRequestDao.count()
 }

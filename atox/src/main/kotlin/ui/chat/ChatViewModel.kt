@@ -110,7 +110,7 @@ class ChatViewModel @Inject constructor(
 
         publicKey = pk
         notificationHelper.dismissNotifications(publicKey)
-        chatManager.activeChat = publicKey.string()
+        chatManager.activeChat = publicKey
     }
 
     fun setTyping(typing: Boolean) {
@@ -165,7 +165,7 @@ class ChatViewModel @Inject constructor(
         }
     }
 
-    fun backupHistory(publicKey: String, locationSave: Uri) = scope.launch {
+    fun backupHistory(publicKey: PublicKey, locationSave: Uri) = scope.launch {
         val backupContent = exportManager.generateExportMessagesJString(publicKey)
         launch(Dispatchers.IO) {
             try {

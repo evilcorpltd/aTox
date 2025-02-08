@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2020-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -91,7 +92,7 @@ class CreateProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfi
 
             viewModel.startTox()
             val user = User(
-                publicKey = viewModel.publicKey.string(),
+                publicKey = viewModel.publicKey,
                 name = if (username.text.isNotEmpty()) username.text.toString() else getString(R.string.name_default),
                 statusMessage = getString(R.string.status_message_default),
             )

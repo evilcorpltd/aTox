@@ -18,7 +18,7 @@ class UserManager @Inject constructor(
     private val userRepository: UserRepository,
     private val tox: Tox,
 ) {
-    fun get(publicKey: PublicKey) = userRepository.get(publicKey.string())
+    fun get(pk: PublicKey) = userRepository.get(pk)
 
     fun create(user: User) = scope.launch {
         userRepository.add(user)
@@ -26,27 +26,27 @@ class UserManager @Inject constructor(
         tox.setStatusMessage(user.statusMessage)
     }
 
-    fun verifyExists(publicKey: PublicKey) = scope.launch {
-        if (!userRepository.exists(publicKey.string())) {
+    fun verifyExists(pk: PublicKey) = scope.launch {
+        if (!userRepository.exists(pk)) {
             val name = tox.getName()
             val statusMessage = tox.getStatusMessage()
-            val user = User(publicKey.string(), name, statusMessage)
+            val user = User(pk, name, statusMessage)
             userRepository.add(user)
         }
     }
 
     fun setName(name: String) = scope.launch {
         tox.setName(name)
-        userRepository.updateName(tox.publicKey.string(), name)
+        userRepository.updateName(tox.publicKey, name)
     }
 
     fun setStatusMessage(statusMessage: String) = scope.launch {
         tox.setStatusMessage(statusMessage)
-        userRepository.updateStatusMessage(tox.publicKey.string(), statusMessage)
+        userRepository.updateStatusMessage(tox.publicKey, statusMessage)
     }
 
     fun setStatus(status: UserStatus) = scope.launch {
         tox.setStatus(status)
-        userRepository.updateStatus(tox.publicKey.string(), status)
+        userRepository.updateStatus(tox.publicKey, status)
     }
 }

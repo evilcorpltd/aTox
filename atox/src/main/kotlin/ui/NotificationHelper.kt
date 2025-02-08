@@ -130,7 +130,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
             .setSmallIcon(android.R.drawable.sym_action_chat)
             .setContentTitle(contact.name.ifEmpty { context.getText(R.string.contact_default_name) })
             .setContentText(message)
-            .setContentIntent(deepLinkToChat(PublicKey(contact.publicKey)))
+            .setContentIntent(deepLinkToChat(contact.publicKey))
             .setAutoCancel(true)
             .setSilent(silent)
 
@@ -143,13 +143,15 @@ class NotificationHelper @Inject constructor(private val context: Context) {
 
             val chatPartner = Person.Builder()
                 .setName(contact.name.ifEmpty { context.getText(R.string.contact_default_name) })
-                .setKey(if (outgoing) "myself" else contact.publicKey)
+                .setKey(if (outgoing) "myself" else contact.publicKey.string())
                 .setIcon(icon)
                 .setImportant(true)
                 .build()
 
             val style =
-                notifierOld.activeNotifications.find { it.notification.group == contact.publicKey }?.notification?.let {
+                notifierOld.activeNotifications.find {
+                    it.notification.group == contact.publicKey.string()
+                }?.notification?.let {
                     NotificationCompat.MessagingStyle.extractMessagingStyleFromNotification(it)
                 } ?: NotificationCompat.MessagingStyle(chatPartner)
 
@@ -159,7 +161,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
 
             notificationBuilder
                 .setStyle(style)
-                .setGroup(contact.publicKey)
+                .setGroup(contact.publicKey.string())
         }
 
         // I can't find it in the documentation for RemoteInput or anything, but per
@@ -174,7 +176,10 @@ class NotificationHelper @Inject constructor(private val context: Context) {
                         PendingIntentCompat.getBroadcast(
                             context,
                             contact.publicKey.hashCode(),
-                            Intent(context, ActionReceiver::class.java).putExtra(KEY_CONTACT_PK, contact.publicKey),
+                            Intent(context, ActionReceiver::class.java).putExtra(
+                                KEY_CONTACT_PK,
+                                contact.publicKey.string(),
+                            ),
                             PendingIntent.FLAG_UPDATE_CURRENT,
                             mutable = true,
                         ),
@@ -194,7 +199,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
                     .Builder(
                         IconCompat.createWithResource(context, R.drawable.ic_send),
                         context.getString(R.string.reply),
-                        deepLinkToChat(PublicKey(contact.publicKey), focusMessageBox = true),
+                        deepLinkToChat(contact.publicKey, focusMessageBox = true),
                     )
                     .setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_REPLY)
                     .build(),
@@ -209,7 +214,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
                     context,
                     "${contact.publicKey}_mark_as_read".hashCode(),
                     Intent(context, ActionReceiver::class.java)
-                        .putExtra(KEY_CONTACT_PK, contact.publicKey)
+                        .putExtra(KEY_CONTACT_PK, contact.publicKey.string())
                         .putExtra(KEY_ACTION, Action.MarkAsRead),
                     PendingIntent.FLAG_UPDATE_CURRENT,
                 ),
@@ -258,7 +263,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
             return
         }
 
-        dismissCallNotification(PublicKey(contact.publicKey))
+        dismissCallNotification(contact.publicKey)
         val notificationBuilder = NotificationCompat.Builder(context, CALL)
             .setCategory(NotificationCompat.CATEGORY_CALL)
             .setSmallIcon(android.R.drawable.ic_menu_call)
@@ -274,8 +279,8 @@ class NotificationHelper @Inject constructor(private val context: Context) {
             .setContentIntent(
                 NavDeepLinkBuilder(context)
                     .setGraph(R.navigation.nav_graph)
-                    .addDestination(R.id.chatFragment, bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey))
-                    .addDestination(R.id.callFragment, bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey))
+                    .addDestination(R.id.chatFragment, bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey.string()))
+                    .addDestination(R.id.callFragment, bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey.string()))
                     .createPendingIntent(),
             )
             .addAction(
@@ -287,7 +292,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
                             context,
                             "${contact.publicKey}_end_call".hashCode(),
                             Intent(context, ActionReceiver::class.java)
-                                .putExtra(KEY_CONTACT_PK, contact.publicKey)
+                                .putExtra(KEY_CONTACT_PK, contact.publicKey.string())
                                 .putExtra(KEY_ACTION, Action.CallEnd),
                             PendingIntent.FLAG_UPDATE_CURRENT,
                         ),
@@ -315,7 +320,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
             .setSmallIcon(android.R.drawable.ic_menu_call)
             .setContentTitle(context.getString(R.string.incoming_call))
             .setContentText(context.getString(R.string.incoming_call_from, c.name))
-            .setContentIntent(deepLinkToChat(PublicKey(c.publicKey)))
+            .setContentIntent(deepLinkToChat(c.publicKey))
             .addAction(
                 NotificationCompat.Action
                     .Builder(
@@ -325,7 +330,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
                             context,
                             "${c.publicKey}_accept_call".hashCode(),
                             Intent(context, ActionReceiver::class.java)
-                                .putExtra(KEY_CONTACT_PK, c.publicKey)
+                                .putExtra(KEY_CONTACT_PK, c.publicKey.string())
                                 .putExtra(KEY_ACTION, Action.CallAccept),
                             PendingIntent.FLAG_UPDATE_CURRENT,
                         ),
@@ -342,7 +347,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
                             context,
                             "${c.publicKey}_reject_call".hashCode(),
                             Intent(context, ActionReceiver::class.java)
-                                .putExtra(KEY_CONTACT_PK, c.publicKey)
+                                .putExtra(KEY_CONTACT_PK, c.publicKey.string())
                                 .putExtra(KEY_ACTION, Action.CallReject),
                             PendingIntent.FLAG_UPDATE_CURRENT,
                         ),
@@ -354,7 +359,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
                     context,
                     "${c.publicKey}_ignore_call".hashCode(),
                     Intent(context, ActionReceiver::class.java)
-                        .putExtra(KEY_CONTACT_PK, c.publicKey)
+                        .putExtra(KEY_CONTACT_PK, c.publicKey.string())
                         .putExtra(KEY_ACTION, Action.CallIgnore),
                     PendingIntent.FLAG_UPDATE_CURRENT,
                 ),

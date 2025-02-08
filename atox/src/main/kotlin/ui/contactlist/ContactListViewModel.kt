@@ -122,5 +122,5 @@ class ContactListViewModel @Inject constructor(
         }
     }
 
-    fun onShareText(what: String, to: Contact) = chatManager.sendMessage(PublicKey(to.publicKey), what)
+    fun onShareText(what: String, to: Contact) = chatManager.sendMessage(to.publicKey, what)
 }
