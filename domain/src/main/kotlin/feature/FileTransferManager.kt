@@ -41,10 +41,6 @@ import ltd.evilcorp.domain.tox.Tox
 
 private const val TAG = "FileTransferManager"
 
-// TODO(robinlinden): This will go away when PublicKey is used everywhere it should be.
-private const val FINGERPRINT_LEN = 8
-private fun String.fingerprint() = take(FINGERPRINT_LEN)
-
 @Suppress("ArrayInDataClass")
 private data class Chunk(val pos: Long, val data: ByteArray)
 
@@ -61,7 +57,7 @@ class FileTransferManager @Inject constructor(
     private val tox: Tox,
 ) {
     private val fileTransfers: MutableList<FileTransfer> = mutableListOf()
-    private val outgoingFiles = mutableMapOf<Pair<String, Int>, OutgoingFile>()
+    private val outgoingFiles = mutableMapOf<Pair<PublicKey, Int>, OutgoingFile>()
 
     init {
         File(context.filesDir, "ft").mkdir()
@@ -79,7 +75,7 @@ class FileTransferManager @Inject constructor(
         }
     }
 
-    fun resetForContact(pk: String) {
+    fun resetForContact(pk: PublicKey) {
         Log.i(TAG, "Clearing fts for contact ${pk.fingerprint()}")
         fileTransfers.filter { it.publicKey == pk }.kForEach { ft ->
             setProgress(ft, FT_REJECTED)
@@ -113,7 +109,7 @@ class FileTransferManager @Inject constructor(
                 } else if (ft.fileSize > MAX_AVATAR_SIZE) {
                     Log.e(TAG, "Got trash avatar with size ${ft.fileSize} from ${ft.publicKey}")
                     contactRepository.setAvatarUri(ft.publicKey, "")
-                    tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
+                    tox.stopFileTransfer(ft.publicKey, ft.fileNumber)
                     return -1
                 }
 
@@ -153,7 +149,7 @@ class FileTransferManager @Inject constructor(
         RandomAccessFile(file, "rwd").use { it.setLength(ft.fileSize) }
         setDestination(ft, Uri.fromFile(file))
         setProgress(ft, FT_STARTED)
-        tox.startFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
+        tox.startFileTransfer(ft.publicKey, ft.fileNumber)
     }
 
     fun reject(id: Int) {
@@ -166,7 +162,7 @@ class FileTransferManager @Inject constructor(
         Log.i(TAG, "Reject ${ft.fileNumber} for ${ft.publicKey.fingerprint()}")
         fileTransfers.remove(ft)
         setProgress(ft, FT_REJECTED)
-        tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
+        tox.stopFileTransfer(ft.publicKey, ft.fileNumber)
         val uri = Uri.parse(ft.destination)
         if (ft.outgoing) {
             outgoingFiles.remove(Pair(ft.publicKey, ft.fileNumber))?.inputStream?.close()
@@ -191,7 +187,7 @@ class FileTransferManager @Inject constructor(
         }
     }
 
-    fun addDataToTransfer(publicKey: String, fileNumber: Int, position: Long, data: ByteArray) {
+    fun addDataToTransfer(publicKey: PublicKey, fileNumber: Int, position: Long, data: ByteArray) {
         val ft = fileTransfers.find { it.publicKey == publicKey && it.fileNumber == fileNumber }
         if (ft == null) {
             if (data.isNotEmpty()) {
@@ -223,7 +219,7 @@ class FileTransferManager @Inject constructor(
         }
     }
 
-    fun transfersFor(publicKey: PublicKey) = fileTransferRepository.get(publicKey.string())
+    fun transfersFor(publicKey: PublicKey) = fileTransferRepository.get(publicKey)
 
     fun create(pk: PublicKey, file: Uri) {
         val (name, size) = context.contentResolver.query(file, null, null, null, null, null)?.use { cursor ->
@@ -234,7 +230,7 @@ class FileTransferManager @Inject constructor(
         } ?: return
 
         val ft = FileTransfer(
-            pk.string(),
+            pk,
             tox.sendFile(pk, FileKind.Data, size, name),
             FileKind.Data.ordinal,
             size,
@@ -259,11 +255,11 @@ class FileTransferManager @Inject constructor(
 
     // TODO(robinlinden): Handle seek-backs: https://github.com/TokTok/c-toxcore/blob/eeaa039222e7a123c2585c8486ee965017767209/toxcore/tox.h#L2405-L2406
     // TODO(robinlinden): An error when sending the last chunk in a transfer will stall it.
-    fun sendChunk(pk: String, fileNo: Int, pos: Long, length: Int) {
+    fun sendChunk(pk: PublicKey, fileNo: Int, pos: Long, length: Int) {
         val ft = fileTransfers.find { it.publicKey == pk && it.fileNumber == fileNo }
         if (ft == null) {
             Log.e(TAG, "Received request for chunk of unknown ft ${pk.fingerprint()} $fileNo")
-            tox.stopFileTransfer(PublicKey(pk), fileNo)
+            tox.stopFileTransfer(pk, fileNo)
             return
         }
 
@@ -280,7 +276,7 @@ class FileTransferManager @Inject constructor(
         while (file.unsentChunks.isNotEmpty()) {
             val chunk = file.unsentChunks.first()
             Log.i(TAG, "Resending chunk @ ${chunk.pos} to ${pk.fingerprint()} ($fileNo)}")
-            if (tox.sendFileChunk(PublicKey(pk), fileNo, chunk.pos, chunk.data).isFailure) {
+            if (tox.sendFileChunk(pk, fileNo, chunk.pos, chunk.data).isFailure) {
                 return
             }
             setProgress(ft, ft.progress + chunk.data.size)
@@ -289,7 +285,7 @@ class FileTransferManager @Inject constructor(
 
         val bytes = ByteArray(length)
         file.inputStream.read(bytes, 0, length)
-        if (tox.sendFileChunk(PublicKey(pk), fileNo, pos, bytes).isFailure) {
+        if (tox.sendFileChunk(pk, fileNo, pos, bytes).isFailure) {
             file.unsentChunks.add(Chunk(pos, bytes))
             return
         }
@@ -297,7 +293,7 @@ class FileTransferManager @Inject constructor(
         setProgress(ft, ft.progress + length)
     }
 
-    fun setStatus(pk: String, fileNo: Int, fileStatus: ToxFileControl) {
+    fun setStatus(pk: PublicKey, fileNo: Int, fileStatus: ToxFileControl) {
         Log.e(TAG, "Setting ${pk.fingerprint()} $fileNo to status $fileStatus")
         val ft = fileTransfers.find { it.publicKey == pk && it.fileNumber == fileNo }
         if (ft == null) {
@@ -314,7 +310,7 @@ class FileTransferManager @Inject constructor(
     }
 
     suspend fun deleteAll(publicKey: PublicKey) {
-        fileTransferRepository.get(publicKey.string()).take(1).collect { fts ->
+        fileTransferRepository.get(publicKey).take(1).collect { fts ->
             fts.kForEach { delete(it.id) }
         }
     }

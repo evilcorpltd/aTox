@@ -50,14 +50,14 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
         val calls = mutableSetOf<Contact>().apply { addAll(_pendingCalls.value) }
         calls.addAll(_pendingCalls.value)
         if (calls.add(from)) {
-            Log.i(TAG, "Added pending call ${from.publicKey.take(8)}")
+            Log.i(TAG, "Added pending call ${from.publicKey.fingerprint()}")
             _pendingCalls.value = calls
         }
     }
 
     fun removePendingCall(pk: PublicKey) {
         val calls = mutableSetOf<Contact>().apply { addAll(_pendingCalls.value) }
-        val removed = calls.firstOrNull { it.publicKey == pk.string() }
+        val removed = calls.firstOrNull { it.publicKey == pk }
         if (removed != null) {
             Log.i(TAG, "Removed pending call ${pk.fingerprint()}")
             calls.remove(removed)
@@ -66,7 +66,7 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
     }
 
     fun startCall(publicKey: PublicKey) {
-        if (pendingCalls.value.any { it.publicKey == publicKey.string() }) {
+        if (pendingCalls.value.any { it.publicKey == publicKey }) {
             tox.answerCall(publicKey)
         } else {
             tox.startCall(publicKey)

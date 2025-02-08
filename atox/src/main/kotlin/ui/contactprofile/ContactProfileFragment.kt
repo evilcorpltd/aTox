@@ -43,7 +43,7 @@ class ContactProfileFragment : BaseFragment<FragmentContactProfileBinding>(Fragm
             headerMainText.text = contact.name
             avatarImageView.setFrom(contact)
 
-            contactPublicKey.text = contact.publicKey
+            contactPublicKey.text = contact.publicKey.string()
             contactName.text = contact.name
             contactStatusMessage.text = contact.statusMessage
             contactConnectionStatus.text = when (contact.connectionStatus) {

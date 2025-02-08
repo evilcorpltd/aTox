@@ -4,9 +4,9 @@
 
 package ltd.evilcorp.domain.tox
 
-import ltd.evilcorp.core.vo.PublicKey
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import ltd.evilcorp.core.vo.PublicKey
 
 class ToxTypesTest {
     @Test

@@ -47,20 +47,20 @@ class ChatManager @Inject constructor(
     private val messageRepository: MessageRepository,
     private val tox: Tox,
 ) {
-    var activeChat = ""
+    var activeChat = PublicKey("")
         set(value) {
             field = value
-            if (value.isNotEmpty()) {
+            if (value.string().isNotEmpty()) {
                 scope.launch {
                     contactRepository.setHasUnreadMessages(value, false)
                 }
             }
         }
 
-    fun messagesFor(publicKey: PublicKey) = messageRepository.get(publicKey.string())
+    fun messagesFor(publicKey: PublicKey) = messageRepository.get(publicKey)
 
     fun sendMessage(publicKey: PublicKey, message: String, type: MessageType = MessageType.Normal) = scope.launch {
-        if (contactRepository.get(publicKey.string()).first().connectionStatus == ConnectionStatus.None) {
+        if (contactRepository.get(publicKey).first().connectionStatus == ConnectionStatus.None) {
             queueMessage(publicKey, message, type)
             return@launch
         }
@@ -72,7 +72,7 @@ class ChatManager @Inject constructor(
 
         messageRepository.add(
             Message(
-                publicKey.string(),
+                publicKey,
                 message,
                 Sender.Sent,
                 type,
@@ -82,19 +82,19 @@ class ChatManager @Inject constructor(
     }
 
     private fun queueMessage(publicKey: PublicKey, message: String, type: MessageType) =
-        messageRepository.add(Message(publicKey.string(), message, Sender.Sent, type, Int.MIN_VALUE))
+        messageRepository.add(Message(publicKey, message, Sender.Sent, type, Int.MIN_VALUE))
 
     fun resend(messages: List<Message>) = scope.launch {
         for (message in messages) {
             val msgs = message.message.chunked(MAX_MESSAGE_LENGTH)
 
             while (msgs.size > 1) {
-                tox.sendMessage(PublicKey(message.publicKey), msgs.removeAt(0), message.type)
+                tox.sendMessage(message.publicKey, msgs.removeAt(0), message.type)
             }
 
             messageRepository.setCorrelationId(
                 message.id,
-                tox.sendMessage(PublicKey(message.publicKey), msgs.first(), message.type),
+                tox.sendMessage(message.publicKey, msgs.first(), message.type),
             )
         }
     }
@@ -104,8 +104,8 @@ class ChatManager @Inject constructor(
     }
 
     fun clearHistory(publicKey: PublicKey) = scope.launch {
-        messageRepository.delete(publicKey.string())
-        contactRepository.setLastMessage(publicKey.string(), 0)
+        messageRepository.delete(publicKey)
+        contactRepository.setLastMessage(publicKey, 0)
     }
 
     fun setTyping(publicKey: PublicKey, typing: Boolean) = scope.launch {

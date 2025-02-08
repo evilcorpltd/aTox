@@ -89,8 +89,8 @@ class Tox @Inject constructor(
             contactRepository.resetTransientData()
 
             for ((publicKey, _) in tox.getContacts()) {
-                if (!contactRepository.exists(publicKey.string())) {
-                    contactRepository.add(Contact(publicKey.string()))
+                if (!contactRepository.exists(publicKey)) {
+                    contactRepository.add(Contact(publicKey))
                 }
             }
         }
@@ -106,7 +106,7 @@ class Tox @Inject constructor(
 
         fun iterateForever() = scope.launch {
             running = true
-            userRepository.updateConnection(publicKey.string(), ConnectionStatus.None)
+            userRepository.updateConnection(publicKey, ConnectionStatus.None)
             while (running || toxAvRunning) {
                 if (isBootstrapNeeded) {
                     try {

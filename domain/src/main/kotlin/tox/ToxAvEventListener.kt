@@ -12,11 +12,11 @@ import ltd.evilcorp.core.vo.PublicKey
 import scala.Option
 import scala.Tuple3
 
-typealias CallHandler = (pk: String, audioEnabled: Boolean, videoEnabled: Boolean) -> Unit
-typealias CallStateHandler = (pk: String, callState: EnumSet<ToxavFriendCallState>) -> Unit
-typealias VideoBitRateHandler = (pk: String, bitRate: Int) -> Unit
+typealias CallHandler = (pk: PublicKey, audioEnabled: Boolean, videoEnabled: Boolean) -> Unit
+typealias CallStateHandler = (pk: PublicKey, callState: EnumSet<ToxavFriendCallState>) -> Unit
+typealias VideoBitRateHandler = (pk: PublicKey, bitRate: Int) -> Unit
 typealias VideoReceiveFrameHandler = (
-    pk: String,
+    pk: PublicKey,
     width: Int,
     height: Int,
     y: ByteArray,
@@ -27,8 +27,8 @@ typealias VideoReceiveFrameHandler = (
     vStride: Int,
 ) -> Unit
 
-typealias AudioReceiveFrameHandler = (pk: String, pcm: ShortArray, channels: Int, samplingRate: Int) -> Unit
-typealias AudioBitRateHandler = (pk: String, bitRate: Int) -> Unit
+typealias AudioReceiveFrameHandler = (pk: PublicKey, pcm: ShortArray, channels: Int, samplingRate: Int) -> Unit
+typealias AudioBitRateHandler = (pk: PublicKey, bitRate: Int) -> Unit
 
 class ToxAvEventListener @Inject constructor() : ToxAvEventListener<Unit> {
     var contactMapping: List<Pair<PublicKey, Int>> = listOf()
@@ -40,7 +40,7 @@ class ToxAvEventListener @Inject constructor() : ToxAvEventListener<Unit> {
     var audioReceiveFrameHandler: AudioReceiveFrameHandler = { _, _, _, _ -> }
     var audioBitRateHandler: AudioBitRateHandler = { _, _ -> }
 
-    private fun keyFor(friendNo: Int) = contactMapping.find { it.second == friendNo }!!.first.string()
+    private fun keyFor(friendNo: Int) = contactMapping.find { it.second == friendNo }!!.first
 
     override fun call(friendNo: Int, audioEnabled: Boolean, videoEnabled: Boolean, s: Unit?) =
         callHandler(keyFor(friendNo), audioEnabled, videoEnabled)

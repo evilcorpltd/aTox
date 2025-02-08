@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 // SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
@@ -59,7 +59,7 @@ class ContactAdapter(private val inflater: LayoutInflater, private val context: 
                 }
 
                 friendRequests[position].run {
-                    vh.publicKey.text = publicKey
+                    vh.publicKey.text = publicKey.string()
                     vh.message.text = message
                 }
 
@@ -81,7 +81,7 @@ class ContactAdapter(private val inflater: LayoutInflater, private val context: 
                 contacts[position - friendRequests.size].run {
                     name = name.ifEmpty { context.getString(R.string.contact_default_name) }
 
-                    val shortId = publicKey.take(8)
+                    val shortId = publicKey.fingerprint()
                     vh.publicKey.text = String.format("%s %s", shortId.take(4), shortId.takeLast(4))
                     vh.name.text = name
                     vh.lastMessage.text = if (lastMessage != 0L) {

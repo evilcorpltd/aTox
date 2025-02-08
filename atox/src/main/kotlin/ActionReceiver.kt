@@ -76,7 +76,7 @@ class ActionReceiver : BroadcastReceiver() {
                 Log.e(TAG, "Got intent without required key $KEY_CONTACT_PK $intent")
                 return@launch
             }
-            if (!contactRepository.exists(pk.string())) {
+            if (!contactRepository.exists(pk)) {
                 notificationHelper.dismissNotifications(pk)
                 notificationHelper.dismissCallNotification(pk)
                 return@launch
@@ -84,10 +84,10 @@ class ActionReceiver : BroadcastReceiver() {
 
             RemoteInput.getResultsFromIntent(intent)?.let { results ->
                 results.getCharSequence(KEY_TEXT_REPLY)?.toString()?.let { input ->
-                    contactRepository.setHasUnreadMessages(pk.string(), false)
+                    contactRepository.setHasUnreadMessages(pk, false)
                     chatManager.sendMessage(pk, input)
                     notificationHelper.showMessageNotification(
-                        Contact(pk.string(), tox.getName()),
+                        Contact(pk, tox.getName()),
                         input,
                         outgoing = true,
                     )
@@ -103,7 +103,7 @@ class ActionReceiver : BroadcastReceiver() {
                 }
                 Action.CallIgnore -> callManager.removePendingCall(pk)
                 Action.MarkAsRead -> {
-                    contactRepository.setHasUnreadMessages(pk.string(), false)
+                    contactRepository.setHasUnreadMessages(pk, false)
                     notificationHelper.dismissNotifications(pk)
                 }
                 null -> Log.e(TAG, "Missing action in intent $intent")
@@ -117,7 +117,7 @@ class ActionReceiver : BroadcastReceiver() {
                 it
             } else {
                 Log.e(TAG, "Unable to get contact ${pk.fingerprint()} for call notification")
-                Contact(publicKey = pk.string(), name = pk.fingerprint())
+                Contact(publicKey = pk, name = pk.fingerprint())
             }
         }
 

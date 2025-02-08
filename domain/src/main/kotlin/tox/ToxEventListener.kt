@@ -15,26 +15,27 @@ import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.UserStatus
 
-typealias FriendLosslessPacketHandler = (publicKey: String, data: ByteArray) -> Unit
-typealias FileRecvControlHandler = (publicKey: String, fileNo: Int, control: ToxFileControl) -> Unit
-typealias FriendStatusMessageHandler = (publicKey: String, message: String) -> Unit
-typealias FriendReadReceiptHandler = (publicKey: String, messageId: Int) -> Unit
-typealias FriendStatusHandler = (publicKey: String, status: UserStatus) -> Unit
-typealias FriendConnectionStatusHandler = (publicKey: String, status: ConnectionStatus) -> Unit
-typealias FriendRequestHandler = (publicKey: String, timeDelta: Int, message: String) -> Unit
+typealias FriendLosslessPacketHandler = (pk: PublicKey, data: ByteArray) -> Unit
+typealias FileRecvControlHandler = (pk: PublicKey, fileNo: Int, control: ToxFileControl) -> Unit
+typealias FriendStatusMessageHandler = (pk: PublicKey, message: String) -> Unit
+typealias FriendReadReceiptHandler = (pk: PublicKey, messageId: Int) -> Unit
+typealias FriendStatusHandler = (pk: PublicKey, status: UserStatus) -> Unit
+typealias FriendConnectionStatusHandler = (pk: PublicKey, status: ConnectionStatus) -> Unit
+typealias FriendRequestHandler = (pk: PublicKey, timeDelta: Int, message: String) -> Unit
 typealias FriendMessageHandler = (
-    publicKey: String,
+    pk: PublicKey,
     messageType: ToxMessageType,
     timeDelta: Int,
     message: String,
 ) -> Unit
-typealias FriendNameHandler = (publicKey: String, newName: String) -> Unit
-typealias FileRecvChunkHandler = (publicKey: String, fileNo: Int, position: Long, data: ByteArray) -> Unit
-typealias FileRecvHandler = (publicKey: String, fileNo: Int, kind: Int, size: Long, name: String) -> Unit
-typealias FriendLossyPacketHandler = (publicKey: String, data: ByteArray) -> Unit
+
+typealias FriendNameHandler = (pk: PublicKey, newName: String) -> Unit
+typealias FileRecvChunkHandler = (pk: PublicKey, fileNo: Int, position: Long, data: ByteArray) -> Unit
+typealias FileRecvHandler = (pk: PublicKey, fileNo: Int, kind: Int, size: Long, name: String) -> Unit
+typealias FriendLossyPacketHandler = (pk: PublicKey, data: ByteArray) -> Unit
 typealias SelfConnectionStatusHandler = (status: ConnectionStatus) -> Unit
-typealias FriendTypingHandler = (publicKey: String, isTyping: Boolean) -> Unit
-typealias FileChunkRequestHandler = (publicKey: String, fileNo: Int, position: Long, length: Int) -> Unit
+typealias FriendTypingHandler = (pk: PublicKey, isTyping: Boolean) -> Unit
+typealias FileChunkRequestHandler = (pk: PublicKey, fileNo: Int, position: Long, length: Int) -> Unit
 
 class ToxEventListener @Inject constructor() : ToxCoreEventListener<Unit> {
     var contactMapping: List<Pair<PublicKey, Int>> = listOf()
@@ -55,7 +56,7 @@ class ToxEventListener @Inject constructor() : ToxCoreEventListener<Unit> {
     var friendTypingHandler: FriendTypingHandler = { _, _ -> }
     var fileChunkRequestHandler: FileChunkRequestHandler = { _, _, _, _ -> }
 
-    private fun keyFor(friendNo: Int) = contactMapping.find { it.second == friendNo }!!.first.string()
+    private fun keyFor(friendNo: Int) = contactMapping.find { it.second == friendNo }!!.first
 
     override fun friendLosslessPacket(friendNo: Int, data: ByteArray, s: Unit?) =
         friendLosslessPacketHandler(keyFor(friendNo), data)
@@ -76,7 +77,7 @@ class ToxEventListener @Inject constructor() : ToxCoreEventListener<Unit> {
         friendConnectionStatusHandler(keyFor(friendNo), status.toConnectionStatus())
 
     override fun friendRequest(publicKey: ByteArray, timeDelta: Int, message: ByteArray, s: Unit?) =
-        friendRequestHandler(publicKey.bytesToHex(), timeDelta, String(message))
+        friendRequestHandler(PublicKey.fromBytes(publicKey), timeDelta, String(message))
 
     override fun friendMessage(friendNo: Int, type: ToxMessageType, timeDelta: Int, message: ByteArray, s: Unit?) =
         friendMessageHandler(keyFor(friendNo), type, timeDelta, String(message))

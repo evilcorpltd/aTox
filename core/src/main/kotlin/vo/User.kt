@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019 aTox contributors
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey
 data class User(
     @PrimaryKey
     @ColumnInfo(name = "public_key")
-    val publicKey: String,
+    val publicKey: PublicKey,
 
     @ColumnInfo(name = "name")
     var name: String = "aTox user",
