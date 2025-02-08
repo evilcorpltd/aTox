@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 aTox contributors
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -6,6 +6,7 @@ package ltd.evilcorp.domain.tox
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import ltd.evilcorp.core.vo.PublicKey
 
 class ToxTypesTest {
     @Test

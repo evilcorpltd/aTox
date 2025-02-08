@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2020-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -34,8 +34,8 @@ import ltd.evilcorp.atox.di.DaoModule
 import ltd.evilcorp.atox.di.ViewModelModule
 import ltd.evilcorp.atox.tox.BootstrapNodeRegistryImpl
 import ltd.evilcorp.core.db.Database
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.domain.tox.BootstrapNodeRegistry
-import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.SaveManager
 import org.hamcrest.core.AllOf.allOf
 import org.junit.Rule

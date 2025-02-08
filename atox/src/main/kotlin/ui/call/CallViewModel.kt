@@ -15,9 +15,9 @@ import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.ProximityScreenOff
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.domain.feature.CallManager
 import ltd.evilcorp.domain.feature.ContactManager
-import ltd.evilcorp.domain.tox.PublicKey
 
 class CallViewModel @Inject constructor(
     private val scope: CoroutineScope,

@@ -17,6 +17,7 @@ import ltd.evilcorp.core.db.Database
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.PublicKey
 import org.junit.runner.RunWith
 
 class FakeBootstrapNodeRegistry(val nodes: List<BootstrapNode> = listOf()) : BootstrapNodeRegistry {

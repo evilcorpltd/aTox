@@ -16,6 +16,7 @@ import im.tox.tox4j.impl.jni.ToxCoreImpl
 import kotlin.random.Random
 import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.MessageType
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.UserStatus
 
 private const val TAG = "ToxWrapper"

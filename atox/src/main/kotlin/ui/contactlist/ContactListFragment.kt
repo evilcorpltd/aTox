@@ -49,8 +49,8 @@ import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.User
-import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.ToxID
 import ltd.evilcorp.domain.tox.ToxSaveStatus
 

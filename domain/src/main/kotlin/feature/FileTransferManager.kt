@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -32,11 +32,11 @@ import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.core.vo.isComplete
 import ltd.evilcorp.core.vo.isStarted
 import ltd.evilcorp.domain.tox.MAX_AVATAR_SIZE
-import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
 
 private const val TAG = "FileTransferManager"

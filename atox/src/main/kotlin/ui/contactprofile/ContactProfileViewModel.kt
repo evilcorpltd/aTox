@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2020 aTox contributors
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import javax.inject.Inject
 import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.domain.feature.ContactManager
-import ltd.evilcorp.domain.tox.PublicKey
 
 class ContactProfileViewModel @Inject constructor(contactManager: ContactManager) : ViewModel() {
     var publicKey: PublicKey = PublicKey("")

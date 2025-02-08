@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2023 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 // SPDX-FileCopyrightText: 2019-2020 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
@@ -24,6 +24,7 @@ import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FileKind
 import ltd.evilcorp.core.vo.MessageType
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.UserStatus
 
 private const val TAG = "Tox"

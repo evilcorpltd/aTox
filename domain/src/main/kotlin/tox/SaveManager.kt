@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2022 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -10,6 +10,7 @@ import android.util.Log
 import androidx.core.util.writeBytes
 import java.io.File
 import javax.inject.Inject
+import ltd.evilcorp.core.vo.PublicKey
 
 private const val TAG = "AndroidSaveManager"
 

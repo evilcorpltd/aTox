@@ -52,9 +52,9 @@ import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.isComplete
 import ltd.evilcorp.domain.feature.CallState
-import ltd.evilcorp.domain.tox.PublicKey
 
 private const val TAG = "ChatFragment"
 const val CONTACT_PUBLIC_KEY = "publicKey"
