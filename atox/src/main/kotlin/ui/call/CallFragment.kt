@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2021 aTox contributors
+// SPDX-FileCopyrightText: 2021-2025 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -22,8 +23,8 @@ import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.vmFactory
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.domain.feature.CallState
-import ltd.evilcorp.domain.tox.PublicKey
 
 private const val PERMISSION = Manifest.permission.RECORD_AUDIO
 

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 aTox contributors
+// SPDX-FileCopyrightText: 2020-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -8,6 +8,7 @@ import im.tox.tox4j.av.callbacks.ToxAvEventListener
 import im.tox.tox4j.av.enums.ToxavFriendCallState
 import java.util.EnumSet
 import javax.inject.Inject
+import ltd.evilcorp.core.vo.PublicKey
 import scala.Option
 import scala.Tuple3
 
