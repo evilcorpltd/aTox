@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 // SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
@@ -139,7 +139,7 @@ class ToxService : LifecycleService() {
         }
 
         lifecycleScope.launch(Dispatchers.Default) {
-            userRepository.get(tox.publicKey.string())
+            userRepository.get(tox.publicKey)
                 .filterNotNull()
                 .filter { it.connectionStatus != connectionStatus }
                 .flowWithLifecycle(lifecycle)

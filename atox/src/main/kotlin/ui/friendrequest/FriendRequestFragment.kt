@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2020-2025 Robin Lindén <dev@robinlinden.eu>
 // SPDX-FileCopyrightText: 2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
@@ -18,7 +18,7 @@ import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.FriendRequest
-import ltd.evilcorp.domain.tox.PublicKey
+import ltd.evilcorp.core.vo.PublicKey
 
 const val FRIEND_REQUEST_PUBLIC_KEY = "FRIEND_REQUEST_PUBLIC_KEY"
 
@@ -41,7 +41,7 @@ class FriendRequestFragment : BaseFragment<FragmentFriendRequestBinding>(Fragmen
 
         vm.byId(PublicKey(requireStringArg(FRIEND_REQUEST_PUBLIC_KEY))).observe(viewLifecycleOwner) {
             friendRequest = it
-            from.text = it.publicKey
+            from.text = it.publicKey.string()
             message.text = it.message
             reject.isEnabled = true
             accept.isEnabled = true

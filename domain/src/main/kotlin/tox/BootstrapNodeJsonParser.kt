@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 aTox contributors
+// SPDX-FileCopyrightText: 2021-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -6,6 +6,7 @@ package ltd.evilcorp.domain.tox
 
 import android.util.Log
 import javax.inject.Inject
+import ltd.evilcorp.core.vo.PublicKey
 import org.json.JSONObject
 
 private const val TAG = "BootstrapNodeJsonParser"

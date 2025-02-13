@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 aTox contributors
+// SPDX-FileCopyrightText: 2020-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -17,6 +17,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.core.vo.UserStatus
 import org.junit.Test
@@ -32,7 +33,7 @@ class UserDaoTest {
     private val dao = db.userDao()
 
     private val first = User(
-        publicKey = "1234",
+        publicKey = PublicKey("1234"),
         name = "name",
         statusMessage = "status",
         status = UserStatus.Away,

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2021-2025 Robin Lindén <dev@robinlinden.eu>
 // SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
@@ -23,12 +23,12 @@ import kotlinx.coroutines.withContext
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.repository.ContactRepository
 import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.feature.CallManager
 import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.ContactManager
-import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
 
 const val KEY_TEXT_REPLY = "key_text_reply"
@@ -76,7 +76,7 @@ class ActionReceiver : BroadcastReceiver() {
                 Log.e(TAG, "Got intent without required key $KEY_CONTACT_PK $intent")
                 return@launch
             }
-            if (!contactRepository.exists(pk.string())) {
+            if (!contactRepository.exists(pk)) {
                 notificationHelper.dismissNotifications(pk)
                 notificationHelper.dismissCallNotification(pk)
                 return@launch
@@ -84,10 +84,10 @@ class ActionReceiver : BroadcastReceiver() {
 
             RemoteInput.getResultsFromIntent(intent)?.let { results ->
                 results.getCharSequence(KEY_TEXT_REPLY)?.toString()?.let { input ->
-                    contactRepository.setHasUnreadMessages(pk.string(), false)
+                    contactRepository.setHasUnreadMessages(pk, false)
                     chatManager.sendMessage(pk, input)
                     notificationHelper.showMessageNotification(
-                        Contact(pk.string(), tox.getName()),
+                        Contact(pk, tox.getName()),
                         input,
                         outgoing = true,
                     )
@@ -103,7 +103,7 @@ class ActionReceiver : BroadcastReceiver() {
                 }
                 Action.CallIgnore -> callManager.removePendingCall(pk)
                 Action.MarkAsRead -> {
-                    contactRepository.setHasUnreadMessages(pk.string(), false)
+                    contactRepository.setHasUnreadMessages(pk, false)
                     notificationHelper.dismissNotifications(pk)
                 }
                 null -> Log.e(TAG, "Missing action in intent $intent")
@@ -117,7 +117,7 @@ class ActionReceiver : BroadcastReceiver() {
                 it
             } else {
                 Log.e(TAG, "Unable to get contact ${pk.fingerprint()} for call notification")
-                Contact(publicKey = pk.string(), name = pk.fingerprint())
+                Contact(publicKey = pk, name = pk.fingerprint())
             }
         }
 
