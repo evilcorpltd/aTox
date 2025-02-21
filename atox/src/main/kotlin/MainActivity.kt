@@ -1,10 +1,11 @@
-// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
 package ltd.evilcorp.atox
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -20,8 +21,9 @@ import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.atox.ui.contactlist.ARG_SHARE
 
 private const val TAG = "MainActivity"
-private const val SCHEME = "tox:"
 private const val TOX_ID_LENGTH = 76
+
+private fun isToxUri(uri: Uri) = uri.isOpaque && uri.scheme == "tox" && uri.schemeSpecificPart.length == TOX_ID_LENGTH
 
 class MainActivity : AppCompatActivity() {
     @Inject
@@ -81,16 +83,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleToxLinkIntent(intent: Intent) {
-        val data = intent.dataString ?: ""
+        val data = intent.data
         Log.i(TAG, "Got uri with data: $data")
-        if (!data.startsWith(SCHEME) || data.length != SCHEME.length + TOX_ID_LENGTH) {
+        if (data == null || !isToxUri(data)) {
             Log.e(TAG, "Got malformed uri: $data")
             return
         }
 
         supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.findNavController()?.navigate(
             R.id.addContactFragment,
-            bundleOf("toxId" to data.drop(SCHEME.length)),
+            bundleOf("toxId" to data.schemeSpecificPart),
         )
     }
 
