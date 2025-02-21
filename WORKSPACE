@@ -92,12 +92,12 @@ http_archive(
     url = "https://github.com/bazelbuild/bazel-skylib/releases/download/%s/bazel-skylib-%s.tar.gz" % (BAZEL_SKYLIB_TAG, BAZEL_SKYLIB_TAG),
 )
 
-RULES_KOTLIN_TAG = "v1.9.6"
+RULES_KOTLIN_TAG = "v2.1.0"
 
 # https://github.com/bazelbuild/rules_kotlin
 http_archive(
     name = "io_bazel_rules_kotlin",
-    integrity = "sha256-O3cpdv7Hvc2h2EudObF2WJQkwEfrIXW+0JqsYw5Qr0M=",
+    integrity = "sha256-3TLxnnPHDzLMuaFmxhXAykrtjifnLEpjMMNSPq+hqlU=",
     url = "https://github.com/bazelbuild/rules_kotlin/releases/download/%s/rules_kotlin-%s.tar.gz" % (RULES_KOTLIN_TAG, RULES_KOTLIN_TAG),
 )
 
@@ -374,8 +374,8 @@ load("@io_bazel_rules_kotlin//kotlin:repositories.bzl", "kotlin_repositories", "
 
 kotlin_repositories(
     compiler_release = kotlinc_version(
-        release = "1.9.22",
-        sha256 = "88b39213506532c816ff56348c07bbeefe0c8d18943bffbad11063cf97cac3e6",
+        release = "2.1.10",
+        sha256 = "c6e9e2636889828e19c8811d5ab890862538c89dc2a3101956dfee3c2a8ba6b1",
     ),
 )
 
