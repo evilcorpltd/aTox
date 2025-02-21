@@ -19,11 +19,41 @@ import javax.inject.Inject
 import ltd.evilcorp.atox.di.ViewModelFactory
 import ltd.evilcorp.atox.settings.Settings
 import ltd.evilcorp.atox.ui.contactlist.ARG_SHARE
+import ltd.evilcorp.domain.tox.ToxID
 
 private const val TAG = "MainActivity"
-private const val TOX_ID_LENGTH = 76
 
-private fun isToxUri(uri: Uri) = uri.isOpaque && uri.scheme == "tox" && uri.schemeSpecificPart.length == TOX_ID_LENGTH
+// TODO(robinlinden): Move to common place, use for QR-code-provided uris as well.
+data class ToxUri(val toxId: ToxID, val nameSuggestion: String? = null, val messageSuggestion: String? = null) {
+    companion object {
+        private const val TOX_ID_LENGTH = 76
+
+        fun parseFrom(uri: Uri?): ToxUri? {
+            if (uri == null) {
+                return null
+            }
+
+            if (uri.scheme != "tox") {
+                return null
+            }
+
+            if (uri.isOpaque) {
+                if (uri.schemeSpecificPart.length != TOX_ID_LENGTH) {
+                    return null
+                }
+
+                return ToxUri(ToxID(uri.schemeSpecificPart))
+            }
+
+            val maybeToxId = uri.host
+            if (maybeToxId?.length != TOX_ID_LENGTH) {
+                return null
+            }
+
+            return ToxUri(ToxID(maybeToxId), uri.getQueryParameter("name"), uri.getQueryParameter("message"))
+        }
+    }
+}
 
 class MainActivity : AppCompatActivity() {
     @Inject
@@ -85,14 +115,19 @@ class MainActivity : AppCompatActivity() {
     private fun handleToxLinkIntent(intent: Intent) {
         val data = intent.data
         Log.i(TAG, "Got uri with data: $data")
-        if (data == null || !isToxUri(data)) {
+        val toxUri = ToxUri.parseFrom(data)
+        if (toxUri == null) {
             Log.e(TAG, "Got malformed uri: $data")
             return
         }
 
         supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.findNavController()?.navigate(
             R.id.addContactFragment,
-            bundleOf("toxId" to data.schemeSpecificPart),
+            bundleOf(
+                "toxId" to toxUri.toxId.string(),
+                "name" to toxUri.nameSuggestion,
+                "message" to toxUri.messageSuggestion,
+            ),
         )
     }
 
