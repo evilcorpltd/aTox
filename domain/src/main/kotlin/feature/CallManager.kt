@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 aTox contributors
+// SPDX-FileCopyrightText: 2021-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -18,8 +18,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.domain.av.AudioCapture
-import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
 
 sealed class CallState {
@@ -50,14 +50,14 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
         val calls = mutableSetOf<Contact>().apply { addAll(_pendingCalls.value) }
         calls.addAll(_pendingCalls.value)
         if (calls.add(from)) {
-            Log.i(TAG, "Added pending call ${from.publicKey.take(8)}")
+            Log.i(TAG, "Added pending call ${from.publicKey.fingerprint()}")
             _pendingCalls.value = calls
         }
     }
 
     fun removePendingCall(pk: PublicKey) {
         val calls = mutableSetOf<Contact>().apply { addAll(_pendingCalls.value) }
-        val removed = calls.firstOrNull { it.publicKey == pk.string() }
+        val removed = calls.firstOrNull { it.publicKey == pk }
         if (removed != null) {
             Log.i(TAG, "Removed pending call ${pk.fingerprint()}")
             calls.remove(removed)
@@ -66,7 +66,7 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
     }
 
     fun startCall(publicKey: PublicKey) {
-        if (pendingCalls.value.any { it.publicKey == publicKey.string() }) {
+        if (pendingCalls.value.any { it.publicKey == publicKey }) {
             tox.answerCall(publicKey)
         } else {
             tox.startCall(publicKey)

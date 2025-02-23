@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -28,6 +28,7 @@ import ltd.evilcorp.atox.R
 import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.core.vo.isComplete
 import ltd.evilcorp.core.vo.isRejected
@@ -158,7 +159,7 @@ class ChatAdapter(private val inflater: LayoutInflater, private val resources: R
                 val message = messages[position]
                 val fileTransfer = fileTransfers.find { it.id == message.correlationId } ?: run {
                     Log.e(TAG, "Unable to find ft ${message.correlationId} for ${message.publicKey} required for view")
-                    FileTransfer("", 0, 0, 0, "", message.sender == Sender.Sent)
+                    FileTransfer(PublicKey(""), 0, 0, 0, "", message.sender == Sender.Sent)
                 }
 
                 val view: View

@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2019-2022 aTox contributors
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -14,6 +15,7 @@ import android.graphics.RectF
 import android.graphics.Typeface
 import kotlin.math.abs
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.core.vo.PublicKey
 
 internal object AvatarFactory {
 
@@ -27,7 +29,7 @@ internal object AvatarFactory {
     fun create(
         resources: Resources,
         name: String,
-        publicKey: String,
+        pk: PublicKey,
         size: Px = Px(resources.getDimension(R.dimen.default_avatar_size).toInt()),
     ): Bitmap {
         val defaultAvatarSize = resources.getDimension(R.dimen.default_avatar_size)
@@ -37,7 +39,7 @@ internal object AvatarFactory {
         val canvas = Canvas(bitmap)
         val rect = RectF(0f, 0f, bitmap.width.toFloat(), bitmap.height.toFloat())
         val colors = resources.getIntArray(R.array.contactBackgrounds)
-        val backgroundPaint = Paint().apply { color = colors[abs(publicKey.hashCode()).rem(colors.size)] }
+        val backgroundPaint = Paint().apply { color = colors[abs(pk.hashCode()).rem(colors.size)] }
 
         val textPaint = Paint().apply {
             color = Color.WHITE
