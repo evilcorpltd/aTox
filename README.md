@@ -6,7 +6,6 @@
 [![Translation status](https://hosted.weblate.org/widgets/atox/-/app/svg-badge.svg)][weblate]
 
 [<img src="img/get-it-on-fdroid.png" alt="Get aTox on F-Droid" height="80">][fdroid]
-[<img src="img/get-it-on-google-play.png" alt="Get aTox on Google Play" height="80">][gplay]
 
 The reasonable Tox client for Android.
 
