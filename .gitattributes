@@ -1,0 +1,7 @@
+* text eol=lf
+
+# Windows wants .bat-files to use CRLF.
+*.bat text eof=crlf
+
+*.png binary
+*.jpg binary
