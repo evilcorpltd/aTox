@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 // SPDX-FileCopyrightText: 2020 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
@@ -134,5 +134,11 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
         add.isEnabled = false
 
         toxId.setText(arguments?.getString("toxId"), TextView.BufferType.EDITABLE)
+        val messageSuggestion = arguments?.getString("message")
+        if (messageSuggestion != null) {
+            message.setText(messageSuggestion)
+        }
+
+        // TODO(robinlinden): Hook up the nickname suggestion once we have nicknames.
     }
 }
