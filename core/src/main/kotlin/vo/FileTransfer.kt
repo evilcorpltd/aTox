@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2020 aTox contributors
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -21,7 +21,7 @@ const val FT_REJECTED = -2L
 @Entity(tableName = "file_transfers")
 data class FileTransfer(
     @ColumnInfo(name = "public_key")
-    val publicKey: String,
+    val publicKey: PublicKey,
 
     @ColumnInfo(name = "file_number")
     val fileNumber: Int,

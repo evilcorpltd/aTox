@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 // SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
@@ -50,7 +50,6 @@ import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.User
-import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.ToxSaveStatus
 
 const val ARG_SHARE = "share"
@@ -258,7 +257,7 @@ class ContactListFragment :
                                 ),
                             )
                             .setPositiveButton(R.string.delete) { _, _ ->
-                                viewModel.deleteContact(PublicKey(contact.publicKey))
+                                viewModel.deleteContact(contact.publicKey)
                             }
                             .setNegativeButton(android.R.string.cancel, null).show()
                     }
@@ -375,16 +374,16 @@ class ContactListFragment :
 
     private fun openChat(contact: Contact) = findNavController().navigate(
         R.id.action_contactListFragment_to_chatFragment,
-        bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey),
+        bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey.string()),
     )
 
     private fun openFriendRequest(friendRequest: FriendRequest) = findNavController().navigate(
         R.id.action_contactListFragment_to_friendRequestFragment,
-        bundleOf(FRIEND_REQUEST_PUBLIC_KEY to friendRequest.publicKey),
+        bundleOf(FRIEND_REQUEST_PUBLIC_KEY to friendRequest.publicKey.string()),
     )
 
     private fun openProfile(contact: Contact) = findNavController().navigate(
         R.id.action_contactListFragment_to_contactProfileFragment,
-        bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey),
+        bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey.string()),
     )
 }
