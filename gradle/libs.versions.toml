@@ -3,15 +3,20 @@ sdk-min = "19"
 sdk-target = "34"
 
 kotlin = "2.1.20"
-ksp = "2.1.20-1.0.31"
+ksp = "2.1.20-2.0.0"
 android-plugin = "8.7.3"
 
-coroutines = "1.10.1"
+coroutines = "1.10.2"
+# TODO(robinlinden): dagger 2.56.x (last tested 2.56.2) results in:
+#  java.lang.NoSuchMethodError:
+#   No direct method <init>(Lltd/evilcorp/atox/di/AndroidModule;Lltd/evilcorp/atox/di/AppModule;Lltd/evilcorp/atox/di/DatabaseModule;Lltd/evilcorp/atox/di/DaoModule;Landroid/content/Context;Lltd/evilcorp/atox/di/DaggerAppComponent-IA;)V
+#   in class Lltd/evilcorp/atox/di/DaggerAppComponent$AppComponentImpl; or its super classes (declaration of 'ltd.evilcorp.atox.di.DaggerAppComponent$AppComponentImpl'
+#   appears in /data/app/~~thc_LJkWCWx8397z9eqxhg==/ltd.evilcorp.atox.debug-Msb0l4sq9lyyE79UBO_1Tg==/base.apk!classes11.dex)
 dagger = "2.55"
 espresso = "3.6.1"
 lifecycle = "2.8.7"
 navigation = "2.7.7" # 2.8.2 requires minSdk 21.
-room = "2.6.1"
+room = "2.6.1" # 2.7.0 requires minSdk 21.
 tox4j-android = "0.2.20"
 tox4j-core = "0.2.3"
 
@@ -22,7 +27,7 @@ androidApplication = { id = "com.android.application", version.ref = "android-pl
 androidLibrary = { id = "com.android.library", version.ref = "android-plugin" }
 
 [libraries]
-androidx-activity = "androidx.activity:activity:1.9.3"
+androidx-activity = "androidx.activity:activity:1.9.3" # 1.10.1 requires minSdk 21.
 androidx-appcompat = "androidx.appcompat:appcompat:1.6.1" # 1.7.0 requires minSdk 21.
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4" # 2.2.0 requires minSdk 21.
 androidx-core-ktx = "androidx.core:core-ktx:1.13.1" # 1.15.0 requires minSdk 21.
