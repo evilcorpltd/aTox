@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2021 aTox contributors
+// SPDX-FileCopyrightText: 2021-2025 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -15,9 +16,9 @@ import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.ProximityScreenOff
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.vo.Contact
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.domain.feature.CallManager
 import ltd.evilcorp.domain.feature.ContactManager
-import ltd.evilcorp.domain.tox.PublicKey
 
 class CallViewModel @Inject constructor(
     private val scope: CoroutineScope,

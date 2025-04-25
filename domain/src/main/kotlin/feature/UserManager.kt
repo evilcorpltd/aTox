@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -8,9 +8,9 @@ import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ltd.evilcorp.core.repository.UserRepository
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.core.vo.UserStatus
-import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.Tox
 
 class UserManager @Inject constructor(
@@ -18,7 +18,7 @@ class UserManager @Inject constructor(
     private val userRepository: UserRepository,
     private val tox: Tox,
 ) {
-    fun get(publicKey: PublicKey) = userRepository.get(publicKey.string())
+    fun get(pk: PublicKey) = userRepository.get(pk)
 
     fun create(user: User) = scope.launch {
         userRepository.add(user)
@@ -26,27 +26,27 @@ class UserManager @Inject constructor(
         tox.setStatusMessage(user.statusMessage)
     }
 
-    fun verifyExists(publicKey: PublicKey) = scope.launch {
-        if (!userRepository.exists(publicKey.string())) {
+    fun verifyExists(pk: PublicKey) = scope.launch {
+        if (!userRepository.exists(pk)) {
             val name = tox.getName()
             val statusMessage = tox.getStatusMessage()
-            val user = User(publicKey.string(), name, statusMessage)
+            val user = User(pk, name, statusMessage)
             userRepository.add(user)
         }
     }
 
     fun setName(name: String) = scope.launch {
         tox.setName(name)
-        userRepository.updateName(tox.publicKey.string(), name)
+        userRepository.updateName(tox.publicKey, name)
     }
 
     fun setStatusMessage(statusMessage: String) = scope.launch {
         tox.setStatusMessage(statusMessage)
-        userRepository.updateStatusMessage(tox.publicKey.string(), statusMessage)
+        userRepository.updateStatusMessage(tox.publicKey, statusMessage)
     }
 
     fun setStatus(status: UserStatus) = scope.launch {
         tox.setStatus(status)
-        userRepository.updateStatus(tox.publicKey.string(), status)
+        userRepository.updateStatus(tox.publicKey, status)
     }
 }

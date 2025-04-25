@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2020 aTox contributors
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -9,26 +9,26 @@ import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.db.UserDao
 import ltd.evilcorp.core.vo.ConnectionStatus
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.core.vo.UserStatus
 
 @Singleton
 class UserRepository @Inject constructor(private val userDao: UserDao) {
-    fun exists(publicKey: String): Boolean = userDao.exists(publicKey)
+    fun exists(pk: PublicKey): Boolean = userDao.exists(pk)
 
     fun add(user: User) = userDao.save(user)
 
     fun update(user: User) = userDao.update(user)
 
-    fun get(publicKey: String): Flow<User> = userDao.load(publicKey)
+    fun get(pk: PublicKey): Flow<User> = userDao.load(pk)
 
-    fun updateName(publicKey: String, name: String) = userDao.updateName(publicKey, name)
+    fun updateName(pk: PublicKey, name: String) = userDao.updateName(pk, name)
 
-    fun updateStatusMessage(publicKey: String, statusMessage: String) =
-        userDao.updateStatusMessage(publicKey, statusMessage)
+    fun updateStatusMessage(pk: PublicKey, statusMessage: String) = userDao.updateStatusMessage(pk, statusMessage)
 
-    fun updateConnection(publicKey: String, connectionStatus: ConnectionStatus) =
-        userDao.updateConnection(publicKey, connectionStatus)
+    fun updateConnection(pk: PublicKey, connectionStatus: ConnectionStatus) =
+        userDao.updateConnection(pk, connectionStatus)
 
-    fun updateStatus(publicKey: String, status: UserStatus) = userDao.updateStatus(publicKey, status)
+    fun updateStatus(pk: PublicKey, status: UserStatus) = userDao.updateStatus(pk, status)
 }

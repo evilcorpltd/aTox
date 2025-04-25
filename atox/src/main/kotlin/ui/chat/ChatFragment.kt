@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 // SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
@@ -51,9 +51,9 @@ import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.FileTransfer
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.isComplete
 import ltd.evilcorp.domain.feature.CallState
-import ltd.evilcorp.domain.tox.PublicKey
 
 const val CONTACT_PUBLIC_KEY = "publicKey"
 const val FOCUS_ON_MESSAGE_BOX = "focusOnMessageBox"
@@ -67,7 +67,7 @@ class OpenMultiplePersistableDocuments : ActivityResultContracts.OpenMultipleDoc
 class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::inflate) {
     private val viewModel: ChatViewModel by viewModels { vmFactory }
 
-    private lateinit var contactPubKey: String
+    private var contactPubKey = PublicKey("")
     private var contactName = ""
     private var selectedFt: Int = Int.MIN_VALUE
     private var fts: List<FileTransfer> = listOf()
@@ -85,7 +85,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
 
     private val attachFilesLauncher =
         registerForActivityResult(OpenMultiplePersistableDocuments()) { files ->
-            viewModel.setActiveChat(PublicKey(contactPubKey))
+            viewModel.setActiveChat(contactPubKey)
             for (file in files) {
                 activity?.contentResolver?.takePersistableUriPermission(file, Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 viewModel.createFt(file)
@@ -93,8 +93,8 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = binding.run {
-        contactPubKey = requireStringArg(CONTACT_PUBLIC_KEY)
-        viewModel.setActiveChat(PublicKey(contactPubKey))
+        contactPubKey = PublicKey(requireStringArg(CONTACT_PUBLIC_KEY))
+        viewModel.setActiveChat(contactPubKey)
 
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
             val insets = compat.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime())
@@ -196,7 +196,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             WindowInsetsControllerCompat(requireActivity().window, view).hide(WindowInsetsCompat.Type.ime())
             findNavController().navigate(
                 R.id.action_chatFragment_to_contactProfileFragment,
-                bundleOf(CONTACT_PUBLIC_KEY to contactPubKey),
+                bundleOf(CONTACT_PUBLIC_KEY to contactPubKey.string()),
             )
         }
 
@@ -248,7 +248,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         }
 
         viewModel.ongoingCall.observe(viewLifecycleOwner) {
-            if (it is CallState.InCall && it.publicKey.string() == contactPubKey) {
+            if (it is CallState.InCall && it.publicKey == contactPubKey) {
                 ongoingCall.container.visibility = View.VISIBLE
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     ongoingCall.duration.visibility = View.VISIBLE
@@ -345,7 +345,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
     }
 
     override fun onResume() = binding.run {
-        viewModel.setActiveChat(PublicKey(contactPubKey))
+        viewModel.setActiveChat(contactPubKey)
         viewModel.setTyping(outgoingMessage.text.isNotEmpty())
         super.onResume()
     }
@@ -442,7 +442,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         view?.let { WindowInsetsControllerCompat(requireActivity().window, it).hide(WindowInsetsCompat.Type.ime()) }
         findNavController().navigate(
             R.id.action_chatFragment_to_callFragment,
-            bundleOf(CONTACT_PUBLIC_KEY to contactPubKey),
+            bundleOf(CONTACT_PUBLIC_KEY to contactPubKey.string()),
         )
     }
 }

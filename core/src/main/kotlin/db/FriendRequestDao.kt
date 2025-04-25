@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -11,6 +11,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.vo.FriendRequest
+import ltd.evilcorp.core.vo.PublicKey
 
 @Dao
 interface FriendRequestDao {
@@ -23,8 +24,8 @@ interface FriendRequestDao {
     @Query("SELECT * FROM friend_requests")
     fun loadAll(): Flow<List<FriendRequest>>
 
-    @Query("SELECT * FROM friend_requests WHERE public_key == :publicKey")
-    fun load(publicKey: String): Flow<FriendRequest>
+    @Query("SELECT * FROM friend_requests WHERE public_key == :pk")
+    fun load(pk: PublicKey): Flow<FriendRequest>
 
     @Query("SELECT COUNT(public_key) FROM friend_requests")
     fun count(): Int
