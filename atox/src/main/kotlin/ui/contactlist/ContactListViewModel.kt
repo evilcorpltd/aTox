@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -17,7 +18,9 @@ import java.io.FileOutputStream
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.settings.Settings
@@ -77,6 +80,10 @@ class ContactListViewModel @Inject constructor(
         scope.launch {
             fileTransferManager.deleteAll(publicKey)
         }
+    }
+
+    fun contactAdded(toxId: PublicKey): Boolean = runBlocking {
+        return@runBlocking contactManager.get(toxId).firstOrNull() != null
     }
 
     fun saveToxBackupTo(uri: Uri) = scope.launch(Dispatchers.IO) {

@@ -51,6 +51,7 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.domain.tox.PublicKey
+import ltd.evilcorp.domain.tox.ToxID
 import ltd.evilcorp.domain.tox.ToxSaveStatus
 
 const val ARG_ADD_CONTACT = "add_contact"
@@ -187,7 +188,13 @@ class ContactListFragment :
 
         arguments?.getString(ARG_ADD_CONTACT)?.let { toxId ->
             arguments?.remove(ARG_ADD_CONTACT)
-            findNavController().navigate(R.id.addContactFragment, bundleOf("toxId" to toxId))
+            val id = ToxID(toxId)
+            val pk = id.toPublicKey()
+            if (viewModel.contactAdded(pk)) {
+                openChat(pk.string())
+            } else {
+                findNavController().navigate(R.id.addContactFragment, bundleOf("toxId" to toxId))
+            }
         }
 
         arguments?.getString(ARG_SHARE)?.let { share ->
@@ -379,9 +386,10 @@ class ContactListFragment :
         }
     }
 
-    private fun openChat(contact: Contact) = findNavController().navigate(
+    private fun openChat(contact: Contact) = openChat(contact.publicKey)
+    private fun openChat(pk: String) = findNavController().navigate(
         R.id.action_contactListFragment_to_chatFragment,
-        bundleOf(CONTACT_PUBLIC_KEY to contact.publicKey),
+        bundleOf(CONTACT_PUBLIC_KEY to pk),
     )
 
     private fun openFriendRequest(friendRequest: FriendRequest) = findNavController().navigate(
