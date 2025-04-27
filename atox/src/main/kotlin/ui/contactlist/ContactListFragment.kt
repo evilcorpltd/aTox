@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 // SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
@@ -53,6 +53,7 @@ import ltd.evilcorp.core.vo.User
 import ltd.evilcorp.domain.tox.PublicKey
 import ltd.evilcorp.domain.tox.ToxSaveStatus
 
+const val ARG_ADD_CONTACT = "add_contact"
 const val ARG_SHARE = "share"
 private const val MAX_CONFIRM_DELETE_STRING_LENGTH = 32
 
@@ -182,6 +183,11 @@ class ContactListFragment :
             } else {
                 activity?.finish()
             }
+        }
+
+        arguments?.getString(ARG_ADD_CONTACT)?.let { toxId ->
+            arguments?.remove(ARG_ADD_CONTACT)
+            findNavController().navigate(R.id.addContactFragment, bundleOf("toxId" to toxId))
         }
 
         arguments?.getString(ARG_SHARE)?.let { share ->

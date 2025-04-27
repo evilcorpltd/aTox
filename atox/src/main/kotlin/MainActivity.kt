@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import javax.inject.Inject
 import ltd.evilcorp.atox.di.ViewModelFactory
 import ltd.evilcorp.atox.settings.Settings
+import ltd.evilcorp.atox.ui.contactlist.ARG_ADD_CONTACT
 import ltd.evilcorp.atox.ui.contactlist.ARG_SHARE
 
 private const val TAG = "MainActivity"
@@ -89,8 +90,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.findNavController()?.navigate(
-            R.id.addContactFragment,
-            bundleOf("toxId" to data.drop(SCHEME.length)),
+            R.id.contactListFragment,
+            bundleOf(ARG_ADD_CONTACT to data.drop(SCHEME.length)),
         )
     }
 
