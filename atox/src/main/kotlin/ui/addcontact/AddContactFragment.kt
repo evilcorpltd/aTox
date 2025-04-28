@@ -14,6 +14,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -21,9 +22,11 @@ import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentAddContactBinding
 import ltd.evilcorp.atox.ui.BaseFragment
+import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.domain.tox.ToxID
@@ -106,10 +109,15 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
         }
 
         add.setOnClickListener {
-            viewModel.addContact(ToxID(toxId.text.toString()), message.text.toString())
+            val id = ToxID(toxId.text.toString())
+            viewModel.addContact(id, message.text.toString())
             WindowInsetsControllerCompat(requireActivity().window, view)
                 .hide(WindowInsetsCompat.Type.ime())
-            findNavController().navigateUp()
+            findNavController().navigate(
+                R.id.chatFragment,
+                bundleOf(CONTACT_PUBLIC_KEY to id.toPublicKey().string()),
+                navOptions { popUpTo(R.id.contactListFragment) },
+            )
         }
 
         if (requireContext().packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
