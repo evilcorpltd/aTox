@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2022 aTox contributors
+// SPDX-FileCopyrightText: 2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -6,9 +7,7 @@ package ltd.evilcorp.atox
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Build
 import android.os.PowerManager
-import androidx.annotation.RequiresApi
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -20,7 +19,6 @@ class ProximityScreenOff @Inject constructor(context: Context) {
     private var screenOffWakeLock: PowerManager.WakeLock? = null
 
     @SuppressLint("WakelockTimeout")
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun acquire() {
         if (screenOffWakeLock == null) {
             screenOffWakeLock =
@@ -29,7 +27,6 @@ class ProximityScreenOff @Inject constructor(context: Context) {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun release() {
         screenOffWakeLock?.apply {
             if (isHeld) release()

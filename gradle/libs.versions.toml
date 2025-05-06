@@ -1,5 +1,5 @@
 [versions]
-sdk-min = "19"
+sdk-min = "21"
 sdk-target = "34"
 
 kotlin = "2.1.20"

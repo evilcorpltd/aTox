@@ -5,7 +5,7 @@ BASE_TARGET := arm-linux-androideabi
 
 include scripts/common.mk
 
-NDK_API := 19
+NDK_API := 21
 NDK_ARCH := arm
 VPX_TARGET := armv7-android-gcc
 

@@ -1,10 +1,10 @@
-// SPDX-FileCopyrightText: 2021 aTox contributors
+// SPDX-FileCopyrightText: 2021-2025 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
 package ltd.evilcorp.atox.ui.call
 
-import android.os.Build
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -51,12 +51,10 @@ class CallViewModel @Inject constructor(
 
     fun toggleSpeakerphone() {
         speakerphoneOn = !speakerphoneOn
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (speakerphoneOn) {
-                proximityScreenOff.release()
-            } else {
-                proximityScreenOff.acquire()
-            }
+        if (speakerphoneOn) {
+            proximityScreenOff.release()
+        } else {
+            proximityScreenOff.acquire()
         }
     }
 

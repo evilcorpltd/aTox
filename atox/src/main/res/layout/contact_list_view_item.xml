@@ -67,6 +67,5 @@
             app:layout_constraintLeft_toRightOf="@id/publicKey"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lastMessage"
-            app:tint="@color/colorPrimary"
-            tools:targetApi="LOLLIPOP"/>
+            app:tint="@color/colorPrimary"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2023 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 // SPDX-FileCopyrightText: 2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
@@ -77,20 +77,12 @@ class NotificationHelper @Inject constructor(private val context: Context) {
         // We can't use getActualDefaultRingtoneUri as Samsung requires the WRITE_SETTINGS permission for that. :D
         // See: https://github.com/evilcorpltd/aTox/issues/958
         val ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
-        val callChannelBuilder = NotificationChannelCompat.Builder(CALL, NotificationManagerCompat.IMPORTANCE_HIGH)
+        val attrs = AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE).build()
+        val callChannel = NotificationChannelCompat.Builder(CALL, NotificationManagerCompat.IMPORTANCE_HIGH)
             .setName(context.getString(R.string.calls))
             .setVibrationEnabled(true)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val audioAttributes = AudioAttributes.Builder()
-                .setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE)
-                .build()
-            callChannelBuilder.setSound(ringtone, audioAttributes)
-        } else {
-            callChannelBuilder.setSound(ringtone, null)
-        }
-
-        val callChannel = callChannelBuilder.build()
+            .setSound(ringtone, attrs)
+            .build()
 
         notifier.createNotificationChannelsCompat(listOf(messageChannel, friendChannel, callChannel))
     }

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 // SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
@@ -177,16 +177,14 @@ class ToxService : LifecycleService() {
                 }
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            lifecycleScope.launch {
-                callManager.inCall.collect {
-                    if (it is CallState.InCall) {
-                        if (!callManager.speakerphoneOn) {
-                            proximityScreenOff.acquire()
-                        }
-                    } else {
-                        proximityScreenOff.release()
+        lifecycleScope.launch {
+            callManager.inCall.collect {
+                if (it is CallState.InCall) {
+                    if (!callManager.speakerphoneOn) {
+                        proximityScreenOff.acquire()
                     }
+                } else {
+                    proximityScreenOff.release()
                 }
             }
         }

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<transition xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:targetApi="21">
+<transition xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="?android:attr/selectableItemBackground" />
     <item android:drawable="@color/transparentBar" />
 </transition>
