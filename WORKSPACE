@@ -238,7 +238,6 @@ maven_install(
         "androidx.lifecycle:lifecycle-service:2.8.7",
         "androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7",
         "androidx.lifecycle:lifecycle-viewmodel:2.8.7",
-        "androidx.multidex:multidex:2.0.1",
         "androidx.navigation:navigation-fragment-ktx:2.8.7",
         "androidx.navigation:navigation-ui-ktx:2.8.7",
         "androidx.preference:preference:1.2.1",

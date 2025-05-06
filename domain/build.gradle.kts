@@ -13,7 +13,6 @@ android {
     defaultConfig {
         minSdk = libs.versions.sdk.min.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled = true
     }
     buildTypes {
         getByName("release") {

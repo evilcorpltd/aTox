@@ -18,7 +18,6 @@ android {
         versionCode = 14
         versionName = "0.8.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled = true
     }
     buildTypes {
         getByName("debug") {
@@ -78,8 +77,6 @@ dependencies {
 
     implementation(libs.google.dagger.core)
     ksp(libs.google.dagger.compiler)
-
-    implementation(libs.androidx.multidex)
 
     implementation(libs.nayuki.qrcodegen)
 
