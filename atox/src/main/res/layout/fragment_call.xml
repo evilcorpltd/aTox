@@ -5,21 +5,51 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_above="@id/control_container">
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.15 "/>
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.15 "/>
+
         <ltd.evilcorp.atox.ui.AvatarImageView
                 android:id="@+id/avatarImageView"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:layout_centerInParent="true"
+                android:layout_height="0dp"
+                android:layout_width="0dp"
+                app:layout_constraintStart_toEndOf="@id/guideline_start"
+                app:layout_constraintEnd_toStartOf="@id/guideline_end"
+                app:layout_constraintTop_toBottomOf="@id/guideline_top"
+                app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
+                app:layout_constraintDimensionRatio="1:1"
                 app:statusIndicatorVisible="false"
                 app:strokeColor="@null" />
-    </RelativeLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.85 "/>
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.85 "/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout android:id="@+id/control_container"
             android:layout_width="match_parent"

@@ -6,67 +6,84 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        android:padding="10dp">
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp">
 
     <ltd.evilcorp.atox.ui.AvatarImageView
             android:id="@+id/avatarImageView"
-            android:layout_height="38dp"
-            android:layout_width="38dp"
+            android:layout_height="@dimen/default_avatar_size"
+            android:layout_width="@dimen/default_avatar_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:shapeAppearanceOverlay="@style/CircleImageView"
             app:strokeColor="@null" />
 
-    <TextView android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@id/avatarImageView"
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@+id/avatarImageView"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="name goes here"/>
-    <TextView android:id="@+id/lastMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="28 May 2019 11:49"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-    <TextView android:id="@+id/statusMessage"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:ellipsize="end"
-            android:singleLine="true"
-            app:layout_constraintHorizontal_weight="3"
-            app:layout_constraintLeft_toRightOf="@id/avatarImageView"
-            app:layout_constraintRight_toLeftOf="@id/publicKey"
-            app:layout_constraintTop_toBottomOf="@id/name"
-            tools:text="Really long and interesting status message"/>
-    <TextView android:id="@+id/publicKey"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:gravity="end"
-            android:singleLine="true"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toRightOf="@id/statusMessage"
-            app:layout_constraintRight_toLeftOf="@id/unreadIndicator"
-            app:layout_constraintTop_toBottomOf="@id/lastMessage"
-            tools:text="AAAA AAAA"/>
-    <ImageView android:id="@+id/unreadIndicator"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginVertical="4dp"
-            android:contentDescription="@null"
-            android:src="@drawable/circle"
-            android:translationZ="9dp"
-            app:layout_constraintLeft_toRightOf="@id/publicKey"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lastMessage"
-            app:tint="@color/colorPrimary"
-            tools:targetApi="LOLLIPOP"/>
+        <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="name goes here" />
+
+        <TextView
+                android:id="@+id/lastMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="28 May 2019 11:49" />
+
+        <TextView
+                android:id="@+id/statusMessage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                app:layout_constraintHorizontal_weight="3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/publicKey"
+                app:layout_constraintTop_toBottomOf="@id/name"
+                tools:text="Really long and interesting status message" />
+
+        <TextView
+                android:id="@+id/publicKey"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:gravity="end"
+                android:singleLine="true"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/statusMessage"
+                app:layout_constraintEnd_toStartOf="@id/unreadIndicator"
+                app:layout_constraintTop_toBottomOf="@id/lastMessage"
+                tools:text="AAAA AAAA" />
+
+        <ImageView
+                android:id="@+id/unreadIndicator"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginVertical="4dp"
+                android:contentDescription="@null"
+                android:src="@drawable/circle"
+                android:translationZ="9dp"
+                app:layout_constraintStart_toEndOf="@id/publicKey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lastMessage"
+                app:tint="@color/colorPrimary"
+                tools:targetApi="LOLLIPOP" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
