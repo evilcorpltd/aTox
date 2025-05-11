@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -7,6 +7,7 @@ package ltd.evilcorp.core.db
 import androidx.room.TypeConverter
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.MessageType
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.core.vo.UserStatus
 
@@ -43,5 +44,13 @@ class Converters private constructor() {
         @TypeConverter
         @JvmStatic
         fun fromMessageType(type: MessageType): Int = type.ordinal
+
+        @TypeConverter
+        @JvmStatic
+        fun toPublicKey(pk: String) = PublicKey(pk)
+
+        @TypeConverter
+        @JvmStatic
+        fun fromPublicKey(pk: PublicKey) = pk.string()
     }
 }

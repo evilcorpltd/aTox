@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 // SPDX-FileCopyrightText: 2020 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
@@ -87,7 +87,7 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
             }
 
             if (toxId.error == null) {
-                if (contacts.find { it.publicKey == input.toPublicKey().string() } != null) {
+                if (contacts.find { it.publicKey == input.toPublicKey() } != null) {
                     toxId.error = getString(R.string.tox_id_error_already_exists)
                 }
             }

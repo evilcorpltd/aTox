@@ -41,7 +41,7 @@ class FriendRequestFragment : BaseFragment<FragmentFriendRequestBinding>(Fragmen
 
         vm.byId(PublicKey(requireStringArg(FRIEND_REQUEST_PUBLIC_KEY))).observe(viewLifecycleOwner) {
             friendRequest = it
-            from.text = it.publicKey
+            from.text = it.publicKey.string()
             message.text = it.message
             reject.isEnabled = true
             accept.isEnabled = true

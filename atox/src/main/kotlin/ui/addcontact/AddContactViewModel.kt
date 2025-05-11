@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2019-2022 aTox contributors
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -16,6 +17,7 @@ import ltd.evilcorp.core.repository.MessageRepository
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
+import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.Sender
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.tox.Tox
@@ -35,7 +37,7 @@ class AddContactViewModel @Inject constructor(
     fun isToxRunning() = tox.started
     fun tryLoadTox(): Boolean = toxStarter.tryLoadTox(null) == ToxSaveStatus.Ok
 
-    private fun addToChatLog(publicKey: String, message: String) = scope.launch {
+    private fun addToChatLog(publicKey: PublicKey, message: String) = scope.launch {
         messageRepository.add(
             Message(
                 publicKey,
@@ -50,6 +52,6 @@ class AddContactViewModel @Inject constructor(
 
     fun addContact(toxId: ToxID, message: String) {
         contactManager.add(toxId, message)
-        addToChatLog(toxId.toPublicKey().string(), message)
+        addToChatLog(toxId.toPublicKey(), message)
     }
 }

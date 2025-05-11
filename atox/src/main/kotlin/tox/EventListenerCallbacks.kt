@@ -52,9 +52,6 @@ private fun isImage(filename: String) = try {
     false
 }
 
-private const val FINGERPRINT_LEN = 8
-private fun String.fingerprint() = this.take(FINGERPRINT_LEN)
-
 @Singleton
 class EventListenerCallbacks @Inject constructor(
     private val ctx: Context,
@@ -73,7 +70,7 @@ class EventListenerCallbacks @Inject constructor(
     private var audioPlayer: AudioPlayer? = null
     private val scope = CoroutineScope(Dispatchers.Default)
 
-    private suspend fun tryGetContact(pk: String, tag: String) = contactRepository.get(pk).firstOrNull().let {
+    private suspend fun tryGetContact(pk: PublicKey, tag: String) = contactRepository.get(pk).firstOrNull().let {
         if (it == null) Log.e(TAG, "$tag -> unable to get contact for ${pk.fingerprint()}")
         it
     }
@@ -147,7 +144,7 @@ class EventListenerCallbacks @Inject constructor(
         }
 
         fileRecvHandler = { publicKey, fileNo, kind, fileSize, filename ->
-            val name = if (kind == FileKind.Avatar.ordinal) publicKey else filename
+            val name = if (kind == FileKind.Avatar.ordinal) publicKey.string() else filename
 
             val id = fileTransferManager.add(FileTransfer(publicKey, fileNo, kind, fileSize, name, outgoing = false))
 
@@ -168,16 +165,16 @@ class EventListenerCallbacks @Inject constructor(
             }
         }
 
-        fileRecvControlHandler = { publicKey: String, fileNo: Int, control: ToxFileControl ->
-            fileTransferManager.setStatus(publicKey, fileNo, control)
+        fileRecvControlHandler = { pk: PublicKey, fileNo: Int, control: ToxFileControl ->
+            fileTransferManager.setStatus(pk, fileNo, control)
         }
 
-        fileChunkRequestHandler = { publicKey: String, fileNo: Int, position: Long, length: Int ->
-            fileTransferManager.sendChunk(publicKey, fileNo, position, length)
+        fileChunkRequestHandler = { pk: PublicKey, fileNo: Int, position: Long, length: Int ->
+            fileTransferManager.sendChunk(pk, fileNo, position, length)
         }
 
         selfConnectionStatusHandler = { status ->
-            userRepository.updateConnection(tox.publicKey.string(), status)
+            userRepository.updateConnection(tox.publicKey, status)
         }
 
         friendTypingHandler = { publicKey, isTyping ->
@@ -201,8 +198,8 @@ class EventListenerCallbacks @Inject constructor(
                 audioPlayer?.stop()
                 audioPlayer?.release()
                 audioPlayer = null
-                notificationHelper.dismissCallNotification(PublicKey(pk))
-                callManager.endCall(PublicKey(pk))
+                notificationHelper.dismissCallNotification(pk)
+                callManager.endCall(pk)
             }
         }
 

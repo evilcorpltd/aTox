@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -25,7 +25,7 @@ enum class UserStatus {
 data class Contact(
     @PrimaryKey
     @ColumnInfo(name = "public_key")
-    val publicKey: String,
+    val publicKey: PublicKey,
 
     @ColumnInfo(name = "name")
     var name: String = "",

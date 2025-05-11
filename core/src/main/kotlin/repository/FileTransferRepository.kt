@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2020 aTox contributors
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -9,6 +9,7 @@ import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import ltd.evilcorp.core.db.FileTransferDao
 import ltd.evilcorp.core.vo.FileTransfer
+import ltd.evilcorp.core.vo.PublicKey
 
 @Singleton
 class FileTransferRepository @Inject internal constructor(private val dao: FileTransferDao) {
@@ -16,7 +17,7 @@ class FileTransferRepository @Inject internal constructor(private val dao: FileT
 
     fun delete(id: Int) = dao.delete(id)
 
-    fun get(publicKey: String): Flow<List<FileTransfer>> = dao.load(publicKey)
+    fun get(pk: PublicKey): Flow<List<FileTransfer>> = dao.load(pk)
 
     fun get(id: Int): Flow<FileTransfer> = dao.load(id)
 

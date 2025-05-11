@@ -15,6 +15,7 @@ android {
         minSdk = libs.versions.sdk.min.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         ksp {
+            arg("room.generateKotlin", "true")
             arg("room.schemaLocation", "$projectDir/schemas")
         }
     }

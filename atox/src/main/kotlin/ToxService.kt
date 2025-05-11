@@ -139,7 +139,7 @@ class ToxService : LifecycleService() {
         }
 
         lifecycleScope.launch(Dispatchers.Default) {
-            userRepository.get(tox.publicKey.string())
+            userRepository.get(tox.publicKey)
                 .filterNotNull()
                 .filter { it.connectionStatus != connectionStatus }
                 .flowWithLifecycle(lifecycle)
