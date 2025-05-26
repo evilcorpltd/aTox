@@ -63,7 +63,7 @@ jobs:
         with:
           api-level: 31
           arch: x86_64
-          script: ./gradlew connectedCheck || { adb logcat -d; exit 1; }
+          script: ./gradlew connectedCheck
 
   tox4j:
     runs-on: ubuntu-22.04
