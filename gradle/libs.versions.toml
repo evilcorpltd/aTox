@@ -28,10 +28,10 @@ androidLibrary = { id = "com.android.library", version.ref = "android-plugin" }
 
 [libraries]
 androidx-activity = "androidx.activity:activity:1.9.3" # >=1.10.0 needs compileSdk 35.
-androidx-appcompat = "androidx.appcompat:appcompat:1.7.0"
+androidx-appcompat = "androidx.appcompat:appcompat:1.7.1"
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.1"
 androidx-core-ktx = "androidx.core:core-ktx:1.13.1" # >=1.15.0 needs compileSdk 35.
-androidx-fragment = "androidx.fragment:fragment:1.8.6"
+androidx-fragment = "androidx.fragment:fragment:1.8.8"
 
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigation" }
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigation" }
