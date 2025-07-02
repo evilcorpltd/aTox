@@ -2,8 +2,8 @@
 sdk-min = "21"
 sdk-target = "34"
 
-kotlin = "2.1.21"
-ksp = "2.1.21-2.0.1"
+kotlin = "2.2.0"
+ksp = "2.2.0-2.0.2"
 android-plugin = "8.10.1"
 
 coroutines = "1.10.2"
