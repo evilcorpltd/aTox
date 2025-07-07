@@ -10,6 +10,7 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.OpenableColumns
 import android.util.Log
+import androidx.core.net.toUri
 import im.tox.tox4j.core.enums.ToxFileControl
 import java.io.File
 import java.io.InputStream
@@ -85,7 +86,7 @@ class FileTransferManager @Inject constructor(
             setProgress(ft, FT_REJECTED)
             fileTransfers.remove(ft)
             if (ft.outgoing) {
-                val uri = Uri.parse(ft.destination)
+                val uri = ft.destination.toUri()
                 outgoingFiles.remove(Pair(pk, ft.fileNumber))?.inputStream?.close()
                 releaseFilePermission(uri)
             } else {
@@ -167,7 +168,7 @@ class FileTransferManager @Inject constructor(
         fileTransfers.remove(ft)
         setProgress(ft, FT_REJECTED)
         tox.stopFileTransfer(PublicKey(ft.publicKey), ft.fileNumber)
-        val uri = Uri.parse(ft.destination)
+        val uri = ft.destination.toUri()
         if (ft.outgoing) {
             outgoingFiles.remove(Pair(ft.publicKey, ft.fileNumber))?.inputStream?.close()
             releaseFilePermission(uri)
@@ -205,7 +206,7 @@ class FileTransferManager @Inject constructor(
             return
         }
 
-        RandomAccessFile(File(Uri.parse(ft.destination).path!!), "rwd").use {
+        RandomAccessFile(File(ft.destination.toUri().path!!), "rwd").use {
             it.seek(position)
             it.write(data)
         }
@@ -271,7 +272,7 @@ class FileTransferManager @Inject constructor(
             Log.i(TAG, "Finished outgoing ft ${pk.fingerprint()} $fileNo ${ft.isComplete()}")
             fileTransfers.remove(ft)
             outgoingFiles.remove(Pair(pk, fileNo))?.inputStream?.close()
-            releaseFilePermission(Uri.parse(ft.destination))
+            releaseFilePermission(ft.destination.toUri())
             return
         }
 
@@ -328,7 +329,7 @@ class FileTransferManager @Inject constructor(
         }
         fileTransferRepository.get(id).take(1).collect {
             if (!it.outgoing && it.destination.startsWith("file://")) {
-                File(Uri.parse(it.destination).path!!).delete()
+                File(it.destination.toUri().path!!).delete()
             }
             fileTransferRepository.delete(id)
         }

@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2020-2022 aTox contributors
+// SPDX-FileCopyrightText: 2020-2025 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -23,7 +24,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import androidx.core.content.getSystemService
+import androidx.core.graphics.createBitmap
 import androidx.core.graphics.scale
+import androidx.core.graphics.set
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.setPadding
@@ -213,21 +216,17 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(FragmentUse
 
     private fun asQr(id: ToxID, qrSize: Px, padding: Px): Bitmap {
         val qrData = QrCode.encodeText("tox:%s".format(id.string()), QrCode.Ecc.LOW)
-        var bmpQr: Bitmap = Bitmap.createBitmap(qrData.size, qrData.size, Bitmap.Config.RGB_565)
+        var bmpQr: Bitmap = createBitmap(qrData.size, qrData.size, Bitmap.Config.RGB_565)
         for (x in 0 until qrData.size) {
             for (y in 0 until qrData.size) {
-                bmpQr.setPixel(x, y, if (qrData.getModule(x, y)) Color.BLACK else Color.WHITE)
+                bmpQr[x, y] = if (qrData.getModule(x, y)) Color.BLACK else Color.WHITE
             }
         }
 
         bmpQr = bmpQr.scale(qrSize.px, qrSize.px, false)
 
         val bmpQrWithPadding =
-            Bitmap.createBitmap(
-                bmpQr.width + 2 * padding.px,
-                bmpQr.height + 2 * padding.px,
-                Bitmap.Config.RGB_565,
-            )
+            createBitmap(bmpQr.width + 2 * padding.px, bmpQr.height + 2 * padding.px, Bitmap.Config.RGB_565)
         val canvas = Canvas(bmpQrWithPadding)
         canvas.drawPaint(
             Paint().apply {

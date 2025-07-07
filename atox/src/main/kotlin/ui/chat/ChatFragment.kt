@@ -11,7 +11,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -25,11 +24,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.getSystemService
+import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsAnimationCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
@@ -300,7 +301,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                     val uri = FileProvider.getUriForFile(
                         requireContext(),
                         "${BuildConfig.APPLICATION_ID}.fileprovider",
-                        File(Uri.parse(ft.destination).path!!),
+                        File(ft.destination.toUri().path!!),
                     )
                     val shareIntent = Intent(Intent.ACTION_VIEW).apply {
                         putExtra(Intent.EXTRA_TITLE, ft.fileName)
@@ -431,7 +432,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
 
     private fun updateActions() = binding.run {
         send.visibility = if (outgoingMessage.text.isEmpty()) View.GONE else View.VISIBLE
-        attach.visibility = if (send.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+        attach.visibility = if (send.isVisible) View.GONE else View.VISIBLE
         attach.isEnabled = viewModel.contactOnline
         attach.setColorFilter(
             ContextCompat.getColor(

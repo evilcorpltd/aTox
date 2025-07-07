@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2023 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2020-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -7,10 +7,10 @@ package ltd.evilcorp.atox.ui
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.TransitionDrawable
 import android.os.Bundle
 import android.view.Window
+import androidx.core.graphics.drawable.toDrawable
 import javax.inject.Inject
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.DialogStatusBinding
@@ -40,7 +40,7 @@ class StatusDialog(
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         binding = DialogStatusBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
 
         selectStatus(activeStatus)
         binding.run {

@@ -28,6 +28,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.Person
 import androidx.core.app.RemoteInput
 import androidx.core.content.getSystemService
+import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.os.bundleOf
 import androidx.navigation.NavDeepLinkBuilder
@@ -91,7 +92,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
 
     private val circleTransform = object : Transformation {
         override fun transform(bitmap: Bitmap): Bitmap {
-            val output = Bitmap.createBitmap(bitmap.width, bitmap.height, Bitmap.Config.ARGB_8888)
+            val output = createBitmap(bitmap.width, bitmap.height)
             val canvas = Canvas(output)
             val paint = Paint()
             val rect = Rect(0, 0, bitmap.width, bitmap.height)

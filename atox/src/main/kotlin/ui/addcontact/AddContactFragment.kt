@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
 // SPDX-FileCopyrightText: 2020 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
@@ -9,11 +9,11 @@ import android.app.Activity.RESULT_OK
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -131,7 +131,7 @@ class AddContactFragment : BaseFragment<FragmentAddContactBinding>(FragmentAddCo
                         },
                     )
                 } catch (_: ActivityNotFoundException) {
-                    val uri = Uri.parse("https://f-droid.org/en/packages/com.google.zxing.client.android/")
+                    val uri = "https://f-droid.org/en/packages/com.google.zxing.client.android/".toUri()
                     startActivity(Intent(Intent.ACTION_VIEW, uri))
                 }
             }

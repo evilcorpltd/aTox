@@ -10,6 +10,7 @@ import android.content.Context
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -147,7 +148,7 @@ class ChatViewModel @Inject constructor(
         fileTransferManager.get(id).take(1).collect { ft ->
             launch(Dispatchers.IO) {
                 try {
-                    FileInputStream(File(Uri.parse(ft.destination).path!!)).use { ins ->
+                    FileInputStream(File(ft.destination.toUri().path!!)).use { ins ->
                         resolver.openOutputStream(dest).use { os ->
                             ins.copyTo(os!!)
                         }

@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2019-2022 aTox contributors
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2021-2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -12,6 +13,7 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.Typeface
+import androidx.core.graphics.createBitmap
 import kotlin.math.abs
 import ltd.evilcorp.atox.R
 
@@ -33,7 +35,7 @@ internal object AvatarFactory {
         val defaultAvatarSize = resources.getDimension(R.dimen.default_avatar_size)
         val textScale = size.px / defaultAvatarSize
 
-        val bitmap = Bitmap.createBitmap(size.px, size.px, Bitmap.Config.ARGB_8888)
+        val bitmap = createBitmap(size.px, size.px)
         val canvas = Canvas(bitmap)
         val rect = RectF(0f, 0f, bitmap.width.toFloat(), bitmap.height.toFloat())
         val colors = resources.getIntArray(R.array.contactBackgrounds)

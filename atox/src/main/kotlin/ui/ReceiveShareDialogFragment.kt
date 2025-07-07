@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2023 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2021-2025 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -8,9 +8,9 @@ import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Window
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LiveData
 import ltd.evilcorp.atox.R
@@ -56,7 +56,7 @@ private class ReceiveShareDialog(
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         binding = DialogReceiveShareBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
 
         binding.sharingText.text = String.format("%s", sharePreview.truncated(SHARE_TEXT_PREVIEW_LENGTH))
 

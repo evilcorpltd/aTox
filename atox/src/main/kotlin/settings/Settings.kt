@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2024 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2020-2025 Robin Lindén <dev@robinlinden.eu>
 // SPDX-FileCopyrightText: 2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
@@ -38,7 +38,7 @@ class Settings @Inject constructor(private val ctx: Context) {
 
     var udpEnabled: Boolean
         get() = preferences.getBoolean("udp_enabled", false)
-        set(enabled) = preferences.edit().putBoolean("udp_enabled", enabled).apply()
+        set(enabled) = preferences.edit { putBoolean("udp_enabled", enabled) }
 
     var runAtStartup: Boolean
         get() = ctx.packageManager.getComponentEnabledSetting(
@@ -60,11 +60,11 @@ class Settings @Inject constructor(private val ctx: Context) {
 
     var autoAwayEnabled: Boolean
         get() = preferences.getBoolean("auto_away_enabled", false)
-        set(enabled) = preferences.edit().putBoolean("auto_away_enabled", enabled).apply()
+        set(enabled) = preferences.edit { putBoolean("auto_away_enabled", enabled) }
 
     var autoAwaySeconds: Long
         get() = preferences.getLong("auto_away_seconds", 180)
-        set(seconds) = preferences.edit().putLong("auto_away_seconds", seconds).apply()
+        set(seconds) = preferences.edit { putLong("auto_away_seconds", seconds) }
 
     var proxyType: ProxyType
         get() = ProxyType.entries[preferences.getInt("proxy_type", 0)]
