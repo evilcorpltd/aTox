@@ -1,6 +1,6 @@
 [versions]
 sdk-min = "21"
-sdk-target = "34"
+sdk-target = "35"
 
 kotlin = "2.2.0"
 ksp = "2.2.0-2.0.2"
