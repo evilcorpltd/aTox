@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2020-2021 aTox contributors
+// SPDX-FileCopyrightText: 2019-2025 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2022 aTox contributors
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -19,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.runBlocking
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentProfileBinding
 import ltd.evilcorp.atox.ui.BaseFragment
@@ -95,7 +97,10 @@ class CreateProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfi
                 name = if (username.text.isNotEmpty()) username.text.toString() else getString(R.string.name_default),
                 statusMessage = getString(R.string.status_message_default),
             )
-            viewModel.create(user)
+
+            runBlocking {
+                viewModel.create(user).join()
+            }
 
             findNavController().popBackStack()
         }
