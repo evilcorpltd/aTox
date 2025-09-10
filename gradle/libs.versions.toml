@@ -13,10 +13,10 @@ coroutines = "1.10.2"
 #   in class Lltd/evilcorp/atox/di/DaggerAppComponent$AppComponentImpl; or its super classes (declaration of 'ltd.evilcorp.atox.di.DaggerAppComponent$AppComponentImpl'
 #   appears in /data/app/~~thc_LJkWCWx8397z9eqxhg==/ltd.evilcorp.atox.debug-Msb0l4sq9lyyE79UBO_1Tg==/base.apk!classes11.dex)
 dagger = "2.55"
-espresso = "3.6.1"
-lifecycle = "2.9.0"
-navigation = "2.9.0"
-room = "2.7.1"
+espresso = "3.7.0"
+lifecycle = "2.9.3"
+navigation = "2.9.4"
+room = "2.7.2" # >=2.8.0 needs minSdk 23.
 tox4j-android = "0.2.20"
 tox4j-core = "0.2.3"
 
@@ -27,11 +27,11 @@ androidApplication = { id = "com.android.application", version.ref = "android-pl
 androidLibrary = { id = "com.android.library", version.ref = "android-plugin" }
 
 [libraries]
-androidx-activity = "androidx.activity:activity:1.9.3" # >=1.10.0 needs compileSdk 35.
+androidx-activity = "androidx.activity:activity:1.10.1" # >=1.11.0 needs compileSdk 36.
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.1"
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.1"
-androidx-core-ktx = "androidx.core:core-ktx:1.13.1" # >=1.15.0 needs compileSdk 35.
-androidx-fragment = "androidx.fragment:fragment:1.8.8"
+androidx-core-ktx = "androidx.core:core-ktx:1.16.0" # >=1.17.0 needs compileSdk 36.
+androidx-fragment = "androidx.fragment:fragment:1.8.9"
 
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigation" }
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigation" }
@@ -47,7 +47,7 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
 
-google-android-material = "com.google.android.material:material:1.12.0"
+google-android-material = "com.google.android.material:material:1.13.0"
 google-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 google-dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 
@@ -71,8 +71,8 @@ tox4j-c = { module = "org.toktok:tox4j-c_2.11", version.ref = "tox4j-core" }
 
 test-espresso-contrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "espresso" }
 test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
-test-junit-ext = "androidx.test.ext:junit:1.2.1"
-test-rules = "androidx.test:rules:1.6.1"
-test-runner = "androidx.test:runner:1.6.2"
+test-junit-ext = "androidx.test.ext:junit:1.3.0"
+test-rules = "androidx.test:rules:1.7.0"
+test-runner = "androidx.test:runner:1.7.0"
 
 [bundles]
