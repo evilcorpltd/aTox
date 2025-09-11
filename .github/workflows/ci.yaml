@@ -73,6 +73,11 @@ jobs:
         with:
           distribution: adopt
           java-version: 17
+      # sbt 0.13.18 is broken starting with sbt-runner 1.11.6.
+      # See: https://github.com/sbt/sbt/issues/8278
+      - uses: sbt/setup-sbt@17575ea4e18dd928fe5968dbe32294b97923d65b # v1.11.13
+        with:
+          sbt-runner-version: 1.11.5
       - name: Set up cache
         id: cache
         uses: actions/cache@v4
