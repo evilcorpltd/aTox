@@ -4,7 +4,7 @@ sdk-target = "35"
 
 kotlin = "2.2.0"
 ksp = "2.2.0-2.0.2"
-android-plugin = "8.11.1"
+android-plugin = "8.13.0"
 
 coroutines = "1.10.2"
 # TODO(robinlinden): dagger 2.56.x (last tested 2.56.2) results in:
