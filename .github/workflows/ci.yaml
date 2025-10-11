@@ -98,11 +98,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
           export ANDROID_NDK_HOME="${ANDROID_SDK_ROOT}/ndk/21.4.7075529"
-          ./scripts/build-host -j$(nproc)
-          ./scripts/build-aarch64-linux-android -j$(nproc) release
-          ./scripts/build-arm-linux-androideabi -j$(nproc) release
-          ./scripts/build-i686-linux-android -j$(nproc) release
-          ./scripts/build-x86_64-linux-android -j$(nproc) release
+          ./scripts/build-all -j$(nproc)
       - name: Upload tox4j
         uses: actions/upload-artifact@v4
         with:

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+./scripts/build-host "$@"
+
+./scripts/build-aarch64-linux-android release "$@"
+./scripts/build-arm-linux-androideabi release "$@"
+./scripts/build-i686-linux-android release "$@"
+./scripts/build-x86_64-linux-android release "$@"
