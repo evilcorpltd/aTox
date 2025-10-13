@@ -8,7 +8,7 @@ jobs:
   ktlint:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: curl -sSLO https://github.com/pinterest/ktlint/releases/download/1.5.0/ktlint && chmod a+x ktlint
       - run: ./ktlint
 
@@ -23,17 +23,17 @@ jobs:
           - windows-2022
     steps:
       - name: Download tox4j
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: tox4j
           path: ~/.m2
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
         with:
           distribution: adopt
           java-version: 17
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/master' }}
       # First build the .apks, then run things like check and lint tasks attached to the build task.
@@ -68,8 +68,8 @@ jobs:
   tox4j:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
         with:
           distribution: adopt
           java-version: 17
@@ -110,8 +110,8 @@ jobs:
   bazel:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
         with:
           distribution: adopt
           java-version: 17
@@ -131,7 +131,7 @@ jobs:
   buildifier:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install
         run: |
           wget --output-document=buildifier https://github.com/bazelbuild/buildtools/releases/download/v7.3.1/buildifier-linux-amd64
@@ -142,7 +142,7 @@ jobs:
   prettier:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: npm install --global prettier@3.3.3
       - run: npx prettier --ignore-path .gitignore --write .
       - run: git diff --exit-code
