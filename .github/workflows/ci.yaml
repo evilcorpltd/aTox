@@ -10,7 +10,7 @@ jobs:
     timeout-minutes: 2
     steps:
       - uses: actions/checkout@v5
-      - run: curl -sSLO https://github.com/pinterest/ktlint/releases/download/1.5.0/ktlint && chmod a+x ktlint
+      - run: curl -sSLO https://github.com/pinterest/ktlint/releases/download/1.7.1/ktlint && chmod a+x ktlint
       - run: ./ktlint
 
   gradle:
@@ -47,7 +47,7 @@ jobs:
       - run: ./gradlew build
       - name: Upload apk
         if: startsWith(matrix.os, 'ubuntu')
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: atox-debug.apk
           path: ./atox/build/outputs/apk/debug/atox-debug.apk
@@ -103,7 +103,7 @@ jobs:
           export ANDROID_NDK_HOME="${ANDROID_SDK_ROOT}/ndk/21.4.7075529"
           ./scripts/build-all -j$(nproc)
       - name: Upload tox4j
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: tox4j
           path: ~/.m2
