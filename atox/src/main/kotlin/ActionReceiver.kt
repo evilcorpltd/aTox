@@ -138,8 +138,9 @@ class ActionReceiver : BroadcastReceiver() {
 
         if (! context.hasPermission(Manifest.permission.RECORD_AUDIO) ) {
             // Unable to speak, so reject the call
+            callManager.endCall(pk)
             callManager.removePendingCall(pk)
-            notificationHelper.dismissNotifications(pk)
+            notificationHelper.dismissCallNotification(pk)
             // take the user to Settings to set mic permission
             val intent = buildPermissionIntent(context)
             context.startActivity(intent)
