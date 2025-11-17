@@ -260,7 +260,6 @@ class NotificationHelper @Inject constructor(private val context: Context) {
             return
         }
 
-        //Log.d(TAG, "showOngoingCallNotification")
         dismissCallNotification(PublicKey(contact.publicKey))
         val notificationBuilder = NotificationCompat.Builder(context, CALL)
             .setCategory(NotificationCompat.CATEGORY_CALL)
@@ -313,13 +312,15 @@ class NotificationHelper @Inject constructor(private val context: Context) {
             return
         }
 
-        Log.d(TAG, "showPendingCallNotificatio")
-        val pendingIntent = deepLinkToChat( PublicKey(c.publicKey))
+        //Log.d(TAG, "showPendingCallNotificatio here")
         val notificationBuilder = NotificationCompat.Builder(context, CALL)
+
+        val pendingIntent = deepLinkToChat( PublicKey(c.publicKey))
         if (context.hasPermission(Manifest.permission.USE_FULL_SCREEN_INTENT)) {
+            // making the notification persistent takes a Full-screen intent
             notificationBuilder
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setFullScreenIntent(pendingIntent, true )
+                .setFullScreenIntent(pendingIntent, true)
         } else {
             notificationBuilder.setContentIntent(pendingIntent)
         }
@@ -329,7 +330,6 @@ class NotificationHelper @Inject constructor(private val context: Context) {
             .setSmallIcon(android.R.drawable.ic_menu_call)
             .setContentTitle(context.getString(R.string.incoming_call))
             .setContentText(context.getString(R.string.incoming_call_from, c.name))
-
             .addAction(
                 NotificationCompat.Action
                     .Builder(
