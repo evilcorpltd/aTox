@@ -83,6 +83,21 @@ class ToxTest {
                         33445,
                         PublicKey("10C00EB250C3233E343E2AEBA07115A5C28920E9C8D29492F6D00B29049EDC7E"),
                     ),
+                    BootstrapNode(
+                        "tox.kurnevsky.net",
+                        33445,
+                        PublicKey("82EF82BA33445A1F91A7DB27189ECFC0C013E06E3DA71F588ED692BED625EC23"),
+                    ),
+                    BootstrapNode(
+                        "initramfs.io",
+                        33445,
+                        PublicKey("3F0A45A268367C1BEA652F258C85F4A66DA76BCAA667A49E770BCC4917AB6A25"),
+                    ),
+                    BootstrapNode(
+                        "tox2.plastiras.org",
+                        33445,
+                        PublicKey("B6626D386BE7E3ACA107B46F48A5C4D522D29281750D44A0CBA6A2721E79C951"),
+                    ),
                 ),
             ),
         )
