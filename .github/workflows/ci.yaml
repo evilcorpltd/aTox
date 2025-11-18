@@ -7,6 +7,7 @@ on:
 jobs:
   ktlint:
     runs-on: ubuntu-24.04
+    timeout-minutes: 2
     steps:
       - uses: actions/checkout@v5
       - run: curl -sSLO https://github.com/pinterest/ktlint/releases/download/1.5.0/ktlint && chmod a+x ktlint
@@ -14,6 +15,7 @@ jobs:
 
   gradle:
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
     needs: tox4j
     strategy:
       matrix:
@@ -67,6 +69,7 @@ jobs:
 
   tox4j:
     runs-on: ubuntu-24.04
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-java@v5
@@ -109,6 +112,7 @@ jobs:
 
   bazel:
     runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-java@v5
@@ -130,6 +134,7 @@ jobs:
 
   buildifier:
     runs-on: ubuntu-24.04
+    timeout-minutes: 2
     steps:
       - uses: actions/checkout@v5
       - name: Install
@@ -141,6 +146,7 @@ jobs:
 
   prettier:
     runs-on: ubuntu-24.04
+    timeout-minutes: 2
     steps:
       - uses: actions/checkout@v5
       - run: npm install --global prettier@3.3.3
