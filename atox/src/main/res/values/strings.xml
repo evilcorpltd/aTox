@@ -192,4 +192,5 @@
     <string name="export_history">Export history</string>
     <string name="export_history_success">Message history exported</string>
     <string name="export_history_failure">Message history export failed: %1$s</string>
+    <string name="ringing">ringing...</string>
 </resources>

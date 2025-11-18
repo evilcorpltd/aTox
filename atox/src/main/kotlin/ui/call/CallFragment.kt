@@ -7,6 +7,7 @@ package ltd.evilcorp.atox.ui.call
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -28,6 +29,8 @@ import ltd.evilcorp.domain.feature.CallState
 
 private const val PERMISSION = Manifest.permission.RECORD_AUDIO
 
+private const val TAG = "CallFragment"
+
 class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::inflate) {
     private val vm: CallViewModel by viewModels { vmFactory }
 
@@ -35,6 +38,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
         ActivityResultContracts.RequestPermission(),
     ) { granted ->
         if (granted) {
+            Log.d(TAG, "Attempt to start sending audio while hot in call 2")
             vm.startSendingAudio()
         } else {
             Toast.makeText(requireContext(), getString(R.string.call_mic_permission_needed), Toast.LENGTH_LONG).show()
@@ -51,6 +55,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
         vm.setActiveContact(PublicKey(requireStringArg(CONTACT_PUBLIC_KEY)))
         vm.contact.observe(viewLifecycleOwner) {
             avatarImageView.setFrom(it)
+            tvData.setText(it.name)
         }
 
         endCall.setOnClickListener {
@@ -71,6 +76,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
                 vm.stopSendingAudio()
             } else {
                 if (requireContext().hasPermission(PERMISSION)) {
+                    Log.d(TAG, "Attempt to start sending audio while hot in call 3")
                     vm.startSendingAudio()
                 } else {
                     requestPermissionLauncher.launch(PERMISSION)
@@ -97,11 +103,21 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
             return
         }
 
+        vm.established.asLiveData().observe(viewLifecycleOwner) { established ->
+            when (established) {
+                CallState.RINGING -> tvState.setText(getString(R.string.ringing))
+                CallState.ANSWERED -> {
+                    tvState.setText("")
+                    if (requireContext().hasPermission(PERMISSION)) {
+                        vm.startSendingAudio()
+                    }
+                }
+                else -> Log.e(TAG, "ESTABLISHED = ${established}")
+            }
+        }
+
         startCall()
 
-        if (requireContext().hasPermission(PERMISSION)) {
-            vm.startSendingAudio()
-        }
     }
 
     private fun updateSpeakerphoneIcon() {
@@ -117,4 +133,5 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
             }
         }
     }
+
 }

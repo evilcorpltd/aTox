@@ -61,5 +61,7 @@ class CallViewModel @Inject constructor(
     val inCall = callManager.inCall
     val sendingAudio = callManager.sendingAudio
 
+    val established = callManager.established
+
     var speakerphoneOn by callManager::speakerphoneOn
 }
