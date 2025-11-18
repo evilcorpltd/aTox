@@ -25,6 +25,12 @@ import ltd.evilcorp.domain.tox.Tox
 sealed class CallState {
     object NotInCall : CallState()
     data class InCall(val publicKey: PublicKey, val startTime: Long) : CallState()
+
+    companion object {
+        const val IDLE: Int = 0
+        const val RINGING = 1
+        const val ANSWERED = 2
+    }
 }
 
 private const val TAG = "CallManager"
@@ -37,6 +43,9 @@ private const val AUDIO_SEND_INTERVAL_MS = 20
 class CallManager @Inject constructor(private val tox: Tox, private val scope: CoroutineScope, context: Context) {
     private val _inCall = MutableStateFlow<CallState>(CallState.NotInCall)
     val inCall: StateFlow<CallState> get() = _inCall
+
+    private val _established = MutableStateFlow<Int>(CallState.IDLE)
+    val established : StateFlow<Int> get() = _established
 
     private val _pendingCalls = MutableStateFlow<MutableSet<Contact>>(mutableSetOf())
     val pendingCalls: StateFlow<Set<Contact>> get() = _pendingCalls
@@ -68,8 +77,10 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
     fun startCall(publicKey: PublicKey) {
         if (pendingCalls.value.any { it.publicKey == publicKey.string() }) {
             tox.answerCall(publicKey)
+            _established.value = CallState.ANSWERED
         } else {
             tox.startCall(publicKey)
+            _established.value = CallState.RINGING
         }
         _inCall.value = CallState.InCall(publicKey, SystemClock.elapsedRealtime())
         audioManager?.mode = AudioManager.MODE_IN_COMMUNICATION
@@ -92,6 +103,7 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
                 throw e
             }
         }
+        _established.value = CallState.IDLE
     }
 
     fun startSendingAudio(): Boolean {
@@ -133,5 +145,9 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
             recorder.release()
             _sendingAudio.value = false
         }
+    }
+
+    fun setAnswered() : Unit {
+        _established.value = CallState.ANSWERED
     }
 }
