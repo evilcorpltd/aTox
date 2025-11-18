@@ -10,6 +10,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import kotlin.test.Test
 import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -58,7 +60,7 @@ class ToxTest {
 
     @ExperimentalCoroutinesApi
     @Test(timeout = 60 * 1000)
-    fun bootstrapping_against_a_live_node_works() = runTest {
+    fun bootstrapping_against_a_live_node_works(): Unit = runBlocking {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val db = Room.inMemoryDatabaseBuilder(instrumentation.context, Database::class.java).build()
         val userRepository = UserRepository(db.userDao())
@@ -104,10 +106,9 @@ class ToxTest {
         tox.start(SaveOptions(null, false, ProxyType.None, "", 0), null, eventListener, ToxAvEventListener())
 
         while (!connected) {
-            advanceTimeBy(100.milliseconds)
+            delay(500.milliseconds)
         }
 
         tox.stop()
-        advanceUntilIdle()
     }
 }
