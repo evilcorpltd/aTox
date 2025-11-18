@@ -57,7 +57,7 @@ class ToxTest {
     }
 
     @ExperimentalCoroutinesApi
-    @Test
+    @Test(timeout = 60 * 1000)
     fun bootstrapping_against_a_live_node_works() = runTest {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val db = Room.inMemoryDatabaseBuilder(instrumentation.context, Database::class.java).build()
