@@ -43,6 +43,7 @@ import ltd.evilcorp.atox.KEY_CONTACT_PK
 import ltd.evilcorp.atox.KEY_TEXT_REPLY
 import ltd.evilcorp.atox.PendingIntentCompat
 import ltd.evilcorp.atox.R
+import ltd.evilcorp.atox.hasPermission
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.ui.chat.FOCUS_ON_MESSAGE_BOX
 import ltd.evilcorp.core.vo.Contact
@@ -311,12 +312,24 @@ class NotificationHelper @Inject constructor(private val context: Context) {
             return
         }
 
-        val notification = NotificationCompat.Builder(context, CALL)
+        // Log.d(TAG, "showPendingCallNotificatio here")
+        val notificationBuilder = NotificationCompat.Builder(context, CALL)
+
+        val pendingIntent = deepLinkToChat(PublicKey(c.publicKey))
+        if (context.hasPermission(Manifest.permission.USE_FULL_SCREEN_INTENT)) {
+            // making the notification persistent takes a Full-screen intent
+            notificationBuilder
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setFullScreenIntent(pendingIntent, true)
+        } else {
+            notificationBuilder.setContentIntent(pendingIntent)
+        }
+
+        notificationBuilder
             .setCategory(NotificationCompat.CATEGORY_CALL)
             .setSmallIcon(android.R.drawable.ic_menu_call)
             .setContentTitle(context.getString(R.string.incoming_call))
             .setContentText(context.getString(R.string.incoming_call_from, c.name))
-            .setContentIntent(deepLinkToChat(PublicKey(c.publicKey)))
             .addAction(
                 NotificationCompat.Action
                     .Builder(
@@ -362,10 +375,11 @@ class NotificationHelper @Inject constructor(private val context: Context) {
             )
             .setSound(RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE))
             .setSilent(status == UserStatus.Busy)
-            .build()
-            .apply {
-                flags = flags.or(NotificationCompat.FLAG_INSISTENT)
-            }
+
+        val notification = notificationBuilder.build()
+        notification.apply {
+            flags = flags.or(NotificationCompat.FLAG_INSISTENT)
+        }
 
         notifier.notify(c.publicKey.hashCode() + CALL.hashCode(), notification)
     }
