@@ -312,10 +312,10 @@ class NotificationHelper @Inject constructor(private val context: Context) {
             return
         }
 
-        //Log.d(TAG, "showPendingCallNotificatio here")
+        // Log.d(TAG, "showPendingCallNotificatio here")
         val notificationBuilder = NotificationCompat.Builder(context, CALL)
 
-        val pendingIntent = deepLinkToChat( PublicKey(c.publicKey))
+        val pendingIntent = deepLinkToChat(PublicKey(c.publicKey))
         if (context.hasPermission(Manifest.permission.USE_FULL_SCREEN_INTENT)) {
             // making the notification persistent takes a Full-screen intent
             notificationBuilder
@@ -378,7 +378,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
 
         val notification = notificationBuilder.build()
         notification.apply {
-                flags = flags.or(NotificationCompat.FLAG_INSISTENT)
+            flags = flags.or(NotificationCompat.FLAG_INSISTENT)
         }
 
         notifier.notify(c.publicKey.hashCode() + CALL.hashCode(), notification)
