@@ -80,8 +80,9 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
     ) { granted ->
-        if (! granted)
+        if (!granted) {
             Toast.makeText(requireContext(), getString(R.string.call_mic_permission_needed), Toast.LENGTH_LONG).show()
+        }
     }
 
     private val exportBackupLauncher =
@@ -453,9 +454,9 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
 
     private fun navigateToCallScreen() {
         // check the permission before opening CallFragment
-        if (! requireContext().hasPermission(Manifest.permission.RECORD_AUDIO)) {
+        if (!requireContext().hasPermission(Manifest.permission.RECORD_AUDIO)) {
             requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
-            return;
+            return
         }
 
         view?.let { WindowInsetsControllerCompat(requireActivity().window, it).hide(WindowInsetsCompat.Type.ime()) }
