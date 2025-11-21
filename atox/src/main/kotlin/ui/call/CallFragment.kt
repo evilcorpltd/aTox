@@ -6,6 +6,7 @@
 package ltd.evilcorp.atox.ui.call
 
 import android.Manifest
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -44,6 +45,8 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
             Toast.makeText(requireContext(), getString(R.string.call_mic_permission_needed), Toast.LENGTH_LONG).show()
         }
     }
+
+    private lateinit var mediaPlayer: MediaPlayer
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
@@ -104,13 +107,21 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
         }
 
         vm.established.asLiveData().observe(viewLifecycleOwner) { established ->
+            //Log.d(TAG, "ESTABLISHED = ${established}")
             when (established) {
-                CallState.RINGING -> tvState.setText(getString(R.string.ringing))
+                CallState.CALLING_OUT ->  {
+                    tvState.setText(getString(R.string.ringing))
+                    playConnecting()
+                }
                 CallState.ANSWERED -> {
+                    stopPlay()
                     tvState.setText("")
                     if (requireContext().hasPermission(PERMISSION)) {
                         vm.startSendingAudio()
                     }
+                }
+                CallState.NOT_IN_CALL -> {
+                    stopPlay()
                 }
                 else -> Log.e(TAG, "ESTABLISHED = ${established}")
             }
@@ -132,6 +143,18 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
                 findNavController().popBackStack()
             }
         }
+    }
+
+    private fun playConnecting() : Unit {
+        if (! this::mediaPlayer.isInitialized) {
+            mediaPlayer = MediaPlayer.create(context, R.raw.connecting_ringtone)
+            mediaPlayer.setLooping(true)
+        }
+        mediaPlayer.start()
+    }
+
+    private fun stopPlay(): Unit {
+        mediaPlayer?.stop()
     }
 
 }
