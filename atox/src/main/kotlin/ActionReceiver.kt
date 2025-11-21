@@ -6,15 +6,22 @@
 package ltd.evilcorp.atox
 
 import android.Manifest
+import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.RemoteInput
 import androidx.core.content.IntentCompat
+import androidx.fragment.app.Fragment
 import im.tox.tox4j.av.exceptions.ToxavAnswerException
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull
@@ -129,6 +136,17 @@ class ActionReceiver : BroadcastReceiver() {
             return
         }
 
+        if (!context.hasPermission(Manifest.permission.RECORD_AUDIO)) {
+            // Unable to speak, so reject the call
+            callManager.endCall(pk)
+            callManager.removePendingCall(pk)
+            notificationHelper.dismissCallNotification(pk)
+            // take the user to Settings to set mic permission
+            val intent = buildPermissionIntent(context)
+            context.startActivity(intent)
+            return
+        }
+
         try {
             callManager.startCall(pk)
             notificationHelper.showOngoingCallNotification(contact)
@@ -139,9 +157,22 @@ class ActionReceiver : BroadcastReceiver() {
 
         val isSendingAudio = context.hasPermission(Manifest.permission.RECORD_AUDIO) && callManager.startSendingAudio()
         if (!isSendingAudio) {
+            Log.e(TAG, "Failed to start sending audio")
             withContext(Dispatchers.Main) {
                 Toast.makeText(context, R.string.call_mic_permission_needed, Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun buildPermissionIntent(context: Context): Intent {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        with(intent) {
+            data = Uri.fromParts("package", context.packageName, null)
+            addCategory(Intent.CATEGORY_DEFAULT)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+            addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
+        }
+        return intent
     }
 }

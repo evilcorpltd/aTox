@@ -7,6 +7,7 @@ package ltd.evilcorp.atox.ui.call
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -26,20 +27,10 @@ import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.domain.feature.CallState
 
-private const val PERMISSION = Manifest.permission.RECORD_AUDIO
+private const val TAG = "CallFragment"
 
 class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::inflate) {
     private val vm: CallViewModel by viewModels { vmFactory }
-
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission(),
-    ) { granted ->
-        if (granted) {
-            vm.startSendingAudio()
-        } else {
-            Toast.makeText(requireContext(), getString(R.string.call_mic_permission_needed), Toast.LENGTH_LONG).show()
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
@@ -70,10 +61,11 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
             if (vm.sendingAudio.value) {
                 vm.stopSendingAudio()
             } else {
-                if (requireContext().hasPermission(PERMISSION)) {
+                if (requireContext().hasPermission(Manifest.permission.RECORD_AUDIO)) {
                     vm.startSendingAudio()
                 } else {
-                    requestPermissionLauncher.launch(PERMISSION)
+                    // not to get here; permission had been checked in ChatFragment.onViewCreated
+                    Log.e(TAG, "Attempt to activate mic without user permission")
                 }
             }
         }
@@ -99,7 +91,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
 
         startCall()
 
-        if (requireContext().hasPermission(PERMISSION)) {
+        if (requireContext().hasPermission(Manifest.permission.RECORD_AUDIO)) {
             vm.startSendingAudio()
         }
     }

@@ -5,6 +5,7 @@
 
 package ltd.evilcorp.atox.ui.chat
 
+import android.Manifest
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.ClipData
@@ -45,6 +46,7 @@ import java.util.Locale
 import ltd.evilcorp.atox.BuildConfig
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentChatBinding
+import ltd.evilcorp.atox.hasPermission
 import ltd.evilcorp.atox.requireStringArg
 import ltd.evilcorp.atox.truncated
 import ltd.evilcorp.atox.ui.BaseFragment
@@ -68,12 +70,20 @@ class OpenMultiplePersistableDocuments : ActivityResultContracts.OpenMultipleDoc
 }
 
 class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::inflate) {
-    private val viewModel: ChatViewModel by viewModels { vmFactory }
 
+    private val viewModel: ChatViewModel by viewModels { vmFactory }
     private lateinit var contactPubKey: String
     private var contactName = ""
     private var selectedFt: Int = Int.MIN_VALUE
     private var fts: List<FileTransfer> = listOf()
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission(),
+    ) { granted ->
+        if (!granted) {
+            Toast.makeText(requireContext(), getString(R.string.call_mic_permission_needed), Toast.LENGTH_LONG).show()
+        }
+    }
 
     private val exportBackupLauncher =
         registerForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { dest ->
@@ -443,6 +453,12 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
     }
 
     private fun navigateToCallScreen() {
+        // check the permission before opening CallFragment
+        if (!requireContext().hasPermission(Manifest.permission.RECORD_AUDIO)) {
+            requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+            return
+        }
+
         view?.let { WindowInsetsControllerCompat(requireActivity().window, it).hide(WindowInsetsCompat.Type.ime()) }
         findNavController().navigate(
             R.id.action_chatFragment_to_callFragment,
