@@ -8,8 +8,10 @@ package ltd.evilcorp.atox.ui.call
 import android.Manifest
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
@@ -17,7 +19,11 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentCallBinding
 import ltd.evilcorp.atox.hasPermission
@@ -27,6 +33,8 @@ import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.domain.feature.CallState
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 
 private const val PERMISSION = Manifest.permission.RECORD_AUDIO
 
@@ -106,6 +114,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
             return
         }
 
+        /*
         vm.established.asLiveData().observe(viewLifecycleOwner) { established ->
             //Log.d(TAG, "ESTABLISHED = ${established}")
             when (established) {
@@ -116,6 +125,33 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
                 CallState.ANSWERED -> {
                     stopPlay()
                     tvState.setText("")
+                    startTimer(tvState)
+                    if (requireContext().hasPermission(PERMISSION)) {
+                        vm.startSendingAudio()
+                    }
+                }
+                CallState.NOT_IN_CALL -> {
+                    stopPlay()
+                }
+                else -> Log.e(TAG, "ESTABLISHED = ${established}")
+            }
+        }*/
+
+        startCall()
+    }// end onViewCreated
+
+    override fun onResume() = binding.run {
+        vm.established.asLiveData().observe(viewLifecycleOwner) { established ->
+            Log.d(TAG, "ESTABLISHED = ${established}")
+            when (established) {
+                CallState.CALLING_OUT ->  {
+                    tvState.setText(getString(R.string.ringing))
+                    playConnecting()
+                }
+                CallState.ANSWERED -> {
+                    stopPlay()
+                    tvState.setText("")
+                    startTimer(tvState)
                     if (requireContext().hasPermission(PERMISSION)) {
                         vm.startSendingAudio()
                     }
@@ -126,9 +162,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
                 else -> Log.e(TAG, "ESTABLISHED = ${established}")
             }
         }
-
-        startCall()
-
+        super.onResume()
     }
 
     private fun updateSpeakerphoneIcon() {
@@ -145,7 +179,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
         }
     }
 
-    private fun playConnecting() : Unit {
+    private fun playConnecting() {
         if (! this::mediaPlayer.isInitialized) {
             mediaPlayer = MediaPlayer.create(context, R.raw.connecting_ringtone)
             mediaPlayer.setLooping(true)
@@ -153,8 +187,27 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
         mediaPlayer.start()
     }
 
-    private fun stopPlay(): Unit {
-        mediaPlayer?.stop()
+    private fun stopPlay() {
+        if (! this::mediaPlayer.isInitialized) return
+        mediaPlayer.stop()
     }
 
+    private fun startTimer(tvState: TextView) {
+        val isActive = true
+        if (vm.inCall.value !is CallState.InCall) return
+        val timerName = lifecycleScope.launch(Dispatchers.IO) {
+            while (isActive) {
+                lifecycleScope.launch {
+                    val from = (vm.inCall.value as CallState.InCall).startTime
+                    val elapsed : Duration =  (SystemClock.elapsedRealtime() - from).milliseconds
+                    val s = elapsed.toComponents { hours, minutes, seconds, nanoseconds ->
+                        String.format("%01d:%02d:%02d", hours, minutes, seconds)
+                    }
+                    tvState.setText(s)
+                }
+                delay(1000L)
+            }
+        }
+
+    }
 }
