@@ -7,6 +7,7 @@ package ltd.evilcorp.atox.ui.call
 
 import android.Manifest
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
@@ -22,6 +23,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.R
@@ -35,6 +37,7 @@ import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.domain.feature.CallState
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
+
 
 private const val PERMISSION = Manifest.permission.RECORD_AUDIO
 
@@ -54,7 +57,8 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
         }
     }
 
-    private lateinit var mediaPlayer: MediaPlayer
+    private var mediaPlayer: MediaPlayer? = null
+    private var timerNHandle: Job? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
@@ -106,62 +110,30 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
         }
 
         if (vm.inCall.value is CallState.InCall) {
-            vm.inCall.asLiveData().observe(viewLifecycleOwner) { inCall ->
+            //vm.inCall.asLiveData().observe(viewLifecycleOwner) { inCall ->
+            vm.inCallLiveData.observe(viewLifecycleOwner) { inCall ->
                 if (inCall == CallState.NotInCall) {
+                    stopPlay()
                     findNavController().popBackStack()
                 }
             }
             return
         }
 
-        /*
-        vm.established.asLiveData().observe(viewLifecycleOwner) { established ->
-            //Log.d(TAG, "ESTABLISHED = ${established}")
-            when (established) {
-                CallState.CALLING_OUT ->  {
-                    tvState.setText(getString(R.string.ringing))
-                    playConnecting()
-                }
-                CallState.ANSWERED -> {
-                    stopPlay()
-                    tvState.setText("")
-                    startTimer(tvState)
-                    if (requireContext().hasPermission(PERMISSION)) {
-                        vm.startSendingAudio()
-                    }
-                }
-                CallState.NOT_IN_CALL -> {
-                    stopPlay()
-                }
-                else -> Log.e(TAG, "ESTABLISHED = ${established}")
-            }
-        }*/
+        //vm.established.asLiveData().observe(viewLifecycleOwner) { established ->
+        vm.establishedLiveData.observe(viewLifecycleOwner) { established ->
+            Log.d(TAG, "observer here")
+            adoptEstablished(established, tvState)
+        }
 
         startCall()
     }// end onViewCreated
 
     override fun onResume() = binding.run {
-        vm.established.asLiveData().observe(viewLifecycleOwner) { established ->
-            Log.d(TAG, "ESTABLISHED = ${established}")
-            when (established) {
-                CallState.CALLING_OUT ->  {
-                    tvState.setText(getString(R.string.ringing))
-                    playConnecting()
-                }
-                CallState.ANSWERED -> {
-                    stopPlay()
-                    tvState.setText("")
-                    startTimer(tvState)
-                    if (requireContext().hasPermission(PERMISSION)) {
-                        vm.startSendingAudio()
-                    }
-                }
-                CallState.NOT_IN_CALL -> {
-                    stopPlay()
-                }
-                else -> Log.e(TAG, "ESTABLISHED = ${established}")
-            }
-        }
+        Log.d(TAG, "onResume here")
+        val nme = vm.established.value
+        adoptEstablished(nme, tvState)
+
         super.onResume()
     }
 
@@ -172,31 +144,60 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
 
     private fun startCall() {
         vm.startCall()
-        vm.inCall.asLiveData().observe(viewLifecycleOwner) { inCall ->
+        //vm.inCall.asLiveData().observe(viewLifecycleOwner) { inCall ->
+        vm.inCallLiveData.observe(viewLifecycleOwner) { inCall ->
             if (inCall == CallState.NotInCall) {
                 findNavController().popBackStack()
             }
         }
     }
 
-    private fun playConnecting() {
-        if (! this::mediaPlayer.isInitialized) {
-            mediaPlayer = MediaPlayer.create(context, R.raw.connecting_ringtone)
-            mediaPlayer.setLooping(true)
+    private fun adoptEstablished(established: Int, tvState: TextView) {
+        Log.d(TAG, "ESTABLISHED = ${established}")
+        when (established) {
+            CallState.CALLING_OUT ->  {
+                tvState.setText(getString(R.string.ringing))
+                playConnecting()
+            }
+            CallState.ANSWERED -> {
+                stopPlay()
+                tvState.setText("")
+                startTimer(tvState)
+                if (! vm.sendingAudio.value) {
+                    if (requireContext().hasPermission(PERMISSION)) {
+                        vm.startSendingAudio()
+                    }
+                }
+            }
+            CallState.IDLE -> {
+                tvState.setText("00000")
+                stopPlay()
+            }
+            else -> Log.e(TAG, "ESTABLISHED = ${established}")
         }
-        mediaPlayer.start()
+    }
+
+    private fun playConnecting() {
+        val audioAttrContext =
+            if (Build.VERSION.SDK_INT >= 30) context?.createAttributionContext("audioPlayback")
+            else context
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(audioAttrContext, R.raw.connecting_ringtone)
+            mediaPlayer?.setLooping(true)
+        }
+        mediaPlayer?.start()
     }
 
     private fun stopPlay() {
-        if (! this::mediaPlayer.isInitialized) return
-        mediaPlayer.stop()
+        mediaPlayer?.stop()
+        mediaPlayer = null
     }
 
     private fun startTimer(tvState: TextView) {
-        val isActive = true
         if (vm.inCall.value !is CallState.InCall) return
-        val timerName = lifecycleScope.launch(Dispatchers.IO) {
-            while (isActive) {
+        if (timerNHandle?.isActive == true) return
+        timerNHandle = lifecycleScope.launch(Dispatchers.IO) {
+            while (vm.inCall.value is CallState.InCall) {
                 lifecycleScope.launch {
                     val from = (vm.inCall.value as CallState.InCall).startTime
                     val elapsed : Duration =  (SystemClock.elapsedRealtime() - from).milliseconds

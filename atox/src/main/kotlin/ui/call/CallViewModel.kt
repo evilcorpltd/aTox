@@ -8,6 +8,7 @@ package ltd.evilcorp.atox.ui.call
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.first
@@ -17,6 +18,7 @@ import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.domain.feature.CallManager
+import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.feature.ContactManager
 
 class CallViewModel @Inject constructor(
@@ -59,9 +61,13 @@ class CallViewModel @Inject constructor(
     }
 
     val inCall = callManager.inCall
+    val inCallLiveData = callManager.inCall.asLiveData(
+        context = viewModelScope.coroutineContext)
     val sendingAudio = callManager.sendingAudio
 
     val established = callManager.established
+    val establishedLiveData = callManager.established.asLiveData(
+        context = viewModelScope.coroutineContext)
 
     var speakerphoneOn by callManager::speakerphoneOn
 }

@@ -20,7 +20,6 @@ import kotlinx.coroutines.launch
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.domain.av.AudioCapture
-import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.tox.Tox
 
 sealed class CallState {
@@ -28,7 +27,7 @@ sealed class CallState {
     data class InCall(val publicKey: PublicKey, val startTime: Long) : CallState()
 
     companion object {
-        const val NOT_IN_CALL = 0
+        const val IDLE = 0
         const val CALLING_OUT = 1
         const val PENDING = 2
         const val ANSWERED = 3
@@ -46,7 +45,7 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
     private val _inCall = MutableStateFlow<CallState>(CallState.NotInCall)
     val inCall: StateFlow<CallState> get() = _inCall
 
-    private val _established = MutableStateFlow<Int>(CallState.NOT_IN_CALL)
+    private val _established = MutableStateFlow<Int>(CallState.IDLE)
     val established : StateFlow<Int> get() = _established
 
     private val _pendingCalls = MutableStateFlow<MutableSet<Contact>>(mutableSetOf())
@@ -64,7 +63,7 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
             Log.i(TAG, "Added pending call ${from.publicKey.take(8)}")
             _pendingCalls.value = calls
         }
-        if ((! _pendingCalls.value.isEmpty()) && _established.value == CallState.NOT_IN_CALL)
+        if ((! _pendingCalls.value.isEmpty()) && _established.value == CallState.IDLE)
                 _established.value = CallState.PENDING
     }
 
@@ -77,7 +76,7 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
             _pendingCalls.value = calls
         }
         if ( _pendingCalls.value.isEmpty() && _established.value == CallState.PENDING)
-            _established.value = CallState.NOT_IN_CALL
+            _established.value = CallState.IDLE
     }
 
     fun startCall(publicKey: PublicKey) {
@@ -98,7 +97,7 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
         if (state is CallState.InCall && state.publicKey == publicKey) {
             audioManager?.mode = AudioManager.MODE_NORMAL
             _inCall.value = CallState.NotInCall
-            _established.value = CallState.NOT_IN_CALL
+            _established.value = CallState.IDLE
         }
 
         removePendingCall(publicKey)

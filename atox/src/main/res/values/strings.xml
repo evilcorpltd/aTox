@@ -193,4 +193,5 @@
     <string name="export_history_success">Message history exported</string>
     <string name="export_history_failure">Message history export failed: %1$s</string>
     <string name="ringing">ringing...</string>
+    <string name="audio_playback_attribution">This app plays audio</string>
 </resources>
