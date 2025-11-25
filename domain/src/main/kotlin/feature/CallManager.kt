@@ -96,8 +96,8 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
         val state = inCall.value
         if (state is CallState.InCall && state.publicKey == publicKey) {
             audioManager?.mode = AudioManager.MODE_NORMAL
-            _inCall.value = CallState.NotInCall
             _established.value = CallState.IDLE
+            _inCall.value = CallState.NotInCall
         }
 
         removePendingCall(publicKey)

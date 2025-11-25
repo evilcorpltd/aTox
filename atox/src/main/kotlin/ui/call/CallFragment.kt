@@ -74,11 +74,13 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
         }
 
         endCall.setOnClickListener {
+            Log.d(TAG, "finishing by End Call")
             vm.endCall()
             findNavController().popBackStack()
         }
 
-        vm.sendingAudio.asLiveData().observe(viewLifecycleOwner) { sending ->
+        //vm.sendingAudio.asLiveData().observe(viewLifecycleOwner) { sending ->
+        vm.sendingAudioLiveData.observe(viewLifecycleOwner) { sending ->
             if (sending) {
                 microphoneControl.setImageResource(R.drawable.ic_mic)
             } else {
@@ -113,6 +115,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
             //vm.inCall.asLiveData().observe(viewLifecycleOwner) { inCall ->
             vm.inCallLiveData.observe(viewLifecycleOwner) { inCall ->
                 if (inCall == CallState.NotInCall) {
+                    Log.d(TAG, "finishing by inCall 1")
                     stopPlay()
                     findNavController().popBackStack()
                 }
@@ -130,9 +133,10 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
     }// end onViewCreated
 
     override fun onResume() = binding.run {
-        Log.d(TAG, "onResume here")
         val nme = vm.established.value
-        adoptEstablished(nme, tvState)
+        Log.d(TAG, "onResume here, ESTABLISHED=$nme")
+        startTimer(tvState)
+        //adoptEstablished(nme, tvState)
 
         super.onResume()
     }
@@ -147,6 +151,8 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
         //vm.inCall.asLiveData().observe(viewLifecycleOwner) { inCall ->
         vm.inCallLiveData.observe(viewLifecycleOwner) { inCall ->
             if (inCall == CallState.NotInCall) {
+                Log.d(TAG, "finishing by inCall 2")
+                stopPlay()
                 findNavController().popBackStack()
             }
         }
@@ -196,10 +202,10 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
     private fun startTimer(tvState: TextView) {
         if (vm.inCall.value !is CallState.InCall) return
         if (timerNHandle?.isActive == true) return
+        val from = (vm.inCall.value as CallState.InCall).startTime
         timerNHandle = lifecycleScope.launch(Dispatchers.IO) {
             while (vm.inCall.value is CallState.InCall) {
                 lifecycleScope.launch {
-                    val from = (vm.inCall.value as CallState.InCall).startTime
                     val elapsed : Duration =  (SystemClock.elapsedRealtime() - from).milliseconds
                     val s = elapsed.toComponents { hours, minutes, seconds, nanoseconds ->
                         String.format("%01d:%02d:%02d", hours, minutes, seconds)

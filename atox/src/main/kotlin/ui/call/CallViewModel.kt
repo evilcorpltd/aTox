@@ -64,6 +64,8 @@ class CallViewModel @Inject constructor(
     val inCallLiveData = callManager.inCall.asLiveData(
         context = viewModelScope.coroutineContext)
     val sendingAudio = callManager.sendingAudio
+    val sendingAudioLiveData = callManager.sendingAudio.asLiveData(
+        context = viewModelScope.coroutineContext)
 
     val established = callManager.established
     val establishedLiveData = callManager.established.asLiveData(
