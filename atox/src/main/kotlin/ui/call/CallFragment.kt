@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
 import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -26,6 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ltd.evilcorp.atox.R
 import ltd.evilcorp.atox.databinding.FragmentCallBinding
 import ltd.evilcorp.atox.hasPermission
@@ -48,19 +50,22 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
-    ) { granted ->
+    ) { }
+    /*granted ->
         if (granted) {
             Log.d(TAG, "Attempt to start sending audio while hot in call 2")
             vm.startSendingAudio()
         } else {
             Toast.makeText(requireContext(), getString(R.string.call_mic_permission_needed), Toast.LENGTH_LONG).show()
         }
-    }
+    }*/
 
     private var mediaPlayer: MediaPlayer? = null
     private var timerNHandle: Job? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
+        Log.d(TAG, "onViewCreated here")
+
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
             val insets = compat.getInsets(WindowInsetsCompat.Type.systemBars())
             controlContainer.updatePadding(bottom = insets.bottom + controlContainer.paddingTop)
@@ -75,30 +80,36 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
 
         endCall.setOnClickListener {
             Log.d(TAG, "finishing by End Call")
+            stopPlay()
             vm.endCall()
             findNavController().popBackStack()
         }
 
-        //vm.sendingAudio.asLiveData().observe(viewLifecycleOwner) { sending ->
-        vm.sendingAudioLiveData.observe(viewLifecycleOwner) { sending ->
-            if (sending) {
-                microphoneControl.setImageResource(R.drawable.ic_mic)
-            } else {
-                microphoneControl.setImageResource(R.drawable.ic_mic_off)
-            }
-        }
+        val hasPerm = requireContext().hasPermission(PERMISSION)
+        vm.micOn =  hasPerm
+        updateMicrophoneControlIcon()
 
         microphoneControl.setOnClickListener {
-            if (vm.sendingAudio.value) {
-                vm.stopSendingAudio()
+            if (! requireContext().hasPermission(PERMISSION)) {
+                vm.micOn = false
+                /*Toast.makeText(
+                    context,
+                    R.string.call_mic_permission_needed,
+                    Toast.LENGTH_LONG
+                ).show()*/
+                requestPermissionLauncher.launch(PERMISSION)
+            } else if (vm.micOn) {
+                vm.micOn = false
+                if (vm.sendingAudio.value) {
+                    vm.stopSendingAudio()
+                }
             } else {
-                if (requireContext().hasPermission(PERMISSION)) {
-                    Log.d(TAG, "Attempt to start sending audio while hot in call 3")
+                vm.micOn = true
+                if (!vm.sendingAudio.value && vm.established.value == CallState.ANSWERED) {
                     vm.startSendingAudio()
-                } else {
-                    requestPermissionLauncher.launch(PERMISSION)
                 }
             }
+            updateMicrophoneControlIcon()
         }
 
         updateSpeakerphoneIcon()
@@ -111,8 +122,13 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
             findNavController().popBackStack()
         }
 
+        vm.establishedLiveData.observe(viewLifecycleOwner) { established ->
+            Log.d(TAG, "observer here")
+            adoptEstablished(established, tvState)
+        }
+        adoptEstablished(vm.established.value, tvState)
+
         if (vm.inCall.value is CallState.InCall) {
-            //vm.inCall.asLiveData().observe(viewLifecycleOwner) { inCall ->
             vm.inCallLiveData.observe(viewLifecycleOwner) { inCall ->
                 if (inCall == CallState.NotInCall) {
                     Log.d(TAG, "finishing by inCall 1")
@@ -122,33 +138,31 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
             }
             return
         }
-
-        //vm.established.asLiveData().observe(viewLifecycleOwner) { established ->
-        vm.establishedLiveData.observe(viewLifecycleOwner) { established ->
-            Log.d(TAG, "observer here")
-            adoptEstablished(established, tvState)
-        }
-
         startCall()
     }// end onViewCreated
 
     override fun onResume() = binding.run {
         val nme = vm.established.value
         Log.d(TAG, "onResume here, ESTABLISHED=$nme")
-        startTimer(tvState)
+        //if (nme == CallState.ANSWERED) startTimer(tvState)
         //adoptEstablished(nme, tvState)
 
         super.onResume()
     }
 
     private fun updateSpeakerphoneIcon() {
-        val icon = if (vm.speakerphoneOn) R.drawable.ic_speakerphone else R.drawable.ic_speakerphone_off
+        val icon = if (vm.speakerphoneOn) R.drawable.ic_speakerphone
+                   else R.drawable.ic_speakerphone_off
         binding.speakerphone.setImageResource(icon)
     }
 
+    private fun updateMicrophoneControlIcon() {
+        val icon = if (vm.micOn) R.drawable.ic_mic
+                   else R.drawable.ic_mic_off
+        binding.microphoneControl.setImageResource(icon)
+    }
     private fun startCall() {
         vm.startCall()
-        //vm.inCall.asLiveData().observe(viewLifecycleOwner) { inCall ->
         vm.inCallLiveData.observe(viewLifecycleOwner) { inCall ->
             if (inCall == CallState.NotInCall) {
                 Log.d(TAG, "finishing by inCall 2")
@@ -169,7 +183,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
                 stopPlay()
                 tvState.setText("")
                 startTimer(tvState)
-                if (! vm.sendingAudio.value) {
+                if (! vm.sendingAudio.value && vm.micOn) {
                     if (requireContext().hasPermission(PERMISSION)) {
                         vm.startSendingAudio()
                     }

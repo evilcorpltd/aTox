@@ -28,6 +28,7 @@ class CallViewModel @Inject constructor(
     private val contactManager: ContactManager,
     private val proximityScreenOff: ProximityScreenOff,
 ) : ViewModel() {
+    val vmContext = viewModelScope.coroutineContext
     private var publicKey = PublicKey("")
 
     val contact: LiveData<Contact> by lazy {
@@ -60,16 +61,15 @@ class CallViewModel @Inject constructor(
         }
     }
 
+    var micOn =  false
+
     val inCall = callManager.inCall
-    val inCallLiveData = callManager.inCall.asLiveData(
-        context = viewModelScope.coroutineContext)
+    val inCallLiveData = callManager.inCall.asLiveData(vmContext)
     val sendingAudio = callManager.sendingAudio
-    val sendingAudioLiveData = callManager.sendingAudio.asLiveData(
-        context = viewModelScope.coroutineContext)
+    val sendingAudioLiveData = callManager.sendingAudio.asLiveData(vmContext)
 
     val established = callManager.established
-    val establishedLiveData = callManager.established.asLiveData(
-        context = viewModelScope.coroutineContext)
+    val establishedLiveData = callManager.established.asLiveData(vmContext)
 
     var speakerphoneOn by callManager::speakerphoneOn
 }
