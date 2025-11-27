@@ -80,24 +80,26 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
     }
 
     fun startCall(publicKey: PublicKey) {
-        if (pendingCalls.value.any { it.publicKey == publicKey.string() }) {
+        val toAnswer = pendingCalls.value.any { it.publicKey == publicKey.string() }
+        if (toAnswer) {
             tox.answerCall(publicKey)
-            _established.value = CallState.ANSWERED
         } else {
             tox.startCall(publicKey)
-            _established.value = CallState.CALLING_OUT
         }
-        _inCall.value = CallState.InCall(publicKey, SystemClock.elapsedRealtime())
         audioManager?.mode = AudioManager.MODE_IN_COMMUNICATION
         removePendingCall(publicKey)
+        _inCall.value = CallState.InCall(publicKey, SystemClock.elapsedRealtime())
+        _established.value =  if (toAnswer) CallState.ANSWERED
+                              else CallState.CALLING_OUT
     }
 
     fun endCall(publicKey: PublicKey) {
         val state = inCall.value
         if (state is CallState.InCall && state.publicKey == publicKey) {
             audioManager?.mode = AudioManager.MODE_NORMAL
-            _established.value = CallState.IDLE
+            // move to below ?
             _inCall.value = CallState.NotInCall
+            _established.value = CallState.IDLE
         }
 
         removePendingCall(publicKey)
@@ -113,8 +115,11 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
 
     fun startSendingAudio(): Boolean {
         val to = (inCall.value as CallState.InCall?)?.publicKey ?: return false
-        val recorder =
-            AudioCapture.create(AUDIO_SAMPLING_RATE_HZ, AUDIO_CHANNELS, AUDIO_SEND_INTERVAL_MS) ?: return false
+        val recorder =  AudioCapture.create(
+                AUDIO_SAMPLING_RATE_HZ,
+                AUDIO_CHANNELS,
+                AUDIO_SEND_INTERVAL_MS
+            ) ?: return false
         startAudioSender(recorder, to)
         return true
     }
@@ -137,7 +142,11 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
                 val start = System.currentTimeMillis()
                 val audioFrame = recorder.read()
                 try {
-                    tox.sendAudio(to, audioFrame, AUDIO_CHANNELS, AUDIO_SAMPLING_RATE_HZ)
+                    tox.sendAudio(
+                        to,
+                        audioFrame,
+                        AUDIO_CHANNELS,
+                        AUDIO_SAMPLING_RATE_HZ)
                 } catch (e: Exception) {
                     Log.e(TAG, e.toString())
                 }

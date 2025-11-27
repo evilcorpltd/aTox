@@ -62,11 +62,24 @@ class CallViewModel @Inject constructor(
     }
 
     var micOn =  false
+    fun toggleMicrophoneControl() {
+        if (micOn) {
+            micOn = false
+            if (sendingAudio.value) {
+                stopSendingAudio()
+            }
+        } else {
+            micOn = true
+            if (!sendingAudio.value && established.value == CallState.ANSWERED) {
+                startSendingAudio()
+            }
+        }
+    }
 
     val inCall = callManager.inCall
-    val inCallLiveData = callManager.inCall.asLiveData(vmContext)
+    //val inCallLiveData = callManager.inCall.asLiveData(vmContext)
     val sendingAudio = callManager.sendingAudio
-    val sendingAudioLiveData = callManager.sendingAudio.asLiveData(vmContext)
+    //val sendingAudioLiveData = callManager.sendingAudio.asLiveData(vmContext)
 
     val established = callManager.established
     val establishedLiveData = callManager.established.asLiveData(vmContext)
