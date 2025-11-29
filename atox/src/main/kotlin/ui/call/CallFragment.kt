@@ -40,7 +40,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
             vm.startSendingAudio()
         } else {
             Log.d(TAG, "Got no permission")
-            //Toast.makeText(requireContext(), getString(R.string.call_mic_permission_needed), Toast.LENGTH_LONG).show()
+            // Toast.makeText(requireContext(), getString(R.string.call_mic_permission_needed), Toast.LENGTH_LONG).show()
         }
     }
 
@@ -76,9 +76,10 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
                 if (requireContext().hasPermission(PERMISSION)) {
                     vm.startSendingAudio()
                 } else {
-                    Toast.makeText(context,
+                    Toast.makeText(
+                        context,
                         R.string.call_mic_permission_needed,
-                        Toast.LENGTH_LONG
+                        Toast.LENGTH_LONG,
                     ).show()
                 }
             }
@@ -105,7 +106,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
 
         startCall()
 
-        if (! requireContext().hasPermission(PERMISSION)) {
+        if (!requireContext().hasPermission(PERMISSION)) {
             requestPermissionLauncher.launch(PERMISSION)
         } else {
             vm.startSendingAudio()
