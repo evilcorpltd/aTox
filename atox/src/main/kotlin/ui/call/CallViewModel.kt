@@ -76,6 +76,13 @@ class CallViewModel @Inject constructor(
         }
     }
 
+    fun setMicrophoneOn() {
+        micOn = true
+        if (!sendingAudio.value && established.value == CallState.ANSWERED) {
+            startSendingAudio()
+        }
+    }
+
     val inCall = callManager.inCall
     //val inCallLiveData = callManager.inCall.asLiveData(vmContext)
     val sendingAudio = callManager.sendingAudio

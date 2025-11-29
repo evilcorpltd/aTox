@@ -115,6 +115,7 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
 
     fun startSendingAudio(): Boolean {
         val to = (inCall.value as CallState.InCall?)?.publicKey ?: return false
+        if (_sendingAudio.value) { return true }
         val recorder =  AudioCapture.create(
                 AUDIO_SAMPLING_RATE_HZ,
                 AUDIO_CHANNELS,

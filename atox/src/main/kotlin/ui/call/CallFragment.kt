@@ -12,7 +12,7 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
 import android.view.View
-import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -38,7 +38,6 @@ import kotlin.time.Duration.Companion.milliseconds
 
 
 private const val PERMISSION = Manifest.permission.RECORD_AUDIO
-
 private const val TAG = "CallFragment"
 
 class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::inflate) {
@@ -46,20 +45,20 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
-    ) { }
-    /*granted ->
+    ) { granted ->
         if (granted) {
-            Log.d(TAG, "Attempt to start sending audio while hot in call 2")
-            vm.startSendingAudio()
+            vm.setMicrophoneOn()
+            updateMicrophoneControlIcon()
         } else {
+            Log.d(TAG, "Got no permission")
             Toast.makeText(requireContext(), getString(R.string.call_mic_permission_needed), Toast.LENGTH_LONG).show()
         }
-    }*/
+    }
 
     private var mediaPlayer: MediaPlayer? = null
     private var timerNHandle: Job? = null
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = binding.run {
         Log.d(TAG, "onViewCreated here")
 
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
@@ -100,22 +99,23 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
 
        updateSpeakerphoneIcon()
        speakerphone.setOnClickListener {
-            vm.toggleSpeakerphone()
-            updateSpeakerphoneIcon()
+           vm.toggleSpeakerphone()
+           updateSpeakerphoneIcon()
        }
 
        backToChat.setOnClickListener {
-            findNavController().popBackStack()
+           findNavController().popBackStack()
        }
 
        vm.establishedLiveData.observe(viewLifecycleOwner) { established ->
-            Log.d(TAG, "observer here")
-            adoptState()
+           Log.d(TAG, "observer here")
+           adoptState()
        }
 
-       if (vm.established.value != CallState.IDLE) {
-            adoptState()
-            return@run
+       if (vm.established.value != CallState.IDLE
+               && vm.established.value != CallState.PENDING) {
+           adoptState()
+           return@run
        }
         binding.tvState.setText("startinng a call...") // normally, not to be seen
         vm.startCall()
