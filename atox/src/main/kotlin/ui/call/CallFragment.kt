@@ -7,6 +7,7 @@ package ltd.evilcorp.atox.ui.call
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -26,6 +27,7 @@ import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.domain.feature.CallState
 
+private const val TAG = "CallFragment"
 private const val PERMISSION = Manifest.permission.RECORD_AUDIO
 
 class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::inflate) {
@@ -37,16 +39,23 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
         if (granted) {
             vm.startSendingAudio()
         } else {
-            Toast.makeText(requireContext(), getString(R.string.call_mic_permission_needed), Toast.LENGTH_LONG).show()
+            Log.d(TAG, "Got no permission")
+            //Toast.makeText(requireContext(), getString(R.string.call_mic_permission_needed), Toast.LENGTH_LONG).show()
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = binding.run {
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, compat ->
             val insets = compat.getInsets(WindowInsetsCompat.Type.systemBars())
             controlContainer.updatePadding(bottom = insets.bottom + controlContainer.paddingTop)
             compat
         }
+
+        if (! requireContext().hasPermission(PERMISSION)) {
+
+        }
+        // proceed with existing permission (granted or repeatedly denied)
+        // if user changes it, the call will be aborted
 
         vm.setActiveContact(PublicKey(requireStringArg(CONTACT_PUBLIC_KEY)))
         vm.contact.observe(viewLifecycleOwner) {
@@ -73,7 +82,10 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
                 if (requireContext().hasPermission(PERMISSION)) {
                     vm.startSendingAudio()
                 } else {
-                    requestPermissionLauncher.launch(PERMISSION)
+                    Toast.makeText(context,
+                        R.string.call_mic_permission_needed,
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
@@ -99,7 +111,9 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
 
         startCall()
 
-        if (requireContext().hasPermission(PERMISSION)) {
+        if (! requireContext().hasPermission(PERMISSION)) {
+            requestPermissionLauncher.launch(PERMISSION)
+        } else {
             vm.startSendingAudio()
         }
     }
