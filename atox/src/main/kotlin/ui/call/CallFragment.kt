@@ -51,12 +51,6 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
             compat
         }
 
-        if (! requireContext().hasPermission(PERMISSION)) {
-
-        }
-        // proceed with existing permission (granted or repeatedly denied)
-        // if user changes it, the call will be aborted
-
         vm.setActiveContact(PublicKey(requireStringArg(CONTACT_PUBLIC_KEY)))
         vm.contact.observe(viewLifecycleOwner) {
             avatarImageView.setFrom(it)
