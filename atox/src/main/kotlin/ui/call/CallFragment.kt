@@ -32,7 +32,8 @@ import ltd.evilcorp.atox.ui.BaseFragment
 import ltd.evilcorp.atox.ui.chat.CONTACT_PUBLIC_KEY
 import ltd.evilcorp.atox.vmFactory
 import ltd.evilcorp.core.vo.PublicKey
-import ltd.evilcorp.domain.feature.CallState
+import ltd.evilcorp.domain.feature.Call
+import ltd.evilcorp.domain.feature.inCall
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -76,7 +77,7 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
         endCall.setOnClickListener {
             Log.d(TAG, "finishing by End Call")
             vm.endCall()
-            adoptState(CallState.IDLE)
+            adoptState(Call.State.IDLE)
         }
 
         vm.micOn = requireContext().hasPermission(PERMISSION)
@@ -107,13 +108,13 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
            findNavController().popBackStack()
        }
 
-       vm.establishedLiveData.observe(viewLifecycleOwner) { established ->
+       vm.callLiveData.observe(viewLifecycleOwner) { call ->
            Log.d(TAG, "observer here")
            adoptState()
        }
 
-       if (vm.established.value != CallState.IDLE
-               && vm.established.value != CallState.PENDING) {
+       if (vm.call.value.state != Call.State.IDLE
+               && vm.call.value.state != Call.State.PENDING) {
            adoptState()
            return@run
        }
@@ -122,8 +123,8 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
     }// end onViewCreated
 
     /*override fun onResume() = binding.run {
-        val nme = vm.established.value
-        Log.d(TAG, "onResume here, ESTABLISHED=$nme")
+        val nme = vm.call.value.state
+        Log.d(TAG, "onResume here, state=$nme")
         super.onResume()
     }*/
 
@@ -139,17 +140,17 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
         binding.microphoneControl.setImageResource(icon)
     }
     private fun adoptState() {
-        adoptState(vm.established.value)
+        adoptState(vm.call.value.state)
     }
-    private fun adoptState(established: Int) {
+    private fun adoptState(state: Call.State) {
         // may be called repeatedly, so must be idempotent
-        Log.d(TAG, "adoptState, ESTABLISHED = ${established}")
-        when (established) {
-            CallState.CALLING_OUT ->  {
+        Log.d(TAG, "adoptState, state = ${state}")
+        when (state) {
+            Call.State.CALLING_OUT ->  {
                 binding.tvState.setText(getString(R.string.ringing))
                 playConnecting()
             }
-            CallState.ANSWERED -> {
+            Call.State.ANSWERED -> {
                 stopPlay()
                 binding.tvState.setText("talking")
                 startTimer()
@@ -160,12 +161,12 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
                 }
             }
             // as LiveData never emits its init value, IDLE means the call is finished
-            CallState.IDLE -> {
+            Call.State.IDLE -> {
                 binding.tvState.setText("00000")
                 stopPlay()
                 findNavController().popBackStack()
             }
-            else -> Log.e(TAG, "ESTABLISHED = ${established}")
+            else -> Log.e(TAG, "STATE = ${state}")
         }
     }
 
@@ -186,15 +187,16 @@ class CallFragment : BaseFragment<FragmentCallBinding>(FragmentCallBinding::infl
     }
 
     private fun startTimer() {
-        if (vm.inCall.value !is CallState.InCall) return
+        if (! vm.call.value.inCall()) return
         if (timerNHandle?.isActive == true) return
-        val from = (vm.inCall.value as CallState.InCall).startTime
+        val from: Long = vm.call.value.data?.startTime ?: 0
         timerNHandle = lifecycleScope.launch(Dispatchers.IO) {
-            while (vm.inCall.value is CallState.InCall) {
+            while (vm.call.value.inCall()) {
                 lifecycleScope.launch {
                     val elapsed : Duration =  (SystemClock.elapsedRealtime() - from).milliseconds
                     val s = elapsed.toComponents { hours, minutes, seconds, nanoseconds ->
-                        String.format("%01d:%02d:%02d", hours, minutes, seconds)
+                        //String.format("%01d:%02d:%02d", hours, minutes, seconds)
+                        vm.presentTime(hours, minutes, seconds, nanoseconds)
                     }
                     binding.tvState.setText(s)
                 }

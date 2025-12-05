@@ -17,8 +17,8 @@ import ltd.evilcorp.atox.ProximityScreenOff
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.PublicKey
+import ltd.evilcorp.domain.feature.Call
 import ltd.evilcorp.domain.feature.CallManager
-import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.feature.ContactManager
 
 class CallViewModel @Inject constructor(
@@ -69,27 +69,31 @@ class CallViewModel @Inject constructor(
                 stopSendingAudio()
             }
         } else {
-            micOn = true
-            if (!sendingAudio.value && established.value == CallState.ANSWERED) {
-                startSendingAudio()
-            }
+            setMicrophoneOn()
         }
     }
 
     fun setMicrophoneOn() {
         micOn = true
-        if (!sendingAudio.value && established.value == CallState.ANSWERED) {
+        if (!sendingAudio.value && call.value.state == Call.State.ANSWERED) {
             startSendingAudio()
         }
     }
 
-    val inCall = callManager.inCall
-    //val inCallLiveData = callManager.inCall.asLiveData(vmContext)
+    fun presentTime(hours: Long, minutes: Int, seconds: Int, nanoseconds: Int): String {
+        var sf: String = when (call.value.data?.inOrOut) {
+            Call.InOrOut.INCOMING -> "in  "
+            Call.InOrOut.OUTGOING -> "out  "
+            else -> ""
+        }
+        sf += if (hours == 0L) String.format("%02d:%02d", minutes, seconds)
+              else String.format("%01d:%02d:%02d", hours, minutes, seconds)
+
+        return sf
+    }
+
+    val call = callManager.call
+    val callLiveData = callManager.call.asLiveData(vmContext)
     val sendingAudio = callManager.sendingAudio
-    //val sendingAudioLiveData = callManager.sendingAudio.asLiveData(vmContext)
-
-    val established = callManager.established
-    val establishedLiveData = callManager.established.asLiveData(vmContext)
-
     var speakerphoneOn by callManager::speakerphoneOn
 }

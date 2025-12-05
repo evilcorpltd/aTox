@@ -199,7 +199,7 @@ class EventListenerCallbacks @Inject constructor(
             Log.e(TAG, "callState ${pk.fingerprint()} $callState")
             if (callState.contains(ToxavFriendCallState.SENDING_A)
                 || callState.contains(ToxavFriendCallState.ACCEPTING_A)) {
-                callManager.setAnswered()
+                callManager.setAnswered(PublicKey(pk))
             }
             if (callState.contains(ToxavFriendCallState.FINISHED)
                 || callState.contains(ToxavFriendCallState.ERROR)) {

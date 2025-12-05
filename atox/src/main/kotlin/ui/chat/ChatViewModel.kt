@@ -37,11 +37,11 @@ import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.domain.feature.CallManager
-import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.ContactManager
 import ltd.evilcorp.domain.feature.ExportManager
 import ltd.evilcorp.domain.feature.FileTransferManager
+import ltd.evilcorp.domain.feature.inCall
 
 private const val TAG = "ChatViewModel"
 
@@ -73,13 +73,24 @@ class ChatViewModel @Inject constructor(
     val fileTransfers: LiveData<List<FileTransfer>> by lazy { fileTransferManager.transfersFor(publicKey).asLiveData() }
 
     fun callingNeedsConfirmation(): Boolean = settings.confirmCalling
-    val ongoingCall = callManager.inCall.asLiveData()
+    val ongoingCall = callManager.call.asLiveData()
 
     val callState get() = contactManager.get(publicKey)
         .filterNotNull()
         .transform { emit(it.connectionStatus != ConnectionStatus.None) }
-        .combine(callManager.inCall) { contactOnline, callState ->
-            if (!contactOnline) return@combine CallAvailability.Unavailable
+        .combine(callManager.call) { contactOnline, callValue ->
+            if (! contactOnline) return@combine CallAvailability.Unavailable
+            if (callValue.inCall())
+                if (callValue.data?.publicKey == publicKey) {
+                    CallAvailability.Active
+                } else {
+                    CallAvailability.Unavailable
+                }
+            else {
+                CallAvailability.Available
+            }
+            /*
+            val callState = callValue.state
             when (callState) {
                 CallState.NotInCall -> CallAvailability.Available
                 is CallState.InCall -> {
@@ -89,7 +100,7 @@ class ChatViewModel @Inject constructor(
                         CallAvailability.Unavailable
                     }
                 }
-            }
+            }*/
         }.asLiveData()
 
     var contactOnline = false
