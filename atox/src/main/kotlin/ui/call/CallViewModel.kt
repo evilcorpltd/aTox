@@ -61,7 +61,7 @@ class CallViewModel @Inject constructor(
         }
     }
 
-    var micOn =  false
+    var micOn = false
     fun toggleMicrophoneControl() {
         if (micOn) {
             micOn = false
@@ -86,8 +86,11 @@ class CallViewModel @Inject constructor(
             Call.InOrOut.OUTGOING -> "out  "
             else -> ""
         }
-        sf += if (hours == 0L) String.format("%02d:%02d", minutes, seconds)
-              else String.format("%01d:%02d:%02d", hours, minutes, seconds)
+        sf += if (hours == 0L) {
+            String.format("%02d:%02d", minutes, seconds)
+        } else {
+            String.format("%01d:%02d:%02d", hours, minutes, seconds)
+        }
 
         return sf
     }

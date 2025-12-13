@@ -23,25 +23,19 @@ import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.domain.av.AudioCapture
 import ltd.evilcorp.domain.tox.Tox
 
-data class Call(
-    public val state: State  = State.IDLE,
-    public val data: Data? = null
-) {
-    enum class State { IDLE, CALLING_OUT, PENDING, ANSWERED}
-    enum class InOrOut {NA, INCOMING, OUTGOING}
-    data class Data(val publicKey: PublicKey, val inOrOut: InOrOut,val startTime: Long)
+data class Call(public val state: State = State.IDLE, public val data: Data? = null) {
+    enum class State { IDLE, CALLING_OUT, PENDING, ANSWERED }
+    enum class InOrOut { NA, INCOMING, OUTGOING }
+    data class Data(val publicKey: PublicKey, val inOrOut: InOrOut, val startTime: Long)
 }
 
-fun Call.setData(aPk:  PublicKey, aInOrOut: Call.InOrOut, aSt: Long): Call {
-    return this.copy( data = Call.Data(aPk, aInOrOut,aSt) )
-}
+fun Call.setData(aPk: PublicKey, aInOrOut: Call.InOrOut, aSt: Long): Call =
+    this.copy(data = Call.Data(aPk, aInOrOut, aSt))
 fun Call.setState(newState: Call.State): Call {
     if (newState == Call.State.IDLE) return Call(newState, null)
     return Call(newState, data)
 }
-fun Call.inCall(): Boolean {
-    return state == Call.State.CALLING_OUT || state == Call.State.ANSWERED
-}
+fun Call.inCall(): Boolean = state == Call.State.CALLING_OUT || state == Call.State.ANSWERED
 
 private const val TAG = "CallManager"
 
@@ -68,17 +62,16 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
         }
     }
 
-    private fun addCallData(newState: Call.State, aPk:  PublicKey, aInOrOut: Call.InOrOut, aSt: Long) {
+    private fun addCallData(newState: Call.State, aPk: PublicKey, aInOrOut: Call.InOrOut, aSt: Long) {
         _call.update { current ->
             current.setState(newState).setData(aPk, aInOrOut, aSt)
         }
     }
-    private fun addCallData(newState: Call.State,  aPk:  PublicKey, aInOrOut: Call.InOrOut) {
+    private fun addCallData(newState: Call.State, aPk: PublicKey, aInOrOut: Call.InOrOut) {
         _call.update { current ->
-            current.setState(newState).setData(aPk, aInOrOut,SystemClock.elapsedRealtime())
+            current.setState(newState).setData(aPk, aInOrOut, SystemClock.elapsedRealtime())
         }
     }
-
 
     fun addPendingCall(from: Contact) {
         val calls = mutableSetOf<Contact>().apply { addAll(_pendingCalls.value) }
@@ -87,14 +80,13 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
             Log.i(TAG, "Added pending call ${from.publicKey.take(8)}")
             _pendingCalls.value = calls
         }
-        if (! _pendingCalls.value.isEmpty()) {
+        if (!_pendingCalls.value.isEmpty()) {
             if (_call.value.state == Call.State.IDLE) {
-                toState( Call.State.PENDING)
-            }  else {
+                toState(Call.State.PENDING)
+            } else {
                 Log.e(TAG, "Got pending call while state=${_call.value.state}")
             }
         }
-
     }
 
     fun removePendingCall(pk: PublicKey) {
@@ -105,8 +97,9 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
             calls.remove(removed)
             _pendingCalls.value = calls
         }
-        if ( _pendingCalls.value.isEmpty() && _call.value.state == Call.State.PENDING)
+        if (_pendingCalls.value.isEmpty() && _call.value.state == Call.State.PENDING) {
             toState(Call.State.IDLE)
+        }
     }
 
     fun startCall(publicKey: PublicKey) {
@@ -118,8 +111,11 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
         }
         audioManager?.mode = AudioManager.MODE_IN_COMMUNICATION
         removePendingCall(publicKey)
-        if (toAnswer)  addCallData(Call.State.ANSWERED, publicKey, Call.InOrOut.INCOMING)
-        else  addCallData(Call.State.CALLING_OUT, publicKey,Call.InOrOut.OUTGOING )
+        if (toAnswer) {
+            addCallData(Call.State.ANSWERED, publicKey, Call.InOrOut.INCOMING)
+        } else {
+            addCallData(Call.State.CALLING_OUT, publicKey, Call.InOrOut.OUTGOING)
+        }
     }
 
     fun endCall(publicKey: PublicKey) {
@@ -141,14 +137,16 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
     }
 
     fun startSendingAudio(): Boolean {
-        if (! call.value.inCall()) return false
+        if (!call.value.inCall()) return false
         val to = call.value.data?.publicKey ?: return false
-        if (_sendingAudio.value) { return true }
-        val recorder =  AudioCapture.create(
-                AUDIO_SAMPLING_RATE_HZ,
-                AUDIO_CHANNELS,
-                AUDIO_SEND_INTERVAL_MS
-            ) ?: return false
+        if (_sendingAudio.value) {
+            return true
+        }
+        val recorder = AudioCapture.create(
+            AUDIO_SAMPLING_RATE_HZ,
+            AUDIO_CHANNELS,
+            AUDIO_SEND_INTERVAL_MS,
+        ) ?: return false
         startAudioSender(recorder, to)
         return true
     }
@@ -175,7 +173,8 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
                         to,
                         audioFrame,
                         AUDIO_CHANNELS,
-                        AUDIO_SAMPLING_RATE_HZ)
+                        AUDIO_SAMPLING_RATE_HZ,
+                    )
                 } catch (e: Exception) {
                     Log.e(TAG, e.toString())
                 }
@@ -190,10 +189,10 @@ class CallManager @Inject constructor(private val tox: Tox, private val scope: C
         }
     }
 
-    fun setAnswered(pk: PublicKey) : Unit {
+    fun setAnswered(pk: PublicKey) {
         if (_call.value.state != Call.State.CALLING_OUT) {
             Log.e(TAG, "Cot answer while in state ${_call.value.state}")
         }
-        addCallData(Call.State.ANSWERED, pk, Call.InOrOut.OUTGOING )
+        addCallData(Call.State.ANSWERED, pk, Call.InOrOut.OUTGOING)
     }
 }

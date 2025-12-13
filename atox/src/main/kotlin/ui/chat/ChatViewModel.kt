@@ -79,14 +79,14 @@ class ChatViewModel @Inject constructor(
         .filterNotNull()
         .transform { emit(it.connectionStatus != ConnectionStatus.None) }
         .combine(callManager.call) { contactOnline, callValue ->
-            if (! contactOnline) return@combine CallAvailability.Unavailable
-            if (callValue.inCall())
+            if (!contactOnline) return@combine CallAvailability.Unavailable
+            if (callValue.inCall()) {
                 if (callValue.data?.publicKey == publicKey) {
                     CallAvailability.Active
                 } else {
                     CallAvailability.Unavailable
                 }
-            else {
+            } else {
                 CallAvailability.Available
             }
             /*
