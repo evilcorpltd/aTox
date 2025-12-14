@@ -41,6 +41,7 @@ import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxAvEventListener
 import ltd.evilcorp.domain.tox.ToxEventListener
 import ltd.evilcorp.domain.tox.toMessageType
+import java.util.concurrent.atomic.AtomicInteger
 
 private const val MAX_ACTIVE_FRIEND_REQUESTS = 32
 private const val TAG = "EventListenerCallbacks"
@@ -80,6 +81,12 @@ class EventListenerCallbacks @Inject constructor(
 
     private fun notifyMessage(contact: Contact, message: String) =
         notificationHelper.showMessageNotification(contact, message, silent = tox.getStatus() == UserStatus.Busy)
+
+    private val frameCount: AtomicInteger = AtomicInteger(0)
+
+    fun getFrameCount(): Int {
+        return frameCount.get()
+    }
 
     fun setUp(listener: ToxEventListener) = with(listener) {
         friendStatusMessageHandler = { publicKey, message ->
@@ -197,14 +204,12 @@ class EventListenerCallbacks @Inject constructor(
 
         callStateHandler = { pk, callState ->
             Log.e(TAG, "callState ${pk.fingerprint()} $callState")
-            if (callState.contains(ToxavFriendCallState.SENDING_A) ||
-                callState.contains(ToxavFriendCallState.ACCEPTING_A)
-            ) {
+            if (callState.contains(ToxavFriendCallState.SENDING_A)
+                || callState.contains(ToxavFriendCallState.ACCEPTING_A)) {
                 callManager.setAnswered(PublicKey(pk))
             }
-            if (callState.contains(ToxavFriendCallState.FINISHED) ||
-                callState.contains(ToxavFriendCallState.ERROR)
-            ) {
+            if (callState.contains(ToxavFriendCallState.FINISHED)
+                || callState.contains(ToxavFriendCallState.ERROR)) {
                 audioPlayer?.stop()
                 audioPlayer?.release()
                 audioPlayer = null
@@ -245,8 +250,10 @@ class EventListenerCallbacks @Inject constructor(
             if (audioPlayer == null) {
                 audioPlayer = AudioPlayer(samplingRate, channels)
                 audioPlayer?.start()
+                frameCount.set(0)
             }
             audioPlayer?.buffer(pcm)
+            frameCount.incrementAndGet()
         }
     }
 }

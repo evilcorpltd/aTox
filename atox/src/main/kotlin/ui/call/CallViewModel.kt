@@ -14,6 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import ltd.evilcorp.atox.ProximityScreenOff
+import ltd.evilcorp.atox.tox.EventListenerCallbacks
 import ltd.evilcorp.atox.ui.NotificationHelper
 import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.PublicKey
@@ -29,6 +30,11 @@ class CallViewModel @Inject constructor(
     private val proximityScreenOff: ProximityScreenOff,
 ) : ViewModel() {
     val vmContext = viewModelScope.coroutineContext
+    var storedFrameCount: Int = 0
+    @Inject
+    lateinit var eventListenerCallbacks: EventListenerCallbacks
+
+    val SCREEN_TIMER_MS = 1000L
     private var publicKey = PublicKey("")
 
     val contact: LiveData<Contact> by lazy {
@@ -61,7 +67,7 @@ class CallViewModel @Inject constructor(
         }
     }
 
-    var micOn = false
+    var micOn =  false
     fun toggleMicrophoneControl() {
         if (micOn) {
             micOn = false
@@ -86,13 +92,23 @@ class CallViewModel @Inject constructor(
             Call.InOrOut.OUTGOING -> "out  "
             else -> ""
         }
-        sf += if (hours == 0L) {
-            String.format("%02d:%02d", minutes, seconds)
-        } else {
-            String.format("%01d:%02d:%02d", hours, minutes, seconds)
-        }
+        sf += if (hours == 0L) String.format("%02d:%02d", minutes, seconds)
+              else String.format("%01d:%02d:%02d", hours, minutes, seconds)
 
+        sf += presentFrameRate()
         return sf
+    }
+
+    fun presentFrameRate(): String {
+        val new = eventListenerCallbacks.getFrameCount()
+        var delta = new  - storedFrameCount
+        if (delta < 0)   delta = 0
+        storedFrameCount = new
+        // normal fps = SCREEN_TIMER_MS / CallManager.AUDIO_SEND_INTERVAL_MS = 50
+        val asSymbol = if (delta  > 25) "  +" // audio link is working
+                       else "  X" // few or no frames are coming in
+        return asSymbol
+        //return "  ${delta}fps"
     }
 
     val call = callManager.call
