@@ -10,6 +10,7 @@ import im.tox.tox4j.av.enums.ToxavFriendCallState
 import im.tox.tox4j.core.enums.ToxFileControl
 import java.net.URLConnection
 import java.util.Date
+import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
@@ -41,7 +42,6 @@ import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxAvEventListener
 import ltd.evilcorp.domain.tox.ToxEventListener
 import ltd.evilcorp.domain.tox.toMessageType
-import java.util.concurrent.atomic.AtomicInteger
 
 private const val MAX_ACTIVE_FRIEND_REQUESTS = 32
 private const val TAG = "EventListenerCallbacks"
@@ -84,9 +84,7 @@ class EventListenerCallbacks @Inject constructor(
 
     private val frameCount: AtomicInteger = AtomicInteger(0)
 
-    fun getFrameCount(): Int {
-        return frameCount.get()
-    }
+    fun getFrameCount(): Int = frameCount.get()
 
     fun setUp(listener: ToxEventListener) = with(listener) {
         friendStatusMessageHandler = { publicKey, message ->
@@ -204,12 +202,14 @@ class EventListenerCallbacks @Inject constructor(
 
         callStateHandler = { pk, callState ->
             Log.e(TAG, "callState ${pk.fingerprint()} $callState")
-            if (callState.contains(ToxavFriendCallState.SENDING_A)
-                || callState.contains(ToxavFriendCallState.ACCEPTING_A)) {
+            if (callState.contains(ToxavFriendCallState.SENDING_A) ||
+                callState.contains(ToxavFriendCallState.ACCEPTING_A)
+            ) {
                 callManager.setAnswered(PublicKey(pk))
             }
-            if (callState.contains(ToxavFriendCallState.FINISHED)
-                || callState.contains(ToxavFriendCallState.ERROR)) {
+            if (callState.contains(ToxavFriendCallState.FINISHED) ||
+                callState.contains(ToxavFriendCallState.ERROR)
+            ) {
                 audioPlayer?.stop()
                 audioPlayer?.release()
                 audioPlayer = null
