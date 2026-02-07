@@ -11,6 +11,7 @@ import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import ltd.evilcorp.atox.tox.ToxStarter
 import ltd.evilcorp.core.repository.MessageRepository
 import ltd.evilcorp.core.vo.Contact
@@ -48,8 +49,8 @@ class AddContactViewModel @Inject constructor(
         )
     }
 
-    fun addContact(toxId: ToxID, message: String) {
-        contactManager.add(toxId, message)
+    fun addContact(toxId: ToxID, message: String) = runBlocking {
+        contactManager.add(toxId, message).join()
         addToChatLog(toxId.toPublicKey().string(), message)
     }
 }
