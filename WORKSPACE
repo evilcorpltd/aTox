@@ -179,15 +179,18 @@ http_archive(
     url = "https://github.com/robolectric/robolectric-bazel/archive/%s.tar.gz" % ROBOLECTRIC_TAG,
 )
 
-LIBSODIUM_TAG = "1.0.18"
+LIBSODIUM_TAG = "1.0.18-RELEASE"
 
 # https://github.com/jedisct1/libsodium
 http_archive(
     name = "libsodium",
     build_file = "//bazel:libsodium.BUILD",
-    sha256 = "1b72c0cdbc535ce42e14ac15e8fc7c089a3ee9ffe5183399fd77f0f3746ea794",
-    strip_prefix = "libsodium-%s" % LIBSODIUM_TAG,
-    url = "https://github.com/jedisct1/libsodium/archive/%s.zip" % LIBSODIUM_TAG,
+    integrity = "sha256-b1BEkLNCpPikxKAvybhmy++GItXfTlRStGvhIeRmNsE=",
+    strip_prefix = "libsodium-%s" % LIBSODIUM_TAG.replace("-RELEASE", ""),
+    url = "https://github.com/jedisct1/libsodium/releases/download/%s/libsodium-%s.tar.gz" % (
+        LIBSODIUM_TAG,
+        LIBSODIUM_TAG.replace("-RELEASE", ""),
+    ),
 )
 
 OPUS_TAG = "5c94ec3205c30171ffd01056f5b4622b7c0ab54c"
