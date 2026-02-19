@@ -1,10 +1,13 @@
 plugins {
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.kotlinAndroid)
 }
 
 kotlin {
     jvmToolchain(17)
+    compilerOptions {
+        apiVersion = org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_2
+        languageVersion = org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_2
+    }
 }
 
 android {
@@ -64,8 +67,8 @@ dependencies {
     api(libs.tox4j.api)
     implementation(libs.tox4j.c)
 
-    testImplementation(kotlin("test"))
-    androidTestImplementation(kotlin("test"))
+    testImplementation(kotlin("test-junit"))
+    androidTestImplementation(kotlin("test-junit"))
     androidTestImplementation(libs.test.runner)
     androidTestImplementation(libs.test.junit.ext)
     androidTestImplementation(libs.kotlinx.coroutines.test) {

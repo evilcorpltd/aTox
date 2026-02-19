@@ -1,11 +1,14 @@
 plugins {
     alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinKsp)
 }
 
 kotlin {
     jvmToolchain(17)
+    compilerOptions {
+        apiVersion = org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_2
+        languageVersion = org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_2
+    }
 }
 
 android {
@@ -84,7 +87,7 @@ dependencies {
 
     debugImplementation(libs.square.leakcanary)
 
-    androidTestImplementation(kotlin("test"))
+    androidTestImplementation(kotlin("test-junit"))
     androidTestImplementation(libs.test.rules)
     androidTestImplementation(libs.test.runner)
     androidTestImplementation(libs.test.espresso.core)
