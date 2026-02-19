@@ -6,10 +6,13 @@ on:
 
 jobs:
   ktlint:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 2
+    runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: adopt
+          java-version: 17
       - run: curl -sSLO https://github.com/pinterest/ktlint/releases/download/1.7.1/ktlint && chmod a+x ktlint
       - run: ./ktlint
 
@@ -133,8 +136,7 @@ jobs:
       - run: bazel test //...
 
   buildifier:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 2
+    runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v5
       - name: Install
@@ -145,8 +147,7 @@ jobs:
         run: ./buildifier --lint=warn --warnings=all -mode diff WORKSPACE $(find . -type f -name "BUILD.*")
 
   prettier:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 2
+    runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v5
       - run: npm install --global prettier@3.3.3
