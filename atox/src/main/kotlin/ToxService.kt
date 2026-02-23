@@ -33,8 +33,8 @@ import ltd.evilcorp.core.repository.UserRepository
 import ltd.evilcorp.core.vo.ConnectionStatus
 import ltd.evilcorp.core.vo.FriendRequest
 import ltd.evilcorp.domain.feature.CallManager
-import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.feature.FriendRequestManager
+import ltd.evilcorp.domain.feature.inCall
 import ltd.evilcorp.domain.tox.Tox
 import ltd.evilcorp.domain.tox.ToxSaveStatus
 
@@ -178,8 +178,8 @@ class ToxService : LifecycleService() {
         }
 
         lifecycleScope.launch {
-            callManager.inCall.collect {
-                if (it is CallState.InCall) {
+            callManager.call.collect {
+                if (it.inCall()) {
                     if (!callManager.speakerphoneOn) {
                         proximityScreenOff.acquire()
                     }
