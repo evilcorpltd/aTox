@@ -7,7 +7,7 @@ SYSROOT		:= $(TOOLCHAIN)/sysroot
 PREFIX		:= $(DESTDIR)/$(TARGET)
 TOOLCHAIN_FILE	:= $(SRCDIR)/$(TARGET).cmake
 TOOLCHAIN_CLANG_BIN	:= $(TOOLCHAIN)/bin/$(TARGET)$(NDK_API)
-TOOLCHAIN_BIN	:= $(TOOLCHAIN)/bin/$(BASE_TARGET)
+TOOLCHAIN_BIN	:= $(TOOLCHAIN)/bin/llvm
 PROTOC		:= $(DESTDIR)/host/bin/protoc
 
 export CC		:= $(TOOLCHAIN_CLANG_BIN)-clang
@@ -32,7 +32,8 @@ endif
 protobuf_CONFIGURE	:= --prefix=$(PREFIX) --host=$(TARGET) --with-sysroot=$(SYSROOT) --disable-shared --with-protoc=$(PROTOC)
 libsodium_CONFIGURE	:= --prefix=$(PREFIX) --host=$(TARGET) --with-sysroot=$(SYSROOT) --disable-shared
 opus_CONFIGURE		:= --prefix=$(PREFIX) --host=$(TARGET) --with-sysroot=$(SYSROOT) --disable-shared
-libvpx_CONFIGURE	:= --prefix=$(PREFIX) --libc=$(SYSROOT) --target=$(VPX_TARGET) --disable-examples --disable-unit-tests --enable-pic
+# TODO(robinlinden): Investigate how to get neon-asm working for armv7a again.
+libvpx_CONFIGURE	:= --prefix=$(PREFIX) --libc=$(SYSROOT) --target=$(VPX_TARGET) --disable-examples --disable-unit-tests --enable-pic --disable-neon-asm
 toxcore_CONFIGURE	:= -DCMAKE_INSTALL_PREFIX:PATH=$(PREFIX) -DCMAKE_TOOLCHAIN_FILE=$(TOOLCHAIN_FILE) -DANDROID_CPU_FEATURES=$(NDK_HOME)/sources/android/cpufeatures/cpu-features.c -DENABLE_STATIC=ON -DENABLE_SHARED=OFF
 tox4j_CONFIGURE		:= -DCMAKE_INSTALL_PREFIX:PATH=$(PREFIX) -DCMAKE_TOOLCHAIN_FILE=$(TOOLCHAIN_FILE) -DANDROID_CPU_FEATURES=$(NDK_HOME)/sources/android/cpufeatures/cpu-features.c
 

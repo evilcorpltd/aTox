@@ -1,7 +1,6 @@
 #!/usr/bin/make -f
 
 TARGET := armv7a-linux-androideabi
-BASE_TARGET := arm-linux-androideabi
 
 include scripts/common.mk
 
