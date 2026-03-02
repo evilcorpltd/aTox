@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2025 Robin Lindén <dev@robinlinden.eu>
+// SPDX-FileCopyrightText: 2020-2026 Robin Lindén <dev@robinlinden.eu>
 //
 // SPDX-License-Identifier: GPL-3.0-only
 
@@ -37,7 +37,6 @@ import ltd.evilcorp.core.db.Database
 import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.domain.tox.BootstrapNodeRegistry
 import ltd.evilcorp.domain.tox.SaveManager
-import org.hamcrest.core.AllOf.allOf
 import org.junit.Rule
 import org.junit.runner.RunWith
 
@@ -113,7 +112,6 @@ class IntegrationTest {
         // ContactListFragment
         onView(withId(R.id.drawerLayout)).perform(DrawerActions.open())
         onView(withId(R.id.profileName)).check(matches(isDisplayed()))
-        onView(allOf(withId(R.id.profileName), withText("mr robotto")))
-            .check(matches(isDisplayed()))
+        onView(withId(R.id.profileName)).check(matches(withText("mr robotto")))
     }
 }
