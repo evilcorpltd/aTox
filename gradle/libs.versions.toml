@@ -16,7 +16,7 @@ espresso = "3.7.0"
 lifecycle = "2.9.3"
 navigation = "2.9.4"
 room = "2.7.2" # >=2.8.0 needs minSdk 23.
-tox4j-android = "0.2.20"
+tox4j-android = "0.2.22"
 tox4j-core = "0.2.3"
 
 [plugins]
