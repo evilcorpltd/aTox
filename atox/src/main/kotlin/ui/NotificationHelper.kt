@@ -314,7 +314,8 @@ class NotificationHelper @Inject constructor(private val context: Context) {
 
         val notificationBuilder = NotificationCompat.Builder(context, CALL)
 
-        val pendingIntent = deepLinkToChat(PublicKey(c.publicKey))
+        // Make notification stay even if it's tapped accidentally.
+        val pendingIntent = nullIntent()
         if (context.hasPermission(Manifest.permission.USE_FULL_SCREEN_INTENT)) {
             // Making the notification persistent takes a full-screen intent.
             notificationBuilder
@@ -392,4 +393,14 @@ class NotificationHelper @Inject constructor(private val context: Context) {
             ),
         )
         .createPendingIntent()
+
+    private fun nullIntent(): PendingIntent {
+        val doNothingIntent = Intent()
+        return PendingIntent.getBroadcast(
+            context,
+            0,
+            doNothingIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+        )
+    }
 }
