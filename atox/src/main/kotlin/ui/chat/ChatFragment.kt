@@ -55,7 +55,7 @@ import ltd.evilcorp.core.vo.Message
 import ltd.evilcorp.core.vo.MessageType
 import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.isComplete
-import ltd.evilcorp.domain.feature.CallState
+import ltd.evilcorp.domain.feature.inCall
 
 private const val TAG = "ChatFragment"
 const val CONTACT_PUBLIC_KEY = "publicKey"
@@ -252,11 +252,11 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
         }
 
         viewModel.ongoingCall.observe(viewLifecycleOwner) {
-            if (it is CallState.InCall && it.publicKey.string() == contactPubKey) {
+            if (it.inCall() && it.data?.publicKey?.string() == contactPubKey) {
                 ongoingCall.container.visibility = View.VISIBLE
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     ongoingCall.duration.visibility = View.VISIBLE
-                    ongoingCall.duration.base = it.startTime
+                    ongoingCall.duration.base = it.data?.startTime!!
                     ongoingCall.duration.isCountDown = false
                     ongoingCall.duration.start()
                 } else {

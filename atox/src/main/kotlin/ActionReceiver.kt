@@ -26,9 +26,9 @@ import ltd.evilcorp.core.vo.Contact
 import ltd.evilcorp.core.vo.PublicKey
 import ltd.evilcorp.core.vo.UserStatus
 import ltd.evilcorp.domain.feature.CallManager
-import ltd.evilcorp.domain.feature.CallState
 import ltd.evilcorp.domain.feature.ChatManager
 import ltd.evilcorp.domain.feature.ContactManager
+import ltd.evilcorp.domain.feature.inCall
 import ltd.evilcorp.domain.tox.Tox
 
 const val KEY_TEXT_REPLY = "key_text_reply"
@@ -121,7 +121,7 @@ class ActionReceiver : BroadcastReceiver() {
             }
         }
 
-        if (callManager.inCall.value is CallState.InCall) {
+        if (callManager.call.value.inCall()) {
             withContext(Dispatchers.Main) {
                 Toast.makeText(context, context.getString(R.string.error_simultaneous_calls), Toast.LENGTH_LONG).show()
                 notificationHelper.showPendingCallNotification(UserStatus.Busy, contact)
